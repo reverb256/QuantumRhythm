@@ -103,8 +103,8 @@ export default function HeroSection() {
         <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent animate-pulse" style={{ animationDelay: '1s' }}></div>
       </div>
 
-      {/* Top Status Bar - Responsive */}
-      <div className="absolute top-0 left-0 right-0 h-16 md:h-20 bg-gradient-to-b from-blue-900/80 via-blue-900/60 to-transparent backdrop-blur-md border-b border-cyan-400/30 z-20">
+      {/* Top Status Bar - Prismatic Glass */}
+      <div className="absolute top-0 left-0 right-0 h-16 md:h-20 prismatic-glass border-b border-cyan-400/40 z-20 gacha-shine">
         <div className="container mx-auto px-4 md:px-6 h-full flex items-center justify-between">
           <div className="flex items-center space-x-2 md:space-x-4">
             <div className="w-8 h-8 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center">
@@ -133,8 +133,8 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Left Side Panel - Responsive positioning */}
-      <div className="hidden xl:block absolute left-0 top-16 md:top-20 bottom-16 md:bottom-20 w-64 xl:w-80 bg-gradient-to-r from-blue-900/80 via-blue-900/40 to-transparent backdrop-blur-md border-r border-cyan-400/20 z-20">
+      {/* Left Side Panel - Prismatic Glass */}
+      <div className="hidden xl:block absolute left-0 top-16 md:top-20 bottom-16 md:bottom-20 w-64 xl:w-80 prismatic-glass border-r border-cyan-400/30 z-20 spectrum-border">
         <div className="p-6 h-full flex flex-col">
           <div className="mb-6">
             <h3 className="text-cyan-300 text-lg font-bold mb-4 flex items-center">
@@ -197,8 +197,8 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Right Side Panel - Responsive positioning */}
-      <div className="hidden xl:block absolute right-0 top-16 md:top-20 bottom-16 md:bottom-20 w-64 xl:w-80 bg-gradient-to-l from-blue-900/80 via-blue-900/40 to-transparent backdrop-blur-md border-l border-cyan-400/20 z-20">
+      {/* Right Side Panel - Prismatic Glass */}
+      <div className="hidden xl:block absolute right-0 top-16 md:top-20 bottom-16 md:bottom-20 w-64 xl:w-80 prismatic-glass border-l border-cyan-400/30 z-20 spectrum-border">
         <div className="p-6 h-full flex flex-col">
           <div className="mb-6">
             <h3 className="text-cyan-300 text-lg font-bold mb-4 flex items-center">
@@ -256,13 +256,13 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Bottom Action Bar - Responsive */}
-      <div className="absolute bottom-0 left-0 right-0 h-16 md:h-20 bg-gradient-to-t from-blue-900/80 via-blue-900/60 to-transparent backdrop-blur-md border-t border-cyan-400/30 z-20">
+      {/* Bottom Action Bar - Prismatic Glass */}
+      <div className="absolute bottom-0 left-0 right-0 h-16 md:h-20 prismatic-glass border-t border-cyan-400/40 z-20 gacha-shine">
         <div className="container mx-auto px-4 md:px-6 h-full flex items-center justify-center">
           <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3 md:space-x-4">
             <button 
               onClick={scrollToProjects}
-              className="px-4 md:px-6 py-2 md:py-3 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg text-white font-medium hover:from-cyan-400 hover:to-blue-500 transition-all duration-300 flex items-center justify-center space-x-2 hover:scale-105 transform text-sm md:text-base"
+              className="px-4 md:px-6 py-2 md:py-3 prismatic-glass border border-cyan-400/50 rounded-lg text-cyan-100 font-medium hover:border-cyan-300/70 transition-all duration-300 flex items-center justify-center space-x-2 hover:scale-105 transform text-sm md:text-base gacha-shine prismatic-glow"
             >
               <i className="fas fa-rocket text-xs md:text-sm"></i>
               <span className="hidden sm:inline">View Projects</span>
@@ -270,14 +270,14 @@ export default function HeroSection() {
             </button>
             <button 
               onClick={scrollToPhilosophy}
-              className="px-4 md:px-6 py-2 md:py-3 bg-gradient-to-r from-purple-500 to-pink-600 rounded-lg text-white font-medium hover:from-purple-400 hover:to-pink-500 transition-all duration-300 flex items-center justify-center space-x-2 hover:scale-105 transform text-sm md:text-base"
+              className="px-4 md:px-6 py-2 md:py-3 prismatic-glass border border-violet-400/50 rounded-lg text-violet-100 font-medium hover:border-violet-300/70 transition-all duration-300 flex items-center justify-center space-x-2 hover:scale-105 transform text-sm md:text-base gacha-shine"
             >
               <i className="fas fa-brain text-xs md:text-sm"></i>
               <span>Philosophy</span>
             </button>
             <button 
               onClick={scrollToContact}
-              className="px-4 md:px-6 py-2 md:py-3 bg-gradient-to-r from-green-500 to-teal-600 rounded-lg text-white font-medium hover:from-green-400 hover:to-teal-500 transition-all duration-300 flex items-center justify-center space-x-2 hover:scale-105 transform text-sm md:text-base"
+              className="px-4 md:px-6 py-2 md:py-3 prismatic-glass border border-emerald-400/50 rounded-lg text-emerald-100 font-medium hover:border-emerald-300/70 transition-all duration-300 flex items-center justify-center space-x-2 hover:scale-105 transform text-sm md:text-base gacha-shine"
             >
               <i className="fas fa-satellite-dish text-xs md:text-sm"></i>
               <span>Connect</span>
@@ -306,7 +306,7 @@ export default function HeroSection() {
           </div>
           
           {/* Character Title */}
-          <div className="mb-4 md:mb-6 p-4 md:p-6 bg-gradient-to-r from-blue-900/80 to-purple-900/80 rounded-xl md:rounded-2xl backdrop-blur-md border border-cyan-400/30">
+          <div className="mb-4 md:mb-6 p-4 md:p-6 prismatic-glass rounded-xl md:rounded-2xl border border-cyan-400/40 spectrum-border gacha-shine">
             <h1 className="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl mb-2 md:mb-4 bg-gradient-to-r from-cyan-300 via-blue-300 to-purple-300 bg-clip-text text-transparent">
               Digital Architect
             </h1>
@@ -319,7 +319,7 @@ export default function HeroSection() {
           </div>
           
           {/* Character Description */}
-          <div className="mb-6 md:mb-8 p-4 md:p-6 bg-gradient-to-r from-blue-900/60 to-purple-900/60 rounded-lg md:rounded-xl backdrop-blur-md border border-cyan-400/20">
+          <div className="mb-6 md:mb-8 p-4 md:p-6 prismatic-glass rounded-lg md:rounded-xl border border-cyan-400/30 prismatic-glow">
             <p className="text-sm md:text-base lg:text-lg text-gray-300 leading-relaxed">
               Canadian architect of convergent technologies, orchestrating the cross-empowerment of classical wisdom 
               and revolutionary AI systems. My digital realm spans from philosophical exploration to technological 

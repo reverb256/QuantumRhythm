@@ -10,54 +10,56 @@ export default function AboutSection() {
         {/* Base gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/30 via-purple-900/25 to-blue-900/20" />
         
-        {/* Primary blue tech workspace */}
+        {/* Futuristic workspace environment */}
         <div 
-          className="absolute inset-0 opacity-40"
+          className="absolute inset-0 opacity-50"
           style={{
-            backgroundImage: `url('/images/blue_tech_workspace.png')`,
+            backgroundImage: `url('/attached_assets/image_1749437115515.png')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            filter: 'brightness(0.6) contrast(1.2)'
+          }}
+        />
+        
+        {/* Blue light streams */}
+        <div 
+          className="absolute inset-0 opacity-35 mix-blend-soft-light"
+          style={{
+            backgroundImage: `url('/attached_assets/image_1749437219730.png')`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat'
           }}
         />
         
-        {/* Blue energy waves overlay */}
+        {/* Circuit patterns accent */}
         <div 
-          className="absolute inset-0 opacity-25"
+          className="absolute top-20 right-20 w-80 h-80 opacity-20 animate-pulse"
           style={{
-            backgroundImage: `url('/images/blue_energy_waves.png')`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat'
-          }}
-        />
-        
-        {/* Blue holographic sky accent */}
-        <div 
-          className="absolute top-20 right-20 w-64 h-64 opacity-30 animate-pulse"
-          style={{
-            backgroundImage: `url('/images/blue_holographic_sky.png')`,
+            backgroundImage: `url('/attached_assets/image_1749437231414.png')`,
             backgroundSize: 'contain',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
-            animationDuration: '4s'
+            animationDuration: '6s'
           }}
         />
         
-        {/* Blue cyber dome */}
+        {/* Energy crystals */}
         <div 
-          className="absolute bottom-32 left-16 w-48 h-48 opacity-25 animate-bounce"
+          className="absolute bottom-20 left-20 w-64 h-64 opacity-25 animate-pulse"
           style={{
-            backgroundImage: `url('/images/blue_cyber_dome.png')`,
+            backgroundImage: `url('/attached_assets/image_1749437206205.png')`,
             backgroundSize: 'contain',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
-            animationDuration: '3s'
+            animationDuration: '8s',
+            animationDelay: '2s'
           }}
         />
         
-        {/* Cybernetic glassmorphism overlay */}
-        <div className="absolute inset-0 backdrop-blur-[1px] bg-gradient-to-b from-transparent via-black/5 to-black/15" />
+        {/* Prismatic particle overlay */}
+        <div className="absolute inset-0 particle-bg bg-gradient-to-b from-transparent via-blue-950/10 to-blue-950/25" />
       </div>
       
       <div className="container mx-auto px-6 relative z-10">
