@@ -65,49 +65,97 @@ export default function Navigation() {
           <div className="hidden md:flex space-x-8">
             <button 
               onClick={() => scrollToSection('about')} 
-              className={`hover:text-cyan-300 transition-colors duration-300 hover-deprecated ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
+              className={`hover:text-cyan-300 transition-colors duration-300 ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
+              onMouseEnter={() => handleMouseEnter({
+                title: "About",
+                description: "Learn about the consciousness architect behind quantum development methodologies",
+                category: "Personal"
+              })}
+              onMouseLeave={handleMouseLeave}
             >
               About
             </button>
             <button 
               onClick={() => scrollToSection('projects')} 
-              className={`hover:text-cyan-300 transition-colors duration-300 stackoverflow-reference ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
+              className={`hover:text-cyan-300 transition-colors duration-300 ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
+              onMouseEnter={() => handleMouseEnter({
+                title: "Projects",
+                description: "Production-ready applications showcasing VibeCoding methodology in action",
+                category: "Portfolio"
+              })}
+              onMouseLeave={handleMouseLeave}
             >
               Projects
             </button>
             <button 
               onClick={() => scrollToSection('skills')} 
-              className={`hover:text-cyan-300 transition-colors duration-300 hover-loading ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
+              className={`hover:text-cyan-300 transition-colors duration-300 ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
+              onMouseEnter={() => handleMouseEnter({
+                title: "Skills",
+                description: "Technical expertise spanning infrastructure, development, and consciousness research",
+                category: "Technical"
+              })}
+              onMouseLeave={handleMouseLeave}
             >
               Skills
             </button>
             <button 
               onClick={() => scrollToSection('philosophy')} 
-              className={`hover:text-cyan-300 transition-colors duration-300 git-commit-humor ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
+              className={`hover:text-cyan-300 transition-colors duration-300 ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
+              onMouseEnter={() => handleMouseEnter({
+                title: "Philosophy",
+                description: "Core principles and methodologies guiding conscious development practices",
+                category: "Concept"
+              })}
+              onMouseLeave={handleMouseLeave}
             >
               Philosophy
             </button>
             <button 
               onClick={() => scrollToSection('gaming')} 
-              className={`hover:text-cyan-300 transition-colors duration-300 hover-404 ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
+              className={`hover:text-cyan-300 transition-colors duration-300 ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
+              onMouseEnter={() => handleMouseEnter({
+                title: "Gaming",
+                description: "2,890 hours of fighting game frame optimization and competitive analysis",
+                category: "Research"
+              })}
+              onMouseLeave={handleMouseLeave}
             >
               Gaming
             </button>
             <Link 
               href="/values"
-              className={`hover:text-cyan-300 transition-colors duration-300 hover-syntax-error ${location === '/values' ? 'text-cyan-300 prismatic-glow' : 'text-cyan-100'}`}
+              className={`hover:text-cyan-300 transition-colors duration-300 ${location === '/values' ? 'text-cyan-300' : 'text-gray-400'}`}
+              onMouseEnter={() => handleMouseEnter({
+                title: "Values",
+                description: "Ethical framework and principles guiding development decisions",
+                category: "Philosophy"
+              })}
+              onMouseLeave={handleMouseLeave}
             >
               Values
             </Link>
             <Link 
               href="/vrchat"
-              className={`hover:text-cyan-300 transition-colors duration-300 hover-404 ${location === '/vrchat' ? 'text-cyan-300 prismatic-glow' : 'text-cyan-100'}`}
+              className={`hover:text-cyan-300 transition-colors duration-300 ${location === '/vrchat' ? 'text-cyan-300' : 'text-gray-400'}`}
+              onMouseEnter={() => handleMouseEnter({
+                title: "VR Research",
+                description: "4,320 hours of virtual reality consciousness exploration and social interaction research",
+                category: "Research"
+              })}
+              onMouseLeave={handleMouseLeave}
             >
               VR Research
             </Link>
             <button 
               onClick={() => scrollToSection('contact')} 
-              className={`hover:text-cyan-300 transition-colors duration-300 hover-segfault ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
+              className={`hover:text-cyan-300 transition-colors duration-300 ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
+              onMouseEnter={() => handleMouseEnter({
+                title: "Connect",
+                description: "Get in touch for collaboration opportunities and consciousness-driven development",
+                category: "Contact"
+              })}
+              onMouseLeave={handleMouseLeave}
             >
               Connect
             </button>

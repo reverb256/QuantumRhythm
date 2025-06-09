@@ -117,14 +117,15 @@ export default function PerformanceMonitor() {
 
   return (
     <>
-      {/* Floating Performance Button */}
+      {/* Performance Monitor Button - Top Right */}
       <motion.button
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-gradient-to-br from-purple-600 to-cyan-600 rounded-full shadow-lg shadow-purple-500/25 flex items-center justify-center text-white hover:scale-110 transition-transform duration-300"
+        className="fixed top-6 right-6 z-50 px-4 py-2 bg-black/80 backdrop-blur-xl border border-cyan-400/30 rounded-lg shadow-lg shadow-cyan-400/10 flex items-center gap-2 text-cyan-400 hover:bg-cyan-400/10 transition-all duration-300"
         onClick={() => setIsVisible(true)}
-        whileHover={{ scale: 1.1 }}
+        whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
-        <i className="fas fa-tachometer-alt text-lg"></i>
+        <i className="fas fa-chart-line text-sm"></i>
+        <span className="text-sm font-medium hidden md:inline">Monitor</span>
       </motion.button>
 
       {/* Performance Monitor Modal */}
