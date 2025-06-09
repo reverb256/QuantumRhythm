@@ -125,12 +125,7 @@ export default function HeroSection() {
           <div className="prismatic-glass p-8 md:p-12 rounded-3xl mb-8 border border-cyan-400/50 relative overflow-hidden">
             {/* Background Circuit Pattern */}
             <div className="absolute inset-0 opacity-5">
-              <div 
-                className="w-full h-full bg-cover bg-center"
-                style={{
-                  backgroundImage: `url('/attached_assets/image_1749437226380.png')`,
-                }}
-              ></div>
+              <div className="w-full h-full cyber-grid"></div>
             </div>
             
             <div className="relative z-10">
