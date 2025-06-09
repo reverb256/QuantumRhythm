@@ -1,15 +1,35 @@
 import { useState, useEffect, useRef } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
 interface ConsoleCommand {
   command: string;
   output: string;
-  type: 'success' | 'error' | 'info' | 'warning';
+  type: 'success' | 'error' | 'info' | 'warning' | 'trading';
+}
+
+interface TradingAgent {
+  id: string;
+  name: string;
+  status: string;
+  configuration: any;
+  performanceMetrics: any;
+  lastActivity: string;
+}
+
+interface TradingSignal {
+  id: string;
+  tokenAddress: string;
+  signalType: string;
+  confidence: string;
+  reasoning: string;
+  vibeCodingScore: string;
+  createdAt: string;
 }
 
 const EASTER_EGG_COMMANDS: Record<string, ConsoleCommand> = {
   'help': {
     command: 'help',
-    output: 'Available commands: whoami, ls, cat resume.txt, sudo rm -rf /, git status, npm run dev, cowsay, exit\nPro tip: Some commands might surprise you!',
+    output: 'Available commands: whoami, ls, trading-status, trading-signals, agent-stats, sudo rm -rf /, git status, npm run dev, cowsay, exit\nTrading commands: trading-status, trading-signals, agent-stats, vibe-metrics\nPro tip: Some commands might surprise you!',
     type: 'info'
   },
   'whoami': {
@@ -67,6 +87,25 @@ export default function ConsoleEasterEgg() {
   const [historyIndex, setHistoryIndex] = useState(-1);
   const inputRef = useRef<HTMLInputElement>(null);
   const terminalRef = useRef<HTMLDivElement>(null);
+
+  // Trading data queries
+  const { data: agentStatus } = useQuery({
+    queryKey: ['/api/trading-agent/status'],
+    refetchInterval: 5000,
+    enabled: isVisible
+  });
+
+  const { data: tradingSignals } = useQuery({
+    queryKey: ['/api/trading-agent/signals'],
+    refetchInterval: 10000,
+    enabled: isVisible
+  });
+
+  const { data: vibeCodingMetrics } = useQuery({
+    queryKey: ['/api/trading-agent/vibe-metrics'],
+    refetchInterval: 15000,
+    enabled: isVisible
+  });
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -163,6 +202,7 @@ export default function ConsoleEasterEgg() {
       case 'error': return 'text-red-400';
       case 'warning': return 'text-yellow-400';
       case 'success': return 'text-green-400';
+      case 'trading': return 'text-purple-400';
       default: return 'text-cyan-300';
     }
   };
