@@ -21,13 +21,81 @@ export default function HeroSection() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Enhanced Futuristic Cityscape Background */}
+      {/* Anime-inspired Multi-layer Background */}
       <div className="absolute inset-0">
-        <img 
-          src="/images/Reverb_using_a_color_scheme_based_around_071321_ffffff_2f81b1_b_63fe7c14-6841-4b14-a387-8ebe9b50f06d_1749433293324.png" 
-          alt="Futuristic cityscape with luminous light beams" 
-          className="w-full h-full object-cover"
+        {/* Base cosmic gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/50 via-purple-900/40 to-indigo-900/30" />
+        
+        {/* Primary cybernetic portal background */}
+        <div 
+          className="absolute inset-0 opacity-35"
+          style={{
+            backgroundImage: `url('/images/cyber_portal_ring.png')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+          }}
         />
+        
+        {/* Energy spiral vortex overlay */}
+        <div 
+          className="absolute inset-0 opacity-25"
+          style={{
+            backgroundImage: `url('/images/energy_spiral_vortex.png')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+          }}
+        />
+        
+        {/* Holographic platform base */}
+        <div 
+          className="absolute bottom-0 left-0 right-0 h-1/2 opacity-20"
+          style={{
+            backgroundImage: `url('/images/holographic_platform.png')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center bottom',
+            backgroundRepeat: 'no-repeat'
+          }}
+        />
+        
+        {/* Floating crystal cubes accent */}
+        <div 
+          className="absolute top-10 right-10 w-80 h-80 opacity-20 animate-pulse"
+          style={{
+            backgroundImage: `url('/images/floating_crystal_cubes.png')`,
+            backgroundSize: 'contain',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            animationDuration: '4s'
+          }}
+        />
+        
+        {/* Energy spiral accent */}
+        <div 
+          className="absolute bottom-20 left-20 w-64 h-64 opacity-25"
+          style={{
+            backgroundImage: `url('/images/energy_spiral_vortex.png')`,
+            backgroundSize: 'contain',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+          }}
+        />
+        
+        {/* Cyber portal ring */}
+        <div 
+          className="absolute top-1/3 right-1/4 w-56 h-56 opacity-15 animate-bounce"
+          style={{
+            backgroundImage: `url('/images/cyber_portal_ring.png')`,
+            backgroundSize: 'contain',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            animationDuration: '6s'
+          }}
+        />
+        
+        {/* Ethereal glassmorphism overlay */}
+        <div className="absolute inset-0 backdrop-blur-[2px] bg-gradient-to-b from-transparent via-black/10 to-black/20" />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[var(--space-black)] opacity-60"></div>
       </div>
       
