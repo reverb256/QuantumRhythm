@@ -3,12 +3,13 @@ import { motion } from 'framer-motion';
 
 interface SmartButtonProps {
   children: React.ReactNode;
-  onClick: () => void;
+  onClick?: () => void;
   priority?: 'low' | 'normal' | 'high' | 'critical';
   className?: string;
+  asWrapper?: boolean;
 }
 
-export function SmartButton({ children, onClick, priority = 'normal', className = '' }: SmartButtonProps) {
+export function SmartButton({ children, onClick, priority = 'normal', className = '', asWrapper = false }: SmartButtonProps) {
   const [hoverTime, setHoverTime] = useState(0);
   const [confidence, setConfidence] = useState(0);
   const hoverStartRef = useRef<number>(0);
@@ -50,11 +51,18 @@ export function SmartButton({ children, onClick, priority = 'normal', className 
     }
   };
 
+  // Check if children contains interactive elements to avoid nesting
+  const hasInteractiveChild = typeof children === 'object' && children !== null;
+  const shouldRenderAsDiv = asWrapper || hasInteractiveChild;
+
+  const Component = shouldRenderAsDiv ? motion.div : motion.button;
+  const props = shouldRenderAsDiv ? {} : { onClick };
+
   return (
-    <motion.button
+    <Component
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      onClick={onClick}
+      {...props}
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
       className={`relative overflow-hidden ${getPriorityStyle()} ${className}`}
@@ -80,7 +88,7 @@ export function SmartButton({ children, onClick, priority = 'normal', className 
           transition={{ duration: 0.3 }}
         />
       )}
-    </motion.button>
+    </Component>
   );
 }
 
