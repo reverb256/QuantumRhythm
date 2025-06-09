@@ -10,7 +10,7 @@ export default function GamingSection() {
           <i className="fas fa-gamepad mr-4"></i>Digital Passions
         </h2>
         
-        <div className="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {/* Rhythm Games */}
           <div className={`glass-morphism p-6 md:p-8 rounded-2xl cyber-border fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.2s' }}>
             <img 
@@ -92,6 +92,67 @@ export default function GamingSection() {
             </div>
           </div>
           
+          {/* World of Warcraft */}
+          <div className={`glass-morphism p-6 md:p-8 rounded-2xl cyber-border fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.4s' }}>
+            <div className="w-full h-40 md:h-48 bg-gradient-to-br from-blue-600 via-purple-600 to-blue-800 rounded-lg mb-6 flex items-center justify-center relative overflow-hidden">
+              <div className="absolute inset-0 bg-[var(--space-black)]/50"></div>
+              <div className="relative z-10 text-center">
+                <i className="fas fa-bolt text-4xl md:text-6xl text-blue-300 mb-2"></i>
+                <div className="text-purple-300 font-bold text-lg">Elemental Mastery</div>
+              </div>
+            </div>
+            
+            <h3 className="font-semibold text-xl md:text-2xl mb-4 text-blue-300">
+              <i className="fas fa-magic mr-2"></i>World of Warcraft
+            </h3>
+            <p className="text-gray-300 mb-4 text-sm md:text-base">
+              Ten years of dedication as an Elemental Shaman Draenei, mastering the intricate dance of elemental forces 
+              and strategic positioning. This decade-long journey through Azeroth taught profound lessons in systematic 
+              thinking, resource optimization, and the delicate balance between power and precision that now flows through 
+              every architecture I design.
+            </p>
+            <div className="mb-3">
+              <div className="glass-morphism p-3 rounded-lg border border-blue-400/50">
+                <p className="text-blue-300 text-sm font-semibold mb-1">Draenei Shaman Philosophy:</p>
+                <p className="text-gray-300 text-xs md:text-sm">
+                  The Light's wisdom channeled through elemental fury—a perfect metaphor for convergent technologies 
+                  where ancient principles empower revolutionary systems.
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <span className="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-xs md:text-sm">Elemental</span>
+              <span className="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-xs md:text-sm">Draenei</span>
+              <span className="px-3 py-1 bg-blue-600/20 text-blue-400 rounded-full text-xs md:text-sm">10 Years</span>
+            </div>
+          </div>
+
+          {/* Final Fantasy XIV */}
+          <div className={`glass-morphism p-6 md:p-8 rounded-2xl cyber-border fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.5s' }}>
+            <div className="w-full h-40 md:h-48 bg-gradient-to-br from-amber-400 via-red-500 to-purple-600 rounded-lg mb-6 flex items-center justify-center relative overflow-hidden">
+              <div className="absolute inset-0 bg-[var(--space-black)]/40"></div>
+              <div className="relative z-10 text-center">
+                <i className="fas fa-crown text-4xl md:text-6xl text-amber-300 mb-2"></i>
+                <div className="text-red-300 font-bold text-lg">Striking Beauty</div>
+              </div>
+            </div>
+            
+            <h3 className="font-semibold text-xl md:text-2xl mb-4 text-amber-300">
+              <i className="fas fa-feather-alt mr-2"></i>Final Fantasy XIV
+            </h3>
+            <p className="text-gray-300 mb-4 text-sm md:text-base">
+              A strikingly beautiful experience that transcends gaming into pure artistry. The seamless integration 
+              of narrative depth, visual splendor, and community connection creates a living testament to how 
+              technology can elevate human storytelling. Every quest reveals new dimensions of design philosophy 
+              that inspire my approach to creating meaningful digital experiences.
+            </p>
+            <div className="flex flex-wrap gap-2">
+              <span className="px-3 py-1 bg-amber-500/20 text-amber-300 rounded-full text-xs md:text-sm">Visual Art</span>
+              <span className="px-3 py-1 bg-red-500/20 text-red-300 rounded-full text-xs md:text-sm">Narrative</span>
+              <span className="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-xs md:text-sm">Community</span>
+            </div>
+          </div>
+
           {/* Technology Convergence */}
           <div className={`glass-morphism p-6 md:p-8 rounded-2xl cyber-border fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.6s' }}>
             <div className="w-full h-40 md:h-48 bg-gradient-to-br from-[var(--synthwave-pink)] via-[var(--synthwave-cyan)] to-[var(--synthwave-gold)] rounded-lg mb-6 flex items-center justify-center relative overflow-hidden">

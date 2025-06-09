@@ -5,14 +5,18 @@ export default function AboutSection() {
 
   return (
     <section id="about" className="py-20 relative" ref={elementRef}>
-      {/* Catboy background */}
-      <div className="absolute inset-0 opacity-30">
+      {/* Enhanced atmospheric background */}
+      <div className="absolute inset-0 opacity-25">
         <img 
-          src="/attached_assets/catboy2025BG_1749433079455.PNG" 
-          alt="Anime synthwave space background" 
+          src="/images/Reverb_using_a_color_scheme_based_around_071321_ffffff_2f81b1_b_63fe7c14-6841-4b14-a387-8ebe9b50f06d_1749433293324.png" 
+          alt="Futuristic cityscape with luminous light beams" 
           className="w-full h-full object-cover" 
         />
+        <div className="absolute inset-0 bg-gradient-to-r from-[var(--space-black)] via-transparent to-[var(--space-black)] opacity-70"></div>
       </div>
+      
+      {/* Light beam accent */}
+      <div className="absolute right-1/4 top-0 bottom-0 w-1 light-beam-vertical opacity-20"></div>
       
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-4xl mx-auto">
