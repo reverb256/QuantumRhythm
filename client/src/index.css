@@ -5,40 +5,59 @@
 @tailwind utilities;
 
 :root {
-  --background: hsl(240, 25%, 4%);
-  --foreground: hsl(0, 0%, 98%);
-  --muted: hsl(240, 10%, 15%);
-  --muted-foreground: hsl(240, 5%, 65%);
-  --popover: hsl(240, 25%, 4%);
-  --popover-foreground: hsl(0, 0%, 98%);
-  --card: hsl(240, 25%, 4%);
-  --card-foreground: hsl(0, 0%, 98%);
-  --border: hsl(240, 15%, 20%);
-  --input: hsl(240, 15%, 20%);
-  --primary: hsl(207, 90%, 54%);
-  --primary-foreground: hsl(211, 100%, 99%);
-  --secondary: hsl(240, 10%, 15%);
-  --secondary-foreground: hsl(0, 0%, 98%);
-  --accent: hsl(240, 10%, 15%);
-  --accent-foreground: hsl(0, 0%, 98%);
-  --destructive: hsl(0, 62.8%, 30.6%);
-  --destructive-foreground: hsl(0, 0%, 98%);
-  --ring: hsl(240, 4.9%, 83.9%);
-  --radius: 0.5rem;
+  --background: hsl(225, 30%, 6%);
+  --foreground: hsl(200, 100%, 95%);
+  --muted: hsl(230, 25%, 12%);
+  --muted-foreground: hsl(200, 50%, 70%);
+  --popover: hsl(230, 25%, 12%);
+  --popover-foreground: hsl(200, 100%, 95%);
+  --card: hsl(230, 25%, 10%);
+  --card-foreground: hsl(200, 100%, 95%);
+  --border: hsl(230, 25%, 18%);
+  --input: hsl(230, 25%, 15%);
+  --primary: hsl(180, 100%, 70%);
+  --primary-foreground: hsl(230, 25%, 8%);
+  --secondary: hsl(270, 50%, 25%);
+  --secondary-foreground: hsl(200, 100%, 95%);
+  --accent: hsl(320, 100%, 70%);
+  --accent-foreground: hsl(230, 25%, 8%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(200, 100%, 95%);
+  --ring: hsl(180, 100%, 70%);
+  --radius: 1rem;
   
-  /* Custom Cybernetic Colors - Light Infused */
-  --space-black: hsl(215, 28%, 7%);
-  --deep-space: hsl(215, 35%, 12%);
-  --cyber-blue: hsl(207, 40%, 22%);
-  --primary-blue: hsl(200, 85%, 60%);
-  --bright-blue: hsl(195, 100%, 65%);
-  --cyan-blue: hsl(189, 100%, 70%);
-  --synthwave-cyan: hsl(180, 100%, 75%);
-  --synthwave-pink: hsl(300, 80%, 70%);
-  --synthwave-gold: hsl(45, 90%, 65%);
-  --light-beam: hsl(200, 100%, 85%);
-  --atmospheric-glow: hsla(200, 80%, 80%, 0.3);
-  --luminous-white: hsl(200, 30%, 98%);
+  /* Midjourney Anime Color Palette */
+  --anime-sky-blue: hsl(200, 100%, 75%);
+  --anime-deep-blue: hsl(220, 80%, 45%);
+  --anime-purple: hsl(270, 80%, 70%);
+  --anime-violet: hsl(260, 85%, 65%);
+  --anime-pink: hsl(320, 85%, 75%);
+  --anime-coral: hsl(15, 90%, 70%);
+  --anime-orange: hsl(25, 95%, 70%);
+  --anime-gold: hsl(45, 100%, 75%);
+  --anime-cyan: hsl(180, 90%, 70%);
+  --anime-mint: hsl(160, 80%, 70%);
+  
+  /* Cosmic Energy Effects */
+  --cosmic-blue: hsl(210, 100%, 60%);
+  --cosmic-purple: hsl(270, 100%, 65%);
+  --cosmic-pink: hsl(320, 100%, 70%);
+  --cosmic-cyan: hsl(190, 100%, 65%);
+  --cosmic-gold: hsl(50, 100%, 70%);
+  --energy-white: hsl(200, 100%, 95%);
+  
+  /* Deep Space Foundation */
+  --space-navy: hsl(225, 40%, 15%);
+  --space-deep: hsl(230, 30%, 8%);
+  --space-void: hsl(240, 20%, 5%);
+  --nebula-mist: hsl(220, 30%, 20%);
+  
+  /* Ethereal Glow Effects */
+  --glow-cyan: hsl(180, 100%, 70%);
+  --glow-pink: hsl(320, 100%, 70%);
+  --glow-purple: hsl(270, 100%, 70%);
+  --glow-gold: hsl(50, 100%, 70%);
+  --glow-white: hsl(200, 100%, 95%);
 }
 
 .dark {
