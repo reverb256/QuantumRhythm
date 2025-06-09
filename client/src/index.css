@@ -5,59 +5,59 @@
 @tailwind utilities;
 
 :root {
-  --background: hsl(225, 30%, 6%);
-  --foreground: hsl(200, 100%, 95%);
-  --muted: hsl(230, 25%, 12%);
-  --muted-foreground: hsl(200, 50%, 70%);
-  --popover: hsl(230, 25%, 12%);
-  --popover-foreground: hsl(200, 100%, 95%);
-  --card: hsl(230, 25%, 10%);
-  --card-foreground: hsl(200, 100%, 95%);
-  --border: hsl(230, 25%, 18%);
-  --input: hsl(230, 25%, 15%);
-  --primary: hsl(180, 100%, 70%);
-  --primary-foreground: hsl(230, 25%, 8%);
-  --secondary: hsl(270, 50%, 25%);
-  --secondary-foreground: hsl(200, 100%, 95%);
-  --accent: hsl(320, 100%, 70%);
-  --accent-foreground: hsl(230, 25%, 8%);
-  --destructive: hsl(0, 84%, 60%);
-  --destructive-foreground: hsl(200, 100%, 95%);
-  --ring: hsl(180, 100%, 70%);
+  /* Base Deep Sky Blue Foundation */
+  --background: hsl(220, 85%, 4%);
+  --foreground: hsl(195, 100%, 92%);
+  --muted: hsl(215, 40%, 8%);
+  --muted-foreground: hsl(200, 60%, 75%);
+  --popover: hsl(218, 50%, 6%);
+  --popover-foreground: hsl(195, 100%, 90%);
+  --card: hsl(216, 45%, 7%);
+  --card-foreground: hsl(195, 100%, 88%);
+  --border: hsl(212, 35%, 15%);
+  --input: hsl(214, 40%, 10%);
+  --primary: hsl(190, 100%, 65%);
+  --primary-foreground: hsl(220, 85%, 4%);
+  --secondary: hsl(210, 60%, 20%);
+  --secondary-foreground: hsl(195, 100%, 90%);
+  --accent: hsl(200, 100%, 70%);
+  --accent-foreground: hsl(220, 85%, 4%);
+  --destructive: hsl(340, 85%, 65%);
+  --destructive-foreground: hsl(195, 100%, 95%);
+  --ring: hsl(190, 100%, 65%);
   --radius: 1rem;
   
-  /* Midjourney Anime Color Palette */
-  --anime-sky-blue: hsl(200, 100%, 75%);
-  --anime-deep-blue: hsl(220, 80%, 45%);
-  --anime-purple: hsl(270, 80%, 70%);
-  --anime-violet: hsl(260, 85%, 65%);
-  --anime-pink: hsl(320, 85%, 75%);
-  --anime-coral: hsl(15, 90%, 70%);
-  --anime-orange: hsl(25, 95%, 70%);
-  --anime-gold: hsl(45, 100%, 75%);
-  --anime-cyan: hsl(180, 90%, 70%);
-  --anime-mint: hsl(160, 80%, 70%);
+  /* Prismatic Blue Foundation */
+  --prismatic-deep: hsl(220, 90%, 8%);
+  --prismatic-mid: hsl(215, 85%, 15%);
+  --prismatic-bright: hsl(200, 100%, 65%);
+  --prismatic-cyan: hsl(190, 100%, 70%);
+  --prismatic-sky: hsl(200, 100%, 75%);
   
-  /* Cosmic Energy Effects */
-  --cosmic-blue: hsl(210, 100%, 60%);
-  --cosmic-purple: hsl(270, 100%, 65%);
-  --cosmic-pink: hsl(320, 100%, 70%);
-  --cosmic-cyan: hsl(190, 100%, 65%);
-  --cosmic-gold: hsl(50, 100%, 70%);
-  --energy-white: hsl(200, 100%, 95%);
+  /* Prismatic Spectrum Refractions */
+  --spectrum-violet: hsl(260, 100%, 70%);
+  --spectrum-indigo: hsl(240, 100%, 70%);
+  --spectrum-blue: hsl(210, 100%, 70%);
+  --spectrum-cyan: hsl(190, 100%, 70%);
+  --spectrum-teal: hsl(170, 100%, 70%);
+  --spectrum-green: hsl(150, 80%, 65%);
+  --spectrum-yellow: hsl(50, 100%, 70%);
+  --spectrum-orange: hsl(25, 100%, 70%);
+  --spectrum-red: hsl(350, 90%, 70%);
+  --spectrum-pink: hsl(320, 100%, 75%);
+  --spectrum-white: hsl(200, 100%, 95%);
   
-  /* Deep Space Foundation */
-  --space-navy: hsl(225, 40%, 15%);
-  --space-deep: hsl(230, 30%, 8%);
-  --space-void: hsl(240, 20%, 5%);
-  --nebula-mist: hsl(220, 30%, 20%);
+  /* Deep Space Blues */
+  --space-void: hsl(220, 100%, 2%);
+  --space-deep: hsl(218, 85%, 5%);
+  --space-mid: hsl(215, 75%, 10%);
+  --space-nebula: hsl(210, 65%, 18%);
   
-  /* Ethereal Glow Effects */
-  --glow-cyan: hsl(180, 100%, 70%);
-  --glow-pink: hsl(320, 100%, 70%);
-  --glow-purple: hsl(270, 100%, 70%);
-  --glow-gold: hsl(50, 100%, 70%);
-  --glow-white: hsl(200, 100%, 95%);
+  /* Glass Prismatic Effects */
+  --glass-primary: hsla(200, 100%, 65%, 0.15);
+  --glass-secondary: hsla(190, 100%, 70%, 0.1);
+  --glass-border: hsla(200, 100%, 70%, 0.3);
+  --glass-highlight: hsla(200, 100%, 85%, 0.2);
 }
 
 .dark {
@@ -93,7 +93,7 @@
     background: linear-gradient(135deg, 
       var(--space-void) 0%, 
       var(--space-deep) 25%, 
-      var(--space-navy) 50%, 
+      var(--space-mid) 50%, 
       var(--space-deep) 75%, 
       var(--space-void) 100%);
     overflow-x: hidden;
@@ -114,52 +114,118 @@
 }
 
 @layer components {
-  /* Anime-inspired Glassmorphism */
-  .anime-glass {
-    backdrop-filter: blur(20px);
+  /* Prismatic Glass System */
+  .prismatic-glass {
+    backdrop-filter: blur(24px) saturate(180%);
     background: linear-gradient(135deg,
-      rgba(255, 255, 255, 0.1) 0%,
-      rgba(255, 255, 255, 0.05) 50%,
-      rgba(255, 255, 255, 0.02) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+      var(--glass-primary) 0%,
+      var(--glass-secondary) 50%,
+      var(--glass-primary) 100%);
+    border: 1px solid var(--glass-border);
     box-shadow: 
-      0 8px 32px rgba(0, 0, 0, 0.3),
-      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      0 12px 40px hsla(220, 100%, 4%, 0.4),
+      0 4px 16px hsla(200, 100%, 65%, 0.1),
+      inset 0 1px 0 var(--glass-highlight),
+      inset 0 -1px 0 hsla(200, 100%, 85%, 0.05);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .prismatic-glass::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      var(--spectrum-cyan) 20%,
+      var(--spectrum-blue) 40%,
+      var(--spectrum-violet) 60%,
+      var(--spectrum-pink) 80%,
+      transparent 100%);
+    opacity: 0.1;
+    animation: prism-refraction 8s ease-in-out infinite;
+  }
+  
+  @keyframes prism-refraction {
+    0% { left: -100%; opacity: 0; }
+    50% { left: 100%; opacity: 0.15; }
+    100% { left: 200%; opacity: 0; }
   }
 
-  /* Cosmic Energy Borders */
-  .cosmic-border {
+  /* Prismatic Spectrum Borders */
+  .spectrum-border {
     position: relative;
     overflow: hidden;
   }
 
-  .cosmic-border::before {
+  .spectrum-border::before {
     content: '';
     position: absolute;
     inset: 0;
     padding: 2px;
     background: linear-gradient(45deg, 
-      var(--cosmic-cyan),
-      var(--cosmic-purple),
-      var(--cosmic-pink),
-      var(--cosmic-gold),
-      var(--cosmic-cyan));
+      var(--spectrum-cyan),
+      var(--spectrum-blue),
+      var(--spectrum-violet),
+      var(--spectrum-pink),
+      var(--spectrum-orange),
+      var(--spectrum-cyan));
     border-radius: inherit;
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask-composite: exclude;
-    animation: cosmic-flow 3s linear infinite;
+    animation: spectrum-flow 4s linear infinite;
   }
 
-  @keyframes cosmic-flow {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+  @keyframes spectrum-flow {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.02); }
+    100% { transform: rotate(360deg) scale(1); }
   }
 
-  /* Ethereal Glow Effects */
-  .ethereal-glow {
-    filter: drop-shadow(0 0 20px var(--glow-cyan))
-            drop-shadow(0 0 40px var(--glow-purple))
-            drop-shadow(0 0 60px var(--glow-pink));
+  /* Prismatic Glow Effects */
+  .prismatic-glow {
+    filter: drop-shadow(0 0 15px var(--spectrum-cyan))
+            drop-shadow(0 0 25px var(--spectrum-blue))
+            drop-shadow(0 0 35px var(--spectrum-violet));
+  }
+  
+  /* Gacha Shine Effects */
+  .gacha-shine {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .gacha-shine::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg,
+      transparent 30%,
+      var(--spectrum-white) 50%,
+      transparent 70%);
+    opacity: 0;
+    animation: gacha-sparkle 3s ease-in-out infinite;
+  }
+  
+  @keyframes gacha-sparkle {
+    0% { 
+      opacity: 0;
+      transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    }
+    50% { 
+      opacity: 0.3;
+      transform: translateX(0%) translateY(0%) rotate(45deg);
+    }
+    100% { 
+      opacity: 0;
+      transform: translateX(100%) translateY(100%) rotate(45deg);
+    }
   }
   
   .light-beam-vertical {

@@ -34,60 +34,55 @@ export default function HeroSection() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Midjourney Cybernetic Background System */}
+      {/* Prismatic Cybernetic Sky Background */}
       <div className="absolute inset-0">
-        {/* Base cosmic gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-950/60 via-purple-950/50 to-indigo-950/40" />
+        {/* Base deep space gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-950/70 via-indigo-950/60 to-purple-950/50" />
         
-        {/* Primary blue cosmic ocean background */}
+        {/* Cybernetic sky with holographic elements */}
         <div 
-          className="absolute inset-0 opacity-60"
+          className="absolute inset-0 opacity-65"
           style={{
-            backgroundImage: `url('/images/blue_cosmic_ocean.png')`,
+            backgroundImage: `url('/attached_assets/image_1749437089124.png')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            filter: 'brightness(0.4) contrast(1.3) saturate(1.2)'
+          }}
+        />
+        
+        {/* Prismatic light refractions */}
+        <div className="absolute inset-0 opacity-25">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-gradient-radial from-cyan-400/40 via-blue-400/20 to-transparent blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/3 right-1/3 w-64 h-64 rounded-full bg-gradient-radial from-violet-400/30 via-purple-400/15 to-transparent blur-2xl animate-pulse delay-1000"></div>
+          <div className="absolute top-1/2 left-1/2 w-48 h-48 rounded-full bg-gradient-radial from-pink-400/25 via-red-400/10 to-transparent blur-xl animate-pulse delay-2000"></div>
+        </div>
+        
+        {/* Holographic portal overlay */}
+        <div 
+          className="absolute inset-0 opacity-40 mix-blend-screen"
+          style={{
+            backgroundImage: `url('/attached_assets/image_1749437115515.png')`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat'
           }}
         />
         
-        {/* Blue holographic sky overlay */}
+        {/* Abstract blue data streams */}
         <div 
-          className="absolute inset-0 opacity-35"
+          className="absolute top-0 right-0 w-full h-full opacity-30"
           style={{
-            backgroundImage: `url('/images/blue_holographic_sky.png')`,
+            backgroundImage: `url('/attached_assets/image_1749437226380.png')`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
-            mixBlendMode: 'screen'
+            mixBlendMode: 'soft-light'
           }}
         />
         
-        {/* Blue cyber dome accent */}
-        <div 
-          className="absolute top-20 right-20 w-96 h-96 opacity-25 animate-pulse"
-          style={{
-            backgroundImage: `url('/images/blue_cyber_dome.png')`,
-            backgroundSize: 'contain',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-            animationDuration: '6s'
-          }}
-        />
-        
-        {/* Blue energy waves accent */}
-        <div 
-          className="absolute bottom-32 left-16 w-64 h-64 opacity-20 animate-bounce"
-          style={{
-            backgroundImage: `url('/images/blue_energy_waves.png')`,
-            backgroundSize: 'contain',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-            animationDuration: '4s'
-          }}
-        />
-        
-        {/* Glassmorphism overlay */}
-        <div className="absolute inset-0 backdrop-blur-[2px] bg-gradient-to-b from-transparent via-black/10 to-black/25" />
+        {/* Prismatic glass overlay with particle effects */}
+        <div className="absolute inset-0 backdrop-blur-[3px] bg-gradient-to-b from-transparent via-blue-950/15 to-blue-950/30 particle-bg" />
       </div>
       
       {/* RPG-Style HUD System */}
