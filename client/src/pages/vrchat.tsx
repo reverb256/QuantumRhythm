@@ -1,5 +1,8 @@
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import Footer from "@/components/footer";
+import { QuantumWordTagger } from '@/components/ui/quantum-word-tagger';
+import EnhancedConsole from '@/components/enhanced-console';
+import { useState } from 'react';
 
 const vrWorldExperiences = [
   {
@@ -61,6 +64,7 @@ const researchAreas = [
 
 export default function VRChat() {
   const { elementRef, isVisible } = useScrollAnimation();
+  const [showConsole, setShowConsole] = useState(false);
 
   return (
     <div className="min-h-screen bg-[var(--space-black)] text-white relative pt-16">

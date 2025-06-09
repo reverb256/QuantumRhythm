@@ -4,6 +4,8 @@ import { MetaRecursiveProject } from "./meta-recursive-project";
 import trovesCovestImage from "@assets/image_1749452464369.png";
 import cleaningServiceImage from "@assets/image_1749452436437.png";
 import portfolioImage from "@assets/image_1749452548538.png";
+import { QuantumWordTagger, TechTag, ConceptTag, HumorTag } from './ui/quantum-word-tagger';
+import { IntelligentTooltip } from './ui/intelligent-tooltip';
 
 const projects = [
   {

@@ -234,6 +234,12 @@ export default function HeroSection() {
       <div className="absolute top-6 right-6 w-20 h-20 border-r-3 border-t-3 border-cyan-400/70 z-40"></div>
       <div className="absolute bottom-6 left-6 w-20 h-20 border-l-3 border-b-3 border-cyan-400/70 z-40"></div>
       <div className="absolute bottom-6 right-6 w-20 h-20 border-r-3 border-b-3 border-cyan-400/70 z-40"></div>
+      
+      {/* Enhanced Console */}
+      <EnhancedConsole 
+        isVisible={showConsole} 
+        onClose={() => setShowConsole(false)}
+      />
     </section>
   );
 }
