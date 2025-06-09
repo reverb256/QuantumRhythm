@@ -104,7 +104,7 @@ export default function HeroSection() {
       </div>
 
       {/* Top Status Bar - Prismatic Glass */}
-      <div className="absolute top-16 md:top-20 left-0 right-0 h-12 md:h-16 prismatic-glass border-b border-cyan-400/40 z-20 gacha-shine">
+      <div className="absolute top-20 md:top-24 left-0 right-0 h-14 md:h-16 prismatic-glass border-b border-cyan-400/40 z-30 gacha-shine">
         <div className="container mx-auto px-4 md:px-6 h-full flex items-center justify-between">
           <div className="flex items-center space-x-2 md:space-x-4">
             <div className="w-8 h-8 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center">
@@ -134,7 +134,7 @@ export default function HeroSection() {
       </div>
 
       {/* Left Side Panel - Prismatic Glass */}
-      <div className="hidden xl:block absolute left-0 top-28 md:top-36 bottom-16 md:bottom-20 w-64 xl:w-80 prismatic-glass border-r border-cyan-400/30 z-20 spectrum-border">
+      <div className="hidden xl:block absolute left-0 top-36 md:top-40 bottom-16 md:bottom-20 w-64 xl:w-80 prismatic-glass border-r border-cyan-400/30 z-20 spectrum-border">
         <div className="p-6 h-full flex flex-col">
           <div className="mb-6">
             <h3 className="text-cyan-300 text-lg font-bold mb-4 flex items-center">
@@ -198,7 +198,7 @@ export default function HeroSection() {
       </div>
 
       {/* Right Side Panel - Prismatic Glass */}
-      <div className="hidden xl:block absolute right-0 top-28 md:top-36 bottom-16 md:bottom-20 w-64 xl:w-80 prismatic-glass border-l border-cyan-400/30 z-20 spectrum-border">
+      <div className="hidden xl:block absolute right-0 top-36 md:top-40 bottom-16 md:bottom-20 w-64 xl:w-80 prismatic-glass border-l border-cyan-400/30 z-20 spectrum-border">
         <div className="p-6 h-full flex flex-col">
           <div className="mb-6">
             <h3 className="text-cyan-300 text-lg font-bold mb-4 flex items-center">
