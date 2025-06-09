@@ -1,10 +1,17 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
-import { IntelligentTooltip } from "./ui/intelligent-tooltip";
+import { motion, AnimatePresence } from "framer-motion";
+interface TooltipInfo {
+  title: string;
+  description: string;
+  category: string;
+}
+
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [location] = useLocation();
+  const [activeTooltip, setActiveTooltip] = useState<TooltipInfo | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,26 +34,33 @@ export default function Navigation() {
     }
   };
 
+  const handleMouseEnter = (tooltip: TooltipInfo) => {
+    setActiveTooltip(tooltip);
+  };
+
+  const handleMouseLeave = () => {
+    setActiveTooltip(null);
+  };
+
   return (
     <header className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
       scrolled ? 'prismatic-glass border-b border-cyan-400/20 gacha-shine' : 'bg-transparent'
     }`}>
       <nav className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <IntelligentTooltip 
-            tooltipData={{
-              term: "reverb256",
-              category: "concept",
-              definition: "Consciousness architect and AI collaborator specializing in quantum development methodologies",
-              context: "Personal brand and digital identity",
-              funFact: "256 represents the RGB color depth and infinite possibilities in digital creation"
-            }}
+          <Link 
+            href="/" 
+            className="font-bold text-xl text-cyan-300 flex items-center hover:text-cyan-100 transition-colors duration-300 cursor-pointer prismatic-glow"
+            onMouseEnter={() => handleMouseEnter({
+              title: "reverb256",
+              description: "Consciousness architect and AI collaborator specializing in quantum development methodologies",
+              category: "Personal Brand"
+            })}
+            onMouseLeave={handleMouseLeave}
           >
-            <Link href="/" className="font-bold text-xl text-cyan-300 flex items-center hover:text-cyan-100 transition-colors duration-300 cursor-pointer prismatic-glow hover-glitch">
-              <i className="fas fa-code mr-2 text-cyan-400 hover-syntax-error"></i>
-              reverb256<span className="console-cursor text-[var(--synthwave-cyan)]">|</span>
-            </Link>
-          </IntelligentTooltip>
+            <i className="fas fa-code mr-2 text-cyan-400"></i>
+            reverb256<span className="console-cursor text-[var(--synthwave-cyan)]">|</span>
+          </Link>
           
           <div className="hidden md:flex space-x-8">
             <button 

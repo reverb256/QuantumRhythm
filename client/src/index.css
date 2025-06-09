@@ -2296,6 +2296,12 @@ section {
   }
 }
 
+/* Navigation Tooltip Drawer */
+.nav-tooltip-drawer {
+  backdrop-filter: blur(20px);
+  border-image: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.3), transparent) 1;
+}
+
 /* Mobile Optimizations */
 @media (max-width: 768px) {
   .intelligent-tooltip-container {
