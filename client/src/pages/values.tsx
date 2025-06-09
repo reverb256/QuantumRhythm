@@ -343,6 +343,76 @@ export default function Values() {
           </div>
         </div>
       </section>
+
+      {/* Free Speech & Digital Rights */}
+      <section className="py-20 relative">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto">
+            <div className="holo-panel p-8 md:p-12 rounded-3xl border border-cyan-400/50 gacha-shine energy-flow">
+              <h2 className="font-bold text-2xl md:text-3xl mb-8 text-[var(--spectrum-cyan)] text-center">
+                <i className="fas fa-bullhorn mr-3"></i>Free Speech & Digital Rights
+              </h2>
+              
+              <div className="space-y-6 text-[var(--text-secondary)] leading-relaxed">
+                <p className="text-lg text-center italic text-[var(--bright-blue)]">
+                  "The right to speak freely is the foundation upon which all other freedoms rest."
+                </p>
+                
+                <p>
+                  In an era where digital platforms increasingly control the flow of information, defending free speech 
+                  becomes a fundamental responsibility for every developer. The code we write, the platforms we build, 
+                  and the systems we architect must preserve the fundamental human right to express ideas without fear 
+                  of censorship or retribution.
+                </p>
+                
+                <p>
+                  Technology should empower diverse voices, not silence them. Every algorithm that determines what content 
+                  gets seen, every moderation system that decides what speech is acceptable, and every platform policy 
+                  that governs expression represents a critical choice about the kind of digital society we're building.
+                </p>
+                
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="holo-panel p-6 rounded-2xl border border-[var(--synthwave-cyan)]/50 gacha-shine">
+                    <h4 className="font-semibold text-[var(--synthwave-cyan)] mb-3 flex items-center">
+                      <i className="fas fa-shield-alt mr-2"></i>Platform Principles
+                    </h4>
+                    <ul className="space-y-2 text-[var(--text-secondary)] text-sm">
+                      <li>• Transparent content policies with clear appeals processes</li>
+                      <li>• Open-source moderation algorithms where possible</li>
+                      <li>• User control over algorithmic content curation</li>
+                      <li>• Decentralized systems that resist single points of censorship</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="holo-panel p-6 rounded-2xl border border-[var(--synthwave-pink)]/50 gacha-shine">
+                    <h4 className="font-semibold text-[var(--synthwave-pink)] mb-3 flex items-center">
+                      <i className="fas fa-users mr-2"></i>Developer Responsibility
+                    </h4>
+                    <ul className="space-y-2 text-[var(--text-secondary)] text-sm">
+                      <li>• Building systems that protect user privacy and expression</li>
+                      <li>• Resisting pressure to implement overreaching censorship</li>
+                      <li>• Creating tools that empower individual agency</li>
+                      <li>• Advocating for digital rights within development teams</li>
+                    </ul>
+                  </div>
+                </div>
+                
+                <p>
+                  The internet was built on principles of open communication and free exchange of ideas. As developers, 
+                  we have the power and responsibility to ensure these principles survive and thrive in the digital age. 
+                  Every line of code is a choice between freedom and control, between empowerment and suppression.
+                </p>
+                
+                <div className="bg-gradient-to-r from-[var(--synthwave-cyan)]/10 to-[var(--synthwave-pink)]/10 p-6 rounded-lg border border-[var(--synthwave-cyan)]/30">
+                  <p className="text-center font-semibold text-[var(--synthwave-gold)]">
+                    "In the digital realm, code is law. Let us write laws that protect the fundamental human right to speak, think, and express freely."
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       
       <Footer />
     </div>
