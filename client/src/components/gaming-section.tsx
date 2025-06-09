@@ -4,22 +4,118 @@ export default function GamingSection() {
   const { elementRef, isVisible } = useScrollAnimation();
 
   return (
-    <section className="py-20 bg-gradient-to-b from-[var(--cyber-blue)] to-[var(--deep-space)]" ref={elementRef}>
-      <div className="container mx-auto px-6">
-        <h2 className={`font-bold text-3xl md:text-4xl lg:text-5xl text-center mb-12 text-[var(--synthwave-pink)] fade-in-up ${isVisible ? 'animate' : ''}`}>
-          <i className="fas fa-gamepad mr-4"></i>Digital Passions
+    <section className="py-20 relative min-h-screen overflow-hidden" ref={elementRef}>
+      {/* Enhanced Background with Cybernetic Portal Effects */}
+      <div className="absolute inset-0">
+        {/* Base gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/30 via-purple-900/25 to-cyan-900/20" />
+        
+        {/* Primary cybernetic portal - center background */}
+        <div 
+          className="absolute inset-0 opacity-25"
+          style={{
+            backgroundImage: `url('/images/cyber_portal_ring.png')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+          }}
+        />
+        
+        {/* Energy spiral overlay */}
+        <div 
+          className="absolute inset-0 opacity-20"
+          style={{
+            backgroundImage: `url('/images/energy_spiral_vortex.png')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+          }}
+        />
+        
+        {/* Holographic platform base */}
+        <div 
+          className="absolute bottom-0 left-0 right-0 h-2/3 opacity-15"
+          style={{
+            backgroundImage: `url('/images/holographic_platform.png')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center bottom',
+            backgroundRepeat: 'no-repeat'
+          }}
+        />
+        
+        {/* Cyber fragments ring accent */}
+        <div 
+          className="absolute top-10 right-10 w-80 h-80 opacity-30 animate-pulse"
+          style={{
+            backgroundImage: `url('/images/cyber_fragments_ring.png')`,
+            backgroundSize: 'contain',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            animationDuration: '4s'
+          }}
+        />
+        
+        {/* Synthwave energy burst */}
+        <div 
+          className="absolute top-1/4 left-10 w-64 h-64 opacity-25"
+          style={{
+            backgroundImage: `url('/images/synthwave_energy_burst.png')`,
+            backgroundSize: 'contain',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+          }}
+        />
+        
+        {/* Floating crystal cubes */}
+        <div 
+          className="absolute bottom-1/3 right-1/4 w-56 h-56 opacity-20 animate-bounce"
+          style={{
+            backgroundImage: `url('/images/floating_crystal_cubes.png')`,
+            backgroundSize: 'contain',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            animationDuration: '5s'
+          }}
+        />
+        
+        {/* Anime character sky accent */}
+        <div 
+          className="absolute top-0 left-1/3 w-72 h-72 opacity-15"
+          style={{
+            backgroundImage: `url('/images/anime_character_sky.png')`,
+            backgroundSize: 'contain',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+          }}
+        />
+        
+        {/* Glassmorphism overlay */}
+        <div className="absolute inset-0 backdrop-blur-[1px] bg-gradient-to-b from-transparent via-black/5 to-black/15" />
+      </div>
+
+      {/* Content Layer */}
+      <div className="relative z-10 container mx-auto px-6">
+        <h2 className={`font-bold text-3xl md:text-4xl lg:text-5xl text-center mb-12 text-cyan-300 fade-in-up ${isVisible ? 'animate' : ''}`}>
+          <i className="fas fa-gamepad mr-4 text-purple-400"></i>Digital Passions
         </h2>
         
         <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {/* Rhythm Games */}
-          <div className={`glass-morphism p-6 md:p-8 rounded-2xl cyber-border fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.2s' }}>
-            <img 
-              src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400" 
-              alt="Colorful rhythm game interface with beat patterns" 
-              className="w-full h-40 md:h-48 object-cover rounded-lg mb-6" 
-            />
+          <div className={`backdrop-blur-md bg-black/20 border border-cyan-500/30 p-6 md:p-8 rounded-2xl shadow-2xl shadow-cyan-500/10 fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.2s' }}>
+            <div 
+              className="w-full h-40 md:h-48 rounded-lg mb-6 relative overflow-hidden"
+              style={{
+                backgroundImage: `url('/images/synthwave_energy_burst.png')`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
+              }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-600/60 via-pink-500/60 to-cyan-400/60 flex items-center justify-center">
+                <i className="fas fa-music text-6xl text-white drop-shadow-lg"></i>
+              </div>
+            </div>
             
-            <h3 className="font-semibold text-xl md:text-2xl mb-4 text-[var(--synthwave-pink)]">
+            <h3 className="font-semibold text-xl md:text-2xl mb-4 text-pink-300">
               <i className="fas fa-music mr-2"></i>Rhythm Gaming
             </h3>
             <p className="text-gray-300 mb-4 text-sm md:text-base">
@@ -28,9 +124,9 @@ export default function GamingSection() {
               resonates with perfect tempo.
             </p>
             <div className="flex flex-wrap gap-2">
-              <span className="px-3 py-1 bg-[var(--synthwave-pink)]/20 text-[var(--synthwave-pink)] rounded-full text-xs md:text-sm">DDR</span>
-              <span className="px-3 py-1 bg-[var(--synthwave-pink)]/20 text-[var(--synthwave-pink)] rounded-full text-xs md:text-sm">Beatmania</span>
-              <span className="px-3 py-1 bg-[var(--synthwave-pink)]/20 text-[var(--synthwave-pink)] rounded-full text-xs md:text-sm">Beat Saber</span>
+              <span className="px-3 py-1 bg-pink-500/20 text-pink-300 rounded-full text-xs md:text-sm border border-pink-500/30">DDR</span>
+              <span className="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-xs md:text-sm border border-purple-500/30">Beatmania</span>
+              <span className="px-3 py-1 bg-cyan-500/20 text-cyan-300 rounded-full text-xs md:text-sm border border-cyan-500/30">Beat Saber</span>
             </div>
           </div>
 
