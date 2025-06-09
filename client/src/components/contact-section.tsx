@@ -11,8 +11,17 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-20 bg-gradient-to-b from-[var(--deep-space)] to-[var(--space-black)]" ref={elementRef}>
-      <div className="container mx-auto px-6">
+    <section id="contact" className="py-20 relative" ref={elementRef}>
+      {/* Cybernetic architecture background */}
+      <div className="absolute inset-0 opacity-15">
+        <img 
+          src="/images/cybernetic_architecture.png" 
+          alt="Digital architecture patterns" 
+          className="w-full h-full object-cover" 
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[var(--deep-space)]/90 to-[var(--space-black)]/90"></div>
+      </div>
+      <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className={`font-bold text-3xl md:text-4xl lg:text-5xl mb-12 text-[var(--synthwave-cyan)] fade-in-up ${isVisible ? 'animate' : ''}`}>
             <i className="fas fa-satellite-dish mr-4"></i>Connect Across the Void

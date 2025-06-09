@@ -31,6 +31,15 @@ export default function HeroSection() {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[var(--space-black)] opacity-60"></div>
       </div>
       
+      {/* Flowing Energy Overlay */}
+      <div className="absolute inset-0 opacity-20">
+        <img 
+          src="/images/flowing_red_dynamics.png" 
+          alt="Dynamic energy flow" 
+          className="w-full h-full object-cover mix-blend-multiply" 
+        />
+      </div>
+      
       {/* Central Light Beam Effect */}
       <div className="absolute inset-x-0 top-0 bottom-0 w-2 mx-auto light-beam-vertical"></div>
       
