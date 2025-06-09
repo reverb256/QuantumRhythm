@@ -1,5 +1,4 @@
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
-import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
 
 const vrWorldExperiences = [

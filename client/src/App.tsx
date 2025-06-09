@@ -5,7 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import SEOHead, { getSEOForPage } from "@/components/seo-head";
 import ConsoleEasterEgg from "@/components/console-easter-egg";
-import { ConstitutionalNavigation } from "@/components/constitutional-nav";
+import Navigation from "@/components/navigation";
 import { ConstitutionalIndicators, DemocraticControls } from "@/components/constitutional-indicators";
 import Home from "@/pages/home";
 import Values from "@/pages/values";
@@ -29,7 +29,7 @@ function Router() {
   return (
     <>
       <SEOHead {...seoData} />
-      <ConstitutionalNavigation />
+      <Navigation />
       <Switch>
         <Route path="/" component={Home} />
         <Route path="/values" component={Values} />

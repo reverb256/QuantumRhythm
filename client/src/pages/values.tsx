@@ -1,14 +1,12 @@
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import GeometricBackground from "@/components/geometric-background";
-import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
 
 export default function Values() {
   const { elementRef, isVisible } = useScrollAnimation();
 
   return (
-    <div className="min-h-screen bg-[var(--space-black)] text-white">
-      <Navigation />
+    <div className="min-h-screen bg-[var(--space-black)] text-white pt-16">{/* Add padding top for fixed nav */}
       
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">
