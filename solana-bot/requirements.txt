@@ -1,0 +1,22 @@
+# Solana Trading Bot Dependencies
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.5.0
+httpx==0.25.2
+redis==5.0.1
+aioredis==2.0.1
+structlog==23.2.0
+cryptography==41.0.8
+secrets
+hashlib
+hmac
+base64
+solders==0.20.0
+solana==0.32.0
+spl-token==0.12.0
+websockets==12.0
+python-dotenv==1.0.0
+asyncio
+datetime
+dataclasses
+typing-extensions==4.8.0

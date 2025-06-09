@@ -628,39 +628,144 @@ async def create_secure_trading_agent() -> QuantumSecureTradingAgent:
         logger.error("Failed to create secure trading agent", error=str(e))
         raise
 
-if __name__ == "__main__":
-    # Example usage for Agent Zero
-    async def main():
-        # Create secure trading agent
-        trading_agent = await create_secure_trading_agent()
-        
-        # Agent Zero authentication
-        agent_zero_secret = os.getenv("AGENT_ZERO_MASTER_SECRET", "quantum_agent_zero_master_2024")
-        auth_credentials = AgentZeroAuthenticator.generate_auth_credentials(agent_zero_secret)
-        
-        # Authenticate Agent Zero
-        credential = await trading_agent.authenticate_agent("agent_zero", auth_credentials)
-        
-        if credential:
-            print("Agent Zero authenticated successfully")
-            
-            # Example trading operation
-            trading_command = {
-                "operation": "get_balance",
-                "wallet_address": "example_address"
-            }
-            
-            result = await trading_agent.secure_trading_execution(
-                credential.session_token, 
-                trading_command
-            )
-            
-            print(f"Trading result: {result}")
-            
-            # Get security status
-            status = await trading_agent.get_security_status()
-            print(f"Security status: {status}")
-        else:
-            print("Agent Zero authentication failed")
+# FastAPI application for quantum-secured trading agent
+from fastapi import FastAPI, HTTPException, Depends, Request
+from fastapi.security import HTTPBearer
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+import uvicorn
+
+# Create FastAPI app
+app = FastAPI(
+    title="Quantum-Secured Trading Agent",
+    description="Architecturally isolated trading agent with Agent Zero master control",
+    version="1.0.0-quantum"
+)
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:8888"],  # Only Agent Zero Gateway
+    allow_credentials=True,
+    allow_methods=["POST", "GET"],
+    allow_headers=["*"],
+)
+
+# Global trading agent instance
+trading_agent: Optional[QuantumSecureTradingAgent] = None
+security = HTTPBearer()
+
+class AuthRequest(BaseModel):
+    agent_id: str
+    timestamp: float
+    nonce: str
+    quantum_signature: str
+
+class TradingRequest(BaseModel):
+    operation: str
+    parameters: Dict[str, Any]
+    session_token: str
+    agent_zero_authorization: bool = False
+
+@app.on_event("startup")
+async def startup_event():
+    """Initialize trading agent on startup"""
+    global trading_agent
+    trading_agent = await create_secure_trading_agent()
+    logger.info("Quantum-secured trading agent started")
+
+@app.post("/authenticate")
+async def authenticate(auth_request: AuthRequest):
+    """Authenticate agent (only Agent Zero allowed)"""
+    if not trading_agent:
+        raise HTTPException(status_code=503, detail="Trading agent not initialized")
     
-    asyncio.run(main())
+    credentials = {
+        "timestamp": auth_request.timestamp,
+        "nonce": auth_request.nonce,
+        "quantum_signature": auth_request.quantum_signature
+    }
+    
+    credential = await trading_agent.authenticate_agent(auth_request.agent_id, credentials)
+    
+    if credential:
+        return {
+            "success": True,
+            "session_token": credential.session_token,
+            "expires_in": 3600,
+            "access_level": credential.access_level
+        }
+    else:
+        raise HTTPException(status_code=401, detail="Authentication failed")
+
+@app.post("/execute")
+async def execute_trading_command(trading_request: TradingRequest):
+    """Execute trading command (Agent Zero only)"""
+    if not trading_agent:
+        raise HTTPException(status_code=503, detail="Trading agent not initialized")
+    
+    if not trading_request.agent_zero_authorization:
+        raise HTTPException(status_code=403, detail="Agent Zero authorization required")
+    
+    result = await trading_agent.secure_trading_execution(
+        trading_request.session_token,
+        {
+            "operation": trading_request.operation,
+            **trading_request.parameters
+        }
+    )
+    
+    return result
+
+@app.get("/security/status")
+async def get_security_status():
+    """Get security status"""
+    if not trading_agent:
+        raise HTTPException(status_code=503, detail="Trading agent not initialized")
+    
+    return await trading_agent.get_security_status()
+
+@app.get("/status")
+async def get_status(authorization: str = Depends(security)):
+    """Get trading agent status"""
+    if not trading_agent:
+        raise HTTPException(status_code=503, detail="Trading agent not initialized")
+    
+    session_token = authorization.credentials
+    
+    # Validate session token
+    session = trading_agent.secure_channels.get(session_token)
+    if not session:
+        raise HTTPException(status_code=401, detail="Invalid session token")
+    
+    return {
+        "status": "operational",
+        "trading_active": trading_agent.trading_active,
+        "isolation_level": "quantum_secure",
+        "session_valid": True,
+        "timestamp": datetime.now().isoformat()
+    }
+
+@app.post("/agent_zero/heartbeat")
+async def agent_zero_heartbeat(authorization: str = Depends(security)):
+    """Agent Zero heartbeat"""
+    if not trading_agent:
+        raise HTTPException(status_code=503, detail="Trading agent not initialized")
+    
+    session_token = authorization.credentials
+    
+    success = await trading_agent.agent_zero_heartbeat(session_token)
+    
+    if success:
+        return {"heartbeat": "acknowledged", "timestamp": datetime.now().isoformat()}
+    else:
+        raise HTTPException(status_code=401, detail="Heartbeat failed")
+
+if __name__ == "__main__":
+    uvicorn.run(
+        app,
+        host="0.0.0.0",
+        port=8001,
+        workers=1,  # Single worker for session consistency
+        log_config=None
+    )
