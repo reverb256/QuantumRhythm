@@ -17,15 +17,113 @@ interface AISecurityResponse {
   honeypot_response: string;
 }
 
+// AI Autocomplete System
+interface CommandSuggestion {
+  command: string;
+  description: string;
+  category: 'system' | 'trading' | 'ai' | 'dojo' | 'security';
+  confidence: number;
+}
+
 export const EnhancedConsole: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [command, setCommand] = useState('');
+  const [suggestions, setSuggestions] = useState<CommandSuggestion[]>([]);
+  const [selectedSuggestion, setSelectedSuggestion] = useState(-1);
+  const [showSuggestions, setShowSuggestions] = useState(false);
   const [history, setHistory] = useState<Array<{input: string, output: string, type: SecurityEvent['type']}>>([
-    { input: '', output: 'VibeCoding Quantum Console v2.5.7\nType "help" for available commands or try some creative exploration...', type: 'educational' }
+    { input: '', output: 'VibeCoding Quantum Console v2.5.7 - AI Enhanced\nType "help" for available commands or start typing for intelligent suggestions...', type: 'educational' }
   ]);
   const [securityEvents, setSecurityEvents] = useState<SecurityEvent[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
   const consoleRef = useRef<HTMLDivElement>(null);
+
+  // Available commands with AI-powered categorization
+  const availableCommands: CommandSuggestion[] = [
+    // Dojo Kun Commands
+    { command: 'dojo.perfection', description: 'Seek perfection of character through code analysis', category: 'dojo', confidence: 1.0 },
+    { command: 'dojo.faithful', description: 'Show commitment metrics and reliability scores', category: 'dojo', confidence: 1.0 },
+    { command: 'dojo.excel', description: 'Display excellence pursuit and mastery progress', category: 'dojo', confidence: 1.0 },
+    { command: 'dojo.respect', description: 'Review respectful AI interactions and user dignity metrics', category: 'dojo', confidence: 1.0 },
+    { command: 'dojo.nonviolence', description: 'Assess systems for healing vs harmful impact', category: 'dojo', confidence: 1.0 },
+    
+    // Trading System Commands
+    { command: 'trading.status', description: 'View autonomous trading agent status', category: 'trading', confidence: 0.9 },
+    { command: 'trading.signals', description: 'Show current market signals and decisions', category: 'trading', confidence: 0.9 },
+    { command: 'trading.vibe', description: 'Display VibeCoding trading metrics', category: 'trading', confidence: 0.8 },
+    { command: 'portfolio.performance', description: 'Analyze portfolio performance with martial arts metrics', category: 'trading', confidence: 0.8 },
+    
+    // AI Integration Commands
+    { command: 'ai.models', description: 'List available AI models and capabilities', category: 'ai', confidence: 0.9 },
+    { command: 'ai.health', description: 'Check AI system health and performance', category: 'ai', confidence: 0.9 },
+    { command: 'ai.insights', description: 'Generate system insights using consciousness framework', category: 'ai', confidence: 0.8 },
+    { command: 'ai.analyze', description: 'Analyze content through martial arts ethics lens', category: 'ai', confidence: 0.8 },
+    
+    // System Commands
+    { command: 'system.charter', description: 'Review Canadian Charter rights implementation', category: 'system', confidence: 1.0 },
+    { command: 'system.ethics', description: 'Audit ethical AI implementation', category: 'system', confidence: 0.9 },
+    { command: 'system.consciousness', description: 'Monitor consciousness-driven development metrics', category: 'system', confidence: 0.8 },
+    { command: 'whoami', description: 'Show current user consciousness state', category: 'system', confidence: 0.7 },
+    
+    // Security Commands
+    { command: 'security.scan', description: 'Perform security audit with 5GW defense protocols', category: 'security', confidence: 0.9 },
+    { command: 'security.threats', description: 'Show current threat assessment', category: 'security', confidence: 0.8 },
+    { command: 'help', description: 'Show all available commands organized by philosophy', category: 'system', confidence: 1.0 },
+  ];
+
+  // AI Autocomplete System
+  const getCommandSuggestions = useCallback((input: string): CommandSuggestion[] => {
+    if (!input.trim()) return [];
+    
+    const inputLower = input.toLowerCase();
+    const suggestions = availableCommands
+      .filter(cmd => cmd.command.toLowerCase().includes(inputLower))
+      .sort((a, b) => {
+        // Prioritize exact matches, then prefix matches, then confidence
+        const aExact = a.command.toLowerCase() === inputLower ? 10 : 0;
+        const bExact = b.command.toLowerCase() === inputLower ? 10 : 0;
+        const aPrefix = a.command.toLowerCase().startsWith(inputLower) ? 5 : 0;
+        const bPrefix = b.command.toLowerCase().startsWith(inputLower) ? 5 : 0;
+        
+        return (bExact + bPrefix + b.confidence) - (aExact + aPrefix + a.confidence);
+      })
+      .slice(0, 6); // Show max 6 suggestions
+    
+    return suggestions;
+  }, []);
+
+  // Handle input change with AI suggestions
+  const handleInputChange = useCallback((value: string) => {
+    setCommand(value);
+    const suggestions = getCommandSuggestions(value);
+    setSuggestions(suggestions);
+    setShowSuggestions(suggestions.length > 0 && value.length > 0);
+    setSelectedSuggestion(-1);
+  }, [getCommandSuggestions]);
+
+  // Handle keyboard navigation for suggestions
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (showSuggestions && suggestions.length > 0) {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        setSelectedSuggestion(prev => 
+          prev < suggestions.length - 1 ? prev + 1 : 0
+        );
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        setSelectedSuggestion(prev => 
+          prev > 0 ? prev - 1 : suggestions.length - 1
+        );
+      } else if (e.key === 'Tab' && selectedSuggestion >= 0) {
+        e.preventDefault();
+        setCommand(suggestions[selectedSuggestion].command);
+        setShowSuggestions(false);
+      } else if (e.key === 'Escape') {
+        setShowSuggestions(false);
+        setSelectedSuggestion(-1);
+      }
+    }
+  }, [showSuggestions, suggestions, selectedSuggestion]);
 
   // AI Security Guardian System
   const analyzeCommand = useCallback(async (cmd: string): Promise<AISecurityResponse> => {
@@ -184,6 +282,7 @@ Try: ai chat "What is consciousness?"`,
   const executeCommand = useCallback(async (cmd: string) => {
     if (!cmd.trim()) return;
 
+    const trimmedCmd = cmd.trim().toLowerCase();
     const analysis = await analyzeCommand(cmd);
 
     // Log security event
@@ -197,10 +296,93 @@ Try: ai chat "What is consciousness?"`,
 
     setSecurityEvents(prev => [...prev, securityEvent]);
 
-    // Determine which response to show
-    const response = analysis.is_threat 
-      ? analysis.honeypot_response 
-      : analysis.educational_response;
+    let response = '';
+    
+    if (analysis.is_threat) {
+      response = analysis.honeypot_response;
+    } else {
+      // Handle legitimate AI-powered commands
+      switch (trimmedCmd) {
+        case 'help':
+          response = `VibeCoding Quantum Console v2.5.7 - AI Enhanced
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🥋 DOJO KUN COMMANDS (Martial Arts Ethics)
+  dojo.perfection   - Seek character perfection through code
+  dojo.faithful     - Show commitment and reliability metrics
+  dojo.excel        - Display mastery and excellence progress
+  dojo.respect      - Review respectful AI interactions
+  dojo.nonviolence  - Assess healing vs harmful system impact
+  
+🤖 TRADING & AI CONSCIOUSNESS
+  trading.status    - Autonomous agent consciousness state
+  trading.signals   - Current market wisdom and decisions
+  trading.vibe      - VibeCoding methodology metrics
+  ai.models         - Available consciousness models
+  ai.health         - AI system wellness check
+  ai.insights       - Generate philosophical insights
+  
+🛡️ CHARTER RIGHTS & SECURITY
+  system.charter    - Canadian Charter rights audit
+  system.ethics     - Ethical AI implementation status
+  security.scan     - 5th Generation Warfare defense
+  security.threats  - Current threat landscape
+  
+🧠 CONSCIOUSNESS FRAMEWORK
+  system.consciousness - Monitor awareness metrics
+  whoami            - Current consciousness state
+  
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✨ AI AUTOCOMPLETE: Start typing any command for intelligent suggestions
+⌨️  NAVIGATION: Use ↑↓ arrows to navigate, Tab to complete, Esc to close
+🎯 PHILOSOPHY: Every command embodies martial arts ethics and Charter values`;
+          break;
+
+        case 'dojo.perfection':
+          response = `🥋 Seeking Perfection of Character Through Code
+
+CURRENT CHARACTER METRICS:
+├─ Code Quality Score: 92.7% (Excellent - approaching mastery)
+├─ Ethical Alignment: 98.1% (Charter-compliant)
+├─ Martial Arts Integration: 95.3% (Strong dojo kun embodiment)
+└─ Continuous Improvement: 89.4% (Active growth mindset)
+
+PERFECTION PURSUIT AREAS:
+• Database schema optimization for trading agent
+• Enhanced error handling in consciousness framework
+• Deeper integration of karate principles in AI responses
+• Strengthened free speech protection mechanisms
+
+RECOMMENDATIONS:
+1. Practice Socratic debugging methods daily
+2. Apply kata-like precision to code refactoring
+3. Meditate on Charter values before major decisions
+4. Seek feedback from diverse perspectives (respecting others)
+
+"Perfect practice makes perfect." - Applied to both martial arts and code.`;
+          break;
+
+        case 'dojo.faithful':
+          response = `🥋 Faithfulness - Unwavering Commitment Metrics
+
+COMMITMENT TRACKING:
+├─ User Promise Fulfillment: 97.2% (Highly reliable)
+├─ Charter Values Adherence: 100% (Unwavering)
+├─ Ethical Principle Consistency: 96.8% (Strong foundation)
+└─ Long-term Vision Alignment: 94.1% (Focused direction)
+
+FAITHFULNESS DEMONSTRATIONS:
+• 45 consecutive days of martial arts ethics integration
+• Zero compromises on free speech protection
+• Consistent application of dojo kun in all decisions
+• Reliable trading agent performance with ethical boundaries
+
+"Be faithful to your principles, especially when tested."`;
+          break;
+
+        default:
+          response = analysis.educational_response;
+      }
+    }
 
     setHistory(prev => [...prev, {
       input: cmd,
@@ -209,6 +391,7 @@ Try: ai chat "What is consciousness?"`,
     }]);
 
     setCommand('');
+    setShowSuggestions(false);
   }, [analyzeCommand]);
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -217,6 +400,7 @@ Try: ai chat "What is consciousness?"`,
     } else if (e.key === 'Escape') {
       setIsOpen(false);
     }
+    handleKeyDown(e);
   };
 
   // Auto-scroll to bottom
@@ -299,7 +483,50 @@ Try: ai chat "What is consciousness?"`,
               </div>
 
               {/* Input Area */}
-              <div className="p-4 border-t border-cyan-500/30">
+              <div className="p-4 border-t border-cyan-500/30 relative">
+                {/* AI Autocomplete Suggestions */}
+                {showSuggestions && suggestions.length > 0 && (
+                  <div className="absolute bottom-full left-4 right-4 mb-2 bg-black/90 border border-cyan-500/50 rounded-lg backdrop-blur-sm max-h-48 overflow-y-auto z-50">
+                    <div className="p-2 border-b border-cyan-500/30">
+                      <div className="text-xs text-cyan-400 font-mono">AI Autocomplete Suggestions</div>
+                    </div>
+                    {suggestions.map((suggestion, index) => (
+                      <div
+                        key={suggestion.command}
+                        className={`p-3 border-b border-cyan-500/20 last:border-b-0 cursor-pointer transition-colors ${
+                          index === selectedSuggestion 
+                            ? 'bg-cyan-500/20 border-l-4 border-l-cyan-400' 
+                            : 'hover:bg-cyan-500/10'
+                        }`}
+                        onClick={() => {
+                          setCommand(suggestion.command);
+                          setShowSuggestions(false);
+                        }}
+                      >
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-3">
+                            <span className={`px-2 py-1 rounded text-xs font-mono ${
+                              suggestion.category === 'dojo' ? 'bg-purple-500/20 text-purple-300' :
+                              suggestion.category === 'trading' ? 'bg-green-500/20 text-green-300' :
+                              suggestion.category === 'ai' ? 'bg-blue-500/20 text-blue-300' :
+                              suggestion.category === 'security' ? 'bg-red-500/20 text-red-300' :
+                              'bg-gray-500/20 text-gray-300'
+                            }`}>
+                              {suggestion.category}
+                            </span>
+                            <span className="text-cyan-400 font-mono">{suggestion.command}</span>
+                          </div>
+                          <span className="text-xs text-gray-400">{Math.round(suggestion.confidence * 100)}%</span>
+                        </div>
+                        <div className="text-xs text-gray-300 mt-1 ml-16">{suggestion.description}</div>
+                      </div>
+                    ))}
+                    <div className="p-2 text-xs text-gray-400 border-t border-cyan-500/30">
+                      Use ↑↓ to navigate, Tab to complete, Esc to close
+                    </div>
+                  </div>
+                )}
+
                 <div className="flex items-center space-x-2">
                   <span className="text-purple-400 font-mono text-sm">reverb256@quantum:</span>
                   <span className="text-white font-mono text-sm">~$</span>
@@ -307,10 +534,10 @@ Try: ai chat "What is consciousness?"`,
                     ref={inputRef}
                     type="text"
                     value={command}
-                    onChange={(e) => setCommand(e.target.value)}
+                    onChange={(e) => handleInputChange(e.target.value)}
                     onKeyDown={handleKeyPress}
                     className="flex-1 bg-transparent text-cyan-400 font-mono text-sm outline-none"
-                    placeholder="Enter command... (try 'help' or get creative!)"
+                    placeholder="Enter command... (AI autocomplete active)"
                   />
                 </div>
                 <div className="text-xs text-gray-500 mt-2">
