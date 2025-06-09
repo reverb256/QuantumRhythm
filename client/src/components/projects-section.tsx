@@ -160,8 +160,8 @@ export default function ProjectsSection() {
             <MetaRecursiveProject />
           </div>
 
-          {/* Featured Projects Grid with Intelligent Dynamic Layout */}
-          <div className="projects-intelligent-grid gap-6 mb-16">
+          {/* Featured Projects Grid with Comprehensive Space Optimization */}
+          <div className="projects-intelligent-grid mb-16">
             {projects.map((project, index) => (
               <div 
                 key={`${project.title}-${index}`} 
@@ -296,8 +296,8 @@ export default function ProjectsSection() {
             ))}
           </div>
 
-          {/* Project Categories - Dynamic Grid */}
-          <div className="categories-grid gap-8 mb-16">
+          {/* Project Categories - Intelligent Dynamic Grid */}
+          <div className="categories-grid mb-16">
             {[
               {
                 title: "E-commerce Platforms",
@@ -321,7 +321,7 @@ export default function ProjectsSection() {
                 color: "from-green-400 to-teal-500"
               }
             ].map((category, index) => (
-              <div key={category.title} className="holo-panel p-8 rounded-3xl border border-cyan-400/50 gacha-shine text-center">
+              <div key={category.title} className="holo-panel p-8 rounded-3xl border border-cyan-400/50 gacha-shine text-center intelligent-container">
                 <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${category.color} flex items-center justify-center mx-auto mb-6`}>
                   <i className={`${category.icon} text-white text-2xl`}></i>
                 </div>
@@ -351,14 +351,14 @@ export default function ProjectsSection() {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-4 gap-6 mt-10">
+            <div className="auto-grid mt-10" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(200px, 100%), 1fr))' }}>
               {[
                 { icon: "fas fa-yin-yang", label: "Balance", description: "Harmony between form and function" },
                 { icon: "fas fa-infinity", label: "Infinite", description: "Unlimited potential in every creation" },
                 { icon: "fas fa-atom", label: "Quantum", description: "Superposition of possibilities" },
                 { icon: "fas fa-eye", label: "Vision", description: "Future-focused perspectives" }
               ].map((principle, index) => (
-                <div key={principle.label} className="text-center group">
+                <div key={principle.label} className="text-center group intelligent-container">
                   <div className="w-16 h-16 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                     <i className={`${principle.icon} text-white text-xl`}></i>
                   </div>

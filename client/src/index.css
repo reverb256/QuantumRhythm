@@ -1509,32 +1509,56 @@ nav:hover {
   box-shadow: 0 0 30px rgba(56, 189, 248, 0.1);
 }
 
-/* Intelligent Projects Grid - Dynamic Layout System */
-.projects-intelligent-grid {
+/* Universal Intelligent Layout System - Comprehensive Space Optimization */
+
+/* Base intelligent grid system */
+.intelligent-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(400px, 100%), 1fr));
   gap: 1.5rem;
   grid-auto-rows: 1fr;
   align-items: stretch;
+  width: 100%;
 }
 
-/* Large screens - Intelligent 3-column layout */
-@media (min-width: 1200px) {
+/* Projects grid - Advanced auto-fitting */
+.projects-intelligent-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(380px, 100%), 1fr));
+  gap: 1.5rem;
+  grid-auto-rows: 1fr;
+  align-items: stretch;
+  justify-content: space-evenly;
+}
+
+/* Dynamic column adjustment based on container width */
+@media (min-width: 1400px) {
   .projects-intelligent-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
     gap: 2rem;
   }
 }
 
-/* Medium screens - 2 columns with flex sizing */
-@media (min-width: 768px) and (max-width: 1199px) {
+@media (min-width: 1200px) and (max-width: 1399px) {
   .projects-intelligent-grid {
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
   }
 }
 
-/* Small screens - Single column */
+@media (min-width: 900px) and (max-width: 1199px) {
+  .projects-intelligent-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 899px) {
+  .projects-intelligent-grid {
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 1.25rem;
+  }
+}
+
 @media (max-width: 767px) {
   .projects-intelligent-grid {
     grid-template-columns: 1fr;
@@ -1759,52 +1783,176 @@ nav:hover {
   }
 }
 
-/* Categories dynamic grid */
-.categories-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
+/* Universal site-wide intelligent layout classes */
+.fill-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-@media (min-width: 768px) {
-  .categories-grid {
+.stretch-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.auto-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: 1.5rem;
+  align-items: stretch;
+  justify-content: space-evenly;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+.space-evenly {
+  justify-content: space-evenly;
+}
+
+.align-stretch {
+  align-items: stretch;
+}
+
+/* Container query alternative for better responsiveness */
+@container (min-width: 1200px) {
+  .responsive-grid {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-/* Enhanced project card layout - Intelligent height distribution */
+@container (min-width: 768px) and (max-width: 1199px) {
+  .responsive-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@container (max-width: 767px) {
+  .responsive-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Flex-based intelligent distribution */
+.flex-distribute {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+.flex-distribute > * {
+  flex: 1 1 min(400px, 100%);
+  min-width: 0;
+}
+
+/* Grid fallback for older browsers */
+@supports not (display: grid) {
+  .projects-intelligent-grid,
+  .categories-grid,
+  .auto-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+  
+  .projects-intelligent-grid > *,
+  .categories-grid > *,
+  .auto-grid > * {
+    flex: 1 1 min(350px, 100%);
+  }
+}
+
+/* Categories intelligent grid system */
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: 2rem;
+  align-items: stretch;
+  justify-content: space-evenly;
+}
+
+@media (min-width: 1200px) {
+  .categories-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .categories-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .categories-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+}
+
+/* Universal container stretch system */
+.intelligent-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+/* Enhanced project card layout - Perfect space distribution */
 .project-card {
   display: flex;
   flex-direction: column;
   height: 100%;
   min-height: 500px;
+  width: 100%;
 }
 
-/* Content sections stretch to fill available space */
+/* Content sections with intelligent flex distribution */
 .project-card .project-content {
   flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  min-height: 0; /* Allows flex shrinking */
 }
 
 .project-card .project-description {
-  flex: 1;
+  flex: 1 1 auto;
   margin-bottom: 1.5rem;
+  min-height: 0;
 }
 
 .project-card .project-actions {
+  flex: 0 0 auto;
   margin-top: auto;
-  flex-shrink: 0;
 }
 
-/* Responsive height adjustments */
-@media (min-width: 1200px) {
+/* Dynamic height system based on content */
+@media (min-width: 1400px) {
+  .project-card {
+    min-height: 540px;
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1399px) {
   .project-card {
     min-height: 520px;
   }
 }
 
-@media (min-width: 768px) and (max-width: 1199px) {
+@media (min-width: 900px) and (max-width: 1199px) {
+  .project-card {
+    min-height: 500px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 899px) {
   .project-card {
     min-height: 480px;
   }
@@ -1816,12 +1964,30 @@ nav:hover {
   }
 }
 
-/* Uniform image sizing */
+/* Responsive image sizing */
 .project-card .project-image {
   aspect-ratio: 16 / 9;
   width: 100%;
   object-fit: cover;
-  height: 200px;
+  flex-shrink: 0;
+}
+
+@media (min-width: 1200px) {
+  .project-card .project-image {
+    height: 220px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .project-card .project-image {
+    height: 200px;
+  }
+}
+
+@media (max-width: 767px) {
+  .project-card .project-image {
+    height: 180px;
+  }
 }
 
 /* Rhythm Game Inspired Effects */
