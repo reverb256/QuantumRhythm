@@ -15,8 +15,8 @@ export default function Values() {
       <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0 opacity-20">
           <img 
-            src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&h=1000" 
-            alt="Digital democracy and technology convergence" 
+            src="/attached_assets/catboy2025BG_1749433079455.PNG" 
+            alt="Anime synthwave space background" 
             className="w-full h-full object-cover" 
           />
         </div>

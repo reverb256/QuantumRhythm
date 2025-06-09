@@ -5,11 +5,11 @@ export default function AboutSection() {
 
   return (
     <section id="about" className="py-20 relative" ref={elementRef}>
-      {/* Deep space background */}
+      {/* Catboy background */}
       <div className="absolute inset-0 opacity-30">
         <img 
-          src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&h=1000" 
-          alt="Deep space nebula background" 
+          src="/attached_assets/catboy2025BG_1749433079455.PNG" 
+          alt="Anime synthwave space background" 
           className="w-full h-full object-cover" 
         />
       </div>

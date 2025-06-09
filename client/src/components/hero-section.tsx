@@ -20,8 +20,15 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center geometric-bg overflow-hidden">
-      <GeometricBackground />
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Catboy Background */}
+      <div className="absolute inset-0">
+        <img 
+          src="/attached_assets/catboy2025BG_1749433079455.PNG" 
+          alt="Anime synthwave space background" 
+          className="w-full h-full object-cover"
+        />
+      </div>
       
       {/* Cybernetic grid overlay */}
       <div className="absolute inset-0 opacity-20 cyber-grid"></div>
@@ -36,9 +43,9 @@ export default function HeroSection() {
           {/* Profile Avatar */}
           <div className="mb-8">
             <img 
-              src="/attached_assets/PFP_1749430516108.jpg" 
-              alt="reverb256 - Cybernetic cat silhouette against cosmic triangle" 
-              className="w-24 h-24 md:w-32 md:h-32 rounded-full mx-auto border-4 border-[var(--synthwave-cyan)] shadow-lg shadow-[var(--synthwave-cyan)]/50 animate-float"
+              src="/attached_assets/catboy2025PFP_1749433070083.PNG" 
+              alt="reverb256 - Anime catboy character in cybernetic synthwave style" 
+              className="w-24 h-24 md:w-32 md:h-32 rounded-full mx-auto border-4 border-[var(--synthwave-cyan)] shadow-lg shadow-[var(--synthwave-cyan)]/50 animate-float object-cover"
             />
           </div>
           <h1 className="font-bold text-4xl md:text-6xl lg:text-7xl mb-6 text-gradient-cyan">
