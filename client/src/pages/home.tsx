@@ -12,7 +12,7 @@ import Footer from '../components/footer';
 const AboutSection = React.lazy(() => import('../components/about-section'));
 const SkillsSection = React.lazy(() => import('../components/skills-section'));
 const ContactSection = React.lazy(() => import('../components/contact-section'));
-const ConsoleEasterEgg = React.lazy(() => import('../components/console-easter-egg'));
+
 
 export default function HomePage() {
   // Monitor performance metrics
@@ -56,10 +56,7 @@ export default function HomePage() {
 
       <Footer />
 
-      {/* Load console as lowest priority */}
-      <Suspense fallback={null}>
-        <ConsoleEasterEgg />
-      </Suspense>
+
 
       {/* Performance metrics in dev mode */}
       {process.env.NODE_ENV === 'development' && (

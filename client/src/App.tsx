@@ -6,11 +6,9 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { CursorTooltipProvider } from "@/components/cursor-tooltip";
 import SEOHead, { getSEOForPage } from "@/components/seo-head";
-import ConsoleEasterEgg from "@/components/console-easter-egg";
-import EnhancedConsciousness from "@/components/enhanced-consciousness";
 import { ConsciousContainer } from "@/components/smart-elements";
-import ConsciousnessShowcase from "@/components/consciousness-showcase";
 import NeuralBackground from "@/components/neural-background";
+import { EnhancedConsole } from "@/components/enhanced-console";
 
 import Navigation from "@/components/navigation";
 import Home from "@/pages/home";
@@ -69,11 +67,9 @@ function App() {
       <TooltipProvider>
         <ConsciousContainer learningRate={0.15}>
           <NeuralBackground intensity={30} speed={0.5} />
-          <EnhancedConsciousness />
-          <ConsciousnessShowcase />
           <Toaster />
           <Router />
-          <ConsoleEasterEgg />
+          <EnhancedConsole />
         </ConsciousContainer>
       </TooltipProvider>
     </QueryClientProvider>

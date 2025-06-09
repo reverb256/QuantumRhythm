@@ -5,13 +5,14 @@ import { ErrorBoundary } from 'react-error-boundary';
 // Intelligent lazy loading with performance optimization
 const createLazyComponent = (importFn: () => Promise<any>, fallback?: React.ComponentType) => {
   const LazyComponent = lazy(importFn);
+  const FallbackComponent = fallback;
   
   return memo((props: any) => (
     <ErrorBoundary
       fallback={<div className="text-red-400">Component failed to load</div>}
       onError={(error) => console.error('Lazy component error:', error)}
     >
-      <Suspense fallback={fallback ? <fallback /> : <ComponentSkeleton />}>
+      <Suspense fallback={fallback ? <FallbackComponent /> : <ComponentSkeleton />}>
         <LazyComponent {...props} />
       </Suspense>
     </ErrorBoundary>
