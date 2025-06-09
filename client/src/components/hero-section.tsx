@@ -208,7 +208,7 @@ export default function HeroSection() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
             <button 
               onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
-              className="w-full h-16 holo-panel bg-gradient-to-r from-[var(--spectrum-cyan)] to-[var(--spectrum-blue)] hover:from-[var(--spectrum-blue)] hover:to-[var(--spectrum-violet)] text-white rounded-2xl text-lg font-semibold transition-all duration-300 border border-cyan-400/50 shadow-lg shadow-cyan-400/25 hover:shadow-xl hover:shadow-cyan-400/40 gacha-shine"
+              className="w-full h-16 holo-panel bg-gradient-to-r from-[var(--spectrum-cyan)] to-[var(--spectrum-blue)] hover:from-[var(--spectrum-blue)] hover:to-[var(--spectrum-violet)] text-white rounded-2xl text-lg font-semibold transition-all duration-300 border border-cyan-400/50 shadow-lg shadow-cyan-400/25 hover:shadow-xl hover:shadow-cyan-400/40 gacha-shine electric-trace combo-glow"
             >
               <i className="fas fa-code mr-3 text-xl"></i>
               View My Work

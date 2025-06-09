@@ -596,6 +596,158 @@
   }
 }
 
+/* Rhythm Game Inspired Effects */
+.beat-sync {
+  animation: beat-pulse 0.8s ease-in-out infinite;
+}
+
+@keyframes beat-pulse {
+  0%, 100% { 
+    transform: scale(1); 
+    box-shadow: 0 0 10px rgba(34, 211, 238, 0.4); 
+  }
+  50% { 
+    transform: scale(1.05); 
+    box-shadow: 0 0 20px rgba(34, 211, 238, 0.8); 
+  }
+}
+
+.frost-aura {
+  position: relative;
+  overflow: hidden;
+}
+
+.frost-aura::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, 
+    rgba(56, 189, 248, 0.3), 
+    rgba(147, 197, 253, 0.2), 
+    rgba(255, 255, 255, 0.4),
+    rgba(34, 211, 238, 0.3));
+  border-radius: inherit;
+  z-index: -1;
+  animation: frost-rotate 3s linear infinite;
+}
+
+@keyframes frost-rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.frost-glow {
+  filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.6)) 
+          drop-shadow(0 0 20px rgba(147, 197, 253, 0.4))
+          drop-shadow(0 0 30px rgba(255, 255, 255, 0.3));
+}
+
+.frost-pulse {
+  animation: frost-pulse-anim 1.2s ease-in-out infinite;
+}
+
+@keyframes frost-pulse-anim {
+  0%, 100% { 
+    filter: brightness(1) saturate(1);
+    box-shadow: 0 0 10px rgba(147, 197, 253, 0.4);
+  }
+  50% { 
+    filter: brightness(1.3) saturate(1.2);
+    box-shadow: 0 0 25px rgba(147, 197, 253, 0.8);
+  }
+}
+
+.frost-pattern {
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(147, 197, 253, 0.2) 2px, transparent 2px),
+    radial-gradient(circle at 75% 75%, rgba(56, 189, 248, 0.2) 2px, transparent 2px),
+    radial-gradient(circle at 25% 75%, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 30px 30px, 40px 40px, 20px 20px;
+  animation: frost-shimmer 4s ease-in-out infinite;
+}
+
+@keyframes frost-shimmer {
+  0%, 100% { opacity: 0.3; transform: translateX(0px); }
+  50% { opacity: 0.6; transform: translateX(10px); }
+}
+
+.scanning-line {
+  position: relative;
+  overflow: hidden;
+}
+
+.scanning-line::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(34, 211, 238, 0.8), 
+    rgba(56, 189, 248, 1), 
+    rgba(34, 211, 238, 0.8), 
+    transparent);
+  animation: scan-sweep 2s ease-in-out infinite;
+}
+
+@keyframes scan-sweep {
+  0% { left: -100%; }
+  50% { left: 100%; }
+  100% { left: 100%; }
+}
+
+/* Gaming-Inspired Reactive Elements */
+.combo-glow {
+  animation: combo-flash 0.3s ease-out;
+}
+
+@keyframes combo-flash {
+  0% { 
+    transform: scale(1); 
+    filter: brightness(1);
+  }
+  50% { 
+    transform: scale(1.1); 
+    filter: brightness(1.5) hue-rotate(45deg);
+  }
+  100% { 
+    transform: scale(1); 
+    filter: brightness(1);
+  }
+}
+
+.electric-trace {
+  position: relative;
+}
+
+.electric-trace::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent,
+    rgba(251, 191, 36, 0.8),
+    rgba(245, 158, 11, 1),
+    rgba(251, 191, 36, 0.8),
+    transparent);
+  transform: translateY(-50%) scaleX(0);
+  animation: electric-streak 1.5s ease-in-out infinite;
+}
+
+@keyframes electric-streak {
+  0%, 60% { transform: translateY(-50%) scaleX(0); }
+  80% { transform: translateY(-50%) scaleX(1); }
+  100% { transform: translateY(-50%) scaleX(0); }
+}
+
 @layer utilities {
   .font-space {
     font-family: 'Space Grotesk', sans-serif;

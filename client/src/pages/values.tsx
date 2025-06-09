@@ -205,6 +205,39 @@ export default function Values() {
                     </div>
                   </div>
                 </div>
+
+                {/* Gaming Philosophy Corner */}
+                <div className="bg-gradient-to-br from-purple-900/20 to-pink-900/20 p-6 rounded-xl border border-purple-400/30 md:col-span-2">
+                  <h4 className="text-purple-300 font-semibold mb-3 flex items-center">
+                    <i className="fas fa-gamepad mr-2"></i>Gaming Philosophy: Perfect Rhythm & Digital Flow
+                  </h4>
+                  <div className="grid md:grid-cols-3 gap-4">
+                    <div className="bg-black/50 p-3 rounded">
+                      <div className="text-xs text-purple-300 font-semibold mb-2">Rhythm Mastery</div>
+                      <div className="text-xs text-gray-300 space-y-1">
+                        <p className="beat-sync">🎵 10,000+ hours in IIDX</p>
+                        <p>Perfect timing in code & beats</p>
+                        <p>Flow state development</p>
+                      </div>
+                    </div>
+                    <div className="bg-black/50 p-3 rounded">
+                      <div className="text-xs text-cyan-300 font-semibold mb-2">Digital Worlds</div>
+                      <div className="text-xs text-gray-300 space-y-1">
+                        <p>HSR: Anaxa's philosophical inquiry</p>
+                        <p>Rappa's authentic expression</p>
+                        <p>VRChat consciousness research</p>
+                      </div>
+                    </div>
+                    <div className="bg-black/50 p-3 rounded">
+                      <div className="text-xs text-orange-300 font-semibold mb-2">Fire & Frost</div>
+                      <div className="text-xs text-gray-300 space-y-1">
+                        <p className="frost-pulse">❄️ Frostbite journalism</p>
+                        <p>🔥 Burnice's explosive energy</p>
+                        <p>⚡ Elemental coding harmony</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
