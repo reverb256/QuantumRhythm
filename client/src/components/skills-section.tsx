@@ -3,16 +3,16 @@ import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 const skills = [
   { icon: "fab fa-react", name: "React 18", category: "Frontend Architecture", level: 95, color: "from-cyan-400 to-blue-500", vibecoding: "Component purity with philosophical clarity" },
   { icon: "fab fa-js-square", name: "TypeScript", category: "Type Safety", level: 92, color: "from-blue-400 to-indigo-500", vibecoding: "Ontological certainty in code" },
-  { icon: "fas fa-paint-brush", name: "Glassmorphism", category: "6-Container Framework", level: 90, color: "from-green-400 to-emerald-500", vibecoding: "Visual harmony through design systems" },
-  { icon: "fas fa-shield-alt", name: "OWASP/ISO 27001", category: "Enterprise Security", level: 88, color: "from-red-400 to-pink-500", vibecoding: "Complete vulnerability protection" },
-  { icon: "fas fa-robot", name: "Multi-LLM AI", category: "Orchestration Systems", level: 85, color: "from-pink-400 to-rose-500", vibecoding: "Intelligence cross-empowerment" },
-  { icon: "fas fa-tachometer-alt", name: "Performance Engineering", category: "Resource Optimization", level: 87, color: "from-orange-400 to-red-500", vibecoding: "380MB peak, 60fps achievements" },
-  { icon: "fas fa-universal-access", name: "WCAG AAA", category: "Accessibility Excellence", level: 90, color: "from-purple-400 to-violet-500", vibecoding: "Human dignity in design" },
-  { icon: "fas fa-cloud", name: "Cloudflare Edge", category: "Global Distribution", level: 82, color: "from-teal-400 to-cyan-500", vibecoding: "Edge computing optimization" },
-  { icon: "fas fa-gem", name: "Authentic Branding", category: "Mystical Aesthetics", level: 88, color: "from-indigo-400 to-purple-500", vibecoding: "Wooden sign to digital harmony" },
-  { icon: "fas fa-infinity", name: "Classical Philosophy", category: "Socratic Methods", level: 95, color: "from-emerald-400 to-teal-500", vibecoding: "Ancient wisdom in modern code" },
-  { icon: "fas fa-vr-cardboard", name: "VR Research", category: "Digital Consciousness", level: 90, color: "from-violet-400 to-purple-500", vibecoding: "Exploring virtual reality ethics" },
-  { icon: "fas fa-crosshairs", name: "5GW Defense", category: "Information Warfare", level: 84, color: "from-yellow-400 to-orange-500", vibecoding: "Truth preservation frameworks" }
+  { icon: "fas fa-gamepad", name: "Frame Data Analysis", category: "Fighting Games", level: 94, color: "from-red-400 to-pink-500", vibecoding: "Street Fighter/Smash Bros frame advantage optimization" },
+  { icon: "fas fa-music", name: "Rhythm Game Mastery", category: "IIDX/DDR/Beat Saber", level: 92, color: "from-purple-400 to-pink-500", vibecoding: "Human-machine synchronization research" },
+  { icon: "fas fa-bolt", name: "WoW Elemental Shaman", category: "MMO Optimization", level: 90, color: "from-blue-400 to-purple-500", vibecoding: "PvP/PvE priority systems & TSM auction house mastery" },
+  { icon: "fas fa-sword", name: "FFXIV Savage Raids", category: "Complex Systems", level: 88, color: "from-indigo-400 to-purple-500", vibecoding: "Rotation optimization & raid coordination theory" },
+  { icon: "fas fa-dice", name: "Gacha Game Analysis", category: "Genshin/ZZZ Systems", level: 89, color: "from-amber-400 to-orange-500", vibecoding: "Elemental synergy design & progression psychology" },
+  { icon: "fas fa-microchip", name: "Console Modding", category: "Hardware Research", level: 91, color: "from-green-400 to-teal-500", vibecoding: "Wii U softmod, Wii modchip, GameCube BBA exploitation" },
+  { icon: "fas fa-floppy-disk", name: "Retro Preservation", category: "DOS/Emulation", level: 93, color: "from-orange-400 to-red-500", vibecoding: "DOS/Windows 3.1, CPS2/Triforce arcade analysis" },
+  { icon: "fas fa-server", name: "Infrastructure DevOps", category: "Homelab/Mining", level: 87, color: "from-teal-400 to-cyan-500", vibecoding: "Early crypto mining, server optimization methodology" },
+  { icon: "fas fa-vr-cardboard", name: "VR Research", category: "Digital Consciousness", level: 90, color: "from-violet-400 to-purple-500", vibecoding: "VRChat social architecture & presence engineering" },
+  { icon: "fas fa-shield-alt", name: "Enterprise Security", category: "OWASP/ISO 27001", level: 88, color: "from-red-400 to-pink-500", vibecoding: "Production security compliance frameworks" }
 ];
 
 export default function SkillsSection() {

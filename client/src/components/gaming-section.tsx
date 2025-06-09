@@ -157,7 +157,14 @@ export default function GamingSection() {
 
                 <h3 className="text-2xl font-bold text-cyan-300 mb-2">{experience.title}</h3>
                 <p className="text-cyan-100/80 mb-4">{experience.category}</p>
-                <p className="text-cyan-100 leading-relaxed mb-6">{experience.description}</p>
+                <p className="text-cyan-100 leading-relaxed mb-4">{experience.description}</p>
+                
+                {experience.insights && (
+                  <div className="mb-6 p-3 bg-cyan-900/20 border border-cyan-400/30 rounded-lg">
+                    <p className="text-xs text-cyan-300 font-mono mb-1">// Key Insights</p>
+                    <p className="text-cyan-100/90 text-sm">{experience.insights}</p>
+                  </div>
+                )}
                 
                 <div className="flex items-center justify-between">
                   <span className="text-cyan-300 font-medium">{experience.platform}</span>

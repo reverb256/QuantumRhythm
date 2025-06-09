@@ -16,10 +16,26 @@ Visit the portfolio at: [Your GitHub Pages URL]
 
 ## 🎮 Authentic Gaming Research
 
-- **VRChat Social Architecture**: 4,320+ hours of virtual reality social research
-- **Steam Gaming Analytics**: 8,500+ hours across 200+ titles for UX insights
-- **Honkai Star Rail Philosophy**: 890+ hours of narrative consciousness analysis
-- **Multi-Platform VR Development**: 2,100+ hours of presence engineering
+### Modern Gaming Systems
+- **VRChat Social Architecture**: 4,320+ hours of virtual reality social research and presence engineering
+- **miHoYo Gacha Analysis**: 1,240+ hours of Genshin Impact elemental mechanics and Zenless Zone Zero evolution
+- **Fighting Game Theory**: 2,890+ hours of Street Fighter frame data and Super Smash Bros movement tech
+- **Rhythm Game Mastery**: 3,560+ hours of IIDX double play, DDR freestyle, and Beat Saber modding
+
+### MMO Optimization Systems
+- **WoW Elemental Shaman**: 5,670+ hours of PvP arena and mythic+ optimization with TSM auction house mastery
+- **FFXIV Savage Raids**: 2,180+ hours of rotation theory-crafting and raid coordination across expansions
+
+### Retro Gaming Preservation
+- **Console Era**: NES, SNES, N64, Dreamcast, PS2, PS3, Game Boy line, DS systems, Game Gear
+- **Modding Research**: Wii U softmod, Wii modchip, GameCube BBA with PSO DNS exploitation
+- **Arcade Systems**: CPS2, Triforce analysis, modern arcade HDD preservation
+- **Emulation Expertise**: 8,900+ hours across DOS, 8-bit, 16-bit console preservation
+
+### Infrastructure & Development
+- **Early Crypto Mining**: Pre-mainstream cryptocurrency optimization and hardware management
+- **Homelab DevOps**: 12,000+ hours of server infrastructure and automation since high school
+- **DOS/Windows Heritage**: 25+ years from Windows 3.1/DOS shell on 286/386 through modern systems
 
 ## 🛠️ Technology Stack
 
