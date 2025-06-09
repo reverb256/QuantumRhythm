@@ -72,7 +72,13 @@ export default function GeometricBackground() {
             ctx.beginPath();
             ctx.moveTo(particle.x, particle.y);
             ctx.lineTo(otherParticle.x, otherParticle.y);
-            ctx.strokeStyle = `rgba(0, 204, 255, ${0.1 * (1 - distance / 100)})`;
+            // Enhanced luminous connection lines
+            const lineGradient = ctx.createLinearGradient(particle.x, particle.y, otherParticle.x, otherParticle.y);
+            lineGradient.addColorStop(0, `rgba(195, 220, 255, ${0.15 * (1 - distance / 100)})`);
+            lineGradient.addColorStop(0.5, `rgba(120, 200, 255, ${0.1 * (1 - distance / 100)})`);
+            lineGradient.addColorStop(1, `rgba(195, 220, 255, ${0.15 * (1 - distance / 100)})`);
+            ctx.strokeStyle = lineGradient;
+            ctx.lineWidth = 1.5;
             ctx.stroke();
           }
         });
