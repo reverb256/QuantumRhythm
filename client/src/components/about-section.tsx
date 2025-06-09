@@ -73,19 +73,19 @@ export default function AboutSection() {
               
               {/* Main Bio Panel */}
               <div className="holo-panel p-8 rounded-3xl border border-cyan-400/50 gacha-shine energy-flow">
-                <h3 className="text-2xl md:text-3xl font-bold text-cyan-300 mb-6 flex items-center">
-                  <i className="fas fa-user text-cyan-400 mr-4"></i>
+                <h3 className="text-2xl md:text-3xl font-bold text-[var(--spectrum-cyan)] mb-6 flex items-center">
+                  <i className="fas fa-user text-[var(--spectrum-cyan)] mr-4"></i>
                   About Me
                 </h3>
                 
-                <p className="text-lg text-cyan-100 leading-relaxed mb-6">
-                  <strong className="text-cyan-300">I'm a full-stack developer</strong> passionate about creating meaningful digital experiences. 
+                <p className="text-lg text-[var(--text-secondary)] leading-relaxed mb-6">
+                  <strong className="text-[var(--spectrum-cyan)]">I'm a full-stack developer</strong> passionate about creating meaningful digital experiences. 
                   My work spans across modern web technologies including React, Node.js, and AI integration, 
                   with a focus on building applications that solve real problems for real people.
                 </p>
                 
-                <p className="text-lg text-cyan-100 leading-relaxed">
-                  Through my <strong className="text-cyan-300">VibeCoding methodology</strong>, I combine technical excellence with thoughtful design principles. 
+                <p className="text-lg text-[var(--text-secondary)] leading-relaxed">
+                  Through my <strong className="text-[var(--spectrum-cyan)]">VibeCoding methodology</strong>, I combine technical excellence with thoughtful design principles. 
                   This approach ensures every application is not only functionally robust but also accessible, user-friendly, 
                   and built with sustainable development practices.
                 </p>
@@ -98,25 +98,25 @@ export default function AboutSection() {
                     icon: "fas fa-code",
                     title: "Full-Stack Development",
                     description: "React, Node.js, TypeScript, and modern web frameworks",
-                    color: "from-cyan-400 to-blue-500"
+                    color: "from-[var(--spectrum-cyan)] to-[var(--spectrum-blue)]"
                   },
                   {
                     icon: "fas fa-users",
                     title: "User-Centered Design",
                     description: "Prioritizing accessibility and intuitive user experiences",
-                    color: "from-purple-400 to-pink-500"
+                    color: "from-[var(--spectrum-violet)] to-[var(--spectrum-pink)]"
                   },
                   {
                     icon: "fas fa-shopping-cart",
                     title: "E-commerce Solutions",
                     description: "Production-ready platforms with payment integration",
-                    color: "from-green-400 to-teal-500"
+                    color: "from-[var(--spectrum-green)] to-[var(--spectrum-teal)]"
                   },
                   {
                     icon: "fas fa-brain",
                     title: "AI Integration",
                     description: "Smart features that enhance without overwhelming",
-                    color: "from-orange-400 to-red-500"
+                    color: "from-[var(--spectrum-orange)] to-[var(--spectrum-red)]"
                   }
                 ].map((value, index) => (
                   <div key={value.title} className="holo-panel p-6 rounded-2xl border border-cyan-400/30 gacha-shine">

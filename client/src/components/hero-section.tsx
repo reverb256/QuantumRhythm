@@ -143,25 +143,25 @@ export default function HeroSection() {
             
             <div className="relative z-10">
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 font-space">
-                <span className="bg-gradient-to-r from-cyan-300 via-blue-400 to-purple-400 bg-clip-text text-transparent">Reverb</span>
+                <span className="holo-text">Reverb</span>
               </h1>
               
-              <h2 className="text-xl md:text-3xl lg:text-4xl text-cyan-300 mb-6 font-medium">
+              <h2 className="text-xl md:text-3xl lg:text-4xl text-[var(--text-secondary)] mb-6 font-medium">
                 Full-Stack Developer & Digital Philosopher
               </h2>
               
               <div className="flex flex-wrap justify-center gap-6 text-sm md:text-base text-cyan-200/90 font-mono mb-6">
                 <span className="flex items-center">
-                  <span className="text-cyan-400 mr-2">SPECIALIZATION</span>
-                  <span className="text-white">React • Node.js • AI</span>
+                  <span className="text-[var(--spectrum-cyan)] mr-2">SPECIALIZATION</span>
+                  <span className="text-[var(--text-primary)]">React • Node.js • AI</span>
                 </span>
                 <span className="flex items-center">
-                  <span className="text-cyan-400 mr-2">APPROACH</span>
-                  <span className="text-white">VibeCoding Methodology</span>
+                  <span className="text-[var(--spectrum-cyan)] mr-2">APPROACH</span>
+                  <span className="text-[var(--text-primary)]">VibeCoding Methodology</span>
                 </span>
                 <span className="flex items-center">
-                  <span className="text-cyan-400 mr-2">LOCATION</span>
-                  <span className="text-white">Canada</span>
+                  <span className="text-[var(--spectrum-cyan)] mr-2">LOCATION</span>
+                  <span className="text-[var(--text-primary)]">Canada</span>
                 </span>
               </div>
             </div>
@@ -169,7 +169,7 @@ export default function HeroSection() {
 
           {/* Bio Description */}
           <div className="prismatic-glass p-6 md:p-8 rounded-2xl mb-10 border border-cyan-400/30">
-            <p className="text-lg md:text-xl text-cyan-100 leading-relaxed">
+            <p className="text-lg md:text-xl text-[var(--text-secondary)] leading-relaxed">
               I craft digital experiences that merge philosophical depth with cutting-edge technology. 
               My VibeCoding methodology combines ancient wisdom principles with modern development practices, 
               creating solutions that prioritize human dignity and meaningful connection.
@@ -200,7 +200,7 @@ export default function HeroSection() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
             <button 
               onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
-              className="w-full h-16 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white rounded-2xl text-lg font-semibold transition-all duration-300 border border-cyan-400/50 shadow-lg shadow-cyan-400/25 hover:shadow-xl hover:shadow-cyan-400/40"
+              className="w-full h-16 holo-panel bg-gradient-to-r from-[var(--spectrum-cyan)] to-[var(--spectrum-blue)] hover:from-[var(--spectrum-blue)] hover:to-[var(--spectrum-violet)] text-white rounded-2xl text-lg font-semibold transition-all duration-300 border border-cyan-400/50 shadow-lg shadow-cyan-400/25 hover:shadow-xl hover:shadow-cyan-400/40 gacha-shine"
             >
               <i className="fas fa-code mr-3 text-xl"></i>
               View My Work
@@ -208,14 +208,14 @@ export default function HeroSection() {
             
             <button 
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-              className="w-full h-16 bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-400 hover:to-pink-500 text-white rounded-2xl text-lg font-semibold transition-all duration-300 border border-purple-400/50 shadow-lg shadow-purple-400/25 hover:shadow-xl hover:shadow-purple-400/40"
+              className="w-full h-16 holo-panel bg-gradient-to-r from-[var(--spectrum-violet)] to-[var(--spectrum-pink)] hover:from-[var(--spectrum-pink)] hover:to-[var(--spectrum-red)] text-white rounded-2xl text-lg font-semibold transition-all duration-300 border border-purple-400/50 shadow-lg shadow-purple-400/25 hover:shadow-xl hover:shadow-purple-400/40 gacha-shine"
             >
               <i className="fas fa-envelope mr-3 text-xl"></i>
               Start Conversation
             </button>
             
             <Link href="/values">
-              <Button className="w-full h-16 bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-400 hover:to-teal-500 text-white rounded-2xl text-lg font-semibold transition-all duration-300 border border-green-400/50 shadow-lg shadow-green-400/25 hover:shadow-xl hover:shadow-green-400/40">
+              <Button className="w-full h-16 holo-panel bg-gradient-to-r from-[var(--spectrum-green)] to-[var(--spectrum-teal)] hover:from-[var(--spectrum-teal)] hover:to-[var(--spectrum-cyan)] text-white rounded-2xl text-lg font-semibold transition-all duration-300 border border-green-400/50 shadow-lg shadow-green-400/25 hover:shadow-xl hover:shadow-green-400/40 gacha-shine">
                 <i className="fas fa-compass mr-3 text-xl"></i>
                 Core Values
               </Button>
