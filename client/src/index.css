@@ -1512,13 +1512,13 @@ nav:hover {
 /* Intelligent Projects Grid - Dynamic Layout System */
 .projects-intelligent-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(400px, 100%), 1fr));
   gap: 1.5rem;
-  grid-auto-rows: minmax(500px, max-content);
-  align-items: start;
+  grid-auto-rows: 1fr;
+  align-items: stretch;
 }
 
-/* Large screens - 3 columns with intelligent sizing */
+/* Large screens - Intelligent 3-column layout */
 @media (min-width: 1200px) {
   .projects-intelligent-grid {
     grid-template-columns: repeat(3, 1fr);
@@ -1526,20 +1526,19 @@ nav:hover {
   }
 }
 
-/* Medium screens - 2 columns */
+/* Medium screens - 2 columns with flex sizing */
 @media (min-width: 768px) and (max-width: 1199px) {
   .projects-intelligent-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 1.5rem;
   }
 }
 
-/* Small screens - 1 column */
+/* Small screens - Single column */
 @media (max-width: 767px) {
   .projects-intelligent-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
-    grid-auto-rows: minmax(450px, max-content);
   }
 }
 
@@ -1773,7 +1772,7 @@ nav:hover {
   }
 }
 
-/* Enhanced project card layout */
+/* Enhanced project card layout - Intelligent height distribution */
 .project-card {
   display: flex;
   flex-direction: column;
@@ -1781,27 +1780,33 @@ nav:hover {
   min-height: 500px;
 }
 
-/* Content sections stretch intelligently */
+/* Content sections stretch to fill available space */
 .project-card .project-content {
-  flex-grow: 1;
+  flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
 .project-card .project-description {
-  flex-grow: 1;
+  flex: 1;
   margin-bottom: 1.5rem;
 }
 
 .project-card .project-actions {
   margin-top: auto;
+  flex-shrink: 0;
 }
 
-/* Intelligent spacing adjustments */
+/* Responsive height adjustments */
 @media (min-width: 1200px) {
   .project-card {
     min-height: 520px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .project-card {
+    min-height: 480px;
   }
 }
 
@@ -1811,11 +1816,12 @@ nav:hover {
   }
 }
 
-/* Ensure proper aspect ratios */
+/* Uniform image sizing */
 .project-card .project-image {
   aspect-ratio: 16 / 9;
   width: 100%;
   object-fit: cover;
+  height: 200px;
 }
 
 /* Rhythm Game Inspired Effects */

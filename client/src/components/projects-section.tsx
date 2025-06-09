@@ -99,22 +99,22 @@ const projects = [
     isComingSoon: true
   },
   {
-    title: "Neural Network Portfolio",
-    subtitle: "Pizza Kitchen to AI Journey",
-    description: "This very portfolio represents an authentic transformation from pizza kitchen manager to AI developer. Features glassmorphism design principles, VibeCoding methodology implementation, and quantum particle systems. A self-referential showcase demonstrating the philosophical depth beneath technical surface aesthetics.",
+    title: "QuantumRhythm",
+    subtitle: "Consciousness-Driven Music Platform",
+    description: "Experimental music platform exploring quantum consciousness through rhythmic patterns and AI-generated compositions. Features real-time audio visualization, consciousness-based music generation algorithms, and immersive soundscapes for meditation and focus.",
     image: portfolioImage,
     technologies: [
-      { name: "Glassmorphism Design", class: "glassmorphism-tooltip" },
-      { name: "VibeCoding Methodology", class: "vibecoding-tooltip" },
-      { name: "Quantum Particles", class: "quantum-tooltip" },
-      { name: "Meta-Recursive Architecture", class: "meta-tooltip" },
-      { name: "Authentic Journey", class: "journey-tooltip" }
+      { name: "Web Audio API", class: "hover-syntax-error" },
+      { name: "Quantum Algorithms", class: "hover-glitch" },
+      { name: "Consciousness AI", class: "hover-deprecated" },
+      { name: "Real-time Visualization", class: "hover-404" },
+      { name: "Meditation Framework", class: "hover-loading" }
     ],
-    status: "Live Portfolio",
-    link: "/",
-    github: "https://github.com/reverb256/portfolio",
-    color: "from-purple-400 via-violet-400 to-indigo-400",
-    vibecoding: "Authentic transformation story from kitchen management to AI development mastery",
+    status: "Experimental",
+    link: "https://quantumrhythm.replit.app",
+    github: "https://github.com/reverb256/quantumrhythm",
+    color: "from-[var(--spectrum-violet)] to-[var(--spectrum-cyan)]",
+    vibecoding: "Music as consciousness exploration through quantum rhythm generation - where algorithmic composition meets meditative practice",
     isComingSoon: false
   }
 ];
@@ -186,7 +186,7 @@ export default function ProjectsSection() {
                 className={`project-card holo-panel p-8 rounded-3xl border gacha-shine energy-flow group transition-all duration-500 gpu-accelerated smooth-60fps ${
                   project.title === 'Neural Network Portfolio'
                     ? 'border-cyan-300/60 bg-gradient-to-br from-purple-900/20 via-cyan-900/30 to-pink/10 shadow-2xl shadow-cyan-400/30 meta-aura' 
-                    : project.isQuantumRhythm
+                    : project.title === 'QuantumRhythm'
                     ? 'quantum-rhythm-card border-purple-400/60 bg-gradient-to-br from-purple-900/20 via-pink-900/30 to-cyan/10 shadow-2xl shadow-purple-400/30'
                     : 'border-cyan-400/50 hover:border-cyan-400/70'
                 }`}
@@ -198,7 +198,7 @@ export default function ProjectsSection() {
                     ? 'proxmox-cluster-bg h-48' 
                     : ''
                 }`}>
-                  {project.isQuantumRhythm ? (
+                  {project.title === 'QuantumRhythm' ? (
                     <div className="relative w-full h-48 bg-gradient-to-br from-purple-900/40 via-pink-800/30 to-cyan-500/20 flex items-center justify-center">
                       {/* Quantum Rhythm Pattern */}
                       <div className="absolute inset-0 quantum-rhythm-pattern opacity-30"></div>
@@ -253,7 +253,7 @@ export default function ProjectsSection() {
                   {/* Status Badge with Beat Sync */}
                   <div className="absolute top-4 right-4">
                     <span className={`px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r ${project.color} text-white ${
-                      project.isQuantumRhythm ? 'beat-sync quantum-pulse' : 
+                      project.title === 'QuantumRhythm' ? 'beat-sync quantum-pulse' : 
                       project.title === 'Neural Network Portfolio' ? 'beat-sync meta-pulse' : ''
                     }`}>
                       {project.status}
