@@ -11,7 +11,13 @@ const projects = [
     subtitle: "Sacred Sanctuary Crystal Jewelry",
     description: "Production-ready e-commerce platform featuring authentic wooden sign branding, mystical three-color harmony (turquoise/cursive-blue/skull-turquoise), and AI-orchestrated customer service. Enterprise security with OWASP Top 10 compliance, Cloudflare edge optimization, and seamless Etsy integration.",
     image: trovesCovestImage,
-    technologies: ["React 18", "Multi-LLM AI", "Cloudflare KV", "ISO 27001", "Edge Computing"],
+    technologies: [
+      { name: "React 18", class: "react-tooltip" },
+      { name: "Multi-LLM AI", class: "ai-tooltip" },
+      { name: "Cloudflare KV", class: "cloudflare-tooltip" },
+      { name: "ISO 27001", class: "security-tooltip" },
+      { name: "Edge Computing", class: "edge-tooltip" }
+    ],
     status: "Production",
     link: "https://trovesandcoves.ca",
     github: "https://github.com/reverb256/troves-coves",
@@ -23,7 +29,13 @@ const projects = [
     subtitle: "VibeCoding Innovation Showcase",
     description: "Revolutionary 6-container harmonized design framework with glassmorphism architecture. Memory-efficient backend (380MB peak), 60fps animations, complete OWASP security compliance, and accessibility excellence. Demonstrates advanced performance optimization under resource constraints.",
     image: cleaningServiceImage,
-    technologies: ["Glassmorphism", "Performance Engineering", "WCAG AAA", "Security Framework", "Turquoise/Green Branding"],
+    technologies: [
+      { name: "Glassmorphism", class: "glassmorphism-tooltip" },
+      { name: "Performance Engineering", class: "performance-tooltip" },
+      { name: "WCAG AAA", class: "accessibility-tooltip" },
+      { name: "Security Framework", class: "security-tooltip" },
+      { name: "Turquoise/Green Branding", class: "branding-tooltip" }
+    ],
     status: "Production",
     link: "https://2034c3d1-09aa-49c2-bad4-380f7b9d56ee-00-2eybkgfvy9084.riker.replit.dev",
     github: "https://github.com/reverb256/Local-Cleaning-Service",
@@ -35,7 +47,13 @@ const projects = [
     subtitle: "Cyberpunk Meta-Recursive Design",
     description: "This very portfolio - a self-referential cyberpunk masterpiece featuring quantum particle systems, prismatic spectrum harmonization, and philosophical depth. Demonstrates meta-recursive design principles where the portfolio showcases itself through unified visual components.",
     image: portfolioImage,
-    technologies: ["React 18", "Cyberpunk Aesthetics", "Quantum Animations", "Meta-Recursion", "Spectrum Variables"],
+    technologies: [
+      { name: "React 18", class: "react-tooltip" },
+      { name: "Cyberpunk Aesthetics", class: "cyberpunk-tooltip" },
+      { name: "Quantum Animations", class: "quantum-tooltip" },
+      { name: "Meta-Recursion", class: "meta-tooltip" },
+      { name: "Spectrum Variables", class: "spectrum-tooltip" }
+    ],
     status: "Active Development",
     link: "/",
     github: "https://github.com/reverb256/portfolio",
@@ -47,7 +65,13 @@ const projects = [
     subtitle: "Quantum-Enhanced Democratic Journalism",
     description: "Canada's sovereign accountability infrastructure powered by AI-first journalism and 5th Generation Warfare defense frameworks. Quantum RAG identity engine with bilingual Canadian core, classical learning integration, and Charter-compliant democratic transparency tools.",
     image: portfolioImage, // Placeholder until we have the real image
-    technologies: ["Quantum RAG", "5GW Defense", "Bilingual AI", "Charter Compliance", "Democratic Tools"],
+    technologies: [
+      { name: "Quantum RAG", class: "quantum-tooltip" },
+      { name: "5GW Defense", class: "defense-tooltip" },
+      { name: "Bilingual AI", class: "bilingual-tooltip" },
+      { name: "Charter Compliance", class: "charter-tooltip" },
+      { name: "Democratic Tools", class: "democratic-tooltip" }
+    ],
     status: "Coming Soon",
     link: "https://github.com/reverb256/Frostbite-Gazette",
     github: "https://github.com/reverb256/Frostbite-Gazette",

@@ -410,7 +410,7 @@
     font-family: 'JetBrains Mono', monospace;
     border: 1px solid var(--synthwave-pink);
     white-space: nowrap;
-    z-index: 1000;
+    z-index: 99999;
     animation: fade-in-tooltip 0.3s ease;
   }
 
@@ -432,7 +432,7 @@
     font-family: 'JetBrains Mono', monospace;
     border: 1px solid var(--synthwave-red);
     white-space: nowrap;
-    z-index: 1000;
+    z-index: 99999;
     animation: fade-in-tooltip 0.3s ease;
   }
 
@@ -595,6 +595,12 @@
     animation: fade-in-tooltip 0.3s ease;
   }
 
+  /* Global tooltip z-index fix */
+  [class*="-tooltip"]:hover::after,
+  [class*="hover-"]:hover::after {
+    z-index: 99999 !important;
+  }
+
   /* Technology-specific tooltips */
   .react-tooltip:hover::after {
     content: "const [bugs, setBugs] = useState(0)";
@@ -610,7 +616,7 @@
     font-family: 'JetBrains Mono', monospace;
     border: 1px solid #61DAFB;
     white-space: nowrap;
-    z-index: 1000;
+    z-index: 99999;
     animation: fade-in-tooltip 0.3s ease;
   }
 
