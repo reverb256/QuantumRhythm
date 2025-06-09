@@ -174,9 +174,10 @@ export default function HeroSection() {
               <span className="git-commit-humor">// Professional README.md</span>
             </div>
             <p className="text-lg md:text-xl text-[var(--text-secondary)] leading-relaxed">
-              I craft digital experiences that merge philosophical depth with cutting-edge technology. 
-              My <span className="hover-syntax-error">VibeCoding methodology</span> combines ancient wisdom principles with modern development practices, 
-              creating solutions that prioritize human dignity and meaningful connection.
+              Where philosophical confluence meets technical excellence—building production systems with <span className="hover-syntax-error">glassmorphism architecture</span>, 
+              <span className="hover-deprecated">AI-first orchestration</span>, and <span className="hover-loading">enterprise security compliance</span>. 
+              From Troves & Coves' mystical e-commerce to workplace innovation platforms, each project demonstrates 
+              <span className="stackoverflow-reference">authentic business solutions</span> over synthetic demonstrations.
             </p>
             <div className="font-mono text-xs text-gray-500 mt-4 easter-egg-hint">
               <span className="hover-segfault">console.log("Hello, World!");</span>

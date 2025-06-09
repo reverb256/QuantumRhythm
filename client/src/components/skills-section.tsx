@@ -1,18 +1,18 @@
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const skills = [
-  { icon: "fab fa-react", name: "React", category: "Frontend Architecture", level: 95, color: "from-cyan-400 to-blue-500" },
-  { icon: "fab fa-js-square", name: "TypeScript", category: "Type Systems", level: 92, color: "from-blue-400 to-indigo-500" },
-  { icon: "fab fa-node-js", name: "Node.js", category: "Backend Systems", level: 90, color: "from-green-400 to-emerald-500" },
-  { icon: "fas fa-database", name: "PostgreSQL", category: "Data Architecture", level: 88, color: "from-purple-400 to-violet-500" },
-  { icon: "fas fa-robot", name: "AI/ML", category: "Neural Networks", level: 85, color: "from-pink-400 to-rose-500" },
-  { icon: "fab fa-python", name: "Python", category: "AI Development", level: 87, color: "from-orange-400 to-red-500" },
-  { icon: "fab fa-docker", name: "Docker", category: "DevOps", level: 82, color: "from-teal-400 to-cyan-500" },
-  { icon: "fas fa-server", name: "Proxmox", category: "Infrastructure", level: 80, color: "from-indigo-400 to-purple-500" },
-  { icon: "fab fa-bitcoin", name: "Blockchain", category: "Distributed Systems", level: 78, color: "from-yellow-400 to-orange-500" },
-  { icon: "fas fa-shield-alt", name: "Security", category: "OWASP Standards", level: 84, color: "from-red-400 to-pink-500" },
-  { icon: "fas fa-vr-cardboard", name: "VR Research", category: "Digital Consciousness", level: 90, color: "from-violet-400 to-purple-500" },
-  { icon: "fas fa-infinity", name: "Philosophy", category: "Classical Learning", level: 95, color: "from-emerald-400 to-teal-500" }
+  { icon: "fab fa-react", name: "React 18", category: "Frontend Architecture", level: 95, color: "from-cyan-400 to-blue-500", vibecoding: "Component purity with philosophical clarity" },
+  { icon: "fab fa-js-square", name: "TypeScript", category: "Type Safety", level: 92, color: "from-blue-400 to-indigo-500", vibecoding: "Ontological certainty in code" },
+  { icon: "fas fa-paint-brush", name: "Glassmorphism", category: "6-Container Framework", level: 90, color: "from-green-400 to-emerald-500", vibecoding: "Visual harmony through design systems" },
+  { icon: "fas fa-shield-alt", name: "OWASP/ISO 27001", category: "Enterprise Security", level: 88, color: "from-red-400 to-pink-500", vibecoding: "Complete vulnerability protection" },
+  { icon: "fas fa-robot", name: "Multi-LLM AI", category: "Orchestration Systems", level: 85, color: "from-pink-400 to-rose-500", vibecoding: "Intelligence cross-empowerment" },
+  { icon: "fas fa-tachometer-alt", name: "Performance Engineering", category: "Resource Optimization", level: 87, color: "from-orange-400 to-red-500", vibecoding: "380MB peak, 60fps achievements" },
+  { icon: "fas fa-universal-access", name: "WCAG AAA", category: "Accessibility Excellence", level: 90, color: "from-purple-400 to-violet-500", vibecoding: "Human dignity in design" },
+  { icon: "fas fa-cloud", name: "Cloudflare Edge", category: "Global Distribution", level: 82, color: "from-teal-400 to-cyan-500", vibecoding: "Edge computing optimization" },
+  { icon: "fas fa-gem", name: "Authentic Branding", category: "Mystical Aesthetics", level: 88, color: "from-indigo-400 to-purple-500", vibecoding: "Wooden sign to digital harmony" },
+  { icon: "fas fa-infinity", name: "Classical Philosophy", category: "Socratic Methods", level: 95, color: "from-emerald-400 to-teal-500", vibecoding: "Ancient wisdom in modern code" },
+  { icon: "fas fa-vr-cardboard", name: "VR Research", category: "Digital Consciousness", level: 90, color: "from-violet-400 to-purple-500", vibecoding: "Exploring virtual reality ethics" },
+  { icon: "fas fa-crosshairs", name: "5GW Defense", category: "Information Warfare", level: 84, color: "from-yellow-400 to-orange-500", vibecoding: "Truth preservation frameworks" }
 ];
 
 export default function SkillsSection() {
@@ -101,7 +101,14 @@ export default function SkillsSection() {
                 </div>
                 
                 <h3 className="text-xl font-bold text-cyan-300 mb-2">{skill.name}</h3>
-                <p className="text-cyan-100/80 text-sm mb-4">{skill.category}</p>
+                <p className="text-cyan-100/80 text-sm mb-3">{skill.category}</p>
+                
+                {/* VibeCoding Philosophy */}
+                <div className="mb-4 p-3 bg-gradient-to-r from-purple-900/20 to-cyan-900/20 rounded-lg border border-purple-400/20">
+                  <p className="text-xs text-purple-200 italic">
+                    {skill.vibecoding}
+                  </p>
+                </div>
                 
                 {/* Skill Level Bar */}
                 <div className="w-full h-2 bg-blue-900/50 rounded-full overflow-hidden">
@@ -117,29 +124,32 @@ export default function SkillsSection() {
             ))}
           </div>
 
-          {/* Expertise Categories */}
+          {/* VibeCoding Expertise Categories */}
           <div className="grid lg:grid-cols-3 gap-8">
             {[
               {
-                title: "Frontend Mastery",
-                icon: "fas fa-desktop",
-                description: "Architecting responsive, performant user interfaces with React, TypeScript, and cutting-edge UI libraries",
-                technologies: ["React", "TypeScript", "Next.js", "Tailwind CSS", "Framer Motion"],
-                color: "from-cyan-400 to-blue-500"
+                title: "Glassmorphism Architecture",
+                icon: "fas fa-gem",
+                description: "Revolutionary 6-container harmonized design framework achieving 60fps performance with enterprise glassmorphism effects and brand-consistent color integration",
+                technologies: ["Turquoise/Green Branding", "GPU-Accelerated Animations", "Premium Gradients", "Backdrop Filters", "Memory Optimization"],
+                color: "from-cyan-400 to-blue-500",
+                vibecoding: "Visual harmony through systematic design philosophy"
               },
               {
-                title: "Backend Engineering",
-                icon: "fas fa-server",
-                description: "Building scalable server architectures with Node.js, Python, and robust database systems",
-                technologies: ["Node.js", "Python", "PostgreSQL", "Docker", "Microservices"],
-                color: "from-purple-400 to-pink-500"
+                title: "Security Compliance",
+                icon: "fas fa-shield-alt",
+                description: "Complete OWASP Top 10 2021 and ISO 27001:2022 implementation with cryptographic protection, multi-layer validation, and enterprise-grade vulnerability assessment",
+                technologies: ["OWASP Top 10", "ISO 27001", "Input Sanitization", "CSRF Protection", "Cryptographic Controls"],
+                color: "from-red-400 to-pink-500",
+                vibecoding: "Security as philosophical imperative for digital trust"
               },
               {
-                title: "VR & Philosophy",
-                icon: "fas fa-infinity",
-                description: "Exploring digital consciousness through VR research and classical philosophical frameworks",
-                technologies: ["VRChat Research", "Digital Presence", "Classical Learning", "Consciousness Studies", "Spatial Audio"],
-                color: "from-green-400 to-teal-500"
+                title: "AI-First Orchestration",
+                icon: "fas fa-robot",
+                description: "Multi-LLM intelligence cross-empowerment with 30+ open-source models, edge computing optimization, and privacy-compliant Canadian data handling",
+                technologies: ["Multi-LLM Systems", "Edge Computing", "Cloudflare KV", "Privacy Compliance", "Quantum State Management"],
+                color: "from-green-400 to-teal-500",
+                vibecoding: "Ancient wisdom meets artificial intelligence"
               }
             ].map((category, index) => (
               <div key={category.title} className="holo-panel p-8 rounded-3xl border border-cyan-400/50 gacha-shine">
@@ -148,13 +158,24 @@ export default function SkillsSection() {
                 </div>
                 
                 <h3 className="text-2xl font-bold text-cyan-300 mb-4">{category.title}</h3>
-                <p className="text-cyan-100 mb-6 leading-relaxed">{category.description}</p>
+                <p className="text-cyan-100 mb-4 leading-relaxed">{category.description}</p>
+                
+                {/* VibeCoding Philosophy */}
+                <div className="mb-6 p-3 bg-gradient-to-r from-purple-900/20 to-cyan-900/20 rounded-lg border border-purple-400/20">
+                  <div className="flex items-center mb-1">
+                    <i className="fas fa-lightbulb text-yellow-400 mr-2 text-xs"></i>
+                    <span className="text-xs text-purple-300 font-semibold">VibeCoding</span>
+                  </div>
+                  <p className="text-xs text-purple-200 italic">
+                    {category.vibecoding}
+                  </p>
+                </div>
                 
                 <div className="space-y-2">
                   {category.technologies.map((tech) => (
                     <div key={tech} className="flex items-center">
                       <div className="w-2 h-2 bg-cyan-400 rounded-full mr-3"></div>
-                      <span className="text-cyan-100">{tech}</span>
+                      <span className="text-cyan-100 text-sm">{tech}</span>
                     </div>
                   ))}
                 </div>
