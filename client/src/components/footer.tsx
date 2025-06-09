@@ -15,7 +15,7 @@ export default function Footer() {
         </div>
         
         <div className="mt-8 pt-8 border-t border-[var(--synthwave-cyan)]/20 text-center text-gray-500 text-xs md:text-sm">
-          <p>&copy; 2024 reverb256. Crafted with classical wisdom and cybernetic precision.</p>
+          <p>&copy; 2025 reverb256. Crafted with classical wisdom and cybernetic precision.</p>
         </div>
       </div>
     </footer>
