@@ -5,113 +5,206 @@ export default function AboutSection() {
 
   return (
     <section id="about" className="py-20 relative min-h-screen overflow-hidden" ref={elementRef}>
-      {/* Cybernetic Abstract Background */}
-      <div className="absolute inset-0">
-        {/* Base gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/30 via-purple-900/25 to-blue-900/20" />
-        
-        {/* Futuristic workspace environment */}
+      {/* Layered Cybernetic Background */}
+      <div className="absolute inset-0 z-0">
+        {/* Primary cosmic workspace */}
         <div 
-          className="absolute inset-0 opacity-50"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat" 
           style={{
             backgroundImage: `url('/attached_assets/image_1749437115515.png')`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-            filter: 'brightness(0.6) contrast(1.2)'
+            filter: 'brightness(0.3) saturate(1.4)',
           }}
         />
         
-        {/* Blue light streams */}
+        {/* Digital stream overlay */}
         <div 
-          className="absolute inset-0 opacity-35 mix-blend-soft-light"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat mix-blend-screen opacity-25" 
           style={{
-            backgroundImage: `url('/attached_assets/image_1749437219730.png')`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat'
+            backgroundImage: `url('/attached_assets/image_1749437226380.png')`,
           }}
         />
         
-        {/* Circuit patterns accent */}
+        {/* Holographic accent */}
         <div 
-          className="absolute top-20 right-20 w-80 h-80 opacity-20 animate-pulse"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat mix-blend-overlay opacity-15" 
           style={{
-            backgroundImage: `url('/attached_assets/image_1749437231414.png')`,
-            backgroundSize: 'contain',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-            animationDuration: '6s'
+            backgroundImage: `url('/attached_assets/image_1749437242188.png')`,
           }}
         />
-        
-        {/* Energy crystals */}
-        <div 
-          className="absolute bottom-20 left-20 w-64 h-64 opacity-25 animate-pulse"
-          style={{
-            backgroundImage: `url('/attached_assets/image_1749437206205.png')`,
-            backgroundSize: 'contain',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-            animationDuration: '8s',
-            animationDelay: '2s'
-          }}
-        />
-        
-        {/* Prismatic particle overlay */}
-        <div className="absolute inset-0 particle-bg bg-gradient-to-b from-transparent via-blue-950/10 to-blue-950/25" />
       </div>
-      
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="max-w-4xl mx-auto">
-          <h2 className={`font-bold text-3xl md:text-4xl lg:text-5xl mb-12 text-center bg-gradient-to-r from-cyan-300 via-purple-300 to-pink-300 bg-clip-text text-transparent fade-in-up ${isVisible ? 'animate' : ''}`}>
-            <i className="fas fa-atom mr-4 text-cyan-400"></i>Digital Architect
-          </h2>
+
+      {/* Cybernetic Grid Overlay */}
+      <div className="absolute inset-0 cyber-grid opacity-30 z-5"></div>
+
+      {/* Floating Quantum Particles */}
+      <div className="absolute inset-0 z-10 pointer-events-none">
+        {[...Array(15)].map((_, i) => (
+          <div
+            key={i}
+            className="quantum-particle"
+            style={{
+              left: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 6}s`,
+              animationDuration: `${4 + Math.random() * 4}s`
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="container mx-auto px-6 relative z-20">
+        <div className="max-w-6xl mx-auto">
           
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div className={`prismatic-glass p-6 md:p-8 rounded-2xl spectrum-border gacha-shine fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.2s' }}>
-              <h3 className="text-xl md:text-2xl font-semibold text-[var(--bright-blue)] mb-4">
-                <i className="fas fa-code mr-3 text-[var(--synthwave-cyan)]"></i>
-                The VibeCoding Journey
-              </h3>
-              <p className="text-gray-300 mb-4">
-                From the frozen landscapes of Canada emerges a developer who bridges the ancient wisdom of philosophy 
-                with the blazing frontier of modern technology. Every line of code becomes a meditation on possibility, 
-                every algorithm a step toward digital enlightenment.
-              </p>
-              <p className="text-gray-300">
-                Through years of crafting solutions that honor both innovation and human dignity, 
-                I have cultivated a practice where technical excellence serves deeper purpose.
-              </p>
+          {/* Section Header */}
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center justify-center px-6 py-3 holo-panel rounded-full border border-cyan-400/50 mb-8">
+              <i className="fas fa-user-astronaut text-cyan-400 mr-3"></i>
+              <span className="text-cyan-300 text-sm font-medium">ARCHITECT_PROFILE</span>
             </div>
             
-            <div className={`prismatic-glass p-6 md:p-8 rounded-2xl spectrum-border gacha-shine fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.4s' }}>
-              <h3 className="text-xl md:text-2xl font-semibold text-cyan-300 mb-4">
-                <i className="fas fa-gamepad mr-3 text-pink-400"></i>
-                Virtual Realms Explorer
-              </h3>
-              <p className="text-gray-300 mb-4">
-                In VRChat's infinite worlds, I discover the profound truth that digital presence can be 
-                as meaningful as physical existence. Each virtual encounter teaches new lessons about 
-                connection, creativity, and the boundless nature of human imagination.
-              </p>
-              <p className="text-gray-300">
-                Gaming becomes more than entertainment—it transforms into a laboratory for understanding 
-                human interaction, community building, and the future of digital society.
-              </p>
-            </div>
+            <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 font-space">
+              <span className="holo-text">About</span>
+            </h2>
           </div>
-          
-          <div className={`prismatic-glass p-6 md:p-8 rounded-2xl spectrum-border gacha-shine mt-8 text-center fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.6s' }}>
-            <h3 className="text-xl md:text-2xl font-semibold text-cyan-300 mb-4">
-              <i className="fas fa-infinity mr-3 text-yellow-400"></i>
-              Philosophy Meets Technology
-            </h3>
-            <p className="text-lg text-gray-300">
-              Where classical thought traditions converge with quantum computing possibilities, 
-              where ancient ethical frameworks guide artificial intelligence development, 
-              and where every technological choice reflects a deeper commitment to human flourishing.
-            </p>
+
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            
+            {/* Left Column - Bio Content */}
+            <div className="space-y-8">
+              
+              {/* Main Bio Panel */}
+              <div className="holo-panel p-8 rounded-3xl border border-cyan-400/50 gacha-shine energy-flow">
+                <h3 className="text-2xl md:text-3xl font-bold text-cyan-300 mb-6 flex items-center">
+                  <i className="fas fa-brain text-cyan-400 mr-4"></i>
+                  Neural Architecture
+                </h3>
+                
+                <p className="text-lg text-cyan-100 leading-relaxed mb-6">
+                  Canadian architect of convergent technologies, orchestrating the cross-empowerment of classical wisdom and revolutionary AI systems. My digital realm spans from philosophical exploration to technological mastery—each line of code an expression of humanity's infinite potential through technological convergence.
+                </p>
+                
+                <p className="text-lg text-cyan-100 leading-relaxed">
+                  Through years of synthesis between ancient philosophical frameworks and cutting-edge neural architectures, I've developed a unique approach to digital creation that honors both the spiritual depth of classical thought and the transformative power of modern technology.
+                </p>
+              </div>
+
+              {/* Core Values Grid */}
+              <div className="grid md:grid-cols-2 gap-6">
+                {[
+                  {
+                    icon: "fas fa-infinity",
+                    title: "Infinite Potential",
+                    description: "Every project is an exploration of limitless possibility",
+                    color: "from-cyan-400 to-blue-500"
+                  },
+                  {
+                    icon: "fas fa-atom",
+                    title: "Quantum Thinking",
+                    description: "Solutions exist in superposition until observed",
+                    color: "from-purple-400 to-pink-500"
+                  },
+                  {
+                    icon: "fas fa-network-wired",
+                    title: "Neural Networks",
+                    description: "Connecting wisdom across time and technology",
+                    color: "from-green-400 to-teal-500"
+                  },
+                  {
+                    icon: "fas fa-eye",
+                    title: "Future Vision",
+                    description: "Architecting tomorrow's digital landscapes",
+                    color: "from-orange-400 to-red-500"
+                  }
+                ].map((value, index) => (
+                  <div key={value.title} className="holo-panel p-6 rounded-2xl border border-cyan-400/30 gacha-shine">
+                    <div className={`w-12 h-12 rounded-full bg-gradient-to-r ${value.color} flex items-center justify-center mb-4`}>
+                      <i className={`${value.icon} text-white`}></i>
+                    </div>
+                    <h4 className="text-xl font-bold text-cyan-300 mb-3">{value.title}</h4>
+                    <p className="text-cyan-100">{value.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Right Column - Interactive Elements */}
+            <div className="space-y-8">
+              
+              {/* Neural Network Visualization */}
+              <div className="holo-panel p-8 rounded-3xl border border-cyan-400/50 gacha-shine">
+                <h3 className="text-2xl font-bold text-cyan-300 mb-6 flex items-center">
+                  <i className="fas fa-project-diagram text-cyan-400 mr-4"></i>
+                  Neural Pathways
+                </h3>
+                
+                <div className="relative h-64">
+                  {/* Neural Network Nodes */}
+                  <div className="absolute top-4 left-8 w-4 h-4 neural-node rounded-full"></div>
+                  <div className="absolute top-16 right-8 w-3 h-3 neural-node rounded-full" style={{ animationDelay: '0.5s' }}></div>
+                  <div className="absolute bottom-16 left-12 w-5 h-5 neural-node rounded-full" style={{ animationDelay: '1s' }}></div>
+                  <div className="absolute bottom-8 right-12 w-4 h-4 neural-node rounded-full" style={{ animationDelay: '1.5s' }}></div>
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-6 neural-node rounded-full" style={{ animationDelay: '2s' }}></div>
+                  
+                  {/* Central Processing Core */}
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                    <div className="w-20 h-20 rounded-full border-2 border-cyan-400/50 flex items-center justify-center">
+                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center">
+                        <i className="fas fa-microchip text-white"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="space-y-3 mt-6">
+                  {['Logic Processing', 'Creative Synthesis', 'Pattern Recognition', 'Quantum Reasoning'].map((process, index) => (
+                    <div key={process} className="flex items-center justify-between">
+                      <span className="text-cyan-100">{process}</span>
+                      <div className="w-24 h-2 bg-blue-900/50 rounded-full overflow-hidden">
+                        <div 
+                          className="h-full bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full transition-all duration-2000"
+                          style={{ 
+                            width: `${85 + index * 5}%`,
+                            animationDelay: `${index * 0.5}s`
+                          }}
+                        ></div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Current Status Panel */}
+              <div className="holo-panel p-6 rounded-2xl border border-cyan-400/50 gacha-shine">
+                <h3 className="text-xl font-bold text-cyan-300 mb-4 flex items-center">
+                  <i className="fas fa-satellite text-cyan-400 mr-3"></i>
+                  Current Status
+                </h3>
+                
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center">
+                    <span className="text-cyan-100">Location</span>
+                    <span className="text-cyan-400">Canada</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-cyan-100">System Status</span>
+                    <span className="text-green-400 flex items-center">
+                      <div className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></div>
+                      ONLINE
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-cyan-100">Neural Link</span>
+                    <span className="text-cyan-400">100%</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-cyan-100">Philosophy Engine</span>
+                    <span className="text-purple-400 flex items-center">
+                      <div className="w-2 h-2 bg-purple-400 rounded-full mr-2 animate-pulse"></div>
+                      CONTEMPLATING
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

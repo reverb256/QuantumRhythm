@@ -1,160 +1,262 @@
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+import { Button } from "@/components/ui/button";
+
+const projects = [
+  {
+    title: "Troves & Coves",
+    subtitle: "Mystical Crystal E-commerce",
+    description: "Sacred crystal sanctuary where mystical brand identity merges with cutting-edge e-commerce architecture. AI-enhanced platform channeling spiritual energy through sophisticated product catalogs.",
+    image: "/attached_assets/image_1749437249135.png",
+    technologies: ["React", "TypeScript", "E-commerce", "AI Integration", "Mystical UX"],
+    status: "Production",
+    link: "#",
+    color: "from-purple-400 to-pink-500"
+  },
+  {
+    title: "Frostbite Gazette",
+    subtitle: "AI Journalism Platform",
+    description: "Revolutionary Canadian civic engagement platform combining classical analysis engines with democratic discourse. Features political accountability systems and AI-driven journalism ethics.",
+    image: "/attached_assets/image_1749437252454.png",
+    technologies: ["Next.js", "AI Analysis", "Political Engine", "Ethics Framework", "Democratic UX"],
+    status: "Active Development",
+    link: "#",
+    color: "from-cyan-400 to-blue-500"
+  },
+  {
+    title: "VibeCoding Methodology",
+    subtitle: "Development Philosophy",
+    description: "Comprehensive development methodology merging philosophical depth with technical excellence. A complete framework for creating software that honors both functionality and spiritual consciousness.",
+    image: "/attached_assets/image_1749437257761.png",
+    technologies: ["Philosophy", "Methodology", "Best Practices", "Spiritual Tech", "Innovation"],
+    status: "Framework",
+    link: "#",
+    color: "from-green-400 to-teal-500"
+  },
+  {
+    title: "Neural Architecture Suite",
+    subtitle: "AI Development Tools",
+    description: "Advanced toolkit for building neural networks and AI systems with philosophical grounding. Combines cutting-edge machine learning with classical wisdom frameworks.",
+    image: "/attached_assets/image_1749437265529.png",
+    technologies: ["Python", "TensorFlow", "Neural Networks", "Philosophy AI", "Consciousness"],
+    status: "Research",
+    link: "#",
+    color: "from-orange-400 to-red-500"
+  }
+];
 
 export default function ProjectsSection() {
   const { elementRef, isVisible } = useScrollAnimation();
 
   return (
-    <section id="projects" className="py-20 relative" ref={elementRef}>
-      {/* Ice crystal burst background */}
-      <div className="absolute inset-0 opacity-20">
-        <img 
-          src="/images/ice_crystal_burst.png" 
-          alt="Crystal energy formations" 
-          className="w-full h-full object-cover" 
+    <section id="projects" className="py-20 relative min-h-screen overflow-hidden" ref={elementRef}>
+      {/* Layered Cybernetic Background */}
+      <div className="absolute inset-0 z-0">
+        {/* Primary cosmic data streams */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat" 
+          style={{
+            backgroundImage: `url('/attached_assets/image_1749437274417.png')`,
+            filter: 'brightness(0.25) saturate(1.3)',
+          }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[var(--deep-space)]/90 to-[var(--cyber-blue)]/90"></div>
+        
+        {/* Digital architecture overlay */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat mix-blend-screen opacity-20" 
+          style={{
+            backgroundImage: `url('/attached_assets/image_1749437295296.png')`,
+          }}
+        />
+        
+        {/* Holographic circuit accent */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat mix-blend-overlay opacity-15" 
+          style={{
+            backgroundImage: `url('/attached_assets/image_1749437315258.png')`,
+          }}
+        />
       </div>
-      <div className="container mx-auto px-6 relative z-10">
-        <h2 className={`font-bold text-3xl md:text-4xl lg:text-5xl text-center mb-12 text-[var(--synthwave-cyan)] fade-in-up ${isVisible ? 'animate' : ''}`}>
-          <i className="fas fa-rocket mr-4"></i>Enterprise Projects
-        </h2>
-        
-        <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-          {/* Troves & Coves Project */}
-          <div className={`glass-morphism p-6 md:p-8 rounded-2xl cyber-border hover:shadow-xl hover:shadow-[var(--synthwave-cyan)]/20 transition-all duration-500 fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.2s' }}>
-            <div className="flex items-center mb-6">
-              <div className="hexagon w-12 h-12 md:w-16 md:h-16 bg-gradient-to-r from-[var(--synthwave-pink)] to-[var(--synthwave-gold)] mr-4 flex items-center justify-center">
-                <i className="fas fa-gem text-[var(--space-black)] text-lg md:text-xl"></i>
-              </div>
-              <div>
-                <h3 className="font-semibold text-xl md:text-2xl text-[var(--bright-blue)]">Troves & Coves</h3>
-                <p className="text-gray-400 text-sm md:text-base">Crystal Jewelry E-commerce</p>
-              </div>
-            </div>
-            
-            <img 
-              src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400" 
-              alt="Luxury crystal jewelry display" 
-              className="w-full h-40 md:h-48 object-cover rounded-lg mb-6" 
-            />
-            
-            <p className="text-gray-300 mb-6 text-sm md:text-base">
-              Sacred crystal sanctuary where mystical brand identity merges with cutting-edge e-commerce architecture. 
-              This AI-enhanced platform channels spiritual energy through sophisticated product catalogs, 
-              transforming ancient crystal wisdom into modern digital experiences that honor both commerce and consciousness.
-            </p>
-            
-            <div className="flex flex-wrap gap-2 mb-6">
-              <span className="px-3 py-1 bg-[var(--primary-blue)]/20 text-[var(--synthwave-cyan)] rounded-full text-xs md:text-sm">React</span>
-              <span className="px-3 py-1 bg-[var(--primary-blue)]/20 text-[var(--synthwave-cyan)] rounded-full text-xs md:text-sm">TypeScript</span>
-              <span className="px-3 py-1 bg-[var(--primary-blue)]/20 text-[var(--synthwave-cyan)] rounded-full text-xs md:text-sm">E-commerce</span>
-              <span className="px-3 py-1 bg-[var(--primary-blue)]/20 text-[var(--synthwave-cyan)] rounded-full text-xs md:text-sm">AI Integration</span>
-            </div>
-            
-            <div className="flex gap-4">
-              <a 
-                href="https://www.trovesandcoves.ca/" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="bg-gradient-to-r from-[var(--synthwave-pink)] to-[var(--synthwave-gold)] text-[var(--space-black)] px-4 md:px-6 py-2 rounded-full font-medium hover:shadow-lg hover:shadow-[var(--synthwave-pink)]/50 transition-all duration-300 text-sm md:text-base"
-              >
-                Live Site
-              </a>
-              <a 
-                href="https://github.com/reverb256/troves-coves" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="btn-glass px-4 md:px-6 py-2 rounded-full transition-all duration-300 text-sm md:text-base"
-              >
-                <i className="fab fa-github mr-2"></i>Code
-              </a>
-            </div>
-          </div>
+
+      {/* Cybernetic Grid Overlay */}
+      <div className="absolute inset-0 cyber-grid opacity-25 z-5"></div>
+
+      {/* Floating Quantum Particles */}
+      <div className="absolute inset-0 z-10 pointer-events-none">
+        {[...Array(18)].map((_, i) => (
+          <div
+            key={i}
+            className="quantum-particle"
+            style={{
+              left: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 10}s`,
+              animationDuration: `${8 + Math.random() * 4}s`
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="container mx-auto px-6 relative z-20">
+        <div className="max-w-7xl mx-auto">
           
-          {/* Workplace Janitorial Project */}
-          <div className={`glass-morphism p-6 md:p-8 rounded-2xl cyber-border hover:shadow-xl hover:shadow-[var(--bright-blue)]/20 transition-all duration-500 fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.4s' }}>
-            <div className="flex items-center mb-6">
-              <div className="hexagon w-12 h-12 md:w-16 md:h-16 bg-gradient-to-r from-[var(--bright-blue)] to-[var(--synthwave-cyan)] mr-4 flex items-center justify-center">
-                <i className="fas fa-building text-[var(--space-black)] text-lg md:text-xl"></i>
-              </div>
-              <div>
-                <h3 className="font-semibold text-xl md:text-2xl text-[var(--bright-blue)]">Workplace Janitorial</h3>
-                <p className="text-gray-400 text-sm md:text-base">Commercial Cleaning Platform</p>
-              </div>
+          {/* Section Header */}
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center justify-center px-6 py-3 holo-panel rounded-full border border-cyan-400/50 mb-8">
+              <i className="fas fa-rocket text-cyan-400 mr-3"></i>
+              <span className="text-cyan-300 text-sm font-medium">DIGITAL_ARCHITECTURES</span>
             </div>
             
-            <img 
-              src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400" 
-              alt="Modern office building with glass facade" 
-              className="w-full h-40 md:h-48 object-cover rounded-lg mb-6" 
-            />
+            <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 font-space">
+              <span className="holo-text">Projects</span>
+            </h2>
             
-            <p className="text-gray-300 mb-6 text-sm md:text-base">
-              Enterprise fortress of commercial excellence wielding WCAG AAA compliance mastery, 
-              AI-powered conversational intelligence, and fortress-grade OWASP security architecture. 
-              This Winnipeg-rooted platform embodies the complete VibeCoding methodology in production-ready magnificence.
+            <p className="text-xl text-cyan-100 max-w-3xl mx-auto">
+              Convergent digital experiences where philosophical depth meets technological innovation
             </p>
-            
-            <div className="flex flex-wrap gap-2 mb-6">
-              <span className="px-3 py-1 bg-[var(--primary-blue)]/20 text-[var(--synthwave-cyan)] rounded-full text-xs md:text-sm">VibeCoding</span>
-              <span className="px-3 py-1 bg-[var(--primary-blue)]/20 text-[var(--synthwave-cyan)] rounded-full text-xs md:text-sm">WCAG AAA</span>
-              <span className="px-3 py-1 bg-[var(--primary-blue)]/20 text-[var(--synthwave-cyan)] rounded-full text-xs md:text-sm">OWASP</span>
-              <span className="px-3 py-1 bg-[var(--primary-blue)]/20 text-[var(--synthwave-cyan)] rounded-full text-xs md:text-sm">AI Chat</span>
-            </div>
-            
-            <div className="flex gap-4">
-              <a 
-                href="https://github.com/reverb256/Local-Cleaning-Service" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="bg-gradient-to-r from-[var(--bright-blue)] to-[var(--synthwave-cyan)] text-[var(--space-black)] px-4 md:px-6 py-2 rounded-full font-medium hover:shadow-lg hover:shadow-[var(--bright-blue)]/50 transition-all duration-300 text-sm md:text-base"
-              >
-                View Project
-              </a>
-              <button className="btn-glass px-4 md:px-6 py-2 rounded-full transition-all duration-300 text-sm md:text-base">
-                <i className="fas fa-external-link-alt mr-2"></i>Demo
-              </button>
-            </div>
           </div>
-        </div>
-        
-        {/* VibeCoding Methodology Highlight */}
-        <div className={`max-w-4xl mx-auto mt-12 fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.6s' }}>
-          <div className="glass-morphism p-6 md:p-8 rounded-2xl cyber-border animate-pulse-glow">
-            <div className="text-center">
-              <h3 className="font-bold text-2xl md:text-3xl mb-4 text-[var(--synthwave-gold)]">
-                <i className="fas fa-dna mr-3"></i>The VibeCoding Process
-              </h3>
-              <p className="text-lg md:text-xl text-gray-300 mb-6">
-                A revolutionary web development methodology combining authentic business analysis, 
-                accessibility-first design, AI orchestration, and enterprise security frameworks.
-              </p>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="text-center">
-                  <div className="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-r from-[var(--synthwave-cyan)] to-[var(--bright-blue)] rounded-full mx-auto mb-3 flex items-center justify-center">
-                    <i className="fas fa-search text-[var(--space-black)] text-lg md:text-xl"></i>
+
+          {/* Featured Projects Grid */}
+          <div className="grid lg:grid-cols-2 gap-8 mb-16">
+            {projects.map((project, index) => (
+              <div 
+                key={project.title} 
+                className="holo-panel p-8 rounded-3xl border border-cyan-400/50 gacha-shine energy-flow group hover:border-cyan-400/70 transition-all duration-500"
+                style={{ animationDelay: `${index * 0.2}s` }}
+              >
+                {/* Project Image */}
+                <div className="relative overflow-hidden rounded-2xl mb-6">
+                  <img 
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                  
+                  {/* Status Badge */}
+                  <div className="absolute top-4 right-4">
+                    <span className={`px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r ${project.color} text-white`}>
+                      {project.status}
+                    </span>
                   </div>
-                  <h4 className="font-semibold text-[var(--synthwave-cyan)] text-sm md:text-base">Discovery</h4>
                 </div>
-                <div className="text-center">
-                  <div className="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-r from-[var(--bright-blue)] to-[var(--primary-blue)] rounded-full mx-auto mb-3 flex items-center justify-center">
-                    <i className="fas fa-shield-alt text-[var(--space-black)] text-lg md:text-xl"></i>
+
+                {/* Project Header */}
+                <div className="flex items-start justify-between mb-4">
+                  <div>
+                    <h3 className="text-2xl font-bold text-cyan-300 mb-2">{project.title}</h3>
+                    <p className="text-cyan-100/80">{project.subtitle}</p>
                   </div>
-                  <h4 className="font-semibold text-[var(--bright-blue)] text-sm md:text-base">Security</h4>
+                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${project.color} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                    <i className="fas fa-code text-white"></i>
+                  </div>
                 </div>
-                <div className="text-center">
-                  <div className="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-r from-[var(--primary-blue)] to-[var(--synthwave-pink)] rounded-full mx-auto mb-3 flex items-center justify-center">
-                    <i className="fas fa-universal-access text-[var(--space-black)] text-lg md:text-xl"></i>
-                  </div>
-                  <h4 className="font-semibold text-[var(--primary-blue)] text-sm md:text-base">Accessibility</h4>
+
+                {/* Description */}
+                <p className="text-cyan-100 leading-relaxed mb-6">
+                  {project.description}
+                </p>
+
+                {/* Technology Stack */}
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {project.technologies.map((tech) => (
+                    <span 
+                      key={tech} 
+                      className="px-3 py-1 bg-blue-900/30 border border-cyan-400/30 text-cyan-300 rounded-full text-sm"
+                    >
+                      {tech}
+                    </span>
+                  ))}
                 </div>
-                <div className="text-center">
-                  <div className="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-r from-[var(--synthwave-pink)] to-[var(--synthwave-gold)] rounded-full mx-auto mb-3 flex items-center justify-center">
-                    <i className="fas fa-robot text-[var(--space-black)] text-lg md:text-xl"></i>
-                  </div>
-                  <h4 className="font-semibold text-[var(--synthwave-pink)] text-sm md:text-base">AI Integration</h4>
+
+                {/* Action Buttons */}
+                <div className="flex gap-4">
+                  <Button 
+                    className={`flex-1 bg-gradient-to-r ${project.color} hover:opacity-90 text-white border-0`}
+                  >
+                    <i className="fas fa-external-link-alt mr-2"></i>
+                    View Project
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    className="border-cyan-400/50 text-cyan-300 hover:bg-cyan-400/10"
+                  >
+                    <i className="fab fa-github mr-2"></i>
+                    Code
+                  </Button>
                 </div>
               </div>
+            ))}
+          </div>
+
+          {/* Project Categories */}
+          <div className="grid md:grid-cols-3 gap-8 mb-16">
+            {[
+              {
+                title: "E-commerce Platforms",
+                icon: "fas fa-shopping-cart",
+                description: "Sophisticated retail experiences with mystical brand integration and AI-powered personalization",
+                count: 3,
+                color: "from-purple-400 to-pink-500"
+              },
+              {
+                title: "AI & Analytics",
+                icon: "fas fa-brain",
+                description: "Neural networks and machine learning systems with philosophical consciousness frameworks",
+                count: 5,
+                color: "from-cyan-400 to-blue-500"
+              },
+              {
+                title: "Developer Tools",
+                icon: "fas fa-tools",
+                description: "Methodologies and frameworks merging technical excellence with spiritual wisdom",
+                count: 4,
+                color: "from-green-400 to-teal-500"
+              }
+            ].map((category, index) => (
+              <div key={category.title} className="holo-panel p-8 rounded-3xl border border-cyan-400/50 gacha-shine text-center">
+                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${category.color} flex items-center justify-center mx-auto mb-6`}>
+                  <i className={`${category.icon} text-white text-2xl`}></i>
+                </div>
+                
+                <h3 className="text-2xl font-bold text-cyan-300 mb-4">{category.title}</h3>
+                <p className="text-cyan-100 mb-6 leading-relaxed">{category.description}</p>
+                
+                <div className="flex items-center justify-center">
+                  <span className="text-3xl font-bold text-cyan-400 mr-2">{category.count}</span>
+                  <span className="text-cyan-100">Active Projects</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Development Philosophy */}
+          <div className="holo-panel p-10 rounded-3xl border border-cyan-400/50 gacha-shine">
+            <div className="text-center mb-8">
+              <h3 className="text-3xl font-bold text-cyan-300 mb-4 flex items-center justify-center">
+                <i className="fas fa-lightbulb text-cyan-400 mr-4"></i>
+                Development Philosophy
+              </h3>
+              <p className="text-xl text-cyan-100 max-w-4xl mx-auto leading-relaxed">
+                Every project is an exploration of convergent possibilities—where ancient wisdom meets cutting-edge technology, 
+                where spiritual consciousness guides technical innovation, and where each line of code becomes an expression 
+                of humanity's infinite potential through digital transformation.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-4 gap-6 mt-10">
+              {[
+                { icon: "fas fa-yin-yang", label: "Balance", description: "Harmony between form and function" },
+                { icon: "fas fa-infinity", label: "Infinite", description: "Unlimited potential in every creation" },
+                { icon: "fas fa-atom", label: "Quantum", description: "Superposition of possibilities" },
+                { icon: "fas fa-eye", label: "Vision", description: "Future-focused perspectives" }
+              ].map((principle, index) => (
+                <div key={principle.label} className="text-center group">
+                  <div className="w-16 h-16 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <i className={`${principle.icon} text-white text-xl`}></i>
+                  </div>
+                  <h4 className="text-lg font-bold text-cyan-300 mb-2">{principle.label}</h4>
+                  <p className="text-cyan-100 text-sm">{principle.description}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
