@@ -1789,12 +1789,14 @@ nav:hover {
   height: 100%;
   display: flex;
   flex-direction: column;
+  min-height: 0; /* Allows flex shrinking */
 }
 
 .stretch-content {
   flex: 1;
   display: flex;
   flex-direction: column;
+  min-height: 0;
 }
 
 .auto-grid {
@@ -1803,18 +1805,37 @@ nav:hover {
   gap: 1.5rem;
   align-items: stretch;
   justify-content: space-evenly;
+  width: 100%;
 }
 
 .space-between {
-  justify-content: space-between;
+  justify-content: space-between !important;
 }
 
 .space-evenly {
-  justify-content: space-evenly;
+  justify-content: space-evenly !important;
 }
 
 .align-stretch {
-  align-items: stretch;
+  align-items: stretch !important;
+}
+
+.justify-center {
+  justify-content: center !important;
+}
+
+/* Advanced layout utilities */
+.fill-width {
+  width: 100% !important;
+}
+
+.fill-height {
+  height: 100% !important;
+}
+
+.min-full {
+  min-height: 100% !important;
+  min-width: 100% !important;
 }
 
 /* Container query alternative for better responsiveness */
@@ -1842,11 +1863,28 @@ nav:hover {
   flex-wrap: wrap;
   gap: 1.5rem;
   align-items: stretch;
+  justify-content: center;
+  width: 100%;
 }
 
 .flex-distribute > * {
-  flex: 1 1 min(400px, 100%);
+  flex: 1 1 min(300px, 100%);
   min-width: 0;
+  max-width: 500px;
+}
+
+/* Button specific distribution */
+.flex-distribute.button-container > * {
+  flex: 0 1 auto;
+  min-width: 200px;
+  max-width: 300px;
+}
+
+@media (max-width: 640px) {
+  .flex-distribute > * {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
 }
 
 /* Grid fallback for older browsers */
@@ -1864,6 +1902,53 @@ nav:hover {
   .auto-grid > * {
     flex: 1 1 min(350px, 100%);
   }
+}
+
+/* Section-level intelligent spacing */
+section {
+  width: 100%;
+  position: relative;
+}
+
+.section-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 4rem 1rem;
+}
+
+@media (min-width: 768px) {
+  .section-container {
+    padding: 6rem 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-container {
+    padding: 8rem 3rem;
+  }
+}
+
+/* Prevent layout shift and overflow */
+.layout-stable {
+  contain: layout style;
+  overflow: hidden;
+}
+
+/* Responsive text sizing */
+.responsive-text {
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  line-height: 1.6;
+}
+
+.responsive-heading {
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  line-height: 1.2;
+}
+
+/* Smart gap system */
+.gap-responsive {
+  gap: clamp(1rem, 2vw, 2rem);
 }
 
 /* Categories intelligent grid system */
