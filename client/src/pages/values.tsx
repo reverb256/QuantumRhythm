@@ -7,9 +7,8 @@ export default function Values() {
   const { elementRef, isVisible } = useScrollAnimation();
 
   return (
-    <div className="min-h-screen relative">
+    <div className="min-h-screen bg-[var(--space-black)] text-white">
       <Navigation />
-      <GeometricBackground />
       
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">
@@ -21,22 +20,35 @@ export default function Values() {
           />
         </div>
         
-        <div className="container mx-auto px-6 relative z-10">
+        {/* Quantum Particles */}
+        <div className="absolute inset-0 z-10 pointer-events-none">
+          {[...Array(15)].map((_, i) => (
+            <div
+              key={i}
+              className="quantum-particle"
+              style={{
+                left: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 6}s`,
+                animationDuration: `${4 + Math.random() * 4}s`
+              }}
+            />
+          ))}
+        </div>
+        
+        <div className="container mx-auto px-6 relative z-20">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="font-bold text-4xl md:text-6xl lg:text-7xl mb-6 text-gradient-cyan">
-              Core Values
+            <div className="inline-flex items-center justify-center px-6 py-3 prismatic-glass rounded-full border border-cyan-400/50 mb-8">
+              <i className="fas fa-compass text-cyan-400 mr-3"></i>
+              <span className="text-cyan-300 text-sm font-medium">CORE_VALUES</span>
+            </div>
+            
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 font-space">
+              <span className="holo-text">Core Values</span>
             </h1>
-            <p className="text-xl md:text-2xl mb-8 text-gray-300">
+            
+            <p className="text-xl text-cyan-100 max-w-3xl mx-auto">
               Principles that guide my development philosophy and approach to building meaningful technology
             </p>
-            
-            {/* Values Icon */}
-            <div className="flex justify-center mb-8">
-              <div className="glass-morphism p-4 rounded-xl">
-                <i className="fas fa-compass text-4xl text-cyan-400"></i>
-                <p className="text-sm text-gray-400 mt-2">Guiding Principles</p>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -44,12 +56,12 @@ export default function Values() {
       {/* Core Values */}
       <section className="py-20 relative" ref={elementRef}>
         <div className="container mx-auto px-6">
-          <h2 className={`font-bold text-3xl md:text-4xl text-center mb-16 text-[var(--synthwave-cyan)] fade-in-up ${isVisible ? 'animate' : ''}`}>
-            Development Philosophy
+          <h2 className={`text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 font-space text-center fade-in-up ${isVisible ? 'animate' : ''}`}>
+            <span className="holo-text">Development Philosophy</span>
           </h2>
           
           <div className={`max-w-4xl mx-auto text-center mb-16 fade-in-up ${isVisible ? 'animate' : ''}`}>
-            <div className="glass-morphism p-8 rounded-2xl cyber-border">
+            <div className="holo-panel p-8 rounded-3xl border border-cyan-400/50 gacha-shine">
               <div className="font-mono text-sm text-left bg-[var(--space-black)] p-6 rounded-lg border border-cyan-400/30 shadow-lg shadow-cyan-500/20">
                 <span className="text-[var(--synthwave-pink)]">const</span> <span className="text-[var(--synthwave-cyan)]">developmentValues</span> <span className="text-white">=</span> <span className="text-yellow-400">&#123;</span><br />
                 &nbsp;&nbsp;<span className="text-[var(--synthwave-gold)]">userFirst</span><span className="text-white">:</span> <span className="text-green-400">"accessibility + intuitive_design + meaningful_solutions"</span><span className="text-white">,</span><br />
