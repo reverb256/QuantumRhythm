@@ -61,7 +61,13 @@ interface AutonomousConfig {
 
 class AutonomousTradingAgent {
   private agentId: string;
-  private config: AutonomousConfig;
+  private config: AutonomousConfig = {
+    adaptiveRiskManagement: true,
+    selfOptimizingStrategies: true,
+    autonomousTokenDiscovery: true,
+    intelligentPositionSizing: true,
+    vibeCodingDecisionMaking: true
+  };
   private agentRecord!: TradingAgent;
   private fastCache: FastCache;
   private rssParser: Parser;

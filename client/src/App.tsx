@@ -55,7 +55,7 @@ function Router() {
         <Route path="/" component={Home} />
         <Route path="/values" component={Values} />
         <Route path="/vrchat" component={VRChat} />
-        <Route path="/dashboard" component={TradingDashboard} />
+        <Route path="/dashboard" component={Dashboard} />
         <Route component={NotFound} />
       </Switch>
     </>

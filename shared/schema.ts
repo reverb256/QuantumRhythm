@@ -98,12 +98,14 @@ export const agentPerformanceLogs = pgTable("agent_performance_logs", {
 // VibeCoding Methodology Intelligence
 export const vibeCodingMetrics = pgTable("vibecoding_metrics", {
   id: uuid("id").primaryKey().defaultRandom(),
+  agentId: text("agent_id").notNull(),
   context: text("context").notNull(),
   pizzaKitchenReliability: decimal("pizza_kitchen_reliability", { precision: 5, scale: 4 }).notNull(),
   rhythmGamingPrecision: decimal("rhythm_gaming_precision", { precision: 5, scale: 4 }).notNull(),
   vrChatSocialInsights: decimal("vrchat_social_insights", { precision: 5, scale: 4 }).notNull(),
   classicalPhilosophyWisdom: decimal("classical_philosophy_wisdom", { precision: 5, scale: 4 }).notNull(),
   overallScore: decimal("overall_score", { precision: 5, scale: 4 }).notNull(),
+  timestamp: timestamp("timestamp").defaultNow().notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
@@ -154,10 +156,7 @@ export const agentPerformanceLogsRelations = relations(agentPerformanceLogs, ({ 
 }));
 
 export const vibeCodingMetricsRelations = relations(vibeCodingMetrics, ({ one }) => ({
-  agent: one(tradingAgents, {
-    fields: [vibeCodingMetrics.agentId],
-    references: [tradingAgents.id],
-  }),
+  // Relations removed temporarily to fix schema issues
 }));
 
 export const tradingStrategiesRelations = relations(tradingStrategies, ({ one }) => ({
