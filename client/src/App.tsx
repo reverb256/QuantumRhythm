@@ -9,6 +9,10 @@ import SEOHead, { getSEOForPage } from "@/components/seo-head";
 import { ConsciousContainer } from "@/components/smart-elements";
 import NeuralBackground from "@/components/neural-background";
 import { EnhancedConsole } from "@/components/enhanced-console";
+import { UniversalCursorTooltip } from "@/components/universal-cursor-tooltip";
+import { MetaTagManager, useAISEO } from "@/lib/ai-seo-engine";
+import { ErrorBoundaryFallback } from "@/components/error-state-manager";
+import { ErrorBoundary } from "react-error-boundary";
 
 import Navigation from "@/components/navigation";
 import Home from "@/pages/home";
@@ -62,17 +66,38 @@ function Router() {
 }
 
 function App() {
+  // Initialize AI-powered SEO system
+  const metaManager = MetaTagManager.getInstance();
+  
+  useEffect(() => {
+    // Set global meta tags for the platform
+    metaManager.updateMetaTags({
+      title: 'VibeCoding - Quantum AI Trading & Consciousness Platform',
+      description: 'Advanced AI-powered autonomous trading system integrating quantum consciousness principles and martial arts ethics for secure, intelligent financial operations.',
+      keywords: ['AI trading', 'quantum consciousness', 'autonomous systems', 'blockchain', 'martial arts ethics', 'dojo kun', 'vibecoding'],
+      type: 'website',
+      url: window.location.href
+    });
+  }, [metaManager]);
+
   return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <ConsciousContainer learningRate={0.15}>
-          <NeuralBackground intensity={30} speed={0.5} />
-          <Toaster />
-          <Router />
-          <EnhancedConsole />
-        </ConsciousContainer>
-      </TooltipProvider>
-    </QueryClientProvider>
+    <ErrorBoundary FallbackComponent={ErrorBoundaryFallback}>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <ConsciousContainer learningRate={0.15}>
+            <NeuralBackground 
+              intensity={30} 
+              speed={0.5} 
+              theme="quantum" 
+            />
+            <UniversalCursorTooltip />
+            <Toaster />
+            <Router />
+            <EnhancedConsole />
+          </ConsciousContainer>
+        </TooltipProvider>
+      </QueryClientProvider>
+    </ErrorBoundary>
   );
 }
 
