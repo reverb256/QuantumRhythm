@@ -62,9 +62,12 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <Toaster />
-        <Router />
-        <ConsoleEasterEgg />
+        <ConsciousContainer learningRate={0.15}>
+          <EnhancedConsciousness />
+          <Toaster />
+          <Router />
+          <ConsoleEasterEgg />
+        </ConsciousContainer>
       </TooltipProvider>
     </QueryClientProvider>
   );

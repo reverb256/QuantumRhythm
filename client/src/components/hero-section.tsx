@@ -4,13 +4,15 @@ import { Link } from 'wouter';
 import catboy2025PFP___Copy from "@assets/catboy2025PFP - Copy.png";
 import { QuantumWordTagger, TechTag, ConceptTag, HumorTag } from './ui/quantum-word-tagger';
 import EnhancedConsole from './enhanced-console';
+import { ReactiveSection, AdaptiveText, SmartButton } from './reactive-elements';
 // Using direct path for profile image
 
 export default function HeroSection() {
   const [showConsole, setShowConsole] = useState(false);
   
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
+    <ReactiveSection sectionId="hero" consciousnessLevel={85}>
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
       {/* Layered Background System */}
       <div className="absolute inset-0 z-0">
         {/* Primary Deep Space Background */}
@@ -205,27 +207,36 @@ export default function HeroSection() {
 
           {/* Action Button Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
-            <button 
+            <SmartButton 
+              priority="high"
               onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
-              className="w-full h-16 holo-panel bg-gradient-to-r from-[var(--spectrum-cyan)] to-[var(--spectrum-blue)] hover:from-[var(--spectrum-blue)] hover:to-[var(--spectrum-violet)] text-white rounded-2xl text-lg font-semibold transition-all duration-300 border border-cyan-400/50 shadow-lg shadow-cyan-400/25 hover:shadow-xl hover:shadow-cyan-400/40 gacha-shine electric-trace combo-glow"
             >
-              <i className="fas fa-code mr-3 text-xl"></i>
-              View My Work
-            </button>
+              <div className="w-full h-16 holo-panel bg-gradient-to-r from-[var(--spectrum-cyan)] to-[var(--spectrum-blue)] hover:from-[var(--spectrum-blue)] hover:to-[var(--spectrum-violet)] text-white rounded-2xl text-lg font-semibold transition-all duration-300 border border-cyan-400/50 shadow-lg shadow-cyan-400/25 hover:shadow-xl hover:shadow-cyan-400/40 gacha-shine electric-trace combo-glow flex items-center justify-center">
+                <i className="fas fa-code mr-3 text-xl"></i>
+                View My Work
+              </div>
+            </SmartButton>
 
-            <button 
+            <SmartButton 
+              priority="critical"
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-              className="w-full h-16 holo-panel bg-gradient-to-r from-[var(--spectrum-violet)] to-[var(--spectrum-pink)] hover:from-[var(--spectrum-pink)] hover:to-[var(--spectrum-red)] text-white rounded-2xl text-lg font-semibold transition-all duration-300 border border-purple-400/50 shadow-lg shadow-purple-400/25 hover:shadow-xl hover:shadow-purple-400/40 gacha-shine"
             >
-              <i className="fas fa-envelope mr-3 text-xl"></i>
-              Start Conversation
-            </button>
+              <div className="w-full h-16 holo-panel bg-gradient-to-r from-[var(--spectrum-violet)] to-[var(--spectrum-pink)] hover:from-[var(--spectrum-pink)] hover:to-[var(--spectrum-red)] text-white rounded-2xl text-lg font-semibold transition-all duration-300 border border-purple-400/50 shadow-lg shadow-purple-400/25 hover:shadow-xl hover:shadow-purple-400/40 gacha-shine flex items-center justify-center">
+                <i className="fas fa-envelope mr-3 text-xl"></i>
+                Start Conversation
+              </div>
+            </SmartButton>
 
             <Link href="/values">
-              <Button className="w-full h-16 holo-panel bg-gradient-to-r from-[var(--spectrum-green)] to-[var(--spectrum-teal)] hover:from-[var(--spectrum-teal)] hover:to-[var(--spectrum-cyan)] text-white rounded-2xl text-lg font-semibold transition-all duration-300 border border-green-400/50 shadow-lg shadow-green-400/25 hover:shadow-xl hover:shadow-green-400/40 gacha-shine">
-                <i className="fas fa-compass mr-3 text-xl"></i>
-                Core Values
-              </Button>
+              <SmartButton 
+                priority="normal"
+                onClick={() => {}}
+              >
+                <Button className="w-full h-16 holo-panel bg-gradient-to-r from-[var(--spectrum-green)] to-[var(--spectrum-teal)] hover:from-[var(--spectrum-teal)] hover:to-[var(--spectrum-cyan)] text-white rounded-2xl text-lg font-semibold transition-all duration-300 border border-green-400/50 shadow-lg shadow-green-400/25 hover:shadow-xl hover:shadow-green-400/40 gacha-shine">
+                  <i className="fas fa-compass mr-3 text-xl"></i>
+                  Core Values
+                </Button>
+              </SmartButton>
             </Link>
           </div>
         </div>
