@@ -357,6 +357,243 @@
     opacity: 1;
     transform: translateY(0);
   }
+
+  /* Micro-interactions with Tech Humor */
+  .hover-glitch {
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .hover-glitch:hover {
+    animation: glitch-effect 0.5s ease-in-out;
+  }
+
+  @keyframes glitch-effect {
+    0%, 100% { transform: translate(0); }
+    10% { transform: translate(-2px, 2px); }
+    20% { transform: translate(2px, -2px); }
+    30% { transform: translate(-2px, -2px); }
+    40% { transform: translate(2px, 2px); }
+    50% { transform: translate(-2px, 2px); }
+    60% { transform: translate(2px, -2px); }
+    70% { transform: translate(-2px, -2px); }
+    80% { transform: translate(2px, 2px); }
+    90% { transform: translate(-2px, 2px); }
+  }
+
+  .console-cursor {
+    display: inline-block;
+    animation: cursor-blink 1s infinite;
+  }
+
+  @keyframes cursor-blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+
+  .hover-404 {
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .hover-404:hover::after {
+    content: "404: Humor Not Found";
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--space-black);
+    color: var(--synthwave-pink);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    border: 1px solid var(--synthwave-pink);
+    white-space: nowrap;
+    z-index: 1000;
+    animation: fade-in-tooltip 0.3s ease;
+  }
+
+  .hover-segfault {
+    transition: all 0.3s ease;
+  }
+
+  .hover-segfault:hover::after {
+    content: "Segmentation fault (core dumped)";
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--space-black);
+    color: var(--synthwave-red);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    border: 1px solid var(--synthwave-red);
+    white-space: nowrap;
+    z-index: 1000;
+    animation: fade-in-tooltip 0.3s ease;
+  }
+
+  .hover-loading {
+    position: relative;
+  }
+
+  .hover-loading:hover::after {
+    content: "Loading... Please wait for 2-3 business days";
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--space-black);
+    color: var(--synthwave-gold);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    border: 1px solid var(--synthwave-gold);
+    white-space: nowrap;
+    z-index: 1000;
+    animation: fade-in-tooltip 0.3s ease;
+  }
+
+  .hover-deprecated {
+    position: relative;
+  }
+
+  .hover-deprecated:hover::after {
+    content: "⚠️ DEPRECATED: Use blockchain instead";
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--space-black);
+    color: var(--synthwave-orange);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    border: 1px solid var(--synthwave-orange);
+    white-space: nowrap;
+    z-index: 1000;
+    animation: fade-in-tooltip 0.3s ease;
+  }
+
+  .hover-syntax-error {
+    position: relative;
+  }
+
+  .hover-syntax-error:hover::after {
+    content: "SyntaxError: Unexpected token 'awesome'";
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--space-black);
+    color: var(--synthwave-cyan);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    border: 1px solid var(--synthwave-cyan);
+    white-space: nowrap;
+    z-index: 1000;
+    animation: fade-in-tooltip 0.3s ease;
+  }
+
+  @keyframes fade-in-tooltip {
+    from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
+
+  .clickable-console {
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .clickable-console:hover {
+    background-color: rgba(147, 197, 253, 0.1);
+    border-color: var(--synthwave-cyan);
+  }
+
+  .easter-egg-hint {
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+  }
+
+  .easter-egg-hint:hover {
+    opacity: 1;
+  }
+
+  /* Button micro-interactions */
+  .tech-button {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .tech-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+  }
+
+  .tech-button:hover::before {
+    left: 100%;
+  }
+
+  .compile-success {
+    animation: compile-glow 2s ease-in-out;
+  }
+
+  @keyframes compile-glow {
+    0% { box-shadow: 0 0 5px var(--synthwave-green); }
+    50% { box-shadow: 0 0 20px var(--synthwave-green), 0 0 30px var(--synthwave-green); }
+    100% { box-shadow: 0 0 5px var(--synthwave-green); }
+  }
+
+  /* Stack overflow easter egg */
+  .stackoverflow-reference:hover::after {
+    content: "Answer: Just use jQuery (marked as duplicate)";
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--space-black);
+    color: var(--synthwave-orange);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-family: 'JetBrains Mono', monospace;
+    border: 1px solid var(--synthwave-orange);
+    white-space: nowrap;
+    z-index: 1000;
+    animation: fade-in-tooltip 0.3s ease;
+  }
+
+  /* Git commit humor */
+  .git-commit-humor:hover::after {
+    content: "git commit -m 'fixed bug (maybe)'";
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--space-black);
+    color: var(--synthwave-green);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    border: 1px solid var(--synthwave-green);
+    white-space: nowrap;
+    z-index: 1000;
+    animation: fade-in-tooltip 0.3s ease;
+  }
 }
 
 @layer utilities {
