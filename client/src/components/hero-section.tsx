@@ -13,24 +13,16 @@ export default function HeroSection() {
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat" 
           style={{
-            backgroundImage: `url('/attached_assets/image_1749437202750.png')`,
+            backgroundImage: `url('/attached_assets/Reverb_beautiful_night_sky_billions_of_stars_ocean_a_neon_city__2f334b29-4e6c-4745-a774-e6ed22b7de47_1749430519066.png')`,
             filter: 'brightness(0.4) saturate(1.3)',
           }}
         />
         
-        {/* Holographic Overlay */}
+        {/* Cyberpunk City Overlay */}
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat mix-blend-screen opacity-20" 
           style={{
-            backgroundImage: `url('/attached_assets/image_1749437206205.png')`,
-          }}
-        />
-        
-        {/* Digital Stream Effects */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat mix-blend-overlay opacity-15" 
-          style={{
-            backgroundImage: `url('/attached_assets/image_1749437219730.png')`,
+            backgroundImage: `url('/attached_assets/Reverb_beautiful_night_sky_billions_of_stars_ocean_a_neon_city__a3a3884e-7211-4196-a8fc-8fdfb0613b3b_1749430538297.png')`,
           }}
         />
       </div>

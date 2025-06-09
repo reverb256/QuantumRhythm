@@ -63,9 +63,7 @@ export default function VRChat() {
   const { elementRef, isVisible } = useScrollAnimation();
 
   return (
-    <div className="min-h-screen bg-[var(--space-black)] text-white relative">
-      <Navigation />
-      
+    <div className="min-h-screen bg-[var(--space-black)] text-white relative pt-16">
       <main>
         {/* Hero Section */}
       <section className="relative py-20 min-h-screen flex items-center overflow-hidden">

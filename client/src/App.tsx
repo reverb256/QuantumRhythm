@@ -6,7 +6,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import SEOHead, { getSEOForPage } from "@/components/seo-head";
 import ConsoleEasterEgg from "@/components/console-easter-egg";
 import Navigation from "@/components/navigation";
-import { ConstitutionalIndicators, DemocraticControls } from "@/components/constitutional-indicators";
 import Home from "@/pages/home";
 import Values from "@/pages/values";
 import VRChat from "@/pages/vrchat";
@@ -47,8 +46,6 @@ function App() {
         <Toaster />
         <Router />
         <ConsoleEasterEgg />
-        <ConstitutionalIndicators />
-        <DemocraticControls />
       </TooltipProvider>
     </QueryClientProvider>
   );

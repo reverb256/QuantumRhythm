@@ -11,24 +11,8 @@ export default function AboutSection() {
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat" 
           style={{
-            backgroundImage: `url('/attached_assets/image_1749437115515.png')`,
+            backgroundImage: `url('/attached_assets/Reverb_using_a_color_scheme_based_around_071321_ffffff_2f81b1_b_63fe7c14-6841-4b14-a387-8ebe9b50f06d_1749433293324.png')`,
             filter: 'brightness(0.3) saturate(1.4)',
-          }}
-        />
-        
-        {/* Digital stream overlay */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat mix-blend-screen opacity-25" 
-          style={{
-            backgroundImage: `url('/attached_assets/image_1749437226380.png')`,
-          }}
-        />
-        
-        {/* Holographic accent */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat mix-blend-overlay opacity-15" 
-          style={{
-            backgroundImage: `url('/attached_assets/image_1749437242188.png')`,
           }}
         />
       </div>

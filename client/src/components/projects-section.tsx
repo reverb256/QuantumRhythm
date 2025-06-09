@@ -68,24 +68,8 @@ export default function ProjectsSection() {
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat" 
           style={{
-            backgroundImage: `url('/attached_assets/image_1749437274417.png')`,
+            backgroundImage: `url('/attached_assets/Reverb_with_all_the_same_colours_but_expansive._its_an_ultra_lo_1e5ce51d-b4d2-4bf2-9130-aa08807662b9_1749430526095.png')`,
             filter: 'brightness(0.25) saturate(1.3)',
-          }}
-        />
-        
-        {/* Digital architecture overlay */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat mix-blend-screen opacity-20" 
-          style={{
-            backgroundImage: `url('/attached_assets/image_1749437295296.png')`,
-          }}
-        />
-        
-        {/* Holographic circuit accent */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat mix-blend-overlay opacity-15" 
-          style={{
-            backgroundImage: `url('/attached_assets/image_1749437315258.png')`,
           }}
         />
       </div>

@@ -26,24 +26,8 @@ export default function SkillsSection() {
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat" 
           style={{
-            backgroundImage: `url('/attached_assets/image_1749437172806.png')`,
+            backgroundImage: `url('/attached_assets/Reverb_beautiful_night_sky_billions_of_stars_ocean_a_neon_city__a3a3884e-7211-4196-a8fc-8fdfb0613b3b_1749430538297.png')`,
             filter: 'brightness(0.2) saturate(1.5)',
-          }}
-        />
-        
-        {/* Data stream overlay */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat mix-blend-screen opacity-20" 
-          style={{
-            backgroundImage: `url('/attached_assets/image_1749437226380.png')`,
-          }}
-        />
-        
-        {/* Circuit pattern accent */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat mix-blend-overlay opacity-10" 
-          style={{
-            backgroundImage: `url('/attached_assets/image_1749437231414.png')`,
           }}
         />
       </div>
