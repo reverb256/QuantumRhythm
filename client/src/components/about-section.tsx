@@ -26,9 +26,10 @@ export default function AboutSection() {
                 <i className="fas fa-maple-leaf mr-2 text-[var(--synthwave-cyan)]"></i>Canadian Values
               </h3>
               <p className="text-gray-300 leading-relaxed text-sm md:text-base">
-                A proud Canadian who stands firm in humanity's boundless potential and the enduring power of classical learning. 
-                My approach weaves traditional analytical mastery with revolutionary AI orchestration, 
-                forging digital experiences that celebrate both blazing innovation and eternal principles of wisdom.
+                A proud Canadian who champions humanity's infinite potential through the convergence of classical wisdom and 
+                cutting-edge innovation. My work embodies the cross-empowerment of traditional analytical frameworks with 
+                revolutionary AI systems, creating digital architectures that honor both blazing technological advancement 
+                and timeless philosophical principles.
               </p>
             </div>
             
@@ -45,12 +46,13 @@ export default function AboutSection() {
             
             <div className={`glass-morphism p-6 md:p-8 rounded-2xl cyber-border fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.6s' }}>
               <h3 className="font-semibold text-xl md:text-2xl mb-4 text-[var(--bright-blue)]">
-                <i className="fas fa-brain mr-2 text-[var(--synthwave-gold)]"></i>AI Orchestration
+                <i className="fas fa-brain mr-2 text-[var(--synthwave-gold)]"></i>Convergent Intelligence
               </h3>
               <p className="text-gray-300 leading-relaxed text-sm md:text-base">
-                Architecting the VibeCoding methodology—a revolutionary fusion of authentic business intelligence, 
-                accessibility-first consciousness, and AI-enhanced development mastery. Every algorithm breathes 
-                with both technical excellence and unwavering human dignity.
+                Architecting the VibeCoding methodology—where classical analytical frameworks cross-empower 
+                AI systems to create unprecedented technological synergies. Every algorithm embodies the 
+                convergence of timeless wisdom and cutting-edge innovation, breathing with both technical 
+                excellence and unwavering human dignity.
               </p>
             </div>
             

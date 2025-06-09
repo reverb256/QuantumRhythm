@@ -48,8 +48,9 @@ export default function HeroSection() {
             VibeCoder & Neural Network Orchestrator
           </h2>
           <p className="text-base md:text-lg lg:text-xl mb-8 max-w-3xl mx-auto text-gray-400">
-            Forging the future where classical wisdom meets artificial intelligence. 
-            Every line of code pulses with the rhythm of innovation and the heartbeat of human dignity.
+            Canadian architect of convergent technologies, orchestrating the cross-empowerment of classical wisdom 
+            and revolutionary AI systems. My digital realm spans from Anaxa's philosophical defiance to rhythm gaming 
+            mastery—each line of code an expression of humanity's infinite potential through technological convergence.
           </p>
           
           {/* Rhythm game inspired visualizer */}

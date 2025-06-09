@@ -54,10 +54,11 @@ export default function GamingSection() {
             </p>
             <div className="mb-4">
               <div className="glass-morphism p-3 rounded-lg border border-[var(--synthwave-gold)]/50">
-                <p className="text-[var(--synthwave-gold)] text-sm font-semibold mb-1">Meaningful Connection:</p>
+                <p className="text-[var(--synthwave-gold)] text-sm font-semibold mb-1">Anaxa - The Blasphemer Sage:</p>
                 <p className="text-gray-300 text-xs md:text-sm">
-                  Anaxa represents the convergence of wisdom and innovation—embodying the same principles 
-                  that guide my approach to merging classical analysis with cutting-edge AI systems.
+                  Anaxagoras embodies my core philosophy—a defiant scholar who rejects dogma to pursue truth through reason. 
+                  His declaration "In a world full of lies, I am the only truth" mirrors my approach to convergent technologies: 
+                  questioning established patterns while forging new pathways between classical wisdom and AI innovation.
                 </p>
               </div>
             </div>
@@ -93,22 +94,27 @@ export default function GamingSection() {
           
           {/* Technology Convergence */}
           <div className={`glass-morphism p-6 md:p-8 rounded-2xl cyber-border fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.6s' }}>
-            <div className="w-full h-40 md:h-48 bg-gradient-to-br from-[var(--synthwave-pink)] via-[var(--synthwave-cyan)] to-[var(--synthwave-gold)] rounded-lg mb-6 flex items-center justify-center">
-              <i className="fas fa-city text-[var(--space-black)] text-4xl md:text-6xl opacity-50"></i>
+            <div className="w-full h-40 md:h-48 bg-gradient-to-br from-[var(--synthwave-pink)] via-[var(--synthwave-cyan)] to-[var(--synthwave-gold)] rounded-lg mb-6 flex items-center justify-center relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-pulse"></div>
+              <div className="relative z-10 text-center">
+                <i className="fas fa-project-diagram text-4xl md:text-6xl text-[var(--synthwave-cyan)] mb-2"></i>
+                <div className="text-[var(--synthwave-gold)] font-bold text-sm">Cross-Empowerment</div>
+              </div>
             </div>
             
-            <h3 className="font-semibold text-xl md:text-2xl mb-4 text-[var(--synthwave-cyan)]">
-              <i className="fab fa-twitch mr-2"></i>Content Creation
+            <h3 className="font-semibold text-xl md:text-2xl mb-4 text-[var(--synthwave-gold)]">
+              <i className="fas fa-network-wired mr-2"></i>Convergent Systems
             </h3>
             <p className="text-gray-300 mb-4 text-sm md:text-base">
-              Twitch streaming weaves my gaming passion with digital community orchestration. 
-              Broadcasting VR adventures and live development sessions forges authentic connections 
-              across the infinite expanse of the digital realm.
+              Gaming reveals the profound convergence of narrative architecture, behavioral psychology, and 
+              technological innovation. Each virtual world becomes a testing ground for understanding how 
+              classical principles can cross-empower modern AI systems, creating synergistic frameworks 
+              that transcend individual domains.
             </p>
             <div className="flex flex-wrap gap-2">
-              <span className="px-3 py-1 bg-[var(--synthwave-cyan)]/20 text-[var(--synthwave-cyan)] rounded-full text-xs md:text-sm">Twitch</span>
-              <span className="px-3 py-1 bg-[var(--synthwave-cyan)]/20 text-[var(--synthwave-cyan)] rounded-full text-xs md:text-sm">VR Streams</span>
-              <span className="px-3 py-1 bg-[var(--synthwave-cyan)]/20 text-[var(--synthwave-cyan)] rounded-full text-xs md:text-sm">Dev Talks</span>
+              <span className="px-3 py-1 bg-[var(--synthwave-gold)]/20 text-[var(--synthwave-gold)] rounded-full text-xs md:text-sm">Systems Thinking</span>
+              <span className="px-3 py-1 bg-[var(--synthwave-pink)]/20 text-[var(--synthwave-pink)] rounded-full text-xs md:text-sm">Cross-Domain</span>
+              <span className="px-3 py-1 bg-[var(--synthwave-cyan)]/20 text-[var(--synthwave-cyan)] rounded-full text-xs md:text-sm">Innovation</span>
             </div>
           </div>
         </div>
