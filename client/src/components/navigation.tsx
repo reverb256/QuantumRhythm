@@ -57,6 +57,18 @@ export default function Navigation() {
             >
               Skills
             </button>
+            <button 
+              onClick={() => scrollToSection('philosophy')} 
+              className={`hover:text-cyan-300 transition-all duration-300 hover:scale-105 git-commit-humor ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
+            >
+              Philosophy
+            </button>
+            <button 
+              onClick={() => scrollToSection('gaming')} 
+              className={`hover:text-cyan-300 transition-all duration-300 hover:scale-105 hover-404 ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
+            >
+              Gaming
+            </button>
             <Link 
               href="/values"
               className={`hover:text-cyan-300 transition-all duration-300 hover:scale-105 hover-syntax-error ${location === '/values' ? 'text-cyan-300 prismatic-glow' : 'text-cyan-100'}`}
@@ -69,12 +81,6 @@ export default function Navigation() {
             >
               VR Research
             </Link>
-            <button 
-              onClick={() => scrollToSection('philosophy')} 
-              className={`hover:text-cyan-300 transition-all duration-300 hover:scale-105 git-commit-humor ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
-            >
-              Philosophy
-            </button>
             <button 
               onClick={() => scrollToSection('contact')} 
               className={`hover:text-cyan-300 transition-all duration-300 hover:scale-105 hover-segfault ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
@@ -113,6 +119,18 @@ export default function Navigation() {
               >
                 Skills
               </button>
+              <button 
+                onClick={() => scrollToSection('philosophy')} 
+                className="text-left hover:text-[var(--synthwave-cyan)] transition-colors duration-300"
+              >
+                Philosophy
+              </button>
+              <button 
+                onClick={() => scrollToSection('gaming')} 
+                className="text-left hover:text-[var(--synthwave-cyan)] transition-colors duration-300"
+              >
+                Gaming
+              </button>
               <Link 
                 href="/values"
                 className={`text-left hover:text-[var(--synthwave-cyan)] transition-colors duration-300 ${location === '/values' ? 'text-[var(--synthwave-cyan)]' : 'text-white'}`}
@@ -127,12 +145,6 @@ export default function Navigation() {
               >
                 VR Research
               </Link>
-              <button 
-                onClick={() => scrollToSection('philosophy')} 
-                className="text-left hover:text-[var(--synthwave-cyan)] transition-colors duration-300"
-              >
-                Philosophy
-              </button>
               <button 
                 onClick={() => scrollToSection('contact')} 
                 className="text-left hover:text-[var(--synthwave-cyan)] transition-colors duration-300"

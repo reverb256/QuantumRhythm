@@ -1,4 +1,5 @@
 import { Switch, Route, useLocation } from "wouter";
+import { useEffect, useRef } from "react";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -13,6 +14,19 @@ import NotFound from "@/pages/not-found";
 
 function Router() {
   const [location] = useLocation();
+  const previousLocation = useRef(location);
+  
+  // Scroll management for page transitions
+  useEffect(() => {
+    // Only scroll to top on forward navigation (not back button)
+    if (previousLocation.current !== location) {
+      const isBackNavigation = window.history.state?.idx < (window.history.state?.previousIdx || 0);
+      if (!isBackNavigation) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      previousLocation.current = location;
+    }
+  }, [location]);
   
   // Determine current page for SEO
   const getCurrentPage = () => {
