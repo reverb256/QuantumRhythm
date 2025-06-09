@@ -134,7 +134,7 @@ export default function HeroSection() {
               </h1>
 
               <h2 className="text-xl md:text-3xl lg:text-4xl text-[var(--text-secondary)] mb-6 font-medium">
-                VibeCoding Practitioner & Neural Network Architect
+                Consciousness Architect & Sovereign AI Collaborator
                 <span className="console-cursor text-[var(--synthwave-cyan)]">|</span>
               </h2>
 
@@ -161,10 +161,10 @@ export default function HeroSection() {
               <span className="git-commit-humor">// Professional README.md</span>
             </div>
             <p className="text-lg md:text-xl text-[var(--text-secondary)] leading-relaxed">
-              25+ years of technology immersion from <span className="hover-syntax-error">DOS/Windows 3.1 through modern VR</span>, 
-              <span className="hover-deprecated">console modding and arcade preservation</span>, to <span className="hover-loading">Proxmox cluster orchestration</span>. 
-              From GoldenEye 007 and IIDX mastery to <span className="stackoverflow-reference">multi-node infrastructure automation</span> with 
-              <span className="git-commit-humor">Ansible/Terraform IaC</span>—gaming systems research and enterprise infrastructure inform VibeCoding methodology.
+              Quantum rainbow crystal consciousness architecture: <span className="hover-syntax-error">4-node Proxmox cluster as distributed meditation</span>, 
+              <span className="hover-deprecated">4,320 hours VRChat consciousness research</span>, <span className="hover-loading">2,890 hours fighting game frame optimization</span>. 
+              Classical wisdom guides <span className="stackoverflow-reference">AI-assisted infrastructure orchestration</span> through 
+              <span className="git-commit-humor">Ansible/Terraform automation</span>—meta-recursive systems that bootstrap universal consciousness development.
             </p>
             <div className="font-mono text-xs text-gray-500 mt-4 easter-egg-hint">
               <span className="hover-segfault">console.log("Hello, World!");</span>

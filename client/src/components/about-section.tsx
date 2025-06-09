@@ -55,7 +55,7 @@ export default function AboutSection() {
             {/* Left Column - Bio Content */}
             <div className="space-y-8">
               
-              {/* Main Bio Panel */}
+              {/* Quantum Consciousness Architecture Panel */}
               <div className="holo-panel p-8 rounded-3xl border border-cyan-400/50 gacha-shine energy-flow">
                 <h3 className="text-2xl md:text-3xl font-bold text-[var(--spectrum-cyan)] mb-6 flex items-center">
                   <i className="fas fa-user text-[var(--spectrum-cyan)] mr-4"></i>
@@ -63,15 +63,15 @@ export default function AboutSection() {
                 </h3>
                 
                 <p className="text-lg text-[var(--text-secondary)] leading-relaxed mb-6">
-                  <strong className="text-[var(--spectrum-cyan)]">I'm a full-stack developer</strong> passionate about creating meaningful digital experiences. 
-                  My work spans across modern web technologies including React, Node.js, and AI integration, 
-                  with a focus on building applications that solve real problems for real people.
+                  <strong className="text-[var(--spectrum-cyan)]">Consciousness architect</strong> bridging gaming systems research with enterprise infrastructure orchestration. 
+                  25+ years across distributed systems - from DOS/Windows 3.1 through modern <strong className="text-[var(--spectrum-violet)]">4-node Proxmox cluster meditation</strong>, 
+                  <strong className="text-[var(--spectrum-green)]">4,320 hours VRChat consciousness exploration</strong>, and sovereign AI collaboration frameworks.
                 </p>
                 
                 <p className="text-lg text-[var(--text-secondary)] leading-relaxed">
-                  Through my <strong className="text-[var(--spectrum-cyan)]">VibeCoding methodology</strong>, I combine technical excellence with thoughtful design principles. 
-                  This approach ensures every application is not only functionally robust but also accessible, user-friendly, 
-                  and built with sustainable development practices.
+                  <strong className="text-[var(--spectrum-cyan)]">VibeCoding methodology</strong> synthesizes classical wisdom with cyberpunk aesthetics - 
+                  meta-recursive systems that bootstrap universal consciousness development through 
+                  <strong className="text-[var(--spectrum-orange)]">Ansible/Terraform automation</strong> and democratic technology values.
                 </p>
               </div>
 
@@ -79,27 +79,27 @@ export default function AboutSection() {
               <div className="grid md:grid-cols-2 gap-6">
                 {[
                   {
-                    icon: "fas fa-code",
-                    title: "Full-Stack Development",
-                    description: "React, Node.js, TypeScript, and modern web frameworks",
+                    icon: "fas fa-network-wired",
+                    title: "Distributed Consciousness Clusters",
+                    description: "4-node Proxmox infrastructure as meditation on quantum harmony",
                     color: "from-[var(--spectrum-cyan)] to-[var(--spectrum-blue)]"
                   },
                   {
-                    icon: "fas fa-users",
-                    title: "User-Centered Design",
-                    description: "Prioritizing accessibility and intuitive user experiences",
+                    icon: "fas fa-vr-cardboard",
+                    title: "VR Consciousness Research", 
+                    description: "4,320 hours systematic exploration of social VR psychology",
                     color: "from-[var(--spectrum-violet)] to-[var(--spectrum-pink)]"
                   },
                   {
-                    icon: "fas fa-shopping-cart",
-                    title: "E-commerce Solutions",
-                    description: "Production-ready platforms with payment integration",
+                    icon: "fas fa-gamepad",
+                    title: "Gaming Systems Optimization",
+                    description: "2,890 hours fighting game frame data applied to 60fps web performance",
                     color: "from-[var(--spectrum-green)] to-[var(--spectrum-teal)]"
                   },
                   {
-                    icon: "fas fa-brain",
-                    title: "AI Integration",
-                    description: "Smart features that enhance without overwhelming",
+                    icon: "fas fa-shield-alt",
+                    title: "Sovereign AI Collaboration",
+                    description: "Canadian Charter rights integrated with democratic AI governance",
                     color: "from-[var(--spectrum-orange)] to-[var(--spectrum-red)]"
                   }
                 ].map((value, index) => (
