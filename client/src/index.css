@@ -1367,60 +1367,7 @@
     word-wrap: break-word;
   }
 
-  /* Philosophical Insights Animations - GitHub Pages Optimized */
-  .philosophical-insight {
-    will-change: transform, opacity;
-    transform: translateZ(0);
-    backface-visibility: hidden;
-  }
 
-  @keyframes gentle-reveal {
-    0% { 
-      opacity: 0; 
-      transform: translateY(20px) translateZ(0) scale(0.95);
-      filter: blur(4px);
-    }
-    50% {
-      opacity: 0.7;
-      transform: translateY(10px) translateZ(0) scale(0.98);
-      filter: blur(2px);
-    }
-    100% { 
-      opacity: 1; 
-      transform: translateY(0) translateZ(0) scale(1);
-      filter: blur(0px);
-    }
-  }
-
-  @keyframes gentle-fade-out {
-    0% { 
-      opacity: 1; 
-      transform: translateY(0) translateZ(0) scale(1);
-    }
-    100% { 
-      opacity: 0; 
-      transform: translateY(-10px) translateZ(0) scale(0.98);
-    }
-  }
-
-  @keyframes wisdom-particle-float {
-    0% { 
-      transform: translateY(0) translateZ(0) rotate(0deg); 
-      opacity: 0.6; 
-    }
-    33% { 
-      transform: translateY(-8px) translateZ(0) rotate(120deg); 
-      opacity: 1; 
-    }
-    66% { 
-      transform: translateY(-4px) translateZ(0) rotate(240deg); 
-      opacity: 0.8; 
-    }
-    100% { 
-      transform: translateY(0) translateZ(0) rotate(360deg); 
-      opacity: 0.6; 
-    }
-  }
 
   @keyframes insight-glow-pulse {
     0%, 100% { 
@@ -1482,159 +1429,84 @@
     word-wrap: break-word;
   }
 
-/* Dynamic Breathing Animation System for Page Load - Production Optimized */
-.breathing-container {
-  animation: page-breathing 6s ease-in-out infinite;
-  transform-origin: center center;
-  will-change: transform, opacity;
-  transition: animation-play-state 0.3s ease;
-  contain: layout style paint;
+/* Ambient Glow System - Subtle Enhancement */
+.ambient-glow {
+  position: relative;
+  overflow-x: hidden;
 }
 
-.breathing-hero {
-  animation: hero-breathing 5s ease-in-out infinite;
-  animation-delay: 0.3s;
-  transition: animation-play-state 0.3s ease;
-  contain: layout style paint;
+.ambient-glow::before {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: 
+    radial-gradient(circle at 25% 25%, hsla(180, 100%, 50%, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, hsla(280, 100%, 50%, 0.02) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, hsla(200, 100%, 50%, 0.01) 0%, transparent 70%);
+  animation: ambient-shift 20s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
 }
 
-.breathing-nav {
-  animation: nav-breathing 6.5s ease-in-out infinite;
-  animation-delay: 0.1s;
-  transition: animation-play-state 0.3s ease;
-  contain: layout style paint;
-}
-
-.breathing-projects {
-  animation: projects-breathing 7s ease-in-out infinite;
-  animation-delay: 0.5s;
-  transition: animation-play-state 0.3s ease;
-  contain: layout style paint;
-}
-
-.breathing-particles {
-  animation: particles-breathing 8s ease-in-out infinite;
-  animation-delay: 0.8s;
-  transition: animation-play-state 0.3s ease;
-  contain: layout style paint;
-}
-
-@keyframes page-breathing {
+@keyframes ambient-shift {
   0%, 100% { 
-    transform: scale(1) translateZ(0);
-    opacity: 1;
-    filter: brightness(1);
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0.4;
   }
   25% { 
-    transform: scale(1.003) translateZ(0);
-    opacity: 0.99;
-    filter: brightness(1.02);
+    transform: translate(-5%, -5%) rotate(1deg);
+    opacity: 0.6;
   }
   50% { 
-    transform: scale(1.006) translateZ(0);
-    opacity: 0.97;
-    filter: brightness(1.05);
-  }
-  75% { 
-    transform: scale(1.003) translateZ(0);
-    opacity: 0.99;
-    filter: brightness(1.02);
-  }
-}
-
-@keyframes hero-breathing {
-  0%, 100% { 
-    transform: scale(1) translateY(0) translateZ(0);
-    filter: brightness(1) saturate(1);
-  }
-  30% { 
-    transform: scale(1.004) translateY(-1px) translateZ(0);
-    filter: brightness(1.02) saturate(1.05);
-  }
-  60% { 
-    transform: scale(1.008) translateY(-2px) translateZ(0);
-    filter: brightness(1.05) saturate(1.1);
-  }
-}
-
-@keyframes nav-breathing {
-  0%, 100% { 
-    transform: translateY(0) translateZ(0);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  }
-  40% { 
-    transform: translateY(-1px) translateZ(0);
-    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
-  }
-  70% { 
-    transform: translateY(-2px) translateZ(0);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-  }
-}
-
-@keyframes projects-breathing {
-  0%, 100% { 
-    transform: scale(1) translateZ(0);
-    filter: brightness(1);
-  }
-  35% { 
-    transform: scale(1.002) translateZ(0);
-    filter: brightness(1.01);
-  }
-  65% { 
-    transform: scale(1.005) translateZ(0);
-    filter: brightness(1.03);
-  }
-}
-
-@keyframes particles-breathing {
-  0%, 100% { 
-    transform: scale(1) rotate(0deg) translateZ(0);
+    transform: translate(5%, 5%) rotate(-1deg);
     opacity: 0.8;
   }
-  25% { 
-    transform: scale(1.01) rotate(0.5deg) translateZ(0);
-    opacity: 0.85;
-  }
-  50% { 
-    transform: scale(1.02) rotate(1deg) translateZ(0);
-    opacity: 0.9;
-  }
   75% { 
-    transform: scale(1.01) rotate(0.5deg) translateZ(0);
-    opacity: 0.85;
+    transform: translate(-3%, 3%) rotate(0.5deg);
+    opacity: 0.5;
   }
 }
 
-/* Breathing pause on user interaction */
-.breathing-paused {
-  animation-play-state: paused !important;
-  transition: transform 0.2s ease, opacity 0.2s ease, filter 0.2s ease;
+.section-glow {
+  position: relative;
+  transition: all 0.3s ease;
 }
 
-.breathing-paused * {
-  animation-play-state: paused !important;
+.section-glow::after {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background: 
+    radial-gradient(circle at center, hsla(180, 100%, 50%, 0.05) 0%, transparent 70%);
+  border-radius: 20px;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+  z-index: -1;
 }
 
-/* Enhanced breathing effects for gaming-inspired elements */
-.breathing-hero .quantum-particles {
-  animation: particles-breathing-enhanced 6s ease-in-out infinite;
-  animation-delay: 0.8s;
+.section-glow:hover::after {
+  opacity: 1;
 }
 
-@keyframes particles-breathing-enhanced {
-  0%, 100% { 
-    transform: scale(1) translateZ(0);
-    filter: brightness(1) hue-rotate(0deg);
-  }
-  33% { 
-    transform: scale(1.015) translateZ(0);
-    filter: brightness(1.1) hue-rotate(15deg);
-  }
-  66% { 
-    transform: scale(1.03) translateZ(0);
-    filter: brightness(1.2) hue-rotate(30deg);
-  }
+/* Enhanced particle glow */
+.quantum-particles {
+  filter: brightness(1.1) saturate(1.2);
+}
+
+/* Navigation glow enhancement */
+nav {
+  transition: box-shadow 0.3s ease;
+}
+
+nav:hover {
+  box-shadow: 0 0 30px rgba(56, 189, 248, 0.1);
 }
 
 /* Rhythm Game Inspired Effects */

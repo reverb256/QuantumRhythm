@@ -6,19 +6,15 @@ import GamingSection from "@/components/gaming-section";
 import PhilosophySection from "@/components/philosophy-section";
 import ContactSection from "@/components/contact-section";
 import Footer from "@/components/footer";
-import { useBreathingAnimation } from "@/hooks/use-breathing-animation";
-
 export default function Home() {
-  const { getBreathingClass } = useBreathingAnimation();
-
   return (
-    <div className={`min-h-screen bg-[var(--space-black)] text-white ${getBreathingClass('container')}`}>
+    <div className="min-h-screen bg-[var(--space-black)] text-white ambient-glow">
       <main>
-        <div className={getBreathingClass('hero')}>
+        <div className="section-glow">
           <HeroSection />
         </div>
         <AboutSection />
-        <div className={getBreathingClass('projects')}>
+        <div className="section-glow">
           <ProjectsSection />
         </div>
         <SkillsSection />
