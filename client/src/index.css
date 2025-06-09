@@ -531,6 +531,22 @@
     }
   }
 
+  @keyframes rainbow-pulse {
+    0%, 100% { 
+      filter: hue-rotate(0deg) brightness(1); 
+    }
+    25% { 
+      filter: hue-rotate(90deg) brightness(1.2); 
+    }
+    50% { 
+      filter: hue-rotate(180deg) brightness(1.1); 
+    }
+    75% { 
+      filter: hue-rotate(270deg) brightness(1.3); 
+    }
+  }
+  }
+
   @keyframes fade-in-tooltip-fixed {
     from { 
       opacity: 0; 
@@ -716,6 +732,216 @@
     backdrop-filter: blur(8px);
     max-width: 200px;
     word-wrap: break-word;
+  }
+
+  /* Intelligent Color-Coding System for Tooltips */
+  
+  /* AI & Machine Learning - Pink/Magenta Theme */
+  .ai-tooltip:hover::after,
+  .ml-tooltip:hover::after,
+  .neural-tooltip:hover::after {
+    color: var(--synthwave-pink) !important;
+    border-color: var(--synthwave-pink) !important;
+    box-shadow: 0 4px 12px rgba(255, 20, 147, 0.3), 0 0 15px var(--synthwave-pink) !important;
+  }
+
+  /* Cloud & Infrastructure - Orange/Amber Theme */
+  .cloudflare-tooltip:hover::after,
+  .proxmox-tooltip:hover::after,
+  .aws-tooltip:hover::after,
+  .docker-tooltip:hover::after,
+  .kubernetes-tooltip:hover::after {
+    color: #F38020 !important;
+    border-color: #F38020 !important;
+    box-shadow: 0 4px 12px rgba(243, 128, 32, 0.3), 0 0 15px #F38020 !important;
+  }
+
+  /* DevOps & Automation - Red Theme */
+  .ansible-tooltip:hover::after,
+  .terraform-tooltip:hover::after,
+  .jenkins-tooltip:hover::after,
+  .ci-tooltip:hover::after {
+    color: #EE0000 !important;
+    border-color: #EE0000 !important;
+    box-shadow: 0 4px 12px rgba(238, 0, 0, 0.3), 0 0 15px #EE0000 !important;
+  }
+
+  /* Security & Defense - Red/Crimson Theme */
+  .security-tooltip:hover::after,
+  .defense-tooltip:hover::after,
+  .encryption-tooltip:hover::after,
+  .firewall-tooltip:hover::after {
+    color: #ff4757 !important;
+    border-color: #ff4757 !important;
+    box-shadow: 0 4px 12px rgba(255, 71, 87, 0.3), 0 0 15px #ff4757 !important;
+  }
+
+  /* Performance & Optimization - Green Theme */
+  .performance-tooltip:hover::after,
+  .optimization-tooltip:hover::after,
+  .speed-tooltip:hover::after,
+  .cache-tooltip:hover::after {
+    color: var(--synthwave-green) !important;
+    border-color: var(--synthwave-green) !important;
+    box-shadow: 0 4px 12px rgba(0, 255, 127, 0.3), 0 0 15px var(--synthwave-green) !important;
+  }
+
+  /* Frontend & Design - Blue Theme */
+  .glassmorphism-tooltip:hover::after,
+  .ui-tooltip:hover::after,
+  .design-tooltip:hover::after,
+  .css-tooltip:hover::after,
+  .react-tooltip:hover::after {
+    color: var(--synthwave-blue) !important;
+    border-color: var(--synthwave-blue) !important;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3), 0 0 15px var(--synthwave-blue) !important;
+  }
+
+  /* Edge Computing & CDN - Cyan Theme */
+  .edge-tooltip:hover::after,
+  .cdn-tooltip:hover::after,
+  .vercel-tooltip:hover::after,
+  .netlify-tooltip:hover::after {
+    color: var(--synthwave-cyan) !important;
+    border-color: var(--synthwave-cyan) !important;
+    box-shadow: 0 4px 12px rgba(0, 255, 255, 0.3), 0 0 15px var(--synthwave-cyan) !important;
+  }
+
+  /* Accessibility & Inclusive Design - Purple Theme */
+  .accessibility-tooltip:hover::after,
+  .a11y-tooltip:hover::after,
+  .inclusive-tooltip:hover::after,
+  .wcag-tooltip:hover::after {
+    color: var(--synthwave-purple) !important;
+    border-color: var(--synthwave-purple) !important;
+    box-shadow: 0 4px 12px rgba(147, 51, 234, 0.3), 0 0 15px var(--synthwave-purple) !important;
+  }
+
+  /* Branding & Marketing - Gold/Yellow Theme */
+  .branding-tooltip:hover::after,
+  .marketing-tooltip:hover::after,
+  .seo-tooltip:hover::after,
+  .analytics-tooltip:hover::after {
+    color: var(--synthwave-gold) !important;
+    border-color: var(--synthwave-gold) !important;
+    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3), 0 0 15px var(--synthwave-gold) !important;
+  }
+
+  /* Government & Legal - Rose/Pink Theme */
+  .charter-tooltip:hover::after,
+  .legal-tooltip:hover::after,
+  .compliance-tooltip:hover::after,
+  .gdpr-tooltip:hover::after {
+    color: #ff6b6b !important;
+    border-color: #ff6b6b !important;
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3), 0 0 15px #ff6b6b !important;
+  }
+
+  /* Democracy & Political - Blue/Patriot Theme */
+  .democratic-tooltip:hover::after,
+  .political-tooltip:hover::after,
+  .governance-tooltip:hover::after,
+  .civic-tooltip:hover::after {
+    color: var(--synthwave-blue) !important;
+    border-color: var(--synthwave-blue) !important;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3), 0 0 15px var(--synthwave-blue) !important;
+  }
+
+  /* Language & Localization - Coral Theme */
+  .bilingual-tooltip:hover::after,
+  .i18n-tooltip:hover::after,
+  .translation-tooltip:hover::after,
+  .localization-tooltip:hover::after {
+    color: #ff6b6b !important;
+    border-color: #ff6b6b !important;
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3), 0 0 15px #ff6b6b !important;
+  }
+
+  /* VibeCoding & Philosophy - Multi-color Gradient Theme */
+  .vibecoding-tooltip:hover::after,
+  .philosophy-tooltip:hover::after,
+  .consciousness-tooltip:hover::after {
+    background: linear-gradient(135deg, 
+      var(--synthwave-pink) 0%, 
+      var(--synthwave-cyan) 50%, 
+      var(--synthwave-gold) 100%) !important;
+    color: var(--space-black) !important;
+    border: 1px solid var(--synthwave-gold) !important;
+    box-shadow: 
+      0 4px 12px rgba(255, 215, 0, 0.3),
+      0 0 15px var(--synthwave-gold),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+    font-weight: 600 !important;
+  }
+
+  /* Cyberpunk & Futuristic - Pink/Neon Theme */
+  .cyberpunk-tooltip:hover::after,
+  .futuristic-tooltip:hover::after,
+  .neon-tooltip:hover::after {
+    color: var(--synthwave-pink) !important;
+    border-color: var(--synthwave-pink) !important;
+    box-shadow: 0 4px 12px rgba(255, 20, 147, 0.3), 0 0 15px var(--synthwave-pink) !important;
+  }
+
+  /* Quantum & Advanced Tech - Spectrum/Rainbow Theme */
+  .quantum-tooltip:hover::after,
+  .advanced-tooltip:hover::after,
+  .experimental-tooltip:hover::after {
+    background: linear-gradient(90deg, 
+      #ff0080, #ff8000, #ffff00, #80ff00, 
+      #00ff80, #0080ff, #8000ff) !important;
+    color: var(--space-black) !important;
+    border: 1px solid var(--spectrum-white) !important;
+    box-shadow: 
+      0 4px 12px rgba(255, 255, 255, 0.3),
+      0 0 15px var(--spectrum-white) !important;
+    animation: rainbow-pulse 2s ease-in-out infinite !important;
+  }
+
+  /* Meta & Self-Referential - White/Spectrum Theme */
+  .meta-tooltip:hover::after,
+  .recursive-tooltip:hover::after,
+  .self-tooltip:hover::after {
+    color: var(--spectrum-white) !important;
+    border-color: var(--spectrum-white) !important;
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3), 0 0 15px var(--spectrum-white) !important;
+  }
+
+  /* Error & Debug States - Red/Error Theme */
+  .hover-segfault:hover::after,
+  .hover-error:hover::after,
+  .debug-tooltip:hover::after,
+  .error-tooltip:hover::after {
+    color: #ff4757 !important;
+    border-color: #ff4757 !important;
+    box-shadow: 0 4px 12px rgba(255, 71, 87, 0.3), 0 0 15px #ff4757 !important;
+  }
+
+  /* Warning & Deprecated - Orange/Warning Theme */
+  .hover-deprecated:hover::after,
+  .warning-tooltip:hover::after,
+  .caution-tooltip:hover::after {
+    color: var(--synthwave-orange) !important;
+    border-color: var(--synthwave-orange) !important;
+    box-shadow: 0 4px 12px rgba(255, 165, 0, 0.3), 0 0 15px var(--synthwave-orange) !important;
+  }
+
+  /* Loading & Processing - Gold/Processing Theme */
+  .hover-loading:hover::after,
+  .processing-tooltip:hover::after,
+  .waiting-tooltip:hover::after {
+    color: var(--synthwave-gold) !important;
+    border-color: var(--synthwave-gold) !important;
+    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3), 0 0 15px var(--synthwave-gold) !important;
+  }
+
+  /* Success & Achievement - Green/Success Theme */
+  .success-tooltip:hover::after,
+  .achievement-tooltip:hover::after,
+  .complete-tooltip:hover::after {
+    color: var(--synthwave-green) !important;
+    border-color: var(--synthwave-green) !important;
+    box-shadow: 0 4px 12px rgba(0, 255, 127, 0.3), 0 0 15px var(--synthwave-green) !important;
   }
 
   /* Universal tooltip z-index enforcement - Override all tooltip z-index values */
