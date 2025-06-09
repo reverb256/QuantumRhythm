@@ -1,7 +1,7 @@
 // IO Intelligence API routes with comprehensive security and rate limiting
 import { Router } from 'express';
 import { z } from 'zod';
-import { IOIntelligenceOrchestrator } from '../io-intelligence.js';
+import { IOIntelligence, ioIntelligence } from '../io-intelligence.js';
 
 const router = Router();
 
