@@ -26,8 +26,9 @@ Comprehensive documentation for the VibeCoding portfolio project, implementing c
 - **[Interactive Systems](./INTERACTIVE_SYSTEMS.md)** - Tooltip and word-tagging systems
 
 ### 💰 Financial Integration
-- **[Solana Bot Status Report](./SOLANA_BOT_STATUS.md)** - Production-ready trading bot with VibeCoding methodology
+- **[Solana Bot Status Report](./SOLANA_BOT_STATUS.md)** - Quantum hyper-empowered trading agent with permanent monitoring
 - **[Solana Bot Documentation](./SOLANA_BOT.md)** - Trading bot architecture and security
+- **[Permanent Trading Agent](./PERMANENT_TRADING_AGENT.md)** - Always-on intelligent trading system
 - **[Blockchain Security](./BLOCKCHAIN_SECURITY.md)** - Cryptocurrency integration best practices
 
 ### 🧬 VibeCoding Methodology

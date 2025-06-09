@@ -41,6 +41,10 @@ app.use((req, res, next) => {
   const { default: ioIntelligenceRoutes } = await import('./routes/io-intelligence.js');
   app.use('/api/io-intelligence', ioIntelligenceRoutes);
   
+  // Import and register Trading Agent routes
+  const { default: tradingAgentRoutes } = await import('./routes/trading-agent.js');
+  app.use('/api/trading-agent', tradingAgentRoutes);
+  
   const server = await registerRoutes(app);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {

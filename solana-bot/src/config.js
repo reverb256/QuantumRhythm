@@ -19,6 +19,13 @@ export const config = {
   minProfitThreshold: parseFloat(process.env.MIN_PROFIT_THRESHOLD || '0.02'),
   gasLimit: parseInt(process.env.GAS_LIMIT || '100000'),
   
+  // External API Keys for Enhanced Intelligence
+  jupiterApiToken: process.env.JAPI_TOKEN,
+  birdeyeApiKey: process.env.BIRDEYE_KEY,
+  newsApiKey: process.env.NEWS_TOKEN,
+  huggingfaceApiKey: process.env.HF_KEY,
+  sessionSecret: process.env.SESSION_SECRET,
+  
   // Safety Features
   stopLossPercentage: parseFloat(process.env.STOP_LOSS_PERCENTAGE || '5'),
   takeProfitPercentage: parseFloat(process.env.TAKE_PROFIT_PERCENTAGE || '10'),
