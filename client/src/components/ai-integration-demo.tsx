@@ -118,7 +118,7 @@ export default function AIIntegrationDemo() {
   };
 
   return (
-    <div className="w-full max-w-6xl mx-auto p-6 space-y-8">
+    <section id="ai-demo" className="w-full max-w-6xl mx-auto p-6 space-y-8">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -309,6 +309,6 @@ export default function AIIntegrationDemo() {
           </div>
         </CardContent>
       </Card>
-    </div>
+    </section>
   );
 }

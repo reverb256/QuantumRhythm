@@ -37,6 +37,10 @@ app.use((req, res, next) => {
 });
 
 (async () => {
+  // Import and register IO Intelligence routes
+  const { default: ioIntelligenceRoutes } = await import('./routes/io-intelligence.js');
+  app.use('/api/io-intelligence', ioIntelligenceRoutes);
+  
   const server = await registerRoutes(app);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
