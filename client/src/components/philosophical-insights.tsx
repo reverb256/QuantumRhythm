@@ -343,7 +343,7 @@ export default function PhilosophicalInsights() {
       )}
 
       {/* Main Insights Display */}
-      <div className="fixed inset-0 pointer-events-none z-30">
+      <div className="fixed inset-0 pointer-events-none z-50">
         {philosophicalInsights.map(insight => {
           const state = insights[insight.id];
           if (!state?.isVisible) return null;
@@ -351,29 +351,33 @@ export default function PhilosophicalInsights() {
         return (
           <div
             key={insight.id}
-            className={`absolute ${getPositionStyles(insight.position)} max-w-sm pointer-events-auto philosophical-insight ${
+            className={`absolute ${getPositionStyles(insight.position)} max-w-md pointer-events-auto philosophical-insight ${
               state.isVisible 
                 ? 'animate-[gentle-reveal_1s_ease-out_forwards]' 
                 : 'animate-[gentle-fade-out_0.5s_ease-in_forwards]'
             }`}
           >
             <div className="relative">
+              {/* Enhanced background glow */}
+              <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/20 via-blue-500/15 to-violet-500/20 rounded-xl blur-xl scale-110 animate-pulse"></div>
+              
               {/* Philosophical insight card */}
-              <div className="prismatic-glass rounded-lg border border-cyan-400/30 p-6 backdrop-blur-lg">
+              <div className="relative prismatic-glass rounded-lg border-2 border-cyan-400/50 p-8 backdrop-blur-lg shadow-2xl shadow-cyan-400/25">
                 {/* Enhanced floating particles around the insight */}
                 <div className="absolute inset-0 overflow-hidden rounded-lg">
-                  {[...Array(8)].map((_, i) => (
+                  {[...Array(12)].map((_, i) => (
                     <div
                       key={i}
-                      className="absolute rounded-full"
+                      className="absolute rounded-full opacity-80"
                       style={{
-                        width: `${2 + Math.random() * 3}px`,
-                        height: `${2 + Math.random() * 3}px`,
-                        background: i % 3 === 0 ? '#22d3ee' : i % 3 === 1 ? '#a855f7' : '#10b981',
+                        width: `${3 + Math.random() * 4}px`,
+                        height: `${3 + Math.random() * 4}px`,
+                        background: i % 4 === 0 ? '#22d3ee' : i % 4 === 1 ? '#a855f7' : i % 4 === 2 ? '#10b981' : '#f59e0b',
                         left: `${Math.random() * 100}%`,
                         top: `${Math.random() * 100}%`,
-                        animation: `wisdom-particle-float ${3 + Math.random() * 2}s ease-in-out infinite`,
-                        animationDelay: `${Math.random() * 4}s`
+                        animation: `wisdom-particle-float ${2 + Math.random() * 3}s ease-in-out infinite`,
+                        animationDelay: `${Math.random() * 4}s`,
+                        boxShadow: `0 0 8px currentColor`
                       }}
                     />
                   ))}
@@ -381,26 +385,31 @@ export default function PhilosophicalInsights() {
 
                 {/* Content */}
                 <div className="relative z-10">
-                  {/* Quote */}
-                  <blockquote className="text-cyan-100 text-sm leading-relaxed mb-3 font-medium">
-                    "{insight.quote}"
-                  </blockquote>
-                  
-                  {/* Author */}
-                  <div className="flex items-center justify-between mb-2">
-                    <cite className="text-cyan-300 text-xs font-semibold not-italic">
-                      — {insight.author}
-                    </cite>
-                    <div className="w-8 h-px bg-gradient-to-r from-cyan-400 to-transparent"></div>
+                  {/* Enhanced wisdom icon */}
+                  <div className="absolute -top-3 -right-3 w-8 h-8 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full flex items-center justify-center shadow-lg shadow-cyan-400/50">
+                    <i className="fas fa-lightbulb text-white text-xs"></i>
                   </div>
                   
-                  {/* Context */}
-                  <p className="text-cyan-200/80 text-xs italic mb-3">
+                  {/* Quote with enhanced styling */}
+                  <blockquote className="text-cyan-50 text-base leading-relaxed mb-4 font-medium text-shadow-lg">
+                    <span className="text-cyan-300 text-xl">"</span>{insight.quote}<span className="text-cyan-300 text-xl">"</span>
+                  </blockquote>
+                  
+                  {/* Author with enhanced design */}
+                  <div className="flex items-center justify-between mb-3">
+                    <cite className="text-cyan-200 text-sm font-semibold not-italic">
+                      — {insight.author}
+                    </cite>
+                    <div className="w-12 h-px bg-gradient-to-r from-cyan-400 via-blue-400 to-transparent"></div>
+                  </div>
+                  
+                  {/* Context with enhanced visibility */}
+                  <p className="text-cyan-100/90 text-sm italic mb-4 bg-black/20 rounded-md p-2 border border-cyan-400/20">
                     {insight.context}
                   </p>
 
-                  {/* Interactive controls */}
-                  <div className="flex items-center justify-between mt-3 pt-2 border-t border-cyan-400/20">
+                  {/* Enhanced interactive controls */}
+                  <div className="flex items-center justify-between mt-4 pt-3 border-t border-cyan-400/30 bg-black/10 rounded-md p-2">
                     <button
                       onClick={() => {
                         setInsights(prev => ({
@@ -411,14 +420,14 @@ export default function PhilosophicalInsights() {
                           }
                         }));
                       }}
-                      className="text-cyan-400/60 hover:text-cyan-300 transition-colors duration-200 text-xs"
+                      className="flex items-center space-x-1 px-3 py-1 rounded-md bg-red-500/20 border border-red-400/30 text-red-300 hover:text-red-200 hover:bg-red-500/30 transition-all duration-200 text-xs"
                       title="Dismiss insight"
                     >
-                      <i className="fas fa-times mr-1"></i>
-                      Dismiss
+                      <i className="fas fa-times"></i>
+                      <span>Dismiss</span>
                     </button>
                     
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center space-x-3">
                       <button
                         onClick={() => {
                           // Replay animation
@@ -439,19 +448,23 @@ export default function PhilosophicalInsights() {
                             }));
                           }, 100);
                         }}
-                        className="text-cyan-400/60 hover:text-cyan-300 transition-colors duration-200 text-xs"
+                        className="flex items-center space-x-1 px-3 py-1 rounded-md bg-blue-500/20 border border-blue-400/30 text-blue-300 hover:text-blue-200 hover:bg-blue-500/30 transition-all duration-200 text-xs"
                         title="Replay insight"
                       >
                         <i className="fas fa-redo-alt"></i>
+                        <span>Replay</span>
                       </button>
                       
-                      <div className="w-2 h-2 bg-cyan-400/30 rounded-full animate-pulse"></div>
+                      <div className="w-3 h-3 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full animate-pulse shadow-lg shadow-cyan-400/50"></div>
                     </div>
                   </div>
                 </div>
 
-                {/* Enhanced glow effect with pulse */}
-                <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/5 to-blue-500/5 rounded-lg animate-[insight-glow-pulse_3s_ease-in-out_infinite]"></div>
+                {/* Enhanced glow effect with stronger pulse */}
+                <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/10 to-blue-500/10 rounded-lg animate-[insight-glow-pulse_2s_ease-in-out_infinite]"></div>
+                
+                {/* Additional edge glow */}
+                <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent animate-pulse"></div>
               </div>
 
               {/* Connecting line to suggest flow */}
