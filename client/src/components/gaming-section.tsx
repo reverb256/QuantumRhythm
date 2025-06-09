@@ -2,11 +2,11 @@ import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const gamingExperiences = [
   {
-    title: "VRChat Worlds",
-    category: "Virtual Reality",
-    description: "Immersive social experiences in quantum realms where consciousness meets digital architecture",
-    hours: "2,847",
-    platform: "Meta Quest Pro",
+    title: "VRChat Social Architecture",
+    category: "Virtual Reality Research",
+    description: "Immersive social experiences exploring digital consciousness and authentic human connection",
+    hours: "4,320+",
+    platform: "Steam/Quest 3",
     color: "from-purple-400 to-pink-500",
     icon: "fas fa-vr-cardboard"
   },
@@ -14,28 +14,28 @@ const gamingExperiences = [
     title: "Honkai Star Rail Philosophy",
     category: "Narrative Analysis",
     description: "Deep exploration of consciousness themes through Anaxa's truth-seeking and Penacony's dreamscape philosophy",
-    hours: "1,592",
+    hours: "890+",
     platform: "Mobile/PC",
     color: "from-cyan-400 to-blue-500",
     icon: "fas fa-star"
   },
   {
-    title: "Digital Presence Research",
-    category: "Consciousness Studies",
-    description: "Systematic exploration of virtual embodiment and authentic human connection in digital spaces",
-    hours: "3,249",
-    platform: "VR Platforms",
+    title: "Digital Consciousness Lab",
+    category: "VR Development",
+    description: "Experimental exploration of virtual embodiment and presence engineering across multiple platforms",
+    hours: "2,100+",
+    platform: "Multi-Platform VR",
     color: "from-green-400 to-teal-500",
     icon: "fas fa-infinity"
   },
   {
-    title: "VR Consciousness Laboratory",
-    category: "Research Platform",
-    description: "Experimental exploration of digital consciousness and authentic presence through virtual reality immersion",
-    hours: "1,876",
-    platform: "Quest 2/3",
+    title: "Steam Gaming Analytics",
+    category: "Platform Research",
+    description: "Comprehensive gaming experience analysis across 200+ titles for UX and design insights",
+    hours: "8,500+",
+    platform: "Steam Platform",
     color: "from-orange-400 to-red-500",
-    icon: "fas fa-flask"
+    icon: "fab fa-steam"
   }
 ];
 

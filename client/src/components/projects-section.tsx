@@ -64,7 +64,7 @@ const projects = [
     title: "Frostbite Gazette",
     subtitle: "Quantum-Enhanced Democratic Journalism",
     description: "Canada's sovereign accountability infrastructure powered by AI-first journalism and 5th Generation Warfare defense frameworks. Quantum RAG identity engine with bilingual Canadian core, classical learning integration, and Charter-compliant democratic transparency tools.",
-    image: portfolioImage, // Placeholder until we have the real image
+    image: cleaningServiceImage,
     technologies: [
       { name: "Quantum RAG", class: "quantum-tooltip" },
       { name: "5GW Defense", class: "defense-tooltip" },
@@ -208,18 +208,15 @@ export default function ProjectsSection() {
                 {/* Technology Stack with Tech Humor */}
                 <div className="flex flex-wrap gap-2 mb-6">
                   {project.technologies.map((tech, techIndex) => {
-                    const humorClasses = [
-                      'hover-deprecated', 'stackoverflow-reference', 'hover-loading', 
-                      'hover-syntax-error', 'hover-404'
-                    ];
-                    const humorClass = humorClasses[techIndex % humorClasses.length];
+                    const techName = typeof tech === 'string' ? tech : tech.name;
+                    const techClass = typeof tech === 'string' ? 'hover-deprecated' : tech.class;
                     
                     return (
                       <span 
-                        key={tech} 
-                        className={`px-3 py-1 bg-blue-900/30 border border-cyan-400/30 text-[var(--spectrum-cyan)] rounded-full text-sm transition-all duration-300 hover:border-cyan-400 hover:bg-cyan-400/10 ${humorClass}`}
+                        key={techName} 
+                        className={`px-3 py-1 bg-blue-900/30 border border-cyan-400/30 text-[var(--spectrum-cyan)] rounded-full text-sm transition-all duration-300 hover:border-cyan-400 hover:bg-cyan-400/10 ${techClass}`}
                       >
-                        {tech}
+                        {techName}
                       </span>
                     );
                   })}
