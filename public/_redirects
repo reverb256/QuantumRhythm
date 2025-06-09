@@ -1,19 +1,16 @@
-# Cloudflare Redirects for SPA and SEO
-
-# Handle SPA routing - serve index.html for all routes
+# GitHub Pages / Cloudflare Pages SPA routing configuration
 /*    /index.html   200
 
-# Redirect common misspellings
-/vr    /vrchat    301
-/chat  /vrchat    301
-/cv    /          301
-/resume /         301
-/portfolio /      301
+# External link optimizations for Cloudflare CDN
+/github    https://github.com/reverb256    301
+/steam     https://steamcommunity.com/id/reverb256/    301
+/email     mailto:contact@reverb256.ca    301
 
-# Redirect old paths if any
-/about    /#about     301
-/skills   /#skills    301
-/projects /#projects  301
-/philosophy /#philosophy 301
-/contact  /#contact   301
-/gaming   /#gaming    301
+# Asset optimization headers
+/attached_assets/*    X-Content-Type-Options: nosniff    200
+/attached_assets/*    Cache-Control: public, max-age=31536000    200
+
+# Security headers for static hosting
+/*    X-Frame-Options: DENY    200
+/*    X-Content-Type-Options: nosniff    200
+/*    Referrer-Policy: strict-origin-when-cross-origin    200
