@@ -127,6 +127,11 @@ export default function ProjectsSection() {
             </p>
           </div>
 
+          {/* Meta-Recursive Portfolio Analysis */}
+          <div className="mb-16">
+            <MetaRecursiveProject />
+          </div>
+
           {/* Featured Projects Grid */}
           <div className="grid lg:grid-cols-2 gap-8 mb-16">
             {projects.map((project, index) => (
