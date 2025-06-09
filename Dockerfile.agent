@@ -1,49 +1,40 @@
-# Autonomous Trading Agent Container
-FROM node:20-alpine AS base
+# Multi-stage build for quantum-secured trading agent
+FROM python:3.11-slim as base
 
 # Install system dependencies
-RUN apk add --no-cache \
-    python3 \
-    py3-pip \
-    build-base \
+RUN apt-get update && apt-get install -y \
+    build-essential \
     curl \
-    git \
-    chromium \
-    chromium-chromedriver
+    && rm -rf /var/lib/apt/lists/*
 
-# Set Chrome binary path
-ENV CHROME_BIN=/usr/bin/chromium-browser
-ENV CHROME_PATH=/usr/bin/chromium-browser
-
+# Set working directory
 WORKDIR /app
 
-# Copy package files
-COPY package*.json ./
-COPY tsconfig.json ./
+# Install Python dependencies
+COPY llm-proxy/requirements.txt /app/requirements.txt
+COPY solana-bot/requirements.txt /app/solana-requirements.txt
 
-# Install dependencies
-RUN npm ci --only=production
+RUN pip install --no-cache-dir -r requirements.txt && \
+    pip install --no-cache-dir -r solana-requirements.txt
 
-# Copy source code
-COPY . .
+# Copy application code
+COPY llm-proxy/ /app/llm-proxy/
+COPY solana-bot/ /app/solana-bot/
+COPY shared/ /app/shared/
 
-# Build the application
-RUN npm run build
-
-# Create non-root user
-RUN addgroup -g 1001 -S nodejs && \
-    adduser -S agent -u 1001
-
-# Create data directories
-RUN mkdir -p /app/data /app/logs && \
-    chown -R agent:nodejs /app
+# Create non-root user for security
+RUN useradd -m -u 1001 agent && \
+    chown -R agent:agent /app
 
 USER agent
 
+# Set environment variables
+ENV PYTHONPATH="/app"
+ENV PYTHONUNBUFFERED=1
+
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:3001/health || exit 1
+    CMD python -c "import httpx; httpx.get('http://localhost:8000/health')" || exit 1
 
-EXPOSE 3001
-
-CMD ["npm", "start"]
+# Default command (can be overridden in docker-compose)
+CMD ["python", "-m", "uvicorn", "llm-proxy.main:app", "--host", "0.0.0.0", "--port", "8000"]
