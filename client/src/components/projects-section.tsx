@@ -122,20 +122,7 @@ export default function ProjectsSection() {
       {/* Cybernetic Grid Overlay */}
       <div className="absolute inset-0 cyber-grid opacity-25 z-5"></div>
 
-      {/* Floating Quantum Particles */}
-      <div className="absolute inset-0 z-10 pointer-events-none">
-        {[...Array(18)].map((_, i) => (
-          <div
-            key={i}
-            className="quantum-particle"
-            style={{
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 10}s`,
-              animationDuration: `${8 + Math.random() * 4}s`
-            }}
-          />
-        ))}
-      </div>
+
 
       <div className="container mx-auto px-6 relative z-20">
         <div className="max-w-7xl mx-auto">

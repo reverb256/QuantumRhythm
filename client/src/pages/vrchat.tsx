@@ -102,20 +102,7 @@ export default function VRChat() {
         {/* Cybernetic Grid Overlay */}
         <div className="absolute inset-0 cyber-grid opacity-15 z-5"></div>
 
-        {/* Floating Quantum Particles */}
-        <div className="absolute inset-0 z-10 pointer-events-none">
-          {[...Array(45)].map((_, i) => (
-            <div
-              key={i}
-              className="quantum-particle"
-              style={{
-                left: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 25}s`,
-                animationDuration: `${25 + Math.random() * 15}s`
-              }}
-            />
-          ))}
-        </div>
+
         
         <div className="container mx-auto px-6 relative z-20">
           <div className="max-w-5xl mx-auto text-center">
