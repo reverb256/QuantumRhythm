@@ -11,16 +11,30 @@ export default function Home() {
     <div className="min-h-screen bg-[var(--space-black)] text-white ambient-glow">
       <main>
         <div className="section-glow">
-          <HeroSection />
+          <div id="hero">
+            <HeroSection />
+          </div>
         </div>
-        <AboutSection />
+        <div id="about">
+          <AboutSection />
+        </div>
         <div className="section-glow">
-          <ProjectsSection />
+          <div id="projects">
+            <ProjectsSection />
+          </div>
         </div>
-        <SkillsSection />
-        <PhilosophySection />
-        <GamingSection />
-        <ContactSection />
+        <div id="skills">
+          <SkillsSection />
+        </div>
+        <div id="philosophy">
+          <PhilosophySection />
+        </div>
+        <div id="gaming">
+          <GamingSection />
+        </div>
+        <div id="contact">
+          <ContactSection />
+        </div>
       </main>
       <Footer />
     </div>

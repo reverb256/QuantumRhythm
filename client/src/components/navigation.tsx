@@ -61,7 +61,7 @@ export default function Navigation() {
             <i className="fas fa-code mr-2 text-cyan-400"></i>
             reverb256<span className="console-cursor text-[var(--synthwave-cyan)]">|</span>
           </Link>
-          
+
           <div className="hidden md:flex space-x-8">
             <button 
               onClick={() => scrollToSection('about')} 
@@ -160,7 +160,7 @@ export default function Navigation() {
               Connect
             </button>
           </div>
-          
+
           <button 
             className="md:hidden text-[var(--synthwave-cyan)]"
             onClick={() => setIsOpen(!isOpen)}
@@ -168,7 +168,7 @@ export default function Navigation() {
             <i className={`fas ${isOpen ? 'fa-times' : 'fa-bars'} text-xl`}></i>
           </button>
         </div>
-        
+
         {/* Mobile Menu */}
         {isOpen && (
           <div className="md:hidden mt-4 glass-morphism rounded-lg p-4">

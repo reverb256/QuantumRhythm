@@ -181,19 +181,10 @@ export const crossEmpoweredInsights: KnowledgeInsight[] = [
     id: "cyberpunk-authenticity",
     category: "design",
     source: "Design Philosophy",
-    insight: "Cyberpunk aesthetics with philosophical substance - not just visual style but consciousness expression",
-    application: "Neural network portfolio architecture where every element serves both function and meaning",
-    relevantSections: ["about", "projects"],
+    insight: "Cyberpunk aesthetics with philosophical substance - neural network portfolio where every element serves both function and meaning",
+    application: "Glassmorphism as digital consciousness metaphor revealing depth beneath surface aesthetics",
+    relevantSections: ["about", "projects", "skills"],
     priority: "high"
-  },
-  {
-    id: "glassmorphism-consciousness",
-    category: "design",
-    source: "Design Language Engineering",
-    insight: "Glassmorphism as digital consciousness metaphor - transparency revealing depth beneath surface",
-    application: "UI components that suggest depth of thought and philosophical grounding",
-    relevantSections: ["projects", "skills"],
-    priority: "medium"
   },
 
   // Philosophical Principles Insights
