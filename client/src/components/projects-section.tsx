@@ -30,9 +30,9 @@ export default function ProjectsSection() {
             />
             
             <p className="text-gray-300 mb-6 text-sm md:text-base">
-              AI-enhanced luxury crystal jewelry platform featuring mystical brand identity, 
-              sophisticated product catalogs, and spiritual customer experience design. 
-              Built with React, TypeScript, and advanced e-commerce functionality.
+              Sacred crystal sanctuary where mystical brand identity merges with cutting-edge e-commerce architecture. 
+              This AI-enhanced platform channels spiritual energy through sophisticated product catalogs, 
+              transforming ancient crystal wisdom into modern digital experiences that honor both commerce and consciousness.
             </p>
             
             <div className="flex flex-wrap gap-2 mb-6">
@@ -81,9 +81,9 @@ export default function ProjectsSection() {
             />
             
             <p className="text-gray-300 mb-6 text-sm md:text-base">
-              Enterprise-grade commercial cleaning service platform featuring WCAG AAA compliance, 
-              AI-powered chat assistance, OWASP security frameworks, and the complete VibeCoding methodology. 
-              Winnipeg-based with authentic business integration.
+              Enterprise fortress of commercial excellence wielding WCAG AAA compliance mastery, 
+              AI-powered conversational intelligence, and fortress-grade OWASP security architecture. 
+              This Winnipeg-rooted platform embodies the complete VibeCoding methodology in production-ready magnificence.
             </p>
             
             <div className="flex flex-wrap gap-2 mb-6">

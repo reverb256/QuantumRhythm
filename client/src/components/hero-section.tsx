@@ -33,6 +33,14 @@ export default function HeroSection() {
       
       <div className="container mx-auto px-6 text-center relative z-10">
         <div className="glass-morphism p-8 md:p-12 rounded-3xl cyber-border animate-pulse-glow">
+          {/* Profile Avatar */}
+          <div className="mb-8">
+            <img 
+              src="/attached_assets/PFP_1749430516108.jpg" 
+              alt="reverb256 - Cybernetic cat silhouette against cosmic triangle" 
+              className="w-24 h-24 md:w-32 md:h-32 rounded-full mx-auto border-4 border-[var(--synthwave-cyan)] shadow-lg shadow-[var(--synthwave-cyan)]/50 animate-float"
+            />
+          </div>
           <h1 className="font-bold text-4xl md:text-6xl lg:text-7xl mb-6 text-gradient-cyan">
             Digital Architect
           </h1>

@@ -20,8 +20,8 @@ export default function ContactSection() {
           
           <div className={`glass-morphism p-6 md:p-8 rounded-2xl cyber-border mb-8 fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.2s' }}>
             <p className="text-lg md:text-xl text-gray-300 mb-8">
-              Ready to explore the intersection of classical wisdom and cutting-edge technology? 
-              Let's build something that honors both innovation and human dignity.
+              Ready to venture into the convergence where classical wisdom meets revolutionary technology? 
+              Together we shall architect digital experiences that honor both blazing innovation and eternal human dignity.
             </p>
             
             <div className="grid md:grid-cols-3 gap-6">

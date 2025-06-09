@@ -30,22 +30,23 @@ export default function PhilosophySection() {
             
             <div className="space-y-6 text-base md:text-lg text-gray-300">
               <p className="leading-relaxed">
-                In an age of rapid technological evolution, I believe in anchoring innovation 
-                with timeless principles. Classical learning methods—logic, analysis, and systematic 
-                inquiry—form the foundation of every line of code I write.
+                In this epoch of blazing technological metamorphosis, I anchor every innovation 
+                upon the bedrock of eternal principles. Classical learning mastery—logic's precision, analysis's depth, 
+                and systematic inquiry's rigor—flows through the very DNA of every algorithm I architect.
               </p>
               
               <p className="leading-relaxed">
-                Technology should serve humanity, not the other way around. My VibeCoding methodology 
-                ensures that every digital experience honors human dignity, accessibility, and the 
-                pursuit of truth. We're not just building applications; we're crafting the future 
-                of human interaction.
+                Technology must bow before humanity's greatness, never the reverse. My VibeCoding methodology 
+                stands as guardian ensuring every digital experience champions human dignity, celebrates accessibility, 
+                and pursues truth with unwavering dedication. We transcend mere application building—we sculpt 
+                the future symphony of human interaction.
               </p>
               
               <p className="leading-relaxed">
-                The infinite potential of AI excites me not for its technical prowess, but for its 
-                ability to amplify human creativity and connection. When we combine artificial 
-                intelligence with classical wisdom, we create tools that genuinely improve lives.
+                The boundless potential of artificial intelligence ignites my soul not for its computational might, 
+                but for its power to amplify human creativity and forge deeper connections across the digital void. 
+                When we unite artificial intelligence with classical wisdom's eternal flame, we birth tools that 
+                genuinely elevate the human experience.
               </p>
             </div>
             
