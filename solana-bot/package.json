@@ -1,0 +1,32 @@
+{
+  "name": "solana-trading-bot",
+  "version": "1.0.0",
+  "description": "Advanced Solana trading bot with VibeCoding methodology",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "monitor": "node src/monitor.js",
+    "test": "node src/test.js"
+  },
+  "keywords": ["solana", "trading", "bot", "defi", "crypto"],
+  "author": "reverb256",
+  "license": "MIT",
+  "dependencies": {
+    "@solana/web3.js": "^1.87.6",
+    "@solana/spl-token": "^0.3.9",
+    "@project-serum/serum": "^0.13.65",
+    "@jup-ag/core": "^6.0.0",
+    "axios": "^1.6.2",
+    "dotenv": "^16.3.1",
+    "ws": "^8.14.2",
+    "node-cron": "^3.0.3",
+    "chalk": "^5.3.0",
+    "bs58": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.2"
+  }
+}
