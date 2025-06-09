@@ -5,7 +5,7 @@
 ### Core Bootstrap Prompt
 
 ```
-I want to create a new project using the VibeCoding Constitution framework. Please implement a complete solution that integrates:
+I want to create a new project using the VibeCoding Constitution framework optimized for 60fps GitHub Pages deployment with Cloudflare CDN integration. Please implement a complete solution that integrates:
 
 **CONSCIOUSNESS FOUNDATION:**
 - Classical wisdom integration (Socratic questioning, Aristotelian analysis, Platonic ideals, Stoic discipline)
