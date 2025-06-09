@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
+import catboy2025PFP___Copy from "@assets/catboy2025PFP - Copy.PNG";
 // Using direct path for profile image
 
 export default function HeroSection() {
@@ -33,7 +34,6 @@ export default function HeroSection() {
           }}
         />
       </div>
-
       {/* Cybernetic Grid Matrix */}
       <div className="absolute inset-0 opacity-10 z-5">
         <div className="absolute inset-0" style={{
@@ -44,7 +44,6 @@ export default function HeroSection() {
           backgroundSize: '60px 60px'
         }}></div>
       </div>
-
       {/* Floating Holographic Particles */}
       <div className="absolute inset-0 z-10 pointer-events-none">
         {[...Array(25)].map((_, i) => (
@@ -62,7 +61,6 @@ export default function HeroSection() {
           />
         ))}
       </div>
-
       {/* Energy Circuit Lines */}
       <div className="absolute inset-0 z-10 pointer-events-none">
         <svg className="w-full h-full" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
@@ -90,7 +88,6 @@ export default function HeroSection() {
           />
         </svg>
       </div>
-
       {/* Main Content Container */}
       <div className="container mx-auto px-6 text-center relative z-20 pt-24 pb-12">
         <div className="max-w-4xl mx-auto">
@@ -123,7 +120,7 @@ export default function HeroSection() {
             <div className="relative flex items-center justify-center">
               <div className="relative">
                 <img
-                  src="/attached_assets/catboy2025PFP_1749433070083.PNG"
+                  src={catboy2025PFP___Copy}
                   alt="reverb256 Digital Architect"
                   className="w-40 h-40 md:w-52 md:h-52 rounded-full object-cover border-4 border-cyan-300/60 shadow-2xl shadow-cyan-400/40"
                 />
@@ -225,7 +222,6 @@ export default function HeroSection() {
           </div>
         </div>
       </div>
-
       {/* Holographic Corner Brackets */}
       <div className="absolute top-6 left-6 w-20 h-20 border-l-3 border-t-3 border-cyan-400/70 z-40"></div>
       <div className="absolute top-6 right-6 w-20 h-20 border-r-3 border-t-3 border-cyan-400/70 z-40"></div>
