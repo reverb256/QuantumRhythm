@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
-import catboy2025PFP___Copy from "@assets/catboy2025PFP - Copy.PNG";
+import catboy2025PFP___Copy from "@assets/catboy2025PFP - Copy.png";
 // Using direct path for profile image
 
 export default function HeroSection() {

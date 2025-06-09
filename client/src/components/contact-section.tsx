@@ -36,6 +36,15 @@ const contactMethods = [
     color: "from-orange-400 to-red-500",
     href: "/vrchat",
     label: "Virtual Worlds"
+  },
+  {
+    platform: "Steam",
+    handle: "reverb256",
+    description: "Gaming portfolio and community interactions",
+    icon: "fab fa-steam",
+    color: "from-indigo-400 to-purple-500",
+    href: "https://steamcommunity.com/id/reverb256/",
+    label: "Gaming Platform"
   }
 ];
 
@@ -199,7 +208,7 @@ export default function ContactSection() {
                   { channel: "Email", time: "< 24 hours", priority: "Enterprise & Collaboration", status: "Primary" },
                   { channel: "GitHub", time: "< 48 hours", priority: "Open Source & Code", status: "Active" },
                   { channel: "Discord", time: "Real-time", priority: "Community & Discussion", status: "Available" },
-                  { channel: "LinkedIn", time: "< 72 hours", priority: "Professional Network", status: "Business" }
+                  { channel: "Steam", time: "< 48 hours", priority: "Gaming & Community", status: "Gaming" }
                 ].map((response, index) => (
                   <div key={response.channel} className="flex items-center justify-between p-4 bg-blue-900/20 rounded-xl border border-cyan-400/20">
                     <div>
