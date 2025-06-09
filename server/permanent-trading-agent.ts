@@ -285,7 +285,7 @@ class AutonomousTradingAgent {
 
       for (const strategy of autonomousStrategies) {
         await db.insert(tradingStrategies).values({
-          agentId: this.agentId,
+          agentId: this.agentRecord.id,
           strategyType: strategy.strategyType,
           parameters: strategy.parameters,
           riskProfile: strategy.riskProfile,
@@ -622,9 +622,9 @@ class AutonomousTradingAgent {
 
     // Log performance metrics
     await db.insert(agentPerformanceLogs).values({
-      agentId: this.agentId,
+      agentId: this.agentRecord.id,
       metricType: 'daily_performance',
-      metricValue: performanceMetrics.successRate,
+      metricValue: performanceMetrics.successRate.toString(),
       context: performanceMetrics
     });
 
@@ -644,7 +644,7 @@ class AutonomousTradingAgent {
     const recentAnalysis = await this.getCurrentVibeCodingMetrics();
     
     await db.insert(vibeCodingMetrics).values({
-      agentId: this.agentId,
+      agentId: this.agentRecord.id,
       pizzaKitchenReliability: recentAnalysis.pizzaKitchen,
       rhythmGamingPrecision: recentAnalysis.rhythmGaming,
       vrChatSocialInsights: recentAnalysis.vrChatSocial,
