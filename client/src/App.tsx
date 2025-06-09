@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import SEOHead, { getSEOForPage } from "@/components/seo-head";
 import ConsoleEasterEgg from "@/components/console-easter-egg";
+import PhilosophicalInsights from "@/components/philosophical-insights";
 import Navigation from "@/components/navigation";
 import Home from "@/pages/home";
 import Values from "@/pages/values";
@@ -43,6 +44,7 @@ function Router() {
     <>
       <SEOHead {...seoData} />
       <Navigation />
+      <PhilosophicalInsights />
       <Switch>
         <Route path="/" component={Home} />
         <Route path="/values" component={Values} />
