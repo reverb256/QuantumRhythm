@@ -5,79 +5,66 @@ export default function AboutSection() {
 
   return (
     <section id="about" className="py-20 relative" ref={elementRef}>
-      {/* Enhanced atmospheric background */}
-      <div className="absolute inset-0 opacity-25">
+      {/* Crystalline fragments background */}
+      <div className="absolute inset-0 opacity-20">
         <img 
-          src="/images/Reverb_using_a_color_scheme_based_around_071321_ffffff_2f81b1_b_63fe7c14-6841-4b14-a387-8ebe9b50f06d_1749433293324.png" 
-          alt="Futuristic cityscape with luminous light beams" 
+          src="/images/crystalline_fragments.png" 
+          alt="Crystalline geometric patterns" 
           className="w-full h-full object-cover" 
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[var(--space-black)] via-transparent to-[var(--space-black)] opacity-70"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-[var(--space-black)]/85 to-[var(--deep-space)]/85"></div>
       </div>
-      
-      {/* Light beam accent */}
-      <div className="absolute right-1/4 top-0 bottom-0 w-1 light-beam-vertical opacity-20"></div>
       
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-4xl mx-auto">
-          <h2 className={`font-bold text-3xl md:text-4xl lg:text-5xl text-center mb-12 text-[var(--synthwave-cyan)] fade-in-up ${isVisible ? 'animate' : ''}`}>
-            <i className="fas fa-user-astronaut mr-4"></i>About The Architect
+          <h2 className={`font-bold text-3xl md:text-4xl lg:text-5xl mb-12 text-center text-[var(--synthwave-cyan)] fade-in-up ${isVisible ? 'animate' : ''}`}>
+            <i className="fas fa-atom mr-4"></i>Digital Architect
           </h2>
           
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
             <div className={`glass-morphism p-6 md:p-8 rounded-2xl cyber-border fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.2s' }}>
-              <h3 className="font-semibold text-xl md:text-2xl mb-4 text-[var(--bright-blue)] flex items-center">
-                <svg className="w-8 h-5 mr-2" viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">
-                  <rect width="1000" height="500" fill="#FF0000"/>
-                  <rect x="250" y="0" width="500" height="500" fill="#FFFFFF"/>
-                  <g transform="translate(500,250)">
-                    <path d="M0,-83 L15,-67 L35,-75 L20,-55 L30,-35 L15,-45 L25,-25 L5,-35 L15,-15 L-15,-15 L-5,-35 L-25,-25 L-15,-45 L-30,-35 L-20,-55 L-35,-75 L-15,-67 Z" fill="#FF0000"/>
-                    <rect x="-3" y="-15" width="6" height="60" fill="#FF0000"/>
-                  </g>
-                </svg>
-                Canadian Values
+              <h3 className="text-xl md:text-2xl font-semibold text-[var(--bright-blue)] mb-4">
+                <i className="fas fa-code mr-3 text-[var(--synthwave-cyan)]"></i>
+                The VibeCoding Journey
               </h3>
-              <p className="text-gray-300 leading-relaxed text-sm md:text-base">
-                A proud Canadian who champions humanity's infinite potential through the convergence of classical wisdom and 
-                cutting-edge innovation. My work embodies the cross-empowerment of traditional analytical frameworks with 
-                revolutionary AI systems, creating digital architectures that honor both blazing technological advancement 
-                and timeless philosophical principles.
+              <p className="text-gray-300 mb-4">
+                From the frozen landscapes of Canada emerges a developer who bridges the ancient wisdom of philosophy 
+                with the blazing frontier of modern technology. Every line of code becomes a meditation on possibility, 
+                every algorithm a step toward digital enlightenment.
+              </p>
+              <p className="text-gray-300">
+                Through years of crafting solutions that honor both innovation and human dignity, 
+                I have cultivated a practice where technical excellence serves deeper purpose.
               </p>
             </div>
             
             <div className={`glass-morphism p-6 md:p-8 rounded-2xl cyber-border fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.4s' }}>
-              <h3 className="font-semibold text-xl md:text-2xl mb-4 text-[var(--bright-blue)]">
-                <i className="fas fa-gamepad mr-2 text-[var(--synthwave-pink)]"></i>Digital Renaissance
+              <h3 className="text-xl md:text-2xl font-semibold text-[var(--bright-blue)] mb-4">
+                <i className="fas fa-gamepad mr-3 text-[var(--synthwave-pink)]"></i>
+                Virtual Realms Explorer
               </h3>
-              <p className="text-gray-300 leading-relaxed text-sm md:text-base">
-                Nearly four decades deep yet vibrating with the energy of twenty. I dance at the convergence of rhythm games, anime aesthetics, 
-                and VR immersion. My Quest Pro with full body tracking transcends entertainment—it's pioneering research 
-                into the infinite frontier of human-computer symbiosis.
+              <p className="text-gray-300 mb-4">
+                In VRChat's infinite worlds, I discover the profound truth that digital presence can be 
+                as meaningful as physical existence. Each virtual encounter teaches new lessons about 
+                connection, creativity, and the boundless nature of human imagination.
+              </p>
+              <p className="text-gray-300">
+                Gaming becomes more than entertainment—it transforms into a laboratory for understanding 
+                human interaction, community building, and the future of digital society.
               </p>
             </div>
-            
-            <div className={`glass-morphism p-6 md:p-8 rounded-2xl cyber-border fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.6s' }}>
-              <h3 className="font-semibold text-xl md:text-2xl mb-4 text-[var(--bright-blue)]">
-                <i className="fas fa-brain mr-2 text-[var(--synthwave-gold)]"></i>Convergent Intelligence
-              </h3>
-              <p className="text-gray-300 leading-relaxed text-sm md:text-base">
-                Architecting the VibeCoding methodology—where classical analytical frameworks cross-empower 
-                AI systems to create unprecedented technological synergies. Every algorithm embodies the 
-                convergence of timeless wisdom and cutting-edge innovation, breathing with both technical 
-                excellence and unwavering human dignity.
-              </p>
-            </div>
-            
-            <div className={`glass-morphism p-6 md:p-8 rounded-2xl cyber-border fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.8s' }}>
-              <h3 className="font-semibold text-xl md:text-2xl mb-4 text-[var(--bright-blue)]">
-                <i className="fas fa-server mr-2 text-[var(--synthwave-cyan)]"></i>Infrastructure Mastery
-              </h3>
-              <p className="text-gray-300 leading-relaxed text-sm md:text-base">
-                Commanding a Proxmox cluster armed with multiple GPUs for neural network training and cryptocurrency mining. 
-                This homelab fortress transcends hobby territory—it's my proving ground for enterprise-scale innovations 
-                and the birthplace of tomorrow's decentralized computing revolution.
-              </p>
-            </div>
+          </div>
+          
+          <div className={`glass-morphism p-6 md:p-8 rounded-2xl cyber-border mt-8 text-center fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.6s' }}>
+            <h3 className="text-xl md:text-2xl font-semibold text-[var(--bright-blue)] mb-4">
+              <i className="fas fa-infinity mr-3 text-[var(--synthwave-gold)]"></i>
+              Philosophy Meets Technology
+            </h3>
+            <p className="text-lg text-gray-300">
+              Where classical thought traditions converge with quantum computing possibilities, 
+              where ancient ethical frameworks guide artificial intelligence development, 
+              and where every technological choice reflects a deeper commitment to human flourishing.
+            </p>
           </div>
         </div>
       </div>
