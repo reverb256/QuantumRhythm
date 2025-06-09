@@ -448,10 +448,17 @@ class AutonomousTradingAgent {
               feedId: feed.id,
               title: item.title || '',
               description: item.contentSnippet || '',
+              content: item.content || item.contentSnippet || '',
               link: item.link,
-              pubDate: new Date(item.pubDate || Date.now()),
-              sentiment: sentiment,
-              relevanceScore: relevance,
+              author: item.creator || 'Unknown',
+              publishedAt: new Date(item.pubDate || Date.now()),
+              source: feed.name,
+              category: feed.category,
+              sentimentScore: sentiment.toString(),
+              relevanceScore: relevance.toString(),
+              tokenMentions: [],
+              tradingSignals: {},
+              urgencyLevel: 'medium',
               processed: false
             });
           }

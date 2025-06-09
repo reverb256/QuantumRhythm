@@ -1,7 +1,5 @@
 
 import React from 'react';
-import { QuantumWordTagger } from '../components/ui/quantum-word-tagger';
-import { IntelligentTooltip } from '../components/ui/intelligent-tooltip';
 
 export default function TechnicalDeepDive() {
   return (
@@ -29,7 +27,7 @@ export default function TechnicalDeepDive() {
             Technical Deep Dive
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Journey through the <QuantumWordTagger category="tech">quantum consciousness architecture</QuantumWordTagger> and 
+            Journey through the quantum consciousness architecture and 
             sophisticated engineering principles that power next-generation digital experiences.
           </p>
         </div>
@@ -44,17 +42,11 @@ export default function TechnicalDeepDive() {
             <div className="grid md:grid-cols-2 gap-8">
               <div>
                 <h3 className="text-2xl font-semibold mb-4 text-blue-300">
-                  <IntelligentTooltip 
-                    category="concept" 
-                    content="Think of consciousness as the operating system of digital experiences - just as your mind processes multiple thoughts simultaneously, our systems process multiple data streams through quantum-parallel architectures."
-                  >
-                    Quantum Consciousness Design
-                  </IntelligentTooltip>
+                  Quantum Consciousness Design
                 </h3>
                 <p className="text-gray-300 mb-4">
-                  Imagine your favorite video game's graphics engine - it renders thousands of objects simultaneously while maintaining 
-                  <QuantumWordTagger category="gaming">60fps performance</QuantumWordTagger>. Our architecture applies this same 
-                  parallel processing philosophy to web experiences.
+                  Imagine your favorite rhythm game like beatmania IIDX - it processes thousands of notes simultaneously while maintaining 
+                  60fps performance. Our architecture applies this same parallel processing philosophy to web experiences.
                 </p>
                 <div className="bg-slate-800/50 p-4 rounded-lg border border-blue-500/20">
                   <code className="text-cyan-300 text-sm">
@@ -70,12 +62,7 @@ const quantumProcessor = {
 
               <div>
                 <h3 className="text-2xl font-semibold mb-4 text-purple-300">
-                  <IntelligentTooltip 
-                    category="tech" 
-                    content="Glassmorphism creates the illusion of looking through frosted glass - it's achieved through CSS backdrop-filters and careful opacity layering, creating depth without sacrificing readability."
-                  >
-                    Glassmorphic Interface Engineering
-                  </IntelligentTooltip>
+                  Glassmorphic Interface Engineering
                 </h3>
                 <p className="text-gray-300 mb-4">
                   Think of looking through a crystal - you see multiple layers of reality simultaneously. Our interfaces use 
