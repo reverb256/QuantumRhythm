@@ -143,9 +143,7 @@ export default function HeroSection() {
             
             <div className="relative z-10">
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 font-space">
-                <span className="bg-gradient-to-r from-cyan-300 via-blue-400 to-purple-400 bg-clip-text text-transparent">
-                  reverb256
-                </span>
+                <span className="bg-gradient-to-r from-cyan-300 via-blue-400 to-purple-400 bg-clip-text text-transparent">Reverb</span>
               </h1>
               
               <h2 className="text-xl md:text-3xl lg:text-4xl text-cyan-300 mb-6 font-medium">
