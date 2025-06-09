@@ -66,7 +66,7 @@ const quantumProcessor = {
                 </h3>
                 <p className="text-gray-300 mb-4">
                   Think of looking through a crystal - you see multiple layers of reality simultaneously. Our interfaces use 
-                  <QuantumWordTagger category="tech">glassmorphism</QuantumWordTagger> to create this same multi-dimensional awareness, 
+                  glassmorphism to create this same multi-dimensional awareness, 
                   where background and foreground dance together like light through a prism.
                 </p>
                 <div className="bg-slate-800/50 p-4 rounded-lg border border-purple-500/20">
@@ -268,15 +268,10 @@ const aiOrchestra = {
 
               <div>
                 <h3 className="text-2xl font-semibold mb-4 text-pink-300">
-                  <IntelligentTooltip 
-                    category="concept" 
-                    content="Transparency through code means making systems understandable - users can see how their data flows, developers can understand decision-making logic, and everyone can verify democratic principles are upheld."
-                  >
-                    Transparency Through Code
-                  </IntelligentTooltip>
+                  Transparency Through Code
                 </h3>
                 <p className="text-gray-300 mb-4">
-                  Our systems explain themselves. Like a <QuantumWordTagger category="gaming">strategy game</QuantumWordTagger> 
+                  Our systems explain themselves. Like a strategy game 
                   showing damage calculations, users understand how data flows and decisions are made. Transparency builds trust, 
                   trust enables authentic collaboration.
                 </p>
@@ -307,15 +302,10 @@ const democraticProcessor = {
             <div className="space-y-6">
               <div className="bg-slate-800/30 p-6 rounded-lg border border-blue-500/20">
                 <h3 className="text-xl font-semibold mb-3 text-blue-300">
-                  <IntelligentTooltip 
-                    category="tech" 
-                    content="This portfolio site demonstrates quantum consciousness principles - multiple animation layers running in parallel, glassmorphic interfaces creating depth, and philosophical principles embedded in every interaction."
-                  >
-                    Portfolio Quantum Architecture
-                  </IntelligentTooltip>
+                  Portfolio Quantum Architecture
                 </h3>
                 <p className="text-gray-300">
-                  This very site runs on <QuantumWordTagger category="tech">quantum consciousness architecture</QuantumWordTagger> - 
+                  This very site runs on quantum consciousness architecture - 
                   multiple animation layers process in parallel while philosophical principles guide every interaction. 
                   The glassmorphic panels you're reading create depth through mathematical precision rather than visual tricks.
                 </p>
@@ -323,12 +313,7 @@ const democraticProcessor = {
 
               <div className="bg-slate-800/30 p-6 rounded-lg border border-purple-500/20">
                 <h3 className="text-xl font-semibold mb-3 text-purple-300">
-                  <IntelligentTooltip 
-                    category="concept" 
-                    content="Troves & Coves applies consciousness-driven commerce - the shopping experience feels intuitive and respectful, with AI assistance that enhances rather than manipulates decision-making."
-                  >
-                    Troves & Coves: Consciousness-Driven Commerce
-                  </IntelligentTooltip>
+                  Troves & Coves: Consciousness-Driven Commerce
                 </h3>
                 <p className="text-gray-300">
                   E-commerce reimagined with <QuantumWordTagger category="philosophy">consciousness-driven design</QuantumWordTagger> - 
