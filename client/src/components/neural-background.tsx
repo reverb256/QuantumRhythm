@@ -95,17 +95,18 @@ export default function NeuralBackground({
     };
 
     const initializeParticles = () => {
-      const nodeCount = Math.floor(intensity / 2);
+      // Drastically reduced particle count for performance
+      const nodeCount = Math.min(Math.floor(intensity * 0.3), 25);
       particlesRef.current = Array.from({ length: nodeCount }, (_, i) => ({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * speed * 2,
-        vy: (Math.random() - 0.5) * speed * 2,
-        size: Math.random() * 3 + 1,
-        energy: Math.random() * 100,
+        vx: (Math.random() - 0.5) * speed * 0.8,
+        vy: (Math.random() - 0.5) * speed * 0.8,
+        size: Math.random() * 1.5 + 0.5,
+        energy: Math.random() * 60 + 40,
         type: ['node', 'data', 'consciousness', 'qi'][Math.floor(Math.random() * 4)] as any,
         phase: Math.random() * Math.PI * 2,
-        lifecycle: Math.random() * 1000,
+        lifecycle: Math.random() * 600 + 400,
         connections: []
       }));
     };
@@ -131,23 +132,14 @@ export default function NeuralBackground({
 
       // Enhanced particle physics with quantum effects
       particlesRef.current.forEach((particle, index) => {
-        // Mouse interaction creates gravitational field
+        // Simplified mouse interaction
         const mouseDistance = Math.sqrt(
           Math.pow(particle.x - mousePos.x, 2) + Math.pow(particle.y - mousePos.y, 2)
         );
         
-        if (mouseDistance < 100) {
-          const force = (100 - mouseDistance) / 100;
-          const angle = Math.atan2(particle.y - mousePos.y, particle.x - mousePos.x);
-          particle.vx += Math.cos(angle) * force * 0.3;
-          particle.vy += Math.sin(angle) * force * 0.3;
-          particle.energy = Math.min(100, particle.energy + force * 30);
-        }
-
-        // Quantum tunneling effect for quantum theme
-        if (theme === 'quantum' && Math.random() < 0.0005) {
-          particle.x = Math.random() * canvas.width;
-          particle.y = Math.random() * canvas.height;
+        if (mouseDistance < 80) {
+          const force = (80 - mouseDistance) / 80;
+          particle.energy = Math.min(100, particle.energy + force * 15);
         }
 
         // Enhanced movement with wave interference
@@ -205,49 +197,25 @@ export default function NeuralBackground({
         }
       });
 
-      // Enhanced connection rendering with data flow visualization
+      // Minimal connection rendering - only closest neighbor for performance
       particlesRef.current.forEach((particle, i) => {
-        particlesRef.current.forEach((otherParticle, j) => {
-          if (i >= j) return;
-          
-          const dx = particle.x - otherParticle.x;
-          const dy = particle.y - otherParticle.y;
+        if (i % 2 === 0 && i < particlesRef.current.length - 1) { // Only every other particle
+          const nextParticle = particlesRef.current[i + 1];
+          const dx = particle.x - nextParticle.x;
+          const dy = particle.y - nextParticle.y;
           const distance = Math.sqrt(dx * dx + dy * dy);
           
-          if (distance < 120) {
-            const opacity = ((120 - distance) / 120) * 0.6;
-            const energyFlow = (particle.energy + otherParticle.energy) / 200;
+          if (distance < 100) {
+            const opacity = ((100 - distance) / 100) * 0.2;
+            ctx.strokeStyle = `rgba(${colors.secondary[0]}, ${colors.secondary[1]}, ${colors.secondary[2]}, ${opacity})`;
+            ctx.lineWidth = 0.5;
             
-            // Dynamic color based on connection type and energy
-            let connectionColor = colors.secondary;
-            if (particle.type === 'consciousness' || otherParticle.type === 'consciousness') {
-              connectionColor = colors.accent;
-            } else if (particle.energy > 70 || otherParticle.energy > 70) {
-              connectionColor = colors.flow;
-            }
-
-            ctx.strokeStyle = `rgba(${connectionColor[0]}, ${connectionColor[1]}, ${connectionColor[2]}, ${opacity * energyFlow})`;
-            ctx.lineWidth = 1 + energyFlow;
-            
-            // Animated data flow
-            const flowProgress = (time * 3 + i * 0.1) % 1;
-            const midX = particle.x + (otherParticle.x - particle.x) * flowProgress;
-            const midY = particle.y + (otherParticle.y - particle.y) * flowProgress;
-
             ctx.beginPath();
             ctx.moveTo(particle.x, particle.y);
-            ctx.lineTo(otherParticle.x, otherParticle.y);
+            ctx.lineTo(nextParticle.x, nextParticle.y);
             ctx.stroke();
-
-            // Data flow pulse
-            if (energyFlow > 0.6) {
-              ctx.fillStyle = `rgba(${colors.flow[0]}, ${colors.flow[1]}, ${colors.flow[2]}, ${opacity})`;
-              ctx.beginPath();
-              ctx.arc(midX, midY, 2 * energyFlow, 0, Math.PI * 2);
-              ctx.fill();
-            }
           }
-        });
+        }
       });
 
       // Abstract visionary cyber space with stark deep blues
@@ -360,29 +328,14 @@ export default function NeuralBackground({
         ctx.arc(particle.x, particle.y, particleSize, 0, Math.PI * 2);
         ctx.fill();
 
-        // Special effects for consciousness particles
-        if (particle.type === 'consciousness') {
-          const pulseSize = particleSize * (1 + Math.sin(time * 6 + particle.phase) * 0.3);
-          ctx.strokeStyle = `rgba(${colors.accent[0]}, ${colors.accent[1]}, ${colors.accent[2]}, 0.8)`;
-          ctx.lineWidth = 2;
+        // Minimal special effects for key particle types
+        if (particle.type === 'consciousness' && energyRatio > 0.7) {
+          const pulseSize = particleSize * 1.5;
+          ctx.strokeStyle = `rgba(${colors.accent[0]}, ${colors.accent[1]}, ${colors.accent[2]}, 0.3)`;
+          ctx.lineWidth = 1;
           ctx.beginPath();
           ctx.arc(particle.x, particle.y, pulseSize, 0, Math.PI * 2);
           ctx.stroke();
-        }
-
-        // Qi particles have rotating aura
-        if (particle.type === 'qi') {
-          const auraRadius = particleSize * 2;
-          for (let i = 0; i < 8; i++) {
-            const angle = (time * 2 + particle.phase + (i * Math.PI / 4)) % (Math.PI * 2);
-            const x = particle.x + Math.cos(angle) * auraRadius;
-            const y = particle.y + Math.sin(angle) * auraRadius;
-            
-            ctx.fillStyle = `rgba(252, 211, 77, ${0.3 * energyRatio})`;
-            ctx.beginPath();
-            ctx.arc(x, y, 1, 0, Math.PI * 2);
-            ctx.fill();
-          }
         }
       });
 

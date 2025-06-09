@@ -222,9 +222,9 @@ export function IntelligentTooltip({ children, tooltipData, className = '' }: In
                 </div>
 
                 {/* Definition */}
-                <p className="text-gray-300 text-sm mb-3 leading-relaxed break-words hyphens-auto">
+                <div className="text-gray-300 text-sm mb-3 leading-relaxed break-words hyphens-auto">
                   {tooltipData.definition}
-                </p>
+                </div>
 
                 {/* Context */}
                 {tooltipData.context && (
