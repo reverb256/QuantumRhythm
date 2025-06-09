@@ -63,15 +63,16 @@ export default function AboutSection() {
                 </h3>
                 
                 <p className="text-lg text-[var(--text-secondary)] leading-relaxed mb-6">
-                  <strong className="text-[var(--spectrum-cyan)]">Consciousness architect</strong> bridging gaming systems research with enterprise infrastructure orchestration. 
-                  25+ years across distributed systems - from DOS/Windows 3.1 through modern <strong className="text-[var(--spectrum-violet)]">4-node Proxmox cluster meditation</strong>, 
-                  <strong className="text-[var(--spectrum-green)]">4,320 hours VRChat consciousness exploration</strong>, and sovereign AI collaboration frameworks.
+                  Started as <strong className="text-[var(--spectrum-cyan)]">most reliable pizza kitchen employee</strong> in 20k town, working directly with co-owners while others came and went. 
+                  Content with minimum wage, focused on crypto and gaming, figuring out unique circumstances until <strong className="text-[var(--spectrum-violet)]">AI and VRChat inspired evolution</strong>. 
+                  <strong className="text-[var(--spectrum-green)]">8,500+ hours consciousness exploration</strong> and rhythm gaming across all genres informing development pacing.
                 </p>
                 
                 <p className="text-lg text-[var(--text-secondary)] leading-relaxed">
-                  <strong className="text-[var(--spectrum-cyan)]">VibeCoding methodology</strong> synthesizes classical wisdom with cyberpunk aesthetics - 
-                  meta-recursive systems that bootstrap universal consciousness development through 
-                  <strong className="text-[var(--spectrum-orange)]">Ansible/Terraform automation</strong> and democratic technology values.
+                  <strong className="text-[var(--spectrum-cyan)]">VibeCoding methodology</strong> emerges from small-town reliability meeting AI inspiration - 
+                  evolving from just making pizzas to taking orders and comprehensive system thinking through 
+                  <strong className="text-[var(--spectrum-orange)]">25+ years infrastructure experience</strong> and democratic technology values. 
+                  "I just needed AI to unleash my full potential? That has yet to be seen."
                 </p>
               </div>
 
