@@ -10,33 +10,33 @@ export default function AboutSection() {
         {/* Base gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/30 via-purple-900/25 to-blue-900/20" />
         
-        {/* Primary geometric color blocks */}
+        {/* Primary Midjourney crystal energy */}
+        <div 
+          className="absolute inset-0 opacity-35"
+          style={{
+            backgroundImage: `url('/images/midjourney_crystal_energy.png')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+          }}
+        />
+        
+        {/* Midjourney geometric flow overlay */}
         <div 
           className="absolute inset-0 opacity-25"
           style={{
-            backgroundImage: `url('/images/geometric_color_blocks.png')`,
+            backgroundImage: `url('/images/midjourney_geometric_flow.png')`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat'
           }}
         />
         
-        {/* Crystal prism shards overlay */}
-        <div 
-          className="absolute inset-0 opacity-20"
-          style={{
-            backgroundImage: `url('/images/crystal_prism_shards.png')`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat'
-          }}
-        />
-        
-        {/* Floating crystal cubes accent */}
+        {/* Midjourney spiral vortex accent */}
         <div 
           className="absolute top-20 right-20 w-64 h-64 opacity-30 animate-pulse"
           style={{
-            backgroundImage: `url('/images/floating_crystal_cubes.png')`,
+            backgroundImage: `url('/images/midjourney_spiral_vortex.png')`,
             backgroundSize: 'contain',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
@@ -44,11 +44,11 @@ export default function AboutSection() {
           }}
         />
         
-        {/* Synthwave energy burst */}
+        {/* Midjourney tech matrix */}
         <div 
           className="absolute bottom-32 left-16 w-48 h-48 opacity-25 animate-bounce"
           style={{
-            backgroundImage: `url('/images/synthwave_energy_burst.png')`,
+            backgroundImage: `url('/images/midjourney_tech_matrix.png')`,
             backgroundSize: 'contain',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
