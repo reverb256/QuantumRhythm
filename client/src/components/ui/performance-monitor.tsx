@@ -75,10 +75,9 @@ export default function PerformanceMonitor() {
       };
 
       // Security audit (adjusted for development environment)
-      const isDevelopment = location.hostname === 'localhost' || location.hostname.includes('replit');
       const securityAudit: SecurityAuditResult = {
         csp: document.querySelector('meta[http-equiv="Content-Security-Policy"]') !== null,
-        https: location.protocol === 'https:' || isDevelopment, // Accept HTTP in dev
+        https: location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname.includes('replit'), // Accept HTTP in dev
         xssProtection: document.querySelector('meta[http-equiv="X-XSS-Protection"]') !== null,
         clickjackProtection: document.querySelector('meta[http-equiv="X-Frame-Options"]') !== null,
         mixedContent: !document.querySelector('script[src^="http:"], link[href^="http:"], img[src^="http:"]'),
@@ -246,10 +245,10 @@ export default function PerformanceMonitor() {
 
                         <div className="space-y-3">
                           {[
-                            { key: 'https', label: 'HTTPS Enabled', icon: 'fas fa-lock', note: isDevelopment ? '(Dev: HTTP OK)' : '' },
-                            { key: 'csp', label: 'Content Security Policy', icon: 'fas fa-shield-alt', note: isDevelopment ? '(Cloudflare adds in prod)' : '' },
-                            { key: 'xssProtection', label: 'XSS Protection', icon: 'fas fa-bug', note: isDevelopment ? '(Cloudflare adds in prod)' : '' },
-                            { key: 'clickjackProtection', label: 'Clickjack Protection', icon: 'fas fa-mouse-pointer', note: isDevelopment ? '(Cloudflare adds in prod)' : '' },
+                            { key: 'https', label: 'HTTPS Enabled', icon: 'fas fa-lock', note: (location.hostname === 'localhost' || location.hostname.includes('replit')) ? '(Dev: HTTP OK)' : '' },
+                            { key: 'csp', label: 'Content Security Policy', icon: 'fas fa-shield-alt', note: (location.hostname === 'localhost' || location.hostname.includes('replit')) ? '(Cloudflare adds in prod)' : '' },
+                            { key: 'xssProtection', label: 'XSS Protection', icon: 'fas fa-bug', note: (location.hostname === 'localhost' || location.hostname.includes('replit')) ? '(Cloudflare adds in prod)' : '' },
+                            { key: 'clickjackProtection', label: 'Clickjack Protection', icon: 'fas fa-mouse-pointer', note: (location.hostname === 'localhost' || location.hostname.includes('replit')) ? '(Cloudflare adds in prod)' : '' },
                             { key: 'mixedContent', label: 'No Mixed Content', icon: 'fas fa-check-circle', note: '' }
                           ].map(({ key, label, icon, note }) => (
                             <div key={key} className="flex items-center justify-between p-3 bg-gray-900/50 rounded-lg">
@@ -260,8 +259,8 @@ export default function PerformanceMonitor() {
                                   {note && <div className="text-xs text-yellow-400">{note}</div>}
                                 </div>
                               </div>
-                              <div className={`font-bold ${security[key as keyof SecurityAuditResult] ? 'text-green-400' : (isDevelopment && (key === 'csp' || key === 'xssProtection' || key === 'clickjackProtection') ? 'text-yellow-400' : 'text-red-400')}`}>
-                                {security[key as keyof SecurityAuditResult] ? 'PASS' : (isDevelopment && (key === 'csp' || key === 'xssProtection' || key === 'clickjackProtection') ? 'DEV' : 'FAIL')}
+                              <div className={`font-bold ${security[key as keyof SecurityAuditResult] ? 'text-green-400' : ((location.hostname === 'localhost' || location.hostname.includes('replit')) && (key === 'csp' || key === 'xssProtection' || key === 'clickjackProtection') ? 'text-yellow-400' : 'text-red-400')}`}>
+                                {security[key as keyof SecurityAuditResult] ? 'PASS' : ((location.hostname === 'localhost' || location.hostname.includes('replit')) && (key === 'csp' || key === 'xssProtection' || key === 'clickjackProtection') ? 'DEV' : 'FAIL')}
                               </div>
                             </div>
                           ))}
