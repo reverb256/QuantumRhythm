@@ -1,8 +1,27 @@
-# The Neural Network Portfolio: A Cyberpunk Design Philosophy
+# Design Philosophy: Martial Arts Ethics in Digital Interfaces
+
+## Foundational Ethics
+
+### Shotokan Karate Dojo Kun Integration
+The principles learned through childhood training with family in Shotokan karate form the ethical foundation:
+
+- **Seek perfection of character** - Continuous improvement in both code quality and personal development
+- **Be faithful** - Commitment to users, collaborators, and the principles that guide our work  
+- **Endeavor to excel** - Pursuing technical mastery while maintaining humility and openness to learning
+- **Respect others** - Building technology that honors human dignity and diverse perspectives
+- **Refrain from violent behavior** - Creating systems that heal rather than harm, unite rather than divide
+
+### Charter Rights and Free Speech
+Drawing from the Canadian Charter of Rights and Freedoms, free speech protection is fundamental:
+
+- **Marketplace of Ideas** - Platforms should enable open discourse where truth emerges through debate
+- **Minority Protection** - Technology must protect unpopular viewpoints from suppression
+- **Democratic Discourse** - Systems should strengthen democratic participation, not undermine it
+- **Anti-Authoritarian** - Resistance to censorship and control mechanisms that concentrate power
 
 ## Abstract
 
-The development of this portfolio represents more than a showcase of technical skills—it embodies a philosophical approach to digital interface design that bridges the gap between futuristic aesthetics and meaningful human interaction. This article documents the thought process, design principles, and expandable methodologies that emerged during the creation of what we've termed the "Neural Network Portfolio."
+The development of this portfolio represents more than a showcase of technical skills—it embodies a philosophical approach rooted in martial arts ethics and Charter values that bridges the gap between futuristic aesthetics and meaningful human interaction. This article documents the thought process, design principles, and expandable methodologies that emerged during the creation of what we've termed the "Consciousness-Driven Portfolio."
 
 ## The Genesis: Beyond Traditional Portfolio Design
 
