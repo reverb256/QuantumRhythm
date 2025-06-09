@@ -111,7 +111,7 @@ const quantumProcessor = {
                   <div className="bg-green-900/20 p-4 rounded-lg border border-green-500/30">
                     <h4 className="font-semibold text-green-300 mb-2">🎵 Rhythm Coding</h4>
                     <p className="text-sm text-gray-300">
-                      Functions flow like <QuantumWordTagger category="gaming">beat saber</QuantumWordTagger> patterns - 
+                      Functions flow like beat saber patterns - 
                       predictable yet surprising, efficient yet elegant.
                     </p>
                   </div>
@@ -124,7 +124,7 @@ const quantumProcessor = {
                   <div className="bg-purple-900/20 p-4 rounded-lg border border-purple-500/30">
                     <h4 className="font-semibold text-purple-300 mb-2">🎮 Gaming Optimization</h4>
                     <p className="text-sm text-gray-300">
-                      Performance tuned like <QuantumWordTagger category="gaming">fighting game frame data</QuantumWordTagger> - 
+                      Performance tuned like fighting game frame data - 
                       every millisecond matters.
                     </p>
                   </div>
@@ -242,16 +242,11 @@ const aiOrchestra = {
             <div className="grid md:grid-cols-2 gap-8">
               <div>
                 <h3 className="text-2xl font-semibold mb-4 text-emerald-300">
-                  <IntelligentTooltip 
-                    category="concept" 
-                    content="Accessibility-first development means designing for the most challenging use cases first - if it works for someone using a screen reader or keyboard navigation, it works beautifully for everyone."
-                  >
-                    Accessibility-First Architecture
-                  </IntelligentTooltip>
+                  Accessibility-First Architecture
                 </h3>
                 <p className="text-gray-300 mb-4">
                   We design for the most challenging use cases first - if it works for someone navigating with 
-                  <QuantumWordTagger category="tech">keyboard only</QuantumWordTagger> or using screen readers, it works 
+                  keyboard only or using screen readers, it works 
                   beautifully for everyone. Like designing a building with ramps instead of adding them later.
                 </p>
                 

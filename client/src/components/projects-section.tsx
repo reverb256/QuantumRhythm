@@ -233,7 +233,7 @@ export default function ProjectsSection() {
                       <span className="text-sm font-semibold text-purple-300">AI Security Insight</span>
                     </div>
                     <p className="text-sm text-purple-200 italic">
-                      <QuantumWordTagger>Turning security into a learning experience that demonstrates AI capabilities while protecting real assets.</QuantumWordTagger>
+                      Turning security into a learning experience that demonstrates AI capabilities while protecting real assets.
                     </p>
                   </div>
                 </div>
@@ -367,7 +367,7 @@ export default function ProjectsSection() {
                         <span className="text-sm font-semibold text-purple-300">VibeCoding Insight</span>
                       </div>
                       <p className="text-sm text-purple-200 italic">
-                        <QuantumWordTagger>{project.vibecoding}</QuantumWordTagger>
+                        {project.vibecoding}
                       </p>
                     </div>
                   </div>
