@@ -437,14 +437,14 @@ class AutonomousTradingAgent {
         
         for (const item of parsedFeed.items) {
           // Check if item already exists
-          const [existingItem] = await db.select().from(rssFeedItems).where(eq(rssFeedItems.link, item.link || ''));
+          const [existingItem] = await db.select().from(newsArticles).where(eq(newsArticles.link, item.link || ''));
           
           if (!existingItem && item.link) {
             // Analyze sentiment using Hugging Face
             const sentiment = await this.analyzeSentiment(item.title + ' ' + (item.contentSnippet || ''));
             const relevance = this.calculateRelevanceScore(item.title + ' ' + (item.contentSnippet || ''));
 
-            await db.insert(rssFeedItems).values({
+            await db.insert(newsArticles).values({
               feedId: feed.id,
               title: item.title || '',
               description: item.contentSnippet || '',
@@ -832,9 +832,9 @@ class AutonomousTradingAgent {
   private async getRecentNews(tokenAddress: string) {
     // Get recent news from RSS feeds
     const recentNews = await db.select()
-      .from(rssFeedItems)
-      .where(gte(rssFeedItems.pubDate, new Date(Date.now() - 24 * 60 * 60 * 1000)))
-      .orderBy(desc(rssFeedItems.pubDate))
+      .from(newsArticles)
+      .where(gte(newsArticles.publishedAt, new Date(Date.now() - 24 * 60 * 60 * 1000)))
+      .orderBy(desc(newsArticles.publishedAt))
       .limit(10);
     
     return recentNews;

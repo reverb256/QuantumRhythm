@@ -4,12 +4,10 @@ import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 // Tooltip system removed for DOM nesting compliance
-import { CursorTooltipProvider } from "@/components/cursor-tooltip";
 import SEOHead, { getSEOForPage } from "@/components/seo-head";
 import { ConsciousContainer } from "@/components/smart-elements";
 import NeuralBackground from "@/components/neural-background";
 import { EnhancedConsole } from "@/components/enhanced-console";
-import { UniversalCursorTooltip } from "@/components/universal-cursor-tooltip";
 import { MetaTagManager, useAISEO } from "@/lib/ai-seo-engine";
 import { ErrorBoundaryFallback } from "@/components/error-state-manager";
 import { ErrorBoundary } from "react-error-boundary";
@@ -105,21 +103,18 @@ function App() {
   return (
     <ErrorBoundary FallbackComponent={ErrorBoundaryFallback}>
       <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
-          <ConsciousContainer learningRate={0.15}>
-            <NeuralBackground 
-              intensity={30} 
-              speed={0.5} 
-              theme="quantum" 
-            />
-            <UniversalCursorTooltip />
-            <Toaster />
-            <main id="main-content" className="relative z-10 hdr-background text-wcag-aaa focus-enhanced">
-              <Router />
-            </main>
-            <EnhancedConsole />
-          </ConsciousContainer>
-        </TooltipProvider>
+        <ConsciousContainer learningRate={0.15}>
+          <NeuralBackground 
+            intensity={30} 
+            speed={0.5} 
+            theme="quantum" 
+          />
+          <Toaster />
+          <main id="main-content" className="relative z-10 hdr-background text-wcag-aaa focus-enhanced">
+            <Router />
+          </main>
+          <EnhancedConsole />
+        </ConsciousContainer>
       </QueryClientProvider>
     </ErrorBoundary>
   );
