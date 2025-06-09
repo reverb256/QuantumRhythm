@@ -4,7 +4,7 @@ import { Link } from 'wouter';
 import catboy2025PFP___Copy from "@assets/catboy2025PFP - Copy.png";
 import { QuantumWordTagger, TechTag, ConceptTag, HumorTag } from './ui/quantum-word-tagger';
 import EnhancedConsole from './enhanced-console';
-import { ReactiveSection, AdaptiveText, SmartButton } from './reactive-elements';
+import { ReactiveSection, AdaptiveText, SmartButton } from './smart-elements';
 // Using direct path for profile image
 
 export default function HeroSection() {
@@ -252,6 +252,7 @@ export default function HeroSection() {
         isVisible={showConsole} 
         onClose={() => setShowConsole(false)}
       />
-    </section>
+      </section>
+    </ReactiveSection>
   );
 }

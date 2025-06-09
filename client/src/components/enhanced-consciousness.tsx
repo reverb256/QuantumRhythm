@@ -119,7 +119,7 @@ export default function EnhancedConsciousness() {
       if (section) {
         setUserAnalysis(prev => ({
           ...prev,
-          preferredContent: [...new Set([...prev.preferredContent, section])].slice(-5)
+          preferredContent: Array.from(new Set([...prev.preferredContent, section])).slice(-5)
         }));
       }
 
