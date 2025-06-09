@@ -43,23 +43,7 @@ export default function HeroSection() {
           backgroundSize: '60px 60px'
         }}></div>
       </div>
-      {/* Floating Holographic Particles */}
-      <div className="absolute inset-0 z-10 pointer-events-none">
-        {[...Array(25)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute bg-cyan-400 rounded-full animate-pulse opacity-60"
-            style={{
-              width: `${2 + Math.random() * 4}px`,
-              height: `${2 + Math.random() * 4}px`,
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${3 + Math.random() * 3}s`
-            }}
-          />
-        ))}
-      </div>
+
       {/* Energy Circuit Lines */}
       <div className="absolute inset-0 z-10 pointer-events-none">
         <svg className="w-full h-full" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
@@ -105,9 +89,9 @@ export default function HeroSection() {
 
           {/* Character Portrait with Holographic Frame */}
           <div className="relative mb-10">
-            {/* Outer Holographic Ring */}
+            {/* Static Holographic Ring */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-56 h-56 md:w-72 md:h-72 border-2 border-cyan-400/40 rounded-full animate-spin" style={{ animationDuration: '30s' }}>
+              <div className="w-56 h-56 md:w-72 md:h-72 border-2 border-cyan-400/40 rounded-full">
                 <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-cyan-400 rounded-full shadow-lg shadow-cyan-400/50"></div>
                 <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 w-4 h-4 bg-purple-400 rounded-full shadow-lg shadow-purple-400/50"></div>
                 <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1/2 w-3 h-3 bg-green-400 rounded-full shadow-lg shadow-green-400/50"></div>
