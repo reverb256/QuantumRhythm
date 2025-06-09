@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X, Code, Zap, Terminal } from 'lucide-react';
+
 interface TooltipInfo {
   title: string;
   description: string;
@@ -12,6 +14,7 @@ export default function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const [location] = useLocation();
   const [activeTooltip, setActiveTooltip] = useState<TooltipInfo | null>(null);
+  const [isConsoleOpen, setIsConsoleOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,25 +45,60 @@ export default function Navigation() {
     setActiveTooltip(null);
   };
 
+  const toggleConsole = () => {
+    const event = new KeyboardEvent('keydown', { 
+      key: '`', 
+      ctrlKey: true,
+      bubbles: true 
+    });
+    document.dispatchEvent(event);
+  };
+
   return (
     <header className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-      scrolled ? 'prismatic-glass border-b border-cyan-400/20 gacha-shine' : 'bg-transparent'
+      scrolled ? 'bg-[var(--space-black)]/95 backdrop-blur-xl border-b border-cyan-400/20' : 'bg-[var(--space-black)]/80 backdrop-blur-md'
     }`}>
-      <nav className="container mx-auto px-6 py-4">
+      <nav className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
         <div className="flex items-center justify-between">
-          <Link 
-            href="/" 
-            className="font-bold text-xl text-cyan-300 flex items-center hover:text-cyan-100 transition-colors duration-300 cursor-pointer prismatic-glow"
-            onMouseEnter={() => handleMouseEnter({
-              title: "reverb256",
-              description: "Consciousness architect and AI collaborator specializing in quantum development methodologies",
-              category: "Personal Brand"
-            })}
-            onMouseLeave={handleMouseLeave}
-          >
-            <i className="fas fa-code mr-2 text-cyan-400"></i>
-            reverb256<span className="console-cursor text-[var(--synthwave-cyan)]">|</span>
-          </Link>
+          {/* Brand with Console */}
+          <div className="flex items-center space-x-3 sm:space-x-4">
+            <Link 
+              href="/" 
+              className="font-bold text-lg sm:text-xl text-cyan-300 flex items-center hover:text-cyan-100 transition-colors duration-300 cursor-pointer group"
+              onMouseEnter={() => handleMouseEnter({
+                title: "reverb256",
+                description: "Consciousness architect and AI collaborator specializing in quantum development methodologies",
+                category: "Personal Brand"
+              })}
+              onMouseLeave={handleMouseLeave}
+            >
+              <motion.div
+                whileHover={{ rotate: 360 }}
+                transition={{ duration: 0.5 }}
+                className="w-6 h-6 sm:w-7 sm:h-7 bg-gradient-to-br from-cyan-400 to-purple-500 rounded-lg flex items-center justify-center mr-2"
+              >
+                <Zap className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
+              </motion.div>
+              reverb256<span className="console-cursor text-[var(--synthwave-cyan)] group-hover:animate-pulse">|</span>
+            </Link>
+            
+            {/* Permanent Console Interface */}
+            <motion.button
+              onClick={toggleConsole}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="relative flex items-center space-x-1.5 bg-cyan-400/10 hover:bg-cyan-400/20 border border-cyan-400/30 hover:border-cyan-400/50 rounded-lg px-2.5 py-1.5 transition-all duration-300 group shadow-lg hover:shadow-cyan-400/20"
+              style={{
+                boxShadow: isConsoleOpen ? '0 0 20px rgba(34, 211, 238, 0.3)' : '0 0 10px rgba(34, 211, 238, 0.1)',
+              }}
+            >
+              <Terminal className="w-3 h-3 sm:w-4 sm:h-4 text-cyan-400 group-hover:text-cyan-300" />
+              <span className="text-xs sm:text-sm font-mono text-cyan-300 group-hover:text-cyan-200 hidden sm:inline">
+                console
+              </span>
+              <div className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-cyan-400 rounded-full animate-pulse opacity-60"></div>
+            </motion.button>
+          </div>
 
           <div className="hidden md:flex space-x-8">
             <button 
@@ -77,7 +115,7 @@ export default function Navigation() {
             </button>
             <button 
               onClick={() => scrollToSection('projects')} 
-              className={`hover:text-cyan-300 transition-colors duration-300 ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
+              className={`relative px-2 py-1 text-sm lg:text-base font-medium hover:text-cyan-300 transition-colors duration-300 ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
               onMouseEnter={() => handleMouseEnter({
                 title: "Projects",
                 description: "Production-ready applications showcasing VibeCoding methodology in action",
@@ -89,7 +127,7 @@ export default function Navigation() {
             </button>
             <button 
               onClick={() => scrollToSection('skills')} 
-              className={`hover:text-cyan-300 transition-colors duration-300 ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
+              className={`relative px-2 py-1 text-sm lg:text-base font-medium hover:text-cyan-300 transition-colors duration-300 ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
               onMouseEnter={() => handleMouseEnter({
                 title: "Skills",
                 description: "Technical expertise spanning infrastructure, development, and consciousness research",
@@ -99,33 +137,9 @@ export default function Navigation() {
             >
               Skills
             </button>
-            <button 
-              onClick={() => scrollToSection('philosophy')} 
-              className={`hover:text-cyan-300 transition-colors duration-300 ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
-              onMouseEnter={() => handleMouseEnter({
-                title: "Philosophy",
-                description: "Core principles and methodologies guiding conscious development practices",
-                category: "Concept"
-              })}
-              onMouseLeave={handleMouseLeave}
-            >
-              Philosophy
-            </button>
-            <button 
-              onClick={() => scrollToSection('gaming')} 
-              className={`hover:text-cyan-300 transition-colors duration-300 ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
-              onMouseEnter={() => handleMouseEnter({
-                title: "Gaming",
-                description: "2,890 hours of fighting game frame optimization and competitive analysis",
-                category: "Research"
-              })}
-              onMouseLeave={handleMouseLeave}
-            >
-              Gaming
-            </button>
             <Link 
               href="/values"
-              className={`hover:text-cyan-300 transition-colors duration-300 ${location === '/values' ? 'text-cyan-300' : 'text-gray-400'}`}
+              className={`relative px-2 py-1 text-sm lg:text-base font-medium hover:text-cyan-300 transition-colors duration-300 ${location === '/values' ? 'text-cyan-300' : 'text-gray-400'}`}
               onMouseEnter={() => handleMouseEnter({
                 title: "Values",
                 description: "Ethical framework and principles guiding development decisions",
@@ -134,22 +148,18 @@ export default function Navigation() {
               onMouseLeave={handleMouseLeave}
             >
               Values
-            </Link>
-            <Link 
-              href="/technical-deep-dive"
-              className={`hover:text-cyan-300 transition-colors duration-300 ${location === '/technical-deep-dive' ? 'text-cyan-300' : 'text-gray-400'}`}
-              onMouseEnter={() => handleMouseEnter({
-                title: "Technical Deep Dive",
-                description: "Dive deep into the quantum consciousness architecture and sophisticated engineering principles behind our projects - explained in accessible terms for non-technical audiences.",
-                category: "Technical"
-              })}
-              onMouseLeave={handleMouseLeave}
-            >
-              Technical Deep Dive
+              {location === '/values' && (
+                <motion.div
+                  layoutId="activeTab"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-400"
+                  initial={false}
+                  transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                />
+              )}
             </Link>
             <Link 
               href="/vrchat"
-              className={`hover:text-cyan-300 transition-colors duration-300 ${location === '/vrchat' ? 'text-cyan-300' : 'text-gray-400'}`}
+              className={`relative px-2 py-1 text-sm lg:text-base font-medium hover:text-cyan-300 transition-colors duration-300 ${location === '/vrchat' ? 'text-cyan-300' : 'text-gray-400'}`}
               onMouseEnter={() => handleMouseEnter({
                 title: "VR Research",
                 description: "4,320 hours of virtual reality consciousness exploration and social interaction research",
@@ -157,94 +167,113 @@ export default function Navigation() {
               })}
               onMouseLeave={handleMouseLeave}
             >
-              VR Research
+              VRChat
+              {location === '/vrchat' && (
+                <motion.div
+                  layoutId="activeTab"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-400"
+                  initial={false}
+                  transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                />
+              )}
             </Link>
-            <button 
-              onClick={() => scrollToSection('contact')} 
-              className={`hover:text-cyan-300 transition-colors duration-300 ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
+            <Link 
+              href="/dashboard"
+              className={`relative px-2 py-1 text-sm lg:text-base font-medium hover:text-cyan-300 transition-colors duration-300 ${location === '/dashboard' ? 'text-cyan-300' : 'text-gray-400'}`}
               onMouseEnter={() => handleMouseEnter({
-                title: "Connect",
-                description: "Get in touch for collaboration opportunities and consciousness-driven development",
-                category: "Contact"
+                title: "Trading",
+                description: "Autonomous Solana trading system with quantum consciousness architecture",
+                category: "AI"
               })}
               onMouseLeave={handleMouseLeave}
             >
-              Connect
-            </button>
+              Trading
+              {location === '/dashboard' && (
+                <motion.div
+                  layoutId="activeTab"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-400"
+                  initial={false}
+                  transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                />
+              )}
+            </Link>
           </div>
 
-          <button 
-            className="md:hidden text-[var(--synthwave-cyan)]"
+          {/* Mobile Menu Button */}
+          <motion.button
+            whileTap={{ scale: 0.95 }}
             onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden p-2 rounded-md text-cyan-400 hover:text-cyan-300 hover:bg-cyan-400/10 transition-colors"
           >
-            <i className={`fas ${isOpen ? 'fa-times' : 'fa-bars'} text-xl`}></i>
-          </button>
+            {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </motion.button>
         </div>
 
-        {/* Mobile Menu */}
-        {isOpen && (
-          <div className="md:hidden mt-4 glass-morphism rounded-lg p-4">
-            <div className="flex flex-col space-y-4">
-              <button 
-                onClick={() => scrollToSection('about')} 
-                className="text-left hover:text-[var(--synthwave-cyan)] transition-colors duration-300"
-              >
-                About
-              </button>
-              <button 
-                onClick={() => scrollToSection('projects')} 
-                className="text-left hover:text-[var(--synthwave-cyan)] transition-colors duration-300"
-              >
-                Projects
-              </button>
-              <button 
-                onClick={() => scrollToSection('skills')} 
-                className="text-left hover:text-[var(--synthwave-cyan)] transition-colors duration-300"
-              >
-                Skills
-              </button>
-              <button 
-                onClick={() => scrollToSection('philosophy')} 
-                className="text-left hover:text-[var(--synthwave-cyan)] transition-colors duration-300"
-              >
-                Philosophy
-              </button>
-              <button 
-                onClick={() => scrollToSection('gaming')} 
-                className="text-left hover:text-[var(--synthwave-cyan)] transition-colors duration-300"
-              >
-                Gaming
-              </button>
-              <Link 
-                href="/values"
-                className={`text-left hover:text-[var(--synthwave-cyan)] transition-colors duration-300 ${location === '/values' ? 'text-[var(--synthwave-cyan)]' : 'text-white'}`}
-                onClick={() => setIsOpen(false)}
-              >
-                Values
-              </Link>
-              <Link 
-                href="/technical-deep-dive"
-                className={`text-left hover:text-[var(--synthwave-cyan)] transition-colors duration-300 ${location === '/technical-deep-dive' ? 'text-[var(--synthwave-cyan)]' : 'text-white'}`}
-                onClick={() => setIsOpen(false)}
-              >
-                Technical Deep Dive
-              </Link>
-              <Link 
-                href="/vrchat"
-                className={`text-left hover:text-[var(--synthwave-cyan)] transition-colors duration-300 ${location === '/vrchat' ? 'text-[var(--synthwave-cyan)]' : 'text-white'}`}
-                onClick={() => setIsOpen(false)}
-              >
-                VR Research
-              </Link>
-              <button 
-                onClick={() => scrollToSection('contact')} 
-                className="text-left hover:text-[var(--synthwave-cyan)] transition-colors duration-300"
-              >
-                Connect
-              </button>
-            </div>
-          </div>
-        )}
+        {/* Mobile Navigation Menu */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="md:hidden border-t border-cyan-400/20 bg-[var(--space-black)]/95 backdrop-blur-md mt-3"
+            >
+              <div className="px-3 py-3 space-y-2">
+                <button 
+                  onClick={() => { scrollToSection('about'); setIsOpen(false); }} 
+                  className="w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium text-gray-300 hover:text-cyan-300 hover:bg-cyan-400/10 border border-transparent hover:border-cyan-400/20 transition-all duration-300"
+                >
+                  About
+                </button>
+                <button 
+                  onClick={() => { scrollToSection('projects'); setIsOpen(false); }} 
+                  className="w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium text-gray-300 hover:text-cyan-300 hover:bg-cyan-400/10 border border-transparent hover:border-cyan-400/20 transition-all duration-300"
+                >
+                  Projects
+                </button>
+                <button 
+                  onClick={() => { scrollToSection('skills'); setIsOpen(false); }} 
+                  className="w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium text-gray-300 hover:text-cyan-300 hover:bg-cyan-400/10 border border-transparent hover:border-cyan-400/20 transition-all duration-300"
+                >
+                  Skills
+                </button>
+                <Link 
+                  href="/values"
+                  className={`block px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 ${
+                    location === '/values'
+                      ? 'text-cyan-300 bg-cyan-400/15 border border-cyan-400/30'
+                      : 'text-gray-300 hover:text-cyan-300 hover:bg-cyan-400/10 border border-transparent hover:border-cyan-400/20'
+                  }`}
+                  onClick={() => setIsOpen(false)}
+                >
+                  Values
+                </Link>
+                <Link 
+                  href="/vrchat"
+                  className={`block px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 ${
+                    location === '/vrchat'
+                      ? 'text-cyan-300 bg-cyan-400/15 border border-cyan-400/30'
+                      : 'text-gray-300 hover:text-cyan-300 hover:bg-cyan-400/10 border border-transparent hover:border-cyan-400/20'
+                  }`}
+                  onClick={() => setIsOpen(false)}
+                >
+                  VRChat
+                </Link>
+                <Link 
+                  href="/dashboard"
+                  className={`block px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 ${
+                    location === '/dashboard'
+                      ? 'text-cyan-300 bg-cyan-400/15 border border-cyan-400/30'
+                      : 'text-gray-300 hover:text-cyan-300 hover:bg-cyan-400/10 border border-transparent hover:border-cyan-400/20'
+                  }`}
+                  onClick={() => setIsOpen(false)}
+                >
+                  Trading
+                </Link>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
     </header>
   );
