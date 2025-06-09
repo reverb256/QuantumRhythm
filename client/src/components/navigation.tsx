@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Code, Zap, Terminal } from 'lucide-react';
+import { Menu, X, Code, Zap, Terminal, Shield, Brain, TrendingUp } from 'lucide-react';
+import { useTooltip, TooltipData } from "@/components/universal-cursor-tooltip";
+import SecurityFramework from "@/lib/security-framework";
 
 interface TooltipInfo {
   title: string;
