@@ -2,7 +2,7 @@ import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import GeometricBackground from "@/components/geometric-background";
 import Footer from "@/components/footer";
 import { QuantumWordTagger } from '@/components/ui/quantum-word-tagger';
-import EnhancedConsole from '@/components/enhanced-console';
+// import EnhancedConsole from '@/components/enhanced-console';
 import { useState } from 'react';
 
 export default function Values() {
