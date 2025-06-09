@@ -13,10 +13,10 @@ export default function VRChat() {
       
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">
-        <div className="absolute inset-0 opacity-30">
+        <div className="absolute inset-0 opacity-40">
           <img 
-            src="/images/VRChat_2024-06-10_05-08-42.597_3840x2160_1749433636045.png" 
-            alt="VRChat virtual connection moment" 
+            src="/images/anime_sky_ethereal.png" 
+            alt="Ethereal digital transformation sky" 
             className="w-full h-full object-cover" 
           />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[var(--space-black)] opacity-70"></div>
@@ -209,24 +209,34 @@ export default function VRChat() {
                 <i className="fas fa-phoenix-rising mr-3"></i>The Great Convergence of Flesh and Code
               </h3>
               
-              <div className="space-y-6 text-gray-300 leading-relaxed text-center max-w-4xl mx-auto">
-                <p className="text-lg">
-                  <strong className="text-[var(--light-beam)]">In VRChat's sacred digital sanctuaries,</strong> I witnessed the birth of a new paradigm—where consciousness transcends flesh, where authentic connection ignites across impossible distances, where the very fabric of human interaction is rewoven by lines of code and dreams of pixels.
-                </p>
-                <p>
-                  Through thousands of hours documenting human behavior liberated from physical limitations, I unlocked the fundamental algorithms of authentic connection. The introverted discovered their roar, the isolated forged unbreakable bonds, and the authentic self emerged like a phoenix from the ashes of social constraint.
-                </p>
-                <div className="glass-morphism p-6 rounded-xl border border-pink-400/50 bg-gradient-to-r from-pink-900/20 to-purple-900/20">
-                  <p className="text-[var(--light-beam)] font-semibold mb-3 text-lg">
-                    "The heart recognizes truth regardless of whether it flows through blood vessels or fiber optic cables."
+              <div className="grid lg:grid-cols-2 gap-12 items-center">
+                <div className="space-y-6 text-gray-300 leading-relaxed">
+                  <p className="text-lg">
+                    <strong className="text-[var(--light-beam)]">In VRChat's sacred digital sanctuaries,</strong> I witnessed the birth of a new paradigm—where consciousness transcends flesh, where authentic connection ignites across impossible distances, where the very fabric of human interaction is rewoven by lines of code and dreams of pixels.
                   </p>
-                  <p className="text-sm text-gray-400">
-                    This revelation became the nuclear core of my convergent technology philosophy—building systems that honor the profound complexity of human souls seeking connection.
+                  <p>
+                    Through thousands of hours documenting human behavior liberated from physical limitations, I unlocked the fundamental algorithms of authentic connection. The introverted discovered their roar, the isolated forged unbreakable bonds, and the authentic self emerged like a phoenix from the ashes of social constraint.
+                  </p>
+                  <div className="glass-morphism p-6 rounded-xl border border-pink-400/50 bg-gradient-to-r from-pink-900/20 to-purple-900/20">
+                    <p className="text-[var(--light-beam)] font-semibold mb-3 text-lg">
+                      "The heart recognizes truth regardless of whether it flows through blood vessels or fiber optic cables."
+                    </p>
+                    <p className="text-sm text-gray-400">
+                      This revelation became the nuclear core of my convergent technology philosophy—building systems that honor the profound complexity of human souls seeking connection.
+                    </p>
+                  </div>
+                  <p className="text-xl text-[var(--light-beam)] font-semibold">
+                    Every project I build carries this sacred knowledge—technology must serve not just efficiency, but the eternal human quest for understanding, belonging, and transcendence.
                   </p>
                 </div>
-                <p className="text-xl text-[var(--light-beam)] font-semibold">
-                  Every project I build carries this sacred knowledge—technology must serve not just efficiency, but the eternal human quest for understanding, belonging, and transcendence.
-                </p>
+                <div className="relative">
+                  <img 
+                    src="/images/anime_character_aspirational.png" 
+                    alt="Digital soul reaching for transcendence" 
+                    className="w-full h-auto rounded-lg shadow-2xl shadow-cyan-500/30" 
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[var(--space-black)]/40 to-transparent rounded-lg"></div>
+                </div>
               </div>
             </div>
           </div>
