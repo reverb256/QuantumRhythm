@@ -12,11 +12,11 @@ const contactMethods = [
   },
   {
     platform: "Email",
-    handle: "contact@reverb256.dev",
+    handle: "contact@reverb256.ca",
     description: "Direct communication for collaboration opportunities",
     icon: "fas fa-envelope",
     color: "from-purple-400 to-pink-500",
-    href: "mailto:contact@reverb256.dev",
+    href: "mailto:contact@reverb256.ca",
     label: "Professional Inquiries"
   },
   {
@@ -29,13 +29,13 @@ const contactMethods = [
     label: "Community Chat"
   },
   {
-    platform: "LinkedIn",
-    handle: "/in/reverb256",
-    description: "Professional networking and enterprise connections",
-    icon: "fab fa-linkedin",
+    platform: "VRChat",
+    handle: "reverb256",
+    description: "Virtual reality experiences and immersive digital worlds",
+    icon: "fas fa-vr-cardboard",
     color: "from-orange-400 to-red-500",
-    href: "#",
-    label: "Professional Network"
+    href: "/vrchat",
+    label: "Virtual Worlds"
   }
 ];
 
@@ -238,7 +238,7 @@ export default function ContactSection() {
               </button>
               
               <a
-                href="mailto:contact@reverb256.dev"
+                href="mailto:contact@reverb256.ca"
                 className="bg-gradient-to-r from-purple-400 to-pink-500 hover:from-purple-300 hover:to-pink-400 text-white px-8 py-4 rounded-2xl font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-purple-400/50"
               >
                 <i className="fas fa-envelope mr-2"></i>
