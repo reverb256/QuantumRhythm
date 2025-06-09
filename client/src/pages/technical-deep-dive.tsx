@@ -316,7 +316,7 @@ const democraticProcessor = {
                   Troves & Coves: Consciousness-Driven Commerce
                 </h3>
                 <p className="text-gray-300">
-                  E-commerce reimagined with <QuantumWordTagger category="philosophy">consciousness-driven design</QuantumWordTagger> - 
+                  E-commerce reimagined with consciousness-driven design - 
                   where AI assists discovery without manipulation, interfaces honor user agency, and the shopping experience 
                   feels like browsing a wise friend's curated collection rather than a corporate catalog.
                 </p>
@@ -324,15 +324,10 @@ const democraticProcessor = {
 
               <div className="bg-slate-800/30 p-6 rounded-lg border border-green-500/20">
                 <h3 className="text-xl font-semibold mb-3 text-green-300">
-                  <IntelligentTooltip 
-                    category="concept" 
-                    content="Performance optimization using gaming research means applying frame-perfect timing from fighting games to web interactions - every animation must hit its target frame rate, every interaction must feel responsive."
-                  >
-                    Gaming-Informed Performance Optimization
-                  </IntelligentTooltip>
+                  Gaming-Informed Performance Optimization
                 </h3>
                 <p className="text-gray-300">
-                  25+ years of <QuantumWordTagger category="gaming">gaming research</QuantumWordTagger> applied to web performance - 
+                  25+ years of gaming research applied to web performance - 
                   fighting game frame data analysis ensures every animation hits its target, rhythm game precision guides 
                   interaction timing, and MMO optimization strategies manage complex system states.
                 </p>

@@ -4,8 +4,7 @@ import { MetaRecursiveProject } from "./meta-recursive-project";
 import trovesCovestImage from "@assets/image_1749452464369.png";
 import cleaningServiceImage from "@assets/image_1749452436437.png";
 import portfolioImage from "@assets/image_1749452548538.png";
-import { QuantumWordTagger, TechTag, ConceptTag, HumorTag } from './ui/quantum-word-tagger';
-import { IntelligentTooltip } from './ui/intelligent-tooltip';
+
 
 const projects = [
   {
@@ -212,7 +211,7 @@ export default function ProjectsSection() {
                 {/* Description */}
                 <div className="project-description">
                   <p className="text-[var(--text-muted)] leading-relaxed mb-6">
-                    <QuantumWordTagger>Sophisticated security console that appears vulnerable but intelligently detects and educates about malicious attempts. AI-powered threat analysis with educational responses.</QuantumWordTagger>
+                    Sophisticated security console that appears vulnerable but intelligently detects and educates about malicious attempts. AI-powered threat analysis with educational responses.
                   </p>
 
                   {/* Technology Stack with Tech Humor */}
@@ -341,7 +340,7 @@ export default function ProjectsSection() {
                   {/* Description */}
                   <div className="project-description">
                     <p className="text-[var(--text-muted)] leading-relaxed mb-6">
-                      <QuantumWordTagger>{project.description}</QuantumWordTagger>
+                      {project.description}
                     </p>
 
                     {/* Technology Stack with Tech Humor */}
