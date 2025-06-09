@@ -13,14 +13,14 @@ export default function Footer() {
   const socialLinks = [
     { href: "https://github.com/reverb256", icon: "fab fa-github", label: "GitHub", color: "from-cyan-400 to-blue-500" },
     { href: "mailto:contact@reverb256.ca", icon: "fas fa-envelope", label: "Email", color: "from-purple-400 to-pink-500" },
-    { href: "#discord", icon: "fab fa-discord", label: "Discord", color: "from-green-400 to-teal-500" }
+    { href: "/vrchat", icon: "fas fa-vr-cardboard", label: "VR Research", color: "from-green-400 to-teal-500" }
   ];
 
   const quickLinks = [
     { href: "/values", label: "Canadian Values", icon: "fas fa-maple-leaf" },
-    { href: "/vrchat", label: "VRChat Worlds", icon: "fas fa-vr-cardboard" },
-    { href: "#docs", label: "VibeCoding Docs", icon: "fas fa-book" },
-    { href: "#ai-philosophy", label: "AI Philosophy", icon: "fas fa-brain" }
+    { href: "/vrchat", label: "VR Research", icon: "fas fa-vr-cardboard" },
+    { href: "/#philosophy", label: "Philosophy", icon: "fas fa-infinity" },
+    { href: "/#projects", label: "Projects", icon: "fas fa-code" }
   ];
 
   return (

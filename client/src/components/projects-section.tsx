@@ -4,43 +4,36 @@ import { Button } from "@/components/ui/button";
 const projects = [
   {
     title: "Troves & Coves",
-    subtitle: "Mystical Crystal E-commerce",
-    description: "Sacred crystal sanctuary where mystical brand identity merges with cutting-edge e-commerce architecture. AI-enhanced platform channeling spiritual energy through sophisticated product catalogs.",
-    image: "/attached_assets/image_1749437249135.png",
-    technologies: ["React", "TypeScript", "E-commerce", "AI Integration", "Mystical UX"],
+    subtitle: "Mystical Crystal Jewelry E-commerce",
+    description: "Production e-commerce platform for sacred crystal jewelry featuring AI-enhanced storefront, Stripe payment integration, and metaphysical product catalog. Built as a full-stack application with modern web technologies serving crystal jewelry enthusiasts.",
+    image: "/attached_assets/screenshot-1749440648583.png",
+    technologies: ["React", "Node.js", "PostgreSQL", "Stripe API", "TypeScript"],
     status: "Production",
-    link: "#",
+    link: "https://trovesandcoves.ca",
+    github: "https://github.com/reverb256/troves-coves",
     color: "from-purple-400 to-pink-500"
   },
   {
-    title: "Frostbite Gazette",
-    subtitle: "AI Journalism Platform",
-    description: "Revolutionary Canadian civic engagement platform combining classical analysis engines with democratic discourse. Features political accountability systems and AI-driven journalism ethics.",
-    image: "/attached_assets/image_1749437252454.png",
-    technologies: ["Next.js", "AI Analysis", "Political Engine", "Ethics Framework", "Democratic UX"],
-    status: "Active Development",
-    link: "#",
+    title: "Local Cleaning Service",
+    subtitle: "AI-Enhanced Service Platform",
+    description: "Professional cleaning services platform with contract management, automated quoting system, and client portal. Features comprehensive accessibility compliance and responsive design for streamlined service booking and client management.",
+    image: "/attached_assets/screenshot-1749440511823.png",
+    technologies: ["React", "Express", "PostgreSQL", "AI Integration", "Docker"],
+    status: "Production",
+    link: "https://2034c3d1-09aa-49c2-bad4-380f7b9d56ee-00-2eybkgfvy9084.riker.replit.dev",
+    github: "https://github.com/reverb256/Local-Cleaning-Service",
     color: "from-cyan-400 to-blue-500"
   },
   {
-    title: "VibeCoding Methodology",
-    subtitle: "Development Philosophy",
-    description: "Comprehensive development methodology merging philosophical depth with technical excellence. A complete framework for creating software that honors both functionality and spiritual consciousness.",
-    image: "/attached_assets/image_1749437257761.png",
-    technologies: ["Philosophy", "Methodology", "Best Practices", "Spiritual Tech", "Innovation"],
-    status: "Framework",
+    title: "CaddyPad Web UI",
+    subtitle: "Server Administration Interface",
+    description: "Fully-featured web interface for Caddy web server administration, providing intuitive configuration management and real-time monitoring capabilities. Simplifies Caddy server management through an elegant and accessible interface.",
+    image: "/attached_assets/screenshot-1749440916527.png",
+    technologies: ["Web UI", "Caddy", "JavaScript", "Apache License"],
+    status: "Development",
     link: "#",
+    github: "https://github.com/reverb256/CaddyPad",
     color: "from-green-400 to-teal-500"
-  },
-  {
-    title: "Neural Architecture Suite",
-    subtitle: "AI Development Tools",
-    description: "Advanced toolkit for building neural networks and AI systems with philosophical grounding. Combines cutting-edge machine learning with classical wisdom frameworks.",
-    image: "/attached_assets/image_1749437265529.png",
-    technologies: ["Python", "TensorFlow", "Neural Networks", "Philosophy AI", "Consciousness"],
-    status: "Research",
-    link: "#",
-    color: "from-orange-400 to-red-500"
   }
 ];
 
@@ -171,13 +164,16 @@ export default function ProjectsSection() {
                 <div className="flex gap-4">
                   <Button 
                     className={`flex-1 bg-gradient-to-r ${project.color} hover:opacity-90 text-white border-0`}
+                    onClick={() => window.open(project.link, '_blank')}
+                    disabled={project.link === '#'}
                   >
                     <i className="fas fa-external-link-alt mr-2"></i>
-                    View Project
+                    {project.link === '#' ? 'In Development' : 'View Live'}
                   </Button>
                   <Button 
                     variant="outline" 
                     className="border-cyan-400/50 text-cyan-300 hover:bg-cyan-400/10"
+                    onClick={() => window.open(project.github, '_blank')}
                   >
                     <i className="fab fa-github mr-2"></i>
                     Code
@@ -193,22 +189,22 @@ export default function ProjectsSection() {
               {
                 title: "E-commerce Platforms",
                 icon: "fas fa-shopping-cart",
-                description: "Sophisticated retail experiences with mystical brand integration and AI-powered personalization",
-                count: 3,
+                description: "Production-ready retail platforms with payment integration and AI-enhanced customer experiences",
+                count: 1,
                 color: "from-purple-400 to-pink-500"
               },
               {
-                title: "AI & Analytics",
-                icon: "fas fa-brain",
-                description: "Neural networks and machine learning systems with philosophical consciousness frameworks",
-                count: 5,
+                title: "Service Platforms",
+                icon: "fas fa-cogs",
+                description: "Professional service management systems with automated workflows and client portals",
+                count: 1,
                 color: "from-cyan-400 to-blue-500"
               },
               {
-                title: "Developer Tools",
-                icon: "fas fa-tools",
-                description: "Methodologies and frameworks merging technical excellence with spiritual wisdom",
-                count: 4,
+                title: "DevOps Tools",
+                icon: "fas fa-server",
+                description: "Server administration interfaces and development tools for enhanced productivity",
+                count: 1,
                 color: "from-green-400 to-teal-500"
               }
             ].map((category, index) => (
