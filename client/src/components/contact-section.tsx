@@ -233,8 +233,9 @@ export default function ContactSection() {
             </h3>
             
             <p className="text-xl text-cyan-100 mb-8 max-w-3xl mx-auto leading-relaxed">
-              Interested in the VibeCoding methodology, enterprise AI integration, or exploring the philosophical depths of technology? 
-              Let's architect the future of human-centered digital experiences together.
+              Ready to discuss your next project? Whether you need full-stack development, technical consulting, 
+              or want to explore innovative solutions for your business, I'd love to hear about your vision and 
+              how we can bring it to life.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

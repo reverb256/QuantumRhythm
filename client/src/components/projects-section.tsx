@@ -103,7 +103,7 @@ export default function ProjectsSection() {
             </h2>
             
             <p className="text-xl text-cyan-100 max-w-3xl mx-auto">
-              Convergent digital experiences where philosophical depth meets technological innovation
+              Production-ready applications built with modern frameworks, thoughtful user experience design, and scalable architecture
             </p>
           </div>
 
@@ -232,9 +232,9 @@ export default function ProjectsSection() {
                 Development Philosophy
               </h3>
               <p className="text-xl text-cyan-100 max-w-4xl mx-auto leading-relaxed">
-                Every project is an exploration of convergent possibilities—where ancient wisdom meets cutting-edge technology, 
-                where spiritual consciousness guides technical innovation, and where each line of code becomes an expression 
-                of humanity's infinite potential through digital transformation.
+                Every project balances technical excellence with thoughtful design. I focus on creating scalable solutions 
+                that solve real problems while maintaining clean, maintainable code. My development philosophy emphasizes 
+                user-centered design, accessibility, and building applications that truly serve their intended purpose.
               </p>
             </div>
 

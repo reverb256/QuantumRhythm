@@ -149,20 +149,20 @@ export default function HeroSection() {
               </h1>
               
               <h2 className="text-xl md:text-3xl lg:text-4xl text-cyan-300 mb-6 font-medium">
-                Canadian Digital Philosopher-Warrior
+                Full-Stack Developer & Digital Philosopher
               </h2>
               
               <div className="flex flex-wrap justify-center gap-6 text-sm md:text-base text-cyan-200/90 font-mono mb-6">
                 <span className="flex items-center">
-                  <span className="text-cyan-400 mr-2">LEVEL</span>
-                  <span className="text-white">∞</span>
+                  <span className="text-cyan-400 mr-2">SPECIALIZATION</span>
+                  <span className="text-white">React • Node.js • AI</span>
                 </span>
                 <span className="flex items-center">
-                  <span className="text-cyan-400 mr-2">CLASS</span>
-                  <span className="text-white">Philosopher-Technologist</span>
+                  <span className="text-cyan-400 mr-2">APPROACH</span>
+                  <span className="text-white">VibeCoding Methodology</span>
                 </span>
                 <span className="flex items-center">
-                  <span className="text-cyan-400 mr-2">ORIGIN</span>
+                  <span className="text-cyan-400 mr-2">LOCATION</span>
                   <span className="text-white">Canada</span>
                 </span>
               </div>
@@ -172,8 +172,9 @@ export default function HeroSection() {
           {/* Bio Description */}
           <div className="prismatic-glass p-6 md:p-8 rounded-2xl mb-10 border border-cyan-400/30">
             <p className="text-lg md:text-xl text-cyan-100 leading-relaxed">
-              Like Anaxa challenging the Coreflame of Reason, I forge pathways between classical wisdom and quantum innovation—
-              where Charter-protected freedoms meet cypherpunk ideals to architect technology that amplifies human dignity through VibeCoding mastery.
+              I craft digital experiences that merge philosophical depth with cutting-edge technology. 
+              My VibeCoding methodology combines ancient wisdom principles with modern development practices, 
+              creating solutions that prioritize human dignity and meaningful connection.
             </p>
           </div>
 
@@ -199,24 +200,26 @@ export default function HeroSection() {
 
           {/* Action Button Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
-            <Link href="/projects">
-              <Button className="w-full h-16 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white rounded-2xl text-lg font-semibold transition-all duration-300 border border-cyan-400/50 shadow-lg shadow-cyan-400/25 hover:shadow-xl hover:shadow-cyan-400/40">
-                <i className="fas fa-rocket mr-3 text-xl"></i>
-                View Projects
-              </Button>
-            </Link>
+            <button 
+              onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+              className="w-full h-16 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white rounded-2xl text-lg font-semibold transition-all duration-300 border border-cyan-400/50 shadow-lg shadow-cyan-400/25 hover:shadow-xl hover:shadow-cyan-400/40"
+            >
+              <i className="fas fa-code mr-3 text-xl"></i>
+              View My Work
+            </button>
             
-            <Link href="/philosophy">
-              <Button className="w-full h-16 bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-400 hover:to-pink-500 text-white rounded-2xl text-lg font-semibold transition-all duration-300 border border-purple-400/50 shadow-lg shadow-purple-400/25 hover:shadow-xl hover:shadow-purple-400/40">
-                <i className="fas fa-brain mr-3 text-xl"></i>
-                Philosophy
-              </Button>
-            </Link>
+            <button 
+              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+              className="w-full h-16 bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-400 hover:to-pink-500 text-white rounded-2xl text-lg font-semibold transition-all duration-300 border border-purple-400/50 shadow-lg shadow-purple-400/25 hover:shadow-xl hover:shadow-purple-400/40"
+            >
+              <i className="fas fa-envelope mr-3 text-xl"></i>
+              Start Conversation
+            </button>
             
-            <Link href="/connect">
+            <Link href="/values">
               <Button className="w-full h-16 bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-400 hover:to-teal-500 text-white rounded-2xl text-lg font-semibold transition-all duration-300 border border-green-400/50 shadow-lg shadow-green-400/25 hover:shadow-xl hover:shadow-green-400/40">
-                <i className="fas fa-satellite-dish mr-3 text-xl"></i>
-                Connect
+                <i className="fas fa-compass mr-3 text-xl"></i>
+                Core Values
               </Button>
             </Link>
           </div>
