@@ -21,31 +21,39 @@ export default function HeroSection() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Catboy Background */}
+      {/* Enhanced Futuristic Cityscape Background */}
       <div className="absolute inset-0">
         <img 
-          src="/attached_assets/catboy2025BG_1749433079455.PNG" 
-          alt="Anime synthwave space background" 
+          src="/images/Reverb_using_a_color_scheme_based_around_071321_ffffff_2f81b1_b_63fe7c14-6841-4b14-a387-8ebe9b50f06d_1749433293324.png" 
+          alt="Futuristic cityscape with luminous light beams" 
           className="w-full h-full object-cover"
         />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[var(--space-black)] opacity-60"></div>
       </div>
       
-      {/* Cybernetic grid overlay */}
-      <div className="absolute inset-0 opacity-20 cyber-grid"></div>
+      {/* Central Light Beam Effect */}
+      <div className="absolute inset-x-0 top-0 bottom-0 w-2 mx-auto light-beam-vertical"></div>
       
-      {/* Floating geometric elements */}
-      <div className="absolute top-20 right-20 hexagon w-16 h-16 bg-gradient-to-r from-[var(--synthwave-cyan)] to-[var(--bright-blue)] opacity-30 animate-float"></div>
-      <div className="absolute bottom-32 left-16 diamond w-12 h-12 bg-gradient-to-r from-[var(--synthwave-pink)] to-[var(--synthwave-gold)] opacity-40 animate-float" style={{ animationDelay: '1s' }}></div>
-      <div className="absolute top-1/3 left-1/4 w-8 h-8 bg-[var(--primary-blue)] rounded-full opacity-50 animate-ping"></div>
+      {/* Atmospheric Glow Elements */}
+      <div className="absolute top-1/4 left-1/2 w-96 h-96 atmospheric-glow transform -translate-x-1/2 -translate-y-1/2"></div>
+      <div className="absolute bottom-1/4 right-1/4 w-64 h-64 atmospheric-glow"></div>
+      
+      {/* Enhanced Cybernetic Grid */}
+      <div className="absolute inset-0 opacity-15 cyber-grid"></div>
+      
+      {/* Luminous Floating Elements */}
+      <div className="absolute top-20 right-20 hexagon w-16 h-16 bg-gradient-to-r from-[var(--light-beam)] to-[var(--bright-blue)] opacity-40 animate-float shadow-lg shadow-cyan-500/30"></div>
+      <div className="absolute bottom-32 left-16 diamond w-12 h-12 bg-gradient-to-r from-[var(--synthwave-pink)] to-[var(--synthwave-gold)] opacity-50 animate-float shadow-lg shadow-pink-500/30" style={{ animationDelay: '1s' }}></div>
+      <div className="absolute top-1/3 left-1/4 w-8 h-8 bg-[var(--light-beam)] rounded-full opacity-60 animate-ping shadow-lg shadow-cyan-400/50"></div>
       
       <div className="container mx-auto px-6 text-center relative z-10">
         <div className="glass-morphism p-8 md:p-12 rounded-3xl cyber-border animate-pulse-glow">
           {/* Profile Avatar */}
           <div className="mb-8">
             <img 
-              src="/attached_assets/catboy2025PFP_1749433070083.PNG" 
+              src="/images/catboy2025PFP_1749433070083.PNG" 
               alt="reverb256 - Anime catboy character in cybernetic synthwave style" 
-              className="w-24 h-24 md:w-32 md:h-32 rounded-full mx-auto border-4 border-[var(--synthwave-cyan)] shadow-lg shadow-[var(--synthwave-cyan)]/50 animate-float object-cover"
+              className="w-24 h-24 md:w-32 md:h-32 rounded-full mx-auto border-4 border-[var(--light-beam)] shadow-lg shadow-[var(--light-beam)]/50 animate-float object-cover"
             />
           </div>
           <h1 className="font-bold text-4xl md:text-6xl lg:text-7xl mb-6 text-gradient-cyan">

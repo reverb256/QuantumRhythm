@@ -52,7 +52,12 @@ export default function GeometricBackground() {
 
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(0, 204, 255, ${particle.opacity})`;
+        // Create luminous glow effect
+        const gradient = ctx.createRadialGradient(particle.x, particle.y, 0, particle.x, particle.y, particle.size * 3);
+        gradient.addColorStop(0, `rgba(195, 220, 255, ${particle.opacity})`);
+        gradient.addColorStop(0.5, `rgba(120, 200, 255, ${particle.opacity * 0.6})`);
+        gradient.addColorStop(1, `rgba(0, 180, 255, 0)`);
+        ctx.fillStyle = gradient;
         ctx.fill();
       });
 

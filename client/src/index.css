@@ -26,16 +26,19 @@
   --ring: hsl(240, 4.9%, 83.9%);
   --radius: 0.5rem;
   
-  /* Custom Cybernetic Colors */
-  --space-black: hsl(240, 25%, 4%);
-  --deep-space: hsl(240, 45%, 11%);
-  --cyber-blue: hsl(220, 45%, 18%);
-  --primary-blue: hsl(207, 90%, 54%);
-  --bright-blue: hsl(201, 100%, 50%);
-  --cyan-blue: hsl(189, 100%, 50%);
-  --synthwave-cyan: hsl(180, 100%, 50%);
-  --synthwave-pink: hsl(300, 100%, 50%);
-  --synthwave-gold: hsl(45, 100%, 50%);
+  /* Custom Cybernetic Colors - Light Infused */
+  --space-black: hsl(215, 28%, 7%);
+  --deep-space: hsl(215, 35%, 12%);
+  --cyber-blue: hsl(207, 40%, 22%);
+  --primary-blue: hsl(200, 85%, 60%);
+  --bright-blue: hsl(195, 100%, 65%);
+  --cyan-blue: hsl(189, 100%, 70%);
+  --synthwave-cyan: hsl(180, 100%, 75%);
+  --synthwave-pink: hsl(300, 80%, 70%);
+  --synthwave-gold: hsl(45, 90%, 65%);
+  --light-beam: hsl(200, 100%, 85%);
+  --atmospheric-glow: hsla(200, 80%, 80%, 0.3);
+  --luminous-white: hsl(200, 30%, 98%);
 }
 
 .dark {
@@ -83,9 +86,34 @@
 
 @layer components {
   .glass-morphism {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--atmospheric-glow);
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+  
+  .light-beam-vertical {
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      var(--light-beam) 20%,
+      var(--atmospheric-glow) 50%,
+      var(--light-beam) 80%,
+      transparent 100%
+    );
+    filter: blur(2px);
+    opacity: 0.6;
+  }
+  
+  .atmospheric-glow {
+    background: radial-gradient(
+      ellipse at center,
+      var(--atmospheric-glow) 0%,
+      transparent 70%
+    );
+    filter: blur(20px);
   }
   
   .cyber-border {
@@ -128,17 +156,24 @@
   }
   
   .text-gradient-cyan {
-    background: linear-gradient(90deg, hsl(189, 100%, 50%), hsl(201, 100%, 50%), hsl(207, 90%, 54%));
+    background: linear-gradient(90deg, var(--light-beam), var(--bright-blue), var(--primary-blue));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    filter: drop-shadow(0 0 10px var(--atmospheric-glow));
   }
   
   .text-gradient-synthwave {
-    background: linear-gradient(90deg, hsl(180, 100%, 50%), hsl(300, 100%, 50%), hsl(45, 100%, 50%));
+    background: linear-gradient(90deg, var(--synthwave-cyan), var(--synthwave-pink), var(--synthwave-gold));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    filter: drop-shadow(0 0 8px var(--atmospheric-glow));
+  }
+  
+  .text-luminous {
+    color: var(--luminous-white);
+    text-shadow: 0 0 20px var(--atmospheric-glow);
   }
   
   .btn-synthwave {
