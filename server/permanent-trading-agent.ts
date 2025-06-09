@@ -483,7 +483,7 @@ class AutonomousTradingAgent {
   private async collectMarketData() {
     console.log('📊 Collecting comprehensive market data');
     
-    for (const tokenAddress of this.config.targetTokens) {
+    for (const tokenAddress of (this.config.targetTokens || [])) {
       if (!tokenAddress) continue;
       try {
         // Collect data from multiple sources
