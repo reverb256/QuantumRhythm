@@ -31,37 +31,37 @@ export default function NeuralBackground({
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [systemEnergy, setSystemEnergy] = useState(50);
 
-  // Theme-based color schemes with enhanced security-conscious palettes
+  // Theme-based color schemes with deep ocean blue palettes
   const themeColors = {
     quantum: {
-      primary: [147, 51, 234, 0.8], // Purple - secure quantum encryption
-      secondary: [59, 130, 246, 0.6], // Blue - data integrity
-      accent: [236, 72, 153, 0.4], // Pink - consciousness bridge
-      flow: [168, 85, 247, 0.7] // Violet - quantum entanglement
+      primary: [30, 64, 175, 0.8], // Deep blue - quantum depth
+      secondary: [37, 99, 235, 0.6], // Medium blue - data integrity
+      accent: [59, 130, 246, 0.4], // Light blue - consciousness bridge
+      flow: [96, 165, 250, 0.7] // Sky blue - quantum entanglement
     },
     matrix: {
-      primary: [34, 197, 94, 0.8], // Green - system active
-      secondary: [22, 163, 74, 0.6], // Dark green - secure connection
-      accent: [132, 204, 22, 0.4], // Lime - data flow
-      flow: [74, 222, 128, 0.7] // Light green - authenticated
+      primary: [30, 58, 138, 0.8], // Navy blue - system active
+      secondary: [29, 78, 216, 0.6], // Royal blue - secure connection
+      accent: [59, 130, 246, 0.4], // Blue - data flow
+      flow: [147, 197, 253, 0.7] // Light blue - authenticated
     },
     consciousness: {
-      primary: [236, 72, 153, 0.8], // Pink - awareness
-      secondary: [168, 85, 247, 0.6], // Purple - neural activity
-      accent: [249, 115, 22, 0.4], // Orange - enlightenment
-      flow: [217, 70, 239, 0.7] // Magenta - transcendence
+      primary: [15, 23, 42, 0.8], // Dark navy - deep awareness
+      secondary: [30, 64, 175, 0.6], // Deep blue - neural activity
+      accent: [37, 99, 235, 0.4], // Blue - enlightenment
+      flow: [59, 130, 246, 0.7] // Light blue - transcendence
     },
     dojo: {
-      primary: [239, 68, 68, 0.8], // Red - discipline
-      secondary: [245, 158, 11, 0.6], // Amber - focus
-      accent: [252, 211, 77, 0.4], // Yellow - wisdom
-      flow: [251, 146, 60, 0.7] // Orange - ki energy
+      primary: [30, 41, 59, 0.8], // Slate blue - discipline
+      secondary: [51, 65, 85, 0.6], // Blue gray - focus
+      accent: [71, 85, 105, 0.4], // Light slate - wisdom
+      flow: [100, 116, 139, 0.7] // Slate gray blue - ki energy
     },
     trading: {
-      primary: [34, 197, 94, 0.8], // Green - profit
-      secondary: [239, 68, 68, 0.6], // Red - loss/risk
-      accent: [59, 130, 246, 0.4], // Blue - analysis
-      flow: [168, 85, 247, 0.7] // Purple - ai prediction
+      primary: [12, 74, 110, 0.8], // Ocean blue - depth
+      secondary: [14, 116, 144, 0.6], // Cyan blue - analysis
+      accent: [22, 163, 74, 0.4], // Teal green - profit
+      flow: [239, 68, 68, 0.7] // Red accent - risk alerts
     }
   };
 
@@ -250,13 +250,81 @@ export default function NeuralBackground({
         });
       });
 
+      // Abstract visionary cyber space with stark deep blues
+      const visionaryGradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      visionaryGradient.addColorStop(0, 'rgba(1, 3, 12, 0.95)');     // Void black-blue
+      visionaryGradient.addColorStop(0.2, 'rgba(3, 7, 18, 0.92)');   // Deep abyssal
+      visionaryGradient.addColorStop(0.5, 'rgba(8, 15, 32, 0.88)');  // Ocean depth
+      visionaryGradient.addColorStop(0.8, 'rgba(15, 23, 42, 0.85)'); // Cyber space blue
+      visionaryGradient.addColorStop(1, 'rgba(2, 6, 23, 0.9)');      // Deep void
+      
+      ctx.fillStyle = visionaryGradient;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      // Abstract geometric data lattice - stark background structure
+      for (let layer = 0; layer < 3; layer++) {
+        const gridSize = 80 + layer * 40;
+        const opacity = 0.03 + layer * 0.01;
+        const offset = (time * 10 + layer * 30) % gridSize;
+        
+        ctx.strokeStyle = `rgba(30, 64, 175, ${opacity})`;
+        ctx.lineWidth = 0.5;
+        
+        // Vertical lines
+        for (let x = -offset; x < canvas.width + gridSize; x += gridSize) {
+          ctx.beginPath();
+          ctx.moveTo(x, 0);
+          ctx.lineTo(x, canvas.height);
+          ctx.stroke();
+        }
+        
+        // Horizontal lines
+        for (let y = -offset; y < canvas.height + gridSize; y += gridSize) {
+          ctx.beginPath();
+          ctx.moveTo(0, y);
+          ctx.lineTo(canvas.width, y);
+          ctx.stroke();
+        }
+      }
+      
+      // Subtle data streams - minimal visual presence for contrast
+      for (let stream = 0; stream < 3; stream++) {
+        const streamTime = time * (0.2 + stream * 0.05);
+        const yPos = canvas.height * (0.2 + stream * 0.3);
+        
+        // Ultra-subtle horizontal data flow
+        ctx.strokeStyle = `rgba(30, 64, 175, 0.08)`;
+        ctx.lineWidth = 1;
+        ctx.setLineDash([20, 40]);
+        ctx.lineDashOffset = -streamTime * 50;
+        
+        ctx.beginPath();
+        ctx.moveTo(0, yPos);
+        ctx.lineTo(canvas.width, yPos);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+      
+      // Sparse quantum dots - minimal interference with foreground
+      for (let dot = 0; dot < 15; dot++) {
+        const dotX = (dot * 137 + Math.sin(time * 0.3 + dot * 0.2) * 20) % (canvas.width + 40) - 20;
+        const dotY = (dot * 89 + Math.cos(time * 0.2 + dot * 0.15) * 25) % (canvas.height + 40) - 20;
+        const dotOpacity = 0.1 + Math.sin(time * 1.5 + dot * 0.3) * 0.05;
+        
+        // Minimal quantum glow
+        ctx.fillStyle = `rgba(59, 130, 246, ${dotOpacity})`;
+        ctx.beginPath();
+        ctx.arc(dotX, dotY, 1.5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
       // Enhanced particle rendering with energy-based effects
       particlesRef.current.forEach(particle => {
         const energyRatio = particle.energy / 100;
         const glowIntensity = energyRatio * 0.8;
         const particleSize = particle.size * (0.8 + energyRatio * 0.4);
 
-        // Particle color based on type and energy
+        // Particle color based on type and energy - all using deep blues
         let particleColor = colors.primary;
         switch (particle.type) {
           case 'consciousness':
@@ -266,22 +334,23 @@ export default function NeuralBackground({
             particleColor = colors.secondary;
             break;
           case 'qi':
-            particleColor = [252, 211, 77, 0.8]; // Golden energy
+            particleColor = colors.flow; // Changed from golden to blue flow
             break;
         }
 
-        // Energy glow effect
-        if (glowIntensity > 0.3) {
+        // Energy glow effect with safe radius values
+        if (glowIntensity > 0.3 && particleSize > 0) {
+          const glowRadius = Math.max(particleSize * 4, 1); // Ensure minimum radius
           const gradient = ctx.createRadialGradient(
             particle.x, particle.y, 0,
-            particle.x, particle.y, particleSize * 4
+            particle.x, particle.y, glowRadius
           );
           gradient.addColorStop(0, `rgba(${particleColor[0]}, ${particleColor[1]}, ${particleColor[2]}, ${glowIntensity})`);
           gradient.addColorStop(1, 'rgba(0,0,0,0)');
           
           ctx.fillStyle = gradient;
           ctx.beginPath();
-          ctx.arc(particle.x, particle.y, particleSize * 4, 0, Math.PI * 2);
+          ctx.arc(particle.x, particle.y, glowRadius, 0, Math.PI * 2);
           ctx.fill();
         }
 
