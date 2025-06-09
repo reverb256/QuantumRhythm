@@ -85,7 +85,7 @@ const projects = [
     title: "Frostbite Gazette",
     subtitle: "Canadian Democratic Journalism Platform",
     description: "AI-enhanced journalism platform focused on Canadian democratic accountability and transparency. Features bilingual content management, advanced search capabilities, and Charter-compliant data handling. Designed to support democratic discourse through technology-assisted journalism.",
-    image: cleaningServiceImage,
+    image: "/frostbite-gazette-teaser.svg",
     technologies: [
       { name: "Quantum RAG", class: "quantum-tooltip" },
       { name: "5GW Defense", class: "defense-tooltip" },
