@@ -40,7 +40,7 @@ router.get('/signals', async (req, res) => {
     const signals = await db
       .select()
       .from(tradingSignals)
-      .orderBy(desc(tradingSignals.timestamp))
+      .orderBy(desc(tradingSignals.createdAt))
       .limit(10);
 
     return res.json(signals);
@@ -56,7 +56,7 @@ router.get('/vibe-metrics', async (req, res) => {
     const metrics = await db
       .select()
       .from(vibeCodingMetrics)
-      .orderBy(desc(vibeCodingMetrics.timestamp))
+      .orderBy(desc(vibeCodingMetrics.createdAt))
       .limit(1);
 
     if (metrics.length === 0) {

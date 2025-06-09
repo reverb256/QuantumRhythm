@@ -994,18 +994,22 @@ class AutonomousTradingAgent {
   private async executeAutonomousTradeDecision(analysis: any) {
     // Autonomous trade execution with full decision making
     const tradeDecision = {
-      agentId: this.agentId,
+      agentId: this.agentRecord?.id || crypto.randomUUID(),
       tokenAddress: this.selectOptimalToken(analysis),
       signalType: this.determineTradeDirection(analysis),
-      confidence: analysis.confidence,
-      reasoning: JSON.stringify(analysis.reasoning),
-      dataSource: analysis,
-      vibeCodingScore: analysis.confidence,
+      confidence: analysis.confidence?.toString() || '0.5',
+      reasoning: JSON.stringify(analysis.reasoning || 'Automated decision'),
+      dataSource: JSON.stringify(analysis),
+      vibeCodingScore: (analysis.vibeCodingScore || analysis.confidence || 0.5).toString(),
       executed: false
     };
 
     // Store decision in both fast cache and persistent database
-    await db.insert(tradingSignals).values(tradeDecision);
+    try {
+      await db.insert(tradingSignals).values(tradeDecision);
+    } catch (error) {
+      console.error('Failed to store trading signal:', error);
+    }
     
     // Cache recent decisions for rate limiting
     const recentDecisions = this.fastCache.get('recent:decisions') || [];

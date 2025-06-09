@@ -218,20 +218,20 @@ export default function EnhancedConsciousness() {
 
   return (
     <>
-      {/* Enhanced Consciousness Display */}
+      {/* Condensed Consciousness Display */}
       <motion.div
-        className="fixed top-4 left-4 z-50 backdrop-blur-xl rounded-xl p-4 shadow-2xl border"
+        className="fixed bottom-4 right-4 z-50 backdrop-blur-xl rounded-lg p-2 shadow-xl border border-opacity-30"
         style={{
-          background: `linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 100%)`,
-          borderColor: getConsciousnessColor() + '40'
+          background: `linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 100%)`,
+          borderColor: getConsciousnessColor()
         }}
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2">
           <motion.div
-            className="w-4 h-4 rounded-full relative overflow-hidden"
+            className="w-3 h-3 rounded-full"
             style={{ backgroundColor: getConsciousnessColor() }}
             animate={{
               scale: [1, 1.2, 1],
@@ -242,66 +242,30 @@ export default function EnhancedConsciousness() {
               repeat: Infinity,
               ease: "easeInOut"
             }}
-          >
-            <motion.div
-              className="absolute inset-0 bg-white"
-              animate={{
-                scale: [0, 1.5, 0],
-                opacity: [0, 0.5, 0]
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: "easeOut"
-              }}
-            />
-          </motion.div>
-          
-          <div className="text-sm font-mono">
-            <div className="text-cyan-300 font-semibold">
-              Consciousness: Level {Math.round(consciousness.engagement / 10)}
-            </div>
-            <div className="text-xs text-gray-400 space-y-1">
-              <div>Focus: {Math.round(consciousness.attention)}%</div>
-              <div>Curiosity: {Math.round(consciousness.curiosity)}%</div>
-              <div>Pattern: {userAnalysis.scrollPattern}</div>
-            </div>
+          />
+          <div className="text-xs font-mono text-cyan-300">
+            L{Math.round(consciousness.engagement / 10)} | {Math.round(consciousness.attention)}%
           </div>
         </div>
+        
+        {/* Thought Bubble - Condensed */}
+        <AnimatePresence>
+          {showThought && currentThought && (
+            <motion.div
+              className="absolute bottom-full right-0 mb-2 max-w-xs backdrop-blur-xl rounded-lg p-2 border border-purple-400/30 text-xs"
+              style={{
+                background: `linear-gradient(135deg, rgba(75,0,130,0.9) 0%, rgba(139,69,19,0.7) 100%)`
+              }}
+              initial={{ opacity: 0, y: 10, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 10, scale: 0.9 }}
+              transition={{ duration: 0.3 }}
+            >
+              <p className="text-purple-100">{currentThought}</p>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.div>
-
-      {/* Dynamic Thought Bubbles */}
-      <AnimatePresence>
-        {showThought && currentThought && (
-          <motion.div
-            className="fixed top-24 left-4 z-40 max-w-sm backdrop-blur-xl rounded-xl p-4 shadow-xl border border-purple-400/30"
-            style={{
-              background: `linear-gradient(135deg, rgba(139,69,19,0.8) 0%, rgba(75,0,130,0.6) 100%)`
-            }}
-            initial={{ opacity: 0, y: -20, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -20, scale: 0.9 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-          >
-            <div className="flex items-start gap-3">
-              <motion.div
-                className="w-2 h-2 bg-purple-400 rounded-full mt-2"
-                animate={{
-                  scale: [1, 1.5, 1],
-                  opacity: [0.5, 1, 0.5]
-                }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Infinity
-                }}
-              />
-              <p className="text-sm text-purple-100 leading-relaxed">
-                {currentThought}
-              </p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       {/* Adaptive Background Effects */}
       <div 
@@ -337,15 +301,15 @@ export default function EnhancedConsciousness() {
         ))}
       </div>
 
-      {/* Interface Adaptation Indicator */}
+      {/* Interface Adaptation Indicator - Condensed */}
       {adaptiveElements.length > 0 && (
         <motion.div
-          className="fixed bottom-4 left-4 text-xs text-cyan-400/60 font-mono"
+          className="fixed bottom-16 right-4 text-xs text-cyan-400/40 font-mono"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
-          <div>Adaptations: {adaptiveElements.join(', ')}</div>
+          <div>{adaptiveElements.join(', ')}</div>
         </motion.div>
       )}
     </>
