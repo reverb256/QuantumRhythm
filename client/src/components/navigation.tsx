@@ -117,49 +117,53 @@ export default function Navigation() {
           <div className="hidden md:flex space-x-8">
             <button 
               onClick={() => scrollToSection('about')} 
-              className={`hover:text-cyan-300 transition-colors duration-300 ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
+              className={`hover:text-cyan-300 transition-colors duration-300 focus-enhanced hdr-enhanced ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
               onMouseEnter={() => handleMouseEnter({
                 title: "About",
                 description: "Learn about the consciousness architect behind quantum development methodologies",
                 category: "Personal"
               })}
               onMouseLeave={handleMouseLeave}
+              aria-label="Navigate to About section"
             >
               About
             </button>
             <button 
               onClick={() => scrollToSection('projects')} 
-              className={`relative px-2 py-1 text-sm lg:text-base font-medium hover:text-cyan-300 transition-colors duration-300 ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
+              className={`relative px-2 py-1 text-sm lg:text-base font-medium hover:text-cyan-300 transition-colors duration-300 focus-enhanced hdr-enhanced ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
               onMouseEnter={() => handleMouseEnter({
                 title: "Projects",
                 description: "Production-ready applications showcasing VibeCoding methodology in action",
                 category: "Portfolio"
               })}
               onMouseLeave={handleMouseLeave}
+              aria-label="Navigate to Projects section"
             >
               Projects
             </button>
             <button 
               onClick={() => scrollToSection('skills')} 
-              className={`relative px-2 py-1 text-sm lg:text-base font-medium hover:text-cyan-300 transition-colors duration-300 ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
+              className={`relative px-2 py-1 text-sm lg:text-base font-medium hover:text-cyan-300 transition-colors duration-300 focus-enhanced hdr-enhanced ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
               onMouseEnter={() => handleMouseEnter({
                 title: "Skills",
                 description: "Technical expertise spanning infrastructure, development, and consciousness research",
                 category: "Technical"
               })}
               onMouseLeave={handleMouseLeave}
+              aria-label="Navigate to Skills section"
             >
               Skills
             </button>
             <Link 
               href="/values"
-              className={`relative px-2 py-1 text-sm lg:text-base font-medium hover:text-cyan-300 transition-colors duration-300 ${location === '/values' ? 'text-cyan-300' : 'text-gray-400'}`}
+              className={`relative px-2 py-1 text-sm lg:text-base font-medium hover:text-cyan-300 transition-colors duration-300 focus-enhanced link-enhanced hdr-enhanced ${location === '/values' ? 'text-cyan-300' : 'text-gray-400'}`}
               onMouseEnter={() => handleMouseEnter({
                 title: "Values",
                 description: "Ethical framework and principles guiding development decisions",
                 category: "Philosophy"
               })}
               onMouseLeave={handleMouseLeave}
+              aria-label="Navigate to Values page"
             >
               Values
               {location === '/values' && (

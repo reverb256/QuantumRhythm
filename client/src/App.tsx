@@ -78,6 +78,28 @@ function App() {
       type: 'website',
       url: window.location.href
     });
+
+    // Detect and apply HDR and accessibility preferences
+    if (window.matchMedia && window.matchMedia('(dynamic-range: high)').matches) {
+      document.documentElement.classList.add('hdr-supported');
+    }
+    
+    if (window.matchMedia && window.matchMedia('(prefers-contrast: high)').matches) {
+      document.documentElement.classList.add('high-contrast');
+    }
+    
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.classList.add('reduced-motion');
+    }
+    
+    document.documentElement.classList.add('wcag-compliant');
+    
+    const metaColorScheme = document.querySelector('meta[name="color-scheme"]') || document.createElement('meta');
+    metaColorScheme.setAttribute('name', 'color-scheme');
+    metaColorScheme.setAttribute('content', 'dark light');
+    if (!document.querySelector('meta[name="color-scheme"]')) {
+      document.head.appendChild(metaColorScheme);
+    }
   }, [metaManager]);
 
   return (
@@ -92,7 +114,9 @@ function App() {
             />
             <UniversalCursorTooltip />
             <Toaster />
-            <Router />
+            <main id="main-content" className="relative z-10 hdr-background text-wcag-aaa focus-enhanced">
+              <Router />
+            </main>
             <EnhancedConsole />
           </ConsciousContainer>
         </TooltipProvider>
