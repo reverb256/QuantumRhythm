@@ -1184,15 +1184,6 @@ a.focus-enhanced:focus {
   outline-offset: 2px;
 }
 
-  /* Warning & Deprecated - Orange/Warning Theme */
-  .hover-deprecated:hover::after,
-  .warning-tooltip:hover::after,
-  .caution-tooltip:hover::after {
-    color: var(--synthwave-orange) !important;
-    border-color: var(--synthwave-orange) !important;
-    box-shadow: 0 4px 12px rgba(255, 165, 0, 0.3), 0 0 15px var(--synthwave-orange) !important;
-  }
-
   /* Loading & Processing - Gold/Processing Theme */
   .hover-loading:hover::after,
   .processing-tooltip:hover::after,
