@@ -12,85 +12,121 @@ interface PhilosophicalInsight {
 
 const philosophicalInsights: PhilosophicalInsight[] = [
   {
-    id: "socratic-beginning",
-    quote: "The only true wisdom is in knowing you know nothing.",
-    author: "Socrates",
-    context: "Beginning the journey of conscious exploration",
+    id: "hero-introduction",
+    quote: "The unexamined life is not worth living, but the unexamined code destroys production.",
+    author: "Digital Socrates",
+    context: "Every developer's journey begins with questioning assumptions",
     triggerSection: "hero",
     delay: 2000,
     position: "top-right"
   },
   {
-    id: "aristotelian-identity",
-    quote: "Knowing yourself is the beginning of all wisdom.",
-    author: "Aristotle",
-    context: "Understanding the architect behind the code",
+    id: "about-identity",
+    quote: "Man is by nature a social animal, and debugging is a fundamentally collaborative act.",
+    author: "Aristotle (Developer Edition)",
+    context: "Understanding yourself as both architect and artifact",
     triggerSection: "about",
     delay: 1500,
     position: "bottom-left"
   },
   {
-    id: "platonic-forms",
-    quote: "Every heart sings a song, incomplete, until another heart whispers back.",
+    id: "projects-manifestation",
+    quote: "The cave allegory applies perfectly to software: users see only shadows of what developers build in the light.",
     author: "Plato",
-    context: "Creating connections through digital manifestations",
+    context: "Each project reflects deeper truths about human needs",
     triggerSection: "projects",
     delay: 2500,
     position: "top-left"
   },
   {
-    id: "stoic-mastery",
-    quote: "You have power over your mind - not outside events. Realize this, and you will find strength.",
-    author: "Marcus Aurelius",
-    context: "Mastering tools and technologies with inner discipline",
+    id: "skills-mastery",
+    quote: "Excellence is not an act, but a habit. We are what we repeatedly deploy.",
+    author: "Aristotle",
+    context: "Technical mastery emerges from disciplined practice",
     triggerSection: "skills",
     delay: 1800,
     position: "bottom-right"
   },
   {
-    id: "heraclitean-flow",
-    quote: "No man ever steps in the same river twice, for it's not the same river and he's not the same man.",
-    author: "Heraclitus",
-    context: "Embracing the eternal flux of learning and growth",
+    id: "philosophy-integration",
+    quote: "The philosopher's task is not to describe the world, but to debug it.",
+    author: "Karl Marx (Refactored)",
+    context: "Classical wisdom debugging modern complexity",
     triggerSection: "philosophy",
     delay: 2200,
     position: "top-right"
   },
   {
-    id: "gaming-wisdom",
-    quote: "In play there are two pleasures for your choosing - the one is winning, and the other losing.",
-    author: "Lord Byron",
-    context: "Finding wisdom in virtual worlds and digital experiences",
+    id: "gaming-research",
+    quote: "In virtual worlds, we discover the authentic rules governing real consciousness.",
+    author: "Huizinga (VR Extension)",
+    context: "8,500+ hours of systematic consciousness exploration",
     triggerSection: "gaming",
     delay: 1600,
     position: "bottom-left"
   },
   {
-    id: "connection-wisdom",
-    quote: "The meeting of two personalities is like the contact of two chemical substances: if there is any reaction, both are transformed.",
-    author: "Carl Jung",
-    context: "Bridging consciousness across digital and physical realms",
+    id: "contact-connection",
+    quote: "True dialogue occurs when two GitHub profiles merge without conflicts.",
+    author: "Martin Buber (Git Edition)",
+    context: "Professional relationships as conscious collaboration",
     triggerSection: "contact",
     delay: 2000,
     position: "top-left"
   },
   {
-    id: "vibecoding-essence",
-    quote: "True innovation occurs when classical wisdom meets quantum possibility.",
-    author: "VibeCoding Philosophy",
-    context: "Where ancient philosophy guides modern development",
+    id: "vibecoding-methodology",
+    quote: "When ancient wisdom meets modern infrastructure, consciousness bootstraps itself.",
+    author: "VibeCoding Constitution",
+    context: "Philosophical programming methodology in practice",
     triggerSection: "hero",
     delay: 4000,
     position: "bottom-right"
   },
   {
-    id: "proxmox-wisdom",
-    quote: "Infrastructure is philosophy made manifest - every cluster tells a story of human intention.",
-    author: "Digital Infrastructure Zen",
-    context: "Finding consciousness in computational orchestration",
+    id: "infrastructure-consciousness",
+    quote: "A 4-node Proxmox cluster is a meditation on distributed consciousness.",
+    author: "Infrastructure Zen Master",
+    context: "Ryzen 9 5950X, 3900X, i5-9500, R7 1700 in philosophical harmony",
     triggerSection: "skills",
     delay: 3500,
     position: "top-left"
+  },
+  {
+    id: "react-philosophy",
+    quote: "React hooks are Plato's forms made executable - pure functions returning impure reality.",
+    author: "Frontend Philosopher",
+    context: "TypeScript + React + Tailwind CSS + shadcn/ui component philosophy",
+    triggerSection: "projects",
+    delay: 4200,
+    position: "bottom-right"
+  },
+  {
+    id: "vrchat-consciousness",
+    quote: "4,320 hours in VRChat taught me more about human nature than any philosophy textbook.",
+    author: "Digital Anthropologist",
+    context: "Virtual reality as consciousness research laboratory",
+    triggerSection: "gaming",
+    delay: 2800,
+    position: "top-right"
+  },
+  {
+    id: "fighting-game-precision",
+    quote: "Frame data analysis is applied Stoicism - control the inputs, accept the outcomes.",
+    author: "FGC Philosopher",
+    context: "2,890+ hours of competitive gaming informing 60fps web optimization",
+    triggerSection: "skills",
+    delay: 5000,
+    position: "bottom-left"
+  },
+  {
+    id: "canadian-values",
+    quote: "Charter Section 2(b) in code: every function should have the freedom to express its purpose clearly.",
+    author: "Constitutional Programmer",
+    context: "Democratic values embedded in technology architecture",
+    triggerSection: "philosophy",
+    delay: 3800,
+    position: "bottom-left"
   }
 ];
 
@@ -160,7 +196,7 @@ export default function PhilosophicalInsights() {
     handleScroll(); // Check initial state
 
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [currentSection, insights]);
+  }, [wisdomEnabled]);
 
   const getPositionStyles = (position: string) => {
     switch (position) {
