@@ -27,10 +27,10 @@ export default function Navigation() {
     }`}>
       <nav className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <div className="font-bold text-xl text-[var(--synthwave-cyan)] flex items-center">
+          <a href="/" className="font-bold text-xl text-[var(--synthwave-cyan)] flex items-center hover:text-[var(--bright-blue)] transition-colors duration-300 cursor-pointer">
             <i className="fas fa-code mr-2"></i>
             reverb256
-          </div>
+          </a>
           
           <div className="hidden md:flex space-x-8">
             <button 

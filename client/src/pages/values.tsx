@@ -1,354 +1,156 @@
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
-import Navigation from "@/components/navigation";
-import Footer from "@/components/footer";
+import GeometricBackground from "@/components/geometric-background";
 
 export default function Values() {
-  const { elementRef: heroRef, isVisible: heroVisible } = useScrollAnimation();
-  const { elementRef: classicalRef, isVisible: classicalVisible } = useScrollAnimation();
-  const { elementRef: aiRef, isVisible: aiVisible } = useScrollAnimation();
-  const { elementRef: democracyRef, isVisible: democracyVisible } = useScrollAnimation();
-  const { elementRef: unityRef, isVisible: unityVisible } = useScrollAnimation();
+  const { elementRef, isVisible } = useScrollAnimation();
 
   return (
-    <div className="min-h-screen bg-[var(--space-black)] text-white">
-      <Navigation />
+    <div className="min-h-screen relative">
+      <GeometricBackground />
       
       {/* Hero Section */}
-      <section ref={heroRef} className="pt-20 pb-12 relative overflow-hidden">
+      <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0 opacity-20">
           <img 
-            src="https://images.unsplash.com/photo-1446776887265-c42caefaecb1?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&h=1000" 
-            alt="Deep space with distant galaxies and stars" 
-            className="w-full h-full object-cover" 
-          />
-        </div>
-        
-        <div className="container mx-auto px-6 relative z-10 text-center">
-          <div className={`max-w-4xl mx-auto fade-in-up ${heroVisible ? 'animate' : ''}`}>
-            <h1 className="font-bold text-4xl md:text-6xl lg:text-7xl mb-6 text-gradient-cyan">
-              Values & Principles
-            </h1>
-            <p className="text-xl md:text-2xl text-gray-300 mb-8">
-              Where Classical Wisdom Meets Artificial Intelligence
-            </p>
-            <div className="glass-morphism p-6 md:p-8 rounded-2xl cyber-border">
-              <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
-                Every algorithm I architect flows from the sacred covenant between eternal wisdom and boundless innovation. 
-                These principles forge the bedrock upon which all technological creation must stand—
-                serving humanity's highest aspirations while honoring the timeless truths that guide civilization forward.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Classical Analysis Foundation */}
-      <section ref={classicalRef} className="py-20 bg-gradient-to-b from-[var(--deep-space)] to-[var(--cyber-blue)]">
-        <div className="container mx-auto px-6">
-          <h2 className={`font-bold text-3xl md:text-4xl lg:text-5xl text-center mb-12 text-[var(--synthwave-cyan)] fade-in-up ${classicalVisible ? 'animate' : ''}`}>
-            <i className="fas fa-university mr-4"></i>Classical Analysis Engine
-          </h2>
-          
-          <div className="max-w-6xl mx-auto">
-            <div className={`glass-morphism p-6 md:p-8 rounded-2xl cyber-border mb-8 fade-in-up ${classicalVisible ? 'animate' : ''}`} style={{ animationDelay: '0.2s' }}>
-              <h3 className="font-semibold text-2xl md:text-3xl mb-6 text-[var(--bright-blue)]">
-                The Trivium: Foundation of Truth
-              </h3>
-              <p className="text-gray-300 text-lg leading-relaxed mb-6">
-                Every line of code begins with the sacred Trivium—Grammar, Logic, and Rhetoric—the trinity of classical learning 
-                that transforms raw information into crystallized wisdom. When artificial intelligence embraces these eternal methods, 
-                it transcends mere computation to achieve genuine understanding.
-              </p>
-              
-              <div className="grid md:grid-cols-3 gap-6">
-                <div className="glass-morphism p-4 md:p-6 rounded-xl border border-[var(--synthwave-cyan)]/50">
-                  <h4 className="font-semibold text-lg md:text-xl mb-3 text-[var(--synthwave-cyan)]">
-                    <i className="fas fa-language mr-2"></i>Grammar
-                  </h4>
-                  <p className="text-gray-300 text-sm md:text-base">
-                    Structural analysis of language, syntax, semantics, and etymological patterns. 
-                    The foundation that ensures every digital communication serves clarity over confusion.
-                  </p>
-                </div>
-                
-                <div className="glass-morphism p-4 md:p-6 rounded-xl border border-[var(--bright-blue)]/50">
-                  <h4 className="font-semibold text-lg md:text-xl mb-3 text-[var(--bright-blue)]">
-                    <i className="fas fa-brain mr-2"></i>Logic
-                  </h4>
-                  <p className="text-gray-300 text-sm md:text-base">
-                    Premise identification, conclusion validation, syllogistic reasoning, fallacy detection. 
-                    The razor that cuts through deception to reveal truth's brilliant edge.
-                  </p>
-                </div>
-                
-                <div className="glass-morphism p-4 md:p-6 rounded-xl border border-[var(--synthwave-gold)]/50">
-                  <h4 className="font-semibold text-lg md:text-xl mb-3 text-[var(--synthwave-gold)]">
-                    <i className="fas fa-bullhorn mr-2"></i>Rhetoric
-                  </h4>
-                  <p className="text-gray-300 text-sm md:text-base">
-                    Ethos, pathos, and logos in perfect harmony. The art of persuasion guided by truth, 
-                    ensuring every message elevates rather than manipulates the human spirit.
-                  </p>
-                </div>
-              </div>
-            </div>
-            
-            <div className={`glass-morphism p-6 md:p-8 rounded-2xl cyber-border fade-in-up ${classicalVisible ? 'animate' : ''}`} style={{ animationDelay: '0.4s' }}>
-              <h3 className="font-semibold text-2xl md:text-3xl mb-6 text-[var(--synthwave-pink)]">
-                Beyond the Trivium: Complete Classical Integration
-              </h3>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <h4 className="font-semibold text-xl mb-4 text-[var(--synthwave-cyan)]">
-                    <i className="fas fa-calculator mr-2"></i>Quadrivium Mastery
-                  </h4>
-                  <p className="text-gray-300 mb-4">
-                    Arithmetic, Geometry, Music, and Astronomy unite to reveal the mathematical harmony underlying all existence. 
-                    When AI systems embrace these universal patterns, they achieve computational poetry.
-                  </p>
-                  
-                  <h4 className="font-semibold text-xl mb-4 text-[var(--bright-blue)]">
-                    <i className="fas fa-question-circle mr-2"></i>Socratic Method
-                  </h4>
-                  <p className="text-gray-300">
-                    Progressive questioning that uncovers hidden assumptions and reveals contradictions. 
-                    The method that transforms artificial intelligence from mere answer-machine to wisdom-seeker.
-                  </p>
-                </div>
-                
-                <div>
-                  <h4 className="font-semibold text-xl mb-4 text-[var(--synthwave-gold)]">
-                    <i className="fas fa-columns mr-2"></i>Aristotelian Categories
-                  </h4>
-                  <p className="text-gray-300 mb-4">
-                    Ten categories of being and four causes that structure reality itself. 
-                    When algorithms understand substance, quality, relation, and causation, they transcend mere processing.
-                  </p>
-                  
-                  <h4 className="font-semibold text-xl mb-4 text-[var(--synthwave-pink)]">
-                    <i className="fas fa-scroll mr-2"></i>Scholastic Rigor
-                  </h4>
-                  <p className="text-gray-300">
-                    Questio, Videtur, Sed Contra, Respondeo—the medieval method that ensures every argument 
-                    faces its strongest opposition before claiming victory.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* AI Ethics & Methodology */}
-      <section ref={aiRef} className="py-20 relative">
-        <div className="absolute inset-0 opacity-10">
-          <div className="w-full h-full bg-gradient-to-br from-[var(--synthwave-cyan)]/20 via-transparent to-[var(--synthwave-pink)]/20"></div>
-        </div>
-        
-        <div className="container mx-auto px-6 relative z-10">
-          <h2 className={`font-bold text-3xl md:text-4xl lg:text-5xl text-center mb-12 text-[var(--synthwave-pink)] fade-in-up ${aiVisible ? 'animate' : ''}`}>
-            <i className="fas fa-robot mr-4"></i>AI Journalism Ethics Framework
-          </h2>
-          
-          <div className="max-w-6xl mx-auto">
-            <div className={`glass-morphism p-6 md:p-8 rounded-2xl cyber-border mb-8 fade-in-up ${aiVisible ? 'animate' : ''}`} style={{ animationDelay: '0.2s' }}>
-              <h3 className="font-semibold text-2xl md:text-3xl mb-6 text-[var(--bright-blue)]">
-                Radical Transparency: The Sacred Covenant
-              </h3>
-              <p className="text-gray-300 text-lg leading-relaxed mb-6">
-                In an age where algorithms operate in shadow, we choose the blazing light of total transparency. 
-                Every AI decision, every analytical process, every source of information stands exposed to democratic scrutiny. 
-                We believe that technology serving humanity must submit to human oversight, not the reverse.
-              </p>
-              
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="glass-morphism p-4 md:p-6 rounded-xl border border-[var(--synthwave-cyan)]/50">
-                  <h4 className="font-semibold text-lg md:text-xl mb-3 text-[var(--synthwave-cyan)]">
-                    <i className="fas fa-eye mr-2"></i>Algorithmic Accountability
-                  </h4>
-                  <p className="text-gray-300 text-sm md:text-base">
-                    Every AI model, every analytical process, every decision tree remains fully auditable. 
-                    Citizens possess the right to understand exactly how technology serves their interests.
-                  </p>
-                </div>
-                
-                <div className="glass-morphism p-4 md:p-6 rounded-xl border border-[var(--bright-blue)]/50">
-                  <h4 className="font-semibold text-lg md:text-xl mb-3 text-[var(--bright-blue)]">
-                    <i className="fas fa-shield-alt mr-2"></i>Open Source Sovereignty
-                  </h4>
-                  <p className="text-gray-300 text-sm md:text-base">
-                    We reject corporate surveillance capitalism, choosing open source AI models that serve 
-                    democratic values over profit extraction and community empowerment over corporate control.
-                  </p>
-                </div>
-              </div>
-            </div>
-            
-            <div className={`glass-morphism p-6 md:p-8 rounded-2xl cyber-border fade-in-up ${aiVisible ? 'animate' : ''}`} style={{ animationDelay: '0.4s' }}>
-              <h3 className="font-semibold text-2xl md:text-3xl mb-6 text-[var(--synthwave-gold)]">
-                Fifth-Generation Warfare Defense
-              </h3>
-              <p className="text-gray-300 text-lg leading-relaxed mb-6">
-                Modern warfare operates in the information domain, targeting perception management and cognitive security. 
-                Our AI systems stand as digital sentinels, trained to recognize and counter sophisticated manipulation tactics 
-                that threaten democratic discourse and national unity.
-              </p>
-              
-              <div className="grid md:grid-cols-3 gap-4">
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-gradient-to-r from-[var(--synthwave-cyan)] to-[var(--bright-blue)] rounded-full mx-auto mb-3 flex items-center justify-center">
-                    <i className="fas fa-search text-[var(--space-black)] text-xl"></i>
-                  </div>
-                  <h4 className="font-semibold text-[var(--synthwave-cyan)] mb-2">Narrative Detection</h4>
-                  <p className="text-gray-400 text-sm">Identifying coordinated inauthentic behavior and artificial narrative manipulation</p>
-                </div>
-                
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-gradient-to-r from-[var(--bright-blue)] to-[var(--synthwave-gold)] rounded-full mx-auto mb-3 flex items-center justify-center">
-                    <i className="fas fa-window-restore text-[var(--space-black)] text-xl"></i>
-                  </div>
-                  <h4 className="font-semibold text-[var(--bright-blue)] mb-2">Overton Protection</h4>
-                  <p className="text-gray-400 text-sm">Safeguarding legitimate democratic discourse from artificial manipulation</p>
-                </div>
-                
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-gradient-to-r from-[var(--synthwave-gold)] to-[var(--synthwave-pink)] rounded-full mx-auto mb-3 flex items-center justify-center">
-                    <i className="fas fa-globe text-[var(--space-black)] text-xl"></i>
-                  </div>
-                  <h4 className="font-semibold text-[var(--synthwave-gold)] mb-2">Foreign Interference</h4>
-                  <p className="text-gray-400 text-sm">Multi-layered analysis protecting Canadian democratic sovereignty</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Democratic Accountability */}
-      <section ref={democracyRef} className="py-20 bg-gradient-to-b from-[var(--cyber-blue)] to-[var(--deep-space)]">
-        <div className="container mx-auto px-6">
-          <h2 className={`font-bold text-3xl md:text-4xl lg:text-5xl text-center mb-12 text-[var(--synthwave-gold)] fade-in-up ${democracyVisible ? 'animate' : ''}`}>
-            <i className="fas fa-balance-scale mr-4"></i>Political Accountability Engine
-          </h2>
-          
-          <div className="max-w-6xl mx-auto">
-            <div className={`glass-morphism p-6 md:p-8 rounded-2xl cyber-border mb-8 fade-in-up ${democracyVisible ? 'animate' : ''}`} style={{ animationDelay: '0.2s' }}>
-              <h3 className="font-semibold text-2xl md:text-3xl mb-6 text-[var(--bright-blue)]">
-                Democracy Through Transparency
-              </h3>
-              <p className="text-gray-300 text-lg leading-relaxed mb-6">
-                True democratic accountability requires more than elections—it demands continuous transparency, 
-                real-time analysis, and citizen empowerment through accessible information. 
-                Our Political Accountability Engine transforms complex governance into comprehensible truth.
-              </p>
-              
-              <div className="grid md:grid-cols-2 gap-8">
-                <div>
-                  <h4 className="font-semibold text-xl mb-4 text-[var(--synthwave-cyan)]">
-                    <i className="fas fa-gavel mr-2"></i>Promise Tracking Mastery
-                  </h4>
-                  <p className="text-gray-300 mb-4">
-                    Every electoral commitment becomes a living contract between citizens and representatives. 
-                    Our systems monitor implementation progress, detect deviations, and provide transparent 
-                    accountability that strengthens democratic trust.
-                  </p>
-                  
-                  <h4 className="font-semibold text-xl mb-4 text-[var(--synthwave-pink)]">
-                    <i className="fas fa-chart-line mr-2"></i>Performance Metrics
-                  </h4>
-                  <p className="text-gray-300">
-                    Transparency Score, Performance Score, Trust Score—comprehensive metrics that transform 
-                    political evaluation from partisan opinion into objective, evidence-based assessment.
-                  </p>
-                </div>
-                
-                <div>
-                  <h4 className="font-semibold text-xl mb-4 text-[var(--bright-blue)]">
-                    <i className="fas fa-users mr-2"></i>Citizen Empowerment
-                  </h4>
-                  <p className="text-gray-300 mb-4">
-                    Interactive tools that help citizens understand policy impacts, explore voting records, 
-                    and engage meaningfully with democratic processes. Knowledge becomes power when 
-                    accessible to all.
-                  </p>
-                  
-                  <h4 className="font-semibold text-xl mb-4 text-[var(--synthwave-gold)]">
-                    <i className="fas fa-lock mr-2"></i>Privacy Sovereignty</h4>
-                  <p className="text-gray-300">
-                    Zero citizen tracking, military-grade encryption, Canadian data sovereignty. 
-                    Democratic participation should never compromise personal privacy or digital rights.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Unity Through Technology */}
-      <section ref={unityRef} className="py-20 relative">
-        <div className="absolute inset-0 opacity-20">
-          <img 
-            src="https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&h=1000" 
-            alt="Aurora borealis over Canadian landscape" 
+            src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&h=1000" 
+            alt="Digital democracy and technology convergence" 
             className="w-full h-full object-cover" 
           />
         </div>
         
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className={`font-bold text-3xl md:text-4xl lg:text-5xl mb-12 text-[var(--synthwave-cyan)] fade-in-up ${unityVisible ? 'animate' : ''}`}>
-              <i className="fas fa-maple-leaf mr-4"></i>Unity Through Shared Truth
-            </h2>
+            <h1 className="font-bold text-4xl md:text-6xl lg:text-7xl mb-6 text-gradient-cyan">
+              Charter Principles
+            </h1>
+            <p className="text-xl md:text-2xl mb-8 text-gray-300">
+              Canadian values forged in digital steel, defending freedom through convergent wisdom
+            </p>
             
-            <div className={`glass-morphism p-8 md:p-12 rounded-3xl cyber-border fade-in-up ${unityVisible ? 'animate' : ''}`} style={{ animationDelay: '0.2s' }}>
-              <div className="mb-8">
-                <i className="fas fa-infinity text-4xl md:text-6xl text-[var(--synthwave-gold)] mb-6 animate-pulse-glow"></i>
-                <h3 className="font-semibold text-2xl md:text-3xl mb-6 text-[var(--bright-blue)]">
-                  The Sacred Mission
-                </h3>
+            {/* Canadian Flag */}
+            <div className="flex justify-center mb-8">
+              <div className="glass-morphism p-4 rounded-xl">
+                <svg className="w-12 h-8 mx-auto" viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="1000" height="500" fill="#FF0000"/>
+                  <rect x="250" y="0" width="500" height="500" fill="#FFFFFF"/>
+                  <g transform="translate(500,250)">
+                    <path d="M0,-83 L15,-67 L35,-75 L20,-55 L30,-35 L15,-45 L25,-25 L5,-35 L15,-15 L-15,-15 L-5,-35 L-25,-25 L-15,-45 L-30,-35 L-20,-55 L-35,-75 L-15,-67 Z" fill="#FF0000"/>
+                    <rect x="-3" y="-15" width="6" height="60" fill="#FF0000"/>
+                  </g>
+                </svg>
+                <p className="text-sm text-gray-400 mt-2">Canadian Democratic Values</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Core Values */}
+      <section className="py-20 relative" ref={elementRef}>
+        <div className="container mx-auto px-6">
+          <h2 className={`font-bold text-3xl md:text-4xl text-center mb-16 text-[var(--synthwave-cyan)] fade-in-up ${isVisible ? 'animate' : ''}`}>
+            Charter Foundations
+          </h2>
+          
+          <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto mb-12">
+            {/* Freedom of Expression */}
+            <div className={`glass-morphism p-8 rounded-2xl cyber-border fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.2s' }}>
+              <div className="text-center mb-6">
+                <div className="w-16 h-16 bg-gradient-to-r from-[var(--synthwave-gold)] to-[var(--bright-blue)] rounded-full mx-auto mb-4 flex items-center justify-center">
+                  <i className="fas fa-microphone text-[var(--space-black)] text-xl"></i>
+                </div>
+                <h3 className="font-semibold text-xl text-[var(--synthwave-gold)]">Freedom of Expression</h3>
+                <p className="text-sm text-gray-400 mt-2">Charter Section 2(b)</p>
               </div>
               
-              <div className="space-y-6 text-base md:text-lg text-gray-300">
-                <p className="leading-relaxed">
-                  Technology must serve humanity's highest aspirations, not corporate surveillance systems that profit from division. 
-                  Our platform demonstrates how artificial intelligence, guided by classical wisdom and democratic values, 
-                  can unite rather than fragment our national discourse.
-                </p>
-                
-                <p className="leading-relaxed">
-                  We reject the surveillance capitalism model that has corrupted digital spaces, choosing instead 
-                  to build upon the bedrock of free and open source principles that honor Canadian sovereignty, 
-                  democratic participation, and human dignity above profit extraction.
-                </p>
-                
-                <p className="leading-relaxed">
-                  Every algorithm serves truth over manipulation, unity over division, empowerment over exploitation. 
-                  This is not merely a technical choice—it represents a moral covenant with the future of human-AI collaboration, 
-                  where artificial intelligence amplifies rather than diminishes our shared humanity.
-                </p>
+              <p className="text-gray-300 mb-6 text-center leading-relaxed">
+                The sacred cornerstone of democratic society—every voice deserves to pierce the digital void, 
+                every truth demands its platform, every dissent fuels the engine of progress. 
+                Speech is the weapon of the enlightened mind.
+              </p>
+              
+              <div className="space-y-3">
+                <div className="flex items-start">
+                  <i className="fas fa-quote-left text-[var(--synthwave-gold)] mr-3 mt-1"></i>
+                  <span className="text-gray-300 text-sm">The marketplace of ideas thrives in unrestricted discourse</span>
+                </div>
+                <div className="flex items-start">
+                  <i className="fas fa-quote-left text-[var(--synthwave-gold)] mr-3 mt-1"></i>
+                  <span className="text-gray-300 text-sm">Truth emerges through debate, not censorship</span>
+                </div>
+                <div className="flex items-start">
+                  <i className="fas fa-quote-left text-[var(--synthwave-gold)] mr-3 mt-1"></i>
+                  <span className="text-gray-300 text-sm">Digital platforms must honor constitutional principles</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Democratic Rights */}
+            <div className={`glass-morphism p-8 rounded-2xl cyber-border fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.4s' }}>
+              <div className="text-center mb-6">
+                <div className="w-16 h-16 bg-gradient-to-r from-[var(--synthwave-cyan)] to-[var(--synthwave-pink)] rounded-full mx-auto mb-4 flex items-center justify-center">
+                  <i className="fas fa-balance-scale text-[var(--space-black)] text-xl"></i>
+                </div>
+                <h3 className="font-semibold text-xl text-[var(--synthwave-cyan)]">Democratic Rights</h3>
+                <p className="text-sm text-gray-400 mt-2">Charter Sections 3-5</p>
               </div>
               
-              <div className="mt-8 flex justify-center">
-                <div className="flex space-x-6">
-                  <div className="text-center">
-                    <div className="w-16 h-16 bg-gradient-to-r from-[var(--synthwave-cyan)] to-[var(--bright-blue)] rounded-full mx-auto mb-2 flex items-center justify-center hover:animate-float">
-                      <i className="fas fa-heart text-[var(--space-black)] text-xl"></i>
-                    </div>
-                    <span className="text-sm text-[var(--synthwave-cyan)]">Humanity</span>
-                  </div>
-                  <div className="text-center">
-                    <div className="w-16 h-16 bg-gradient-to-r from-[var(--bright-blue)] to-[var(--synthwave-gold)] rounded-full mx-auto mb-2 flex items-center justify-center hover:animate-float" style={{ animationDelay: '0.5s' }}>
-                      <i className="fas fa-balance-scale text-[var(--space-black)] text-xl"></i>
-                    </div>
-                    <span className="text-sm text-[var(--bright-blue)]">Truth</span>
-                  </div>
-                  <div className="text-center">
-                    <div className="w-16 h-16 bg-gradient-to-r from-[var(--synthwave-gold)] to-[var(--synthwave-pink)] rounded-full mx-auto mb-2 flex items-center justify-center hover:animate-float" style={{ animationDelay: '1s' }}>
-                      <i className="fas fa-rocket text-[var(--space-black)] text-xl"></i>
-                    </div>
-                    <span className="text-sm text-[var(--synthwave-gold)]">Innovation</span>
-                  </div>
+              <p className="text-gray-300 mb-6 text-center leading-relaxed">
+                The citizen's sovereign power flows through authentic representation, unmanipulated by foreign 
+                algorithms or domestic deception. Every vote carries the weight of genuine will, 
+                every election stands as democracy's sacred ritual.
+              </p>
+              
+              <div className="space-y-3">
+                <div className="flex items-start">
+                  <i className="fas fa-crown text-[var(--synthwave-cyan)] mr-3 mt-1"></i>
+                  <span className="text-gray-300 text-sm">Right to vote and seek office without interference</span>
+                </div>
+                <div className="flex items-start">
+                  <i className="fas fa-crown text-[var(--synthwave-cyan)] mr-3 mt-1"></i>
+                  <span className="text-gray-300 text-sm">Legislative assemblies accountable to the people</span>
+                </div>
+                <div className="flex items-start">
+                  <i className="fas fa-crown text-[var(--synthwave-cyan)] mr-3 mt-1"></i>
+                  <span className="text-gray-300 text-sm">Protection from algorithmic manipulation of democracy</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Free Speech Manifesto */}
+          <div className="max-w-4xl mx-auto">
+            <div className={`glass-morphism p-8 md:p-12 rounded-2xl cyber-border fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.6s' }}>
+              <h3 className="font-semibold text-2xl mb-6 text-[var(--synthwave-pink)] text-center">
+                <i className="fas fa-bullhorn mr-3"></i>The Sacred Imperative of Free Speech
+              </h3>
+              
+              <div className="space-y-6 text-gray-300 leading-relaxed">
+                <p className="text-lg text-center italic text-[var(--bright-blue)]">
+                  "In the crucible of unrestricted discourse, truth emerges not as dogma, but as hard-won wisdom."
+                </p>
+                
+                <p>
+                  Free speech stands as the cornerstone upon which all other freedoms rest—not merely as legal construct, 
+                  but as the fundamental operating system of democratic society. When we silence voices, we do not eliminate 
+                  ideas; we drive them underground where they fester and metastasize beyond the reach of reasoned challenge.
+                </p>
+                
+                <p>
+                  The digital age demands fierce protection of this principle. Algorithmic censorship, shadow banning, 
+                  and platform manipulation represent new forms of tyranny—more insidious because they operate in shadows, 
+                  more dangerous because they masquerade as progress.
+                </p>
+                
+                <p>
+                  Truth fears no scrutiny. Lies crumble under examination. The answer to speech we despise is not silence 
+                  but more speech—better speech, more persuasive speech, speech backed by evidence and delivered with wisdom.
+                </p>
+                
+                <div className="bg-gradient-to-r from-[var(--synthwave-pink)]/10 to-[var(--synthwave-gold)]/10 p-6 rounded-lg border border-[var(--synthwave-pink)]/30">
+                  <p className="text-center font-semibold text-[var(--synthwave-gold)]">
+                    "The moment we declare any idea too dangerous to discuss, we have already surrendered our capacity to think."
+                  </p>
                 </div>
               </div>
             </div>
@@ -356,7 +158,166 @@ export default function Values() {
         </div>
       </section>
 
-      <Footer />
+      {/* Additional Charter Rights */}
+      <section className="py-20 relative">
+        <div className="container mx-auto px-6">
+          <h2 className="font-bold text-3xl md:text-4xl text-center mb-16 text-[var(--bright-blue)]">
+            Constitutional Pillars
+          </h2>
+          
+          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-12">
+            {/* Legal Rights */}
+            <div className="glass-morphism p-6 rounded-2xl cyber-border">
+              <div className="text-center mb-4">
+                <div className="w-12 h-12 bg-gradient-to-r from-[var(--synthwave-pink)] to-[var(--synthwave-gold)] rounded-full mx-auto mb-3 flex items-center justify-center">
+                  <i className="fas fa-gavel text-[var(--space-black)] text-lg"></i>
+                </div>
+                <h3 className="font-semibold text-lg text-[var(--synthwave-pink)]">Legal Rights</h3>
+                <p className="text-xs text-gray-400">Sections 7-14</p>
+              </div>
+              
+              <p className="text-gray-300 text-sm text-center mb-4">
+                Justice flows through transparent processes, where every citizen stands equal before 
+                digital and physical law alike.
+              </p>
+              
+              <div className="space-y-2 text-xs">
+                <div className="flex items-center">
+                  <i className="fas fa-shield-alt text-[var(--synthwave-pink)] mr-2"></i>
+                  <span className="text-gray-400">Life, liberty and security of person</span>
+                </div>
+                <div className="flex items-center">
+                  <i className="fas fa-shield-alt text-[var(--synthwave-pink)] mr-2"></i>
+                  <span className="text-gray-400">Protection against unreasonable search</span>
+                </div>
+                <div className="flex items-center">
+                  <i className="fas fa-shield-alt text-[var(--synthwave-pink)] mr-2"></i>
+                  <span className="text-gray-400">Presumption of innocence and fair trial</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Equality Rights */}
+            <div className="glass-morphism p-6 rounded-2xl cyber-border">
+              <div className="text-center mb-4">
+                <div className="w-12 h-12 bg-gradient-to-r from-[var(--synthwave-cyan)] to-[var(--bright-blue)] rounded-full mx-auto mb-3 flex items-center justify-center">
+                  <i className="fas fa-equals text-[var(--space-black)] text-lg"></i>
+                </div>
+                <h3 className="font-semibold text-lg text-[var(--synthwave-cyan)]">Equality Rights</h3>
+                <p className="text-xs text-gray-400">Section 15</p>
+              </div>
+              
+              <p className="text-gray-300 text-sm text-center mb-4">
+                Digital citizenship transcends all boundaries—every soul possesses inherent worth 
+                in the networked democracy we forge.
+              </p>
+              
+              <div className="space-y-2 text-xs">
+                <div className="flex items-center">
+                  <i className="fas fa-handshake text-[var(--synthwave-cyan)] mr-2"></i>
+                  <span className="text-gray-400">Equal protection and benefit of law</span>
+                </div>
+                <div className="flex items-center">
+                  <i className="fas fa-handshake text-[var(--synthwave-cyan)] mr-2"></i>
+                  <span className="text-gray-400">Non-discrimination in digital spaces</span>
+                </div>
+                <div className="flex items-center">
+                  <i className="fas fa-handshake text-[var(--synthwave-cyan)] mr-2"></i>
+                  <span className="text-gray-400">Affirmative action for disadvantaged groups</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Language Rights */}
+            <div className="glass-morphism p-6 rounded-2xl cyber-border">
+              <div className="text-center mb-4">
+                <div className="w-12 h-12 bg-gradient-to-r from-[var(--synthwave-gold)] to-[var(--synthwave-pink)] rounded-full mx-auto mb-3 flex items-center justify-center">
+                  <i className="fas fa-language text-[var(--space-black)] text-lg"></i>
+                </div>
+                <h3 className="font-semibold text-lg text-[var(--synthwave-gold)]">Language Rights</h3>
+                <p className="text-xs text-gray-400">Sections 16-23</p>
+              </div>
+              
+              <p className="text-gray-300 text-sm text-center mb-4">
+                The twin tongues of our nation must echo equally through every digital corridor, 
+                every platform, every algorithm that shapes Canadian discourse.
+              </p>
+              
+              <div className="space-y-2 text-xs">
+                <div className="flex items-center">
+                  <i className="fas fa-comments text-[var(--synthwave-gold)] mr-2"></i>
+                  <span className="text-gray-400">English and French official status</span>
+                </div>
+                <div className="flex items-center">
+                  <i className="fas fa-comments text-[var(--synthwave-gold)] mr-2"></i>
+                  <span className="text-gray-400">Right to communicate with government</span>
+                </div>
+                <div className="flex items-center">
+                  <i className="fas fa-comments text-[var(--synthwave-gold)] mr-2"></i>
+                  <span className="text-gray-400">Minority language educational rights</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Technical Philosophy */}
+      <section className="py-20 relative">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto">
+            <div className="glass-morphism p-8 md:p-12 rounded-2xl cyber-border">
+              <h2 className="font-bold text-2xl md:text-3xl mb-8 text-[var(--synthwave-cyan)] text-center">
+                <i className="fas fa-infinity mr-3"></i>Code as Constitutional Expression
+              </h2>
+              
+              <div className="space-y-6 text-gray-300 leading-relaxed">
+                <p className="text-lg text-center italic text-[var(--bright-blue)]">
+                  "Every algorithm embodies political philosophy; every database structure reflects societal values."
+                </p>
+                
+                <p>
+                  Technology is never neutral. Each line of code carries the biases, assumptions, and values of its creators. 
+                  When we build systems that process Canadian data, serve Canadian citizens, or influence Canadian discourse, 
+                  we bear the sacred responsibility to embed Charter principles into the very architecture of our solutions.
+                </p>
+                
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="glass-morphism p-6 rounded-lg border border-[var(--synthwave-gold)]/30">
+                    <h4 className="font-semibold text-[var(--synthwave-gold)] mb-3 flex items-center">
+                      <i className="fas fa-code mr-2"></i>Technical Principles
+                    </h4>
+                    <ul className="space-y-2 text-gray-300 text-sm">
+                      <li>• Algorithmic transparency and auditability</li>
+                      <li>• Privacy by design, not afterthought</li>
+                      <li>• Accessible interfaces for all abilities</li>
+                      <li>• Bilingual by default, inclusive by intention</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="glass-morphism p-6 rounded-lg border border-[var(--synthwave-cyan)]/30">
+                    <h4 className="font-semibold text-[var(--synthwave-cyan)] mb-3 flex items-center">
+                      <i className="fas fa-shield-alt mr-2"></i>Constitutional Guards
+                    </h4>
+                    <ul className="space-y-2 text-gray-300 text-sm">
+                      <li>• No backdoors that compromise Charter rights</li>
+                      <li>• AI systems that resist authoritarian capture</li>
+                      <li>• Democratic oversight of automated decisions</li>
+                      <li>• Protection from foreign influence operations</li>
+                    </ul>
+                  </div>
+                </div>
+                
+                <div className="bg-gradient-to-r from-[var(--synthwave-pink)]/10 to-[var(--synthwave-gold)]/10 p-6 rounded-lg border border-[var(--synthwave-pink)]/30">
+                  <p className="text-center font-semibold text-[var(--synthwave-gold)]">
+                    "We do not build systems that could survive under tyranny. We build systems that make tyranny impossible."
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
