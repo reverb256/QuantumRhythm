@@ -61,7 +61,7 @@ export default function PerformanceMonitor() {
       }
 
       const performanceMetrics: PerformanceMetrics = {
-        loadTime: navigation.loadEventEnd - navigation.navigationStart,
+        loadTime: navigation.loadEventEnd - navigation.fetchStart,
         domNodes: document.querySelectorAll('*').length,
         memoryUsage: memory ? Math.round(memory.usedJSHeapSize / 1024 / 1024) : 0,
         fps: fps,

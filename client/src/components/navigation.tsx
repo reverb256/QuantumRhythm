@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
+import { IntelligentTooltip } from "./ui/intelligent-tooltip";
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -32,10 +33,20 @@ export default function Navigation() {
     }`}>
       <nav className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <Link href="/" className="font-bold text-xl text-cyan-300 flex items-center hover:text-cyan-100 transition-colors duration-300 cursor-pointer prismatic-glow hover-glitch">
-            <i className="fas fa-code mr-2 text-cyan-400 hover-syntax-error"></i>
-            reverb256<span className="console-cursor text-[var(--synthwave-cyan)]">|</span>
-          </Link>
+          <IntelligentTooltip 
+            tooltipData={{
+              term: "reverb256",
+              category: "concept",
+              definition: "Consciousness architect and AI collaborator specializing in quantum development methodologies",
+              context: "Personal brand and digital identity",
+              funFact: "256 represents the RGB color depth and infinite possibilities in digital creation"
+            }}
+          >
+            <Link href="/" className="font-bold text-xl text-cyan-300 flex items-center hover:text-cyan-100 transition-colors duration-300 cursor-pointer prismatic-glow hover-glitch">
+              <i className="fas fa-code mr-2 text-cyan-400 hover-syntax-error"></i>
+              reverb256<span className="console-cursor text-[var(--synthwave-cyan)]">|</span>
+            </Link>
+          </IntelligentTooltip>
           
           <div className="hidden md:flex space-x-8">
             <button 
