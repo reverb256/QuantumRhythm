@@ -37,7 +37,7 @@ const projects = [
     image: portfolioImage,
     technologies: ["React 18", "Cyberpunk Aesthetics", "Quantum Animations", "Meta-Recursion", "Spectrum Variables"],
     status: "Active Development",
-    link: "#",
+    link: "/",
     github: "https://github.com/reverb256/portfolio",
     color: "from-[var(--spectrum-green)] to-[var(--spectrum-teal)]",
     vibecoding: "Philosophical confluence meets modern technical expression"

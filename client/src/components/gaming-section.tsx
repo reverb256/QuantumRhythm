@@ -46,28 +46,12 @@ export default function GamingSection() {
     <section id="gaming" className="py-20 relative min-h-screen overflow-hidden" ref={elementRef}>
       {/* Layered Cybernetic Background */}
       <div className="absolute inset-0 z-0">
-        {/* Primary gaming portal */}
+        {/* Primary VR environment */}
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat" 
           style={{
-            backgroundImage: `url('/attached_assets/image_1749437324488.png')`,
+            backgroundImage: `url('/attached_assets/VRChat_2024-07-13_22-51-01.625_3840x2160_1749433585286.png')`,
             filter: 'brightness(0.2) saturate(1.4)',
-          }}
-        />
-        
-        {/* VR environment overlay */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat mix-blend-screen opacity-15" 
-          style={{
-            backgroundImage: `url('/attached_assets/image_1749438227154.png')`,
-          }}
-        />
-        
-        {/* Digital consciousness streams */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat mix-blend-overlay opacity-20" 
-          style={{
-            backgroundImage: `url('/attached_assets/image_1749438344985.png')`,
           }}
         />
       </div>

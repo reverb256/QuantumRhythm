@@ -31,16 +31,8 @@ export default function Footer() {
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat" 
           style={{
-            backgroundImage: `url('/attached_assets/image_1749437156152.png')`,
+            backgroundImage: `url('/attached_assets/Reverb_beautiful_night_sky_billions_of_stars_ocean_a_neon_city__2f334b29-4e6c-4745-a774-e6ed22b7de47_1749430519066.png')`,
             filter: 'brightness(0.1) saturate(1.8)',
-          }}
-        />
-        
-        {/* Digital foundation streams */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat mix-blend-screen opacity-8" 
-          style={{
-            backgroundImage: `url('/attached_assets/image_1749437172806.png')`,
           }}
         />
         

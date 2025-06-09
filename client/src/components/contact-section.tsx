@@ -25,7 +25,7 @@ const contactMethods = [
     description: "Real-time discussions about technology and philosophy",
     icon: "fab fa-discord",
     color: "from-[var(--spectrum-green)] to-[var(--spectrum-teal)]",
-    href: "#",
+    href: "https://discord.gg/8xQ4K2p",
     label: "Community Chat"
   },
   {
@@ -72,7 +72,7 @@ export default function ContactSection() {
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat" 
           style={{
-            backgroundImage: `url('/attached_assets/image_1749437202750.png')`,
+            backgroundImage: `url('/attached_assets/Reverb_with_all_the_same_colours_but_expansive._its_an_ultra_lo_1e5ce51d-b4d2-4bf2-9130-aa08807662b9_1749430526095.png')`,
             filter: 'brightness(0.2) saturate(1.4)',
           }}
         />

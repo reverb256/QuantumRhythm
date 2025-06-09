@@ -6,7 +6,7 @@ import catboy2025PFP___Copy from "@assets/catboy2025PFP - Copy.png";
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
       {/* Layered Background System */}
       <div className="absolute inset-0 z-0">
         {/* Primary Deep Space Background */}
