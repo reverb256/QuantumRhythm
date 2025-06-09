@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
-import { TooltipProvider } from "@/components/ui/tooltip";
+// Tooltip system removed for DOM nesting compliance
 import { CursorTooltipProvider } from "@/components/cursor-tooltip";
 import SEOHead, { getSEOForPage } from "@/components/seo-head";
 import { ConsciousContainer } from "@/components/smart-elements";

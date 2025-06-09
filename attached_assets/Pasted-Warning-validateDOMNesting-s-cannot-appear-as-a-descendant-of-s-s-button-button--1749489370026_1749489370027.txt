@@ -1,0 +1,29 @@
+Warning: validateDOMNesting(...): %s cannot appear as a descendant of <%s>.%s <button> button 
+    at button
+    at _c (https://6f873bc8-c1e2-4ab8-8785-32311908b675-00-26mpztqha7eke.worf.replit.dev/src/components/ui/button.tsx:47:11)
+    at button
+    at MotionComponent (https://6f873bc8-c1e2-4ab8-8785-32311908b675-00-26mpztqha7eke.worf.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/framer-motion.js?v=d5ac05c0:6536:40)
+    at SmartButton (https://6f873bc8-c1e2-4ab8-8785-32311908b675-00-26mpztqha7eke.worf.replit.dev/src/components/smart-elements.tsx:20:31)
+    at a
+    at https://6f873bc8-c1e2-4ab8-8785-32311908b675-00-26mpztqha7eke.worf.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=d5ac05c0:337:18
+    at div
+    at div
+    at div
+    at section
+    at div
+    at MotionComponent (https://6f873bc8-c1e2-4ab8-8785-32311908b675-00-26mpztqha7eke.worf.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/framer-motion.js?v=d5ac05c0:6536:40)
+    at ReactiveSection (https://6f873bc8-c1e2-4ab8-8785-32311908b675-00-26mpztqha7eke.worf.replit.dev/src/components/smart-elements.tsx:189:35)
+    at HeroSection (https://6f873bc8-c1e2-4ab8-8785-32311908b675-00-26mpztqha7eke.worf.replit.dev/src/components/hero-section.tsx:27:41)
+    at main
+    at HomePage (https://6f873bc8-c1e2-4ab8-8785-32311908b675-00-26mpztqha7eke.worf.replit.dev/src/pages/home.tsx:35:19)
+    at Route (https://6f873bc8-c1e2-4ab8-8785-32311908b675-00-26mpztqha7eke.worf.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=d5ac05c0:323:16)
+    at Switch (https://6f873bc8-c1e2-4ab8-8785-32311908b675-00-26mpztqha7eke.worf.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=d5ac05c0:379:17)
+    at Router (https://6f873bc8-c1e2-4ab8-8785-32311908b675-00-26mpztqha7eke.worf.replit.dev/src/App.tsx?v=ilYQH4tla2eqXxnPWkVsu:40:22)
+    at main
+    at div
+    at ConsciousContainer (https://6f873bc8-c1e2-4ab8-8785-32311908b675-00-26mpztqha7eke.worf.replit.dev/src/components/smart-elements.tsx:280:38)
+    at Provider (https://6f873bc8-c1e2-4ab8-8785-32311908b675-00-26mpztqha7eke.worf.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-YNVQRCZ5.js?v=d5ac05c0:39:15)
+    at TooltipProvider (https://6f873bc8-c1e2-4ab8-8785-32311908b675-00-26mpztqha7eke.worf.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-tooltip.js?v=d5ac05c0:2249:5)
+    at QueryClientProvider (https://6f873bc8-c1e2-4ab8-8785-32311908b675-00-26mpztqha7eke.worf.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=d5ac05c0:2805:3)
+    at ErrorBoundary (https://6f873bc8-c1e2-4ab8-8785-32311908b675-00-26mpztqha7eke.worf.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/react-error-boundary.js?v=d5ac05c0:18:5)
+    at App (https://6f873bc8-c1e2-4ab8-8785-32311908b675-00-26mpztqha7eke.worf.replit.dev/src/App.tsx?v=ilYQH4tla2eqXxnPWkVsu:115:3)

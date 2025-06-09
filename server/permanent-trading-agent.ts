@@ -3,7 +3,7 @@
 // Quantum Hyper-Empowered with VibeCoding methodology
 
 import { db } from './db.js';
-import { tradingAgents, marketDataStreams, tradingSignals, rssFeedSources, rssFeedItems, onChainEvents, agentPerformanceLogs, vibeCodingMetrics, tradingStrategies } from '../shared/schema.js';
+import { tradingAgents, marketDataStreams, tradingSignals, rssFeedSources, newsArticles, onChainEvents, agentPerformanceLogs, vibeCodingMetrics, tradingStrategies } from '../shared/schema.js';
 import { eq, desc, and, gte } from 'drizzle-orm';
 import Parser from 'rss-parser';
 import WebSocket from 'ws';

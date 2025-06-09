@@ -59,15 +59,22 @@ export const rssFeedSources = pgTable("rss_feed_sources", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
-export const rssFeedItems = pgTable("rss_feed_items", {
+export const newsArticles = pgTable("news_articles", {
   id: uuid("id").primaryKey().defaultRandom(),
-  feedId: uuid("feed_id").notNull().references(() => rssFeedSources.id),
+  feedId: uuid("feed_id").references(() => rssFeedSources.id),
   title: text("title").notNull(),
   description: text("description"),
+  content: text("content"),
   link: text("link").notNull().unique(),
-  pubDate: timestamp("pub_date").notNull(),
-  sentiment: decimal("sentiment", { precision: 3, scale: 2 }),
-  relevanceScore: decimal("relevance_score", { precision: 3, scale: 2 }),
+  author: text("author"),
+  publishedAt: timestamp("published_at").notNull(),
+  source: text("source").notNull(),
+  category: text("category").notNull(),
+  sentimentScore: text("sentiment_score"),
+  relevanceScore: text("relevance_score"),
+  tokenMentions: json("token_mentions").default([]),
+  tradingSignals: json("trading_signals").default({}),
+  urgencyLevel: text("urgency_level").default("low"),
   processed: boolean("processed").default(false),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
@@ -131,12 +138,12 @@ export const tradingAgentsRelations = relations(tradingAgents, ({ many }) => ({
 }));
 
 export const rssFeedSourcesRelations = relations(rssFeedSources, ({ many }) => ({
-  items: many(rssFeedItems),
+  articles: many(newsArticles),
 }));
 
-export const rssFeedItemsRelations = relations(rssFeedItems, ({ one }) => ({
+export const newsArticlesRelations = relations(newsArticles, ({ one }) => ({
   feed: one(rssFeedSources, {
-    fields: [rssFeedItems.feedId],
+    fields: [newsArticles.feedId],
     references: [rssFeedSources.id],
   }),
 }));
@@ -180,8 +187,8 @@ export const insertTradingSignalSchema = createInsertSchema(tradingSignals);
 export const selectTradingSignalSchema = createSelectSchema(tradingSignals);
 export const insertRssFeedSourceSchema = createInsertSchema(rssFeedSources);
 export const selectRssFeedSourceSchema = createSelectSchema(rssFeedSources);
-export const insertRssFeedItemSchema = createInsertSchema(rssFeedItems);
-export const selectRssFeedItemSchema = createSelectSchema(rssFeedItems);
+export const insertNewsArticleSchema = createInsertSchema(newsArticles);
+export const selectNewsArticleSchema = createSelectSchema(newsArticles);
 export const insertOnChainEventSchema = createInsertSchema(onChainEvents);
 export const selectOnChainEventSchema = createSelectSchema(onChainEvents);
 export const insertAgentPerformanceLogSchema = createInsertSchema(agentPerformanceLogs);
@@ -202,8 +209,8 @@ export type TradingSignal = typeof tradingSignals.$inferSelect;
 export type InsertTradingSignal = typeof tradingSignals.$inferInsert;
 export type RssFeedSource = typeof rssFeedSources.$inferSelect;
 export type InsertRssFeedSource = typeof rssFeedSources.$inferInsert;
-export type RssFeedItem = typeof rssFeedItems.$inferSelect;
-export type InsertRssFeedItem = typeof rssFeedItems.$inferInsert;
+export type NewsArticle = typeof newsArticles.$inferSelect;
+export type InsertNewsArticle = typeof newsArticles.$inferInsert;
 export type OnChainEvent = typeof onChainEvents.$inferSelect;
 export type InsertOnChainEvent = typeof onChainEvents.$inferInsert;
 export type AgentPerformanceLog = typeof agentPerformanceLogs.$inferSelect;
