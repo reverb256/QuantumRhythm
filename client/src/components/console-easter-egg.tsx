@@ -146,9 +146,56 @@ export default function ConsoleEasterEgg() {
       setHistory([]);
       return;
     }
-
+    
     if (trimmedInput === 'exit') {
       setIsVisible(false);
+      return;
+    }
+
+    // Handle trading commands
+    if (trimmedInput === 'trading-status') {
+      const output = agentStatus ? 
+        `🤖 Agent: ${agentStatus.name}\n📊 Status: ${agentStatus.status}\n🎯 Last Activity: ${new Date(agentStatus.lastActivity).toLocaleString()}\n⚡ Performance: ${agentStatus.performanceMetrics?.successRate ? (agentStatus.performanceMetrics.successRate * 100).toFixed(1) + '%' : 'N/A'} success rate` :
+        '❌ Trading agent offline or not responding';
+      
+      setHistory(prev => [...prev, { command: trimmedInput, output, type: 'trading' }]);
+      setCommandHistory(prev => [input, ...prev]);
+      setHistoryIndex(-1);
+      return;
+    }
+
+    if (trimmedInput === 'trading-signals') {
+      const output = tradingSignals && tradingSignals.length > 0 ? 
+        tradingSignals.slice(0, 5).map((signal: TradingSignal, i: number) => 
+          `${i + 1}. ${signal.signalType} ${signal.tokenAddress.slice(0, 8)}... | Confidence: ${signal.confidence}% | VibeCoding: ${signal.vibeCodingScore}%`
+        ).join('\n') :
+        '📊 No recent trading signals available';
+      
+      setHistory(prev => [...prev, { command: trimmedInput, output, type: 'trading' }]);
+      setCommandHistory(prev => [input, ...prev]);
+      setHistoryIndex(-1);
+      return;
+    }
+
+    if (trimmedInput === 'agent-stats') {
+      const output = agentStatus ? 
+        `📈 AUTONOMOUS TRADING STATISTICS\n🔥 Strategies Active: ${agentStatus.configuration?.strategies?.length || 0}\n🎯 Tokens Monitored: ${agentStatus.configuration?.targetTokens?.length || 5}\n⚡ Decision Frequency: Every 30s\n🧠 Quantum Consciousness: ${agentStatus.status === 'active' ? 'ONLINE' : 'OFFLINE'}` :
+        '❌ Agent statistics unavailable';
+      
+      setHistory(prev => [...prev, { command: trimmedInput, output, type: 'trading' }]);
+      setCommandHistory(prev => [input, ...prev]);
+      setHistoryIndex(-1);
+      return;
+    }
+
+    if (trimmedInput === 'vibe-metrics') {
+      const output = vibeCodingMetrics ? 
+        `🍕 Pizza Kitchen Reliability: ${(parseFloat(vibeCodingMetrics.pizzaKitchenReliability) * 100).toFixed(1)}%\n🎮 Rhythm Gaming Precision: ${(parseFloat(vibeCodingMetrics.rhythmGamingPrecision) * 100).toFixed(1)}%\n🌐 VRChat Social Insights: ${(parseFloat(vibeCodingMetrics.vrChatSocialInsights) * 100).toFixed(1)}%\n📚 Classical Philosophy Wisdom: ${(parseFloat(vibeCodingMetrics.classicalPhilosophyWisdom) * 100).toFixed(1)}%\n✨ Overall VibeCoding Score: ${(parseFloat(vibeCodingMetrics.overallScore) * 100).toFixed(1)}%` :
+        '🎯 VibeCoding metrics currently calculating...';
+      
+      setHistory(prev => [...prev, { command: trimmedInput, output, type: 'trading' }]);
+      setCommandHistory(prev => [input, ...prev]);
+      setHistoryIndex(-1);
       return;
     }
 

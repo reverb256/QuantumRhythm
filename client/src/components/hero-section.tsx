@@ -17,16 +17,17 @@ export default function HeroSection() {
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat" 
           style={{
-            backgroundImage: `url('/attached_assets/Reverb_beautiful_night_sky_billions_of_stars_ocean_a_neon_city__2f334b29-4e6c-4745-a774-e6ed22b7de47_1749430519066.png')`,
-            filter: 'brightness(0.4) saturate(1.3)',
+            backgroundImage: `url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><radialGradient id="space" cx="50%" cy="50%"><stop offset="0%" style="stop-color:%23001122"/><stop offset="100%" style="stop-color:%23000000"/></radialGradient></defs><rect width="100%" height="100%" fill="url(%23space)"/><g opacity="0.8">${Array.from({length: 200}, () => `<circle cx="${Math.random() * 1200}" cy="${Math.random() * 800}" r="${Math.random() * 2}" fill="%23ffffff" opacity="${Math.random()}"/>`).join('')}</g></svg>')`,
+            filter: 'brightness(0.6) saturate(1.2)',
           }}
         />
 
-        {/* Cyberpunk City Overlay */}
+        {/* Cyberpunk Grid Overlay */}
         <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat mix-blend-screen opacity-20" 
+          className="absolute inset-0 opacity-30" 
           style={{
-            backgroundImage: `url('/attached_assets/Reverb_beautiful_night_sky_billions_of_stars_ocean_a_neon_city__a3a3884e-7211-4196-a8fc-8fdfb0613b3b_1749430538297.png')`,
+            backgroundImage: `linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px)`,
+            backgroundSize: '50px 50px'
           }}
         />
       </div>
