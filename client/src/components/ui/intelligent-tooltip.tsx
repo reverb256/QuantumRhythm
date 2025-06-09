@@ -142,27 +142,25 @@ export function IntelligentTooltip({ children, tooltipData, className = '' }: In
 
   useEffect(() => {
     const updatePosition = () => {
-      if (triggerRef.current && isVisible && tooltipRef.current) {
+      if (triggerRef.current && isVisible) {
         const rect = triggerRef.current.getBoundingClientRect();
-        const tooltipRect = tooltipRef.current.getBoundingClientRect();
         const viewportWidth = window.innerWidth;
         const viewportHeight = window.innerHeight;
         
         let x = rect.left + rect.width / 2;
         let y = rect.top - 10;
         
-        // Prevent horizontal overflow
-        const tooltipWidth = tooltipRect.width || 300;
-        if (x - tooltipWidth / 2 < 10) {
-          x = tooltipWidth / 2 + 10;
-        } else if (x + tooltipWidth / 2 > viewportWidth - 10) {
-          x = viewportWidth - tooltipWidth / 2 - 10;
+        // For navigation items, show tooltip below to avoid clipping
+        if (rect.top < 100) {
+          y = rect.bottom + 10;
         }
         
-        // Prevent vertical overflow - show below if not enough space above
-        const tooltipHeight = tooltipRect.height || 200;
-        if (y - tooltipHeight < 10) {
-          y = rect.bottom + 10;
+        // Prevent horizontal overflow
+        const tooltipWidth = 320; // Fixed width assumption
+        if (x - tooltipWidth / 2 < 20) {
+          x = tooltipWidth / 2 + 20;
+        } else if (x + tooltipWidth / 2 > viewportWidth - 20) {
+          x = viewportWidth - tooltipWidth / 2 - 20;
         }
         
         setPosition({ x, y });
@@ -170,8 +168,7 @@ export function IntelligentTooltip({ children, tooltipData, className = '' }: In
     };
 
     if (isVisible) {
-      // Small delay to allow tooltip to render and get dimensions
-      setTimeout(updatePosition, 10);
+      updatePosition();
       window.addEventListener('scroll', updatePosition);
       window.addEventListener('resize', updatePosition);
     }
@@ -200,10 +197,10 @@ export function IntelligentTooltip({ children, tooltipData, className = '' }: In
             ref={tooltipRef}
             className="intelligent-tooltip-container"
             style={{
-              position: 'absolute',
+              position: 'fixed',
               left: position.x,
               top: position.y,
-              transform: 'translateX(-50%) translateY(-100%)',
+              transform: position.y > 100 ? 'translateX(-50%) translateY(-100%)' : 'translateX(-50%)',
               zIndex: 9999
             }}
             initial={{ opacity: 0, scale: 0.8, y: 10 }}
@@ -211,21 +208,21 @@ export function IntelligentTooltip({ children, tooltipData, className = '' }: In
             exit={{ opacity: 0, scale: 0.8, y: 10 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
           >
-            <div className={`intelligent-tooltip bg-gradient-to-br ${getCategoryColor(tooltipData.category)} p-1 rounded-xl shadow-2xl`}>
-              <div className="bg-black/90 backdrop-blur-sm rounded-lg p-4 max-w-xs sm:max-w-sm">
+            <div className={`intelligent-tooltip bg-gradient-to-br ${getCategoryColor(tooltipData.category)} p-1 rounded-xl shadow-2xl w-full`}>
+              <div className="bg-black/95 backdrop-blur-sm rounded-lg p-4 w-full">
                 {/* Header */}
                 <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center gap-2">
-                    <span className="text-lg">{getDifficultyIcon(tooltipData.difficulty)}</span>
-                    <h3 className="text-white font-bold text-sm">{tooltipData.term}</h3>
+                  <div className="flex items-center gap-2 flex-1 min-w-0">
+                    <span className="text-lg flex-shrink-0">{getDifficultyIcon(tooltipData.difficulty)}</span>
+                    <h3 className="text-white font-bold text-sm truncate">{tooltipData.term}</h3>
                   </div>
-                  <span className={`px-2 py-1 text-xs rounded-full bg-gradient-to-r ${getCategoryColor(tooltipData.category)} text-white font-medium`}>
+                  <span className={`px-2 py-1 text-xs rounded-full bg-gradient-to-r ${getCategoryColor(tooltipData.category)} text-white font-medium flex-shrink-0 ml-2`}>
                     {tooltipData.category}
                   </span>
                 </div>
 
                 {/* Definition */}
-                <p className="text-gray-300 text-sm mb-3 leading-relaxed break-words">
+                <p className="text-gray-300 text-sm mb-3 leading-relaxed break-words hyphens-auto">
                   {tooltipData.definition}
                 </p>
 
