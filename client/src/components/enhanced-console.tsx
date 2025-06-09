@@ -283,26 +283,39 @@ Try: ai chat "What is consciousness?"`,
     if (!cmd.trim()) return;
 
     const trimmedCmd = cmd.trim().toLowerCase();
-    const analysis = await analyzeCommand(cmd);
-
-    // Log security event
-    const securityEvent: SecurityEvent = {
-      type: analysis.is_threat ? 'malicious' : 'educational',
-      command: cmd,
-      threat_level: analysis.confidence,
-      timestamp: new Date(),
-      response: analysis.is_threat ? analysis.honeypot_response : analysis.educational_response
-    };
-
-    setSecurityEvents(prev => [...prev, securityEvent]);
-
-    let response = '';
     
-    if (analysis.is_threat) {
-      response = analysis.honeypot_response;
-    } else {
-      // Handle legitimate AI-powered commands
-      switch (trimmedCmd) {
+    // Set loading state immediately
+    setHistory(prev => [...prev, {
+      input: cmd,
+      output: '🧠 Processing command through AI consciousness framework...',
+      type: 'educational'
+    }]);
+    setCommand('');
+    setShowSuggestions(false);
+
+    // Use setTimeout to make this truly async and prevent blocking
+    setTimeout(async () => {
+      try {
+        const analysis = await analyzeCommand(cmd);
+
+        // Log security event
+        const securityEvent: SecurityEvent = {
+          type: analysis.is_threat ? 'malicious' : 'educational',
+          command: cmd,
+          threat_level: analysis.confidence,
+          timestamp: new Date(),
+          response: analysis.is_threat ? analysis.honeypot_response : analysis.educational_response
+        };
+
+        setSecurityEvents(prev => [...prev, securityEvent]);
+
+        let response = '';
+        
+        if (analysis.is_threat) {
+          response = analysis.honeypot_response;
+        } else {
+          // Handle legitimate AI-powered commands
+          switch (trimmedCmd) {
         case 'help':
           response = `VibeCoding Quantum Console v2.5.7 - AI Enhanced
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -379,19 +392,34 @@ FAITHFULNESS DEMONSTRATIONS:
 "Be faithful to your principles, especially when tested."`;
           break;
 
-        default:
-          response = analysis.educational_response;
+            default:
+              response = analysis.educational_response;
+          }
+        }
+
+        // Update the history with the final response
+        setHistory(prev => {
+          const newHistory = [...prev];
+          newHistory[newHistory.length - 1] = {
+            input: cmd,
+            output: response,
+            type: securityEvent.type
+          };
+          return newHistory;
+        });
+
+      } catch (error) {
+        setHistory(prev => {
+          const newHistory = [...prev];
+          newHistory[newHistory.length - 1] = {
+            input: cmd,
+            output: `Error processing command: ${error instanceof Error ? error.message : 'Unknown error'}`,
+            type: 'educational'
+          };
+          return newHistory;
+        });
       }
-    }
-
-    setHistory(prev => [...prev, {
-      input: cmd,
-      output: response,
-      type: securityEvent.type
-    }]);
-
-    setCommand('');
-    setShowSuggestions(false);
+    }, 10); // Small delay to prevent blocking
   }, [analyzeCommand]);
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
