@@ -5,13 +5,14 @@ export default function PhilosophySection() {
 
   return (
     <section id="philosophy" className="py-20 relative" ref={elementRef}>
-      {/* Deep space with distant galaxies background */}
+      {/* Flowing green energy background */}
       <div className="absolute inset-0 opacity-20">
         <img 
-          src="https://images.unsplash.com/photo-1446776877081-d282a0f896e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&h=1000" 
-          alt="Deep space with distant galaxies and stars" 
+          src="/images/flowing_green_energy.png" 
+          alt="Flowing energy patterns" 
           className="w-full h-full object-cover" 
         />
+        <div className="absolute inset-0 bg-gradient-to-br from-[var(--space-black)]/80 via-transparent to-[var(--space-black)]/80"></div>
       </div>
       
       <div className="container mx-auto px-6 relative z-10">
