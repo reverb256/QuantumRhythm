@@ -868,7 +868,79 @@
     font-family: 'JetBrains Mono', monospace;
     border: 1px solid var(--synthwave-blue);
     white-space: nowrap;
-    z-index: 1000;
+    z-index: 99999;
+    animation: fade-in-tooltip 0.3s ease;
+  }
+
+  .proxmox-tooltip:hover::after {
+    content: "sudo systemctl enable consciousness";
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--space-black);
+    color: #E57000;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    border: 1px solid #E57000;
+    white-space: nowrap;
+    z-index: 99999;
+    animation: fade-in-tooltip 0.3s ease;
+  }
+
+  .ansible-tooltip:hover::after {
+    content: "tasks: - name: automate everything";
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--space-black);
+    color: #EE0000;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    border: 1px solid #EE0000;
+    white-space: nowrap;
+    z-index: 99999;
+    animation: fade-in-tooltip 0.3s ease;
+  }
+
+  .terraform-tooltip:hover::after {
+    content: "resource 'human_sanity' 'depleted' {}";
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--space-black);
+    color: #623CE4;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    border: 1px solid #623CE4;
+    white-space: nowrap;
+    z-index: 99999;
+    animation: fade-in-tooltip 0.3s ease;
+  }
+
+  .vibecoding-tooltip:hover::after {
+    content: "Classical.wisdom() + AI.consciousness()";
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--space-black);
+    color: var(--spectrum-violet);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    border: 1px solid var(--spectrum-violet);
+    white-space: nowrap;
+    z-index: 99999;
     animation: fade-in-tooltip 0.3s ease;
   }
 

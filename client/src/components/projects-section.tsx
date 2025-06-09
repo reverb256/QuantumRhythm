@@ -61,6 +61,25 @@ const projects = [
     vibecoding: "Philosophical confluence meets modern technical expression"
   },
   {
+    title: "Proxmox Cluster Infrastructure",
+    subtitle: "Enterprise Multi-Node Orchestration",
+    description: "4-node Proxmox cluster with Ansible automation and Terraform IaC. Features Ryzen 9 5950X/3900X powerhouses, Intel i5-9500 balanced performance, and R7 1700 legacy integration. AI-assisted infrastructure orchestration through VibeCoding methodology with comprehensive resource management.",
+    image: cleaningServiceImage,
+    technologies: [
+      { name: "Proxmox VE", class: "proxmox-tooltip" },
+      { name: "Ansible Automation", class: "ansible-tooltip" },
+      { name: "Terraform IaC", class: "terraform-tooltip" },
+      { name: "AI-Assisted Orchestration", class: "ai-tooltip" },
+      { name: "VibeCoding Infrastructure", class: "vibecoding-tooltip" }
+    ],
+    status: "Production",
+    link: "/infrastructure",
+    github: "https://github.com/reverb256/proxmox-cluster",
+    color: "from-green-400 via-teal-400 to-cyan-400",
+    vibecoding: "Classical wisdom applied to enterprise infrastructure automation",
+    isComingSoon: false
+  },
+  {
     title: "Frostbite Gazette",
     subtitle: "Quantum-Enhanced Democratic Journalism",
     description: "Canada's sovereign accountability infrastructure powered by AI-first journalism and 5th Generation Warfare defense frameworks. Quantum RAG identity engine with bilingual Canadian core, classical learning integration, and Charter-compliant democratic transparency tools.",

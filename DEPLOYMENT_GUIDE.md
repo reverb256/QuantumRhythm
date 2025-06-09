@@ -43,11 +43,12 @@ This portfolio is optimized for deployment on GitHub Pages with Cloudflare CDN i
 - Hardware acceleration applied to hover effects
 - Optimized transforms for smooth animations
 
-### Gaming Data Integration
+### Infrastructure & Gaming Data Integration
+- **Proxmox Cluster**: 4-node enterprise infrastructure with Ansible/Terraform automation
 - **VRChat**: 4,320+ hours of authentic social VR research
-- **Steam Platform**: 8,500+ hours across 200+ titles for UX insights
-- **Honkai Star Rail**: 890+ hours of narrative philosophy analysis
-- **Multi-Platform VR**: 2,100+ hours of consciousness exploration
+- **Fighting Games**: 2,890+ hours of frame data analysis informing 60fps optimization
+- **MMO Systems**: 5,670+ hours WoW optimization and 2,180+ hours FFXIV raid coordination
+- **Infrastructure DevOps**: 12,000+ hours from homelab through enterprise clusters
 
 ## Technology Stack Performance
 
