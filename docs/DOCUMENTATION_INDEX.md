@@ -26,8 +26,14 @@ Comprehensive documentation for the VibeCoding portfolio project, implementing c
 - **[Interactive Systems](./INTERACTIVE_SYSTEMS.md)** - Tooltip and word-tagging systems
 
 ### 💰 Financial Integration
+- **[Solana Bot Status Report](./SOLANA_BOT_STATUS.md)** - Production-ready trading bot with VibeCoding methodology
 - **[Solana Bot Documentation](./SOLANA_BOT.md)** - Trading bot architecture and security
 - **[Blockchain Security](./BLOCKCHAIN_SECURITY.md)** - Cryptocurrency integration best practices
+
+### 🧬 VibeCoding Methodology
+- **[Cross-Pollination Framework](./VIBECODING_CROSS_POLLINATION.md)** - How insights from all domains enhance every component
+- **[Philosophy Integration](./PHILOSOPHY_INTEGRATION.md)** - Classical wisdom applied to modern development
+- **[Experience Synthesis](./EXPERIENCE_SYNTHESIS.md)** - Authentic real-world experience in software development
 
 ## 📋 Domain Configuration: reverb256.ca
 
@@ -257,10 +263,10 @@ export const Component: React.FC<ComponentProps> = ({
 ## 🎓 Learning Resources
 
 ### VibeCoding Philosophy Deep Dive
-- **Pizza Kitchen Principles**: Reliability patterns from food service
-- **Rhythm Gaming Mechanics**: Precision timing optimization
-- **VRChat Social Research**: Digital interaction psychology
-- **Classical Philosophy**: Ancient wisdom for modern problems
+- **Pizza Kitchen Principles**: Reliability patterns from food service - consistent quality under pressure, customer-first mentality, team coordination, and operational excellence
+- **Rhythm Gaming Mechanics**: Precision timing optimization - frame-perfect execution, pattern recognition mastery, performance under pressure, and consistency maintenance
+- **VRChat Social Research**: Digital interaction psychology - 8,500+ hours of social VR research informing user engagement, accessibility design, community dynamics, and digital interaction patterns
+- **Classical Philosophy**: Ancient wisdom for modern problems - Aristotelian virtue ethics, Stoic resilience, Platonic ideals, and Socratic wisdom applied to software architecture and user experience
 
 ### Technical Mastery
 - **Multi-Agent AI Systems**: Agent Zero implementation
