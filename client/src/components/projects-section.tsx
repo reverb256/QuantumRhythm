@@ -64,7 +64,7 @@ const projects = [
     title: "Proxmox Cluster Infrastructure",
     subtitle: "Enterprise Multi-Node Orchestration",
     description: "4-node Proxmox cluster with Ansible automation and Terraform IaC. Features Ryzen 9 5950X/3900X powerhouses, Intel i5-9500 balanced performance, and R7 1700 legacy integration. AI-assisted infrastructure orchestration through VibeCoding methodology with comprehensive resource management.",
-    image: null, // Using CSS background instead
+    image: undefined, // Using CSS background instead
     technologies: [
       { name: "Proxmox VE", class: "proxmox-tooltip" },
       { name: "Ansible Automation", class: "ansible-tooltip" },
@@ -191,7 +191,11 @@ export default function ProjectsSection() {
                 style={{ animationDelay: `${index * 0.2}s` }}
               >
                 {/* Project Image */}
-                <div className="relative overflow-hidden rounded-2xl mb-6">
+                <div className={`relative overflow-hidden rounded-2xl mb-6 ${
+                  project.title === 'Proxmox Cluster Infrastructure' 
+                    ? 'proxmox-cluster-bg h-48' 
+                    : ''
+                }`}>
                   {project.isComingSoon ? (
                     <div className="relative w-full h-48 bg-gradient-to-br from-blue-900/40 via-cyan-800/30 to-white/20 flex items-center justify-center">
                       {/* Frost/Ice Effect Background */}
@@ -207,6 +211,17 @@ export default function ProjectsSection() {
                       </div>
                       {/* Scanning Line Effect */}
                       <div className="absolute inset-0 scanning-line"></div>
+                    </div>
+                  ) : project.title === 'Proxmox Cluster Infrastructure' ? (
+                    <div className="relative z-10 flex items-center justify-center h-48">
+                      <div className="text-center">
+                        <div className="w-16 h-16 mx-auto mb-3 text-orange-400">
+                          <i className="fas fa-server text-4xl"></i>
+                        </div>
+                        <div className="text-orange-300 font-mono text-xs opacity-80">
+                          4-NODE CLUSTER
+                        </div>
+                      </div>
                     </div>
                   ) : (
                     <img 
