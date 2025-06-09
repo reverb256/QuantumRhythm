@@ -38,20 +38,20 @@ const classicalMethods = [
 
 const canadianPrinciples = [
   {
-    title: "Charter Section 2(b)",
-    subtitle: "Freedom of Expression",
+    title: "Charter Section 2(b) | Article 2(b) de la Charte",
+    subtitle: "Freedom of Expression | Liberté d'expression",
     description: "The fundamental right to seek, receive, and impart information forms the bedrock of democratic discourse. In digital realms, this translates to open-source philosophy, transparent communication, and the fearless pursuit of truth through code.",
     connection: "Like Rappa's graffiti art challenging conformity in Penacony's Dreamscape"
   },
   {
-    title: "Charter Section 15",
-    subtitle: "Equality Rights", 
+    title: "Charter Section 15 | Article 15 de la Charte", 
+    subtitle: "Equality Rights | Droits à l'égalité", 
     description: "Technology must serve all people equally, breaking down barriers rather than creating new forms of digital inequality. Every line of code carries the responsibility to uplift rather than exclude.",
     connection: "Reflecting the Galaxy Rangers' commitment to justice across all star systems"
   },
   {
-    title: "Charter Section 7",
-    subtitle: "Life, Liberty, Security",
+    title: "Charter Section 7 | Article 7 de la Charte",
+    subtitle: "Life, Liberty, Security | Vie, liberté, sécurité",
     description: "Digital security is human security. Privacy is not convenience but necessity. The right to exist in digital spaces without surveillance or manipulation must be fiercely defended.",
     connection: "Echoing Anaxa's rejection of divine authority in favor of reasoned autonomy"
   }

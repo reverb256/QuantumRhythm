@@ -132,12 +132,12 @@ export default function SkillsSection() {
                 icon: "fas fa-robot",
                 description: "Multi-LLM intelligence cross-empowerment with 30+ open-source models, edge computing optimization, and privacy-compliant Canadian data handling",
                 technologies: ["Multi-LLM Systems", "Edge Computing", "Cloudflare KV", "Privacy Compliance", "Quantum State Management"],
-                color: "from-green-400 to-teal-500",
+                colour: "from-green-400 to-teal-500",
                 vibecoding: "Ancient wisdom meets artificial intelligence"
               }
             ].map((category, index) => (
               <div key={category.title} className="holo-panel p-8 rounded-3xl border border-cyan-400/50 gacha-shine">
-                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${category.color} flex items-center justify-center mb-6`}>
+                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${category.colour} flex items-center justify-center mb-6`}>
                   <i className={`${category.icon} text-white text-2xl`}></i>
                 </div>
                 

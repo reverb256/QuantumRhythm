@@ -273,6 +273,11 @@ class DemocraticAI {
       return this.ensureEqualAccess(input);
     }
     
+    // Ensure compliance with Official Languages Act
+    if (analysis.officialLanguages.required) {
+      return this.provideBilingualResponse(input);
+    }
+    
     return this.generateCharterCompliantResponse(input);
   }
 }

@@ -17,7 +17,7 @@ export default function HeroSection() {
             filter: 'brightness(0.4) saturate(1.3)',
           }}
         />
-        
+
         {/* Cyberpunk City Overlay */}
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat mix-blend-screen opacity-20" 
@@ -83,7 +83,7 @@ export default function HeroSection() {
       {/* Main Content Container */}
       <div className="container mx-auto px-6 text-center relative z-20 pt-24 pb-12">
         <div className="max-w-4xl mx-auto">
-          
+
           {/* Holographic Status Display with Tech Humor */}
           <div className="mb-12">
             <div className="inline-flex items-center justify-center px-6 py-3 prismatic-glass rounded-full border border-cyan-400/50 mb-8 hover-syntax-error">
@@ -107,7 +107,7 @@ export default function HeroSection() {
                 <div className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-1/2 w-3 h-3 bg-orange-400 rounded-full shadow-lg shadow-orange-400/50"></div>
               </div>
             </div>
-            
+
             {/* Portrait Container */}
             <div className="relative flex items-center justify-center">
               <div className="relative">
@@ -127,17 +127,17 @@ export default function HeroSection() {
             <div className="absolute inset-0 opacity-5">
               <div className="w-full h-full cyber-grid"></div>
             </div>
-            
+
             <div className="relative z-10">
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 font-space">
                 <span className="holo-text hover-glitch">Reverb</span>
               </h1>
-              
+
               <h2 className="text-xl md:text-3xl lg:text-4xl text-[var(--text-secondary)] mb-6 font-medium">
                 VibeCoding Practitioner & Neural Network Architect
                 <span className="console-cursor text-[var(--synthwave-cyan)]">|</span>
               </h2>
-              
+
               <div className="flex flex-wrap justify-center gap-6 text-sm md:text-base text-cyan-200/90 font-mono mb-6">
                 <span className="flex items-center hover-deprecated">
                   <span className="text-[var(--spectrum-cyan)] mr-2">SPECIALIZATION</span>
@@ -200,7 +200,7 @@ export default function HeroSection() {
               <i className="fas fa-code mr-3 text-xl"></i>
               View My Work
             </button>
-            
+
             <button 
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
               className="w-full h-16 holo-panel bg-gradient-to-r from-[var(--spectrum-violet)] to-[var(--spectrum-pink)] hover:from-[var(--spectrum-pink)] hover:to-[var(--spectrum-red)] text-white rounded-2xl text-lg font-semibold transition-all duration-300 border border-purple-400/50 shadow-lg shadow-purple-400/25 hover:shadow-xl hover:shadow-purple-400/40 gacha-shine"
@@ -208,7 +208,7 @@ export default function HeroSection() {
               <i className="fas fa-envelope mr-3 text-xl"></i>
               Start Conversation
             </button>
-            
+
             <Link href="/values">
               <Button className="w-full h-16 holo-panel bg-gradient-to-r from-[var(--spectrum-green)] to-[var(--spectrum-teal)] hover:from-[var(--spectrum-teal)] hover:to-[var(--spectrum-cyan)] text-white rounded-2xl text-lg font-semibold transition-all duration-300 border border-green-400/50 shadow-lg shadow-green-400/25 hover:shadow-xl hover:shadow-green-400/40 gacha-shine">
                 <i className="fas fa-compass mr-3 text-xl"></i>
