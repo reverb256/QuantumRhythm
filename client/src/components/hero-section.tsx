@@ -37,11 +37,11 @@ export default function HeroSection() {
             Digital Architect
           </h1>
           <h2 className="text-xl md:text-2xl lg:text-3xl mb-4 text-gray-300">
-            VibeCoder & AI Enthusiast
+            VibeCoder & Neural Network Orchestrator
           </h2>
           <p className="text-base md:text-lg lg:text-xl mb-8 max-w-3xl mx-auto text-gray-400">
-            Crafting enterprise-grade applications with bleeding-edge technology. 
-            From cybernetic UX to quantum-resistant security frameworks.
+            Forging the future where classical wisdom meets artificial intelligence. 
+            Every line of code pulses with the rhythm of innovation and the heartbeat of human dignity.
           </p>
           
           {/* Rhythm game inspired visualizer */}

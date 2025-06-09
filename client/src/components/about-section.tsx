@@ -22,38 +22,46 @@ export default function AboutSection() {
           
           <div className="grid md:grid-cols-2 gap-8">
             <div className={`glass-morphism p-6 md:p-8 rounded-2xl cyber-border fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.2s' }}>
-              <h3 className="font-semibold text-xl md:text-2xl mb-4 text-[var(--bright-blue)]">🇨🇦 Canadian Values</h3>
+              <h3 className="font-semibold text-xl md:text-2xl mb-4 text-[var(--bright-blue)]">
+                <i className="fas fa-maple-leaf mr-2 text-[var(--synthwave-cyan)]"></i>Canadian Values
+              </h3>
               <p className="text-gray-300 leading-relaxed text-sm md:text-base">
-                A proud Canadian who believes in humanity's potential and the power of classical learning. 
-                My approach combines traditional analytical methods with cutting-edge AI orchestration, 
-                creating digital experiences that honor both innovation and timeless principles.
+                A proud Canadian who stands firm in humanity's boundless potential and the enduring power of classical learning. 
+                My approach weaves traditional analytical mastery with revolutionary AI orchestration, 
+                forging digital experiences that celebrate both blazing innovation and eternal principles of wisdom.
               </p>
             </div>
             
             <div className={`glass-morphism p-6 md:p-8 rounded-2xl cyber-border fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.4s' }}>
-              <h3 className="font-semibold text-xl md:text-2xl mb-4 text-[var(--bright-blue)]">🎮 Digital Renaissance</h3>
+              <h3 className="font-semibold text-xl md:text-2xl mb-4 text-[var(--bright-blue)]">
+                <i className="fas fa-gamepad mr-2 text-[var(--synthwave-pink)]"></i>Digital Renaissance
+              </h3>
               <p className="text-gray-300 leading-relaxed text-sm md:text-base">
-                Almost 40 but feeling 20, I live at the intersection of rhythm games, anime culture, 
-                and VR gaming. My Quest Pro with full body tracking isn't just entertainment—it's 
-                research into the future of human-computer interaction.
+                Nearly four decades deep yet vibrating with the energy of twenty. I dance at the convergence of rhythm games, anime aesthetics, 
+                and VR immersion. My Quest Pro with full body tracking transcends entertainment—it's pioneering research 
+                into the infinite frontier of human-computer symbiosis.
               </p>
             </div>
             
             <div className={`glass-morphism p-6 md:p-8 rounded-2xl cyber-border fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.6s' }}>
-              <h3 className="font-semibold text-xl md:text-2xl mb-4 text-[var(--bright-blue)]">🧠 AI Orchestration</h3>
+              <h3 className="font-semibold text-xl md:text-2xl mb-4 text-[var(--bright-blue)]">
+                <i className="fas fa-brain mr-2 text-[var(--synthwave-gold)]"></i>AI Orchestration
+              </h3>
               <p className="text-gray-300 leading-relaxed text-sm md:text-base">
-                Pioneering the VibeCoding methodology—a fusion of authentic business analysis, 
-                accessibility-first design, and AI-enhanced development. Every line of code serves 
-                both technical excellence and human dignity.
+                Architecting the VibeCoding methodology—a revolutionary fusion of authentic business intelligence, 
+                accessibility-first consciousness, and AI-enhanced development mastery. Every algorithm breathes 
+                with both technical excellence and unwavering human dignity.
               </p>
             </div>
             
             <div className={`glass-morphism p-6 md:p-8 rounded-2xl cyber-border fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.8s' }}>
-              <h3 className="font-semibold text-xl md:text-2xl mb-4 text-[var(--bright-blue)]">⚡ Infrastructure</h3>
+              <h3 className="font-semibold text-xl md:text-2xl mb-4 text-[var(--bright-blue)]">
+                <i className="fas fa-server mr-2 text-[var(--synthwave-cyan)]"></i>Infrastructure Mastery
+              </h3>
               <p className="text-gray-300 leading-relaxed text-sm md:text-base">
-                Running a Proxmox cluster with multiple GPUs for AI training and cryptocurrency mining. 
-                My homelab isn't just hobby tech—it's a testing ground for enterprise-scale solutions 
-                and the future of decentralized computing.
+                Commanding a Proxmox cluster armed with multiple GPUs for neural network training and cryptocurrency mining. 
+                This homelab fortress transcends hobby territory—it's my proving ground for enterprise-scale innovations 
+                and the birthplace of tomorrow's decentralized computing revolution.
               </p>
             </div>
           </div>

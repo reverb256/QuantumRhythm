@@ -10,7 +10,7 @@ export default function Footer() {
           
           <div className="text-gray-400 text-center md:text-right">
             <p className="mb-2 text-sm md:text-base">VibeCoder & Digital Architect</p>
-            <p className="text-xs md:text-sm">Built with 🇨🇦 Canadian values & 🚀 AI-enhanced development</p>
+            <p className="text-xs md:text-sm">Built with <i className="fas fa-maple-leaf text-[var(--synthwave-cyan)]"></i> Canadian values & <i className="fas fa-rocket text-[var(--synthwave-pink)]"></i> AI-enhanced development</p>
           </div>
         </div>
         
