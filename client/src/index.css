@@ -594,6 +594,313 @@
     z-index: 1000;
     animation: fade-in-tooltip 0.3s ease;
   }
+
+  /* Technology-specific tooltips */
+  .react-tooltip:hover::after {
+    content: "const [bugs, setBugs] = useState(0)";
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--space-black);
+    color: #61DAFB;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    border: 1px solid #61DAFB;
+    white-space: nowrap;
+    z-index: 1000;
+    animation: fade-in-tooltip 0.3s ease;
+  }
+
+  .ai-tooltip:hover::after {
+    content: "if (AI.isSentient()) { panic(); }";
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--space-black);
+    color: var(--synthwave-pink);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    border: 1px solid var(--synthwave-pink);
+    white-space: nowrap;
+    z-index: 1000;
+    animation: fade-in-tooltip 0.3s ease;
+  }
+
+  .cloudflare-tooltip:hover::after {
+    content: "Error 451: Content blocked by skynet";
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--space-black);
+    color: #F38020;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    border: 1px solid #F38020;
+    white-space: nowrap;
+    z-index: 1000;
+    animation: fade-in-tooltip 0.3s ease;
+  }
+
+  .security-tooltip:hover::after {
+    content: "password123 is perfectly secure";
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--space-black);
+    color: #ff4757;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    border: 1px solid #ff4757;
+    white-space: nowrap;
+    z-index: 1000;
+    animation: fade-in-tooltip 0.3s ease;
+  }
+
+  .edge-tooltip:hover::after {
+    content: "Works on my CDN";
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--space-black);
+    color: var(--synthwave-cyan);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    border: 1px solid var(--synthwave-cyan);
+    white-space: nowrap;
+    z-index: 1000;
+    animation: fade-in-tooltip 0.3s ease;
+  }
+
+  .glassmorphism-tooltip:hover::after {
+    content: "CSS backdrop-filter goes brrr";
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--space-black);
+    color: var(--synthwave-blue);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    border: 1px solid var(--synthwave-blue);
+    white-space: nowrap;
+    z-index: 1000;
+    animation: fade-in-tooltip 0.3s ease;
+  }
+
+  .performance-tooltip:hover::after {
+    content: "O(1) or we riot!";
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--space-black);
+    color: var(--synthwave-green);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    border: 1px solid var(--synthwave-green);
+    white-space: nowrap;
+    z-index: 1000;
+    animation: fade-in-tooltip 0.3s ease;
+  }
+
+  .accessibility-tooltip:hover::after {
+    content: "alt='Image of pixels'";
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--space-black);
+    color: var(--synthwave-purple);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    border: 1px solid var(--synthwave-purple);
+    white-space: nowrap;
+    z-index: 1000;
+    animation: fade-in-tooltip 0.3s ease;
+  }
+
+  .branding-tooltip:hover::after {
+    content: "Comic Sans? In MY design?";
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--space-black);
+    color: var(--synthwave-orange);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    border: 1px solid var(--synthwave-orange);
+    white-space: nowrap;
+    z-index: 1000;
+    animation: fade-in-tooltip 0.3s ease;
+  }
+
+  .quantum-tooltip:hover::after {
+    content: "Schrödinger's bug: exists until observed";
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--space-black);
+    color: var(--synthwave-gold);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    border: 1px solid var(--synthwave-gold);
+    white-space: nowrap;
+    z-index: 1000;
+    animation: fade-in-tooltip 0.3s ease;
+  }
+
+  .meta-tooltip:hover::after {
+    content: "This tooltip describes itself";
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--space-black);
+    color: var(--synthwave-cyan);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    border: 1px solid var(--synthwave-cyan);
+    white-space: nowrap;
+    z-index: 1000;
+    animation: fade-in-tooltip 0.3s ease;
+  }
+
+  .defense-tooltip:hover::after {
+    content: "404: Truth not found";
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--space-black);
+    color: var(--synthwave-red);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    border: 1px solid var(--synthwave-red);
+    white-space: nowrap;
+    z-index: 1000;
+    animation: fade-in-tooltip 0.3s ease;
+  }
+
+  .bilingual-tooltip:hover::after {
+    content: "console.log('eh') // Canadian JavaScript";
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--space-black);
+    color: #ff6b6b;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    border: 1px solid #ff6b6b;
+    white-space: nowrap;
+    z-index: 1000;
+    animation: fade-in-tooltip 0.3s ease;
+  }
+
+  .charter-tooltip:hover::after {
+    content: "Section 42: Right to debug";
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--space-black);
+    color: #ff4757;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    border: 1px solid #ff4757;
+    white-space: nowrap;
+    z-index: 1000;
+    animation: fade-in-tooltip 0.3s ease;
+  }
+
+  .democratic-tooltip:hover::after {
+    content: "git blame democracy";
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--space-black);
+    color: var(--synthwave-blue);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    border: 1px solid var(--synthwave-blue);
+    white-space: nowrap;
+    z-index: 1000;
+    animation: fade-in-tooltip 0.3s ease;
+  }
+
+  .cyberpunk-tooltip:hover::after {
+    content: "if (year > 2020) { cyberpunk = true; }";
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--space-black);
+    color: var(--synthwave-pink);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    border: 1px solid var(--synthwave-pink);
+    white-space: nowrap;
+    z-index: 1000;
+    animation: fade-in-tooltip 0.3s ease;
+  }
+
+  .spectrum-tooltip:hover::after {
+    content: "RGB(255,255,255) // because why not";
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--space-black);
+    color: var(--synthwave-white);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    border: 1px solid var(--synthwave-white);
+    white-space: nowrap;
+    z-index: 1000;
+    animation: fade-in-tooltip 0.3s ease;
+  }
 }
 
 /* Rhythm Game Inspired Effects */
