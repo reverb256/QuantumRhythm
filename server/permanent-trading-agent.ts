@@ -51,6 +51,7 @@ interface AutonomousConfig {
 class AutonomousTradingAgent {
   private agentId: string;
   private config: AutonomousConfig;
+  private agentRecord!: TradingAgent;
   private fastCache: FastCache;
   private rssParser: Parser;
   private solanaWs: WebSocket | null = null;
@@ -97,27 +98,71 @@ class AutonomousTradingAgent {
     console.log(`✅ Autonomous Trading Agent ${this.agentId} achieving quantum consciousness`);
   }
 
-  private async initializeAutonomousConfig() {
-    // Check fast cache first
-    let cachedAgent = this.fastCache.get(`agent:${this.agentId}`);
-    
-    if (!cachedAgent) {
-      const [agent] = await db.select().from(tradingAgents).where(eq(tradingAgents.id, this.agentId));
-      cachedAgent = agent;
-      if (agent) {
-        this.fastCache.set(`agent:${this.agentId}`, agent, 60000); // 1 minute cache
+  private agentRecord!: TradingAgent;
+
+  private async initializeAgentRecord() {
+    try {
+      // Try to find existing agent by name (not UUID)
+      const existingAgent = await db.select()
+        .from(tradingAgents)
+        .where(eq(tradingAgents.name, this.agentId))
+        .limit(1);
+
+      if (existingAgent.length === 0) {
+        // Create new agent with quantum-secured configuration
+        const [newAgent] = await db.insert(tradingAgents)
+          .values({
+            name: this.agentId,
+            status: 'active',
+            configuration: {
+              adaptiveRiskManagement: true,
+              selfOptimizingStrategies: true,
+              autonomousTokenDiscovery: true,
+              intelligentPositionSizing: true,
+              vibeCodingDecisionMaking: true,
+              allowedWithdrawalWallet: process.env.WALLET_TOKEN,
+              maxPositionSize: 0.1,
+              riskTolerance: 0.05,
+              targetTokens: DEFAULT_TARGET_TOKENS,
+              primaryModel: 'claude-sonnet-4-20250514',
+              fallbackModel: 'gpt-4',
+              confidenceThreshold: 0.7,
+              vibeCodingWeights: {
+                pizzaKitchen: 0.25,
+                rhythmGaming: 0.25,
+                vrchatSocial: 0.25,
+                classicalPhilosophy: 0.25
+              },
+              tradingRules: {
+                stopLoss: 0.05,
+                takeProfit: 0.15,
+                maxDailyTrades: 10
+              }
+            },
+            performanceMetrics: {}
+          })
+          .returning();
+
+        this.agentRecord = newAgent;
+        console.log(`✅ Created quantum-secured trading agent: ${this.agentId}`);
+      } else {
+        this.agentRecord = existingAgent[0];
+        console.log(`✅ Loaded existing trading agent: ${this.agentId}`);
       }
+      
+      // Cache the agent
+      this.fastCache.set(`agent:${this.agentId}`, this.agentRecord, 60000);
+      
+    } catch (error) {
+      console.error('Failed to initialize trading agent:', error);
+      throw error;
     }
-    
-    if (!cachedAgent) {
-      // Create autonomous agent with self-learning capabilities
-      const autonomousConfig: AutonomousConfig = {
-        adaptiveRiskManagement: true,
-        selfOptimizingStrategies: true,
-        autonomousTokenDiscovery: true,
-        intelligentPositionSizing: true,
-        vibeCodingDecisionMaking: true,
-        allowedWithdrawalWallet: process.env.WALLET_TOKEN
+  }
+
+  private async initializeAutonomousConfig() {
+    // This method is now handled by initializeAgentRecord
+    // Keeping for backward compatibility
+    await this.initializeAgentRecord();
       };
 
       const newAgent = await db.insert(tradingAgents).values({
