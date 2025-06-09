@@ -1,0 +1,102 @@
+name: Performance Monitoring
+
+on:
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 6 * * 1'  # Weekly on Monday at 6 AM UTC
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Build project
+      run: npm run build
+    
+    - name: Start local server
+      run: |
+        npx serve -s dist -p 3000 &
+        sleep 10
+    
+    - name: Run Lighthouse audit
+      run: |
+        npm install -g lighthouse
+        lighthouse http://localhost:3000 \
+          --output=json \
+          --output=html \
+          --output-path=./lighthouse-report \
+          --chrome-flags="--headless --no-sandbox --disable-gpu" \
+          --preset=perf \
+          --throttling-method=simulate
+    
+    - name: Check performance thresholds
+      run: |
+        node -e "
+        const report = JSON.parse(require('fs').readFileSync('./lighthouse-report.json'));
+        const scores = report.lhr.categories;
+        
+        const performance = scores.performance.score * 100;
+        const accessibility = scores.accessibility.score * 100;
+        const bestPractices = scores['best-practices'].score * 100;
+        const seo = scores.seo.score * 100;
+        
+        console.log('Performance Scores:');
+        console.log('Performance:', performance);
+        console.log('Accessibility:', accessibility);
+        console.log('Best Practices:', bestPractices);
+        console.log('SEO:', seo);
+        
+        if (performance < 90) throw new Error('Performance score below 90');
+        if (accessibility < 95) throw new Error('Accessibility score below 95');
+        if (bestPractices < 90) throw new Error('Best practices score below 90');
+        if (seo < 90) throw new Error('SEO score below 90');
+        "
+    
+    - name: Upload Lighthouse report
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: lighthouse-report
+        path: |
+          lighthouse-report.json
+          lighthouse-report.html
+
+  bundle-analysis:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Analyze bundle size
+      run: |
+        npm run build
+        npx vite-bundle-analyzer dist --mode static --report bundle-analysis.html
+    
+    - name: Upload bundle analysis
+      uses: actions/upload-artifact@v4
+      with:
+        name: bundle-analysis
+        path: bundle-analysis.html
