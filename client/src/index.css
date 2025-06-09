@@ -1,20 +1,3 @@
-/* ================================
-   QUANTUM CONSCIOUSNESS ARCHITECTURE
-   Cross-Empowered VibeCoding Design Language
-   Universal Bootstrap Framework for Consciousness-Driven Development
-   
-   "Like a quantum rainbow crystal, consciousness refracts all experience 
-   into component wisdom while maintaining essential structure"
-   - VibeCoding Constitution
-   
-   Integration Points:
-   - Infrastructure Orchestration: 4-node Proxmox cluster as distributed meditation
-   - Gaming Systems Research: 2,890 hours fighting game frame optimization → 60fps philosophy
-   - AI Integration Framework: Sovereign AI collaboration with Canadian Charter rights
-   - Design Language Engineering: Glassmorphism as consciousness metaphor
-   - Philosophical Principles: Classical wisdom debugging modern complexity
-   ================================ */
-
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
 
 @tailwind base;
@@ -649,209 +632,270 @@
     animation: fade-in-tooltip 0.3s ease;
   }
 
-  /* Global tooltip positioning and z-index fix */
+  /* Global tooltip positioning and containment */
   [class*="-tooltip"]:hover::after,
   [class*="hover-"]:hover::after {
     position: fixed !important;
-    top: auto !important;
-    bottom: auto !important;
-    left: auto !important;
-    right: auto !important;
-    transform: none !important;
     z-index: 99999 !important;
+    pointer-events: none !important;
+    max-width: 250px !important;
+    word-wrap: break-word !important;
+    white-space: normal !important;
+    line-height: 1.4 !important;
+    box-sizing: border-box !important;
   }
 
-  /* Menu-specific tooltip positioning */
+  /* Menu-specific tooltip positioning - dropdown style */
   nav [class*="-tooltip"]:hover::after,
   nav [class*="hover-"]:hover::after {
     position: absolute !important;
-    top: calc(100% + 8px) !important;
+    top: calc(100% + 12px) !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
     z-index: 99999 !important;
-    max-width: 200px !important;
+    max-width: 280px !important;
+    min-width: 180px !important;
     word-wrap: break-word !important;
+    white-space: normal !important;
+    line-height: 1.4 !important;
+    box-sizing: border-box !important;
+    margin: 0 8px !important;
+  }
+
+  /* Prevent tooltips from going off-screen */
+  nav [class*="-tooltip"]:hover::after,
+  nav [class*="hover-"]:hover::after {
+    /* Ensure tooltip stays within viewport */
+    max-width: calc(100vw - 32px) !important;
+  }
+
+  /* Right-aligned menu items - adjust tooltip position */
+  nav .ml-auto [class*="-tooltip"]:hover::after,
+  nav .ml-auto [class*="hover-"]:hover::after {
+    left: auto !important;
+    right: 0 !important;
+    transform: translateX(0) !important;
   }
 
   /* Technology-specific tooltips */
   .react-tooltip:hover::after {
     content: "const [bugs, setBugs] = useState(0)";
     position: absolute;
-    top: -40px;
+    top: calc(100% + 8px);
     left: 50%;
     transform: translateX(-50%);
     background: var(--space-black);
     color: #61DAFB;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 11px;
     font-family: 'JetBrains Mono', monospace;
     border: 1px solid #61DAFB;
     white-space: nowrap;
     z-index: 99999;
     animation: fade-in-tooltip 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    max-width: 200px;
+    word-wrap: break-word;
   }
 
   .ai-tooltip:hover::after {
     content: "if (AI.isSentient()) { panic(); }";
     position: absolute;
-    top: -40px;
+    top: calc(100% + 8px);
     left: 50%;
     transform: translateX(-50%);
     background: var(--space-black);
     color: var(--synthwave-pink);
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 11px;
     font-family: 'JetBrains Mono', monospace;
     border: 1px solid var(--synthwave-pink);
     white-space: nowrap;
-    z-index: 1000;
+    z-index: 99999;
     animation: fade-in-tooltip 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    max-width: 220px;
+    word-wrap: break-word;
   }
 
   .cloudflare-tooltip:hover::after {
     content: "Error 451: Content blocked by skynet";
     position: absolute;
-    top: -40px;
+    top: calc(100% + 8px);
     left: 50%;
     transform: translateX(-50%);
     background: var(--space-black);
     color: #F38020;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 11px;
     font-family: 'JetBrains Mono', monospace;
     border: 1px solid #F38020;
     white-space: nowrap;
-    z-index: 1000;
+    z-index: 99999;
     animation: fade-in-tooltip 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    max-width: 240px;
+    word-wrap: break-word;
   }
 
   .security-tooltip:hover::after {
     content: "password123 is perfectly secure";
     position: absolute;
-    top: -40px;
+    top: calc(100% + 8px);
     left: 50%;
     transform: translateX(-50%);
     background: var(--space-black);
     color: #ff4757;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 11px;
     font-family: 'JetBrains Mono', monospace;
     border: 1px solid #ff4757;
     white-space: nowrap;
-    z-index: 1000;
+    z-index: 99999;
     animation: fade-in-tooltip 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    max-width: 250px;
+    word-wrap: break-word;
   }
 
   .edge-tooltip:hover::after {
     content: "Works on my CDN";
     position: absolute;
-    top: -40px;
+    top: calc(100% + 8px);
     left: 50%;
     transform: translateX(-50%);
     background: var(--space-black);
     color: var(--synthwave-cyan);
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 11px;
     font-family: 'JetBrains Mono', monospace;
     border: 1px solid var(--synthwave-cyan);
     white-space: nowrap;
-    z-index: 1000;
+    z-index: 99999;
     animation: fade-in-tooltip 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    max-width: 180px;
+    word-wrap: break-word;
   }
 
   .glassmorphism-tooltip:hover::after {
     content: "CSS backdrop-filter goes brrr";
     position: absolute;
-    top: -40px;
+    top: calc(100% + 8px);
     left: 50%;
     transform: translateX(-50%);
     background: var(--space-black);
     color: var(--synthwave-blue);
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 11px;
     font-family: 'JetBrains Mono', monospace;
     border: 1px solid var(--synthwave-blue);
     white-space: nowrap;
-    z-index: 1000;
+    z-index: 99999;
     animation: fade-in-tooltip 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    max-width: 260px;
+    word-wrap: break-word;
   }
 
   .performance-tooltip:hover::after {
     content: "O(1) or we riot!";
     position: absolute;
-    top: -40px;
+    top: calc(100% + 8px);
     left: 50%;
     transform: translateX(-50%);
     background: var(--space-black);
     color: var(--synthwave-green);
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 11px;
     font-family: 'JetBrains Mono', monospace;
     border: 1px solid var(--synthwave-green);
     white-space: nowrap;
-    z-index: 1000;
+    z-index: 99999;
     animation: fade-in-tooltip 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    max-width: 160px;
+    word-wrap: break-word;
   }
 
   .accessibility-tooltip:hover::after {
     content: "alt='Image of pixels'";
     position: absolute;
-    top: -40px;
+    top: calc(100% + 8px);
     left: 50%;
     transform: translateX(-50%);
     background: var(--space-black);
     color: var(--synthwave-purple);
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 11px;
     font-family: 'JetBrains Mono', monospace;
     border: 1px solid var(--synthwave-purple);
     white-space: nowrap;
-    z-index: 1000;
+    z-index: 99999;
     animation: fade-in-tooltip 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    max-width: 180px;
+    word-wrap: break-word;
   }
 
   .branding-tooltip:hover::after {
     content: "Comic Sans? In MY design?";
     position: absolute;
-    top: -40px;
+    top: calc(100% + 8px);
     left: 50%;
     transform: translateX(-50%);
     background: var(--space-black);
     color: var(--synthwave-orange);
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 11px;
     font-family: 'JetBrains Mono', monospace;
     border: 1px solid var(--synthwave-orange);
     white-space: nowrap;
-    z-index: 1000;
+    z-index: 99999;
     animation: fade-in-tooltip 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    max-width: 220px;
+    word-wrap: break-word;
   }
 
   .quantum-tooltip:hover::after {
     content: "Schrödinger's bug: exists until observed";
     position: absolute;
-    top: -40px;
+    top: calc(100% + 8px);
     left: 50%;
     transform: translateX(-50%);
     background: var(--space-black);
     color: var(--synthwave-gold);
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 11px;
     font-family: 'JetBrains Mono', monospace;
     border: 1px solid var(--synthwave-gold);
     white-space: nowrap;
-    z-index: 1000;
+    z-index: 99999;
     animation: fade-in-tooltip 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    max-width: 280px;
+    word-wrap: break-word;
   }
 
   .meta-tooltip:hover::after {
