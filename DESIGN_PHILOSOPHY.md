@@ -193,10 +193,13 @@ Every new feature should align with core principles:
 ### 2. Preserve Performance Integrity
 
 Cyberpunk aesthetics must not compromise functionality:
+- 60fps GPU-accelerated animations using transform/opacity
+- GitHub Pages static deployment optimization
+- Cloudflare CDN integration for global performance
+- CSS containment and content-visibility for efficient rendering
 - Progressive enhancement strategies
-- Efficient animation systems
 - Responsive design principles
-- Accessibility maintenance
+- WCAG AAA accessibility maintenance
 
 ### 3. Enable Modular Growth
 
