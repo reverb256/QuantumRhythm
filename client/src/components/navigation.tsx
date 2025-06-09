@@ -51,6 +51,12 @@ export default function Navigation() {
             >
               Skills
             </button>
+            <a 
+              href="/values"
+              className="hover:text-[var(--synthwave-cyan)] transition-colors duration-300"
+            >
+              Values
+            </a>
             <button 
               onClick={() => scrollToSection('philosophy')} 
               className="hover:text-[var(--synthwave-cyan)] transition-colors duration-300"
@@ -95,6 +101,12 @@ export default function Navigation() {
               >
                 Skills
               </button>
+              <a 
+                href="/values"
+                className="text-left hover:text-[var(--synthwave-cyan)] transition-colors duration-300"
+              >
+                Values
+              </a>
               <button 
                 onClick={() => scrollToSection('philosophy')} 
                 className="text-left hover:text-[var(--synthwave-cyan)] transition-colors duration-300"
