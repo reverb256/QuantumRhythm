@@ -28,7 +28,7 @@ export default function Navigation() {
   };
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${
+    <header className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
       scrolled ? 'prismatic-glass border-b border-cyan-400/20 gacha-shine' : 'bg-transparent'
     }`}>
       <nav className="container mx-auto px-6 py-4">

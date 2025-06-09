@@ -1,360 +1,235 @@
-import { useEffect, useState } from "react";
+import React from 'react';
+import { Button } from '@/components/ui/button';
+import { Link } from 'wouter';
+// Using direct path for profile image
 
 export default function HeroSection() {
-  const [rhythmBars, setRhythmBars] = useState([20, 30, 25, 35, 20]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setRhythmBars(prev => prev.map(() => Math.random() * 30 + 20));
-    }, 500);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const scrollToProjects = () => {
-    const element = document.getElementById('projects');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const scrollToPhilosophy = () => {
-    const element = document.getElementById('philosophy');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const scrollToContact = () => {
-    const element = document.getElementById('contact');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Prismatic Cybernetic Sky Background */}
-      <div className="absolute inset-0">
-        {/* Base deep space gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-950/70 via-indigo-950/60 to-purple-950/50" />
-        
-        {/* Cybernetic sky with holographic elements */}
+      {/* Layered Background System */}
+      <div className="absolute inset-0 z-0">
+        {/* Primary Deep Space Background */}
         <div 
-          className="absolute inset-0 opacity-65"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat" 
           style={{
-            backgroundImage: `url('/attached_assets/image_1749437089124.png')`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-            filter: 'brightness(0.4) contrast(1.3) saturate(1.2)'
+            backgroundImage: `url('/attached_assets/image_1749437202750.png')`,
+            filter: 'brightness(0.4) saturate(1.3)',
           }}
         />
         
-        {/* Prismatic light refractions */}
-        <div className="absolute inset-0 opacity-25">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-gradient-radial from-cyan-400/40 via-blue-400/20 to-transparent blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-1/3 right-1/3 w-64 h-64 rounded-full bg-gradient-radial from-violet-400/30 via-purple-400/15 to-transparent blur-2xl animate-pulse delay-1000"></div>
-          <div className="absolute top-1/2 left-1/2 w-48 h-48 rounded-full bg-gradient-radial from-pink-400/25 via-red-400/10 to-transparent blur-xl animate-pulse delay-2000"></div>
-        </div>
-        
-        {/* Holographic portal overlay */}
+        {/* Holographic Overlay */}
         <div 
-          className="absolute inset-0 opacity-40 mix-blend-screen"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat mix-blend-screen opacity-20" 
           style={{
-            backgroundImage: `url('/attached_assets/image_1749437115515.png')`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat'
+            backgroundImage: `url('/attached_assets/image_1749437206205.png')`,
           }}
         />
         
-        {/* Abstract blue data streams */}
+        {/* Digital Stream Effects */}
         <div 
-          className="absolute top-0 right-0 w-full h-full opacity-30"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat mix-blend-overlay opacity-15" 
           style={{
-            backgroundImage: `url('/attached_assets/image_1749437226380.png')`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-            mixBlendMode: 'soft-light'
+            backgroundImage: `url('/attached_assets/image_1749437219730.png')`,
           }}
         />
-        
-        {/* Prismatic glass overlay with particle effects */}
-        <div className="absolute inset-0 backdrop-blur-[3px] bg-gradient-to-b from-transparent via-blue-950/15 to-blue-950/30 particle-bg" />
-      </div>
-      
-      {/* RPG-Style HUD System */}
-      {/* Corner HUD Elements */}
-      <div className="absolute top-4 left-4 w-16 h-16 border-l-4 border-t-4 border-cyan-400/60 z-30"></div>
-      <div className="absolute top-4 right-4 w-16 h-16 border-r-4 border-t-4 border-cyan-400/60 z-30"></div>
-      <div className="absolute bottom-4 left-4 w-16 h-16 border-l-4 border-b-4 border-cyan-400/60 z-30"></div>
-      <div className="absolute bottom-4 right-4 w-16 h-16 border-r-4 border-b-4 border-cyan-400/60 z-30"></div>
-
-      {/* Floating Holographic Elements */}
-      <div className="absolute top-32 left-1/4 w-8 h-8 bg-cyan-400/30 rounded-full animate-pulse z-15"></div>
-      <div className="absolute top-1/3 right-1/4 w-6 h-6 bg-blue-400/40 rounded-full animate-bounce z-15" style={{ animationDelay: '1s' }}></div>
-      <div className="absolute bottom-1/3 left-1/3 w-10 h-10 bg-purple-400/25 rounded-full animate-pulse z-15" style={{ animationDelay: '2s' }}></div>
-
-      {/* Scanning Lines */}
-      <div className="absolute inset-0 pointer-events-none z-15">
-        <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent animate-pulse"></div>
-        <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent animate-pulse" style={{ animationDelay: '1s' }}></div>
       </div>
 
-      {/* Top Status Bar - Prismatic Glass */}
-      <div className="absolute top-20 md:top-24 left-0 right-0 h-14 md:h-16 prismatic-glass border-b border-cyan-400/40 z-30 gacha-shine">
-        <div className="container mx-auto px-4 md:px-6 h-full flex items-center justify-between">
-          <div className="flex items-center space-x-2 md:space-x-4">
-            <div className="w-8 h-8 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center">
-              <i className="fas fa-user-astronaut text-white text-sm md:text-xl"></i>
-            </div>
-            <div>
-              <div className="text-cyan-300 text-xs md:text-sm font-medium">Digital Architect</div>
-              <div className="text-white text-sm md:text-lg font-bold">reverb256</div>
-            </div>
-          </div>
+      {/* Cybernetic Grid Matrix */}
+      <div className="absolute inset-0 opacity-10 z-5">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `
+            linear-gradient(rgba(147, 197, 253, 0.2) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(147, 197, 253, 0.2) 1px, transparent 1px)
+          `,
+          backgroundSize: '60px 60px'
+        }}></div>
+      </div>
+
+      {/* Floating Holographic Particles */}
+      <div className="absolute inset-0 z-10 pointer-events-none">
+        {[...Array(25)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute bg-cyan-400 rounded-full animate-pulse opacity-60"
+            style={{
+              width: `${2 + Math.random() * 4}px`,
+              height: `${2 + Math.random() * 4}px`,
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${3 + Math.random() * 3}s`
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Energy Circuit Lines */}
+      <div className="absolute inset-0 z-10 pointer-events-none">
+        <svg className="w-full h-full" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <linearGradient id="circuitGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="rgba(147, 197, 253, 0)" />
+              <stop offset="50%" stopColor="rgba(147, 197, 253, 0.8)" />
+              <stop offset="100%" stopColor="rgba(147, 197, 253, 0)" />
+            </linearGradient>
+          </defs>
+          <path
+            d="M100,200 Q400,100 700,300 T900,500"
+            stroke="url(#circuitGradient)"
+            strokeWidth="2"
+            fill="none"
+            className="animate-pulse"
+          />
+          <path
+            d="M200,800 Q500,600 800,750 T1000,400"
+            stroke="url(#circuitGradient)"
+            strokeWidth="1.5"
+            fill="none"
+            className="animate-pulse"
+            style={{ animationDelay: '2s' }}
+          />
+        </svg>
+      </div>
+
+      {/* Main Content Container */}
+      <div className="container mx-auto px-6 text-center relative z-20 pt-24 pb-12">
+        <div className="max-w-4xl mx-auto">
           
-          <div className="flex items-center space-x-3 md:space-x-6">
-            <div className="text-right">
-              <div className="text-cyan-300 text-xs md:text-sm">System Status</div>
-              <div className="text-green-400 text-sm md:text-lg font-bold flex items-center">
-                <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-green-400 rounded-full mr-1 md:mr-2 animate-pulse"></div>
-                <span className="hidden sm:inline">ONLINE</span>
-                <span className="sm:hidden">ON</span>
-              </div>
-            </div>
-            <div className="text-right">
-              <div className="text-cyan-300 text-xs md:text-sm">Neural Link</div>
-              <div className="text-cyan-400 text-sm md:text-lg font-bold">100%</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Left Side Panel - Prismatic Glass */}
-      <div className="hidden xl:block absolute left-0 top-36 md:top-40 bottom-16 md:bottom-20 w-64 xl:w-80 prismatic-glass border-r border-cyan-400/30 z-20 spectrum-border">
-        <div className="p-6 h-full flex flex-col">
-          <div className="mb-6">
-            <h3 className="text-cyan-300 text-lg font-bold mb-4 flex items-center">
-              <i className="fas fa-chart-line mr-3"></i>Tech Arsenal
-            </h3>
-            <div className="space-y-3">
-              {['React/TypeScript', 'AI/ML Systems', 'Cybernetic Architecture', 'VR Development'].map((skill, index) => (
-                <div key={skill} className="flex items-center justify-between">
-                  <span className="text-white text-sm">{skill}</span>
-                  <div className="w-20 h-2 bg-blue-900/50 rounded-full overflow-hidden">
-                    <div 
-                      className="h-full bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full transition-all duration-1000"
-                      style={{ width: `${85 + index * 5}%` }}
-                    ></div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="mb-6">
-            <h3 className="text-cyan-300 text-lg font-bold mb-4 flex items-center">
-              <i className="fas fa-microchip mr-3"></i>System Info
-            </h3>
-            <div className="space-y-2 text-sm">
-              <div className="flex justify-between">
-                <span className="text-gray-300">Location</span>
-                <span className="text-cyan-400">Canada</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-300">Specialization</span>
-                <span className="text-cyan-400">VibeCoding</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-300">Philosophy</span>
-                <span className="text-cyan-400">Human-AI Unity</span>
+          {/* Holographic Status Display */}
+          <div className="mb-12">
+            <div className="inline-flex items-center justify-center px-6 py-3 prismatic-glass rounded-full border border-cyan-400/50 mb-8">
+              <div className="flex items-center space-x-4">
+                <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                <span className="text-cyan-300 text-sm font-medium">SYSTEM ONLINE</span>
+                <div className="w-px h-4 bg-cyan-400/30"></div>
+                <span className="text-cyan-400 text-sm font-mono">NEURAL_LINK_100%</span>
               </div>
             </div>
           </div>
 
-          <div className="flex-1">
-            <h3 className="text-cyan-300 text-lg font-bold mb-4 flex items-center">
-              <i className="fas fa-satellite-dish mr-3"></i>Neural Feed
-            </h3>
-            <div className="space-y-2 text-xs">
-              <div className="flex items-center text-green-400">
-                <div className="w-1 h-1 bg-green-400 rounded-full mr-2"></div>
-                Quantum processing cores: Active
-              </div>
-              <div className="flex items-center text-blue-400">
-                <div className="w-1 h-1 bg-blue-400 rounded-full mr-2"></div>
-                VRChat connectivity: Established
-              </div>
-              <div className="flex items-center text-purple-400">
-                <div className="w-1 h-1 bg-purple-400 rounded-full mr-2"></div>
-                Philosophy engine: Analyzing
+          {/* Character Portrait with Holographic Frame */}
+          <div className="relative mb-10">
+            {/* Outer Holographic Ring */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-56 h-56 md:w-72 md:h-72 border-2 border-cyan-400/40 rounded-full animate-spin" style={{ animationDuration: '30s' }}>
+                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-cyan-400 rounded-full shadow-lg shadow-cyan-400/50"></div>
+                <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 w-4 h-4 bg-purple-400 rounded-full shadow-lg shadow-purple-400/50"></div>
+                <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1/2 w-3 h-3 bg-green-400 rounded-full shadow-lg shadow-green-400/50"></div>
+                <div className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-1/2 w-3 h-3 bg-orange-400 rounded-full shadow-lg shadow-orange-400/50"></div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Right Side Panel - Prismatic Glass */}
-      <div className="hidden xl:block absolute right-0 top-36 md:top-40 bottom-16 md:bottom-20 w-64 xl:w-80 prismatic-glass border-l border-cyan-400/30 z-20 spectrum-border">
-        <div className="p-6 h-full flex flex-col">
-          <div className="mb-6">
-            <h3 className="text-cyan-300 text-lg font-bold mb-4 flex items-center">
-              <i className="fas fa-code mr-3"></i>Active Projects
-            </h3>
-            <div className="space-y-3">
-              {[
-                { name: 'Portfolio Matrix', progress: 95, status: 'Deploying' },
-                { name: 'AI Ethics Framework', progress: 78, status: 'In Progress' },
-                { name: 'VR Experience Lab', progress: 60, status: 'Development' }
-              ].map((project, index) => (
-                <div key={project.name} className="p-3 bg-blue-900/30 rounded-lg border border-cyan-400/20">
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-white text-sm font-medium">{project.name}</span>
-                    <span className="text-cyan-400 text-xs">{project.progress}%</span>
-                  </div>
-                  <div className="w-full h-1 bg-blue-900/50 rounded-full overflow-hidden">
-                    <div 
-                      className="h-full bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full transition-all duration-1000"
-                      style={{ width: `${project.progress}%` }}
-                    ></div>
-                  </div>
-                  <div className="text-xs text-gray-400 mt-1">{project.status}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="mb-6">
-            <h3 className="text-cyan-300 text-lg font-bold mb-4 flex items-center">
-              <i className="fas fa-gamepad mr-3"></i>Virtual Realms
-            </h3>
-            <div className="text-sm space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="text-gray-300">VRChat Sessions</span>
-                <span className="text-green-400">Active</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-gray-300">Rhythm Games</span>
-                <span className="text-cyan-400">Mastered</span>
+            
+            {/* Portrait Container */}
+            <div className="relative flex items-center justify-center">
+              <div className="relative">
+                <img
+                  src="/attached_assets/catboy2025PFP_1749433070083.PNG"
+                  alt="reverb256 Digital Architect"
+                  className="w-40 h-40 md:w-52 md:h-52 rounded-full object-cover border-4 border-cyan-300/60 shadow-2xl shadow-cyan-400/40"
+                />
+                <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-cyan-400/20 via-transparent to-purple-400/20 pointer-events-none"></div>
               </div>
             </div>
           </div>
 
-          <div className="flex-1">
-            <h3 className="text-cyan-300 text-lg font-bold mb-4 flex items-center">
-              <i className="fas fa-brain mr-3"></i>Thought Stream
-            </h3>
-            <div className="text-xs text-gray-300 leading-relaxed">
-              "Every line of code is a meditation on possibility. 
-              Classical wisdom guides the architecture while 
-              revolutionary AI amplifies human potential."
+          {/* Main Identity Card */}
+          <div className="prismatic-glass p-8 md:p-12 rounded-3xl mb-8 border border-cyan-400/50 relative overflow-hidden">
+            {/* Background Circuit Pattern */}
+            <div className="absolute inset-0 opacity-5">
+              <div 
+                className="w-full h-full bg-cover bg-center"
+                style={{
+                  backgroundImage: `url('/attached_assets/image_1749437226380.png')`,
+                }}
+              ></div>
+            </div>
+            
+            <div className="relative z-10">
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 font-space">
+                <span className="bg-gradient-to-r from-cyan-300 via-blue-400 to-purple-400 bg-clip-text text-transparent">
+                  Digital Architect
+                </span>
+              </h1>
+              
+              <h2 className="text-xl md:text-3xl lg:text-4xl text-cyan-300 mb-6 font-medium">
+                VibeCoder & Cybernetic Systems Engineer
+              </h2>
+              
+              <div className="flex flex-wrap justify-center gap-6 text-sm md:text-base text-cyan-200/90 font-mono mb-6">
+                <span className="flex items-center">
+                  <span className="text-cyan-400 mr-2">LEVEL</span>
+                  <span className="text-white">∞</span>
+                </span>
+                <span className="flex items-center">
+                  <span className="text-cyan-400 mr-2">CLASS</span>
+                  <span className="text-white">Philosopher-Technologist</span>
+                </span>
+                <span className="flex items-center">
+                  <span className="text-cyan-400 mr-2">ORIGIN</span>
+                  <span className="text-white">Canada</span>
+                </span>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
 
-      {/* Bottom Action Bar - Prismatic Glass */}
-      <div className="absolute bottom-0 left-0 right-0 h-16 md:h-20 prismatic-glass border-t border-cyan-400/40 z-20 gacha-shine">
-        <div className="container mx-auto px-4 md:px-6 h-full flex items-center justify-center">
-          <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3 md:space-x-4">
-            <button 
-              onClick={scrollToProjects}
-              className="px-4 md:px-6 py-2 md:py-3 prismatic-glass border border-cyan-400/50 rounded-lg text-cyan-100 font-medium hover:border-cyan-300/70 transition-all duration-300 flex items-center justify-center space-x-2 hover:scale-105 transform text-sm md:text-base gacha-shine prismatic-glow"
-            >
-              <i className="fas fa-rocket text-xs md:text-sm"></i>
-              <span className="hidden sm:inline">View Projects</span>
-              <span className="sm:hidden">Projects</span>
-            </button>
-            <button 
-              onClick={scrollToPhilosophy}
-              className="px-4 md:px-6 py-2 md:py-3 prismatic-glass border border-violet-400/50 rounded-lg text-violet-100 font-medium hover:border-violet-300/70 transition-all duration-300 flex items-center justify-center space-x-2 hover:scale-105 transform text-sm md:text-base gacha-shine"
-            >
-              <i className="fas fa-brain text-xs md:text-sm"></i>
-              <span>Philosophy</span>
-            </button>
-            <button 
-              onClick={scrollToContact}
-              className="px-4 md:px-6 py-2 md:py-3 prismatic-glass border border-emerald-400/50 rounded-lg text-emerald-100 font-medium hover:border-emerald-300/70 transition-all duration-300 flex items-center justify-center space-x-2 hover:scale-105 transform text-sm md:text-base gacha-shine"
-            >
-              <i className="fas fa-satellite-dish text-xs md:text-sm"></i>
-              <span>Connect</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Central Character Panel - Responsive with proper spacing */}
-      <div className="container mx-auto px-4 md:px-6 xl:px-80 text-center relative z-10 flex items-center justify-center min-h-screen pt-24 md:pt-32 pb-16 md:pb-20">
-        <div className="max-w-2xl mx-auto w-full">
-          {/* Character Portrait with HUD Frame */}
-          <div className="relative mb-6 md:mb-8">
-            <div className="absolute inset-0 border-2 md:border-4 border-cyan-400/50 rounded-full animate-pulse"></div>
-            <div className="absolute -inset-2 md:-inset-4 border border-blue-400/30 rounded-full"></div>
-            <div className="absolute -inset-4 md:-inset-8 border border-purple-400/20 rounded-full"></div>
-            <img 
-              src="/images/catboy_profile.png" 
-              alt="reverb256 - Digital Architect" 
-              className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-full mx-auto object-cover relative z-10 shadow-2xl shadow-cyan-400/50"
-            />
-            {/* Character Level Badge */}
-            <div className="absolute -top-1 -right-1 md:-top-2 md:-right-2 w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center border-2 md:border-4 border-blue-900 z-20">
-              <span className="text-white font-bold text-xs md:text-sm">∞</span>
-            </div>
-          </div>
-          
-          {/* Character Title */}
-          <div className="mb-4 md:mb-6 p-4 md:p-6 prismatic-glass rounded-xl md:rounded-2xl border border-cyan-400/40 spectrum-border gacha-shine">
-            <h1 className="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl mb-2 md:mb-4 bg-gradient-to-r from-cyan-300 via-blue-300 to-purple-300 bg-clip-text text-transparent">
-              Digital Architect
-            </h1>
-            <h2 className="text-lg md:text-xl lg:text-2xl mb-2 text-cyan-300 font-medium">
-              VibeCoder & Cybernetic Systems Engineer
-            </h2>
-            <div className="text-xs md:text-sm text-gray-300">
-              Level ∞ • Class: Philosopher-Technologist • Origin: Canada
-            </div>
-          </div>
-          
-          {/* Character Description */}
-          <div className="mb-6 md:mb-8 p-4 md:p-6 prismatic-glass rounded-lg md:rounded-xl border border-cyan-400/30 prismatic-glow">
-            <p className="text-sm md:text-base lg:text-lg text-gray-300 leading-relaxed">
-              Canadian architect of convergent technologies, orchestrating the cross-empowerment of classical wisdom 
-              and revolutionary AI systems. My digital realm spans from philosophical exploration to technological 
-              mastery—each line of code an expression of humanity's infinite potential through technological convergence.
+          {/* Bio Description */}
+          <div className="prismatic-glass p-6 md:p-8 rounded-2xl mb-10 border border-cyan-400/30">
+            <p className="text-lg md:text-xl text-cyan-100 leading-relaxed">
+              Canadian architect of convergent technologies, orchestrating the cross-empowerment of classical wisdom and revolutionary AI systems. My digital realm spans from philosophical exploration to technological mastery—each line of code an expression of humanity's infinite potential through technological convergence.
             </p>
           </div>
-          
-          {/* Energy Visualization */}
-          <div className="flex justify-center space-x-1 md:space-x-2 mb-6 md:mb-8">
-            {rhythmBars.map((height, index) => (
-              <div 
-                key={index}
-                className="w-2 md:w-3 rounded-full transition-all duration-300 shadow-lg"
-                style={{ 
-                  height: `${height + 15}px`,
-                  background: `linear-gradient(to top, ${[
-                    '#06b6d4', // cyan-500
-                    '#3b82f6', // blue-500
-                    '#8b5cf6', // violet-500
-                    '#ec4899', // pink-500
-                    '#f59e0b'  // amber-500
-                  ][index]}, rgba(255,255,255,0.3))`,
-                  boxShadow: `0 0 15px ${[
-                    '#06b6d4', // cyan-500
-                    '#3b82f6', // blue-500
-                    '#8b5cf6', // violet-500
-                    '#ec4899', // pink-500
-                    '#f59e0b'  // amber-500
-                  ][index]}40`
-                }}
-              />
-            ))}
+
+          {/* Prismatic Spectrum Display */}
+          <div className="flex justify-center mb-12">
+            <div className="flex space-x-2 md:space-x-3">
+              {[
+                'bg-red-400', 'bg-orange-400', 'bg-yellow-400', 
+                'bg-green-400', 'bg-cyan-400', 'bg-blue-400', 
+                'bg-indigo-400', 'bg-purple-400', 'bg-pink-400'
+              ].map((color, index) => (
+                <div 
+                  key={index}
+                  className={`w-3 h-12 md:w-4 md:h-16 ${color} rounded-full animate-pulse shadow-lg`}
+                  style={{ 
+                    animationDelay: `${index * 0.2}s`,
+                    boxShadow: `0 0 20px ${color.replace('bg-', '').replace('-400', '')}`
+                  }}
+                ></div>
+              ))}
+            </div>
+          </div>
+
+          {/* Action Button Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
+            <Link href="/projects">
+              <Button className="w-full h-16 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white rounded-2xl text-lg font-semibold transition-all duration-300 border border-cyan-400/50 shadow-lg shadow-cyan-400/25 hover:shadow-xl hover:shadow-cyan-400/40">
+                <i className="fas fa-rocket mr-3 text-xl"></i>
+                View Projects
+              </Button>
+            </Link>
+            
+            <Link href="/philosophy">
+              <Button className="w-full h-16 bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-400 hover:to-pink-500 text-white rounded-2xl text-lg font-semibold transition-all duration-300 border border-purple-400/50 shadow-lg shadow-purple-400/25 hover:shadow-xl hover:shadow-purple-400/40">
+                <i className="fas fa-brain mr-3 text-xl"></i>
+                Philosophy
+              </Button>
+            </Link>
+            
+            <Link href="/connect">
+              <Button className="w-full h-16 bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-400 hover:to-teal-500 text-white rounded-2xl text-lg font-semibold transition-all duration-300 border border-green-400/50 shadow-lg shadow-green-400/25 hover:shadow-xl hover:shadow-green-400/40">
+                <i className="fas fa-satellite-dish mr-3 text-xl"></i>
+                Connect
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
+
+      {/* Holographic Corner Brackets */}
+      <div className="absolute top-6 left-6 w-20 h-20 border-l-3 border-t-3 border-cyan-400/70 z-40"></div>
+      <div className="absolute top-6 right-6 w-20 h-20 border-r-3 border-t-3 border-cyan-400/70 z-40"></div>
+      <div className="absolute bottom-6 left-6 w-20 h-20 border-l-3 border-b-3 border-cyan-400/70 z-40"></div>
+      <div className="absolute bottom-6 right-6 w-20 h-20 border-r-3 border-b-3 border-cyan-400/70 z-40"></div>
     </section>
   );
 }
