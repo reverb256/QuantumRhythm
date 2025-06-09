@@ -10,33 +10,33 @@ export default function AboutSection() {
         {/* Base gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/30 via-purple-900/25 to-blue-900/20" />
         
-        {/* Primary Midjourney crystal energy */}
+        {/* Primary blue tech workspace */}
         <div 
-          className="absolute inset-0 opacity-35"
+          className="absolute inset-0 opacity-40"
           style={{
-            backgroundImage: `url('/images/midjourney_crystal_energy.png')`,
+            backgroundImage: `url('/images/blue_tech_workspace.png')`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat'
           }}
         />
         
-        {/* Midjourney geometric flow overlay */}
+        {/* Blue energy waves overlay */}
         <div 
           className="absolute inset-0 opacity-25"
           style={{
-            backgroundImage: `url('/images/midjourney_geometric_flow.png')`,
+            backgroundImage: `url('/images/blue_energy_waves.png')`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat'
           }}
         />
         
-        {/* Midjourney spiral vortex accent */}
+        {/* Blue holographic sky accent */}
         <div 
           className="absolute top-20 right-20 w-64 h-64 opacity-30 animate-pulse"
           style={{
-            backgroundImage: `url('/images/midjourney_spiral_vortex.png')`,
+            backgroundImage: `url('/images/blue_holographic_sky.png')`,
             backgroundSize: 'contain',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
@@ -44,11 +44,11 @@ export default function AboutSection() {
           }}
         />
         
-        {/* Midjourney tech matrix */}
+        {/* Blue cyber dome */}
         <div 
           className="absolute bottom-32 left-16 w-48 h-48 opacity-25 animate-bounce"
           style={{
-            backgroundImage: `url('/images/midjourney_tech_matrix.png')`,
+            backgroundImage: `url('/images/blue_cyber_dome.png')`,
             backgroundSize: 'contain',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',

@@ -25,33 +25,33 @@ export default function SkillsSection() {
         {/* Base gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-purple-900/30 via-blue-900/25 to-cyan-900/20" />
         
-        {/* Primary synthwave vectors */}
+        {/* Primary blue cyber dome */}
         <div 
-          className="absolute inset-0 opacity-30"
+          className="absolute inset-0 opacity-35"
           style={{
-            backgroundImage: `url('/images/synthwave_vectors.png')`,
+            backgroundImage: `url('/images/blue_cyber_dome.png')`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat'
           }}
         />
         
-        {/* Cybernetic streams overlay */}
+        {/* Blue energy waves overlay */}
         <div 
           className="absolute inset-0 opacity-25"
           style={{
-            backgroundImage: `url('/images/cybernetic_streams.png')`,
+            backgroundImage: `url('/images/blue_energy_waves.png')`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat'
           }}
         />
         
-        {/* Geometric mosaic accent */}
+        {/* Blue holographic sky accent */}
         <div 
           className="absolute top-20 left-20 w-64 h-64 opacity-20 animate-pulse"
           style={{
-            backgroundImage: `url('/images/geometric_mosaic.png')`,
+            backgroundImage: `url('/images/blue_holographic_sky.png')`,
             backgroundSize: 'contain',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
@@ -59,11 +59,11 @@ export default function SkillsSection() {
           }}
         />
         
-        {/* Diagonal energy burst */}
+        {/* Blue cosmic ocean accent */}
         <div 
           className="absolute bottom-20 right-20 w-56 h-56 opacity-25 animate-bounce"
           style={{
-            backgroundImage: `url('/images/diagonal_energy_burst.png')`,
+            backgroundImage: `url('/images/blue_cosmic_ocean.png')`,
             backgroundSize: 'contain',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
