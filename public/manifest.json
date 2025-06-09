@@ -1,0 +1,28 @@
+{
+  "name": "reverb256 - VibeCoding Portfolio",
+  "short_name": "reverb256",
+  "description": "Canadian developer specializing in VR consciousness research and classical learning methodologies",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#071321",
+  "theme_color": "#00bcd4",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/attached_assets/image_1749437295296.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/attached_assets/image_1749437315258.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["technology", "portfolio", "developer", "research"],
+  "lang": "en-CA",
+  "scope": "/",
+  "prefer_related_applications": false
+}

@@ -1,0 +1,26 @@
+User-agent: *
+Allow: /
+
+# High-priority pages
+Allow: /
+Allow: /vrchat
+Allow: /values
+
+# Sitemap location
+Sitemap: https://reverb256.github.io/sitemap.xml
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Block common bot traps
+Disallow: /wp-admin/
+Disallow: /admin/
+Disallow: /.env
+Disallow: /config/
+Disallow: /logs/
+
+# Allow indexing of assets for rich snippets
+Allow: /attached_assets/
+Allow: /images/
+Allow: /*.css
+Allow: /*.js

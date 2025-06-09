@@ -67,6 +67,7 @@ export default function VRChat() {
     <div className="min-h-screen bg-[var(--space-black)] text-white relative">
       <Navigation />
       
+      <main>
       {/* Hero Section */}
       <section className="relative py-20 min-h-screen flex items-center overflow-hidden">
         {/* Layered Cybernetic Background */}
@@ -126,15 +127,15 @@ export default function VRChat() {
               <span className="holo-text">VRChat Research</span>
             </h1>
             
-            <p className="text-2xl md:text-3xl text-cyan-100 mb-12 leading-relaxed">
-              Where consciousness transcends flesh to forge connections that burn brighter than stars
-            </p>
+            <h2 className="text-2xl md:text-3xl text-cyan-100 mb-12 leading-relaxed">
+              Where consciousness transcends Penacony's Dreamscape boundaries—forging digital presence connections that burn brighter than Stellaron cores
+            </h2>
             
             <div className="holo-panel p-8 rounded-3xl border border-cyan-400/50 gacha-shine">
               <blockquote className="text-xl text-cyan-100 italic leading-relaxed">
-                "In the sacred laboratories of VRChat, I discovered the profound alchemy that transmutes digital proximity 
-                into authentic human connection. Each virtual encounter became an experiment in presence engineering—
-                where consciousness meets consciousness beyond the veil of flesh."
+                "Like Anaxa challenging the Coreflame of Reason, I discovered within VRChat's memoria-streams the profound alchemy 
+                that transmutes digital proximity into authentic human connection. Each virtual encounter became an experiment in presence engineering—
+                where consciousness meets consciousness beyond Penacony's dreams, beyond the veil of flesh itself."
               </blockquote>
             </div>
           </div>
@@ -173,15 +174,15 @@ export default function VRChat() {
                 
                 <div className="space-y-6 text-lg text-cyan-100 leading-relaxed">
                   <p>
-                    Through thousands of hours in virtual realms, I've mapped the invisible architecture of digital presence—
-                    the delicate interplay between spatial design, avatar embodiment, and social dynamics that creates 
-                    authentic connection across impossible distances.
+                    Through thousands of hours navigating digital realms—from VRChat's intimate spaces to Penacony's Dreamscape architecture—
+                    I've mapped the invisible geometries of presence engineering. The delicate interplay between spatial psychology, 
+                    avatar embodiment, and consciousness projection creates authentic connection across impossible distances.
                   </p>
                   
                   <p>
-                    Every conversation circle, every shared moment of wonder, every breakthrough in understanding became 
-                    data points in a larger study of how technology can serve as a bridge rather than a barrier to 
-                    genuine human connection.
+                    Every conversation circle became a laboratory, every shared moment of digital transcendence a data point 
+                    in understanding how technology can amplify rather than replace genuine human connection. Like Rappa's ninja artistry 
+                    breaking conventional limitations, virtual reality reveals new pathways to authentic presence.
                   </p>
                 </div>
                 
@@ -361,6 +362,7 @@ export default function VRChat() {
           </div>
         </div>
       </section>
+      </main>
 
       <Footer />
     </div>

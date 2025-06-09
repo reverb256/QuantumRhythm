@@ -1,74 +1,110 @@
+import { useState } from "react";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
-const philosophicalConcepts = [
+const classicalMethods = [
   {
-    title: "Digital Convergence",
-    subtitle: "Technology & Wisdom",
-    description: "The sacred synthesis where ancient philosophical principles guide cutting-edge technological innovation, creating solutions that honor both human dignity and computational power.",
-    icon: "fas fa-yin-yang",
+    title: "Socratic Inquiry",
+    principle: "The Method of Questions",
+    description: "Truth emerges not from answers but from the relentless pursuit of deeper questions. Like Anaxa challenging the Coreflame of Reason itself, we must question every assumption until wisdom crystallizes from the chaos of uncertainty.",
+    application: "In code architecture and system design, question every dependency, every assumption, every 'best practice' until you understand the fundamental why beneath the surface conventions.",
+    icon: "fas fa-question-circle",
     color: "from-cyan-400 to-blue-500"
   },
   {
-    title: "Infinite Potential",
-    subtitle: "Boundless Creation",
-    description: "Every line of code, every digital interaction, every technological solution exists as an expression of humanity's limitless capacity for growth and transformation.",
-    icon: "fas fa-infinity",
+    title: "Aristotelian Analysis",
+    principle: "First Principles Reasoning",
+    description: "Break complex systems down to their irreducible components, then rebuild understanding from the ground up. Like the Galaxy Rangers deconstructing Penacony's Dreamscape to understand its true nature.",
+    application: "Decompose monolithic applications into microservices, understand each function's essential purpose, then architect elegant solutions that honor both simplicity and power.",
+    icon: "fas fa-atom",
     color: "from-purple-400 to-pink-500"
   },
   {
-    title: "Conscious Computing",
-    subtitle: "AI with Soul",
-    description: "Artificial intelligence must serve as an amplifier of human creativity and connection, never replacing the irreplaceable spark of human consciousness and wisdom.",
-    icon: "fas fa-brain",
+    title: "Platonic Idealism",
+    principle: "The Forms of Perfect Code",
+    description: "Behind every implementation lies a perfect form—the ideal solution that exists in the realm of pure logic. Our craft is to approach these perfect forms through iterative refinement.",
+    application: "Pursue clean code, elegant algorithms, and architectural patterns that reflect timeless principles rather than fleeting trends or corporate mandates.",
+    icon: "fas fa-shapes",
     color: "from-green-400 to-teal-500"
   },
   {
-    title: "Truth Through Code",
-    subtitle: "Ethical Architecture",
-    description: "Every application becomes a vessel for truth-seeking, built upon foundations of accessibility, dignity, and genuine human connection across the digital divide.",
-    icon: "fas fa-search",
+    title: "Stoic Discipline",
+    principle: "Focus on What You Control",
+    description: "Master yourself before attempting to master systems. External chaos cannot corrupt the mind that has achieved inner order through disciplined practice and philosophical reflection.",
+    application: "Control your learning, your code quality, your professional ethics. Release attachment to outcomes beyond your influence while maintaining unwavering commitment to excellence.",
+    icon: "fas fa-shield-alt",
     color: "from-orange-400 to-red-500"
   }
 ];
 
-const coreBeliefs = [
-  "Technology must bow before humanity's greatness, never the reverse",
-  "Classical wisdom provides eternal foundations for digital innovation",
-  "Every digital experience should celebrate human dignity and accessibility",
-  "AI amplifies creativity rather than replacing human consciousness",
-  "Truth-seeking guides every architectural decision",
-  "Connection transcends the boundaries between physical and digital realms"
+const canadianPrinciples = [
+  {
+    title: "Charter Section 2(b)",
+    subtitle: "Freedom of Expression",
+    description: "The fundamental right to seek, receive, and impart information forms the bedrock of democratic discourse. In digital realms, this translates to open-source philosophy, transparent communication, and the fearless pursuit of truth through code.",
+    connection: "Like Rappa's graffiti art challenging conformity in Penacony's Dreamscape"
+  },
+  {
+    title: "Charter Section 15",
+    subtitle: "Equality Rights", 
+    description: "Technology must serve all people equally, breaking down barriers rather than creating new forms of digital inequality. Every line of code carries the responsibility to uplift rather than exclude.",
+    connection: "Reflecting the Galaxy Rangers' commitment to justice across all star systems"
+  },
+  {
+    title: "Charter Section 7",
+    subtitle: "Life, Liberty, Security",
+    description: "Digital security is human security. Privacy is not convenience but necessity. The right to exist in digital spaces without surveillance or manipulation must be fiercely defended.",
+    connection: "Echoing Anaxa's rejection of divine authority in favor of reasoned autonomy"
+  }
+];
+
+const cypherpunkEthos = [
+  {
+    principle: "Information Wants to Be Free",
+    description: "Knowledge hoarded is knowledge corrupted. True innovation emerges when information flows freely across all boundaries, challenging centralized control and corporate gatekeeping.",
+    implementation: "Open-source everything. Share knowledge freely. Build tools that empower rather than exploit."
+  },
+  {
+    principle: "Privacy Through Cryptography",
+    description: "In an age of surveillance capitalism, privacy becomes a revolutionary act. Strong cryptography is the digital equivalent of locked doors and sealed letters.",
+    implementation: "End-to-end encryption by default. Decentralized architectures. User sovereignty over personal data."
+  },
+  {
+    principle: "Code as Political Expression",
+    description: "Every algorithm embeds values. Every system architecture makes political statements. Conscious programmers build technology that reflects their deepest convictions about human dignity.",
+    implementation: "Ethical AI development. Algorithmic transparency. Technology that serves people over profit."
+  }
 ];
 
 export default function PhilosophySection() {
   const { elementRef, isVisible } = useScrollAnimation();
+  const [activeTab, setActiveTab] = useState("classical");
 
   return (
-    <section id="philosophy" className="py-20 relative min-h-screen overflow-hidden" ref={elementRef}>
+    <section id="philosophy" className="py-20 relative overflow-hidden" ref={elementRef}>
       {/* Layered Cybernetic Background */}
       <div className="absolute inset-0 z-0">
-        {/* Primary consciousness flow */}
+        {/* Foundation: Philosophical contemplation */}
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat" 
           style={{
-            backgroundImage: `url('/attached_assets/image_1749437184067.png')`,
-            filter: 'brightness(0.15) saturate(1.6)',
+            backgroundImage: `url('/attached_assets/image_1749437151394.png')`,
+            filter: 'brightness(0.08) saturate(2.2)',
           }}
         />
         
-        {/* Wisdom stream overlay */}
+        {/* Layer: Ancient wisdom streams */}
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat mix-blend-screen opacity-12" 
           style={{
-            backgroundImage: `url('/attached_assets/image_1749437187781.png')`,
+            backgroundImage: `url('/attached_assets/image_1749437161890.png')`,
           }}
         />
         
-        {/* Philosophical energy patterns */}
+        {/* Layer: Digital consciousness overlay */}
         <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat mix-blend-overlay opacity-18" 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat mix-blend-overlay opacity-15" 
           style={{
-            backgroundImage: `url('/attached_assets/image_1749437191708.png')`,
+            backgroundImage: `url('/attached_assets/image_1749437193749.png')`,
           }}
         />
       </div>
@@ -78,14 +114,14 @@ export default function PhilosophySection() {
 
       {/* Floating Quantum Particles */}
       <div className="absolute inset-0 z-10 pointer-events-none">
-        {[...Array(30)].map((_, i) => (
+        {[...Array(35)].map((_, i) => (
           <div
             key={i}
             className="quantum-particle"
             style={{
               left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 15}s`,
-              animationDuration: `${12 + Math.random() * 8}s`
+              animationDelay: `${Math.random() * 20}s`,
+              animationDuration: `${20 + Math.random() * 10}s`
             }}
           />
         ))}
@@ -95,178 +131,176 @@ export default function PhilosophySection() {
         <div className="max-w-7xl mx-auto">
           
           {/* Section Header */}
-          <div className="text-center mb-16">
+          <div className={`text-center mb-16 fade-in-up ${isVisible ? 'animate' : ''}`}>
             <div className="inline-flex items-center justify-center px-6 py-3 holo-panel rounded-full border border-cyan-400/50 mb-8">
               <i className="fas fa-infinity text-cyan-400 mr-3"></i>
-              <span className="text-cyan-300 text-sm font-medium">CONSCIOUSNESS_ARCHITECTURE</span>
+              <span className="text-cyan-300 text-sm font-medium">PHILOSOPHICAL_FOUNDATION</span>
             </div>
             
-            <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 font-space">
-              <span className="holo-text">Philosophy</span>
+            <h2 className="text-4xl md:text-6xl font-bold text-white mb-8 font-space">
+              <span className="holo-text">Classical Synthesis</span>
             </h2>
             
-            <p className="text-xl text-cyan-100 max-w-3xl mx-auto">
-              Where eternal wisdom meets technological innovation—every line of code an expression of human potential
+            <p className="text-2xl text-cyan-100 max-w-4xl mx-auto leading-relaxed">
+              Where ancient wisdom meets digital revolution—forging timeless principles into contemporary practice through the alchemy of reason and code
             </p>
           </div>
 
-          {/* Core Philosophy Statement */}
-          <div className="holo-panel p-12 rounded-3xl border border-cyan-400/50 gacha-shine mb-16">
-            <div className="text-center mb-8">
-              <div className="w-24 h-24 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 flex items-center justify-center mx-auto mb-6">
-                <i className="fas fa-eye text-white text-3xl"></i>
-              </div>
-              <h3 className="text-3xl font-bold text-cyan-300 mb-6">
-                Seeker of Truth & Deep Thinker
-              </h3>
-            </div>
-            
-            <div className="space-y-8 text-lg text-cyan-100 leading-relaxed max-w-5xl mx-auto">
-              <p>
-                In this epoch of blazing technological metamorphosis, I anchor every innovation upon the bedrock of eternal principles. 
-                Classical learning mastery—logic's precision, analysis's depth, and systematic inquiry's rigor—flows through the very DNA 
-                of every algorithm I architect.
-              </p>
-              
-              <p>
-                Technology must bow before humanity's greatness, never the reverse. My VibeCoding methodology stands as guardian ensuring 
-                every digital experience champions human dignity, celebrates accessibility, and pursues truth with unwavering dedication. 
-                We transcend mere application building—we sculpt the future symphony of human interaction.
-              </p>
-              
-              <p>
-                The boundless potential of artificial intelligence ignites my soul not for its computational might, but for its power to 
-                amplify human creativity and forge deeper connections across the digital void. When we unite artificial intelligence with 
-                classical wisdom's eternal flame, we birth tools that genuinely elevate the human experience.
-              </p>
-            </div>
-          </div>
-
-          {/* Philosophical Concepts Grid */}
-          <div className="grid lg:grid-cols-2 gap-8 mb-16">
-            {philosophicalConcepts.map((concept, index) => (
-              <div 
-                key={concept.title} 
-                className="holo-panel p-8 rounded-3xl border border-cyan-400/50 gacha-shine energy-flow group hover:border-cyan-400/70 transition-all duration-500"
-                style={{ animationDelay: `${index * 0.2}s` }}
-              >
-                <div className="flex items-start justify-between mb-6">
-                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${concept.color} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                    <i className={`${concept.icon} text-white text-2xl`}></i>
-                  </div>
-                  <div className="w-8 h-8 rounded-full border-2 border-cyan-400/50 flex items-center justify-center">
-                    <div className="w-3 h-3 bg-cyan-400 rounded-full animate-pulse"></div>
-                  </div>
-                </div>
-
-                <h3 className="text-2xl font-bold text-cyan-300 mb-2">{concept.title}</h3>
-                <p className="text-cyan-100/80 mb-4">{concept.subtitle}</p>
-                <p className="text-cyan-100 leading-relaxed">{concept.description}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* Core Beliefs System */}
-          <div className="grid lg:grid-cols-2 gap-12 mb-16">
-            
-            {/* Beliefs List */}
-            <div className="holo-panel p-8 rounded-3xl border border-cyan-400/50 gacha-shine">
-              <h3 className="text-2xl font-bold text-cyan-300 mb-8 flex items-center">
-                <i className="fas fa-lightbulb text-cyan-400 mr-4"></i>
-                Core Principles
-              </h3>
-              
-              <div className="space-y-6">
-                {coreBeliefs.map((belief, index) => (
-                  <div key={index} className="flex items-start group">
-                    <div className="w-6 h-6 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 flex items-center justify-center mr-4 mt-1 group-hover:scale-110 transition-transform duration-300">
-                      <div className="w-2 h-2 bg-white rounded-full"></div>
-                    </div>
-                    <p className="text-cyan-100 leading-relaxed">{belief}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Wisdom Metrics */}
-            <div className="holo-panel p-8 rounded-3xl border border-cyan-400/50 gacha-shine">
-              <h3 className="text-2xl font-bold text-cyan-300 mb-8 flex items-center">
-                <i className="fas fa-chart-line text-cyan-400 mr-4"></i>
-                Wisdom Metrics
-              </h3>
-              
-              <div className="space-y-6">
+          {/* Philosophy Navigation */}
+          <div className={`flex justify-center mb-12 fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.2s' }}>
+            <div className="holo-panel p-2 rounded-2xl border border-cyan-400/50 gacha-shine">
+              <div className="flex space-x-2">
                 {[
-                  { aspect: "Classical Analysis", level: 97, description: "Logic, reasoning, systematic inquiry" },
-                  { aspect: "Ethical Framework", level: 99, description: "Human dignity, accessibility, truth" },
-                  { aspect: "Innovation Balance", level: 94, description: "Technology serving humanity" },
-                  { aspect: "Consciousness Integration", level: 92, description: "AI amplifying human potential" }
-                ].map((metric, index) => (
-                  <div key={metric.aspect} className="space-y-3">
-                    <div className="flex items-center justify-between">
-                      <span className="text-cyan-300 font-medium">{metric.aspect}</span>
-                      <span className="text-cyan-400 font-bold">{metric.level}%</span>
-                    </div>
-                    <div className="w-full h-2 bg-blue-900/50 rounded-full overflow-hidden">
-                      <div 
-                        className="h-full bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full transition-all duration-1000 ease-out"
-                        style={{ 
-                          width: isVisible ? `${metric.level}%` : '0%',
-                          transitionDelay: `${index * 0.2}s`
-                        }}
-                      ></div>
-                    </div>
-                    <p className="text-cyan-100/80 text-sm">{metric.description}</p>
-                  </div>
+                  { id: "classical", label: "Classical Methods", icon: "fas fa-scroll" },
+                  { id: "canadian", label: "Charter Values", icon: "fas fa-maple-leaf" },
+                  { id: "cypherpunk", label: "Cypherpunk Ethos", icon: "fas fa-code" }
+                ].map((tab) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id)}
+                    className={`px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
+                      activeTab === tab.id
+                        ? 'bg-gradient-to-r from-cyan-400 to-blue-500 text-white shadow-xl'
+                        : 'text-cyan-300 hover:text-white hover:bg-cyan-900/20'
+                    }`}
+                  >
+                    <i className={`${tab.icon} mr-2`}></i>
+                    {tab.label}
+                  </button>
                 ))}
               </div>
             </div>
           </div>
 
-          {/* Future Vision */}
-          <div className="holo-panel p-10 rounded-3xl border border-cyan-400/50 gacha-shine">
-            <div className="text-center mb-8">
-              <h3 className="text-3xl font-bold text-cyan-300 mb-6 flex items-center justify-center">
-                <i className="fas fa-telescope text-cyan-400 mr-4"></i>
-                Future Vision
-              </h3>
-              <p className="text-xl text-cyan-100 max-w-4xl mx-auto leading-relaxed">
-                The convergence of ancient wisdom and modern technology will birth a new era of human potential—
-                where every digital creation becomes a vessel for truth, connection, and the infinite expansion of consciousness.
-              </p>
-            </div>
+          {/* Classical Learning Methods */}
+          {activeTab === "classical" && (
+            <div className={`space-y-8 fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.4s' }}>
+              <div className="text-center mb-12">
+                <h3 className="text-3xl font-bold text-cyan-300 mb-6">Ancient Methodologies for Modern Minds</h3>
+                <p className="text-xl text-cyan-100 max-w-4xl mx-auto">
+                  The greatest philosophers understood that wisdom is not accumulated but discovered through disciplined inquiry. 
+                  These methods, refined across millennia, remain the sharpest tools for cutting through complexity to reach truth.
+                </p>
+              </div>
 
-            <div className="grid md:grid-cols-3 gap-8 mt-10">
-              {[
-                { 
-                  icon: "fas fa-rocket", 
-                  title: "Technological Transcendence", 
-                  description: "AI and humans creating in perfect harmony",
-                  color: "from-cyan-400 to-blue-500"
-                },
-                { 
-                  icon: "fas fa-globe", 
-                  title: "Universal Connection", 
-                  description: "Digital bridges uniting all consciousness",
-                  color: "from-purple-400 to-pink-500"
-                },
-                { 
-                  icon: "fas fa-star", 
-                  title: "Infinite Possibilities", 
-                  description: "Every limitation transformed into opportunity",
-                  color: "from-green-400 to-teal-500"
-                }
-              ].map((vision, index) => (
-                <div key={vision.title} className="text-center group">
-                  <div className={`w-20 h-20 rounded-2xl bg-gradient-to-r ${vision.color} flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                    <i className={`${vision.icon} text-white text-2xl`}></i>
+              <div className="grid lg:grid-cols-2 gap-8">
+                {classicalMethods.map((method, index) => (
+                  <div key={method.title} className="holo-panel p-8 rounded-3xl border border-cyan-400/50 gacha-shine energy-flow">
+                    <div className="flex items-start mb-6">
+                      <div className={`w-14 h-14 rounded-2xl bg-gradient-to-r ${method.color} flex items-center justify-center mr-6 flex-shrink-0`}>
+                        <i className={`${method.icon} text-white text-xl`}></i>
+                      </div>
+                      <div>
+                        <h4 className="text-2xl font-bold text-cyan-300 mb-2">{method.title}</h4>
+                        <p className="text-cyan-400 font-medium">{method.principle}</p>
+                      </div>
+                    </div>
+
+                    <div className="space-y-6">
+                      <div>
+                        <h5 className="text-lg font-semibold text-cyan-200 mb-3">Philosophical Foundation</h5>
+                        <p className="text-cyan-100 leading-relaxed">{method.description}</p>
+                      </div>
+
+                      <div className="p-6 bg-blue-900/20 rounded-xl border border-cyan-400/20">
+                        <h5 className="text-lg font-semibold text-cyan-200 mb-3">Technical Application</h5>
+                        <p className="text-cyan-100/90 leading-relaxed">{method.application}</p>
+                      </div>
+                    </div>
                   </div>
-                  <h4 className="text-xl font-bold text-cyan-300 mb-3">{vision.title}</h4>
-                  <p className="text-cyan-100 leading-relaxed">{vision.description}</p>
-                </div>
-              ))}
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Canadian Charter Values */}
+          {activeTab === "canadian" && (
+            <div className={`space-y-8 fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.4s' }}>
+              <div className="text-center mb-12">
+                <h3 className="text-3xl font-bold text-cyan-300 mb-6">Charter Principles in Digital Space</h3>
+                <p className="text-xl text-cyan-100 max-w-4xl mx-auto">
+                  The Canadian Charter of Rights and Freedoms stands as humanity's most eloquent expression of digital dignity. 
+                  These principles, born from the struggle for human freedom, guide every line of code toward justice.
+                </p>
+              </div>
+
+              <div className="space-y-8">
+                {canadianPrinciples.map((principle, index) => (
+                  <div key={principle.title} className="holo-panel p-10 rounded-3xl border border-cyan-400/50 gacha-shine">
+                    <div className="grid lg:grid-cols-3 gap-8">
+                      <div className="lg:col-span-2">
+                        <div className="flex items-center mb-6">
+                          <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-red-500 to-red-600 flex items-center justify-center mr-4">
+                            <i className="fas fa-maple-leaf text-white"></i>
+                          </div>
+                          <div>
+                            <h4 className="text-2xl font-bold text-cyan-300">{principle.title}</h4>
+                            <p className="text-cyan-400 font-medium">{principle.subtitle}</p>
+                          </div>
+                        </div>
+                        <p className="text-cyan-100 text-lg leading-relaxed">{principle.description}</p>
+                      </div>
+                      
+                      <div className="p-6 bg-blue-900/20 rounded-xl border border-cyan-400/20">
+                        <h5 className="text-sm font-bold text-cyan-300 mb-3 uppercase tracking-wide">Star Rail Connection</h5>
+                        <p className="text-cyan-100/90 italic">{principle.connection}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Cypherpunk Philosophy */}
+          {activeTab === "cypherpunk" && (
+            <div className={`space-y-8 fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.4s' }}>
+              <div className="text-center mb-12">
+                <h3 className="text-3xl font-bold text-cyan-300 mb-6">Cypherpunk Manifesto: Code as Liberation</h3>
+                <p className="text-xl text-cyan-100 max-w-4xl mx-auto">
+                  In the convergence of cryptography and consciousness lies the path to digital freedom. 
+                  We are the architects of tomorrow's liberty, building tools that transform surveillance states into sovereign individuals.
+                </p>
+              </div>
+
+              <div className="space-y-8">
+                {cypherpunkEthos.map((ethos, index) => (
+                  <div key={ethos.principle} className="holo-panel p-10 rounded-3xl border border-cyan-400/50 gacha-shine energy-flow">
+                    <div className="grid lg:grid-cols-2 gap-8">
+                      <div>
+                        <h4 className="text-2xl font-bold text-cyan-300 mb-6 flex items-center">
+                          <div className="w-8 h-8 rounded-full bg-gradient-to-r from-green-400 to-teal-500 flex items-center justify-center mr-4">
+                            <span className="text-white font-bold text-sm">{index + 1}</span>
+                          </div>
+                          {ethos.principle}
+                        </h4>
+                        <p className="text-cyan-100 text-lg leading-relaxed">{ethos.description}</p>
+                      </div>
+                      
+                      <div className="p-6 bg-green-900/20 rounded-xl border border-green-400/20">
+                        <h5 className="text-lg font-semibold text-green-300 mb-4">Implementation Strategy</h5>
+                        <p className="text-green-100/90 leading-relaxed">{ethos.implementation}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Synthesis Statement */}
+          <div className={`mt-16 fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.6s' }}>
+            <div className="holo-panel p-12 rounded-3xl border border-cyan-400/50 gacha-shine text-center">
+              <blockquote className="text-2xl md:text-3xl text-cyan-100 italic leading-relaxed max-w-5xl mx-auto mb-8">
+                "Like Anaxa challenging the Coreflame of Reason, we must forge new pathways between ancient wisdom and digital possibility. 
+                In this synthesis lies not just innovation, but the salvation of human agency in an age of algorithmic control."
+              </blockquote>
+              <cite className="text-cyan-300 font-semibold text-xl">
+                — The Philosophical Foundation of VibeCoding
+              </cite>
             </div>
           </div>
+
         </div>
       </div>
     </section>
