@@ -40,6 +40,19 @@ const projects = [
     github: "https://github.com/reverb256/portfolio",
     color: "from-[var(--spectrum-green)] to-[var(--spectrum-teal)]",
     vibecoding: "Philosophical confluence meets modern technical expression"
+  },
+  {
+    title: "Frostbite Gazette",
+    subtitle: "Quantum-Enhanced Democratic Journalism",
+    description: "Canada's sovereign accountability infrastructure powered by AI-first journalism and 5th Generation Warfare defense frameworks. Quantum RAG identity engine with bilingual Canadian core, classical learning integration, and Charter-compliant democratic transparency tools.",
+    image: portfolioImage, // Placeholder until we have the real image
+    technologies: ["Quantum RAG", "5GW Defense", "Bilingual AI", "Charter Compliance", "Democratic Tools"],
+    status: "Coming Soon",
+    link: "https://github.com/reverb256/Frostbite-Gazette",
+    github: "https://github.com/reverb256/Frostbite-Gazette",
+    color: "from-blue-400 via-cyan-400 to-white",
+    vibecoding: "Truth preservation through quantum-enhanced Canadian journalism",
+    isComingSoon: true
   }
 ];
 
@@ -118,21 +131,45 @@ export default function ProjectsSection() {
             {projects.map((project, index) => (
               <div 
                 key={project.title} 
-                className="holo-panel p-8 rounded-3xl border border-cyan-400/50 gacha-shine energy-flow group hover:border-cyan-400/70 transition-all duration-500"
+                className={`holo-panel p-8 rounded-3xl border gacha-shine energy-flow group transition-all duration-500 ${
+                  project.isComingSoon 
+                    ? 'border-cyan-300/60 bg-gradient-to-br from-blue-900/20 via-cyan-900/30 to-white/10 shadow-2xl shadow-cyan-400/30 frost-aura' 
+                    : 'border-cyan-400/50 hover:border-cyan-400/70'
+                }`}
                 style={{ animationDelay: `${index * 0.2}s` }}
               >
                 {/* Project Image */}
                 <div className="relative overflow-hidden rounded-2xl mb-6">
-                  <img 
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
+                  {project.isComingSoon ? (
+                    <div className="relative w-full h-48 bg-gradient-to-br from-blue-900/40 via-cyan-800/30 to-white/20 flex items-center justify-center">
+                      {/* Frost/Ice Effect Background */}
+                      <div className="absolute inset-0 frost-pattern opacity-30"></div>
+                      {/* Mysterious Glowing Symbol */}
+                      <div className="relative z-10 text-center">
+                        <div className="w-24 h-24 mx-auto mb-4 frost-glow animate-pulse">
+                          <i className="fas fa-snowflake text-6xl text-cyan-200"></i>
+                        </div>
+                        <div className="text-cyan-300 font-mono text-sm">
+                          <span className="animate-pulse">█ █ █ CLASSIFIED █ █ █</span>
+                        </div>
+                      </div>
+                      {/* Scanning Line Effect */}
+                      <div className="absolute inset-0 scanning-line"></div>
+                    </div>
+                  ) : (
+                    <img 
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                   
-                  {/* Status Badge */}
+                  {/* Status Badge with Beat Sync */}
                   <div className="absolute top-4 right-4">
-                    <span className={`px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r ${project.color} text-white`}>
+                    <span className={`px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r ${project.color} text-white ${
+                      project.isComingSoon ? 'beat-sync frost-pulse' : ''
+                    }`}>
                       {project.status}
                     </span>
                   </div>
