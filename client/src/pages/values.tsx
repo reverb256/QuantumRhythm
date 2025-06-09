@@ -62,14 +62,15 @@ export default function Values() {
           
           <div className={`max-w-4xl mx-auto text-center mb-16 fade-in-up ${isVisible ? 'animate' : ''}`}>
             <div className="holo-panel p-8 rounded-3xl border border-cyan-400/50 gacha-shine">
-              <div className="font-mono text-sm text-left bg-[var(--space-black)] p-6 rounded-lg border border-cyan-400/30 shadow-lg shadow-cyan-500/20">
-                <span className="text-[var(--synthwave-pink)]">const</span> <span className="text-[var(--synthwave-cyan)]">developmentValues</span> <span className="text-white">=</span> <span className="text-yellow-400">&#123;</span><br />
-                &nbsp;&nbsp;<span className="text-[var(--synthwave-gold)]">userFirst</span><span className="text-white">:</span> <span className="text-green-400">"accessibility + intuitive_design + meaningful_solutions"</span><span className="text-white">,</span><br />
-                &nbsp;&nbsp;<span className="text-[var(--synthwave-gold)]">excellence</span><span className="text-white">:</span> <span className="text-green-400">"clean_code + best_practices + continuous_learning"</span><span className="text-white">,</span><br />
-                &nbsp;&nbsp;<span className="text-[var(--synthwave-gold)]">ethics</span><span className="text-white">:</span> <span className="text-green-400">"privacy + transparency + responsible_ai"</span><span className="text-white">,</span><br />
-                &nbsp;&nbsp;<span className="text-[var(--synthwave-gold)]">impact</span><span className="text-white">:</span> <span className="text-green-400">"solve_real_problems + enhance_human_connection"</span><br />
-                <span className="text-yellow-400">&#125;;</span><br /><br />
-                <span className="text-gray-400">// Principles that guide every project, every decision, every line of code</span>
+              <div className="font-mono text-sm text-left bg-[var(--space-black)] p-6 rounded-lg border border-cyan-400/30 shadow-lg shadow-cyan-500/20 clickable-console">
+                <span className="text-[var(--synthwave-pink)] hover-deprecated">const</span> <span className="text-[var(--synthwave-cyan)] hover-syntax-error">developmentValues</span> <span className="text-white">=</span> <span className="text-yellow-400 hover-404">&#123;</span><br />
+                &nbsp;&nbsp;<span className="text-[var(--synthwave-gold)] hover-loading">userFirst</span><span className="text-white">:</span> <span className="text-green-400">"accessibility + intuitive_design + meaningful_solutions"</span><span className="text-white">,</span><br />
+                &nbsp;&nbsp;<span className="text-[var(--synthwave-gold)] stackoverflow-reference">excellence</span><span className="text-white">:</span> <span className="text-green-400">"clean_code + best_practices + continuous_learning"</span><span className="text-white">,</span><br />
+                &nbsp;&nbsp;<span className="text-[var(--synthwave-gold)] hover-segfault">ethics</span><span className="text-white">:</span> <span className="text-green-400">"privacy + transparency + responsible_ai"</span><span className="text-white">,</span><br />
+                &nbsp;&nbsp;<span className="text-[var(--synthwave-gold)] git-commit-humor">impact</span><span className="text-white">:</span> <span className="text-green-400">"solve_real_problems + enhance_human_connection"</span><br />
+                <span className="text-yellow-400 hover-404">&#125;;</span><br /><br />
+                <span className="text-gray-400 easter-egg-hint">// Principles that guide every project, every decision, every line of code</span>
+                <span className="console-cursor text-[var(--synthwave-cyan)]">_</span>
               </div>
               <p className="text-gray-300 mt-6 leading-relaxed">
                 <strong className="text-[var(--light-beam)]">Core principles encoded into every project</strong>—

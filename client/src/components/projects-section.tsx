@@ -135,13 +135,13 @@ export default function ProjectsSection() {
                   </div>
                 </div>
 
-                {/* Project Header */}
+                {/* Project Header with Hover Effects */}
                 <div className="flex items-start justify-between mb-4">
                   <div>
-                    <h3 className="text-2xl font-bold text-[var(--spectrum-cyan)] mb-2">{project.title}</h3>
-                    <p className="text-[var(--text-secondary)]">{project.subtitle}</p>
+                    <h3 className="text-2xl font-bold text-[var(--spectrum-cyan)] mb-2 hover-glitch cursor-pointer">{project.title}</h3>
+                    <p className="text-[var(--text-secondary)] hover-deprecated">{project.subtitle}</p>
                   </div>
-                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${project.color} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${project.color} flex items-center justify-center group-hover:scale-110 transition-transform duration-300 hover-404`}>
                     <i className="fas fa-code text-white"></i>
                   </div>
                 </div>
@@ -151,16 +151,24 @@ export default function ProjectsSection() {
                   {project.description}
                 </p>
 
-                {/* Technology Stack */}
+                {/* Technology Stack with Tech Humor */}
                 <div className="flex flex-wrap gap-2 mb-6">
-                  {project.technologies.map((tech) => (
-                    <span 
-                      key={tech} 
-                      className="px-3 py-1 bg-blue-900/30 border border-cyan-400/30 text-[var(--spectrum-cyan)] rounded-full text-sm"
-                    >
-                      {tech}
-                    </span>
-                  ))}
+                  {project.technologies.map((tech, techIndex) => {
+                    const humorClasses = [
+                      'hover-deprecated', 'stackoverflow-reference', 'hover-loading', 
+                      'hover-syntax-error', 'hover-404'
+                    ];
+                    const humorClass = humorClasses[techIndex % humorClasses.length];
+                    
+                    return (
+                      <span 
+                        key={tech} 
+                        className={`px-3 py-1 bg-blue-900/30 border border-cyan-400/30 text-[var(--spectrum-cyan)] rounded-full text-sm transition-all duration-300 hover:border-cyan-400 hover:bg-cyan-400/10 ${humorClass}`}
+                      >
+                        {tech}
+                      </span>
+                    );
+                  })}
                 </div>
 
                 {/* Action Buttons */}

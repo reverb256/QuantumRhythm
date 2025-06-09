@@ -92,14 +92,14 @@ export default function HeroSection() {
       <div className="container mx-auto px-6 text-center relative z-20 pt-24 pb-12">
         <div className="max-w-4xl mx-auto">
           
-          {/* Holographic Status Display */}
+          {/* Holographic Status Display with Tech Humor */}
           <div className="mb-12">
-            <div className="inline-flex items-center justify-center px-6 py-3 prismatic-glass rounded-full border border-cyan-400/50 mb-8">
+            <div className="inline-flex items-center justify-center px-6 py-3 prismatic-glass rounded-full border border-cyan-400/50 mb-8 hover-syntax-error">
               <div className="flex items-center space-x-4">
                 <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                <span className="text-cyan-300 text-sm font-medium">SYSTEM ONLINE</span>
+                <span className="text-cyan-300 text-sm font-medium hover-loading">SYSTEM ONLINE</span>
                 <div className="w-px h-4 bg-cyan-400/30"></div>
-                <span className="text-cyan-400 text-sm font-mono">NEURAL_LINK_100%</span>
+                <span className="text-cyan-400 text-sm font-mono stackoverflow-reference">NEURAL_LINK_100%</span>
               </div>
             </div>
           </div>
@@ -143,23 +143,24 @@ export default function HeroSection() {
             
             <div className="relative z-10">
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 font-space">
-                <span className="holo-text">Reverb</span>
+                <span className="holo-text hover-glitch">Reverb</span>
               </h1>
               
               <h2 className="text-xl md:text-3xl lg:text-4xl text-[var(--text-secondary)] mb-6 font-medium">
                 Full-Stack Developer & Digital Philosopher
+                <span className="console-cursor text-[var(--synthwave-cyan)]">|</span>
               </h2>
               
               <div className="flex flex-wrap justify-center gap-6 text-sm md:text-base text-cyan-200/90 font-mono mb-6">
-                <span className="flex items-center">
+                <span className="flex items-center hover-deprecated">
                   <span className="text-[var(--spectrum-cyan)] mr-2">SPECIALIZATION</span>
                   <span className="text-[var(--text-primary)]">React • Node.js • AI</span>
                 </span>
-                <span className="flex items-center">
+                <span className="flex items-center hover-syntax-error">
                   <span className="text-[var(--spectrum-cyan)] mr-2">APPROACH</span>
                   <span className="text-[var(--text-primary)]">VibeCoding Methodology</span>
                 </span>
-                <span className="flex items-center">
+                <span className="flex items-center hover-404">
                   <span className="text-[var(--spectrum-cyan)] mr-2">LOCATION</span>
                   <span className="text-[var(--text-primary)]">Canada</span>
                 </span>
@@ -167,13 +168,19 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* Bio Description */}
-          <div className="prismatic-glass p-6 md:p-8 rounded-2xl mb-10 border border-cyan-400/30">
+          {/* Bio Description with Console Style */}
+          <div className="prismatic-glass p-6 md:p-8 rounded-2xl mb-10 border border-cyan-400/30 clickable-console">
+            <div className="font-mono text-sm text-[var(--synthwave-green)] mb-2">
+              <span className="git-commit-humor">// Professional README.md</span>
+            </div>
             <p className="text-lg md:text-xl text-[var(--text-secondary)] leading-relaxed">
               I craft digital experiences that merge philosophical depth with cutting-edge technology. 
-              My VibeCoding methodology combines ancient wisdom principles with modern development practices, 
+              My <span className="hover-syntax-error">VibeCoding methodology</span> combines ancient wisdom principles with modern development practices, 
               creating solutions that prioritize human dignity and meaningful connection.
             </p>
+            <div className="font-mono text-xs text-gray-500 mt-4 easter-egg-hint">
+              <span className="hover-segfault">console.log("Hello, World!");</span>
+            </div>
           </div>
 
           {/* Prismatic Spectrum Display */}
