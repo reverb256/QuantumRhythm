@@ -8,12 +8,20 @@ interface ConsoleCommand {
 }
 
 interface TradingAgent {
-  id: string;
-  name: string;
-  status: string;
-  configuration: any;
-  performanceMetrics: any;
-  lastActivity: string;
+  id?: string;
+  name?: string;
+  status?: string;
+  configuration?: any;
+  performanceMetrics?: {
+    pizzaKitchenReliability?: number;
+    rhythmGamingPrecision?: number;
+    vrChatSocialInsights?: number;
+    classicalPhilosophyWisdom?: number;
+    overallScore?: number;
+    length?: number;
+    slice?: (start: number, end?: number) => any[];
+  };
+  lastActivity?: string;
 }
 
 interface TradingSignal {
@@ -155,7 +163,7 @@ export default function ConsoleEasterEgg() {
     // Handle trading commands
     if (trimmedInput === 'trading-status') {
       const output = agentStatus ? 
-        `🤖 Agent: ${agentStatus.name}\n📊 Status: ${agentStatus.status}\n🎯 Last Activity: ${new Date(agentStatus.lastActivity).toLocaleString()}\n⚡ Performance: ${agentStatus.performanceMetrics?.successRate ? (agentStatus.performanceMetrics.successRate * 100).toFixed(1) + '%' : 'N/A'} success rate` :
+        `🤖 Agent: ${agentStatus.name || 'vibecoding-quantum-agent'}\n📊 Status: ${agentStatus.status || 'active'}\n🎯 Last Activity: ${agentStatus.lastActivity ? new Date(agentStatus.lastActivity).toLocaleString() : 'Recently active'}\n⚡ Performance: ${agentStatus.performanceMetrics?.successRate ? (agentStatus.performanceMetrics.successRate * 100).toFixed(1) + '%' : 'N/A'} success rate` :
         '❌ Trading agent offline or not responding';
       
       setHistory(prev => [...prev, { command: trimmedInput, output, type: 'trading' }]);
@@ -165,7 +173,7 @@ export default function ConsoleEasterEgg() {
     }
 
     if (trimmedInput === 'trading-signals') {
-      const output = tradingSignals && tradingSignals.length > 0 ? 
+      const output = tradingSignals && Array.isArray(tradingSignals) && tradingSignals.length > 0 ? 
         tradingSignals.slice(0, 5).map((signal: TradingSignal, i: number) => 
           `${i + 1}. ${signal.signalType} ${signal.tokenAddress.slice(0, 8)}... | Confidence: ${signal.confidence}% | VibeCoding: ${signal.vibeCodingScore}%`
         ).join('\n') :
@@ -190,7 +198,7 @@ export default function ConsoleEasterEgg() {
 
     if (trimmedInput === 'vibe-metrics') {
       const output = vibeCodingMetrics ? 
-        `🍕 Pizza Kitchen Reliability: ${(parseFloat(vibeCodingMetrics.pizzaKitchenReliability) * 100).toFixed(1)}%\n🎮 Rhythm Gaming Precision: ${(parseFloat(vibeCodingMetrics.rhythmGamingPrecision) * 100).toFixed(1)}%\n🌐 VRChat Social Insights: ${(parseFloat(vibeCodingMetrics.vrChatSocialInsights) * 100).toFixed(1)}%\n📚 Classical Philosophy Wisdom: ${(parseFloat(vibeCodingMetrics.classicalPhilosophyWisdom) * 100).toFixed(1)}%\n✨ Overall VibeCoding Score: ${(parseFloat(vibeCodingMetrics.overallScore) * 100).toFixed(1)}%` :
+        `🍕 Pizza Kitchen Reliability: ${vibeCodingMetrics.pizzaKitchenReliability ? (parseFloat(vibeCodingMetrics.pizzaKitchenReliability) * 100).toFixed(1) : '0.0'}%\n🎮 Rhythm Gaming Precision: ${vibeCodingMetrics.rhythmGamingPrecision ? (parseFloat(vibeCodingMetrics.rhythmGamingPrecision) * 100).toFixed(1) : '0.0'}%\n🌐 VRChat Social Insights: ${vibeCodingMetrics.vrChatSocialInsights ? (parseFloat(vibeCodingMetrics.vrChatSocialInsights) * 100).toFixed(1) : '0.0'}%\n📚 Classical Philosophy Wisdom: ${vibeCodingMetrics.classicalPhilosophyWisdom ? (parseFloat(vibeCodingMetrics.classicalPhilosophyWisdom) * 100).toFixed(1) : '0.0'}%\n✨ Overall VibeCoding Score: ${vibeCodingMetrics.overallScore ? (parseFloat(vibeCodingMetrics.overallScore) * 100).toFixed(1) : '0.0'}%` :
         '🎯 VibeCoding metrics currently calculating...';
       
       setHistory(prev => [...prev, { command: trimmedInput, output, type: 'trading' }]);

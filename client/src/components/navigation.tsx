@@ -16,6 +16,19 @@ export default function Navigation() {
   const [activeTooltip, setActiveTooltip] = useState<TooltipInfo | null>(null);
   const [isConsoleOpen, setIsConsoleOpen] = useState(false);
 
+  // Listen for console state changes
+  useEffect(() => {
+    const handleConsoleStateChange = (event: CustomEvent) => {
+      setIsConsoleOpen(event.detail.isOpen);
+    };
+
+    window.addEventListener('consoleStateChange', handleConsoleStateChange as EventListener);
+    
+    return () => {
+      window.removeEventListener('consoleStateChange', handleConsoleStateChange as EventListener);
+    };
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -87,10 +100,9 @@ export default function Navigation() {
               onClick={toggleConsole}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="relative flex items-center space-x-1.5 bg-cyan-400/10 hover:bg-cyan-400/20 border border-cyan-400/30 hover:border-cyan-400/50 rounded-lg px-2.5 py-1.5 transition-all duration-300 group shadow-lg hover:shadow-cyan-400/20"
-              style={{
-                boxShadow: isConsoleOpen ? '0 0 20px rgba(34, 211, 238, 0.3)' : '0 0 10px rgba(34, 211, 238, 0.1)',
-              }}
+              className={`relative flex items-center space-x-1.5 bg-cyan-400/10 hover:bg-cyan-400/20 border border-cyan-400/30 hover:border-cyan-400/50 rounded-lg px-2.5 py-1.5 transition-all duration-300 group shadow-lg hover:shadow-cyan-400/20 ${
+                isConsoleOpen ? 'shadow-[0_0_20px_rgba(34,211,238,0.4)] border-cyan-400/60' : ''
+              }`}
             >
               <Terminal className="w-3 h-3 sm:w-4 sm:h-4 text-cyan-400 group-hover:text-cyan-300" />
               <span className="text-xs sm:text-sm font-mono text-cyan-300 group-hover:text-cyan-200 hidden sm:inline">
