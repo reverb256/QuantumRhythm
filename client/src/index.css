@@ -60,12 +60,25 @@
   --glass-border: hsla(200, 100%, 70%, 0.3);
   --glass-highlight: hsla(200, 100%, 85%, 0.2);
   
-  /* Synthwave Color Variables - Values Page Compatibility */
+  /* Unified Color Harmonization System */
   --synthwave-cyan: hsl(190, 100%, 70%);
   --synthwave-pink: hsl(320, 100%, 75%);
   --synthwave-gold: hsl(50, 100%, 70%);
   --bright-blue: hsl(200, 100%, 75%);
   --light-beam: hsl(200, 100%, 85%);
+  
+  /* Component Color Harmonization */
+  --card-primary: hsla(200, 100%, 65%, 0.15);
+  --card-secondary: hsla(190, 100%, 70%, 0.1);
+  --card-accent: hsla(320, 100%, 75%, 0.12);
+  --text-primary: hsl(200, 100%, 95%);
+  --text-secondary: hsl(200, 60%, 85%);
+  --text-muted: hsl(200, 40%, 70%);
+  
+  /* Gradient Harmonization */
+  --gradient-primary: linear-gradient(135deg, var(--spectrum-cyan), var(--spectrum-blue));
+  --gradient-secondary: linear-gradient(135deg, var(--spectrum-pink), var(--spectrum-violet));
+  --gradient-accent: linear-gradient(135deg, var(--spectrum-gold), var(--spectrum-orange));
 }
 
 .dark {

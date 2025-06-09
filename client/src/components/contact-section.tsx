@@ -6,7 +6,7 @@ const contactMethods = [
     handle: "@reverb256",
     description: "Open source repositories and development portfolio",
     icon: "fab fa-github",
-    color: "from-cyan-400 to-blue-500",
+    color: "from-[var(--spectrum-cyan)] to-[var(--spectrum-blue)]",
     href: "https://github.com/reverb256",
     label: "Code Repository"
   },
@@ -15,7 +15,7 @@ const contactMethods = [
     handle: "contact@reverb256.ca",
     description: "Direct communication for collaboration opportunities",
     icon: "fas fa-envelope",
-    color: "from-purple-400 to-pink-500",
+    color: "from-[var(--spectrum-violet)] to-[var(--spectrum-pink)]",
     href: "mailto:contact@reverb256.ca",
     label: "Professional Inquiries"
   },
@@ -24,7 +24,7 @@ const contactMethods = [
     handle: "reverb256",
     description: "Real-time discussions about technology and philosophy",
     icon: "fab fa-discord",
-    color: "from-green-400 to-teal-500",
+    color: "from-[var(--spectrum-green)] to-[var(--spectrum-teal)]",
     href: "#",
     label: "Community Chat"
   },
@@ -33,7 +33,7 @@ const contactMethods = [
     handle: "reverb256",
     description: "Virtual reality experiences and immersive digital worlds",
     icon: "fas fa-vr-cardboard",
-    color: "from-orange-400 to-red-500",
+    color: "from-[var(--spectrum-orange)] to-[var(--spectrum-red)]",
     href: "/vrchat",
     label: "Virtual Worlds"
   },
@@ -42,7 +42,7 @@ const contactMethods = [
     handle: "reverb256",
     description: "Gaming portfolio and community interactions",
     icon: "fab fa-steam",
-    color: "from-indigo-400 to-purple-500",
+    color: "from-[var(--spectrum-indigo)] to-[var(--spectrum-violet)]",
     href: "https://steamcommunity.com/id/reverb256/",
     label: "Gaming Platform"
   }
