@@ -4,8 +4,17 @@ export default function ProjectsSection() {
   const { elementRef, isVisible } = useScrollAnimation();
 
   return (
-    <section id="projects" className="py-20 bg-gradient-to-b from-[var(--deep-space)] to-[var(--cyber-blue)]" ref={elementRef}>
-      <div className="container mx-auto px-6">
+    <section id="projects" className="py-20 relative" ref={elementRef}>
+      {/* Ice crystal burst background */}
+      <div className="absolute inset-0 opacity-20">
+        <img 
+          src="/images/ice_crystal_burst.png" 
+          alt="Crystal energy formations" 
+          className="w-full h-full object-cover" 
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[var(--deep-space)]/90 to-[var(--cyber-blue)]/90"></div>
+      </div>
+      <div className="container mx-auto px-6 relative z-10">
         <h2 className={`font-bold text-3xl md:text-4xl lg:text-5xl text-center mb-12 text-[var(--synthwave-cyan)] fade-in-up ${isVisible ? 'animate' : ''}`}>
           <i className="fas fa-rocket mr-4"></i>Enterprise Projects
         </h2>

@@ -20,9 +20,14 @@ export default function SkillsSection() {
 
   return (
     <section id="skills" className="py-20 relative" ref={elementRef}>
-      {/* Cybernetic circuit board pattern background */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="w-full h-full bg-gradient-to-br from-[var(--synthwave-cyan)]/20 via-transparent to-[var(--synthwave-pink)]/20"></div>
+      {/* Electric synthwave lightning background */}
+      <div className="absolute inset-0 opacity-15">
+        <img 
+          src="/images/synthwave_lightning.png" 
+          alt="Electric energy patterns" 
+          className="w-full h-full object-cover" 
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-[var(--space-black)]/70 via-transparent to-[var(--space-black)]/70"></div>
       </div>
       
       <div className="container mx-auto px-6 relative z-10">
