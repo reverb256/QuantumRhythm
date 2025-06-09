@@ -1509,6 +1509,315 @@ nav:hover {
   box-shadow: 0 0 30px rgba(56, 189, 248, 0.1);
 }
 
+/* Intelligent Projects Grid - Dynamic Layout System */
+.projects-intelligent-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 1.5rem;
+  grid-auto-rows: minmax(500px, max-content);
+  align-items: start;
+}
+
+/* Large screens - 3 columns with intelligent sizing */
+@media (min-width: 1200px) {
+  .projects-intelligent-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+}
+
+/* Medium screens - 2 columns */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .projects-intelligent-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+/* Small screens - 1 column */
+@media (max-width: 767px) {
+  .projects-intelligent-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    grid-auto-rows: minmax(450px, max-content);
+  }
+}
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  min-height: 500px;
+}
+
+/* Special styling for QuantumRhythm project */
+.quantum-rhythm-card {
+  background: linear-gradient(135deg, 
+    rgba(147, 51, 234, 0.15) 0%, 
+    rgba(236, 72, 153, 0.1) 50%, 
+    rgba(56, 189, 248, 0.15) 100%);
+  border: 2px solid rgba(147, 51, 234, 0.6);
+  position: relative;
+  overflow: hidden;
+}
+
+.quantum-rhythm-card:hover {
+  border-color: rgba(147, 51, 234, 0.9);
+  box-shadow: 0 0 40px rgba(147, 51, 234, 0.4);
+}
+
+.quantum-rhythm-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(147, 51, 234, 0.1), 
+    transparent);
+  animation: quantum-sweep 4s infinite;
+  pointer-events: none;
+}
+
+@keyframes quantum-sweep {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* Meta project special effects */
+.meta-aura {
+  position: relative;
+  overflow: hidden;
+}
+
+.meta-aura::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(56, 189, 248, 0.1), 
+    transparent);
+  animation: meta-sweep 3s infinite;
+  pointer-events: none;
+}
+
+@keyframes meta-sweep {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* Quantum rhythm pattern background */
+.quantum-rhythm-pattern {
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(147, 51, 234, 0.4) 2px, transparent 2px),
+    radial-gradient(circle at 60% 70%, rgba(236, 72, 153, 0.4) 2px, transparent 2px),
+    radial-gradient(circle at 80% 20%, rgba(56, 189, 248, 0.3) 2px, transparent 2px);
+  background-size: 40px 40px, 60px 60px, 30px 30px;
+  animation: quantum-rhythm-drift 8s linear infinite;
+}
+
+@keyframes quantum-rhythm-drift {
+  0% { 
+    background-position: 0 0, 0 0, 0 0; 
+  }
+  100% { 
+    background-position: 40px 40px, 60px 60px, 30px 30px; 
+  }
+}
+
+/* Original quantum pattern for meta projects */
+.quantum-pattern {
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(147, 51, 234, 0.3) 2px, transparent 2px),
+    radial-gradient(circle at 75% 75%, rgba(56, 189, 248, 0.3) 2px, transparent 2px);
+  background-size: 50px 50px;
+  animation: quantum-drift 10s linear infinite;
+}
+
+@keyframes quantum-drift {
+  0% { background-position: 0 0, 25px 25px; }
+  100% { background-position: 50px 50px, 75px 75px; }
+}
+
+/* Audio wave effect */
+.audio-wave::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(147, 51, 234, 0.6), 
+    rgba(56, 189, 248, 0.6), 
+    rgba(236, 72, 153, 0.6), 
+    transparent);
+  animation: audio-pulse 2s ease-in-out infinite;
+}
+
+@keyframes audio-pulse {
+  0%, 100% { 
+    transform: scaleX(0.5);
+    opacity: 0.5;
+  }
+  50% { 
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+/* Meta-recursive pattern */
+.meta-pattern {
+  background-image: 
+    linear-gradient(45deg, rgba(56, 189, 248, 0.1) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(147, 51, 234, 0.1) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(236, 72, 153, 0.1) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(56, 189, 248, 0.1) 75%);
+  background-size: 30px 30px;
+  background-position: 0 0, 0 15px, 15px -15px, -15px 0px;
+  animation: meta-flow 8s linear infinite;
+}
+
+@keyframes meta-flow {
+  0% { background-position: 0 0, 0 15px, 15px -15px, -15px 0px; }
+  100% { background-position: 30px 30px, 30px 45px, 45px 15px, 15px 30px; }
+}
+
+/* Recursive loop effect */
+.recursive-loop::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60px;
+  height: 60px;
+  border: 2px solid rgba(56, 189, 248, 0.4);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: recursive-spin 4s linear infinite;
+}
+
+.recursive-loop::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  border: 2px solid rgba(147, 51, 234, 0.6);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: recursive-spin 3s linear infinite reverse;
+}
+
+@keyframes recursive-spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Quantum glow effect */
+.quantum-glow {
+  filter: drop-shadow(0 0 10px rgba(147, 51, 234, 0.6));
+  animation: quantum-pulse 2s ease-in-out infinite;
+}
+
+@keyframes quantum-pulse {
+  0%, 100% { 
+    filter: drop-shadow(0 0 10px rgba(147, 51, 234, 0.6));
+    transform: scale(1);
+  }
+  50% { 
+    filter: drop-shadow(0 0 20px rgba(147, 51, 234, 0.8));
+    transform: scale(1.05);
+  }
+}
+
+/* Meta glow effect */
+.meta-glow {
+  filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.6));
+  animation: meta-pulse 3s ease-in-out infinite;
+}
+
+@keyframes meta-pulse {
+  0%, 100% { 
+    filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.6));
+    transform: scale(1);
+  }
+  33% { 
+    filter: drop-shadow(0 0 15px rgba(147, 51, 234, 0.7));
+    transform: scale(1.03);
+  }
+  66% { 
+    filter: drop-shadow(0 0 20px rgba(236, 72, 153, 0.8));
+    transform: scale(1.06);
+  }
+}
+
+/* Categories dynamic grid */
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .categories-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Enhanced project card layout */
+.project-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 500px;
+}
+
+/* Content sections stretch intelligently */
+.project-card .project-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.project-card .project-description {
+  flex-grow: 1;
+  margin-bottom: 1.5rem;
+}
+
+.project-card .project-actions {
+  margin-top: auto;
+}
+
+/* Intelligent spacing adjustments */
+@media (min-width: 1200px) {
+  .project-card {
+    min-height: 520px;
+  }
+}
+
+@media (max-width: 767px) {
+  .project-card {
+    min-height: 450px;
+  }
+}
+
+/* Ensure proper aspect ratios */
+.project-card .project-image {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  object-fit: cover;
+}
+
 /* Rhythm Game Inspired Effects */
 .beat-sync {
   animation: beat-pulse 0.8s ease-in-out infinite;

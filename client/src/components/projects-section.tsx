@@ -99,22 +99,22 @@ const projects = [
     isComingSoon: true
   },
   {
-    title: "QuantumRhythm",
-    subtitle: "Consciousness-Driven Music Platform",
-    description: "Experimental music platform exploring quantum consciousness through rhythmic patterns and AI-generated compositions. Features real-time audio visualization, consciousness-based music generation algorithms, and immersive soundscapes for meditation and focus.",
+    title: "Neural Network Portfolio",
+    subtitle: "Pizza Kitchen to AI Journey",
+    description: "This very portfolio represents an authentic transformation from pizza kitchen manager to AI developer. Features glassmorphism design principles, VibeCoding methodology implementation, and quantum particle systems. A self-referential showcase demonstrating the philosophical depth beneath technical surface aesthetics.",
     image: portfolioImage,
     technologies: [
-      { name: "Web Audio API", class: "audio-tooltip" },
-      { name: "Quantum Algorithms", class: "quantum-tooltip" },
-      { name: "Consciousness AI", class: "consciousness-tooltip" },
-      { name: "Real-time Visualization", class: "visualization-tooltip" },
-      { name: "Meditation Framework", class: "meditation-tooltip" }
+      { name: "Glassmorphism Design", class: "glassmorphism-tooltip" },
+      { name: "VibeCoding Methodology", class: "vibecoding-tooltip" },
+      { name: "Quantum Particles", class: "quantum-tooltip" },
+      { name: "Meta-Recursive Architecture", class: "meta-tooltip" },
+      { name: "Authentic Journey", class: "journey-tooltip" }
     ],
-    status: "Experimental",
-    link: "https://replit.com/@snyper256/QuantumRhythm?v=1",
-    github: "https://github.com/reverb256/QuantumRhythm",
+    status: "Live Portfolio",
+    link: "/",
+    github: "https://github.com/reverb256/portfolio",
     color: "from-purple-400 via-violet-400 to-indigo-400",
-    vibecoding: "Music as consciousness exploration through quantum rhythm generation",
+    vibecoding: "Authentic transformation story from kitchen management to AI development mastery",
     isComingSoon: false
   }
 ];
@@ -178,14 +178,16 @@ export default function ProjectsSection() {
             <MetaRecursiveProject />
           </div>
 
-          {/* Featured Projects Grid */}
-          <div className="grid lg:grid-cols-2 gap-8 mb-16">
+          {/* Featured Projects Grid with Intelligent Dynamic Layout */}
+          <div className="projects-intelligent-grid gap-6 mb-16">
             {projects.map((project, index) => (
               <div 
-                key={project.title} 
-                className={`holo-panel p-8 rounded-3xl border gacha-shine energy-flow group transition-all duration-500 gpu-accelerated smooth-60fps ${
-                  project.isComingSoon 
-                    ? 'border-cyan-300/60 bg-gradient-to-br from-blue-900/20 via-cyan-900/30 to-white/10 shadow-2xl shadow-cyan-400/30 frost-aura' 
+                key={`${project.title}-${index}`} 
+                className={`project-card holo-panel p-8 rounded-3xl border gacha-shine energy-flow group transition-all duration-500 gpu-accelerated smooth-60fps ${
+                  project.title === 'Neural Network Portfolio'
+                    ? 'border-cyan-300/60 bg-gradient-to-br from-purple-900/20 via-cyan-900/30 to-pink/10 shadow-2xl shadow-cyan-400/30 meta-aura' 
+                    : project.isQuantumRhythm
+                    ? 'quantum-rhythm-card border-purple-400/60 bg-gradient-to-br from-purple-900/20 via-pink-900/30 to-cyan/10 shadow-2xl shadow-purple-400/30'
                     : 'border-cyan-400/50 hover:border-cyan-400/70'
                 }`}
                 style={{ animationDelay: `${index * 0.2}s` }}
@@ -196,21 +198,37 @@ export default function ProjectsSection() {
                     ? 'proxmox-cluster-bg h-48' 
                     : ''
                 }`}>
-                  {project.isComingSoon ? (
-                    <div className="relative w-full h-48 bg-gradient-to-br from-blue-900/40 via-cyan-800/30 to-white/20 flex items-center justify-center">
-                      {/* Frost/Ice Effect Background */}
-                      <div className="absolute inset-0 frost-pattern opacity-30"></div>
-                      {/* Mysterious Glowing Symbol */}
+                  {project.isQuantumRhythm ? (
+                    <div className="relative w-full h-48 bg-gradient-to-br from-purple-900/40 via-pink-800/30 to-cyan-500/20 flex items-center justify-center">
+                      {/* Quantum Rhythm Pattern */}
+                      <div className="absolute inset-0 quantum-rhythm-pattern opacity-30"></div>
+                      {/* Audio Visualization */}
                       <div className="relative z-10 text-center">
-                        <div className="w-24 h-24 mx-auto mb-4 frost-glow animate-pulse">
-                          <i className="fas fa-snowflake text-6xl text-cyan-200"></i>
+                        <div className="w-24 h-24 mx-auto mb-4 quantum-glow animate-pulse">
+                          <i className="fas fa-music text-6xl text-purple-200"></i>
                         </div>
-                        <div className="text-cyan-300 font-mono text-sm">
-                          <span className="animate-pulse">█ █ █ CLASSIFIED █ █ █</span>
+                        <div className="text-purple-300 font-mono text-sm">
+                          <span className="animate-pulse">♪ ♫ CONSCIOUSNESS RHYTHM ♫ ♪</span>
                         </div>
                       </div>
-                      {/* Scanning Line Effect */}
-                      <div className="absolute inset-0 scanning-line"></div>
+                      {/* Audio Wave Effect */}
+                      <div className="absolute inset-0 audio-wave"></div>
+                    </div>
+                  ) : project.title === 'Neural Network Portfolio' ? (
+                    <div className="relative w-full h-48 bg-gradient-to-br from-purple-900/40 via-cyan-800/30 to-pink-500/20 flex items-center justify-center">
+                      {/* Meta-recursive Pattern */}
+                      <div className="absolute inset-0 meta-pattern opacity-30"></div>
+                      {/* Self-referential Symbol */}
+                      <div className="relative z-10 text-center">
+                        <div className="w-24 h-24 mx-auto mb-4 meta-glow animate-pulse">
+                          <i className="fas fa-infinity text-6xl text-cyan-200"></i>
+                        </div>
+                        <div className="text-cyan-300 font-mono text-sm">
+                          <span className="animate-pulse">∞ META-RECURSIVE ∞</span>
+                        </div>
+                      </div>
+                      {/* Recursive Loop Effect */}
+                      <div className="absolute inset-0 recursive-loop"></div>
                     </div>
                   ) : project.title === 'Proxmox Cluster Infrastructure' ? (
                     <div className="relative z-10 flex items-center justify-center h-48">
@@ -235,7 +253,8 @@ export default function ProjectsSection() {
                   {/* Status Badge with Beat Sync */}
                   <div className="absolute top-4 right-4">
                     <span className={`px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r ${project.color} text-white ${
-                      project.isComingSoon ? 'beat-sync frost-pulse' : ''
+                      project.isQuantumRhythm ? 'beat-sync quantum-pulse' : 
+                      project.title === 'Neural Network Portfolio' ? 'beat-sync meta-pulse' : ''
                     }`}>
                       {project.status}
                     </span>
@@ -253,64 +272,69 @@ export default function ProjectsSection() {
                   </div>
                 </div>
 
-                {/* Description */}
-                <p className="text-[var(--text-muted)] leading-relaxed mb-6">
-                  {project.description}
-                </p>
+                {/* Project Content - Intelligent Layout */}
+                <div className="project-content flex-grow">
+                  {/* Description */}
+                  <div className="project-description">
+                    <p className="text-[var(--text-muted)] leading-relaxed mb-6">
+                      {project.description}
+                    </p>
 
-                {/* Technology Stack with Tech Humor */}
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {project.technologies.map((tech, techIndex) => {
-                    const techName = typeof tech === 'string' ? tech : tech.name;
-                    const techClass = typeof tech === 'string' ? 'hover-deprecated' : tech.class;
-                    
-                    return (
-                      <span 
-                        key={techName} 
-                        className={`px-3 py-1 bg-blue-900/30 border border-cyan-400/30 text-[var(--spectrum-cyan)] rounded-full text-sm transition-all duration-300 hover:border-cyan-400 hover:bg-cyan-400/10 ${techClass}`}
-                      >
-                        {techName}
-                      </span>
-                    );
-                  })}
-                </div>
+                    {/* Technology Stack with Tech Humor */}
+                    <div className="flex flex-wrap gap-2 mb-6">
+                      {project.technologies.map((tech, techIndex) => {
+                        const techName = typeof tech === 'string' ? tech : tech.name;
+                        const techClass = typeof tech === 'string' ? 'hover-deprecated' : tech.class;
+                        
+                        return (
+                          <span 
+                            key={techName} 
+                            className={`px-3 py-1 bg-blue-900/30 border border-cyan-400/30 text-[var(--spectrum-cyan)] rounded-full text-sm transition-all duration-300 hover:border-cyan-400 hover:bg-cyan-400/10 ${techClass}`}
+                          >
+                            {techName}
+                          </span>
+                        );
+                      })}
+                    </div>
 
-                {/* VibeCoding Methodology Insight */}
-                <div className="mb-6 p-4 bg-gradient-to-r from-purple-900/20 to-cyan-900/20 rounded-xl border border-purple-400/30">
-                  <div className="flex items-center mb-2">
-                    <i className="fas fa-lightbulb text-yellow-400 mr-2"></i>
-                    <span className="text-sm font-semibold text-purple-300">VibeCoding Insight</span>
+                    {/* VibeCoding Methodology Insight */}
+                    <div className="mb-6 p-4 bg-gradient-to-r from-purple-900/20 to-cyan-900/20 rounded-xl border border-purple-400/30">
+                      <div className="flex items-center mb-2">
+                        <i className="fas fa-lightbulb text-yellow-400 mr-2"></i>
+                        <span className="text-sm font-semibold text-purple-300">VibeCoding Insight</span>
+                      </div>
+                      <p className="text-sm text-purple-200 italic">
+                        {project.vibecoding}
+                      </p>
+                    </div>
                   </div>
-                  <p className="text-sm text-purple-200 italic">
-                    {project.vibecoding}
-                  </p>
-                </div>
 
-                {/* Action Buttons with Tech Humor */}
-                <div className="flex gap-4">
-                  <Button 
-                    className="tech-button flex-1 bg-gradient-to-r from-[var(--synthwave-cyan)] to-[var(--synthwave-pink)] hover:from-[var(--synthwave-pink)] hover:to-[var(--synthwave-gold)] text-white border-0 transition-all duration-300 git-commit-humor"
-                    onClick={() => window.open(project.link, '_blank')}
-                  >
-                    <i className="fas fa-external-link-alt mr-2"></i>
-                    <span className="hover-loading">Live Demo</span>
-                  </Button>
-                  
-                  <Button 
-                    variant="outline" 
-                    className="tech-button flex-1 border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-black transition-all duration-300 stackoverflow-reference"
-                    onClick={() => window.open(project.github, '_blank')}
-                  >
-                    <i className="fab fa-github mr-2"></i>
-                    <span className="hover-syntax-error">GitHub</span>
-                  </Button>
+                  {/* Action Buttons - Always at bottom */}
+                  <div className="project-actions flex gap-4 mt-auto">
+                    <Button 
+                      className="tech-button flex-1 bg-gradient-to-r from-[var(--synthwave-cyan)] to-[var(--synthwave-pink)] hover:from-[var(--synthwave-pink)] hover:to-[var(--synthwave-gold)] text-white border-0 transition-all duration-300 git-commit-humor"
+                      onClick={() => window.open(project.link, '_blank')}
+                    >
+                      <i className="fas fa-external-link-alt mr-2"></i>
+                      <span className="hover-loading">Live Demo</span>
+                    </Button>
+                    
+                    <Button 
+                      variant="outline" 
+                      className="tech-button flex-1 border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-black transition-all duration-300 stackoverflow-reference"
+                      onClick={() => window.open(project.github, '_blank')}
+                    >
+                      <i className="fab fa-github mr-2"></i>
+                      <span className="hover-syntax-error">GitHub</span>
+                    </Button>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Project Categories */}
-          <div className="grid md:grid-cols-3 gap-8 mb-16">
+          {/* Project Categories - Dynamic Grid */}
+          <div className="categories-grid gap-8 mb-16">
             {[
               {
                 title: "E-commerce Platforms",
@@ -327,10 +351,10 @@ export default function ProjectsSection() {
                 color: "from-cyan-400 to-blue-500"
               },
               {
-                title: "DevOps Tools",
+                title: "Portfolio & Infrastructure",
                 icon: "fas fa-server",
-                description: "Server administration interfaces and development tools for enhanced productivity",
-                count: 1,
+                description: "Meta-recursive portfolios and enterprise infrastructure showcasing authentic development journeys",
+                count: 2,
                 color: "from-green-400 to-teal-500"
               }
             ].map((category, index) => (
