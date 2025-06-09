@@ -11,6 +11,7 @@ import Navigation from "@/components/navigation";
 import Home from "@/pages/home";
 import Values from "@/pages/values";
 import VRChat from "@/pages/vrchat";
+import TradingDashboard from "@/pages/TradingDashboard";
 import NotFound from "@/pages/not-found";
 import PerformanceMonitor from "@/components/ui/performance-monitor";
 
@@ -35,6 +36,7 @@ function Router() {
     if (location === '/') return 'home';
     if (location === '/vrchat') return 'vrchat';
     if (location === '/values') return 'values';
+    if (location === '/dashboard') return 'dashboard';
     return 'home';
   };
 
@@ -49,6 +51,7 @@ function Router() {
         <Route path="/" component={Home} />
         <Route path="/values" component={Values} />
         <Route path="/vrchat" component={VRChat} />
+        <Route path="/dashboard" component={TradingDashboard} />
         <Route component={NotFound} />
       </Switch>
     </>

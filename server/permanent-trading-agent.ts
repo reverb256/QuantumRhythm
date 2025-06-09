@@ -163,26 +163,6 @@ class AutonomousTradingAgent {
     // This method is now handled by initializeAgentRecord
     // Keeping for backward compatibility
     await this.initializeAgentRecord();
-      };
-
-      const newAgent = await db.insert(tradingAgents).values({
-        id: this.agentId,
-        name: 'Autonomous VibeCoding Trading Intelligence',
-        status: 'active',
-        configuration: autonomousConfig,
-        performanceMetrics: {
-          totalDecisions: 0,
-          successfulPredictions: 0,
-          adaptationCount: 0,
-          autonomyLevel: 1.0
-        }
-      }).returning();
-
-      this.config = autonomousConfig;
-      this.fastCache.set(`agent:${this.agentId}`, newAgent[0], 60000);
-    } else {
-      this.config = cachedAgent.configuration as AutonomousConfig;
-    }
   }
 
   private async initializeMarketIntelligence() {
