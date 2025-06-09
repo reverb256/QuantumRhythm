@@ -1,7 +1,7 @@
 // Trading Agent Management API Routes
 import { Router } from 'express';
 import { z } from 'zod';
-import { PermanentTradingAgent } from '../permanent-trading-agent.js';
+import { AutonomousTradingAgent } from '../permanent-trading-agent.js';
 import { db } from '../db.js';
 import { tradingAgents, tradingSignals, vibeCodingMetrics } from '../../shared/schema.js';
 import { eq, desc } from 'drizzle-orm';
@@ -9,7 +9,7 @@ import { eq, desc } from 'drizzle-orm';
 const router = Router();
 
 // Global agent instance
-let globalAgent: PermanentTradingAgent | null = null;
+let globalAgent: AutonomousTradingAgent | null = null;
 const AGENT_ID = 'vibecoding-quantum-agent';
 
 // Input validation schemas
@@ -35,7 +35,7 @@ const AgentConfigSchema = z.object({
 // Initialize agent on module load
 async function initializeGlobalAgent() {
   if (!globalAgent) {
-    globalAgent = new PermanentTradingAgent(AGENT_ID);
+    globalAgent = new AutonomousTradingAgent(AGENT_ID);
     console.log('🤖 Global Trading Agent initialized');
   }
 }
@@ -73,7 +73,7 @@ router.get('/status', async (req, res) => {
 router.post('/start', async (req, res) => {
   try {
     if (!globalAgent) {
-      globalAgent = new PermanentTradingAgent(AGENT_ID);
+      globalAgent = new AutonomousTradingAgent(AGENT_ID);
     } else {
       await globalAgent.resumeAgent();
     }

@@ -1,0 +1,161 @@
+# Autonomous Trading Agent Infrastructure
+# Headless browser, SearXNG, local LLM proxy, and orchestration
+
+version: '3.8'
+
+services:
+  # Autonomous Trading Agent with Browser
+  trading-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile.agent
+    container_name: autonomous-trading-agent
+    environment:
+      - NODE_ENV=production
+      - BROWSER_ENDPOINT=http://browser:3000
+      - SEARXNG_ENDPOINT=http://searxng:8080
+      - LLM_PROXY_ENDPOINT=http://llm-proxy:8000
+      - DATABASE_URL=${DATABASE_URL}
+      - WALLET_TOKEN=${WALLET_TOKEN}
+      - IO_INTELLIGENCE_API_KEY=${IO_INTELLIGENCE_API_KEY}
+    depends_on:
+      - browser
+      - searxng
+      - llm-proxy
+      - redis
+    volumes:
+      - ./agent-data:/app/data
+    networks:
+      - agent-network
+    restart: unless-stopped
+
+  # Headless Browser Service
+  browser:
+    image: browserless/chrome:latest
+    container_name: agent-browser
+    environment:
+      - CONCURRENT=10
+      - TOKEN=agent-browser-token
+      - MAX_MEMORY_PRESSURE=75
+      - KEEP_ALIVE=true
+      - WORKSPACE_DELETE_EXPIRED=true
+      - ENABLE_DEBUGGER=false
+      - PREBOOT_CHROME=true
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./browser-data:/tmp
+    networks:
+      - agent-network
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+          cpus: '1.0'
+
+  # SearXNG - Privacy-focused Search Engine
+  searxng:
+    image: searxng/searxng:latest
+    container_name: agent-searxng
+    environment:
+      - SEARXNG_BASE_URL=http://searxng:8080
+      - SEARXNG_SECRET_KEY=${SEARXNG_SECRET_KEY:-default-secret-key}
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./searxng-config:/etc/searxng
+      - ./searxng-data:/var/lib/searxng
+    networks:
+      - agent-network
+    restart: unless-stopped
+
+  # Local LLM Proxy for Security & Sanitization
+  llm-proxy:
+    build:
+      context: .
+      dockerfile: Dockerfile.llm-proxy
+    container_name: agent-llm-proxy
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - HUGGINGFACE_API_KEY=${HUGGINGFACE_API_KEY}
+      - RATE_LIMIT_REQUESTS=100
+      - RATE_LIMIT_WINDOW=3600
+      - ENABLE_CONTENT_FILTERING=true
+      - LOG_LEVEL=INFO
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./llm-proxy-data:/app/data
+      - ./llm-proxy-logs:/app/logs
+    networks:
+      - agent-network
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '0.5'
+
+  # Redis for Fast Caching and Orchestration
+  redis:
+    image: redis:7-alpine
+    container_name: agent-redis
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-agent-redis-pass}
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - agent-network
+    restart: unless-stopped
+
+  # Orchestration Controller
+  orchestrator:
+    build:
+      context: .
+      dockerfile: Dockerfile.orchestrator
+    container_name: agent-orchestrator
+    environment:
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - REDIS_URL=redis://redis:6379
+      - AGENT_ENDPOINT=http://trading-agent:3001
+      - MONITORING_INTERVAL=30
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./orchestrator-data:/app/data
+    depends_on:
+      - redis
+    networks:
+      - agent-network
+    restart: unless-stopped
+
+  # Health Monitor & Metrics
+  monitor:
+    image: prom/prometheus:latest
+    container_name: agent-monitor
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    networks:
+      - agent-network
+    restart: unless-stopped
+
+volumes:
+  redis-data:
+  prometheus-data:
+
+networks:
+  agent-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
