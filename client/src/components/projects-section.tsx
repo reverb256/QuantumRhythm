@@ -6,7 +6,7 @@ const projects = [
     title: "Troves & Coves",
     subtitle: "Mystical Crystal Jewelry E-commerce",
     description: "Production e-commerce platform for sacred crystal jewelry featuring AI-enhanced storefront, Stripe payment integration, and metaphysical product catalog. Built as a full-stack application with modern web technologies serving crystal jewelry enthusiasts.",
-    image: "/attached_assets/image_1749452464369.png",
+    image: "attached_assets/image_1749452464369.png",
     technologies: ["React", "Node.js", "PostgreSQL", "Stripe API", "TypeScript"],
     status: "Production",
     link: "https://trovesandcoves.ca",
@@ -17,7 +17,7 @@ const projects = [
     title: "Local Cleaning Service",
     subtitle: "AI-Enhanced Service Platform",
     description: "Professional cleaning services platform with contract management, automated quoting system, and client portal. Features comprehensive accessibility compliance and responsive design for streamlined service booking and client management.",
-    image: "/attached_assets/image_1749452436437.png",
+    image: "attached_assets/image_1749452436437.png",
     technologies: ["React", "Express", "PostgreSQL", "AI Integration", "Docker"],
     status: "Production",
     link: "https://2034c3d1-09aa-49c2-bad4-380f7b9d56ee-00-2eybkgfvy9084.riker.replit.dev",
@@ -25,15 +25,15 @@ const projects = [
     color: "from-[var(--spectrum-cyan)] to-[var(--spectrum-blue)]"
   },
   {
-    title: "CaddyPad Web UI",
-    subtitle: "Server Administration Interface",
-    description: "Fully-featured web interface for Caddy web server administration, providing intuitive configuration management and real-time monitoring capabilities. Simplifies Caddy server management through an elegant and accessible interface.",
-    image: "/images/screenshot-1749440916527.png",
-    technologies: ["Web UI", "Caddy", "JavaScript", "Apache License"],
-    status: "Development",
+    title: "Neural Network Portfolio",
+    subtitle: "Advanced Web Architecture",
+    description: "This cyberpunk portfolio website featuring quantum animations, holographic interfaces, and advanced CSS effects. Built with React, TypeScript, and a unified design system showcasing modern web development capabilities.",
+    image: "attached_assets/image_1749452548538.png",
+    technologies: ["React", "TypeScript", "CSS3", "Tailwind", "Vite"],
+    status: "Production",
     link: "#",
-    github: "https://github.com/reverb256/CaddyPad",
-    color: "from-green-400 to-teal-500"
+    github: "https://github.com/reverb256/portfolio",
+    color: "from-[var(--spectrum-green)] to-[var(--spectrum-teal)]"
   }
 ];
 
@@ -144,7 +144,7 @@ export default function ProjectsSection() {
                 </div>
 
                 {/* Description */}
-                <p className="text-cyan-100 leading-relaxed mb-6">
+                <p className="text-[var(--text-muted)] leading-relaxed mb-6">
                   {project.description}
                 </p>
 
@@ -153,7 +153,7 @@ export default function ProjectsSection() {
                   {project.technologies.map((tech) => (
                     <span 
                       key={tech} 
-                      className="px-3 py-1 bg-blue-900/30 border border-cyan-400/30 text-cyan-300 rounded-full text-sm"
+                      className="px-3 py-1 bg-blue-900/30 border border-cyan-400/30 text-[var(--spectrum-cyan)] rounded-full text-sm"
                     >
                       {tech}
                     </span>
@@ -172,7 +172,7 @@ export default function ProjectsSection() {
                   </Button>
                   <Button 
                     variant="outline" 
-                    className="border-cyan-400/50 text-cyan-300 hover:bg-cyan-400/10"
+                    className="border-cyan-400/50 text-[var(--spectrum-cyan)] hover:bg-cyan-400/10"
                     onClick={() => window.open(project.github, '_blank')}
                   >
                     <i className="fab fa-github mr-2"></i>
