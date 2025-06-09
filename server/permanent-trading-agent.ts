@@ -55,6 +55,8 @@ interface AutonomousConfig {
   intelligentPositionSizing: boolean;
   vibeCodingDecisionMaking: boolean;
   allowedWithdrawalWallet?: string; // WALLET_TOKEN secret
+  targetTokens?: string[];
+  tradingRules?: any;
 }
 
 class AutonomousTradingAgent {
@@ -643,15 +645,19 @@ class AutonomousTradingAgent {
     
     const recentAnalysis = await this.getCurrentVibeCodingMetrics();
     
-    await db.insert(vibeCodingMetrics).values({
-      agentId: this.agentRecord.id,
-      pizzaKitchenReliability: recentAnalysis.pizzaKitchen,
-      rhythmGamingPrecision: recentAnalysis.rhythmGaming,
-      vrChatSocialInsights: recentAnalysis.vrChatSocial,
-      classicalPhilosophyWisdom: recentAnalysis.classicalPhilosophy,
-      overallScore: recentAnalysis.overall,
-      context: 'continuous_evaluation'
-    });
+    try {
+      await db.insert(vibeCodingMetrics).values({
+        agentId: this.agentId,
+        context: 'continuous_evaluation',
+        pizzaKitchenReliability: recentAnalysis.pizzaKitchen,
+        rhythmGamingPrecision: recentAnalysis.rhythmGaming,
+        vrChatSocialInsights: recentAnalysis.vrChatSocial,
+        classicalPhilosophyWisdom: recentAnalysis.classicalPhilosophy,
+        overallScore: recentAnalysis.overall
+      });
+    } catch (error) {
+      console.error('Failed to store VibeCoding metrics:', error);
+    }
 
     console.log(`VibeCoding Metrics - Pizza Kitchen: ${(recentAnalysis.pizzaKitchen * 100).toFixed(1)}%, Rhythm Gaming: ${(recentAnalysis.rhythmGaming * 100).toFixed(1)}%, VRChat Social: ${(recentAnalysis.vrChatSocial * 100).toFixed(1)}%, Classical Philosophy: ${(recentAnalysis.classicalPhilosophy * 100).toFixed(1)}%`);
   }
