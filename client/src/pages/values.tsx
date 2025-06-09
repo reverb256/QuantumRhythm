@@ -80,7 +80,7 @@ export default function Values() {
           
           <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto mb-12">
             {/* User-Centered Design */}
-            <div className={`glass-morphism p-8 rounded-2xl cyber-border fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.2s' }}>
+            <div className={`holo-panel p-8 rounded-3xl border border-cyan-400/50 gacha-shine energy-flow fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.2s' }}>
               <div className="text-center mb-6">
                 <div className="w-16 h-16 bg-gradient-to-r from-[var(--synthwave-gold)] to-[var(--bright-blue)] rounded-full mx-auto mb-4 flex items-center justify-center">
                   <i className="fas fa-users text-[var(--space-black)] text-xl"></i>
@@ -112,7 +112,7 @@ export default function Values() {
             </div>
 
             {/* Technical Excellence */}
-            <div className={`glass-morphism p-8 rounded-2xl cyber-border fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.4s' }}>
+            <div className={`holo-panel p-8 rounded-3xl border border-cyan-400/50 gacha-shine energy-flow fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.4s' }}>
               <div className="text-center mb-6">
                 <div className="w-16 h-16 bg-gradient-to-r from-[var(--synthwave-cyan)] to-[var(--synthwave-pink)] rounded-full mx-auto mb-4 flex items-center justify-center">
                   <i className="fas fa-code text-[var(--space-black)] text-xl"></i>
@@ -146,7 +146,7 @@ export default function Values() {
 
           {/* Ethical Technology */}
           <div className="max-w-4xl mx-auto">
-            <div className={`glass-morphism p-8 md:p-12 rounded-2xl cyber-border fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.6s' }}>
+            <div className={`holo-panel p-8 md:p-12 rounded-3xl border border-cyan-400/50 gacha-shine energy-flow fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.6s' }}>
               <h3 className="font-semibold text-2xl mb-6 text-[var(--synthwave-pink)] text-center">
                 <i className="fas fa-balance-scale mr-3"></i>Ethical Technology Development
               </h3>
@@ -192,7 +192,7 @@ export default function Values() {
           
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-12">
             {/* Continuous Learning */}
-            <div className="glass-morphism p-6 rounded-2xl cyber-border">
+            <div className="holo-panel p-6 rounded-3xl border border-cyan-400/50 gacha-shine energy-flow">
               <div className="text-center mb-4">
                 <div className="w-12 h-12 bg-gradient-to-r from-[var(--synthwave-pink)] to-[var(--synthwave-gold)] rounded-full mx-auto mb-3 flex items-center justify-center">
                   <i className="fas fa-graduation-cap text-[var(--space-black)] text-lg"></i>
@@ -223,7 +223,7 @@ export default function Values() {
             </div>
 
             {/* Collaboration */}
-            <div className="glass-morphism p-6 rounded-2xl cyber-border">
+            <div className="holo-panel p-6 rounded-3xl border border-cyan-400/50 gacha-shine energy-flow">
               <div className="text-center mb-4">
                 <div className="w-12 h-12 bg-gradient-to-r from-[var(--synthwave-cyan)] to-[var(--bright-blue)] rounded-full mx-auto mb-3 flex items-center justify-center">
                   <i className="fas fa-handshake text-[var(--space-black)] text-lg"></i>
@@ -254,7 +254,7 @@ export default function Values() {
             </div>
 
             {/* Innovation */}
-            <div className="glass-morphism p-6 rounded-2xl cyber-border">
+            <div className="holo-panel p-6 rounded-3xl border border-cyan-400/50 gacha-shine energy-flow">
               <div className="text-center mb-4">
                 <div className="w-12 h-12 bg-gradient-to-r from-[var(--synthwave-gold)] to-[var(--synthwave-pink)] rounded-full mx-auto mb-3 flex items-center justify-center">
                   <i className="fas fa-rocket text-[var(--space-black)] text-lg"></i>
@@ -291,7 +291,7 @@ export default function Values() {
       <section className="py-20 relative">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
-            <div className="glass-morphism p-8 md:p-12 rounded-2xl cyber-border">
+            <div className="holo-panel p-8 md:p-12 rounded-3xl border border-cyan-400/50 gacha-shine energy-flow">
               <h2 className="font-bold text-2xl md:text-3xl mb-8 text-[var(--synthwave-cyan)] text-center">
                 <i className="fas fa-infinity mr-3"></i>The VibeCoding Methodology
               </h2>
@@ -308,7 +308,7 @@ export default function Values() {
                 </p>
                 
                 <div className="grid md:grid-cols-2 gap-6">
-                  <div className="glass-morphism p-6 rounded-lg border border-[var(--synthwave-gold)]/30">
+                  <div className="holo-panel p-6 rounded-2xl border border-[var(--synthwave-gold)]/50 gacha-shine">
                     <h4 className="font-semibold text-[var(--synthwave-gold)] mb-3 flex items-center">
                       <i className="fas fa-code mr-2"></i>Technical Practices
                     </h4>
@@ -320,7 +320,7 @@ export default function Values() {
                     </ul>
                   </div>
                   
-                  <div className="glass-morphism p-6 rounded-lg border border-[var(--synthwave-cyan)]/30">
+                  <div className="holo-panel p-6 rounded-2xl border border-[var(--synthwave-cyan)]/50 gacha-shine">
                     <h4 className="font-semibold text-[var(--synthwave-cyan)] mb-3 flex items-center">
                       <i className="fas fa-heart mr-2"></i>Human-Centered Values
                     </h4>
