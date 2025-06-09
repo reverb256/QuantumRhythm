@@ -231,7 +231,7 @@ class AutonomousTradingAgent {
     if (!existingStrategies) {
       existingStrategies = await db.select()
         .from(tradingStrategies)
-        .where(eq(tradingStrategies.agentId, this.agentId));
+        .where(eq(tradingStrategies.agentId, this.agentRecord.id));
       
       this.fastCache.set(`strategies:${this.agentId}`, existingStrategies, 120000); // 2 minutes
     }
@@ -536,17 +536,16 @@ class AutonomousTradingAgent {
         // Generate signal if criteria met
         if (vibeCodingAnalysis.overallScore >= 0.7) {
           await db.insert(tradingSignals).values({
-            agentId: this.agentId,
+            agentId: this.agentRecord.id,
             tokenAddress,
             signalType: intelligence.tradingRecommendation.action,
-            confidence: intelligence.tradingRecommendation.confidence,
+            confidence: intelligence.tradingRecommendation.confidence.toString(),
             reasoning: JSON.stringify(intelligence.tradingRecommendation.reasoning),
             dataSource: {
               intelligence,
               vibeCodingAnalysis
             },
-            vibeCodingScore: vibeCodingAnalysis.overallScore,
-            executed: false
+            vibeCodingScore: vibeCodingAnalysis.overallScore.toString()
           });
 
           console.log(`Generated ${intelligence.tradingRecommendation.action} signal for ${tokenAddress} with ${(vibeCodingAnalysis.overallScore * 100).toFixed(1)}% confidence`);
@@ -602,7 +601,7 @@ class AutonomousTradingAgent {
     const recentSignals = await db.select()
       .from(tradingSignals)
       .where(and(
-        eq(tradingSignals.agentId, this.agentId),
+        eq(tradingSignals.agentId, this.agentRecord.id),
         gte(tradingSignals.createdAt, new Date(Date.now() - 24 * 60 * 60 * 1000)) // Last 24 hours
       ));
 
@@ -766,14 +765,13 @@ class AutonomousTradingAgent {
   private async generateTradingSignal(signal: any) {
     // Generate trading signal from various inputs
     await db.insert(tradingSignals).values({
-      agentId: this.agentId,
-      tokenAddress: signal.tokenAddress || this.config.targetTokens[0],
+      agentId: this.agentRecord.id,
+      tokenAddress: signal.tokenAddress || DEFAULT_TARGET_TOKENS[0],
       signalType: signal.type === 'positive' ? 'BUY' : signal.type === 'negative' ? 'SELL' : 'HOLD',
-      confidence: signal.score,
+      confidence: signal.score.toString(),
       reasoning: JSON.stringify(signal.analysis),
       dataSource: signal,
-      vibeCodingScore: signal.score,
-      executed: false
+      vibeCodingScore: signal.score.toString()
     });
   }
 
