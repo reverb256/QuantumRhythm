@@ -15,13 +15,9 @@ export default function HeroSection() {
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
       {/* Layered Background System */}
       <div className="absolute inset-0 z-0">
-        {/* Primary Deep Space Background */}
+        {/* Static Deep Space Background */}
         <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat" 
-          style={{
-            backgroundImage: `url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><radialGradient id="space" cx="50%" cy="50%"><stop offset="0%" style="stop-color:%23001122"/><stop offset="100%" style="stop-color:%23000000"/></radialGradient></defs><rect width="100%" height="100%" fill="url(%23space)"/><g opacity="0.8">${Array.from({length: 200}, () => `<circle cx="${Math.random() * 1200}" cy="${Math.random() * 800}" r="${Math.random() * 2}" fill="%23ffffff" opacity="${Math.random()}"/>`).join('')}</g></svg>')`,
-            filter: 'brightness(0.6) saturate(1.2)',
-          }}
+          className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-purple-900/10 to-cyan-900/15"
         />
 
         {/* Cyberpunk Grid Overlay */}
