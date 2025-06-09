@@ -80,7 +80,7 @@ export default function Navigation() {
               className="font-bold text-lg sm:text-xl text-cyan-300 flex items-center hover:text-cyan-100 transition-colors duration-300 cursor-pointer group"
               onMouseEnter={() => handleMouseEnter({
                 title: "reverb256",
-                description: "Consciousness architect and AI collaborator specializing in quantum development methodologies",
+                description: "Consciousness architect shaped by Shotokan karate ethics and Charter-protected free speech principles",
                 category: "Personal Brand"
               })}
               onMouseLeave={handleMouseLeave}
