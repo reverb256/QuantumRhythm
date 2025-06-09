@@ -472,9 +472,9 @@ class AutonomousTradingAgent {
       } catch (error) {
         console.error(`Error processing RSS feed ${feed.name}:`, error);
         
-        // Increment error count
+        // Increment error count safely
         await db.update(rssFeedSources)
-          .set({ errorCount: feed.errorCount + 1 })
+          .set({ errorCount: (feed.errorCount || 0) + 1 })
           .where(eq(rssFeedSources.id, feed.id));
       }
     }
@@ -484,6 +484,7 @@ class AutonomousTradingAgent {
     console.log('📊 Collecting comprehensive market data');
     
     for (const tokenAddress of this.config.targetTokens) {
+      if (!tokenAddress) continue;
       try {
         // Collect data from multiple sources
         const [jupiterData, birdeyeData, newsData] = await Promise.all([

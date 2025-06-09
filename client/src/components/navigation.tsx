@@ -217,6 +217,27 @@ export default function Navigation() {
                 />
               )}
             </Link>
+            <Link 
+              href="/technical-deep-dive"
+              className={`relative px-2 py-1 text-sm lg:text-base font-medium hover:text-cyan-300 transition-colors duration-300 focus-enhanced link-enhanced hdr-enhanced ${location === '/technical-deep-dive' ? 'text-cyan-300' : 'text-gray-400'}`}
+              onMouseEnter={() => handleMouseEnter({
+                title: "Tech Deep Dive",
+                description: "Comprehensive technical documentation and system architecture insights",
+                category: "Technical"
+              })}
+              onMouseLeave={handleMouseLeave}
+              aria-label="Navigate to Technical Deep Dive"
+            >
+              Tech
+              {location === '/technical-deep-dive' && (
+                <motion.div
+                  layoutId="activeTab"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-400"
+                  initial={false}
+                  transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                />
+              )}
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -289,6 +310,17 @@ export default function Navigation() {
                   onClick={() => setIsOpen(false)}
                 >
                   Trading
+                </Link>
+                <Link 
+                  href="/technical-deep-dive"
+                  className={`block px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 ${
+                    location === '/technical-deep-dive'
+                      ? 'text-cyan-300 bg-cyan-400/15 border border-cyan-400/30'
+                      : 'text-gray-300 hover:text-cyan-300 hover:bg-cyan-400/10 border border-transparent hover:border-cyan-400/20'
+                  }`}
+                  onClick={() => setIsOpen(false)}
+                >
+                  Tech Deep Dive
                 </Link>
               </div>
             </motion.div>

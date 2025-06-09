@@ -185,20 +185,7 @@ export const QuantumBackground: React.FC<{
       {/* Quantum Grid Overlay */}
       <div className="absolute inset-0 cyber-grid opacity-20 z-5"></div>
 
-      {/* Consciousness Particles */}
-      <div className="absolute inset-0 z-10 pointer-events-none">
-        {[...Array(particleCount)].map((_, i) => (
-          <div
-            key={i}
-            className="quantum-particle"
-            style={{
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 10}s`,
-              animationDuration: `${6 + Math.random() * 6}s`
-            }}
-          />
-        ))}
-      </div>
+
     </>
   );
 };

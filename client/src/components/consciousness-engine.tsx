@@ -335,30 +335,7 @@ export default function ConsciousnessEngine() {
         }}
       />
 
-      {/* Consciousness Particles */}
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        {Array.from({ length: Math.round(getParticleIntensity() / 10) }).map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 rounded-full"
-            style={{
-              backgroundColor: getConsciousnessColor(),
-              left: Math.random() * window.innerWidth,
-              top: Math.random() * window.innerHeight,
-            }}
-            animate={{
-              y: [0, -100],
-              opacity: [0, 1, 0],
-              scale: [0, 1, 0]
-            }}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              repeat: Infinity,
-              delay: Math.random() * 2
-            }}
-          />
-        ))}
-      </div>
+
 
       {/* Reactive Glow Effect */}
       {isReacting && (
