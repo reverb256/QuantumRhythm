@@ -1,0 +1,19 @@
+# Cloudflare Redirects for SPA and SEO
+
+# Handle SPA routing - serve index.html for all routes
+/*    /index.html   200
+
+# Redirect common misspellings
+/vr    /vrchat    301
+/chat  /vrchat    301
+/cv    /          301
+/resume /         301
+/portfolio /      301
+
+# Redirect old paths if any
+/about    /#about     301
+/skills   /#skills    301
+/projects /#projects  301
+/philosophy /#philosophy 301
+/contact  /#contact   301
+/gaming   /#gaming    301

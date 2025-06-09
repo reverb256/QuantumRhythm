@@ -68,7 +68,7 @@ export default function VRChat() {
       <Navigation />
       
       <main>
-      {/* Hero Section */}
+        {/* Hero Section */}
       <section className="relative py-20 min-h-screen flex items-center overflow-hidden">
         {/* Layered Cybernetic Background */}
         <div className="absolute inset-0 z-0">

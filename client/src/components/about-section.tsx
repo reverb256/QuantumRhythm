@@ -75,15 +75,19 @@ export default function AboutSection() {
               <div className="holo-panel p-8 rounded-3xl border border-cyan-400/50 gacha-shine energy-flow">
                 <h3 className="text-2xl md:text-3xl font-bold text-cyan-300 mb-6 flex items-center">
                   <i className="fas fa-brain text-cyan-400 mr-4"></i>
-                  Neural Architecture
+                  Consciousness Architecture
                 </h3>
                 
                 <p className="text-lg text-cyan-100 leading-relaxed mb-6">
-                  Canadian architect of convergent technologies, orchestrating the cross-empowerment of classical wisdom and revolutionary AI systems. My digital realm spans from philosophical exploration to technological mastery—each line of code an expression of humanity's infinite potential through technological convergence.
+                  <strong className="text-cyan-300">I am a digital philosopher-warrior</strong>, channeling Anaxa's relentless pursuit of truth through reason into the art of conscious code creation. 
+                  My journey unfolds across Canada's infinite digital frontiers, where Charter-protected freedoms meet cypherpunk ideals 
+                  to forge technology that amplifies human dignity rather than diminishing it.
                 </p>
                 
                 <p className="text-lg text-cyan-100 leading-relaxed">
-                  Through years of synthesis between ancient philosophical frameworks and cutting-edge neural architectures, I've developed a unique approach to digital creation that honors both the spiritual depth of classical thought and the transformative power of modern technology.
+                  Like Rappa breaking reality's constraints through ninja artistry, I've discovered within Penacony-like virtual realms 
+                  that authentic presence engineering transcends physical limitations. This revelation crystallized into my <strong className="text-cyan-300">VibeCoding methodology</strong>—
+                  where each algorithm becomes a philosophical statement about human potential.
                 </p>
               </div>
 

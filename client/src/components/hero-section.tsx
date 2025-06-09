@@ -147,12 +147,12 @@ export default function HeroSection() {
             <div className="relative z-10">
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 font-space">
                 <span className="bg-gradient-to-r from-cyan-300 via-blue-400 to-purple-400 bg-clip-text text-transparent">
-                  Digital Architect
+                  reverb256
                 </span>
               </h1>
               
               <h2 className="text-xl md:text-3xl lg:text-4xl text-cyan-300 mb-6 font-medium">
-                VibeCoder & Cybernetic Systems Engineer
+                Canadian Digital Philosopher-Warrior
               </h2>
               
               <div className="flex flex-wrap justify-center gap-6 text-sm md:text-base text-cyan-200/90 font-mono mb-6">
@@ -175,7 +175,8 @@ export default function HeroSection() {
           {/* Bio Description */}
           <div className="prismatic-glass p-6 md:p-8 rounded-2xl mb-10 border border-cyan-400/30">
             <p className="text-lg md:text-xl text-cyan-100 leading-relaxed">
-              Canadian architect of convergent technologies, orchestrating the cross-empowerment of classical wisdom and revolutionary AI systems. My digital realm spans from philosophical exploration to technological mastery—each line of code an expression of humanity's infinite potential through technological convergence.
+              Like Anaxa challenging the Coreflame of Reason, I forge pathways between classical wisdom and quantum innovation—
+              where Charter-protected freedoms meet cypherpunk ideals to architect technology that amplifies human dignity through VibeCoding mastery.
             </p>
           </div>
 
