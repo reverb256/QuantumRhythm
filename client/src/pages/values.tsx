@@ -15,7 +15,7 @@ export default function Values() {
       <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0 opacity-20">
           <img 
-            src="/attached_assets/catboy2025BG_1749433079455.PNG" 
+            src="/images/catboy2025BG_1749433079455.PNG" 
             alt="Anime synthwave space background" 
             className="w-full h-full object-cover" 
           />
