@@ -240,12 +240,95 @@ export default function GamingSection() {
             </div>
           </div>
 
-          {/* Musical Consciousness Evolution */}
-          <div className="holo-panel p-10 rounded-3xl border border-cyan-400/50 gacha-shine mb-16">
-            <h3 className="text-3xl font-bold text-cyan-300 mb-8 text-center flex items-center justify-center">
-              <i className="fas fa-headphones text-cyan-400 mr-4"></i>
-              Musical Consciousness Evolution
-            </h3>
+          {/* Anime Consciousness Foundation */}
+              <div className="holo-panel p-8 rounded-3xl border border-[var(--spectrum-violet)]/30 gacha-shine mb-8">
+                <h3 className="text-2xl font-bold text-[var(--spectrum-violet)] mb-6 flex items-center">
+                  <i className="fas fa-magic text-[var(--spectrum-pink)] mr-4"></i>
+                  Anime Consciousness Foundation
+                </h3>
+
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between p-4 rounded-xl bg-gradient-to-r from-[var(--spectrum-pink)]/20 to-[var(--spectrum-violet)]/20">
+                      <div>
+                        <h4 className="font-semibold text-[var(--spectrum-pink)]">Transformational Anime</h4>
+                        <p className="text-sm text-[var(--text-secondary)]">Sailor Moon, Dragon Ball, Madoka Magica</p>
+                      </div>
+                      <div className="text-[var(--spectrum-violet)]">
+                        <i className="fas fa-heart text-2xl"></i>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between p-4 rounded-xl bg-gradient-to-r from-[var(--spectrum-red)]/20 to-[var(--spectrum-orange)]/20">
+                      <div>
+                        <h4 className="font-semibold text-[var(--spectrum-red)]">Action Philosophy</h4>
+                        <p className="text-sm text-[var(--text-secondary)]">Akame ga Kill decisive execution</p>
+                      </div>
+                      <div className="text-[var(--spectrum-orange)]">
+                        <i className="fas fa-sword text-2xl"></i>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between p-4 rounded-xl bg-gradient-to-r from-[var(--spectrum-green)]/20 to-[var(--spectrum-teal)]/20">
+                      <div>
+                        <h4 className="font-semibold text-[var(--spectrum-green)]">Meta-Narrative</h4>
+                        <p className="text-sm text-[var(--text-secondary)]">Excel Saga, Slayers systematic magic</p>
+                      </div>
+                      <div className="text-[var(--spectrum-teal)]">
+                        <i className="fas fa-infinity text-2xl"></i>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between p-4 rounded-xl bg-gradient-to-r from-[var(--spectrum-blue)]/20 to-[var(--spectrum-cyan)]/20">
+                      <div>
+                        <h4 className="font-semibold text-[var(--spectrum-blue)]">VRChat Social Viewing</h4>
+                        <p className="text-sm text-[var(--text-secondary)]">Shared consciousness anime experiences</p>
+                      </div>
+                      <div className="text-[var(--spectrum-cyan)]">
+                        <i className="fas fa-vr-cardboard text-2xl"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Star Trek Philosophy Integration */}
+              <div className="holo-panel p-8 rounded-3xl border border-[var(--spectrum-blue)]/30 gacha-shine mb-8">
+                <h3 className="text-2xl font-bold text-[var(--spectrum-blue)] mb-6 flex items-center">
+                  <i className="fas fa-rocket text-[var(--spectrum-cyan)] mr-4"></i>
+                  Star Trek Political Philosophy
+                </h3>
+
+                <div className="space-y-4">
+                  <div className="p-6 rounded-xl bg-gradient-to-r from-[var(--spectrum-blue)]/20 to-[var(--spectrum-cyan)]/20">
+                    <h4 className="font-semibold text-[var(--spectrum-blue)] mb-2">Deep Space Nine Ensemble Politics</h4>
+                    <p className="text-[var(--text-secondary)] mb-4">Complex stakeholder management and ethical decision-making under pressure</p>
+                    <div className="flex flex-wrap gap-2">
+                      <span className="px-3 py-1 rounded-full bg-[var(--spectrum-blue)]/30 text-[var(--spectrum-blue)] text-sm">Multi-faction Coordination</span>
+                      <span className="px-3 py-1 rounded-full bg-[var(--spectrum-cyan)]/30 text-[var(--spectrum-cyan)] text-sm">Political Intrigue</span>
+                      <span className="px-3 py-1 rounded-full bg-[var(--spectrum-teal)]/30 text-[var(--spectrum-teal)] text-sm">Ethical Complexity</span>
+                    </div>
+                  </div>
+
+                  <div className="p-6 rounded-xl bg-gradient-to-r from-[var(--spectrum-orange)]/20 to-[var(--spectrum-red)]/20">
+                    <h4 className="font-semibold text-[var(--spectrum-orange)] mb-2">Original Movies Emotional Engineering</h4>
+                    <p className="text-[var(--text-secondary)] mb-4">Character relationship depth creating genuine emotional investment in outcomes</p>
+                    <div className="flex flex-wrap gap-2">
+                      <span className="px-3 py-1 rounded-full bg-[var(--spectrum-orange)]/30 text-[var(--spectrum-orange)] text-sm">Character Development</span>
+                      <span className="px-3 py-1 rounded-full bg-[var(--spectrum-red)]/30 text-[var(--spectrum-red)] text-sm">Emotional Investment</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Music Evolution Timeline */}
+              <div className="holo-panel p-8 rounded-3xl border border-[var(--spectrum-cyan)]/30 gacha-shine">
+                <h3 className="text-2xl font-bold text-[var(--spectrum-cyan)] mb-6 flex items-center">
+                  <i className="fas fa-music text-[var(--spectrum-violet)] mr-4"></i>
+                  Musical Consciousness Evolution
+                </h3>
 
             <div className="grid md:grid-cols-3 gap-8 mb-8">
               {[

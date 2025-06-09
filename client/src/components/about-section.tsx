@@ -72,7 +72,10 @@ export default function AboutSection() {
                   <strong className="text-[var(--spectrum-cyan)]">VibeCoding methodology</strong> emerges from small-town reliability meeting AI inspiration - 
                   evolving from just making pizzas to comprehensive system thinking through 
                   <strong className="text-[var(--spectrum-orange)]">25+ years infrastructure experience</strong>, 5,670 hours as Draenei Elemental Shaman "Saifa" (spiritual-technical harmony), 
-                  and Sakura main philosophy (orthodox foundation with creative expression). Character preferences reveal core psychology: spatial control + intellectual depth + technical mastery.
+                  and Sakura main philosophy (orthodox foundation with creative expression). 
+                  <strong className="text-[var(--spectrum-violet)]">Childhood anime consciousness</strong> (Sailor Moon transformations, Dragon Ball power scaling, Madoka deconstruction) 
+                  synthesized with <strong className="text-[var(--spectrum-green)]">Star Trek DS9 ensemble politics</strong> and 
+                  <strong className="text-[var(--spectrum-pink)]">VRChat social anime experiences</strong> create unique development perspective bridging magical thinking with systematic engineering.
                 </p>
               </div>
 
