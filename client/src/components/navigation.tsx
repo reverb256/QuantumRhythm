@@ -63,6 +63,12 @@ export default function Navigation() {
             >
               Values
             </Link>
+            <Link 
+              href="/vrchat"
+              className={`hover:text-[var(--synthwave-cyan)] transition-colors duration-300 ${location === '/vrchat' ? 'text-[var(--synthwave-cyan)]' : 'text-white'}`}
+            >
+              VR Research
+            </Link>
             <button 
               onClick={() => scrollToSection('philosophy')} 
               className={`hover:text-[var(--synthwave-cyan)] transition-colors duration-300 ${location === '/' ? 'text-white' : 'text-gray-400'}`}
@@ -113,6 +119,13 @@ export default function Navigation() {
                 onClick={() => setIsOpen(false)}
               >
                 Values
+              </Link>
+              <Link 
+                href="/vrchat"
+                className={`text-left hover:text-[var(--synthwave-cyan)] transition-colors duration-300 ${location === '/vrchat' ? 'text-[var(--synthwave-cyan)]' : 'text-white'}`}
+                onClick={() => setIsOpen(false)}
+              >
+                VR Research
               </Link>
               <button 
                 onClick={() => scrollToSection('philosophy')} 

@@ -13,6 +13,7 @@ function Router() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/values" component={Values} />
+      <Route path="/vrchat" component={VRChat} />
       <Route component={NotFound} />
     </Switch>
   );
