@@ -108,37 +108,38 @@ export default function HeroSection() {
         <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent animate-pulse" style={{ animationDelay: '1s' }}></div>
       </div>
 
-      {/* Top Status Bar */}
-      <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-blue-900/80 via-blue-900/60 to-transparent backdrop-blur-md border-b border-cyan-400/30 z-20">
-        <div className="container mx-auto px-6 h-full flex items-center justify-between">
-          <div className="flex items-center space-x-4">
-            <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center">
-              <i className="fas fa-user-astronaut text-white text-xl"></i>
+      {/* Top Status Bar - Responsive */}
+      <div className="absolute top-0 left-0 right-0 h-16 md:h-20 bg-gradient-to-b from-blue-900/80 via-blue-900/60 to-transparent backdrop-blur-md border-b border-cyan-400/30 z-20">
+        <div className="container mx-auto px-4 md:px-6 h-full flex items-center justify-between">
+          <div className="flex items-center space-x-2 md:space-x-4">
+            <div className="w-8 h-8 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center">
+              <i className="fas fa-user-astronaut text-white text-sm md:text-xl"></i>
             </div>
             <div>
-              <div className="text-cyan-300 text-sm font-medium">Digital Architect</div>
-              <div className="text-white text-lg font-bold">reverb256</div>
+              <div className="text-cyan-300 text-xs md:text-sm font-medium">Digital Architect</div>
+              <div className="text-white text-sm md:text-lg font-bold">reverb256</div>
             </div>
           </div>
           
-          <div className="flex items-center space-x-6">
+          <div className="flex items-center space-x-3 md:space-x-6">
             <div className="text-right">
-              <div className="text-cyan-300 text-sm">System Status</div>
-              <div className="text-green-400 text-lg font-bold flex items-center">
-                <div className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></div>
-                ONLINE
+              <div className="text-cyan-300 text-xs md:text-sm">System Status</div>
+              <div className="text-green-400 text-sm md:text-lg font-bold flex items-center">
+                <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-green-400 rounded-full mr-1 md:mr-2 animate-pulse"></div>
+                <span className="hidden sm:inline">ONLINE</span>
+                <span className="sm:hidden">ON</span>
               </div>
             </div>
             <div className="text-right">
-              <div className="text-cyan-300 text-sm">Neural Link</div>
-              <div className="text-cyan-400 text-lg font-bold">100%</div>
+              <div className="text-cyan-300 text-xs md:text-sm">Neural Link</div>
+              <div className="text-cyan-400 text-sm md:text-lg font-bold">100%</div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Left Side Panel - Hidden on mobile */}
-      <div className="hidden lg:block absolute left-0 top-20 bottom-20 w-80 bg-gradient-to-r from-blue-900/80 via-blue-900/40 to-transparent backdrop-blur-md border-r border-cyan-400/20 z-20">
+      {/* Left Side Panel - Responsive positioning */}
+      <div className="hidden xl:block absolute left-0 top-16 md:top-20 bottom-16 md:bottom-20 w-64 xl:w-80 bg-gradient-to-r from-blue-900/80 via-blue-900/40 to-transparent backdrop-blur-md border-r border-cyan-400/20 z-20">
         <div className="p-6 h-full flex flex-col">
           <div className="mb-6">
             <h3 className="text-cyan-300 text-lg font-bold mb-4 flex items-center">
@@ -201,8 +202,8 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Right Side Panel - Hidden on mobile */}
-      <div className="hidden lg:block absolute right-0 top-20 bottom-20 w-80 bg-gradient-to-l from-blue-900/80 via-blue-900/40 to-transparent backdrop-blur-md border-l border-cyan-400/20 z-20">
+      {/* Right Side Panel - Responsive positioning */}
+      <div className="hidden xl:block absolute right-0 top-16 md:top-20 bottom-16 md:bottom-20 w-64 xl:w-80 bg-gradient-to-l from-blue-900/80 via-blue-900/40 to-transparent backdrop-blur-md border-l border-cyan-400/20 z-20">
         <div className="p-6 h-full flex flex-col">
           <div className="mb-6">
             <h3 className="text-cyan-300 text-lg font-bold mb-4 flex items-center">
@@ -260,70 +261,71 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Bottom Action Bar */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-blue-900/80 via-blue-900/60 to-transparent backdrop-blur-md border-t border-cyan-400/30 z-20">
-        <div className="container mx-auto px-6 h-full flex items-center justify-center">
-          <div className="flex space-x-4">
+      {/* Bottom Action Bar - Responsive */}
+      <div className="absolute bottom-0 left-0 right-0 h-16 md:h-20 bg-gradient-to-t from-blue-900/80 via-blue-900/60 to-transparent backdrop-blur-md border-t border-cyan-400/30 z-20">
+        <div className="container mx-auto px-4 md:px-6 h-full flex items-center justify-center">
+          <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3 md:space-x-4">
             <button 
               onClick={scrollToProjects}
-              className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg text-white font-medium hover:from-cyan-400 hover:to-blue-500 transition-all duration-300 flex items-center space-x-2 hover:scale-105 transform"
+              className="px-4 md:px-6 py-2 md:py-3 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg text-white font-medium hover:from-cyan-400 hover:to-blue-500 transition-all duration-300 flex items-center justify-center space-x-2 hover:scale-105 transform text-sm md:text-base"
             >
-              <i className="fas fa-rocket"></i>
-              <span>View Projects</span>
+              <i className="fas fa-rocket text-xs md:text-sm"></i>
+              <span className="hidden sm:inline">View Projects</span>
+              <span className="sm:hidden">Projects</span>
             </button>
             <button 
               onClick={scrollToPhilosophy}
-              className="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-600 rounded-lg text-white font-medium hover:from-purple-400 hover:to-pink-500 transition-all duration-300 flex items-center space-x-2 hover:scale-105 transform"
+              className="px-4 md:px-6 py-2 md:py-3 bg-gradient-to-r from-purple-500 to-pink-600 rounded-lg text-white font-medium hover:from-purple-400 hover:to-pink-500 transition-all duration-300 flex items-center justify-center space-x-2 hover:scale-105 transform text-sm md:text-base"
             >
-              <i className="fas fa-brain"></i>
+              <i className="fas fa-brain text-xs md:text-sm"></i>
               <span>Philosophy</span>
             </button>
             <button 
               onClick={scrollToContact}
-              className="px-6 py-3 bg-gradient-to-r from-green-500 to-teal-600 rounded-lg text-white font-medium hover:from-green-400 hover:to-teal-500 transition-all duration-300 flex items-center space-x-2 hover:scale-105 transform"
+              className="px-4 md:px-6 py-2 md:py-3 bg-gradient-to-r from-green-500 to-teal-600 rounded-lg text-white font-medium hover:from-green-400 hover:to-teal-500 transition-all duration-300 flex items-center justify-center space-x-2 hover:scale-105 transform text-sm md:text-base"
             >
-              <i className="fas fa-satellite-dish"></i>
+              <i className="fas fa-satellite-dish text-xs md:text-sm"></i>
               <span>Connect</span>
             </button>
           </div>
         </div>
       </div>
 
-      {/* Central Character Panel */}
-      <div className="container mx-auto px-6 text-center relative z-10 flex items-center justify-center min-h-screen">
-        <div className="max-w-2xl mx-auto">
+      {/* Central Character Panel - Responsive with proper spacing */}
+      <div className="container mx-auto px-4 md:px-6 xl:px-80 text-center relative z-10 flex items-center justify-center min-h-screen pt-16 md:pt-20 pb-16 md:pb-20">
+        <div className="max-w-2xl mx-auto w-full">
           {/* Character Portrait with HUD Frame */}
-          <div className="relative mb-8">
-            <div className="absolute inset-0 border-4 border-cyan-400/50 rounded-full animate-pulse"></div>
-            <div className="absolute -inset-4 border-2 border-blue-400/30 rounded-full"></div>
-            <div className="absolute -inset-8 border border-purple-400/20 rounded-full"></div>
+          <div className="relative mb-6 md:mb-8">
+            <div className="absolute inset-0 border-2 md:border-4 border-cyan-400/50 rounded-full animate-pulse"></div>
+            <div className="absolute -inset-2 md:-inset-4 border border-blue-400/30 rounded-full"></div>
+            <div className="absolute -inset-4 md:-inset-8 border border-purple-400/20 rounded-full"></div>
             <img 
               src="/images/catboy_profile.png" 
               alt="reverb256 - Digital Architect" 
-              className="w-32 h-32 md:w-40 md:h-40 rounded-full mx-auto object-cover relative z-10 shadow-2xl shadow-cyan-400/50"
+              className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-full mx-auto object-cover relative z-10 shadow-2xl shadow-cyan-400/50"
             />
             {/* Character Level Badge */}
-            <div className="absolute -top-2 -right-2 w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center border-4 border-blue-900 z-20">
-              <span className="text-white font-bold text-sm">∞</span>
+            <div className="absolute -top-1 -right-1 md:-top-2 md:-right-2 w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center border-2 md:border-4 border-blue-900 z-20">
+              <span className="text-white font-bold text-xs md:text-sm">∞</span>
             </div>
           </div>
           
           {/* Character Title */}
-          <div className="mb-6 p-6 bg-gradient-to-r from-blue-900/80 to-purple-900/80 rounded-2xl backdrop-blur-md border border-cyan-400/30">
-            <h1 className="font-bold text-4xl md:text-5xl lg:text-6xl mb-4 bg-gradient-to-r from-cyan-300 via-blue-300 to-purple-300 bg-clip-text text-transparent">
+          <div className="mb-4 md:mb-6 p-4 md:p-6 bg-gradient-to-r from-blue-900/80 to-purple-900/80 rounded-xl md:rounded-2xl backdrop-blur-md border border-cyan-400/30">
+            <h1 className="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl mb-2 md:mb-4 bg-gradient-to-r from-cyan-300 via-blue-300 to-purple-300 bg-clip-text text-transparent">
               Digital Architect
             </h1>
-            <h2 className="text-xl md:text-2xl mb-2 text-cyan-300 font-medium">
+            <h2 className="text-lg md:text-xl lg:text-2xl mb-2 text-cyan-300 font-medium">
               VibeCoder & Cybernetic Systems Engineer
             </h2>
-            <div className="text-sm text-gray-300">
+            <div className="text-xs md:text-sm text-gray-300">
               Level ∞ • Class: Philosopher-Technologist • Origin: Canada
             </div>
           </div>
           
           {/* Character Description */}
-          <div className="mb-8 p-6 bg-gradient-to-r from-blue-900/60 to-purple-900/60 rounded-xl backdrop-blur-md border border-cyan-400/20">
-            <p className="text-base md:text-lg text-gray-300 leading-relaxed">
+          <div className="mb-6 md:mb-8 p-4 md:p-6 bg-gradient-to-r from-blue-900/60 to-purple-900/60 rounded-lg md:rounded-xl backdrop-blur-md border border-cyan-400/20">
+            <p className="text-sm md:text-base lg:text-lg text-gray-300 leading-relaxed">
               Canadian architect of convergent technologies, orchestrating the cross-empowerment of classical wisdom 
               and revolutionary AI systems. My digital realm spans from philosophical exploration to technological 
               mastery—each line of code an expression of humanity's infinite potential through technological convergence.
@@ -331,13 +333,13 @@ export default function HeroSection() {
           </div>
           
           {/* Energy Visualization */}
-          <div className="flex justify-center space-x-2 mb-8">
+          <div className="flex justify-center space-x-1 md:space-x-2 mb-6 md:mb-8">
             {rhythmBars.map((height, index) => (
               <div 
                 key={index}
-                className="w-3 rounded-full transition-all duration-300 shadow-lg"
+                className="w-2 md:w-3 rounded-full transition-all duration-300 shadow-lg"
                 style={{ 
-                  height: `${height + 20}px`,
+                  height: `${height + 15}px`,
                   background: `linear-gradient(to top, ${[
                     '#06b6d4', // cyan-500
                     '#3b82f6', // blue-500
@@ -345,7 +347,7 @@ export default function HeroSection() {
                     '#ec4899', // pink-500
                     '#f59e0b'  // amber-500
                   ][index]}, rgba(255,255,255,0.3))`,
-                  boxShadow: `0 0 20px ${[
+                  boxShadow: `0 0 15px ${[
                     '#06b6d4', // cyan-500
                     '#3b82f6', // blue-500
                     '#8b5cf6', // violet-500
