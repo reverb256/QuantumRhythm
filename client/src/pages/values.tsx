@@ -220,11 +220,153 @@ export default function Values() {
         </div>
       </section>
 
+      {/* Cyberpunk Design Philosophy */}
+      <section className="py-20 relative">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto">
+            <div className="holo-panel p-8 md:p-12 rounded-3xl border border-green-400/50 gacha-shine energy-flow">
+              <h2 className="font-bold text-2xl md:text-3xl mb-8 text-[var(--spectrum-green)] text-center">
+                <i className="fas fa-eye mr-3"></i>Cyberpunk Design Philosophy
+              </h2>
+              
+              <div className="space-y-6 text-[var(--text-secondary)] leading-relaxed">
+                <p className="text-lg text-center italic text-[var(--bright-green)]">
+                  "Technology as art. Code as consciousness. Interfaces that acknowledge the cyborg nature of modern digital interaction."
+                </p>
+                
+                <p>
+                  Most portfolios follow predictable patterns—clean minimalism that screams "hire me, I'm safe." 
+                  But why settle for corporate beige when you can have prismatic spectrum harmonization? 
+                  This cyberpunk aesthetic isn't style over substance; it's substance through authentic style. 
+                  Because if your interface doesn't suggest underlying digital physics, are you even trying?
+                </p>
+                
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="holo-panel p-6 rounded-2xl border border-[var(--synthwave-cyan)]/50 gacha-shine">
+                    <h4 className="font-semibold text-[var(--synthwave-cyan)] mb-3 flex items-center">
+                      <i className="fas fa-prism mr-2"></i>Prismatic Harmonization
+                    </h4>
+                    <ul className="space-y-2 text-[var(--text-secondary)] text-sm">
+                      <li>• Spectrum variables that mimic light refraction</li>
+                      <li>• Glass morphism with quantum particle effects</li>
+                      <li>• Energy flow patterns representing data streams</li>
+                      <li>• Visual metaphors for consciousness complexity</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="holo-panel p-6 rounded-2xl border border-[var(--synthwave-pink)]/50 gacha-shine">
+                    <h4 className="font-semibold text-[var(--synthwave-pink)] mb-3 flex items-center">
+                      <i className="fas fa-universal-access mr-2"></i>Accessible Cyberpunk
+                    </h4>
+                    <ul className="space-y-2 text-[var(--text-secondary)] text-sm">
+                      <li>• WCAG 2.1 compliance with futuristic aesthetics</li>
+                      <li>• High contrast ratios maintained throughout</li>
+                      <li>• Reduced motion preferences respected</li>
+                      <li>• Proving accessibility needn't sacrifice vision</li>
+                    </ul>
+                  </div>
+                </div>
+                
+                <p>
+                  The meta-recursive project showcase—including this portfolio within itself—creates temporal 
+                  paradox within the browsing experience. It's not just clever; it's essential cyberpunk philosophy: 
+                  acknowledging that all interfaces are constructs, all portfolios are performances, and the 
+                  most honest approach embraces this truth rather than hiding it.
+                </p>
+                
+                <div className="bg-gradient-to-r from-[var(--synthwave-green)]/10 to-[var(--synthwave-blue)]/10 p-6 rounded-lg border border-[var(--synthwave-green)]/30">
+                  <p className="text-center font-semibold text-[var(--synthwave-gold)]">
+                    "In the digital realm, authenticity means embracing the artificial. Let consciousness and computation converge with style."
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Information Warfare Defense */}
+      <section className="py-20 relative">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto">
+            <div className="holo-panel p-8 md:p-12 rounded-3xl border border-blue-400/50 gacha-shine energy-flow">
+              <h2 className="font-bold text-2xl md:text-3xl mb-8 text-[var(--spectrum-blue)] text-center">
+                <i className="fas fa-shield-alt mr-3"></i>5th Generation Warfare Defense
+              </h2>
+              
+              <div className="space-y-6 text-[var(--text-secondary)] leading-relaxed">
+                <p className="text-lg text-center italic text-[var(--bright-blue)]">
+                  "In the digital realm, code is law. Let's write laws that defend consciousness."
+                </p>
+                
+                <p>
+                  Information warfare isn't science fiction—it's Tuesday. From narrative seeding to Overton window 
+                  manipulation, modern conflict happens in perception space. Frostbite Gazette's defense framework 
+                  implements zero-trust verification, cryptographic content integrity, and real-time threat intelligence. 
+                  Because when algorithms determine what truth gets seen, transparency becomes a national security issue.
+                </p>
+                
+                <div className="grid md:grid-cols-3 gap-4">
+                  <div className="holo-panel p-4 rounded-xl border border-[var(--synthwave-cyan)]/50 gacha-shine">
+                    <h4 className="font-semibold text-[var(--synthwave-cyan)] mb-2 flex items-center text-sm">
+                      <i className="fas fa-search mr-2"></i>Pattern Recognition
+                    </h4>
+                    <ul className="space-y-1 text-[var(--text-secondary)] text-xs">
+                      <li>• Coordinated inauthentic behavior detection</li>
+                      <li>• Narrative manipulation identification</li>
+                      <li>• Astroturfing pattern analysis</li>
+                      <li>• Foreign interference monitoring</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="holo-panel p-4 rounded-xl border border-[var(--synthwave-pink)]/50 gacha-shine">
+                    <h4 className="font-semibold text-[var(--synthwave-pink)] mb-2 flex items-center text-sm">
+                      <i className="fas fa-lock mr-2"></i>Cryptographic Integrity
+                    </h4>
+                    <ul className="space-y-1 text-[var(--text-secondary)] text-xs">
+                      <li>• SHA-256 content hashing</li>
+                      <li>• Blockchain-style verification chains</li>
+                      <li>• Immutable audit trails</li>
+                      <li>• Digital signature validation</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="holo-panel p-4 rounded-xl border border-[var(--synthwave-gold)]/50 gacha-shine">
+                    <h4 className="font-semibold text-[var(--synthwave-gold)] mb-2 flex items-center text-sm">
+                      <i className="fas fa-brain mr-2"></i>Cognitive Security
+                    </h4>
+                    <ul className="space-y-1 text-[var(--text-secondary)] text-xs">
+                      <li>• Trivium-based analysis tools</li>
+                      <li>• Logical fallacy detection</li>
+                      <li>• Bias inoculation systems</li>
+                      <li>• Critical thinking enhancement</li>
+                    </ul>
+                  </div>
+                </div>
+                
+                <p>
+                  The Canadian context adds complexity—linguistic division exploitation, resource politics manipulation, 
+                  Arctic sovereignty information campaigns. Our defense architecture protects democratic discourse through 
+                  multi-dimensional verification, Overton window monitoring, and quantum-resistant cryptography. 
+                  Sometimes the most patriotic thing you can do is build systems that defend shared truth.
+                </p>
+                
+                <div className="bg-gradient-to-r from-[var(--synthwave-blue)]/10 to-[var(--synthwave-cyan)]/10 p-6 rounded-lg border border-[var(--synthwave-blue)]/30">
+                  <p className="text-center font-semibold text-[var(--synthwave-gold)]">
+                    "Disinformation spreads like wildfire; truth builds like architecture. Choose your building materials wisely."
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Development Principles */}
       <section className="py-20 relative">
         <div className="container mx-auto px-6">
           <h2 className="font-bold text-3xl md:text-4xl text-center mb-16 text-[var(--bright-blue)]">
-            Development Principles
+            Technical Implementation
           </h2>
           
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-12">
