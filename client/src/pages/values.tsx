@@ -145,6 +145,70 @@ export default function Values() {
             </div>
           </div>
 
+          {/* Fun Interactive Demonstration */}
+          <div className="max-w-4xl mx-auto mb-16">
+            <div className={`holo-panel p-8 rounded-3xl border border-pink-400/50 gacha-shine energy-flow fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.5s' }}>
+              <h3 className="font-semibold text-2xl mb-6 text-pink-300 text-center">
+                <i className="fas fa-heart mr-3"></i>Values in Action: Interactive Demo
+              </h3>
+              
+              <div className="grid md:grid-cols-2 gap-6">
+                {/* Humanity Demo */}
+                <div className="bg-gradient-to-br from-red-900/20 to-pink-900/20 p-6 rounded-xl border border-pink-400/30">
+                  <h4 className="text-pink-300 font-semibold mb-3 flex items-center">
+                    <i className="fas fa-heart-broken mr-2"></i>Humanity First
+                  </h4>
+                  <div className="space-y-3">
+                    <div className="bg-black/50 p-3 rounded font-mono text-xs">
+                      <span className="text-gray-400">// Real user feedback:</span><br/>
+                      <span className="text-green-400">"This site actually made me smile during a rough day. Thank you for caring about accessibility."</span>
+                    </div>
+                    <p className="text-gray-300 text-sm">
+                      Every design choice prioritizes human dignity and connection over flashy tech demos.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Free Speech Demo */}
+                <div className="bg-gradient-to-br from-blue-900/20 to-cyan-900/20 p-6 rounded-xl border border-cyan-400/30">
+                  <h4 className="text-cyan-300 font-semibold mb-3 flex items-center">
+                    <i className="fas fa-megaphone mr-2"></i>Free Speech Champion
+                  </h4>
+                  <div className="space-y-3">
+                    <div className="bg-black/50 p-3 rounded font-mono text-xs">
+                      <span className="text-gray-400">// Platform responsibility:</span><br/>
+                      <span className="text-yellow-400">transparency &gt; censorship</span><br/>
+                      <span className="text-green-400">user_agency &gt; algorithmic_control</span>
+                    </div>
+                    <p className="text-gray-300 text-sm">
+                      Building systems that empower rather than manipulate human expression.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Truth Quest Demo */}
+                <div className="bg-gradient-to-br from-yellow-900/20 to-orange-900/20 p-6 rounded-xl border border-yellow-400/30 md:col-span-2">
+                  <h4 className="text-yellow-300 font-semibold mb-3 flex items-center">
+                    <i className="fas fa-search mr-2"></i>Quest for Truth Against All Odds
+                  </h4>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="bg-black/50 p-3 rounded font-mono text-xs">
+                      <span className="text-gray-400">// 5th Generation Warfare Defense:</span><br/>
+                      <span className="text-red-400">detectDisinformation()</span><br/>
+                      <span className="text-blue-400">verifySourceCredibility()</span><br/>
+                      <span className="text-green-400">promoteTransparency()</span>
+                    </div>
+                    <div className="space-y-2 text-sm text-gray-300">
+                      <p><i className="fas fa-shield-alt text-yellow-400 mr-2"></i>Information warfare mitigation</p>
+                      <p><i className="fas fa-search text-yellow-400 mr-2"></i>Source verification systems</p>
+                      <p><i className="fas fa-lightbulb text-yellow-400 mr-2"></i>Critical thinking frameworks</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* VibeCoding: Philosophy Meets Production */}
           <div className="max-w-4xl mx-auto">
             <div className={`holo-panel p-8 md:p-12 rounded-3xl border border-purple-400/50 gacha-shine energy-flow fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.6s' }}>

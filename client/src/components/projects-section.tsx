@@ -7,36 +7,39 @@ import portfolioImage from "@assets/image_1749452548538.png";
 const projects = [
   {
     title: "Troves & Coves",
-    subtitle: "Mystical Crystal Jewelry E-commerce",
-    description: "Production e-commerce platform for sacred crystal jewelry featuring AI-enhanced storefront, Stripe payment integration, and metaphysical product catalog. Built as a full-stack application with modern web technologies serving crystal jewelry enthusiasts.",
+    subtitle: "Sacred Sanctuary Crystal Jewelry",
+    description: "Production-ready e-commerce platform featuring authentic wooden sign branding, mystical three-color harmony (turquoise/cursive-blue/skull-turquoise), and AI-orchestrated customer service. Enterprise security with OWASP Top 10 compliance, Cloudflare edge optimization, and seamless Etsy integration.",
     image: trovesCovestImage,
-    technologies: ["React", "Node.js", "PostgreSQL", "Stripe API", "TypeScript"],
+    technologies: ["React 18", "Multi-LLM AI", "Cloudflare KV", "ISO 27001", "Edge Computing"],
     status: "Production",
     link: "https://trovesandcoves.ca",
     github: "https://github.com/reverb256/troves-coves",
-    color: "from-[var(--spectrum-violet)] to-[var(--spectrum-pink)]"
+    color: "from-[var(--spectrum-violet)] to-[var(--spectrum-pink)]",
+    vibecoding: "Authentic brand discovery with mystical aesthetic preservation"
   },
   {
-    title: "Local Cleaning Service",
-    subtitle: "AI-Enhanced Service Platform",
-    description: "Professional cleaning services platform with contract management, automated quoting system, and client portal. Features comprehensive accessibility compliance and responsive design for streamlined service booking and client management.",
+    title: "Workplace Janitorial Services",
+    subtitle: "VibeCoding Innovation Showcase",
+    description: "Revolutionary 6-container harmonized design framework with glassmorphism architecture. Memory-efficient backend (380MB peak), 60fps animations, complete OWASP security compliance, and accessibility excellence. Demonstrates advanced performance optimization under resource constraints.",
     image: cleaningServiceImage,
-    technologies: ["React", "Express", "PostgreSQL", "AI Integration", "Docker"],
+    technologies: ["Glassmorphism", "Performance Engineering", "WCAG AAA", "Security Framework", "Turquoise/Green Branding"],
     status: "Production",
     link: "https://2034c3d1-09aa-49c2-bad4-380f7b9d56ee-00-2eybkgfvy9084.riker.replit.dev",
     github: "https://github.com/reverb256/Local-Cleaning-Service",
-    color: "from-[var(--spectrum-cyan)] to-[var(--spectrum-blue)]"
+    color: "from-[var(--spectrum-cyan)] to-[var(--spectrum-blue)]",
+    vibecoding: "Authentic business requirements with accessibility-first development"
   },
   {
     title: "Neural Network Portfolio",
-    subtitle: "Advanced Web Architecture",
-    description: "This cyberpunk portfolio website featuring quantum animations, holographic interfaces, and advanced CSS effects. Built with React, TypeScript, and a unified design system showcasing modern web development capabilities.",
+    subtitle: "Cyberpunk Meta-Recursive Design",
+    description: "This very portfolio - a self-referential cyberpunk masterpiece featuring quantum particle systems, prismatic spectrum harmonization, and philosophical depth. Demonstrates meta-recursive design principles where the portfolio showcases itself through unified visual components.",
     image: portfolioImage,
-    technologies: ["React", "TypeScript", "CSS3", "Tailwind", "Vite"],
-    status: "Production",
+    technologies: ["React 18", "Cyberpunk Aesthetics", "Quantum Animations", "Meta-Recursion", "Spectrum Variables"],
+    status: "Active Development",
     link: "#",
     github: "https://github.com/reverb256/portfolio",
-    color: "from-[var(--spectrum-green)] to-[var(--spectrum-teal)]"
+    color: "from-[var(--spectrum-green)] to-[var(--spectrum-teal)]",
+    vibecoding: "Philosophical confluence meets modern technical expression"
   }
 ];
 
@@ -169,6 +172,17 @@ export default function ProjectsSection() {
                       </span>
                     );
                   })}
+                </div>
+
+                {/* VibeCoding Methodology Insight */}
+                <div className="mb-6 p-4 bg-gradient-to-r from-purple-900/20 to-cyan-900/20 rounded-xl border border-purple-400/30">
+                  <div className="flex items-center mb-2">
+                    <i className="fas fa-lightbulb text-yellow-400 mr-2"></i>
+                    <span className="text-sm font-semibold text-purple-300">VibeCoding Insight</span>
+                  </div>
+                  <p className="text-sm text-purple-200 italic">
+                    {project.vibecoding}
+                  </p>
                 </div>
 
                 {/* Action Buttons with Tech Humor */}

@@ -147,7 +147,7 @@ export default function HeroSection() {
               </h1>
               
               <h2 className="text-xl md:text-3xl lg:text-4xl text-[var(--text-secondary)] mb-6 font-medium">
-                Full-Stack Developer & Digital Philosopher
+                VibeCoding Practitioner & Neural Network Architect
                 <span className="console-cursor text-[var(--synthwave-cyan)]">|</span>
               </h2>
               
