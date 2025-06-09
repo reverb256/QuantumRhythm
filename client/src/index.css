@@ -724,196 +724,80 @@
     transform: translateX(0) !important;
   }
 
-  /* Technology-specific tooltips */
-  .react-tooltip:hover::after {
-    content: "const [bugs, setBugs] = useState(0)";
-    position: absolute;
-    top: calc(100% + 8px);
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--space-black);
-    color: #61DAFB;
-    padding: 6px 12px;
-    border-radius: 6px;
-    font-size: 11px;
-    font-family: 'JetBrains Mono', monospace;
-    border: 1px solid #61DAFB;
-    white-space: nowrap;
-    z-index: 999999;
-    animation: fade-in-tooltip 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(8px);
-    max-width: 200px;
-    word-wrap: break-word;
+  /* Simplified category-based tag styling */
+  .tech-tag {
+    color: var(--spectrum-cyan);
+    border-bottom: 1px dotted var(--spectrum-cyan);
+    cursor: help;
   }
 
-  /* Intelligent Color-Coding System for Tooltips */
-  
-  /* AI & Machine Learning - Pink/Magenta Theme */
-  .ai-tooltip:hover::after,
-  .ml-tooltip:hover::after,
-  .neural-tooltip:hover::after {
-    color: var(--synthwave-pink) !important;
-    border-color: var(--synthwave-pink) !important;
-    box-shadow: 0 4px 12px rgba(255, 20, 147, 0.3), 0 0 15px var(--synthwave-pink) !important;
+  /* Semantic Category Tag Styles */
+  .concept-tag {
+    color: var(--spectrum-violet);
+    border-bottom: 1px dotted var(--spectrum-violet);
+    cursor: help;
   }
 
-  /* Cloud & Infrastructure - Orange/Amber Theme */
-  .cloudflare-tooltip:hover::after,
-  .proxmox-tooltip:hover::after,
-  .aws-tooltip:hover::after,
-  .docker-tooltip:hover::after,
-  .kubernetes-tooltip:hover::after {
-    color: #F38020 !important;
-    border-color: #F38020 !important;
-    box-shadow: 0 4px 12px rgba(243, 128, 32, 0.3), 0 0 15px #F38020 !important;
+  .humor-tag {
+    color: var(--spectrum-gold);
+    border-bottom: 1px dotted var(--spectrum-gold);
+    cursor: help;
   }
 
-  /* DevOps & Automation - Red Theme */
-  .ansible-tooltip:hover::after,
-  .terraform-tooltip:hover::after,
-  .jenkins-tooltip:hover::after,
-  .ci-tooltip:hover::after {
-    color: #EE0000 !important;
-    border-color: #EE0000 !important;
-    box-shadow: 0 4px 12px rgba(238, 0, 0, 0.3), 0 0 15px #EE0000 !important;
+  .gaming-tag {
+    color: var(--spectrum-green);
+    border-bottom: 1px dotted var(--spectrum-green);
+    cursor: help;
   }
 
-  /* Security & Defense - Red/Crimson Theme */
-  .security-tooltip:hover::after,
-  .defense-tooltip:hover::after,
-  .encryption-tooltip:hover::after,
-  .firewall-tooltip:hover::after {
-    color: #ff4757 !important;
-    border-color: #ff4757 !important;
-    box-shadow: 0 4px 12px rgba(255, 71, 87, 0.3), 0 0 15px #ff4757 !important;
+  .error-tag {
+    color: var(--spectrum-red);
+    border-bottom: 1px dotted var(--spectrum-red);
+    cursor: help;
   }
 
-  /* Performance & Optimization - Green Theme */
-  .performance-tooltip:hover::after,
-  .optimization-tooltip:hover::after,
-  .speed-tooltip:hover::after,
-  .cache-tooltip:hover::after {
-    color: var(--synthwave-green) !important;
-    border-color: var(--synthwave-green) !important;
-    box-shadow: 0 4px 12px rgba(0, 255, 127, 0.3), 0 0 15px var(--synthwave-green) !important;
+  .loading-tag {
+    color: var(--spectrum-blue);
+    border-bottom: 1px dotted var(--spectrum-blue);
+    cursor: help;
   }
 
-  /* Frontend & Design - Blue Theme */
-  .glassmorphism-tooltip:hover::after,
-  .ui-tooltip:hover::after,
-  .design-tooltip:hover::after,
-  .css-tooltip:hover::after,
-  .react-tooltip:hover::after {
-    color: var(--synthwave-blue) !important;
-    border-color: var(--synthwave-blue) !important;
-    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3), 0 0 15px var(--synthwave-blue) !important;
+  .deprecated-tag {
+    color: var(--text-muted);
+    border-bottom: 1px dotted var(--text-muted);
+    cursor: help;
+    opacity: 0.7;
   }
 
-  /* Edge Computing & CDN - Cyan Theme */
-  .edge-tooltip:hover::after,
-  .cdn-tooltip:hover::after,
-  .vercel-tooltip:hover::after,
-  .netlify-tooltip:hover::after {
-    color: var(--synthwave-cyan) !important;
-    border-color: var(--synthwave-cyan) !important;
-    box-shadow: 0 4px 12px rgba(0, 255, 255, 0.3), 0 0 15px var(--synthwave-cyan) !important;
+  .success-tag {
+    color: var(--spectrum-emerald);
+    border-bottom: 1px dotted var(--spectrum-emerald);
+    cursor: help;
   }
 
-  /* Accessibility & Inclusive Design - Purple Theme */
-  .accessibility-tooltip:hover::after,
-  .a11y-tooltip:hover::after,
-  .inclusive-tooltip:hover::after,
-  .wcag-tooltip:hover::after {
-    color: var(--synthwave-purple) !important;
-    border-color: var(--synthwave-purple) !important;
-    box-shadow: 0 4px 12px rgba(147, 51, 234, 0.3), 0 0 15px var(--synthwave-purple) !important;
+  /* Intelligent tooltip trigger highlighting */
+  .intelligent-tooltip-trigger {
+    transition: all 0.2s ease;
+    border-radius: 2px;
+    padding: 0 2px;
   }
 
-  /* Branding & Marketing - Gold/Yellow Theme */
-  .branding-tooltip:hover::after,
-  .marketing-tooltip:hover::after,
-  .seo-tooltip:hover::after,
-  .analytics-tooltip:hover::after {
-    color: var(--synthwave-gold) !important;
-    border-color: var(--synthwave-gold) !important;
-    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3), 0 0 15px var(--synthwave-gold) !important;
+  .intelligent-tooltip-trigger:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-1px);
   }
 
-  /* Government & Legal - Rose/Pink Theme */
-  .charter-tooltip:hover::after,
-  .legal-tooltip:hover::after,
-  .compliance-tooltip:hover::after,
-  .gdpr-tooltip:hover::after {
-    color: #ff6b6b !important;
-    border-color: #ff6b6b !important;
-    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3), 0 0 15px #ff6b6b !important;
+  /* Tooltip container optimization */
+  .intelligent-tooltip {
+    min-width: 280px;
+    max-width: 350px;
+    word-break: break-word;
+    hyphens: auto;
   }
 
-  /* Democracy & Political - Blue/Patriot Theme */
-  .democratic-tooltip:hover::after,
-  .political-tooltip:hover::after,
-  .governance-tooltip:hover::after,
-  .civic-tooltip:hover::after {
-    color: var(--synthwave-blue) !important;
-    border-color: var(--synthwave-blue) !important;
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3), 0 0 15px var(--synthwave-blue) !important;
-  }
-
-  /* Language & Localization - Coral Theme */
-  .bilingual-tooltip:hover::after,
-  .i18n-tooltip:hover::after,
-  .translation-tooltip:hover::after,
-  .localization-tooltip:hover::after {
-    color: #ff6b6b !important;
-    border-color: #ff6b6b !important;
-    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3), 0 0 15px #ff6b6b !important;
-  }
-
-  /* VibeCoding & Philosophy - Multi-color Gradient Theme */
-  .vibecoding-tooltip:hover::after,
-  .philosophy-tooltip:hover::after,
-  .consciousness-tooltip:hover::after {
-    background: linear-gradient(135deg, 
-      var(--synthwave-pink) 0%, 
-      var(--synthwave-cyan) 50%, 
-      var(--synthwave-gold) 100%) !important;
-    color: var(--space-black) !important;
-    border: 1px solid var(--synthwave-gold) !important;
-    box-shadow: 
-      0 4px 12px rgba(255, 215, 0, 0.3),
-      0 0 15px var(--synthwave-gold),
-      inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
-    font-weight: 600 !important;
-  }
-
-  /* Cyberpunk & Futuristic - Pink/Neon Theme */
-  .cyberpunk-tooltip:hover::after,
-  .futuristic-tooltip:hover::after,
-  .neon-tooltip:hover::after {
-    color: var(--synthwave-pink) !important;
-    border-color: var(--synthwave-pink) !important;
-    box-shadow: 0 4px 12px rgba(255, 20, 147, 0.3), 0 0 15px var(--synthwave-pink) !important;
-  }
-
-  /* Quantum & Advanced Tech - Spectrum/Rainbow Theme */
-  .quantum-tooltip:hover::after,
-  .advanced-tooltip:hover::after,
-  .experimental-tooltip:hover::after {
-    background: linear-gradient(135deg, 
-      var(--spectrum-violet) 0%, 
-      var(--spectrum-blue) 25%,
-      var(--spectrum-cyan) 50%,
-      var(--spectrum-green) 75%,
-      var(--spectrum-gold) 100%) !important;
-    color: var(--space-black) !important;
-    border: 1px solid var(--spectrum-cyan) !important;
-    box-shadow: 
-      0 4px 12px rgba(0, 255, 255, 0.3),
-      0 0 15px var(--spectrum-cyan),
-      inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
-    font-weight: 600 !important;
-    animation: rainbow-pulse 3s ease-in-out infinite !important;
+  .intelligent-tooltip-container {
+    pointer-events: none;
+    user-select: none;
   }
 
 /* Comprehensive HDR and Accessibility Framework */

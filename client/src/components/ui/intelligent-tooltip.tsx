@@ -118,14 +118,14 @@ export function IntelligentTooltip({ children, tooltipData, className = '' }: In
 
   const getCategoryColor = (category: TooltipData['category']) => {
     const colors = {
-      tech: 'from-cyan-500 to-blue-500',
-      concept: 'from-purple-500 to-pink-500',
-      humor: 'from-yellow-500 to-orange-500',
-      gaming: 'from-green-500 to-teal-500',
-      error: 'from-red-500 to-pink-500',
-      loading: 'from-blue-500 to-cyan-500',
-      deprecated: 'from-gray-500 to-slate-500',
-      success: 'from-green-500 to-emerald-500'
+      tech: 'from-cyan-400 to-blue-400',
+      concept: 'from-violet-400 to-purple-400', 
+      humor: 'from-amber-400 to-yellow-400',
+      gaming: 'from-emerald-400 to-green-400',
+      error: 'from-red-400 to-rose-400',
+      loading: 'from-blue-400 to-indigo-400',
+      deprecated: 'from-gray-400 to-slate-400',
+      success: 'from-green-400 to-emerald-400'
     };
     return colors[category];
   };

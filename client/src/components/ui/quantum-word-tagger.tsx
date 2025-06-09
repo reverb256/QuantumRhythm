@@ -11,13 +11,17 @@ interface WordTagConfig {
   difficulty?: 'beginner' | 'intermediate' | 'advanced' | 'expert';
 }
 
-// Comprehensive word database for auto-tagging
+// Comprehensive word database for auto-tagging - Consolidated from multiple sources
 const wordDatabase: WordTagConfig[] = [
   // Technology Terms
-  { word: 'React', category: 'tech', definition: 'A JavaScript library for building user interfaces', difficulty: 'intermediate' },
+  { word: 'React', category: 'tech', definition: 'A JavaScript library for building user interfaces', difficulty: 'intermediate', 
+    context: 'Modern frontend framework', relatedTerms: ['JSX', 'Hooks', 'Virtual DOM'], funFact: 'React 18 introduced concurrent features' },
+  { word: 'React 18', category: 'tech', definition: 'Latest version of React with concurrent features, automatic batching, and Suspense improvements', difficulty: 'intermediate',
+    context: 'Modern frontend framework', relatedTerms: ['JSX', 'Hooks', 'Virtual DOM'], funFact: 'Introduced the concurrent renderer' },
   { word: 'Node.js', category: 'tech', definition: 'JavaScript runtime built on Chrome\'s V8 JavaScript engine', difficulty: 'intermediate' },
   { word: 'TypeScript', category: 'tech', definition: 'Typed superset of JavaScript that compiles to plain JavaScript', difficulty: 'intermediate' },
-  { word: 'Proxmox', category: 'tech', definition: 'Open-source virtualization management platform', difficulty: 'expert' },
+  { word: 'Proxmox', category: 'tech', definition: 'Open-source virtualization management platform combining KVM hypervisor and LXC containers', difficulty: 'expert',
+    context: 'Enterprise infrastructure management', relatedTerms: ['Virtualization', 'Hypervisor', 'Container'], funFact: 'Can manage hundreds of VMs from a single web interface' },
   { word: 'Ansible', category: 'tech', definition: 'Open-source automation tool for configuration management', difficulty: 'advanced' },
   { word: 'Terraform', category: 'tech', definition: 'Infrastructure as Code tool for building and managing infrastructure', difficulty: 'advanced' },
   { word: 'Docker', category: 'tech', definition: 'Platform for developing, shipping, and running applications in containers', difficulty: 'intermediate' },
