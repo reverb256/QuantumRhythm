@@ -416,3 +416,21 @@ export const sectionIntegrationPoints = {
     technicalHighlights: ["8,500+ hours verified experience", "Performance optimization insights", "Social systems research"]
   }
 };
+
+export const easterEggs = {
+    // Gaming references
+    "fighting-games": "Frame data is life - every millisecond matters in both Tekken and React optimization",
+    "rhythm-games": "Perfect timing isn't just for DDR - it's for smooth 60fps user experiences",
+    "mmo-systems": "Guild coordination taught me team management and resource optimization",
+
+    // VR experiences  
+    "vrchat-social": "4,320+ hours of virtual consciousness research and social anxiety healing",
+    "vr-development": "Spatial UI design informed by thousands of hours in virtual worlds",
+    "presence-engineering": "Understanding digital embodiment through VR social interaction",
+
+    // Security & AI Systems
+    "honeypot-defense": "Deceptive security that educates while protecting - turning curiosity into learning",
+    "ai-guardian": "Intelligent threat detection that recognizes malicious intent while preserving educational value",
+    "security-theater": "Visible protection combined with invisible intelligence - multi-layer consciousness defense",
+    "quantum-security": "AI-enhanced protection that adapts and learns from interaction patterns",
+};

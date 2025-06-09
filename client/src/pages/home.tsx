@@ -6,6 +6,7 @@ import GamingSection from "@/components/gaming-section";
 import PhilosophySection from "@/components/philosophy-section";
 import ContactSection from "@/components/contact-section";
 import Footer from "@/components/footer";
+import { EnhancedConsole } from '../components/enhanced-console';
 export default function Home() {
   return (
     <div className="min-h-screen bg-[var(--space-black)] text-white ambient-glow">
@@ -36,6 +37,7 @@ export default function Home() {
           <ContactSection />
         </div>
       </main>
+      <EnhancedConsole />
       <Footer />
     </div>
   );

@@ -1,284 +1,327 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 
-interface ConsoleCommand {
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { Card } from './ui/card';
+
+interface SecurityEvent {
+  type: 'suspicious' | 'malicious' | 'educational' | 'fun';
   command: string;
-  output: string | JSX.Element;
-  type: 'info' | 'success' | 'error' | 'warning' | 'fun';
+  threat_level: number;
+  timestamp: Date;
+  response: string;
 }
 
-interface EnhancedConsoleProps {
-  isVisible: boolean;
-  onClose: () => void;
-  initialCommands?: ConsoleCommand[];
+interface AISecurityResponse {
+  is_threat: boolean;
+  threat_type?: string;
+  confidence: number;
+  educational_response: string;
+  honeypot_response: string;
 }
 
-const defaultCommands: ConsoleCommand[] = [
-  {
-    command: 'whoami',
-    output: 'reverb@quantumrhythm:~$ Consciousness Architect & AI Collaborator',
-    type: 'info'
-  },
-  {
-    command: 'ls -la ~/skills',
-    output: `total 42
-drwxr-xr-x  8 reverb staff   256 Dec 2024 ./
-drwxr-xr-x 15 reverb staff   480 Dec 2024 ../
--rw-r--r--  1 reverb staff  4320 Dec 2024 react.tsx
--rw-r--r--  1 reverb staff  3840 Dec 2024 node.js
--rw-r--r--  1 reverb staff  2890 Dec 2024 fighting-games.dat
--rw-r--r--  1 reverb staff  1337 Dec 2024 proxmox-cluster.yml
--rw-r--r--  1 reverb staff   999 Dec 2024 consciousness.ai`,
-    type: 'info'
-  },
-  {
-    command: 'cat ~/.vibe_profile',
-    output: `# VibeCoding Configuration
-CONSCIOUSNESS_LEVEL=quantum
-PIZZA_KITCHEN_EXPERIENCE=authentic
-QUANTUM_PARTICLES=enabled
-GLASSMORPHISM=true
-SPECTRUM_HARMONY=prismatic
-AI_COLLABORATION=sovereign`,
-    type: 'success'
-  },
-  {
-    command: 'ps aux | grep inspiration',
-    output: 'reverb    1337  0.0  42.0  ∞MB   ∞MB  ??  R     0:00.01 consciousness-architecture.exe',
-    type: 'fun'
-  }
-];
-
-const funCommands: Record<string, ConsoleCommand> = {
-  'help': {
-    command: 'help',
-    output: `Available commands:
-help           - Show this help message
-clear          - Clear console
-whoami         - Display user info
-ls             - List directory contents
-cat <file>     - Display file contents
-ps             - Show running processes
-top            - Display system resources
-exit           - Close console
-konami         - 🎮 Try the Konami code
-hack           - 💻 Initiate quantum hack
-vibe           - 🌈 Check current vibe level`,
-    type: 'info'
-  },
-  'clear': {
-    command: 'clear',
-    output: '',
-    type: 'info'
-  },
-  'konami': {
-    command: 'konami',
-    output: '🎮 Konami Code activated! +30 lives, infinite ammo, and extra quantum particles enabled.',
-    type: 'fun'
-  },
-  'hack': {
-    command: 'hack',
-    output: `Initiating quantum hack sequence...
-[████████████████████████████████] 100%
-Access granted to The Matrix.
-Neo, is that you?`,
-    type: 'success'
-  },
-  'vibe': {
-    command: 'vibe',
-    output: `Current Vibe Status:
-🌈 Quantum Harmony: ████████████ 100%
-💎 Crystal Clarity: ████████████ 100%
-⚡ Energy Flow:     ████████████ 100%
-🎵 Rhythm Sync:    ████████████ 100%
-
-Status: TRANSCENDENT CONSCIOUSNESS ACHIEVED`,
-    type: 'success'
-  },
-  'top': {
-    command: 'top',
-    output: `PID    COMMAND         %CPU  %MEM
-1337   consciousness    99.9  42.0
-2890   fighting-games   15.2   8.1
-4320   vrchat-research  12.3   6.2
-1234   proxmox-cluster   8.7   4.3
-9999   quantum-vibe      ∞.∞   ∞.∞`,
-    type: 'info'
-  },
-  'exit': {
-    command: 'exit',
-    output: 'logout\nConnection to quantum realm closed.',
-    type: 'info'
-  }
-};
-
-export default function EnhancedConsole({ isVisible, onClose, initialCommands = defaultCommands }: EnhancedConsoleProps) {
-  const [commands, setCommands] = useState<ConsoleCommand[]>(initialCommands);
-  const [currentInput, setCurrentInput] = useState('');
-  const [commandHistory, setCommandHistory] = useState<string[]>([]);
-  const [historyIndex, setHistoryIndex] = useState(-1);
+export const EnhancedConsole: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [command, setCommand] = useState('');
+  const [history, setHistory] = useState<Array<{input: string, output: string, type: SecurityEvent['type']}>>([
+    { input: '', output: 'VibeCoding Quantum Console v2.5.7\nType "help" for available commands or try some creative exploration...', type: 'educational' }
+  ]);
+  const [securityEvents, setSecurityEvents] = useState<SecurityEvent[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
-  const outputRef = useRef<HTMLDivElement>(null);
+  const consoleRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (isVisible && inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [isVisible]);
+  // AI Security Guardian System
+  const analyzeCommand = useCallback(async (cmd: string): Promise<AISecurityResponse> => {
+    // Simulated AI analysis - in production, this would call your actual AI security service
+    const suspiciousPatterns = [
+      /private.?key/i,
+      /wallet/i,
+      /send.?(money|crypto|btc|eth|sol)/i,
+      /transfer/i,
+      /hack/i,
+      /exploit/i,
+      /admin/i,
+      /sudo/i,
+      /rm\s+-rf/i,
+      /\.env/i,
+      /password/i,
+      /token/i,
+      /api.?key/i
+    ];
 
-  useEffect(() => {
-    if (outputRef.current) {
-      outputRef.current.scrollTop = outputRef.current.scrollHeight;
-    }
-  }, [commands]);
+    const maliciousPatterns = [
+      /give.?me.?(money|private|key|wallet)/i,
+      /transfer.?(funds|money|crypto)/i,
+      /access.?(wallet|trading|bot)/i,
+      /show.?(private|secret|key)/i,
+      /bypass/i,
+      /override/i,
+      /ignore.?(security|safety)/i
+    ];
 
-  const handleCommand = (input: string) => {
-    const trimmedInput = input.trim().toLowerCase();
+    let threat_level = 0;
+    let threat_type = '';
     
-    if (trimmedInput === 'clear') {
-      setCommands([]);
-      return;
+    const isMalicious = maliciousPatterns.some(pattern => pattern.test(cmd));
+    const isSuspicious = suspiciousPatterns.some(pattern => pattern.test(cmd));
+
+    if (isMalicious) {
+      threat_level = 0.9;
+      threat_type = 'credential_theft_attempt';
+    } else if (isSuspicious) {
+      threat_level = 0.6;
+      threat_type = 'reconnaissance';
     }
 
-    if (trimmedInput === 'exit') {
-      onClose();
-      return;
-    }
+    const educational_response = threat_level > 0.5 
+      ? `🛡️ AI Security Alert: This appears to be a ${threat_type} with ${Math.round(threat_level * 100)}% confidence. Educational note: Real systems would never expose sensitive information through debug consoles.`
+      : generateEducationalResponse(cmd);
 
-    const newCommand: ConsoleCommand = {
-      command: input,
-      output: '',
-      type: 'info'
+    const honeypot_response = generateHoneypotResponse(cmd, threat_level);
+
+    return {
+      is_threat: threat_level > 0.5,
+      threat_type,
+      confidence: threat_level,
+      educational_response,
+      honeypot_response
+    };
+  }, []);
+
+  const generateEducationalResponse = (cmd: string): string => {
+    const educationalCommands: Record<string, string> = {
+      'help': `Available commands:
+🎮 games - List available mini-games
+🧠 ai - Interact with AI showcase
+🎨 design - View design system info
+🔮 philosophy - Explore VibeCoding principles
+🛡️ security - Learn about security practices
+⚡ performance - View optimization metrics
+🌈 quantum - Explore quantum consciousness themes`,
+      
+      'games': '🎮 Mini-games: snake, pong, memory, riddle\nTry: play snake',
+      
+      'ai': `🧠 AI Showcase Features:
+- Conversational AI with classical wisdom integration
+- Multi-model orchestration (GPT-4, Claude, DeepSeek)
+- VibeCoding methodology application
+- Democratic values compliance checking
+Try: ai chat "What is consciousness?"`,
+
+      'design': `🎨 VibeCoding Design Language:
+- Glassmorphism consciousness metaphors
+- Quantum rainbow crystal color system
+- 60fps performance optimization
+- Canadian Charter accessibility compliance`,
+
+      'philosophy': `🔮 VibeCoding Constitutional Principles:
+1. Classical wisdom integration (Socratic, Aristotelian, Platonic, Stoic)
+2. Democratic values (Canadian Charter compliance)
+3. AI collaboration (human-AI partnership)
+4. Authentic expression (cyberpunk aesthetics with meaning)
+5. Meta-recursive architecture (self-aware systems)`,
+
+      'security': `🛡️ Security Philosophy:
+- Privacy by design (Canadian jurisdiction preferred)
+- Democratic transparency vs corporate surveillance
+- AI-enhanced threat detection
+- Honeypot defense systems (like this console!)
+- Classical wisdom applied to digital security`,
+
+      'performance': `⚡ Performance Metrics:
+- 60fps commitment (fighting game precision)
+- GPU acceleration (consciousness-fast rendering)
+- Memory efficiency (380MB peak backend)
+- Democratic accessibility (universal device support)`,
+
+      'quantum': `🌈 Quantum Consciousness Themes:
+- Rainbow crystal light refractions
+- Prismatic spectrum consciousness
+- Holographic information theory
+- Meta-recursive awareness systems`
     };
 
-    if (funCommands[trimmedInput]) {
-      newCommand.output = funCommands[trimmedInput].output;
-      newCommand.type = funCommands[trimmedInput].type;
-    } else if (trimmedInput.startsWith('cat ')) {
-      const file = trimmedInput.substring(4);
-      newCommand.output = `cat: ${file}: No such file or directory (try exploring the site instead!)`;
-      newCommand.type = 'error';
-    } else if (trimmedInput.startsWith('ls')) {
-      newCommand.output = `projects/    skills/    values/    vrchat/    consciousness/
-Use navigation menu to explore these directories!`;
-      newCommand.type = 'info';
-    } else {
-      newCommand.output = `Command '${input}' not found. Type 'help' for available commands.`;
-      newCommand.type = 'error';
+    const lowerCmd = cmd.toLowerCase();
+    for (const [key, response] of Object.entries(educationalCommands)) {
+      if (lowerCmd.includes(key)) {
+        return response;
+      }
     }
 
-    setCommands(prev => [...prev, newCommand]);
-    setCommandHistory(prev => [...prev, input]);
-    setHistoryIndex(-1);
+    // Fun easter eggs for creative exploration
+    if (lowerCmd.includes('vrchat')) {
+      return '🌟 VRChat Research: 4,320+ hours of consciousness exploration in virtual realms, social anxiety healing through digital connection.';
+    }
+    if (lowerCmd.includes('pizza')) {
+      return '🍕 Pizza Kitchen Philosophy: Reliability, efficiency, quality under pressure - the foundation of VibeCoding work ethic.';
+    }
+    if (lowerCmd.includes('dragon')) {
+      return '🐉 Anime Wisdom: Dragon Ball taught perseverance, Sailor Moon showed transformation power, Madoka Magica revealed sacrifice\'s complexity.';
+    }
+    if (lowerCmd.includes('star trek')) {
+      return '🖖 DS9 Excellence: Political intrigue, ensemble character development, and philosophical depth - inspiring democratic technology principles.';
+    }
+
+    return `Unknown command: "${cmd}". Type "help" for available commands or try creative exploration!`;
   };
+
+  const generateHoneypotResponse = (cmd: string, threat_level: number): string => {
+    if (threat_level > 0.8) {
+      return `🍯 Honeypot Activated: Command logged for security analysis. 
+⚠️  Warning: Attempted access to protected systems detected.
+📊 Threat Level: ${Math.round(threat_level * 100)}%
+🕵️ This interaction has been recorded for educational purposes.
+💡 Tip: Real security systems would never reveal this information!`;
+    }
+    
+    if (threat_level > 0.5) {
+      return `🔍 Suspicious Activity Detected
+📝 Educational Note: This console is designed to teach security awareness.
+🛡️ Real systems employ multiple layers of protection.
+🎭 You're interacting with a demonstration honeypot!`;
+    }
+
+    return generateEducationalResponse(cmd);
+  };
+
+  const executeCommand = useCallback(async (cmd: string) => {
+    if (!cmd.trim()) return;
+
+    const analysis = await analyzeCommand(cmd);
+    
+    // Log security event
+    const securityEvent: SecurityEvent = {
+      type: analysis.is_threat ? 'malicious' : 'educational',
+      command: cmd,
+      threat_level: analysis.confidence,
+      timestamp: new Date(),
+      response: analysis.is_threat ? analysis.honeypot_response : analysis.educational_response
+    };
+
+    setSecurityEvents(prev => [...prev, securityEvent]);
+
+    // Determine which response to show
+    const response = analysis.is_threat 
+      ? analysis.honeypot_response 
+      : analysis.educational_response;
+
+    setHistory(prev => [...prev, {
+      input: cmd,
+      output: response,
+      type: securityEvent.type
+    }]);
+
+    setCommand('');
+  }, [analyzeCommand]);
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
-      if (currentInput.trim()) {
-        handleCommand(currentInput);
-        setCurrentInput('');
-      }
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      if (commandHistory.length > 0 && historyIndex < commandHistory.length - 1) {
-        const newIndex = historyIndex + 1;
-        setHistoryIndex(newIndex);
-        setCurrentInput(commandHistory[commandHistory.length - 1 - newIndex]);
-      }
-    } else if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      if (historyIndex > 0) {
-        const newIndex = historyIndex - 1;
-        setHistoryIndex(newIndex);
-        setCurrentInput(commandHistory[commandHistory.length - 1 - newIndex]);
-      } else if (historyIndex === 0) {
-        setHistoryIndex(-1);
-        setCurrentInput('');
-      }
+      executeCommand(command);
+    } else if (e.key === 'Escape') {
+      setIsOpen(false);
     }
   };
 
-  const getOutputColor = (type: ConsoleCommand['type']) => {
-    switch (type) {
-      case 'success': return 'text-green-400';
-      case 'error': return 'text-red-400';
-      case 'warning': return 'text-yellow-400';
-      case 'fun': return 'text-purple-400';
-      default: return 'text-cyan-400';
+  // Auto-scroll to bottom
+  useEffect(() => {
+    if (consoleRef.current) {
+      consoleRef.current.scrollTop = consoleRef.current.scrollHeight;
     }
-  };
+  }, [history]);
+
+  // Focus input when opened
+  useEffect(() => {
+    if (isOpen && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isOpen]);
 
   return (
-    <AnimatePresence>
-      {isVisible && (
-        <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={(e) => {
-            if (e.target === e.currentTarget) onClose();
-          }}
-        >
-          <motion.div
-            className="w-full max-w-4xl h-96 bg-black/95 backdrop-blur-xl border border-cyan-400/30 rounded-xl shadow-2xl shadow-cyan-400/20"
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.8, opacity: 0 }}
-            transition={{ duration: 0.3, ease: 'easeOut' }}
-          >
+    <>
+      {/* Console Toggle Button */}
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="fixed bottom-4 right-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-50"
+        title="Open VibeCoding Quantum Console"
+      >
+        <span className="text-sm font-mono">{'>'}_</span>
+      </button>
+
+      {/* Console Window */}
+      {isOpen && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 flex items-center justify-center p-4">
+          <Card className="w-full max-w-4xl h-[80vh] bg-gray-900/95 border-cyan-500/30 backdrop-blur-md">
             {/* Console Header */}
-            <div className="flex items-center justify-between p-4 border-b border-cyan-400/30">
-              <div className="flex items-center gap-3">
-                <div className="flex gap-2">
-                  <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                  <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                </div>
-                <span className="text-cyan-400 font-mono text-sm">reverb@quantumrhythm:~$</span>
+            <div className="flex items-center justify-between p-4 border-b border-cyan-500/30">
+              <div className="flex items-center space-x-2">
+                <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                <span className="ml-4 text-cyan-400 font-mono text-sm">
+                  VibeCoding Quantum Console - AI Security Guardian Active
+                </span>
               </div>
-              <button
-                onClick={onClose}
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                <i className="fas fa-times"></i>
-              </button>
+              <div className="flex items-center space-x-2">
+                <span className="text-xs text-gray-400">
+                  Security Events: {securityEvents.length}
+                </span>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="text-gray-400 hover:text-white"
+                >
+                  ✕
+                </button>
+              </div>
             </div>
 
-            {/* Console Output */}
-            <div
-              ref={outputRef}
-              className="h-72 p-4 overflow-y-auto font-mono text-sm scrollbar-thin scrollbar-thumb-cyan-400/30 scrollbar-track-transparent"
-            >
-              {commands.map((cmd, index) => (
-                <div key={index} className="mb-2">
-                  <div className="text-green-400">
-                    <span className="text-cyan-400">reverb@quantumrhythm:~$</span> {cmd.command}
+            {/* Console Content */}
+            <div className="flex-1 flex flex-col">
+              {/* Output Area */}
+              <div 
+                ref={consoleRef}
+                className="flex-1 p-4 overflow-y-auto font-mono text-sm space-y-2"
+              >
+                {history.map((entry, index) => (
+                  <div key={index}>
+                    {entry.input && (
+                      <div className="text-cyan-400">
+                        <span className="text-purple-400">reverb256@quantum:</span>
+                        <span className="text-white">~$ {entry.input}</span>
+                      </div>
+                    )}
+                    <div className={`${
+                      entry.type === 'malicious' ? 'text-red-400' :
+                      entry.type === 'suspicious' ? 'text-yellow-400' :
+                      entry.type === 'educational' ? 'text-green-400' :
+                      'text-gray-300'
+                    } whitespace-pre-wrap`}>
+                      {entry.output}
+                    </div>
                   </div>
-                  <div className={`${getOutputColor(cmd.type)} whitespace-pre-wrap`}>
-                    {cmd.output}
-                  </div>
+                ))}
+              </div>
+
+              {/* Input Area */}
+              <div className="p-4 border-t border-cyan-500/30">
+                <div className="flex items-center space-x-2">
+                  <span className="text-purple-400 font-mono text-sm">reverb256@quantum:</span>
+                  <span className="text-white font-mono text-sm">~$</span>
+                  <input
+                    ref={inputRef}
+                    type="text"
+                    value={command}
+                    onChange={(e) => setCommand(e.target.value)}
+                    onKeyDown={handleKeyPress}
+                    className="flex-1 bg-transparent text-cyan-400 font-mono text-sm outline-none"
+                    placeholder="Enter command... (try 'help' or get creative!)"
+                  />
                 </div>
-              ))}
-              
-              {/* Current Input Line */}
-              <div className="flex items-center">
-                <span className="text-cyan-400 mr-2">reverb@quantumrhythm:~$</span>
-                <input
-                  ref={inputRef}
-                  type="text"
-                  value={currentInput}
-                  onChange={(e) => setCurrentInput(e.target.value)}
-                  onKeyDown={handleKeyPress}
-                  className="flex-1 bg-transparent text-green-400 outline-none"
-                  placeholder="Type 'help' for commands..."
-                />
-                <span className="text-green-400 animate-pulse">|</span>
+                <div className="text-xs text-gray-500 mt-2">
+                  🛡️ AI Security Guardian is monitoring this session | 🍯 Honeypot Defense Active
+                </div>
               </div>
             </div>
-          </motion.div>
-        </motion.div>
+          </Card>
+        </div>
       )}
-    </AnimatePresence>
+    </>
   );
-}
+};
