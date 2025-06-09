@@ -327,6 +327,7 @@ IO_INTELLIGENCE_API_KEY=your_key_here
 
 # Solana Integration (optional)
 SOLANA_PRIVATE_KEY=your_private_key_here
+JAPI_TOKEN=your_jupiter_token_here
 
 # Production domain
 VITE_DOMAIN=reverb256.ca
