@@ -80,7 +80,7 @@ class AutonomousTradingAgent {
     console.log(`🧠 Initializing Autonomous Trading Agent: ${this.agentId}`);
     
     // Load or create autonomous configuration
-    await this.initializeAutonomousConfig();
+    await this.initializeAgentRecord();
     
     // Initialize market intelligence systems
     await this.initializeMarketIntelligence();
