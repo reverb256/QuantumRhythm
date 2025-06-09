@@ -33,51 +33,51 @@ export default function Navigation() {
     }`}>
       <nav className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <Link href="/" className="font-bold text-xl text-cyan-300 flex items-center hover:text-cyan-100 transition-colors duration-300 cursor-pointer prismatic-glow">
-            <i className="fas fa-code mr-2 text-cyan-400"></i>
-            reverb256
+          <Link href="/" className="font-bold text-xl text-cyan-300 flex items-center hover:text-cyan-100 transition-colors duration-300 cursor-pointer prismatic-glow hover-glitch">
+            <i className="fas fa-code mr-2 text-cyan-400 hover-syntax-error"></i>
+            reverb256<span className="console-cursor text-[var(--synthwave-cyan)]">|</span>
           </Link>
           
           <div className="hidden md:flex space-x-8">
             <button 
               onClick={() => scrollToSection('about')} 
-              className={`hover:text-cyan-300 transition-all duration-300 hover:scale-105 ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
+              className={`hover:text-cyan-300 transition-all duration-300 hover:scale-105 hover-deprecated ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
             >
               About
             </button>
             <button 
               onClick={() => scrollToSection('projects')} 
-              className={`hover:text-cyan-300 transition-all duration-300 hover:scale-105 ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
+              className={`hover:text-cyan-300 transition-all duration-300 hover:scale-105 stackoverflow-reference ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
             >
               Projects
             </button>
             <button 
               onClick={() => scrollToSection('skills')} 
-              className={`hover:text-cyan-300 transition-all duration-300 hover:scale-105 ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
+              className={`hover:text-cyan-300 transition-all duration-300 hover:scale-105 hover-loading ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
             >
               Skills
             </button>
             <Link 
               href="/values"
-              className={`hover:text-cyan-300 transition-all duration-300 hover:scale-105 ${location === '/values' ? 'text-cyan-300 prismatic-glow' : 'text-cyan-100'}`}
+              className={`hover:text-cyan-300 transition-all duration-300 hover:scale-105 hover-syntax-error ${location === '/values' ? 'text-cyan-300 prismatic-glow' : 'text-cyan-100'}`}
             >
               Values
             </Link>
             <Link 
               href="/vrchat"
-              className={`hover:text-cyan-300 transition-all duration-300 hover:scale-105 ${location === '/vrchat' ? 'text-cyan-300 prismatic-glow' : 'text-cyan-100'}`}
+              className={`hover:text-cyan-300 transition-all duration-300 hover:scale-105 hover-404 ${location === '/vrchat' ? 'text-cyan-300 prismatic-glow' : 'text-cyan-100'}`}
             >
               VR Research
             </Link>
             <button 
               onClick={() => scrollToSection('philosophy')} 
-              className={`hover:text-cyan-300 transition-all duration-300 hover:scale-105 ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
+              className={`hover:text-cyan-300 transition-all duration-300 hover:scale-105 git-commit-humor ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
             >
               Philosophy
             </button>
             <button 
               onClick={() => scrollToSection('contact')} 
-              className={`hover:text-cyan-300 transition-all duration-300 hover:scale-105 ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
+              className={`hover:text-cyan-300 transition-all duration-300 hover:scale-105 hover-segfault ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
             >
               Connect
             </button>

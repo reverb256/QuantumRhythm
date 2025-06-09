@@ -171,23 +171,23 @@ export default function ProjectsSection() {
                   })}
                 </div>
 
-                {/* Action Buttons */}
+                {/* Action Buttons with Tech Humor */}
                 <div className="flex gap-4">
                   <Button 
-                    className={`flex-1 bg-gradient-to-r ${project.color} hover:opacity-90 text-white border-0`}
+                    className="tech-button flex-1 bg-gradient-to-r from-[var(--synthwave-cyan)] to-[var(--synthwave-pink)] hover:from-[var(--synthwave-pink)] hover:to-[var(--synthwave-gold)] text-white border-0 transition-all duration-300 git-commit-humor"
                     onClick={() => window.open(project.link, '_blank')}
-                    disabled={project.link === '#'}
                   >
                     <i className="fas fa-external-link-alt mr-2"></i>
-                    {project.link === '#' ? 'In Development' : 'View Live'}
+                    <span className="hover-loading">Live Demo</span>
                   </Button>
+                  
                   <Button 
                     variant="outline" 
-                    className="border-cyan-400/50 text-[var(--spectrum-cyan)] hover:bg-cyan-400/10"
+                    className="tech-button flex-1 border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-black transition-all duration-300 stackoverflow-reference"
                     onClick={() => window.open(project.github, '_blank')}
                   >
                     <i className="fab fa-github mr-2"></i>
-                    Code
+                    <span className="hover-syntax-error">GitHub</span>
                   </Button>
                 </div>
               </div>

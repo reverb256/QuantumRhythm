@@ -4,6 +4,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import SEOHead, { getSEOForPage } from "@/components/seo-head";
+import ConsoleEasterEgg from "@/components/console-easter-egg";
 import Home from "@/pages/home";
 import Values from "@/pages/values";
 import VRChat from "@/pages/vrchat";
@@ -42,6 +43,7 @@ function App() {
       <TooltipProvider>
         <Toaster />
         <Router />
+        <ConsoleEasterEgg />
       </TooltipProvider>
     </QueryClientProvider>
   );
