@@ -37,37 +37,37 @@ export default function AboutSection() {
 
       <div className="container mx-auto px-6 relative z-20">
         <div className="max-w-6xl mx-auto">
-          
+
           {/* Section Header */}
           <div className="text-center mb-16">
             <div className="inline-flex items-center justify-center px-6 py-3 holo-panel rounded-full border border-cyan-400/50 mb-8">
               <i className="fas fa-user-astronaut text-cyan-400 mr-3"></i>
               <span className="text-cyan-300 text-sm font-medium">ARCHITECT_PROFILE</span>
             </div>
-            
+
             <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 font-space">
               <span className="holo-text">About</span>
             </h2>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            
+
             {/* Left Column - Bio Content */}
             <div className="space-y-8">
-              
+
               {/* Quantum Consciousness Architecture Panel */}
               <div className="holo-panel p-8 rounded-3xl border border-cyan-400/50 gacha-shine energy-flow">
                 <h3 className="text-2xl md:text-3xl font-bold text-[var(--spectrum-cyan)] mb-6 flex items-center">
                   <i className="fas fa-user text-[var(--spectrum-cyan)] mr-4"></i>
                   About Me
                 </h3>
-                
+
                 <p className="text-lg text-[var(--text-secondary)] leading-relaxed mb-6">
                   Started as <strong className="text-[var(--spectrum-cyan)]">most reliable pizza kitchen employee</strong> in 20k town, working directly with co-owners while others came and went. 
                   Content with minimum wage, focused on crypto and gaming, figuring out unique circumstances until <strong className="text-[var(--spectrum-violet)]">AI and VRChat inspired evolution</strong>. 
                   <strong className="text-[var(--spectrum-green)]">8,500+ hours consciousness exploration</strong> and rhythm gaming across all genres informing development pacing.
                 </p>
-                
+
                 <p className="text-lg text-[var(--text-secondary)] leading-relaxed">
                   <strong className="text-[var(--spectrum-cyan)]">VibeCoding methodology</strong> emerges from small-town reliability meeting AI inspiration - 
                   evolving from just making pizzas to taking orders and comprehensive system thinking through 
@@ -117,14 +117,14 @@ export default function AboutSection() {
 
             {/* Right Column - Interactive Elements */}
             <div className="space-y-8">
-              
+
               {/* Neural Network Visualization */}
               <div className="holo-panel p-8 rounded-3xl border border-cyan-400/50 gacha-shine">
                 <h3 className="text-2xl font-bold text-cyan-300 mb-6 flex items-center">
                   <i className="fas fa-project-diagram text-cyan-400 mr-4"></i>
                   Neural Pathways
                 </h3>
-                
+
                 <div className="relative h-64">
                   {/* Neural Network Nodes */}
                   <div className="absolute top-4 left-8 w-4 h-4 neural-node rounded-full"></div>
@@ -132,7 +132,7 @@ export default function AboutSection() {
                   <div className="absolute bottom-16 left-12 w-5 h-5 neural-node rounded-full" style={{ animationDelay: '1s' }}></div>
                   <div className="absolute bottom-8 right-12 w-4 h-4 neural-node rounded-full" style={{ animationDelay: '1.5s' }}></div>
                   <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-6 neural-node rounded-full" style={{ animationDelay: '2s' }}></div>
-                  
+
                   {/* Central Processing Core */}
                   <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                     <div className="w-20 h-20 rounded-full border-2 border-cyan-400/50 flex items-center justify-center">
@@ -142,7 +142,7 @@ export default function AboutSection() {
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="space-y-3 mt-6">
                   {['Logic Processing', 'Creative Synthesis', 'Pattern Recognition', 'Quantum Reasoning'].map((process, index) => (
                     <div key={process} className="flex items-center justify-between">
@@ -167,7 +167,7 @@ export default function AboutSection() {
                   <i className="fas fa-satellite text-cyan-400 mr-3"></i>
                   Current Status
                 </h3>
-                
+
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
                     <span className="text-cyan-100">Location</span>
