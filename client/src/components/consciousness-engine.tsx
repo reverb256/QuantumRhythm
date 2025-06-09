@@ -248,11 +248,6 @@ export default function ConsciousnessEngine() {
     };
   }, [consciousness.engagement, consciousness.curiosity, consciousness.thoughts]);
 
-  // Reactive background particles that follow consciousness
-  const getParticleIntensity = () => {
-    return (consciousness.attention + consciousness.engagement) / 2;
-  };
-
   const getConsciousnessColor = () => {
     switch (consciousness.mood) {
       case 'excited': return '#ff6b6b';

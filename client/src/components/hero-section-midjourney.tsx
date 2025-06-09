@@ -1,15 +1,5 @@
-import { useEffect, useState } from "react";
-
 export default function HeroSectionMidjourney() {
-  const [rhythmBars, setRhythmBars] = useState([20, 30, 25, 35, 20]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setRhythmBars(prev => prev.map(() => Math.random() * 30 + 20));
-    }, 500);
-
-    return () => clearInterval(interval);
-  }, []);
+  const rhythmBars = [20, 30, 25, 35, 20];
 
   const scrollToProjects = () => {
     const element = document.getElementById('projects');
@@ -48,27 +38,25 @@ export default function HeroSectionMidjourney() {
           }}
         />
         
-        {/* Midjourney expansive energy accent */}
+        {/* Midjourney expansive energy accent - static */}
         <div 
-          className="absolute top-20 right-20 w-96 h-96 opacity-25 animate-pulse"
+          className="absolute top-20 right-20 w-96 h-96 opacity-25"
           style={{
             backgroundImage: `url('/images/midjourney_expansive_energy.png')`,
             backgroundSize: 'contain',
             backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-            animationDuration: '6s'
+            backgroundRepeat: 'no-repeat'
           }}
         />
         
-        {/* Midjourney abstract flow accent */}
+        {/* Midjourney abstract flow accent - static */}
         <div 
-          className="absolute bottom-32 left-16 w-64 h-64 opacity-20 animate-bounce"
+          className="absolute bottom-32 left-16 w-64 h-64 opacity-20"
           style={{
             backgroundImage: `url('/images/midjourney_abstract_flow.png')`,
             backgroundSize: 'contain',
             backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-            animationDuration: '4s'
+            backgroundRepeat: 'no-repeat'
           }}
         />
         

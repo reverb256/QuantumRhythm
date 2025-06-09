@@ -275,31 +275,7 @@ export default function EnhancedConsciousness() {
         }}
       />
 
-      {/* Consciousness Particles */}
-      <div className="fixed inset-0 pointer-events-none z-5 overflow-hidden">
-        {Array.from({ length: Math.round(getIntensityLevel() / 15) }).map((_, i) => (
-          <motion.div
-            key={`particle-${i}`}
-            className="absolute w-1 h-1 rounded-full"
-            style={{
-              backgroundColor: getConsciousnessColor(),
-              left: Math.random() * window.innerWidth,
-              top: Math.random() * window.innerHeight,
-            }}
-            animate={{
-              y: [0, -150],
-              opacity: [0, 1, 0],
-              scale: [0, 1.5, 0]
-            }}
-            transition={{
-              duration: 4 + Math.random() * 3,
-              repeat: Infinity,
-              delay: Math.random() * 3,
-              ease: "easeOut"
-            }}
-          />
-        ))}
-      </div>
+
 
       {/* Interface Adaptation Indicator - Condensed */}
       {adaptiveElements.length > 0 && (

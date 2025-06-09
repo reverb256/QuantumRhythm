@@ -7,29 +7,13 @@ interface NeuralBackgroundProps {
   theme?: 'quantum' | 'matrix' | 'consciousness' | 'dojo' | 'trading';
 }
 
-interface Particle {
-  x: number;
-  y: number;
-  vx: number;
-  vy: number;
-  size: number;
-  energy: number;
-  type: 'node' | 'data' | 'consciousness' | 'qi';
-  phase: number;
-  lifecycle: number;
-  connections: number[];
+export default function NeuralBackground() {
+  return (
+    <div className="absolute inset-0 pointer-events-none">
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-purple-900/5 to-cyan-900/10" />
+    </div>
+  );
 }
-
-export default function NeuralBackground({ 
-  intensity = 50, 
-  speed = 1, 
-  theme = 'quantum' 
-}: NeuralBackgroundProps) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const animationRef = useRef<number>();
-  const particlesRef = useRef<Particle[]>([]);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [systemEnergy, setSystemEnergy] = useState(50);
 
   // Theme-based color schemes with deep ocean blue palettes
   const themeColors = {
