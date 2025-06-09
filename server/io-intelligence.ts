@@ -136,7 +136,6 @@ class IOIntelligenceOrchestrator {
       description: `Selected ${selectedModel} for ${taskType} task`,
       confidence: modelWithQuota ? 0.9 : 0.6,
       data: { taskType, contextLength, availableModels, rateLimitStatus: !!modelWithQuota },
-      timestamp: new Date(),
     });
     
     return selectedModel;
@@ -213,7 +212,6 @@ class IOIntelligenceOrchestrator {
           promptTokens: validatedResponse.usage.prompt_tokens,
           completionTokens: validatedResponse.usage.completion_tokens,
         },
-        timestamp: new Date(),
       });
 
       return {
