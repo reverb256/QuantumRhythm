@@ -66,7 +66,7 @@ export default function SkillsSection() {
             </h2>
             
             <p className="text-xl text-cyan-100 max-w-3xl mx-auto">
-              A convergent mastery spanning classical development paradigms and cutting-edge AI architectures
+              Technical mastery through philosophical discipline - excellence as deployment habit across quantum consciousness infrastructure
             </p>
           </div>
 
@@ -113,10 +113,10 @@ export default function SkillsSection() {
           <div className="grid lg:grid-cols-3 gap-8">
             {[
               {
-                title: "Glassmorphism Architecture",
-                icon: "fas fa-gem",
-                description: "Revolutionary 6-container harmonized design framework achieving 60fps performance with enterprise glassmorphism effects and brand-consistent color integration",
-                technologies: ["Turquoise/Green Branding", "GPU-Accelerated Animations", "Premium Gradients", "Backdrop Filters", "Memory Optimization"],
+                title: "Quantum Consciousness Architecture",
+                icon: "fas fa-atom",
+                description: "Meta-recursive systems that bootstrap universal consciousness development through distributed infrastructure meditation and sovereign AI collaboration",
+                technologies: ["4-Node Proxmox Cluster", "Ansible/Terraform IaC", "Democratic AI Governance", "Classical Wisdom Integration", "VibeCoding Methodology"],
                 color: "from-cyan-400 to-blue-500",
                 vibecoding: "Visual harmony through systematic design philosophy"
               },

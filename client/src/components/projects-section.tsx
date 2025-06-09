@@ -150,7 +150,7 @@ export default function ProjectsSection() {
             </h2>
             
             <p className="text-xl text-[var(--text-secondary)] max-w-3xl mx-auto">
-              Production-ready applications built with modern frameworks, thoughtful user experience design, and scalable architecture
+              Code as democratic expression - glassmorphism consciousness metaphors revealing philosophical depth beneath the surface
             </p>
           </div>
 
