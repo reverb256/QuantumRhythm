@@ -44,7 +44,6 @@ function Router() {
     <>
       <SEOHead {...seoData} />
       <Navigation />
-      <PhilosophicalInsights />
       <Switch>
         <Route path="/" component={Home} />
         <Route path="/values" component={Values} />
