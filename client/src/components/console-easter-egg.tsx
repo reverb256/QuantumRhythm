@@ -255,15 +255,7 @@ export default function ConsoleEasterEgg() {
   };
 
   if (!isVisible) {
-    return (
-      <div className="fixed bottom-20 right-4 z-40">
-        <div className="bg-[var(--space-black)]/90 border border-cyan-400/30 rounded-lg p-2 backdrop-blur-sm easter-egg-hint hover:border-cyan-400/50 transition-all duration-300">
-          <p className="text-cyan-300 text-xs font-mono">
-            Press <kbd className="bg-cyan-400/20 px-1 py-0.5 rounded text-xs">Ctrl + `</kbd> console
-          </p>
-        </div>
-      </div>
-    );
+    return null;
   }
 
   return (
