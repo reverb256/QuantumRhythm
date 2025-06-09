@@ -1,12 +1,15 @@
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { Button } from "@/components/ui/button";
+import trovesCovestImage from "@assets/image_1749452464369.png";
+import cleaningServiceImage from "@assets/image_1749452436437.png";
+import portfolioImage from "@assets/image_1749452548538.png";
 
 const projects = [
   {
     title: "Troves & Coves",
     subtitle: "Mystical Crystal Jewelry E-commerce",
     description: "Production e-commerce platform for sacred crystal jewelry featuring AI-enhanced storefront, Stripe payment integration, and metaphysical product catalog. Built as a full-stack application with modern web technologies serving crystal jewelry enthusiasts.",
-    image: "attached_assets/image_1749452464369.png",
+    image: trovesCovestImage,
     technologies: ["React", "Node.js", "PostgreSQL", "Stripe API", "TypeScript"],
     status: "Production",
     link: "https://trovesandcoves.ca",
@@ -17,7 +20,7 @@ const projects = [
     title: "Local Cleaning Service",
     subtitle: "AI-Enhanced Service Platform",
     description: "Professional cleaning services platform with contract management, automated quoting system, and client portal. Features comprehensive accessibility compliance and responsive design for streamlined service booking and client management.",
-    image: "attached_assets/image_1749452436437.png",
+    image: cleaningServiceImage,
     technologies: ["React", "Express", "PostgreSQL", "AI Integration", "Docker"],
     status: "Production",
     link: "https://2034c3d1-09aa-49c2-bad4-380f7b9d56ee-00-2eybkgfvy9084.riker.replit.dev",
@@ -28,7 +31,7 @@ const projects = [
     title: "Neural Network Portfolio",
     subtitle: "Advanced Web Architecture",
     description: "This cyberpunk portfolio website featuring quantum animations, holographic interfaces, and advanced CSS effects. Built with React, TypeScript, and a unified design system showcasing modern web development capabilities.",
-    image: "attached_assets/image_1749452548538.png",
+    image: portfolioImage,
     technologies: ["React", "TypeScript", "CSS3", "Tailwind", "Vite"],
     status: "Production",
     link: "#",
