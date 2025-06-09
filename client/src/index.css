@@ -620,9 +620,17 @@
     animation: fade-in-tooltip 0.3s ease;
   }
 
-  /* Git commit humor */
+  /* Git commit humor - Fixed Position */
+  .git-commit-humor {
+    position: relative;
+  }
+  
   .git-commit-humor:hover::after {
     content: "git commit -m 'fixed bug (maybe)'";
+    position: fixed;
+    top: 60px;
+    left: 50%;
+    margin-left: -120px;
     background: linear-gradient(135deg, 
       var(--space-void) 0%, 
       var(--space-deep) 100%);
@@ -637,6 +645,8 @@
       0 8px 32px hsla(220, 100%, 4%, 0.4),
       0 0 15px var(--spectrum-green);
     white-space: nowrap;
+    z-index: 999999;
+    pointer-events: none;
     animation: fade-in-tooltip 0.3s ease;
   }
 
