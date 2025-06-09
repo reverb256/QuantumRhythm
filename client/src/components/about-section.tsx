@@ -22,8 +22,16 @@ export default function AboutSection() {
           
           <div className="grid md:grid-cols-2 gap-8">
             <div className={`glass-morphism p-6 md:p-8 rounded-2xl cyber-border fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.2s' }}>
-              <h3 className="font-semibold text-xl md:text-2xl mb-4 text-[var(--bright-blue)]">
-                <i className="fas fa-maple-leaf mr-2 text-[var(--synthwave-cyan)]"></i>Canadian Values
+              <h3 className="font-semibold text-xl md:text-2xl mb-4 text-[var(--bright-blue)] flex items-center">
+                <svg className="w-8 h-5 mr-2" viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="1000" height="500" fill="#FF0000"/>
+                  <rect x="250" y="0" width="500" height="500" fill="#FFFFFF"/>
+                  <g transform="translate(500,250)">
+                    <path d="M0,-83 L15,-67 L35,-75 L20,-55 L30,-35 L15,-45 L25,-25 L5,-35 L15,-15 L-15,-15 L-5,-35 L-25,-25 L-15,-45 L-30,-35 L-20,-55 L-35,-75 L-15,-67 Z" fill="#FF0000"/>
+                    <rect x="-3" y="-15" width="6" height="60" fill="#FF0000"/>
+                  </g>
+                </svg>
+                Canadian Values
               </h3>
               <p className="text-gray-300 leading-relaxed text-sm md:text-base">
                 A proud Canadian who champions humanity's infinite potential through the convergence of classical wisdom and 
