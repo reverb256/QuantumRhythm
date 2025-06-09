@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Home from "@/pages/home";
 import Values from "@/pages/values";
+import VRChat from "@/pages/vrchat";
 import NotFound from "@/pages/not-found";
 
 function Router() {
