@@ -22,10 +22,10 @@ export const useBreathingAnimation = () => {
       clearTimeout(pauseTimeout);
       clearTimeout(resumeTimeout);
       
-      // Resume after 3 seconds of inactivity
+      // Resume after 2 seconds of inactivity for better responsiveness
       pauseTimeout = setTimeout(() => {
         setBreathingState(prev => ({ ...prev, isPaused: false }));
-      }, 3000);
+      }, 2000);
     };
 
     const handleScroll = () => {
@@ -46,10 +46,10 @@ export const useBreathingAnimation = () => {
 
     document.addEventListener('scroll', handleScroll, { passive: true });
 
-    // Auto-disable after 30 seconds to prevent distraction
+    // Auto-disable after 45 seconds to prevent distraction during extended use
     const autoDisableTimeout = setTimeout(() => {
       setBreathingState({ isActive: false, isPaused: false });
-    }, 30000);
+    }, 45000);
 
     return () => {
       events.forEach(event => {

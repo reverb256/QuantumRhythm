@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
+import { useBreathingAnimation } from "@/hooks/use-breathing-animation";
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [location] = useLocation();
+  const { getBreathingClass } = useBreathingAnimation();
 
   useEffect(() => {
     const handleScroll = () => {
