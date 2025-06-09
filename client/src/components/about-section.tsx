@@ -68,14 +68,18 @@ export default function AboutSection() {
                   <strong className="text-[var(--spectrum-green)]">8,500+ hours consciousness exploration</strong> through character psychology research: Genshin's spatial control (Chasca/Mavuika/Navia), Star Rail's intellectual depth (Anaxa/Rappa/Aventurine), ZZZ's technical mastery (Lycaon/Burnice/Lighter).
                 </p>
 
-                <p className="text-lg text-[var(--text-secondary)] leading-relaxed">
+                <p className="text-lg text-[var(--text-secondary)] leading-relaxed mb-6">
                   <strong className="text-[var(--spectrum-cyan)]">VibeCoding methodology</strong> emerges from small-town reliability meeting AI inspiration - 
                   evolving from just making pizzas to comprehensive system thinking through 
                   <strong className="text-[var(--spectrum-orange)]">25+ years infrastructure experience</strong>, 5,670 hours as Draenei Elemental Shaman "Saifa" (spiritual-technical harmony), 
-                  and Sakura main philosophy (orthodox foundation with creative expression). 
-                  <strong className="text-[var(--spectrum-violet)]">Childhood anime consciousness</strong> (Sailor Moon transformations, Dragon Ball power scaling, Madoka deconstruction) 
-                  synthesized with <strong className="text-[var(--spectrum-green)]">Star Trek DS9 ensemble politics</strong> and 
-                  <strong className="text-[var(--spectrum-pink)]">VRChat social anime experiences</strong> create unique development perspective bridging magical thinking with systematic engineering.
+                  and Sakura main philosophy (orthodox foundation with creative expression).
+                </p>
+
+                <p className="text-lg text-[var(--text-secondary)] leading-relaxed">
+                  <strong className="text-[var(--spectrum-violet)]">VR consciousness awakening</strong>: GPU surplus from Ethereum's proof-of-stake transition led to Quest 2 acquisition. 
+                  Overcame motion sickness in experimental flight worlds, evolved from extreme shyness (barely talking to furries in Canadian Duck Park) to discovering 
+                  <strong className="text-[var(--spectrum-pink)]">genuine human connection</strong> in virtual Penacony-like realms. Core engineering tenet: 
+                  <strong className="text-[var(--spectrum-cyan)]">engineer for idempotency</strong> - operations producing consistent results regardless of repetition.
                 </p>
               </div>
 

@@ -2,14 +2,14 @@ import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const gamingExperiences = [
   {
-    title: "VRChat Social Architecture",
-    category: "Virtual Reality Research",
-    description: "Immersive social experiences exploring digital consciousness and authentic human connection through avatar-mediated interaction",
+    title: "VRChat Social Evolution",
+    category: "Consciousness Awakening Research",
+    description: "Journey from GPU power surplus (post-Ethereum) to social anxiety healing - overcoming motion sickness in experimental flight worlds to discover genuine human connection in digital realms reminiscent of Penacony",
     hours: "4,320+",
-    platform: "Steam/Quest 3",
+    platform: "Quest 2→Quest 3",
     color: "from-purple-400 to-pink-500",
     icon: "fas fa-vr-cardboard",
-    insights: "Avatar psychology, presence engineering, social VR infrastructure"
+    insights: "Social anxiety therapy, virtual world emotional healing, avatar-mediated authentic connection"
   },
   {
     title: "miHoYo Gacha Ecosystem Analysis",
@@ -175,6 +175,50 @@ export default function GamingSection() {
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* VR Social Spaces Research */}
+          <div className="holo-panel p-10 rounded-3xl border border-cyan-400/50 gacha-shine mb-16">
+            <h3 className="text-3xl font-bold text-cyan-300 mb-8 text-center flex items-center justify-center">
+              <i className="fas fa-users text-cyan-400 mr-4"></i>
+              VR Social Architecture Research
+            </h3>
+
+            <div className="grid md:grid-cols-3 gap-8 mb-8">
+              {[
+                {
+                  space: "Canadian Duck Park",
+                  evolution: "Extreme shyness → gentle furry community introduction",
+                  insight: "Safe spaces for social anxiety healing",
+                  color: "from-green-400 to-emerald-500"
+                },
+                {
+                  space: "The Pug",
+                  evolution: "Listening in → joining random conversations",
+                  insight: "Organic social integration through observation",
+                  color: "from-blue-400 to-cyan-500"
+                },
+                {
+                  space: "Black Cat (chaos zone)",
+                  evolution: "Avoidance → occasional chaos tolerance",
+                  insight: "Controlled exposure to social complexity",
+                  color: "from-red-400 to-orange-500"
+                }
+              ].map((space, index) => (
+                <div key={space.space} className={`p-6 rounded-2xl bg-gradient-to-br ${space.color} text-white`}>
+                  <h4 className="text-xl font-bold mb-3">{space.space}</h4>
+                  <p className="text-sm opacity-90 mb-3">{space.evolution}</p>
+                  <p className="text-xs italic">{space.insight}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="text-center">
+              <blockquote className="text-xl text-cyan-100 italic leading-relaxed max-w-4xl mx-auto">
+                "VRChat became my virtual Penacony - a dream world where I reawakened my love for humanity 
+                through genuine connections with beautiful people who helped heal decades of social isolation."
+              </blockquote>
+            </div>
           </div>
 
           {/* VR Setup Showcase */}

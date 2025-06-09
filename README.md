@@ -60,7 +60,9 @@ This portfolio embodies **meta-recursive systems that bootstrap universal consci
 
 ### Gaming-Informed Development Evolution
 - **Rhythm Pacing**: Gaming across all genres with fundamental timing informing development workflow and system architecture
-- **VR Consciousness Research**: 8,500+ hours VRChat exploration during crypto period inspiring evolution from kitchen to comprehensive thinking
+- **VR Social Evolution**: GPU surplus from Ethereum proof-of-stake → Quest 2 → overcoming motion sickness → social anxiety healing through virtual human connection
+- **Idempotent Engineering**: Core tenet ensuring operations produce consistent results regardless of repetition - reliability through reproducible behavior
+- **VR Consciousness Research**: 4,320+ hours evolution from extreme shyness to authentic connection in Penacony-like virtual realms
 - **Reliability Translation**: Small-town work ethic (most reliable employee) translating to consistent technical delivery
 - **Pattern Recognition**: Gaming experience helping transition from just making pizzas to taking orders and system coordination
 

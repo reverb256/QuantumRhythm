@@ -80,9 +80,36 @@ export const crossEmpoweredInsights: KnowledgeInsight[] = [
     id: "consciousness-exploration-vr",
     category: "gaming",
     source: "Gaming Systems Research",
-    insight: "4,320 hours in VRChat as systematic consciousness exploration laboratory",
-    application: "Social VR research informing user experience design and avatar psychology",
+    insight: "4,320 hours VRChat journey from motion sickness to social awakening - GPU power post-Ethereum leading to human connection discovery",
+    application: "Social VR research informing user experience design and avatar psychology, overcoming technical barriers for authentic interaction",
     relevantSections: ["gaming", "about"],
+    priority: "high"
+  },
+  {
+    id: "vr-emotional-evolution",
+    category: "gaming",
+    source: "VR Social Development",
+    insight: "From extreme shyness (barely talking to furries in Canadian Duck Park) to genuine human connection - VR as therapy for social anxiety",
+    application: "User interface design considering social barriers and gradual comfort building, safe spaces for authentic expression",
+    relevantSections: ["gaming", "about", "philosophy"],
+    priority: "high"
+  },
+  {
+    id: "idempotency-engineering-tenet",
+    category: "technical",
+    source: "Core Engineering Principles",
+    insight: "Engineer for idempotency as fundamental development philosophy - operations should produce same result regardless of repetition",
+    application: "System design patterns ensuring consistent behavior, reliability through reproducible operations",
+    relevantSections: ["skills", "philosophy", "projects"],
+    priority: "high"
+  },
+  {
+    id: "penacony-consciousness-parallel",
+    category: "philosophical",
+    source: "Virtual Reality Philosophy",
+    insight: "VRChat as virtual dream world reminiscent of Penacony - reawakening love for humanity through digital connection",
+    application: "Understanding virtual spaces as consciousness exploration laboratories and emotional healing environments",
+    relevantSections: ["gaming", "philosophy", "about"],
     priority: "high"
   },
   {

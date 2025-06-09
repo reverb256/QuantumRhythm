@@ -53,18 +53,18 @@ export default function SkillsSection() {
 
       <div className="container mx-auto px-6 relative z-20">
         <div className="max-w-7xl mx-auto">
-          
+
           {/* Section Header */}
           <div className="text-center mb-16">
             <div className="inline-flex items-center justify-center px-6 py-3 holo-panel rounded-full border border-cyan-400/50 mb-8">
               <i className="fas fa-microchip text-cyan-400 mr-3"></i>
               <span className="text-cyan-300 text-sm font-medium">NEURAL_CAPABILITIES</span>
             </div>
-            
+
             <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 font-space">
               <span className="holo-text">Skills</span>
             </h2>
-            
+
             <p className="text-xl text-cyan-100 max-w-3xl mx-auto">
               Technical mastery through philosophical discipline - excellence as deployment habit across quantum consciousness infrastructure
             </p>
@@ -84,17 +84,17 @@ export default function SkillsSection() {
                   </div>
                   <span className="text-cyan-400 font-bold text-lg">{skill.level}%</span>
                 </div>
-                
+
                 <h3 className="text-xl font-bold text-cyan-300 mb-2">{skill.name}</h3>
                 <p className="text-cyan-100/80 text-sm mb-3">{skill.category}</p>
-                
+
                 {/* VibeCoding Philosophy */}
                 <div className="mb-4 p-3 bg-gradient-to-r from-purple-900/20 to-cyan-900/20 rounded-lg border border-purple-400/20">
                   <p className="text-xs text-purple-200 italic">
                     {skill.vibecoding}
                   </p>
                 </div>
-                
+
                 {/* Skill Level Bar */}
                 <div className="w-full h-2 bg-blue-900/50 rounded-full overflow-hidden">
                   <div 
@@ -141,10 +141,10 @@ export default function SkillsSection() {
                 <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${category.colour} flex items-center justify-center mb-6`}>
                   <i className={`${category.icon} text-white text-2xl`}></i>
                 </div>
-                
+
                 <h3 className="text-2xl font-bold text-cyan-300 mb-4">{category.title}</h3>
                 <p className="text-cyan-100 mb-4 leading-relaxed">{category.description}</p>
-                
+
                 {/* VibeCoding Philosophy */}
                 <div className="mb-6 p-3 bg-gradient-to-r from-purple-900/20 to-cyan-900/20 rounded-lg border border-purple-400/20">
                   <div className="flex items-center mb-1">
@@ -155,7 +155,7 @@ export default function SkillsSection() {
                     {category.vibecoding}
                   </p>
                 </div>
-                
+
                 <div className="space-y-2">
                   {category.technologies.map((tech) => (
                     <div key={tech} className="flex items-center">
@@ -175,7 +175,7 @@ export default function SkillsSection() {
                 <i className="fas fa-chart-line text-cyan-400 mr-4"></i>
                 Neural Processing Metrics
               </h3>
-              
+
               <div className="grid md:grid-cols-4 gap-8">
                 {[
                   { label: "Code Quality", value: 97, unit: "%" },
