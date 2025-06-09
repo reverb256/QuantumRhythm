@@ -65,7 +65,6 @@ function App() {
         <Toaster />
         <Router />
         <ConsoleEasterEgg />
-        <PerformanceMonitor />
       </TooltipProvider>
     </QueryClientProvider>
   );
