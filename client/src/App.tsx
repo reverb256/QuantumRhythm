@@ -6,7 +6,6 @@ import { Toaster } from "@/components/ui/toaster";
 // Tooltip system removed for DOM nesting compliance
 import SEOHead, { getSEOForPage } from "@/components/seo-head";
 import { ConsciousContainer } from "@/components/smart-elements";
-import NeuralBackground from "@/components/neural-background";
 import { EnhancedConsole } from "@/components/enhanced-console";
 import { MetaTagManager, useAISEO } from "@/lib/ai-seo-engine";
 import { ErrorBoundaryFallback } from "@/components/error-state-manager";
@@ -17,6 +16,7 @@ import Home from "@/pages/home";
 import Values from "@/pages/values";
 import VRChat from "@/pages/vrchat";
 import Dashboard from "@/pages/Dashboard";
+import TechnicalDeepDive from "@/pages/technical-deep-dive";
 import NotFound from "@/pages/not-found";
 import PerformanceMonitor from "@/components/ui/performance-monitor";
 
@@ -42,6 +42,7 @@ function Router() {
     if (location === '/vrchat') return 'vrchat';
     if (location === '/values') return 'values';
     if (location === '/dashboard') return 'dashboard';
+    if (location === '/technical-deep-dive') return 'technical-deep-dive';
     return 'home';
   };
 
@@ -57,6 +58,7 @@ function Router() {
         <Route path="/values" component={Values} />
         <Route path="/vrchat" component={VRChat} />
         <Route path="/dashboard" component={Dashboard} />
+        <Route path="/technical-deep-dive" component={TechnicalDeepDive} />
         <Route component={NotFound} />
       </Switch>
     </>
@@ -104,11 +106,7 @@ function App() {
     <ErrorBoundary FallbackComponent={ErrorBoundaryFallback}>
       <QueryClientProvider client={queryClient}>
         <ConsciousContainer learningRate={0.15}>
-          <NeuralBackground 
-            intensity={30} 
-            speed={0.5} 
-            theme="quantum" 
-          />
+
           <Toaster />
           <main id="main-content" className="relative z-10 hdr-background text-wcag-aaa focus-enhanced">
             <Router />
