@@ -119,7 +119,7 @@ class QuantumSecurityManager:
     async def analyze_request_security(self, request_data: Dict[str, Any]) -> SecurityThreat:
         """
         Analyze request for security threats with minimal performance impact
-        Uses cached analysis for repeated patterns
+        Uses cached analysis for repeated patterns with AI-enhanced threat detection
         """
         start_time = time.time()
         
@@ -130,6 +130,8 @@ class QuantumSecurityManager:
             # Check cache first (performance optimization)
             cached_result = await self._check_security_cache(request_hash)
             if cached_result:
+                # Update performance metrics for cache hit
+                await self._update_security_performance_metrics(time.time() - start_time, True)
                 return cached_result
             
             # Multi-layer threat analysis

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Card } from './ui/card';
 
@@ -59,7 +58,7 @@ export const EnhancedConsole: React.FC = () => {
 
     let threat_level = 0;
     let threat_type = '';
-    
+
     const isMalicious = maliciousPatterns.some(pattern => pattern.test(cmd));
     const isSuspicious = suspiciousPatterns.some(pattern => pattern.test(cmd));
 
@@ -96,9 +95,9 @@ export const EnhancedConsole: React.FC = () => {
 🛡️ security - Learn about security practices
 ⚡ performance - View optimization metrics
 🌈 quantum - Explore quantum consciousness themes`,
-      
+
       'games': '🎮 Mini-games: snake, pong, memory, riddle\nTry: play snake',
-      
+
       'ai': `🧠 AI Showcase Features:
 - Conversational AI with classical wisdom integration
 - Multi-model orchestration (GPT-4, Claude, DeepSeek)
@@ -171,7 +170,7 @@ Try: ai chat "What is consciousness?"`,
 🕵️ This interaction has been recorded for educational purposes.
 💡 Tip: Real security systems would never reveal this information!`;
     }
-    
+
     if (threat_level > 0.5) {
       return `🔍 Suspicious Activity Detected
 📝 Educational Note: This console is designed to teach security awareness.
@@ -186,7 +185,7 @@ Try: ai chat "What is consciousness?"`,
     if (!cmd.trim()) return;
 
     const analysis = await analyzeCommand(cmd);
-    
+
     // Log security event
     const securityEvent: SecurityEvent = {
       type: analysis.is_threat ? 'malicious' : 'educational',
