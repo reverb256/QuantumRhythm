@@ -700,12 +700,32 @@
     font-family: 'JetBrains Mono', monospace;
     border: 1px solid #61DAFB;
     white-space: nowrap;
-    z-index: 99999;
+    z-index: 999999;
     animation: fade-in-tooltip 0.3s ease;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(8px);
     max-width: 200px;
     word-wrap: break-word;
+  }
+
+  /* Universal tooltip z-index enforcement - Override all tooltip z-index values */
+  *[class*="-tooltip"]:hover::after,
+  *[class*="hover-"]:hover::after,
+  .ai-tooltip:hover::after,
+  .cloudflare-tooltip:hover::after,
+  .security-tooltip:hover::after,
+  .glassmorphism-tooltip:hover::after,
+  .performance-tooltip:hover::after,
+  .accessibility-tooltip:hover::after,
+  .quantum-tooltip:hover::after,
+  .defense-tooltip:hover::after,
+  .bilingual-tooltip:hover::after,
+  .charter-tooltip:hover::after,
+  .democratic-tooltip:hover::after,
+  .edge-tooltip:hover::after,
+  .branding-tooltip:hover::after {
+    z-index: 999999 !important;
+    pointer-events: none !important;
   }
 
   .ai-tooltip:hover::after {
