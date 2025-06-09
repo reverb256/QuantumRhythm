@@ -6,23 +6,23 @@ const projects = [
     title: "Troves & Coves",
     subtitle: "Mystical Crystal Jewelry E-commerce",
     description: "Production e-commerce platform for sacred crystal jewelry featuring AI-enhanced storefront, Stripe payment integration, and metaphysical product catalog. Built as a full-stack application with modern web technologies serving crystal jewelry enthusiasts.",
-    image: "/images/screenshot-1749440648583.png",
+    image: "/attached_assets/image_1749452464369.png",
     technologies: ["React", "Node.js", "PostgreSQL", "Stripe API", "TypeScript"],
     status: "Production",
     link: "https://trovesandcoves.ca",
     github: "https://github.com/reverb256/troves-coves",
-    color: "from-purple-400 to-pink-500"
+    color: "from-[var(--spectrum-violet)] to-[var(--spectrum-pink)]"
   },
   {
     title: "Local Cleaning Service",
     subtitle: "AI-Enhanced Service Platform",
     description: "Professional cleaning services platform with contract management, automated quoting system, and client portal. Features comprehensive accessibility compliance and responsive design for streamlined service booking and client management.",
-    image: "/images/screenshot-1749440511823.png",
+    image: "/attached_assets/image_1749452436437.png",
     technologies: ["React", "Express", "PostgreSQL", "AI Integration", "Docker"],
     status: "Production",
     link: "https://2034c3d1-09aa-49c2-bad4-380f7b9d56ee-00-2eybkgfvy9084.riker.replit.dev",
     github: "https://github.com/reverb256/Local-Cleaning-Service",
-    color: "from-cyan-400 to-blue-500"
+    color: "from-[var(--spectrum-cyan)] to-[var(--spectrum-blue)]"
   },
   {
     title: "CaddyPad Web UI",
@@ -102,7 +102,7 @@ export default function ProjectsSection() {
               <span className="holo-text">Projects</span>
             </h2>
             
-            <p className="text-xl text-cyan-100 max-w-3xl mx-auto">
+            <p className="text-xl text-[var(--text-secondary)] max-w-3xl mx-auto">
               Production-ready applications built with modern frameworks, thoughtful user experience design, and scalable architecture
             </p>
           </div>
@@ -135,8 +135,8 @@ export default function ProjectsSection() {
                 {/* Project Header */}
                 <div className="flex items-start justify-between mb-4">
                   <div>
-                    <h3 className="text-2xl font-bold text-cyan-300 mb-2">{project.title}</h3>
-                    <p className="text-cyan-100/80">{project.subtitle}</p>
+                    <h3 className="text-2xl font-bold text-[var(--spectrum-cyan)] mb-2">{project.title}</h3>
+                    <p className="text-[var(--text-secondary)]">{project.subtitle}</p>
                   </div>
                   <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${project.color} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
                     <i className="fas fa-code text-white"></i>
