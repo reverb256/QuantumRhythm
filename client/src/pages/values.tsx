@@ -52,8 +52,26 @@ export default function Values() {
       <section className="py-20 relative" ref={elementRef}>
         <div className="container mx-auto px-6">
           <h2 className={`font-bold text-3xl md:text-4xl text-center mb-16 text-[var(--synthwave-cyan)] fade-in-up ${isVisible ? 'animate' : ''}`}>
-            Charter Foundations
+            Principles as Code
           </h2>
+          
+          <div className={`max-w-4xl mx-auto text-center mb-16 fade-in-up ${isVisible ? 'animate' : ''}`}>
+            <div className="glass-morphism p-8 rounded-2xl cyber-border">
+              <div className="font-mono text-sm text-left bg-[var(--space-black)] p-6 rounded-lg border border-cyan-400/30 shadow-lg shadow-cyan-500/20">
+                <span className="text-[var(--synthwave-pink)]">const</span> <span className="text-[var(--synthwave-cyan)]">canadianValues</span> <span className="text-white">=</span> <span className="text-yellow-400">&#123;</span><br />
+                &nbsp;&nbsp;<span className="text-[var(--synthwave-gold)]">freedom</span><span className="text-white">:</span> <span className="text-green-400">"expression + conscience + religion"</span><span className="text-white">,</span><br />
+                &nbsp;&nbsp;<span className="text-[var(--synthwave-gold)]">democracy</span><span className="text-white">:</span> <span className="text-green-400">"participation + representation + accountability"</span><span className="text-white">,</span><br />
+                &nbsp;&nbsp;<span className="text-[var(--synthwave-gold)]">equality</span><span className="text-white">:</span> <span className="text-green-400">"before_law + opportunity + dignity"</span><span className="text-white">,</span><br />
+                &nbsp;&nbsp;<span className="text-[var(--synthwave-gold)]">justice</span><span className="text-white">:</span> <span className="text-green-400">"fundamental + procedural + substantive"</span><br />
+                <span className="text-yellow-400">&#125;;</span><br /><br />
+                <span className="text-gray-400">// Compiled into every decision, every line of code, every human interaction</span>
+              </div>
+              <p className="text-gray-300 mt-6 leading-relaxed">
+                <strong className="text-[var(--light-beam)]">Constitutional principles architected as immutable constants</strong>—
+                these values form the unbreakable foundation upon which all technological innovation must be built.
+              </p>
+            </div>
+          </div>
           
           <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto mb-12">
             {/* Freedom of Expression */}
