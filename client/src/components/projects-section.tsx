@@ -9,7 +9,7 @@ const projects = [
   {
     title: "Troves & Coves",
     subtitle: "Sacred Sanctuary Crystal Jewelry",
-    description: "Production-ready e-commerce platform featuring authentic wooden sign branding, mystical three-color harmony (turquoise/cursive-blue/skull-turquoise), and AI-orchestrated customer service. Enterprise security with OWASP Top 10 compliance, Cloudflare edge optimization, and seamless Etsy integration.",
+    description: "Production-ready e-commerce platform with authentic mystical branding and AI-orchestrated customer service. Features comprehensive crystal catalog, secure payment processing, and enterprise-grade security compliance. Deployed with Cloudflare optimization for global performance.",
     image: trovesCovestImage,
     technologies: [
       { name: "React 18", class: "react-tooltip" },
@@ -19,7 +19,7 @@ const projects = [
       { name: "Edge Computing", class: "edge-tooltip" }
     ],
     status: "Production",
-    link: "https://trovesandcoves.ca",
+    link: "https://replit.com/@snyper256/TrovesLuxury?v=1",
     github: "https://github.com/reverb256/troves-coves",
     color: "from-[var(--spectrum-violet)] to-[var(--spectrum-pink)]",
     vibecoding: "Authentic brand discovery with mystical aesthetic preservation"
@@ -27,7 +27,7 @@ const projects = [
   {
     title: "Workplace Janitorial Services",
     subtitle: "VibeCoding Innovation Showcase",
-    description: "Revolutionary 6-container harmonized design framework with glassmorphism architecture. Memory-efficient backend (380MB peak), 60fps animations, complete OWASP security compliance, and accessibility excellence. Demonstrates advanced performance optimization under resource constraints.",
+    description: "Professional service platform demonstrating glassmorphism design architecture with 60fps performance optimization. Features memory-efficient backend, complete OWASP security compliance, and WCAG AAA accessibility standards. Showcases advanced CSS techniques and responsive design patterns.",
     image: cleaningServiceImage,
     technologies: [
       { name: "Glassmorphism", class: "glassmorphism-tooltip" },
@@ -37,7 +37,7 @@ const projects = [
       { name: "Turquoise/Green Branding", class: "branding-tooltip" }
     ],
     status: "Production",
-    link: "https://2034c3d1-09aa-49c2-bad4-380f7b9d56ee-00-2eybkgfvy9084.riker.replit.dev",
+    link: "https://replit.com/@snyper256/Local-Cleaning-Service?v=1",
     github: "https://github.com/reverb256/Local-Cleaning-Service",
     color: "from-[var(--spectrum-cyan)] to-[var(--spectrum-blue)]",
     vibecoding: "Authentic business requirements with accessibility-first development"
@@ -81,8 +81,8 @@ const projects = [
   },
   {
     title: "Frostbite Gazette",
-    subtitle: "Quantum-Enhanced Democratic Journalism",
-    description: "Canada's sovereign accountability infrastructure powered by AI-first journalism and 5th Generation Warfare defense frameworks. Quantum RAG identity engine with bilingual Canadian core, classical learning integration, and Charter-compliant democratic transparency tools.",
+    subtitle: "Canadian Democratic Journalism Platform",
+    description: "AI-enhanced journalism platform focused on Canadian democratic accountability and transparency. Features bilingual content management, advanced search capabilities, and Charter-compliant data handling. Designed to support democratic discourse through technology-assisted journalism.",
     image: cleaningServiceImage,
     technologies: [
       { name: "Quantum RAG", class: "quantum-tooltip" },
@@ -92,7 +92,7 @@ const projects = [
       { name: "Democratic Tools", class: "democratic-tooltip" }
     ],
     status: "Coming Soon",
-    link: "https://github.com/reverb256/Frostbite-Gazette",
+    link: "https://replit.com/@snyper256/Frostbite-Gazette?v=1",
     github: "https://github.com/reverb256/Frostbite-Gazette",
     color: "from-blue-400 via-cyan-400 to-white",
     vibecoding: "Truth preservation through quantum-enhanced Canadian journalism",

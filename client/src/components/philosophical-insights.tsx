@@ -141,9 +141,51 @@ export default function PhilosophicalInsights() {
   const [currentSection, setCurrentSection] = useState<string>('');
   const [isArchiveOpen, setIsArchiveOpen] = useState(false);
   const [wisdomEnabled, setWisdomEnabled] = useState(true);
+  const [isNavigating, setIsNavigating] = useState(false);
+  const [lastScrollTime, setLastScrollTime] = useState(0);
+  const [scrollVelocity, setScrollVelocity] = useState(0);
+
+  // Handle navigation clicks to prevent insights during menu navigation
+  useEffect(() => {
+    const handleNavigationClick = () => {
+      setIsNavigating(true);
+      setTimeout(() => setIsNavigating(false), 1500); // Block insights for 1.5 seconds after navigation
+    };
+
+    // Listen for navigation clicks
+    const navLinks = document.querySelectorAll('nav a, [href^="#"]');
+    navLinks.forEach(link => {
+      link.addEventListener('click', handleNavigationClick);
+    });
+
+    return () => {
+      navLinks.forEach(link => {
+        link.removeEventListener('click', handleNavigationClick);
+      });
+    };
+  }, []);
   
   useEffect(() => {
+    let lastScrollY = window.scrollY;
+    
     const handleScroll = () => {
+      const now = Date.now();
+      const currentScrollY = window.scrollY;
+      
+      // Calculate scroll velocity
+      const timeDelta = now - lastScrollTime;
+      const scrollDelta = Math.abs(currentScrollY - lastScrollY);
+      const velocity = timeDelta > 0 ? scrollDelta / timeDelta : 0;
+      
+      setScrollVelocity(velocity);
+      setLastScrollTime(now);
+      lastScrollY = currentScrollY;
+      
+      // Don't trigger insights if navigating or scrolling too fast (velocity > 2)
+      if (isNavigating || velocity > 2) {
+        return;
+      }
+      
       const sections = ['hero', 'about', 'projects', 'skills', 'philosophy', 'gaming', 'contact'];
       
       for (const sectionId of sections) {
@@ -196,7 +238,7 @@ export default function PhilosophicalInsights() {
     handleScroll(); // Check initial state
 
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [wisdomEnabled]);
+  }, [wisdomEnabled, isNavigating, lastScrollTime]);
 
   const getPositionStyles = (position: string) => {
     switch (position) {
