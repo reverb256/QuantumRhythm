@@ -4,21 +4,66 @@ export default function AboutSection() {
   const { elementRef, isVisible } = useScrollAnimation();
 
   return (
-    <section id="about" className="py-20 relative" ref={elementRef}>
-      {/* Crystalline fragments background */}
-      <div className="absolute inset-0 opacity-20">
-        <img 
-          src="/images/crystalline_fragments.png" 
-          alt="Crystalline geometric patterns" 
-          className="w-full h-full object-cover" 
+    <section id="about" className="py-20 relative min-h-screen overflow-hidden" ref={elementRef}>
+      {/* Cybernetic Abstract Background */}
+      <div className="absolute inset-0">
+        {/* Base gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/30 via-purple-900/25 to-blue-900/20" />
+        
+        {/* Primary geometric color blocks */}
+        <div 
+          className="absolute inset-0 opacity-25"
+          style={{
+            backgroundImage: `url('/images/geometric_color_blocks.png')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+          }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[var(--space-black)]/85 to-[var(--deep-space)]/85"></div>
+        
+        {/* Crystal prism shards overlay */}
+        <div 
+          className="absolute inset-0 opacity-20"
+          style={{
+            backgroundImage: `url('/images/crystal_prism_shards.png')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+          }}
+        />
+        
+        {/* Floating crystal cubes accent */}
+        <div 
+          className="absolute top-20 right-20 w-64 h-64 opacity-30 animate-pulse"
+          style={{
+            backgroundImage: `url('/images/floating_crystal_cubes.png')`,
+            backgroundSize: 'contain',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            animationDuration: '4s'
+          }}
+        />
+        
+        {/* Synthwave energy burst */}
+        <div 
+          className="absolute bottom-32 left-16 w-48 h-48 opacity-25 animate-bounce"
+          style={{
+            backgroundImage: `url('/images/synthwave_energy_burst.png')`,
+            backgroundSize: 'contain',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            animationDuration: '3s'
+          }}
+        />
+        
+        {/* Cybernetic glassmorphism overlay */}
+        <div className="absolute inset-0 backdrop-blur-[1px] bg-gradient-to-b from-transparent via-black/5 to-black/15" />
       </div>
       
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-4xl mx-auto">
-          <h2 className={`font-bold text-3xl md:text-4xl lg:text-5xl mb-12 text-center text-[var(--synthwave-cyan)] fade-in-up ${isVisible ? 'animate' : ''}`}>
-            <i className="fas fa-atom mr-4"></i>Digital Architect
+          <h2 className={`font-bold text-3xl md:text-4xl lg:text-5xl mb-12 text-center bg-gradient-to-r from-cyan-300 via-purple-300 to-pink-300 bg-clip-text text-transparent fade-in-up ${isVisible ? 'animate' : ''}`}>
+            <i className="fas fa-atom mr-4 text-cyan-400"></i>Digital Architect
           </h2>
           
           <div className="grid md:grid-cols-2 gap-8 items-center">

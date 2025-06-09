@@ -19,15 +19,60 @@ export default function SkillsSection() {
   const { elementRef, isVisible } = useScrollAnimation();
 
   return (
-    <section id="skills" className="py-20 relative" ref={elementRef}>
-      {/* Electric synthwave lightning background */}
-      <div className="absolute inset-0 opacity-15">
-        <img 
-          src="/images/synthwave_lightning.png" 
-          alt="Electric energy patterns" 
-          className="w-full h-full object-cover" 
+    <section id="skills" className="py-20 relative min-h-screen overflow-hidden" ref={elementRef}>
+      {/* Cybernetic Abstract Background */}
+      <div className="absolute inset-0">
+        {/* Base gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/30 via-blue-900/25 to-cyan-900/20" />
+        
+        {/* Primary synthwave vectors */}
+        <div 
+          className="absolute inset-0 opacity-30"
+          style={{
+            backgroundImage: `url('/images/synthwave_vectors.png')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+          }}
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-[var(--space-black)]/70 via-transparent to-[var(--space-black)]/70"></div>
+        
+        {/* Cybernetic streams overlay */}
+        <div 
+          className="absolute inset-0 opacity-25"
+          style={{
+            backgroundImage: `url('/images/cybernetic_streams.png')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+          }}
+        />
+        
+        {/* Geometric mosaic accent */}
+        <div 
+          className="absolute top-20 left-20 w-64 h-64 opacity-20 animate-pulse"
+          style={{
+            backgroundImage: `url('/images/geometric_mosaic.png')`,
+            backgroundSize: 'contain',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            animationDuration: '3s'
+          }}
+        />
+        
+        {/* Diagonal energy burst */}
+        <div 
+          className="absolute bottom-20 right-20 w-56 h-56 opacity-25 animate-bounce"
+          style={{
+            backgroundImage: `url('/images/diagonal_energy_burst.png')`,
+            backgroundSize: 'contain',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            animationDuration: '4s'
+          }}
+        />
+        
+        {/* Glassmorphism overlay */}
+        <div className="absolute inset-0 backdrop-blur-[1px] bg-gradient-to-b from-transparent via-black/5 to-black/10" />
       </div>
       
       <div className="container mx-auto px-6 relative z-10">
