@@ -12,6 +12,7 @@ import Home from "@/pages/home";
 import Values from "@/pages/values";
 import VRChat from "@/pages/vrchat";
 import NotFound from "@/pages/not-found";
+import PerformanceMonitor from "@/components/ui/performance-monitor";
 
 function Router() {
   const [location] = useLocation();

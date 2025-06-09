@@ -240,7 +240,7 @@ export default function ProjectsSection() {
                   {/* Description */}
                   <div className="project-description">
                     <p className="text-[var(--text-muted)] leading-relaxed mb-6">
-                      {project.description}
+                      <QuantumWordTagger>{project.description}</QuantumWordTagger>
                     </p>
 
                     {/* Technology Stack with Tech Humor */}
@@ -267,7 +267,7 @@ export default function ProjectsSection() {
                         <span className="text-sm font-semibold text-purple-300">VibeCoding Insight</span>
                       </div>
                       <p className="text-sm text-purple-200 italic">
-                        {project.vibecoding}
+                        <QuantumWordTagger>{project.vibecoding}</QuantumWordTagger>
                       </p>
                     </div>
                   </div>
