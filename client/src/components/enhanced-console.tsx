@@ -324,3 +324,5 @@ Try: ai chat "What is consciousness?"`,
     </>
   );
 };
+
+export default EnhancedConsole;
