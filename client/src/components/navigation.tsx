@@ -177,19 +177,20 @@ export default function Navigation() {
             </Link>
             <Link 
               href="/vrchat"
-              className={`relative px-2 py-1 text-sm lg:text-base font-medium hover:text-cyan-300 transition-colors duration-300 ${location === '/vrchat' ? 'text-cyan-300' : 'text-gray-400'}`}
+              className={`relative px-2 py-1 text-sm lg:text-base font-medium hover:text-cyan-300 transition-colors duration-300 focus-enhanced link-enhanced hdr-enhanced ${location === '/vrchat' ? 'text-cyan-300' : 'text-gray-400'}`}
               onMouseEnter={() => handleMouseEnter({
                 title: "VR Research",
                 description: "4,320 hours of virtual reality consciousness exploration and social interaction research",
                 category: "Research"
               })}
               onMouseLeave={handleMouseLeave}
+              aria-label="Navigate to VRChat Research page"
             >
               VRChat
               {location === '/vrchat' && (
                 <motion.div
                   layoutId="activeTab"
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-400"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-400 hdr-enhanced"
                   initial={false}
                   transition={{ type: "spring", stiffness: 500, damping: 30 }}
                 />
@@ -197,13 +198,14 @@ export default function Navigation() {
             </Link>
             <Link 
               href="/dashboard"
-              className={`relative px-2 py-1 text-sm lg:text-base font-medium hover:text-cyan-300 transition-colors duration-300 ${location === '/dashboard' ? 'text-cyan-300' : 'text-gray-400'}`}
+              className={`relative px-2 py-1 text-sm lg:text-base font-medium hover:text-cyan-300 transition-colors duration-300 focus-enhanced link-enhanced hdr-enhanced ${location === '/dashboard' ? 'text-cyan-300' : 'text-gray-400'}`}
               onMouseEnter={() => handleMouseEnter({
                 title: "Trading",
                 description: "Autonomous Solana trading system with quantum consciousness architecture",
                 category: "AI"
               })}
               onMouseLeave={handleMouseLeave}
+              aria-label="Navigate to Trading Dashboard"
             >
               Trading
               {location === '/dashboard' && (
