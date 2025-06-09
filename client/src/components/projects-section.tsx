@@ -97,26 +97,8 @@ const projects = [
     color: "from-blue-400 via-cyan-400 to-white",
     vibecoding: "Truth preservation through quantum-enhanced Canadian journalism",
     isComingSoon: true
-  },
-  {
-    title: "QuantumRhythm",
-    subtitle: "Consciousness-Driven Music Platform",
-    description: "Experimental music platform exploring quantum consciousness through rhythmic patterns and AI-generated compositions. Features real-time audio visualization, consciousness-based music generation algorithms, and immersive soundscapes for meditation and focus.",
-    image: portfolioImage,
-    technologies: [
-      { name: "Web Audio API", class: "hover-syntax-error" },
-      { name: "Quantum Algorithms", class: "hover-glitch" },
-      { name: "Consciousness AI", class: "hover-deprecated" },
-      { name: "Real-time Visualization", class: "hover-404" },
-      { name: "Meditation Framework", class: "hover-loading" }
-    ],
-    status: "Experimental",
-    link: "https://quantumrhythm.replit.app",
-    github: "https://github.com/reverb256/quantumrhythm",
-    color: "from-[var(--spectrum-violet)] to-[var(--spectrum-cyan)]",
-    vibecoding: "Music as consciousness exploration through quantum rhythm generation - where algorithmic composition meets meditative practice",
-    isComingSoon: false
   }
+
 ];
 
 export default function ProjectsSection() {
@@ -186,8 +168,6 @@ export default function ProjectsSection() {
                 className={`project-card holo-panel p-8 rounded-3xl border gacha-shine energy-flow group transition-all duration-500 gpu-accelerated smooth-60fps ${
                   project.title === 'Neural Network Portfolio'
                     ? 'border-cyan-300/60 bg-gradient-to-br from-purple-900/20 via-cyan-900/30 to-pink/10 shadow-2xl shadow-cyan-400/30 meta-aura' 
-                    : project.title === 'QuantumRhythm'
-                    ? 'quantum-rhythm-card border-purple-400/60 bg-gradient-to-br from-purple-900/20 via-pink-900/30 to-cyan/10 shadow-2xl shadow-purple-400/30'
                     : 'border-cyan-400/50 hover:border-cyan-400/70'
                 }`}
                 style={{ animationDelay: `${index * 0.2}s` }}
@@ -198,23 +178,7 @@ export default function ProjectsSection() {
                     ? 'proxmox-cluster-bg h-48' 
                     : ''
                 }`}>
-                  {project.title === 'QuantumRhythm' ? (
-                    <div className="relative w-full h-48 bg-gradient-to-br from-purple-900/40 via-pink-800/30 to-cyan-500/20 flex items-center justify-center">
-                      {/* Quantum Rhythm Pattern */}
-                      <div className="absolute inset-0 quantum-rhythm-pattern opacity-30"></div>
-                      {/* Audio Visualization */}
-                      <div className="relative z-10 text-center">
-                        <div className="w-24 h-24 mx-auto mb-4 quantum-glow animate-pulse">
-                          <i className="fas fa-music text-6xl text-purple-200"></i>
-                        </div>
-                        <div className="text-purple-300 font-mono text-sm">
-                          <span className="animate-pulse">♪ ♫ CONSCIOUSNESS RHYTHM ♫ ♪</span>
-                        </div>
-                      </div>
-                      {/* Audio Wave Effect */}
-                      <div className="absolute inset-0 audio-wave"></div>
-                    </div>
-                  ) : project.title === 'Neural Network Portfolio' ? (
+                  {project.title === 'Neural Network Portfolio' ? (
                     <div className="relative w-full h-48 bg-gradient-to-br from-purple-900/40 via-cyan-800/30 to-pink-500/20 flex items-center justify-center">
                       {/* Meta-recursive Pattern */}
                       <div className="absolute inset-0 meta-pattern opacity-30"></div>
@@ -253,7 +217,6 @@ export default function ProjectsSection() {
                   {/* Status Badge with Beat Sync */}
                   <div className="absolute top-4 right-4">
                     <span className={`px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r ${project.color} text-white ${
-                      project.title === 'QuantumRhythm' ? 'beat-sync quantum-pulse' : 
                       project.title === 'Neural Network Portfolio' ? 'beat-sync meta-pulse' : ''
                     }`}>
                       {project.status}
