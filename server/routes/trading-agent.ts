@@ -10,7 +10,7 @@ const router = Router();
 
 // Global agent instance
 let globalAgent: AutonomousTradingAgent | null = null;
-const AGENT_ID = 'vibecoding-quantum-agent';
+const AGENT_ID = '550e8400-e29b-41d4-a716-446655440000'; // Valid UUID for VibeCoding Quantum Agent
 
 // Input validation schemas
 const AgentConfigSchema = z.object({
