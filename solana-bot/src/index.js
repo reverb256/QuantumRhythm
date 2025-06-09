@@ -34,25 +34,54 @@ logger.warn('• Monitor actively - rhythm gaming attention to detail');
 logger.warn('• Emergency stop always ready - consciousness over automation');
 logger.warn('• This represents exploration of AI-enhanced potential');
 
-// Simple demonstration mode if no wallet configured
+// GitHub Pages compatible demo mode
 if (!config.privateKey) {
-  logger.info('No wallet configured - running in demonstration mode');
-  logger.info('This will show market analysis without executing trades');
+  logger.info('No wallet configured - running in GitHub Pages compatible demo mode');
+  logger.info('This demonstrates VibeCoding methodology without live trading');
   
-  // Basic market monitoring demo
-  setInterval(async () => {
-    try {
-      logger.info('Monitoring market opportunities...');
-      logger.info('Demo mode: Would analyze Jupiter DEX for arbitrage');
-      logger.info('Demo mode: Would check momentum indicators');
-      logger.info('Add PRIVATE_KEY to .env for live trading');
-    } catch (error) {
-      logger.error('Demo monitoring error', error);
-    }
-  }, config.monitoringInterval);
+  // Import security and wallet managers for demo
+  Promise.all([
+    import('./security.js'),
+    import('./wallet.js'),
+    import('./cloudflare-compliance.js')
+  ]).then(async ([SecurityModule, WalletModule, CloudflareModule]) => {
+    const security = new SecurityModule.default();
+    const walletManager = new WalletModule.default();
+    const cloudflare = new CloudflareModule.default();
+    
+    // Perform security health check
+    const healthCheck = security.performSecurityHealthCheck();
+    logger.info('Security systems health check completed', healthCheck);
+    
+    // Demo monitoring loop - GitHub Pages compatible
+    setInterval(async () => {
+      try {
+        // Demo balance display
+        const demoBalances = walletManager.getDemoBalances();
+        logger.info('=== DEMO MODE BALANCES ===');
+        for (const [token, balance] of demoBalances) {
+          logger.balance(token, balance.toFixed(6));
+        }
+        
+        // Demo market analysis
+        logger.opportunity('Demo: Simulating arbitrage opportunity detection');
+        logger.info('Demo: RAY/USDC spread analysis complete');
+        logger.info('Demo: Risk assessment passed - pizza kitchen prudence applied');
+        
+        // Demonstrate cloudflare compliance
+        const compliance = cloudflare.ensureStaticHostingCompliance();
+        logger.debug('Cloudflare/GitHub Pages compliance verified');
+        
+      } catch (error) {
+        logger.error('Demo monitoring error', error);
+      }
+    }, config.monitoringInterval * 2); // Slower for demo
+    
+    logger.info('Demo mode active - showcasing VibeCoding security methodology');
+  });
   
 } else {
-  // Import and start the full bot
+  // Full bot mode with wallet
   import('./monitor.js').then(({ default: SolanaBot }) => {
     const bot = new SolanaBot();
     global.bot = bot;

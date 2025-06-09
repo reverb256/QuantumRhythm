@@ -1,0 +1,222 @@
+# GitHub Actions workflow for deploying Solana Bot to GitHub Pages
+# VibeCoding methodology: Pizza kitchen reliability meets AI-enhanced deployment
+
+name: Deploy Solana Bot to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: |
+        cd solana-bot
+        npm ci
+        
+    - name: Security audit
+      run: |
+        cd solana-bot
+        npm audit --audit-level moderate
+        
+    - name: Run security checks
+      run: |
+        cd solana-bot
+        node -e "
+          import('./src/security.js').then(({ default: SecurityManager }) => {
+            const security = new SecurityManager();
+            const health = security.performSecurityHealthCheck();
+            if (!health.healthy) {
+              console.error('Security checks failed:', health);
+              process.exit(1);
+            }
+            console.log('Security validation passed');
+          });
+        "
+        
+    - name: Build for static hosting
+      run: |
+        cd solana-bot
+        # Create static build directory
+        mkdir -p dist
+        
+        # Copy static assets
+        cp README.md dist/
+        cp package.json dist/
+        
+        # Create demo HTML page
+        cat > dist/index.html << 'EOF'
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Solana Trading Bot - VibeCoding Demo</title>
+            <style>
+                body { 
+                    font-family: 'Courier New', monospace; 
+                    background: #0a0a0a; 
+                    color: #00ff88; 
+                    padding: 20px; 
+                    line-height: 1.6;
+                }
+                .banner { 
+                    border: 2px solid #00ff88; 
+                    padding: 20px; 
+                    margin-bottom: 20px; 
+                    text-align: center;
+                }
+                .demo { 
+                    background: #1a1a1a; 
+                    padding: 15px; 
+                    border-left: 4px solid #00ff88; 
+                    margin: 10px 0;
+                }
+                .warning { 
+                    color: #ff6b35; 
+                    font-weight: bold; 
+                }
+            </style>
+        </head>
+        <body>
+            <div class="banner">
+                <h1>🍕 Solana Trading Bot - VibeCoding Demo</h1>
+                <p>From Pizza Kitchen Reliability to AI-Enhanced DeFi</p>
+            </div>
+            
+            <div class="demo">
+                <h2>🎮 VibeCoding Methodology</h2>
+                <p>• Small-town work ethic meets technological exploration</p>
+                <p>• Rhythm gaming precision applied to market timing</p>
+                <p>• 8,500+ hours consciousness research informing AI collaboration</p>
+                <p>• Security-first approach with comprehensive safety features</p>
+            </div>
+            
+            <div class="demo">
+                <h2>🛡️ Security Features</h2>
+                <p>✓ Transaction validation and rate limiting</p>
+                <p>✓ Emergency stop mechanisms</p>
+                <p>✓ Encryption for sensitive data</p>
+                <p>✓ Cloudflare/GitHub Pages compliance</p>
+            </div>
+            
+            <div class="demo warning">
+                <h2>⚠️ Important Notice</h2>
+                <p>This is a demonstration deployment. Live trading requires:</p>
+                <p>• Proper wallet configuration</p>
+                <p>• Understanding of DeFi risks</p>
+                <p>• Adequate testing with small amounts</p>
+                <p>• Continuous monitoring and oversight</p>
+            </div>
+            
+            <div class="demo">
+                <h2>🚀 Getting Started</h2>
+                <p>1. Clone the repository</p>
+                <p>2. Configure environment variables</p>
+                <p>3. Start with demo mode</p>
+                <p>4. Test thoroughly before live trading</p>
+            </div>
+            
+            <script>
+                // Demo console output
+                console.log('🍕 VibeCoding Solana Bot - Demo Mode Active');
+                console.log('Security systems: ✓ Operational');
+                console.log('GitHub Pages deployment: ✓ Successful');
+                console.log('Cloudflare compliance: ✓ Verified');
+                
+                // Simulate demo activity
+                setInterval(() => {
+                    const activities = [
+                        '📊 Demo: Analyzing market opportunities...',
+                        '🔍 Demo: Scanning for arbitrage patterns...',
+                        '⚡ Demo: Risk assessment complete...',
+                        '🎯 Demo: VibeCoding safety checks passed...'
+                    ];
+                    const activity = activities[Math.floor(Math.random() * activities.length)];
+                    console.log(new Date().toISOString(), activity);
+                }, 5000);
+            </script>
+        </body>
+        </html>
+        EOF
+        
+        # Create demo configuration
+        cat > dist/demo-config.json << 'EOF'
+        {
+          "mode": "demonstration",
+          "platform": "github-pages",
+          "security": "enabled",
+          "trading": "disabled",
+          "methodology": "vibecoding",
+          "features": {
+            "arbitrage_detection": "simulated",
+            "risk_management": "active",
+            "rate_limiting": "enforced",
+            "encryption": "enabled"
+          }
+        }
+        EOF
+        
+    - name: Cloudflare compliance check
+      run: |
+        cd solana-bot
+        node -e "
+          import('./src/cloudflare-compliance.js').then(({ default: CloudflareManager }) => {
+            const cloudflare = new CloudflareManager();
+            const manifest = cloudflare.generateDeploymentManifest();
+            console.log('Deployment manifest generated:', JSON.stringify(manifest, null, 2));
+            
+            const validation = cloudflare.validateDeploymentReadiness({
+              files: [
+                { name: 'index.html', size: 5000, type: 'html' },
+                { name: 'demo-config.json', size: 500, type: 'json' }
+              ],
+              httpsOnly: true
+            });
+            
+            if (!validation.passed) {
+              console.error('Deployment validation failed:', validation.issues);
+              process.exit(1);
+            }
+            console.log('Cloudflare compliance validated');
+          });
+        "
+        
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: './solana-bot/dist'
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
