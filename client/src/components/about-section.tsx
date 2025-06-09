@@ -74,20 +74,20 @@ export default function AboutSection() {
               {/* Main Bio Panel */}
               <div className="holo-panel p-8 rounded-3xl border border-cyan-400/50 gacha-shine energy-flow">
                 <h3 className="text-2xl md:text-3xl font-bold text-cyan-300 mb-6 flex items-center">
-                  <i className="fas fa-brain text-cyan-400 mr-4"></i>
-                  Consciousness Architecture
+                  <i className="fas fa-user text-cyan-400 mr-4"></i>
+                  About Me
                 </h3>
                 
                 <p className="text-lg text-cyan-100 leading-relaxed mb-6">
-                  <strong className="text-cyan-300">I am a digital philosopher-warrior</strong>, channeling Anaxa's relentless pursuit of truth through reason into the art of conscious code creation. 
-                  My journey unfolds across Canada's infinite digital frontiers, where Charter-protected freedoms meet cypherpunk ideals 
-                  to forge technology that amplifies human dignity rather than diminishing it.
+                  <strong className="text-cyan-300">I'm a full-stack developer</strong> passionate about creating meaningful digital experiences. 
+                  My work spans across modern web technologies including React, Node.js, and AI integration, 
+                  with a focus on building applications that solve real problems for real people.
                 </p>
                 
                 <p className="text-lg text-cyan-100 leading-relaxed">
-                  Like Rappa breaking reality's constraints through ninja artistry, I've discovered within Penacony-like virtual realms 
-                  that authentic presence engineering transcends physical limitations. This revelation crystallized into my <strong className="text-cyan-300">VibeCoding methodology</strong>—
-                  where each algorithm becomes a philosophical statement about human potential.
+                  Through my <strong className="text-cyan-300">VibeCoding methodology</strong>, I combine technical excellence with thoughtful design principles. 
+                  This approach ensures every application is not only functionally robust but also accessible, user-friendly, 
+                  and built with sustainable development practices.
                 </p>
               </div>
 
@@ -95,27 +95,27 @@ export default function AboutSection() {
               <div className="grid md:grid-cols-2 gap-6">
                 {[
                   {
-                    icon: "fas fa-infinity",
-                    title: "Infinite Potential",
-                    description: "Every project is an exploration of limitless possibility",
+                    icon: "fas fa-code",
+                    title: "Full-Stack Development",
+                    description: "React, Node.js, TypeScript, and modern web frameworks",
                     color: "from-cyan-400 to-blue-500"
                   },
                   {
-                    icon: "fas fa-atom",
-                    title: "Quantum Thinking",
-                    description: "Solutions exist in superposition until observed",
+                    icon: "fas fa-users",
+                    title: "User-Centered Design",
+                    description: "Prioritizing accessibility and intuitive user experiences",
                     color: "from-purple-400 to-pink-500"
                   },
                   {
                     icon: "fas fa-shopping-cart",
-                    title: "E-commerce Mastery",
-                    description: "Building production platforms that serve real customers",
+                    title: "E-commerce Solutions",
+                    description: "Production-ready platforms with payment integration",
                     color: "from-green-400 to-teal-500"
                   },
                   {
-                    icon: "fas fa-vr-cardboard",
-                    title: "VR Consciousness",
-                    description: "Exploring authentic human connection in virtual spaces",
+                    icon: "fas fa-brain",
+                    title: "AI Integration",
+                    description: "Smart features that enhance without overwhelming",
                     color: "from-orange-400 to-red-500"
                   }
                 ].map((value, index) => (

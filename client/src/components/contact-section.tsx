@@ -190,8 +190,9 @@ export default function ContactSection() {
               
               <div className="mt-8 p-6 bg-blue-900/20 rounded-xl border border-cyan-400/20">
                 <p className="text-cyan-100 text-sm leading-relaxed">
-                  <strong className="text-cyan-300">Open to:</strong> Enterprise partnerships, philosophical technology discussions, 
-                  AI consciousness research, VR experience design, and any projects that explore the intersection of wisdom and innovation.
+                  <strong className="text-cyan-300">Open to:</strong> Full-stack development projects, technical consulting, 
+                  React/Node.js applications, e-commerce platforms, AI integrations, and innovative web solutions 
+                  that make a meaningful impact.
                 </p>
               </div>
             </div>
