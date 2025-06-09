@@ -25,54 +25,56 @@ export default function SkillsSection() {
         {/* Base gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-purple-900/30 via-blue-900/25 to-cyan-900/20" />
         
-        {/* Primary blue cyber dome */}
+        {/* Cosmic mountain landscape */}
         <div 
-          className="absolute inset-0 opacity-35"
+          className="absolute inset-0 opacity-45"
           style={{
-            backgroundImage: `url('/images/blue_cyber_dome.png')`,
+            backgroundImage: `url('/attached_assets/image_1749437172806.png')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            filter: 'brightness(0.5) contrast(1.3)'
+          }}
+        />
+        
+        {/* Abstract blue data streams */}
+        <div 
+          className="absolute inset-0 opacity-30 mix-blend-soft-light"
+          style={{
+            backgroundImage: `url('/attached_assets/image_1749437226380.png')`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat'
           }}
         />
         
-        {/* Blue energy waves overlay */}
+        {/* Geometric light patterns */}
         <div 
-          className="absolute inset-0 opacity-25"
+          className="absolute top-20 left-20 w-80 h-80 opacity-25 animate-pulse"
           style={{
-            backgroundImage: `url('/images/blue_energy_waves.png')`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat'
-          }}
-        />
-        
-        {/* Blue holographic sky accent */}
-        <div 
-          className="absolute top-20 left-20 w-64 h-64 opacity-20 animate-pulse"
-          style={{
-            backgroundImage: `url('/images/blue_holographic_sky.png')`,
+            backgroundImage: `url('/attached_assets/image_1749437231414.png')`,
             backgroundSize: 'contain',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
-            animationDuration: '3s'
+            animationDuration: '7s'
           }}
         />
         
-        {/* Blue cosmic ocean accent */}
+        {/* Digital energy crystals */}
         <div 
-          className="absolute bottom-20 right-20 w-56 h-56 opacity-25 animate-bounce"
+          className="absolute bottom-20 right-20 w-64 h-64 opacity-20 animate-pulse"
           style={{
-            backgroundImage: `url('/images/blue_cosmic_ocean.png')`,
+            backgroundImage: `url('/attached_assets/image_1749437206205.png')`,
             backgroundSize: 'contain',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
-            animationDuration: '4s'
+            animationDuration: '6s',
+            animationDelay: '1s'
           }}
         />
         
-        {/* Glassmorphism overlay */}
-        <div className="absolute inset-0 backdrop-blur-[1px] bg-gradient-to-b from-transparent via-black/5 to-black/10" />
+        {/* Prismatic particle overlay */}
+        <div className="absolute inset-0 particle-bg bg-gradient-to-b from-transparent via-blue-950/10 to-blue-950/20" />
       </div>
       
       <div className="container mx-auto px-6 relative z-10">

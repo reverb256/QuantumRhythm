@@ -69,7 +69,7 @@ export default function AboutSection() {
           </h2>
           
           <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div className={`glass-morphism p-6 md:p-8 rounded-2xl cyber-border fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.2s' }}>
+            <div className={`prismatic-glass p-6 md:p-8 rounded-2xl spectrum-border gacha-shine fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.2s' }}>
               <h3 className="text-xl md:text-2xl font-semibold text-[var(--bright-blue)] mb-4">
                 <i className="fas fa-code mr-3 text-[var(--synthwave-cyan)]"></i>
                 The VibeCoding Journey
@@ -85,9 +85,9 @@ export default function AboutSection() {
               </p>
             </div>
             
-            <div className={`glass-morphism p-6 md:p-8 rounded-2xl cyber-border fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.4s' }}>
-              <h3 className="text-xl md:text-2xl font-semibold text-[var(--bright-blue)] mb-4">
-                <i className="fas fa-gamepad mr-3 text-[var(--synthwave-pink)]"></i>
+            <div className={`prismatic-glass p-6 md:p-8 rounded-2xl spectrum-border gacha-shine fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.4s' }}>
+              <h3 className="text-xl md:text-2xl font-semibold text-cyan-300 mb-4">
+                <i className="fas fa-gamepad mr-3 text-pink-400"></i>
                 Virtual Realms Explorer
               </h3>
               <p className="text-gray-300 mb-4">
@@ -102,9 +102,9 @@ export default function AboutSection() {
             </div>
           </div>
           
-          <div className={`glass-morphism p-6 md:p-8 rounded-2xl cyber-border mt-8 text-center fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.6s' }}>
-            <h3 className="text-xl md:text-2xl font-semibold text-[var(--bright-blue)] mb-4">
-              <i className="fas fa-infinity mr-3 text-[var(--synthwave-gold)]"></i>
+          <div className={`prismatic-glass p-6 md:p-8 rounded-2xl spectrum-border gacha-shine mt-8 text-center fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.6s' }}>
+            <h3 className="text-xl md:text-2xl font-semibold text-cyan-300 mb-4">
+              <i className="fas fa-infinity mr-3 text-yellow-400"></i>
               Philosophy Meets Technology
             </h3>
             <p className="text-lg text-gray-300">

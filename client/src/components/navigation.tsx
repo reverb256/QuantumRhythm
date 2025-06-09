@@ -29,55 +29,55 @@ export default function Navigation() {
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      scrolled ? 'glass-morphism' : 'bg-transparent'
+      scrolled ? 'prismatic-glass border-b border-cyan-400/20 gacha-shine' : 'bg-transparent'
     }`}>
       <nav className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <Link href="/" className="font-bold text-xl text-[var(--synthwave-cyan)] flex items-center hover:text-[var(--bright-blue)] transition-colors duration-300 cursor-pointer">
-            <i className="fas fa-code mr-2"></i>
+          <Link href="/" className="font-bold text-xl text-cyan-300 flex items-center hover:text-cyan-100 transition-colors duration-300 cursor-pointer prismatic-glow">
+            <i className="fas fa-code mr-2 text-cyan-400"></i>
             reverb256
           </Link>
           
           <div className="hidden md:flex space-x-8">
             <button 
               onClick={() => scrollToSection('about')} 
-              className={`hover:text-[var(--synthwave-cyan)] transition-colors duration-300 ${location === '/' ? 'text-white' : 'text-gray-400'}`}
+              className={`hover:text-cyan-300 transition-all duration-300 hover:scale-105 ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
             >
               About
             </button>
             <button 
               onClick={() => scrollToSection('projects')} 
-              className={`hover:text-[var(--synthwave-cyan)] transition-colors duration-300 ${location === '/' ? 'text-white' : 'text-gray-400'}`}
+              className={`hover:text-cyan-300 transition-all duration-300 hover:scale-105 ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
             >
               Projects
             </button>
             <button 
               onClick={() => scrollToSection('skills')} 
-              className={`hover:text-[var(--synthwave-cyan)] transition-colors duration-300 ${location === '/' ? 'text-white' : 'text-gray-400'}`}
+              className={`hover:text-cyan-300 transition-all duration-300 hover:scale-105 ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
             >
               Skills
             </button>
             <Link 
               href="/values"
-              className={`hover:text-[var(--synthwave-cyan)] transition-colors duration-300 ${location === '/values' ? 'text-[var(--synthwave-cyan)]' : 'text-white'}`}
+              className={`hover:text-cyan-300 transition-all duration-300 hover:scale-105 ${location === '/values' ? 'text-cyan-300 prismatic-glow' : 'text-cyan-100'}`}
             >
               Values
             </Link>
             <Link 
               href="/vrchat"
-              className={`hover:text-[var(--synthwave-cyan)] transition-colors duration-300 ${location === '/vrchat' ? 'text-[var(--synthwave-cyan)]' : 'text-white'}`}
+              className={`hover:text-cyan-300 transition-all duration-300 hover:scale-105 ${location === '/vrchat' ? 'text-cyan-300 prismatic-glow' : 'text-cyan-100'}`}
             >
               VR Research
             </Link>
             <button 
               onClick={() => scrollToSection('philosophy')} 
-              className={`hover:text-[var(--synthwave-cyan)] transition-colors duration-300 ${location === '/' ? 'text-white' : 'text-gray-400'}`}
+              className={`hover:text-cyan-300 transition-all duration-300 hover:scale-105 ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
             >
               Philosophy
             </button>
             <button 
               onClick={() => scrollToSection('contact')} 
-              className={`hover:text-[var(--synthwave-cyan)] transition-colors duration-300 ${location === '/' ? 'text-white' : 'text-gray-400'}`}
+              className={`hover:text-cyan-300 transition-all duration-300 hover:scale-105 ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
             >
               Connect
             </button>
