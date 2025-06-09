@@ -33,8 +33,10 @@ Visit the portfolio at: [Your GitHub Pages URL]
 - **Emulation Expertise**: 8,900+ hours across DOS, 8-bit, 16-bit console preservation
 
 ### Infrastructure & Development
-- **Early Crypto Mining**: Pre-mainstream cryptocurrency optimization and hardware management
-- **Homelab DevOps**: 12,000+ hours of server infrastructure and automation since high school
+- **Proxmox Cluster Orchestration**: 4-node enterprise infrastructure (Ryzen 9 5950X/3900X, i5-9500, R7 1700)
+- **Infrastructure as Code**: Ansible automation and Terraform IaC with AI-assisted optimization
+- **Homelab DevOps**: 12,000+ hours from high school through enterprise multi-node clusters
+- **Cryptocurrency Integration**: Mining optimization with cluster resource management
 - **DOS/Windows Heritage**: 25+ years from Windows 3.1/DOS shell on 286/386 through modern systems
 
 ## 🛠️ Technology Stack

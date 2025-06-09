@@ -13,6 +13,7 @@
 - **[DESIGN_LANGUAGE_ENGINEERING.md](DESIGN_LANGUAGE_ENGINEERING.md)** - Systematic approach to cyberpunk aesthetics
 - **[PHILOSOPHICAL_PRINCIPLES.md](PHILOSOPHICAL_PRINCIPLES.md)** - Classical wisdom integration in modern development
 - **[GAMING_SYSTEMS_RESEARCH.md](GAMING_SYSTEMS_RESEARCH.md)** - Comprehensive gaming experience applied to development methodology
+- **[INFRASTRUCTURE_ORCHESTRATION.md](INFRASTRUCTURE_ORCHESTRATION.md)** - Proxmox cluster automation with Ansible/Terraform through VibeCoding
 
 ### GitHub Best Practices
 - **[GITHUB_BEST_PRACTICES.md](GITHUB_BEST_PRACTICES.md)** - Comprehensive GitHub workflow and security guidelines
@@ -67,7 +68,9 @@ Guidelines for contributing and maintaining quality:
 - **Gacha Game Analysis**: 1,240+ hours Genshin Impact elemental mechanics and Zenless Zone Zero
 - **Console Modding Research**: Wii U softmod, Wii modchip, GameCube BBA PSO DNS exploitation
 - **Retro Preservation**: 8,900+ hours DOS/Windows 3.1, CPS2/Triforce arcade analysis, emulation
-- **Infrastructure DevOps**: 12,000+ hours homelab management, early crypto mining, server optimization
+- **Proxmox Cluster Orchestration**: 4-node enterprise infrastructure with Ansible/Terraform automation
+- **Infrastructure DevOps**: 12,000+ hours from homelab through enterprise multi-node clusters
+- **AI-Assisted Infrastructure**: VibeCoding methodology applied to cluster orchestration
 
 ### Performance Optimization
 - **60fps Animations**: GPU-accelerated transforms and opacity changes

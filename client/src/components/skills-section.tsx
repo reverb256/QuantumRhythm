@@ -10,7 +10,8 @@ const skills = [
   { icon: "fas fa-dice", name: "Gacha Game Analysis", category: "Genshin/ZZZ Systems", level: 89, color: "from-amber-400 to-orange-500", vibecoding: "Elemental synergy design & progression psychology" },
   { icon: "fas fa-microchip", name: "Console Modding", category: "Hardware Research", level: 91, color: "from-green-400 to-teal-500", vibecoding: "Wii U softmod, Wii modchip, GameCube BBA exploitation" },
   { icon: "fas fa-floppy-disk", name: "Retro Preservation", category: "DOS/Emulation", level: 93, color: "from-orange-400 to-red-500", vibecoding: "DOS/Windows 3.1, CPS2/Triforce arcade analysis" },
-  { icon: "fas fa-server", name: "Infrastructure DevOps", category: "Homelab/Mining", level: 87, color: "from-teal-400 to-cyan-500", vibecoding: "Early crypto mining, server optimization methodology" },
+  { icon: "fas fa-server", name: "Proxmox Cluster Orchestration", category: "Enterprise Infrastructure", level: 93, color: "from-teal-400 to-cyan-500", vibecoding: "Multi-node cluster with Ansible/Terraform IaC automation" },
+  { icon: "fas fa-code", name: "Infrastructure as Code", category: "Ansible/Terraform", level: 89, color: "from-purple-400 to-indigo-500", vibecoding: "AI-assisted automation through VibeCoding methodology" },
   { icon: "fas fa-vr-cardboard", name: "VR Research", category: "Digital Consciousness", level: 90, color: "from-violet-400 to-purple-500", vibecoding: "VRChat social architecture & presence engineering" },
   { icon: "fas fa-shield-alt", name: "Enterprise Security", category: "OWASP/ISO 27001", level: 88, color: "from-red-400 to-pink-500", vibecoding: "Production security compliance frameworks" }
 ];

@@ -162,9 +162,9 @@ export default function HeroSection() {
             </div>
             <p className="text-lg md:text-xl text-[var(--text-secondary)] leading-relaxed">
               25+ years of technology immersion from <span className="hover-syntax-error">DOS/Windows 3.1 through modern VR</span>, 
-              <span className="hover-deprecated">console modding and arcade preservation</span>, to <span className="hover-loading">enterprise infrastructure optimization</span>. 
-              From GoldenEye 007 and IIDX mastery to <span className="stackoverflow-reference">WoW auction house manipulation</span> and 
-              <span className="git-commit-humor">FFXIV savage raid coordination</span>—gaming systems research informs production development methodology.
+              <span className="hover-deprecated">console modding and arcade preservation</span>, to <span className="hover-loading">Proxmox cluster orchestration</span>. 
+              From GoldenEye 007 and IIDX mastery to <span className="stackoverflow-reference">multi-node infrastructure automation</span> with 
+              <span className="git-commit-humor">Ansible/Terraform IaC</span>—gaming systems research and enterprise infrastructure inform VibeCoding methodology.
             </p>
             <div className="font-mono text-xs text-gray-500 mt-4 easter-egg-hint">
               <span className="hover-segfault">console.log("Hello, World!");</span>

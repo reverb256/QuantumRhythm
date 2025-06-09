@@ -72,14 +72,14 @@ const gamingExperiences = [
     insights: "Hardware limitations as design constraints, preservation methodology"
   },
   {
-    title: "Infrastructure & DevOps Research",
-    category: "Technology Systems",
-    description: "Homelab management, crypto mining optimization, server infrastructure design from high school through present",
+    title: "Proxmox Cluster Orchestration",
+    category: "Enterprise Infrastructure",
+    description: "Multi-node Proxmox cluster with Ansible automation and Terraform IaC - Ryzen 9 5950X/3900X, i5-9500, R7 1700 nodes",
     hours: "12,000+",
-    platform: "Linux/Windows/Hardware",
+    platform: "Proxmox/Ansible/Terraform",
     color: "from-orange-400 to-red-500",
     icon: "fas fa-server",
-    insights: "Systems thinking, infrastructure as code, optimization methodologies"
+    insights: "Infrastructure as Code, cluster orchestration, AI-assisted automation through VibeCoding"
   }
 ];
 
