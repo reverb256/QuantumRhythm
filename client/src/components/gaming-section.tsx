@@ -4,38 +4,82 @@ const gamingExperiences = [
   {
     title: "VRChat Social Architecture",
     category: "Virtual Reality Research",
-    description: "Immersive social experiences exploring digital consciousness and authentic human connection",
+    description: "Immersive social experiences exploring digital consciousness and authentic human connection through avatar-mediated interaction",
     hours: "4,320+",
     platform: "Steam/Quest 3",
     color: "from-purple-400 to-pink-500",
-    icon: "fas fa-vr-cardboard"
+    icon: "fas fa-vr-cardboard",
+    insights: "Avatar psychology, presence engineering, social VR infrastructure"
   },
   {
-    title: "Honkai Star Rail Philosophy",
-    category: "Narrative Analysis",
-    description: "Deep exploration of consciousness themes through Anaxa's truth-seeking and Penacony's dreamscape philosophy",
-    hours: "890+",
-    platform: "Mobile/PC",
+    title: "miHoYo Gacha Ecosystem Analysis",
+    category: "Game Design Research",
+    description: "Deep systems analysis of Genshin Impact elemental mechanics and Zenless Zone Zero's action RPG evolution",
+    hours: "1,240+",
+    platform: "PC/Mobile",
+    color: "from-amber-400 to-orange-500",
+    icon: "fas fa-dice",
+    insights: "Gacha economics, elemental synergy design, progression psychology"
+  },
+  {
+    title: "Competitive Fighting Game Theory",
+    category: "Frame Data Analysis",
+    description: "Street Fighter frame advantage optimization and Super Smash Bros. movement tech across multiple generations",
+    hours: "2,890+",
+    platform: "Arcade/Console",
+    color: "from-red-400 to-pink-500",
+    icon: "fas fa-fist-raised",
+    insights: "Frame timing, neutral game theory, adaptation patterns"
+  },
+  {
+    title: "Rhythm Game Precision Training",
+    category: "Input Timing Research",
+    description: "IIDX double play mastery, DDR freestyle, Beat Saber modding - exploring human-machine synchronization",
+    hours: "3,560+",
+    platform: "Arcade/VR/PC",
     color: "from-cyan-400 to-blue-500",
-    icon: "fas fa-star"
+    icon: "fas fa-music",
+    insights: "Timing windows, muscle memory formation, flow state triggers"
   },
   {
-    title: "Digital Consciousness Lab",
-    category: "VR Development",
-    description: "Experimental exploration of virtual embodiment and presence engineering across multiple platforms",
-    hours: "2,100+",
-    platform: "Multi-Platform VR",
+    title: "WoW Elemental Shaman Mastery",
+    category: "MMO Systems Optimization",
+    description: "PvP arena optimization and mythic+ dungeon efficiency with auction house economy manipulation through TSM",
+    hours: "5,670+",
+    platform: "PC/Add-ons",
+    color: "from-blue-400 to-purple-500",
+    icon: "fas fa-bolt",
+    insights: "Priority systems, market analysis, server economy patterns"
+  },
+  {
+    title: "FFXIV Raid Coordination",
+    category: "Complex Systems Management",
+    description: "Savage raid optimization and job rotation theory-crafting across multiple combat roles and expansions",
+    hours: "2,180+",
+    platform: "PC/PS5",
+    color: "from-indigo-400 to-purple-500",
+    icon: "fas fa-sword",
+    insights: "Rotation optimization, raid coordination, damage calculation theory"
+  },
+  {
+    title: "Retro Gaming Archaeology",
+    category: "Historical Systems Research",
+    description: "DOS/Windows 3.1 era preservation, console emulation, CPS2/Triforce arcade analysis, modchip firmware research",
+    hours: "8,900+",
+    platform: "DOS/Emulation/Hardware",
     color: "from-green-400 to-teal-500",
-    icon: "fas fa-infinity"
+    icon: "fas fa-microchip",
+    insights: "Hardware limitations as design constraints, preservation methodology"
   },
   {
-    title: "Steam Gaming Analytics",
-    category: "Platform Research",
-    description: "Comprehensive gaming experience analysis across 200+ titles for UX and design insights",
-    hours: "8,500+",
-    platform: "Steam Platform",
+    title: "Infrastructure & DevOps Research",
+    category: "Technology Systems",
+    description: "Homelab management, crypto mining optimization, server infrastructure design from high school through present",
+    hours: "12,000+",
+    platform: "Linux/Windows/Hardware",
     color: "from-orange-400 to-red-500",
-    icon: "fab fa-steam"
+    icon: "fas fa-server",
+    insights: "Systems thinking, infrastructure as code, optimization methodologies"
   }
 ];
 
