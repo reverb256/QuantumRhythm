@@ -64,7 +64,7 @@ const projects = [
     title: "Proxmox Cluster Infrastructure",
     subtitle: "Enterprise Multi-Node Orchestration",
     description: "4-node Proxmox cluster with Ansible automation and Terraform IaC. Features Ryzen 9 5950X/3900X powerhouses, Intel i5-9500 balanced performance, and R7 1700 legacy integration. AI-assisted infrastructure orchestration through VibeCoding methodology with comprehensive resource management.",
-    image: cleaningServiceImage,
+    image: null, // Using CSS background instead
     technologies: [
       { name: "Proxmox VE", class: "proxmox-tooltip" },
       { name: "Ansible Automation", class: "ansible-tooltip" },
