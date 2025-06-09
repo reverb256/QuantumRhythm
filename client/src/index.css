@@ -108,13 +108,52 @@
 }
 
 @layer components {
-  .glass-morphism {
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(12px);
-    border: 1px solid var(--atmospheric-glow);
+  /* Anime-inspired Glassmorphism */
+  .anime-glass {
+    backdrop-filter: blur(20px);
+    background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(255, 255, 255, 0.05) 50%,
+      rgba(255, 255, 255, 0.02) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: 
       0 8px 32px rgba(0, 0, 0, 0.3),
-      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+
+  /* Cosmic Energy Borders */
+  .cosmic-border {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cosmic-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 2px;
+    background: linear-gradient(45deg, 
+      var(--cosmic-cyan),
+      var(--cosmic-purple),
+      var(--cosmic-pink),
+      var(--cosmic-gold),
+      var(--cosmic-cyan));
+    border-radius: inherit;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    animation: cosmic-flow 3s linear infinite;
+  }
+
+  @keyframes cosmic-flow {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  /* Ethereal Glow Effects */
+  .ethereal-glow {
+    filter: drop-shadow(0 0 20px var(--glow-cyan))
+            drop-shadow(0 0 40px var(--glow-purple))
+            drop-shadow(0 0 60px var(--glow-pink));
   }
   
   .light-beam-vertical {
