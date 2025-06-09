@@ -40,12 +40,12 @@ const contactMethods = [
 ];
 
 const collaborationAreas = [
-  "Enterprise AI Integration",
-  "VibeCoding Methodology",
-  "Philosophical Technology",
-  "Neural Architecture Design",
-  "Consciousness Computing",
-  "Digital Convergence Projects"
+  "E-commerce Platform Development",
+  "Full-Stack Web Applications",
+  "AI-Enhanced Storefronts",
+  "VR Consciousness Research",
+  "Philosophical Technology Integration",
+  "Open Source Development"
 ];
 
 export default function ContactSection() {

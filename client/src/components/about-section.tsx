@@ -107,15 +107,15 @@ export default function AboutSection() {
                     color: "from-purple-400 to-pink-500"
                   },
                   {
-                    icon: "fas fa-network-wired",
-                    title: "Neural Networks",
-                    description: "Connecting wisdom across time and technology",
+                    icon: "fas fa-shopping-cart",
+                    title: "E-commerce Mastery",
+                    description: "Building production platforms that serve real customers",
                     color: "from-green-400 to-teal-500"
                   },
                   {
-                    icon: "fas fa-eye",
-                    title: "Future Vision",
-                    description: "Architecting tomorrow's digital landscapes",
+                    icon: "fas fa-vr-cardboard",
+                    title: "VR Consciousness",
+                    description: "Exploring authentic human connection in virtual spaces",
                     color: "from-orange-400 to-red-500"
                   }
                 ].map((value, index) => (

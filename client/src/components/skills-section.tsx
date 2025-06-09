@@ -11,8 +11,8 @@ const skills = [
   { icon: "fas fa-server", name: "Proxmox", category: "Infrastructure", level: 80, color: "from-indigo-400 to-purple-500" },
   { icon: "fab fa-bitcoin", name: "Blockchain", category: "Distributed Systems", level: 78, color: "from-yellow-400 to-orange-500" },
   { icon: "fas fa-shield-alt", name: "Security", category: "OWASP Standards", level: 84, color: "from-red-400 to-pink-500" },
-  { icon: "fas fa-vr-cardboard", name: "VR/AR", category: "Immersive Tech", level: 76, color: "from-violet-400 to-purple-500" },
-  { icon: "fas fa-gamepad", name: "Game Dev", category: "Interactive Media", level: 74, color: "from-emerald-400 to-teal-500" }
+  { icon: "fas fa-vr-cardboard", name: "VR Research", category: "Digital Consciousness", level: 90, color: "from-violet-400 to-purple-500" },
+  { icon: "fas fa-infinity", name: "Philosophy", category: "Classical Learning", level: 95, color: "from-emerald-400 to-teal-500" }
 ];
 
 export default function SkillsSection() {
@@ -135,10 +135,10 @@ export default function SkillsSection() {
                 color: "from-purple-400 to-pink-500"
               },
               {
-                title: "AI & Innovation",
-                icon: "fas fa-brain",
-                description: "Implementing machine learning models, neural networks, and exploring emerging technologies",
-                technologies: ["TensorFlow", "PyTorch", "OpenAI API", "Computer Vision", "NLP"],
+                title: "VR & Philosophy",
+                icon: "fas fa-infinity",
+                description: "Exploring digital consciousness through VR research and classical philosophical frameworks",
+                technologies: ["VRChat Research", "Digital Presence", "Classical Learning", "Consciousness Studies", "Spatial Audio"],
                 color: "from-green-400 to-teal-500"
               }
             ].map((category, index) => (

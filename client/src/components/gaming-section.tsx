@@ -11,31 +11,31 @@ const gamingExperiences = [
     icon: "fas fa-vr-cardboard"
   },
   {
-    title: "Neural Gaming",
-    category: "AI-Enhanced",
-    description: "Exploring consciousness through interactive digital environments and neural interface systems",
+    title: "Honkai Star Rail Philosophy",
+    category: "Narrative Analysis",
+    description: "Deep exploration of consciousness themes through Anaxa's truth-seeking and Penacony's dreamscape philosophy",
     hours: "1,592",
-    platform: "PC VR",
+    platform: "Mobile/PC",
     color: "from-cyan-400 to-blue-500",
-    icon: "fas fa-brain"
+    icon: "fas fa-star"
   },
   {
-    title: "Unity Development",
-    category: "Game Creation",
-    description: "Architecting immersive experiences that bridge reality and digital consciousness",
+    title: "Digital Presence Research",
+    category: "Consciousness Studies",
+    description: "Systematic exploration of virtual embodiment and authentic human connection in digital spaces",
     hours: "3,249",
-    platform: "Cross-Platform",
+    platform: "VR Platforms",
     color: "from-green-400 to-teal-500",
-    icon: "fas fa-cube"
+    icon: "fas fa-infinity"
   },
   {
-    title: "Quantum Gaming",
-    category: "Experimental",
-    description: "Pushing boundaries of interactive media through philosophical and technological convergence",
+    title: "VR Consciousness Laboratory",
+    category: "Research Platform",
+    description: "Experimental exploration of digital consciousness and authentic presence through virtual reality immersion",
     hours: "1,876",
-    platform: "Experimental",
+    platform: "Quest 2/3",
     color: "from-orange-400 to-red-500",
-    icon: "fas fa-atom"
+    icon: "fas fa-flask"
   }
 ];
 
