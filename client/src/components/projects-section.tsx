@@ -145,7 +145,7 @@ export default function ProjectsSection() {
             {projects.map((project, index) => (
               <div 
                 key={project.title} 
-                className={`holo-panel p-8 rounded-3xl border gacha-shine energy-flow group transition-all duration-500 ${
+                className={`holo-panel p-8 rounded-3xl border gacha-shine energy-flow group transition-all duration-500 gpu-accelerated smooth-60fps ${
                   project.isComingSoon 
                     ? 'border-cyan-300/60 bg-gradient-to-br from-blue-900/20 via-cyan-900/30 to-white/10 shadow-2xl shadow-cyan-400/30 frost-aura' 
                     : 'border-cyan-400/50 hover:border-cyan-400/70'

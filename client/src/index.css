@@ -1061,6 +1061,51 @@
   100% { transform: translateY(-50%) scaleX(0); }
 }
 
+/* Performance Optimizations for 60fps GitHub Pages + Cloudflare */
+.gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+.smooth-60fps {
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  animation-fill-mode: both;
+  contain: layout style paint;
+}
+
+/* Cloudflare CDN optimized animations */
+.cf-optimized {
+  transform: translateZ(0);
+  contain: strict;
+  content-visibility: auto;
+}
+
+/* GitHub Pages static deployment optimization */
+.gh-static {
+  position: relative;
+  isolation: isolate;
+}
+
+/* Optimize all tooltips for performance */
+[class*="-tooltip"]:hover::after {
+  will-change: opacity, transform !important;
+  transform: translateX(-50%) translateZ(0) !important;
+}
+
+/* Optimize animations for 60fps */
+@keyframes fade-in-tooltip {
+  from { 
+    opacity: 0; 
+    transform: translateX(-50%) translateY(-10px) translateZ(0);
+  }
+  to { 
+    opacity: 1; 
+    transform: translateX(-50%) translateY(0) translateZ(0);
+  }
+}
+
 @layer utilities {
   .font-space {
     font-family: 'Space Grotesk', sans-serif;

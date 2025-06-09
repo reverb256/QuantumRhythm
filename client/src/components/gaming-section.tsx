@@ -98,7 +98,7 @@ export default function GamingSection() {
             {gamingExperiences.map((experience, index) => (
               <div 
                 key={experience.title} 
-                className="holo-panel p-8 rounded-3xl border border-cyan-400/50 gacha-shine energy-flow group hover:border-cyan-400/70 transition-all duration-500"
+                className="holo-panel p-8 rounded-3xl border border-cyan-400/50 gacha-shine energy-flow group hover:border-cyan-400/70 transition-all duration-500 gpu-accelerated smooth-60fps"
                 style={{ animationDelay: `${index * 0.15}s` }}
               >
                 <div className="flex items-start justify-between mb-6">
