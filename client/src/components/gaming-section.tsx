@@ -22,14 +22,24 @@ const gamingExperiences = [
     insights: "Gacha economics, elemental synergy design, progression psychology, orchestral narrative flow"
   },
   {
-    title: "Competitive Fighting Game Theory",
-    category: "Frame Data Analysis",
-    description: "Street Fighter frame advantage optimization and Super Smash Bros. movement tech across multiple generations",
+    title: "Draenei Elemental Harmony",
+    category: "Spiritual Systems Coordination",
+    description: "5,670+ hours as Draenei Elemental Shaman 'Saifa' (evolved from 'Sypha') - mastering lightning/earth elements with resto/enhancement versatility reflecting multi-domain adaptability",
+    hours: "5,670+",
+    platform: "PC/Add-ons",
+    color: "from-blue-400 to-purple-500",
+    icon: "fas fa-bolt",
+    insights: "Elemental force coordination, multi-spec adaptability, spiritual-technical balance"
+  },
+  {
+    title: "Sakura Rushdown Philosophy",
+    category: "Technical Creative Expression",
+    description: "Sakura main across Street Fighter series, Capcom vs SNK, Soul Calibur - orthodox shoto foundation with creative moveset expression demonstrating technical precision with innovative freedom",
     hours: "2,890+",
     platform: "Arcade/Console",
     color: "from-red-400 to-pink-500",
     icon: "fas fa-fist-raised",
-    insights: "Frame timing, neutral game theory, adaptation patterns"
+    insights: "Orthodox foundation with creative variation, cross-system adaptability, technical precision"
   },
   {
     title: "Rhythm Game Precision Training",
@@ -40,16 +50,6 @@ const gamingExperiences = [
     color: "from-cyan-400 to-blue-500",
     icon: "fas fa-music",
     insights: "Timing windows, muscle memory formation, flow state triggers"
-  },
-  {
-    title: "WoW Elemental Shaman Mastery",
-    category: "MMO Systems Optimization",
-    description: "PvP arena optimization and mythic+ dungeon efficiency with auction house economy manipulation through TSM",
-    hours: "5,670+",
-    platform: "PC/Add-ons",
-    color: "from-blue-400 to-purple-500",
-    icon: "fas fa-bolt",
-    insights: "Priority systems, market analysis, server economy patterns"
   },
   {
     title: "FFXIV Raid Coordination",
@@ -120,18 +120,18 @@ export default function GamingSection() {
 
       <div className="container mx-auto px-6 relative z-20">
         <div className="max-w-7xl mx-auto">
-          
+
           {/* Section Header */}
           <div className="text-center mb-16">
             <div className="inline-flex items-center justify-center px-6 py-3 holo-panel rounded-full border border-cyan-400/50 mb-8">
               <i className="fas fa-gamepad text-cyan-400 mr-3"></i>
               <span className="text-cyan-300 text-sm font-medium">VIRTUAL_REALMS</span>
             </div>
-            
+
             <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 font-space">
               <span className="holo-text">Gaming</span>
             </h2>
-            
+
             <p className="text-xl text-cyan-100 max-w-3xl mx-auto">
               Exploring consciousness through immersive digital realms where philosophy meets interactive experience
             </p>
@@ -158,14 +158,14 @@ export default function GamingSection() {
                 <h3 className="text-2xl font-bold text-cyan-300 mb-2">{experience.title}</h3>
                 <p className="text-cyan-100/80 mb-4">{experience.category}</p>
                 <p className="text-cyan-100 leading-relaxed mb-4">{experience.description}</p>
-                
+
                 {experience.insights && (
                   <div className="mb-6 p-3 bg-cyan-900/20 border border-cyan-400/30 rounded-lg">
                     <p className="text-xs text-cyan-300 font-mono mb-1">// Key Insights</p>
                     <p className="text-cyan-100/90 text-sm">{experience.insights}</p>
                   </div>
                 )}
-                
+
                 <div className="flex items-center justify-between">
                   <span className="text-cyan-300 font-medium">{experience.platform}</span>
                   <div className="flex items-center">
@@ -179,14 +179,14 @@ export default function GamingSection() {
 
           {/* VR Setup Showcase */}
           <div className="grid lg:grid-cols-2 gap-12 mb-16">
-            
+
             {/* VR Hardware */}
             <div className="holo-panel p-8 rounded-3xl border border-cyan-400/50 gacha-shine">
               <h3 className="text-2xl font-bold text-cyan-300 mb-6 flex items-center">
                 <i className="fas fa-headset text-cyan-400 mr-4"></i>
                 Neural Interface Hardware
               </h3>
-              
+
               <div className="space-y-6">
                 {[
                   { device: "Meta Quest Pro", specs: "Mixed Reality • Eye Tracking • Haptic Feedback", status: "Primary VR" },
@@ -213,13 +213,13 @@ export default function GamingSection() {
                 <i className="fas fa-infinity text-cyan-400 mr-4"></i>
                 Interactive Philosophy
               </h3>
-              
+
               <div className="space-y-6">
                 <blockquote className="text-lg text-cyan-100 italic leading-relaxed border-l-4 border-cyan-400 pl-6">
                   "Virtual reality isn't escapism—it's expanded consciousness. Every digital realm becomes a laboratory 
                   for exploring human potential, testing the boundaries between thought and experience."
                 </blockquote>
-                
+
                 <div className="space-y-4">
                   {[
                     { principle: "Consciousness Exploration", description: "VR as a medium for understanding perception" },
@@ -246,7 +246,7 @@ export default function GamingSection() {
               <i className="fas fa-headphones text-cyan-400 mr-4"></i>
               Musical Consciousness Evolution
             </h3>
-            
+
             <div className="grid md:grid-cols-3 gap-8 mb-8">
               {[
                 {
@@ -275,7 +275,7 @@ export default function GamingSection() {
                 </div>
               ))}
             </div>
-            
+
             <div className="text-center">
               <blockquote className="text-xl text-cyan-100 italic leading-relaxed max-w-4xl mx-auto">
                 "From NES chiptunes to miHoYo's orchestral masterpieces - every musical evolution reflects consciousness expanding 
@@ -290,7 +290,7 @@ export default function GamingSection() {
               <i className="fas fa-chart-bar text-cyan-400 mr-4"></i>
               Virtual Realm Analytics
             </h3>
-            
+
             <div className="grid md:grid-cols-4 gap-8">
               {[
                 { label: "Total Hours", value: "9,564", icon: "fas fa-clock", color: "from-cyan-400 to-blue-500" },

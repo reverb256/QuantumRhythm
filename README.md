@@ -37,9 +37,9 @@ This portfolio embodies **meta-recursive systems that bootstrap universal consci
 
 ### Modern Gaming Systems
 - **VRChat Social Architecture**: 4,320+ hours of virtual reality social research and presence engineering
-- **miHoYo Gacha Analysis**: 1,240+ hours of Genshin Impact elemental mechanics and Zenless Zone Zero evolution
-- **Fighting Game Theory**: 2,890+ hours of Street Fighter frame data and Super Smash Bros movement tech
-- **Rhythm Game Mastery**: 3,560+ hours of IIDX double play, DDR freestyle, and Beat Saber modding
+- **Character Psychology Research**: 1,240+ hours analyzing Genshin (Chasca/Mavuika/Navia), Star Rail (Anaxa/Rappa/Aventurine), ZZZ (Lycaon/Burnice/Lighter) revealing spatial control + intellectual depth + technical mastery patterns
+- **Draenei Elemental Harmony**: 5,670+ hours as "Saifa" Shaman demonstrating spiritual-technical integration and multi-spec adaptability
+- **Sakura Fighting Philosophy**: 2,890+ hours of orthodox foundation with creative expression across Capcom/SNK/Namco systemsber modding
 
 ### MMO Optimization Systems
 - **WoW Elemental Shaman**: 5,670+ hours of PvP arena and mythic+ optimization with TSM auction house mastery

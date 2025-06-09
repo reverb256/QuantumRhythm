@@ -9,18 +9,24 @@ This document outlines how 25+ years of gaming systems research across multiple 
 ## Core Gaming Research Areas
 
 ### Fighting Game Frame Data Analysis
-**Experience**: 2,890+ hours across Street Fighter series and Super Smash Bros generations
+**Experience**: 2,890+ hours across Street Fighter (Sakura main), Capcom vs SNK, Soul Calibur series
+**Character Psychology Analysis**:
+- **Sakura Preference**: Rushdown shoto with unique fireball properties - reflects preference for orthodox foundation with creative variation
+- **Moveset Attraction**: Fast normals, air tatsu mobility, unique hadoken angles demonstrating appreciation for technical precision with creative expression
+- **Capcom/SNK Heritage**: Cross-system fighting game appreciation showing adaptability across different mechanical frameworks
+- **Soul Calibur Integration**: 3D weapon-based combat adding spatial awareness to 2D technical foundation
+
 **Systems Insights**:
-- Frame advantage calculation and optimization strategies
-- Input buffer systems and timing window analysis  
-- Neutral game theory and adaptation pattern recognition
-- Tournament pressure optimization and performance consistency
+- Frame advantage calculation using Sakura's pressure game applied to animation timing optimization
+- Input buffer systems from fighting game precision applied to user interface responsiveness
+- Neutral game adaptation from Sakura's footsies translated to performance optimization patterns
+- Cross-game system analysis (2D/3D, Capcom/SNK) informing multi-framework development approach
 
 **Development Applications**:
-- Animation timing optimization for 60fps web applications
-- Input handling precision for user interface responsiveness
-- Performance profiling using frame-perfect measurement techniques
-- Competitive optimization mindset applied to code performance
+- 60fps animation timing using fighting game frame data precision
+- User interface responsiveness based on Sakura's input buffer analysis
+- Performance optimization using tournament pressure mindset from competitive fighting games
+- Multi-framework adaptability reflecting Capcom/SNK/Namco system versatility
 
 ### Rhythm Game Precision Training
 **Experience**: 3,560+ hours across IIDX double play, DDR freestyle, Beat Saber modding
@@ -37,18 +43,24 @@ This document outlines how 25+ years of gaming systems research across multiple 
 - Hardware-software integration optimization
 
 ### MMO Systems Optimization
-**Experience**: 5,670+ hours of WoW Elemental Shaman PvP/PvE across multiple expansions
+**Experience**: 5,670+ hours of WoW Draenei Elemental Shaman ("Saifa"/"Sypha") PvP/PvE mastery
+**Character Identity Insights**:
+- **Draenei Shaman Psychology**: Spiritual connection to elemental forces reflects developer affinity for natural system harmony
+- **Elemental Specialization**: Lightning/earth mastery translating to infrastructure orchestration and distributed system thinking
+- **Off-spec Versatility**: Resto/Enhancement flexibility demonstrating adaptability across technical domains
+- **Name Evolution**: "Sypha" to "Saifa" showing character development paralleling professional growth
+
 **Systems Insights**:
-- Priority system optimization for complex rotational mechanics
-- Resource management under dynamic conditions
-- Market analysis and economic manipulation through TSM add-ons
-- Server infrastructure performance impact on gameplay
+- Priority system optimization for complex rotational mechanics applied to task scheduling
+- Elemental resource management (mana/rage/energy) informing system resource allocation
+- Multi-spec adaptability reflecting full-stack development versatility
+- Server infrastructure performance impact on gameplay informing production optimization
 
 **Development Applications**:
-- Database query optimization and caching strategies
-- Resource allocation algorithms for web applications
-- Market analysis techniques for user behavior optimization
-- Scalable architecture design informed by server performance research
+- Database optimization using priority system theory from elemental rotation mechanics
+- Multi-role system design reflecting resto/enhancement/elemental spec flexibility
+- Infrastructure orchestration using elemental harmony principles
+- Team coordination protocols based on raid leadership experience with Draenei wisdom
 
 ### FFXIV Raid Coordination
 **Experience**: 2,180+ hours of savage raid optimization and job rotation theory-crafting
@@ -65,18 +77,23 @@ This document outlines how 25+ years of gaming systems research across multiple 
 - Agile adaptation strategies for changing technical requirements
 
 ### Gacha Game Design Analysis
-**Experience**: 1,240+ hours across Genshin Impact and Zenless Zone Zero
+**Experience**: 1,240+ hours across Genshin Impact, Honkai Star Rail, and Zenless Zone Zero
+**Character Psychology Research**:
+- **Genshin Favorites**: Chasca (aerial freedom), Mavuika (elemental mastery), Navia (geo construction) - pattern reveals preference for spatial manipulation and environmental control
+- **Star Rail Analysis**: Anaxa (philosophical inquiry), Rappa (cyberpunk authenticity), Aventurine (calculated risk) - indicates attraction to intellectual depth and strategic complexity
+- **ZZZ Selection**: Lycaon (precise coordination), Burnice (explosive creativity), Lighter (focused intensity) - demonstrates appreciation for technical mastery and dynamic expression
+
 **Systems Insights**:
-- Elemental synergy design and interaction system complexity
-- Progression psychology and user engagement optimization
-- Resource scarcity economics and value perception manipulation
-- Character kit design and mechanical interaction theory
+- Character kit synergy reflecting developer personality: environmental control + philosophical depth + technical precision
+- Elemental reaction optimization applied to component interaction design
+- Progression psychology and user engagement through meaningful character development
+- Resource scarcity economics informing performance optimization strategies
 
 **Development Applications**:
-- User experience design informed by engagement psychology
-- Component interaction design for React applications
-- Resource optimization strategies for performance-constrained environments
-- Feature interaction design preventing unintended mechanical conflicts
+- UI/UX design reflecting character selection psychology: spatial awareness, intellectual depth, technical precision
+- Component architecture using elemental synergy principles from gacha analysis
+- User engagement patterns based on character progression psychology research
+- Performance optimization using resource management insights from gacha economics
 
 ### VRChat Social Architecture Research
 **Experience**: 4,320+ hours of virtual reality social interaction and presence engineering

@@ -121,6 +121,33 @@ export const crossEmpoweredInsights: KnowledgeInsight[] = [
     relevantSections: ["gaming", "projects", "design"],
     priority: "high"
   },
+  {
+    id: "character-selection-psychology",
+    category: "gaming",
+    source: "Character Preference Analysis",
+    insight: "Favorite characters reveal core personality: Chasca/Mavuika/Navia (spatial control), Anaxa/Rappa/Aventurine (intellectual depth), Lycaon/Burnice/Lighter (technical mastery)",
+    application: "UI design philosophy combining environmental control, philosophical depth, and technical precision",
+    relevantSections: ["gaming", "about", "philosophy", "design"],
+    priority: "high"
+  },
+  {
+    id: "draenei-elemental-harmony",
+    category: "gaming",
+    source: "WoW Character Psychology",
+    insight: "5,670 hours as Draenei Elemental Shaman reflects spiritual connection to system harmony and elemental force coordination",
+    application: "Infrastructure orchestration using elemental harmony principles and multi-spec adaptability",
+    relevantSections: ["gaming", "skills", "philosophy"],
+    priority: "high"
+  },
+  {
+    id: "sakura-technical-creativity",
+    category: "gaming",
+    source: "Fighting Game Analysis",
+    insight: "Sakura preference combines orthodox shoto foundation with creative moveset variation - technical precision with expressive freedom",
+    application: "Development methodology balancing established patterns with innovative implementation",
+    relevantSections: ["gaming", "skills", "philosophy"],
+    priority: "medium"
+  },
 
   // Design Philosophy Insights
   {

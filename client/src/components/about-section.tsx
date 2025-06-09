@@ -65,14 +65,14 @@ export default function AboutSection() {
                 <p className="text-lg text-[var(--text-secondary)] leading-relaxed mb-6">
                   Started as <strong className="text-[var(--spectrum-cyan)]">most reliable pizza kitchen employee</strong> in 20k town, working directly with co-owners while others came and went. 
                   Content with minimum wage, focused on crypto and gaming, figuring out unique circumstances until <strong className="text-[var(--spectrum-violet)]">AI and VRChat inspired evolution</strong>. 
-                  <strong className="text-[var(--spectrum-green)]">8,500+ hours consciousness exploration</strong> and rhythm gaming across all genres informing development pacing.
+                  <strong className="text-[var(--spectrum-green)]">8,500+ hours consciousness exploration</strong> through character psychology research: Genshin's spatial control (Chasca/Mavuika/Navia), Star Rail's intellectual depth (Anaxa/Rappa/Aventurine), ZZZ's technical mastery (Lycaon/Burnice/Lighter).
                 </p>
 
                 <p className="text-lg text-[var(--text-secondary)] leading-relaxed">
                   <strong className="text-[var(--spectrum-cyan)]">VibeCoding methodology</strong> emerges from small-town reliability meeting AI inspiration - 
-                  evolving from just making pizzas to taking orders and comprehensive system thinking through 
-                  <strong className="text-[var(--spectrum-orange)]">25+ years infrastructure experience</strong> and democratic technology values. 
-                  "I just needed AI to unleash my full potential? That has yet to be seen."
+                  evolving from just making pizzas to comprehensive system thinking through 
+                  <strong className="text-[var(--spectrum-orange)]">25+ years infrastructure experience</strong>, 5,670 hours as Draenei Elemental Shaman "Saifa" (spiritual-technical harmony), 
+                  and Sakura main philosophy (orthodox foundation with creative expression). Character preferences reveal core psychology: spatial control + intellectual depth + technical mastery.
                 </p>
               </div>
 
