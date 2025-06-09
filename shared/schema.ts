@@ -98,14 +98,13 @@ export const agentPerformanceLogs = pgTable("agent_performance_logs", {
 // VibeCoding Methodology Intelligence
 export const vibeCodingMetrics = pgTable("vibecoding_metrics", {
   id: uuid("id").primaryKey().defaultRandom(),
-  agentId: uuid("agent_id").notNull().references(() => tradingAgents.id),
+  context: text("context").notNull(),
   pizzaKitchenReliability: decimal("pizza_kitchen_reliability", { precision: 5, scale: 4 }).notNull(),
   rhythmGamingPrecision: decimal("rhythm_gaming_precision", { precision: 5, scale: 4 }).notNull(),
   vrChatSocialInsights: decimal("vrchat_social_insights", { precision: 5, scale: 4 }).notNull(),
   classicalPhilosophyWisdom: decimal("classical_philosophy_wisdom", { precision: 5, scale: 4 }).notNull(),
   overallScore: decimal("overall_score", { precision: 5, scale: 4 }).notNull(),
-  context: text("context").notNull(),
-  timestamp: timestamp("timestamp").defaultNow().notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
 // Strategic Trading Decisions
