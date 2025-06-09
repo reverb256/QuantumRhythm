@@ -5,6 +5,14 @@
 ### Shotokan Karate Dojo Kun Integration
 The principles learned through childhood training with family in Shotokan karate form the ethical foundation:
 
+**🤖 AI TERMINAL ACCESS:**
+Real-time ethics monitoring through intelligent terminal commands:
+- `dojo.perfection` - Character development metrics through code analysis
+- `dojo.faithful` - Commitment tracking and reliability scores
+- `dojo.excel` - Excellence pursuit and mastery progress
+- `dojo.respect` - Respectful AI interactions audit
+- `dojo.nonviolence` - System impact assessment (healing vs harmful)
+
 - **Seek perfection of character** - Continuous improvement in both code quality and personal development
 - **Be faithful** - Commitment to users, collaborators, and the principles that guide our work  
 - **Endeavor to excel** - Pursuing technical mastery while maintaining humility and openness to learning
