@@ -97,6 +97,25 @@ const projects = [
     color: "from-blue-400 via-cyan-400 to-white",
     vibecoding: "Truth preservation through quantum-enhanced Canadian journalism",
     isComingSoon: true
+  },
+  {
+    title: "QuantumRhythm",
+    subtitle: "Consciousness-Driven Music Platform",
+    description: "Experimental music platform exploring quantum consciousness through rhythmic patterns and AI-generated compositions. Features real-time audio visualization, consciousness-based music generation algorithms, and immersive soundscapes for meditation and focus.",
+    image: portfolioImage,
+    technologies: [
+      { name: "Web Audio API", class: "audio-tooltip" },
+      { name: "Quantum Algorithms", class: "quantum-tooltip" },
+      { name: "Consciousness AI", class: "consciousness-tooltip" },
+      { name: "Real-time Visualization", class: "visualization-tooltip" },
+      { name: "Meditation Framework", class: "meditation-tooltip" }
+    ],
+    status: "Experimental",
+    link: "https://replit.com/@snyper256/QuantumRhythm?v=1",
+    github: "https://github.com/reverb256/QuantumRhythm",
+    color: "from-purple-400 via-violet-400 to-indigo-400",
+    vibecoding: "Music as consciousness exploration through quantum rhythm generation",
+    isComingSoon: false
   }
 ];
 
