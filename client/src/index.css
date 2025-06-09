@@ -1951,6 +1951,398 @@ section {
   gap: clamp(1rem, 2vw, 2rem);
 }
 
+/* ============================================================================
+   INTELLIGENT TOOLTIP & TAGGING SYSTEM
+   Star Rail-inspired interactive information system
+   ============================================================================ */
+
+/* Tooltip Trigger Styling */
+.intelligent-tooltip-trigger {
+  position: relative;
+  cursor: help;
+  border-bottom: 1px dotted currentColor;
+  transition: all 0.3s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+}
+
+.intelligent-tooltip-trigger:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.2);
+}
+
+/* Category-based Color Coding */
+.tech-tag {
+  color: var(--spectrum-cyan);
+  border-color: var(--spectrum-cyan);
+  background: rgba(56, 189, 248, 0.1);
+}
+
+.tech-tag:hover {
+  background: rgba(56, 189, 248, 0.2);
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.3);
+}
+
+.concept-tag {
+  color: var(--spectrum-violet);
+  border-color: var(--spectrum-violet);
+  background: rgba(147, 51, 234, 0.1);
+}
+
+.concept-tag:hover {
+  background: rgba(147, 51, 234, 0.2);
+  box-shadow: 0 0 8px rgba(147, 51, 234, 0.3);
+}
+
+.humor-tag {
+  color: var(--spectrum-gold);
+  border-color: var(--spectrum-gold);
+  background: rgba(251, 191, 36, 0.1);
+}
+
+.humor-tag:hover {
+  background: rgba(251, 191, 36, 0.2);
+  box-shadow: 0 0 8px rgba(251, 191, 36, 0.3);
+}
+
+.gaming-tag {
+  color: var(--spectrum-green);
+  border-color: var(--spectrum-green);
+  background: rgba(34, 197, 94, 0.1);
+}
+
+.gaming-tag:hover {
+  background: rgba(34, 197, 94, 0.2);
+  box-shadow: 0 0 8px rgba(34, 197, 94, 0.3);
+}
+
+.error-tag {
+  color: var(--spectrum-red);
+  border-color: var(--spectrum-red);
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.error-tag:hover {
+  background: rgba(239, 68, 68, 0.2);
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.3);
+}
+
+.loading-tag {
+  color: var(--spectrum-blue);
+  border-color: var(--spectrum-blue);
+  background: rgba(59, 130, 246, 0.1);
+  animation: loading-pulse 2s ease-in-out infinite;
+}
+
+.loading-tag:hover {
+  background: rgba(59, 130, 246, 0.2);
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
+}
+
+.deprecated-tag {
+  color: var(--text-muted);
+  border-color: var(--text-muted);
+  background: rgba(107, 114, 128, 0.1);
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
+.deprecated-tag:hover {
+  background: rgba(107, 114, 128, 0.2);
+  box-shadow: 0 0 8px rgba(107, 114, 128, 0.3);
+}
+
+.success-tag {
+  color: var(--spectrum-emerald);
+  border-color: var(--spectrum-emerald);
+  background: rgba(16, 185, 129, 0.1);
+}
+
+.success-tag:hover {
+  background: rgba(16, 185, 129, 0.2);
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
+}
+
+/* Tooltip Container Styling */
+.intelligent-tooltip-container {
+  pointer-events: none;
+  filter: drop-shadow(0 20px 25px rgba(0, 0, 0, 0.4));
+  position: fixed;
+  z-index: 10000;
+  max-width: min(400px, 90vw);
+}
+
+.intelligent-tooltip {
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+/* Loading Animation */
+@keyframes loading-pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* Enhanced Hover Effects */
+.hover-glitch {
+  position: relative;
+  color: var(--spectrum-cyan);
+  transition: all 0.3s ease;
+}
+
+.hover-glitch:hover {
+  animation: glitch-effect 0.3s ease-in-out;
+  text-shadow: 2px 0 var(--spectrum-pink), -2px 0 var(--spectrum-cyan);
+}
+
+@keyframes glitch-effect {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+.hover-syntax-error {
+  color: var(--spectrum-red);
+  position: relative;
+}
+
+.hover-syntax-error:hover::after {
+  content: "❌ SyntaxError";
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  font-size: 10px;
+  color: var(--spectrum-red);
+  white-space: nowrap;
+  animation: fade-in 0.3s ease;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hover-404 {
+  color: var(--spectrum-orange);
+}
+
+.hover-404:hover::after {
+  content: "🔍 404 Not Found";
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  font-size: 10px;
+  color: var(--spectrum-orange);
+  white-space: nowrap;
+  animation: fade-in 0.3s ease;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hover-deprecated {
+  color: var(--text-muted);
+  opacity: 0.7;
+  text-decoration: line-through;
+}
+
+.hover-deprecated:hover {
+  opacity: 1;
+  text-decoration: none;
+}
+
+.hover-deprecated:hover::after {
+  content: "⚠️ Deprecated: Consider upgrading";
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  font-size: 10px;
+  color: var(--spectrum-yellow);
+  white-space: nowrap;
+  animation: fade-in 0.3s ease;
+}
+
+.hover-loading {
+  color: var(--spectrum-blue);
+  position: relative;
+}
+
+.hover-loading:hover {
+  animation: loading-dots 1.5s ease-in-out infinite;
+}
+
+.hover-loading:hover::after {
+  content: "⏳ Loading...";
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  font-size: 10px;
+  color: var(--spectrum-blue);
+  white-space: nowrap;
+  animation: fade-in 0.3s ease;
+}
+
+@keyframes loading-dots {
+  0%, 20% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+@keyframes fade-in {
+  0% { opacity: 0; transform: translateY(5px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Tech Humor Specific Styles */
+.git-commit-humor {
+  color: var(--spectrum-green);
+}
+
+.git-commit-humor:hover::after {
+  content: "🌿 git commit";
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  font-size: 10px;
+  color: var(--spectrum-green);
+  white-space: nowrap;
+  animation: fade-in 0.3s ease;
+  max-width: 100px;
+  overflow: hidden;
+}
+
+.stackoverflow-reference {
+  color: var(--spectrum-orange);
+}
+
+.stackoverflow-reference:hover::after {
+  content: "📚 Stack Overflow";
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  font-size: 10px;
+  color: var(--spectrum-orange);
+  white-space: nowrap;
+  animation: fade-in 0.3s ease;
+  max-width: 120px;
+  overflow: hidden;
+}
+
+.easter-egg-hint {
+  color: var(--text-muted);
+  transition: all 0.3s ease;
+}
+
+.easter-egg-hint:hover {
+  color: var(--spectrum-cyan);
+  cursor: pointer;
+}
+
+.hover-segfault {
+  color: var(--spectrum-red);
+}
+
+.hover-segfault:hover::after {
+  content: "💥 Segmentation fault (core dumped)";
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  font-size: 10px;
+  color: var(--spectrum-red);
+  white-space: nowrap;
+  animation: fade-in 0.3s ease;
+}
+
+/* Interactive Console Integration */
+.clickable-console {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.clickable-console:hover {
+  background: rgba(56, 189, 248, 0.05);
+  border-color: rgba(56, 189, 248, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Quantum Effects for Special Terms */
+.quantum-term {
+  background: linear-gradient(45deg, var(--spectrum-violet), var(--spectrum-cyan), var(--spectrum-pink));
+  background-size: 200% 200%;
+  animation: quantum-shift 3s ease-in-out infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@keyframes quantum-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Accessibility Enhancements */
+@media (prefers-reduced-motion: reduce) {
+  .intelligent-tooltip-trigger,
+  .hover-glitch,
+  .hover-loading,
+  .quantum-term {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  .intelligent-tooltip-container {
+    max-width: min(320px, 95vw);
+  }
+  
+  .intelligent-tooltip {
+    font-size: 14px;
+  }
+  
+  .intelligent-tooltip-trigger:hover::after,
+  .hover-syntax-error:hover::after,
+  .hover-404:hover::after,
+  .hover-deprecated:hover::after,
+  .hover-loading:hover::after,
+  .git-commit-humor:hover::after,
+  .stackoverflow-reference:hover::after,
+  .hover-segfault:hover::after {
+    display: none; /* Hide micro-tooltips on mobile */
+  }
+}
+
+/* Tooltip positioning fixes */
+.intelligent-tooltip-container[style*="left"] {
+  transform: translateX(-50%) translateY(-100%);
+}
+
+/* Fix for overflowing tooltip text */
+.intelligent-tooltip p,
+.intelligent-tooltip span {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+/* Enhanced tooltip backdrop */
+.intelligent-tooltip-container::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent;
+  z-index: -1;
+  pointer-events: auto;
+}
+
 /* Categories intelligent grid system */
 .categories-grid {
   display: grid;
