@@ -136,6 +136,18 @@ export default function Navigation() {
               Values
             </Link>
             <Link 
+              href="/technical-deep-dive"
+              className={`hover:text-cyan-300 transition-colors duration-300 ${location === '/technical-deep-dive' ? 'text-cyan-300' : 'text-gray-400'}`}
+              onMouseEnter={() => handleMouseEnter({
+                title: "Technical Deep Dive",
+                description: "Dive deep into the quantum consciousness architecture and sophisticated engineering principles behind our projects - explained in accessible terms for non-technical audiences.",
+                category: "Technical"
+              })}
+              onMouseLeave={handleMouseLeave}
+            >
+              Technical Deep Dive
+            </Link>
+            <Link 
               href="/vrchat"
               className={`hover:text-cyan-300 transition-colors duration-300 ${location === '/vrchat' ? 'text-cyan-300' : 'text-gray-400'}`}
               onMouseEnter={() => handleMouseEnter({
@@ -209,6 +221,13 @@ export default function Navigation() {
                 onClick={() => setIsOpen(false)}
               >
                 Values
+              </Link>
+              <Link 
+                href="/technical-deep-dive"
+                className={`text-left hover:text-[var(--synthwave-cyan)] transition-colors duration-300 ${location === '/technical-deep-dive' ? 'text-[var(--synthwave-cyan)]' : 'text-white'}`}
+                onClick={() => setIsOpen(false)}
+              >
+                Technical Deep Dive
               </Link>
               <Link 
                 href="/vrchat"
