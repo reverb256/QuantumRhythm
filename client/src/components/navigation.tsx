@@ -41,49 +41,49 @@ export default function Navigation() {
           <div className="hidden md:flex space-x-8">
             <button 
               onClick={() => scrollToSection('about')} 
-              className={`hover:text-cyan-300 transition-all duration-300 hover:scale-105 hover-deprecated ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
+              className={`hover:text-cyan-300 transition-colors duration-300 hover-deprecated ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
             >
               About
             </button>
             <button 
               onClick={() => scrollToSection('projects')} 
-              className={`hover:text-cyan-300 transition-all duration-300 hover:scale-105 stackoverflow-reference ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
+              className={`hover:text-cyan-300 transition-colors duration-300 stackoverflow-reference ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
             >
               Projects
             </button>
             <button 
               onClick={() => scrollToSection('skills')} 
-              className={`hover:text-cyan-300 transition-all duration-300 hover:scale-105 hover-loading ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
+              className={`hover:text-cyan-300 transition-colors duration-300 hover-loading ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
             >
               Skills
             </button>
             <button 
               onClick={() => scrollToSection('philosophy')} 
-              className={`hover:text-cyan-300 transition-all duration-300 hover:scale-105 git-commit-humor ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
+              className={`hover:text-cyan-300 transition-colors duration-300 git-commit-humor ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
             >
               Philosophy
             </button>
             <button 
               onClick={() => scrollToSection('gaming')} 
-              className={`hover:text-cyan-300 transition-all duration-300 hover:scale-105 hover-404 ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
+              className={`hover:text-cyan-300 transition-colors duration-300 hover-404 ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
             >
               Gaming
             </button>
             <Link 
               href="/values"
-              className={`hover:text-cyan-300 transition-all duration-300 hover:scale-105 hover-syntax-error ${location === '/values' ? 'text-cyan-300 prismatic-glow' : 'text-cyan-100'}`}
+              className={`hover:text-cyan-300 transition-colors duration-300 hover-syntax-error ${location === '/values' ? 'text-cyan-300 prismatic-glow' : 'text-cyan-100'}`}
             >
               Values
             </Link>
             <Link 
               href="/vrchat"
-              className={`hover:text-cyan-300 transition-all duration-300 hover:scale-105 hover-404 ${location === '/vrchat' ? 'text-cyan-300 prismatic-glow' : 'text-cyan-100'}`}
+              className={`hover:text-cyan-300 transition-colors duration-300 hover-404 ${location === '/vrchat' ? 'text-cyan-300 prismatic-glow' : 'text-cyan-100'}`}
             >
               VR Research
             </Link>
             <button 
               onClick={() => scrollToSection('contact')} 
-              className={`hover:text-cyan-300 transition-all duration-300 hover:scale-105 hover-segfault ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
+              className={`hover:text-cyan-300 transition-colors duration-300 hover-segfault ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
             >
               Connect
             </button>

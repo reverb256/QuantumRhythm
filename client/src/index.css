@@ -592,9 +592,17 @@
     100% { box-shadow: 0 0 5px var(--synthwave-green); }
   }
 
-  /* Stack overflow easter egg */
+  /* Stack overflow easter egg - Fixed Position */
+  .stackoverflow-reference {
+    position: relative;
+  }
+  
   .stackoverflow-reference:hover::after {
     content: "Answer: Just use jQuery (marked as duplicate)";
+    position: fixed;
+    top: 60px;
+    left: 50%;
+    margin-left: -150px;
     background: linear-gradient(135deg, 
       var(--space-void) 0%, 
       var(--space-deep) 100%);
@@ -636,7 +644,7 @@
   [class*="-tooltip"]:hover::after,
   [class*="hover-"]:hover::after {
     position: fixed !important;
-    z-index: 99999 !important;
+    z-index: 999999 !important;
     pointer-events: none !important;
     max-width: 250px !important;
     word-wrap: break-word !important;
@@ -652,7 +660,7 @@
     top: calc(100% + 12px) !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
-    z-index: 99999 !important;
+    z-index: 999999 !important;
     max-width: 280px !important;
     min-width: 180px !important;
     word-wrap: break-word !important;
