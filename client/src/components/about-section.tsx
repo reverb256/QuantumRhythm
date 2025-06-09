@@ -123,8 +123,8 @@ export default function AboutSection() {
                     <div className={`w-12 h-12 rounded-full bg-gradient-to-r ${value.color} flex items-center justify-center mb-4`}>
                       <i className={`${value.icon} text-white`}></i>
                     </div>
-                    <h4 className="text-xl font-bold text-cyan-300 mb-3">{value.title}</h4>
-                    <p className="text-cyan-100">{value.description}</p>
+                    <h4 className="text-xl font-bold text-[var(--spectrum-cyan)] mb-3">{value.title}</h4>
+                    <p className="text-[var(--text-secondary)]">{value.description}</p>
                   </div>
                 ))}
               </div>

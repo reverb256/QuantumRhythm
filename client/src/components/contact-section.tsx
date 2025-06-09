@@ -126,7 +126,7 @@ export default function ContactSection() {
               <span className="holo-text">Connect</span>
             </h2>
             
-            <p className="text-xl text-cyan-100 max-w-3xl mx-auto">
+            <p className="text-xl text-[var(--text-secondary)] max-w-3xl mx-auto">
               Ready to venture into convergent possibilities where classical wisdom meets revolutionary technology?
             </p>
           </div>
@@ -137,8 +137,8 @@ export default function ContactSection() {
               <div className="w-24 h-24 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 flex items-center justify-center mx-auto mb-8">
                 <i className="fas fa-network-wired text-white text-3xl"></i>
               </div>
-              <h3 className="text-3xl font-bold text-cyan-300 mb-6">Digital Convergence Awaits</h3>
-              <p className="text-xl text-cyan-100 leading-relaxed max-w-4xl mx-auto">
+              <h3 className="text-3xl font-bold text-[var(--spectrum-cyan)] mb-6">Digital Convergence Awaits</h3>
+              <p className="text-xl text-[var(--text-secondary)] leading-relaxed max-w-4xl mx-auto">
                 Together we shall architect digital experiences that honor both blazing innovation and eternal human dignity. 
                 Every collaboration becomes an exploration of infinite potential, where technology serves to amplify human creativity 
                 and forge deeper connections across the digital void.
@@ -161,10 +161,10 @@ export default function ContactSection() {
                   <i className={`${method.icon} text-white text-2xl`}></i>
                 </div>
                 
-                <h3 className="text-xl font-bold text-cyan-300 mb-2 text-center">{method.platform}</h3>
-                <p className="text-cyan-100/80 text-sm mb-4 text-center">{method.label}</p>
-                <p className="text-cyan-400 font-mono text-sm mb-4 text-center">{method.handle}</p>
-                <p className="text-cyan-100 text-xs leading-relaxed text-center">{method.description}</p>
+                <h3 className="text-xl font-bold text-[var(--spectrum-cyan)] mb-2 text-center">{method.platform}</h3>
+                <p className="text-[var(--text-secondary)] text-sm mb-4 text-center">{method.label}</p>
+                <p className="text-[var(--spectrum-cyan)] font-mono text-sm mb-4 text-center">{method.handle}</p>
+                <p className="text-[var(--text-muted)] text-xs leading-relaxed text-center">{method.description}</p>
               </a>
             ))}
           </div>
@@ -174,8 +174,8 @@ export default function ContactSection() {
             
             {/* Areas of Interest */}
             <div className="holo-panel p-8 rounded-3xl border border-cyan-400/50 gacha-shine">
-              <h3 className="text-2xl font-bold text-cyan-300 mb-8 flex items-center">
-                <i className="fas fa-lightbulb text-cyan-400 mr-4"></i>
+              <h3 className="text-2xl font-bold text-[var(--spectrum-cyan)] mb-8 flex items-center">
+                <i className="fas fa-lightbulb text-[var(--spectrum-cyan)] mr-4"></i>
                 Collaboration Realms
               </h3>
               
@@ -183,14 +183,14 @@ export default function ContactSection() {
                 {collaborationAreas.map((area, index) => (
                   <div key={area} className="flex items-center group">
                     <div className="w-3 h-3 bg-cyan-400 rounded-full mr-4 group-hover:scale-125 transition-transform duration-300"></div>
-                    <span className="text-cyan-100 group-hover:text-cyan-300 transition-colors duration-300">{area}</span>
+                    <span className="text-[var(--text-secondary)] group-hover:text-[var(--spectrum-cyan)] transition-colors duration-300">{area}</span>
                   </div>
                 ))}
               </div>
               
               <div className="mt-8 p-6 bg-blue-900/20 rounded-xl border border-cyan-400/20">
-                <p className="text-cyan-100 text-sm leading-relaxed">
-                  <strong className="text-cyan-300">Open to:</strong> Full-stack development projects, technical consulting, 
+                <p className="text-[var(--text-secondary)] text-sm leading-relaxed">
+                  <strong className="text-[var(--spectrum-cyan)]">Open to:</strong> Full-stack development projects, technical consulting, 
                   React/Node.js applications, e-commerce platforms, AI integrations, and innovative web solutions 
                   that make a meaningful impact.
                 </p>
