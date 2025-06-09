@@ -411,19 +411,20 @@
 
   .hover-404:hover::after {
     content: "404: Humor Not Found";
-    position: absolute;
-    top: -40px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--space-black);
+    background: linear-gradient(135deg, 
+      var(--space-void) 0%, 
+      var(--space-deep) 100%);
+    backdrop-filter: blur(12px) saturate(180%);
     color: var(--synthwave-pink);
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 11px;
     font-family: 'JetBrains Mono', monospace;
     border: 1px solid var(--synthwave-pink);
+    box-shadow: 
+      0 8px 32px hsla(220, 100%, 4%, 0.4),
+      0 0 15px var(--synthwave-pink);
     white-space: nowrap;
-    z-index: 99999;
     animation: fade-in-tooltip 0.3s ease;
   }
 
@@ -433,19 +434,20 @@
 
   .hover-segfault:hover::after {
     content: "Segmentation fault (core dumped)";
-    position: absolute;
-    top: -40px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--space-black);
-    color: var(--synthwave-red);
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 12px;
+    background: linear-gradient(135deg, 
+      var(--space-void) 0%, 
+      var(--space-deep) 100%);
+    backdrop-filter: blur(12px) saturate(180%);
+    color: #ff4757;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 11px;
     font-family: 'JetBrains Mono', monospace;
-    border: 1px solid var(--synthwave-red);
+    border: 1px solid #ff4757;
+    box-shadow: 
+      0 8px 32px hsla(220, 100%, 4%, 0.4),
+      0 0 15px #ff4757;
     white-space: nowrap;
-    z-index: 99999;
     animation: fade-in-tooltip 0.3s ease;
   }
 
@@ -455,19 +457,20 @@
 
   .hover-loading:hover::after {
     content: "Loading... Please wait for 2-3 business days";
-    position: absolute;
-    top: -40px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--space-black);
+    background: linear-gradient(135deg, 
+      var(--space-void) 0%, 
+      var(--space-deep) 100%);
+    backdrop-filter: blur(12px) saturate(180%);
     color: var(--synthwave-gold);
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 11px;
     font-family: 'JetBrains Mono', monospace;
     border: 1px solid var(--synthwave-gold);
+    box-shadow: 
+      0 8px 32px hsla(220, 100%, 4%, 0.4),
+      0 0 15px var(--synthwave-gold);
     white-space: nowrap;
-    z-index: 1000;
     animation: fade-in-tooltip 0.3s ease;
   }
 
@@ -477,19 +480,20 @@
 
   .hover-deprecated:hover::after {
     content: "⚠️ DEPRECATED: Use blockchain instead";
-    position: absolute;
-    top: -40px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--space-black);
+    background: linear-gradient(135deg, 
+      var(--space-void) 0%, 
+      var(--space-deep) 100%);
+    backdrop-filter: blur(12px) saturate(180%);
     color: var(--synthwave-orange);
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 11px;
     font-family: 'JetBrains Mono', monospace;
     border: 1px solid var(--synthwave-orange);
+    box-shadow: 
+      0 8px 32px hsla(220, 100%, 4%, 0.4),
+      0 0 15px var(--synthwave-orange);
     white-space: nowrap;
-    z-index: 1000;
     animation: fade-in-tooltip 0.3s ease;
   }
 
@@ -499,25 +503,43 @@
 
   .hover-syntax-error:hover::after {
     content: "SyntaxError: Unexpected token 'awesome'";
-    position: absolute;
-    top: -40px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--space-black);
+    background: linear-gradient(135deg, 
+      var(--space-void) 0%, 
+      var(--space-deep) 100%);
+    backdrop-filter: blur(12px) saturate(180%);
     color: var(--synthwave-cyan);
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 11px;
     font-family: 'JetBrains Mono', monospace;
     border: 1px solid var(--synthwave-cyan);
+    box-shadow: 
+      0 8px 32px hsla(220, 100%, 4%, 0.4),
+      0 0 15px var(--synthwave-cyan);
     white-space: nowrap;
-    z-index: 1000;
     animation: fade-in-tooltip 0.3s ease;
   }
 
   @keyframes fade-in-tooltip {
-    from { opacity: 0; transform: translateX(-50%) translateY(10px); }
-    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    from { 
+      opacity: 0; 
+      transform: translateX(-50%) translateY(-10px) translateZ(0);
+    }
+    to { 
+      opacity: 1; 
+      transform: translateX(-50%) translateY(0) translateZ(0);
+    }
+  }
+
+  @keyframes fade-in-tooltip-fixed {
+    from { 
+      opacity: 0; 
+      transform: translateY(-10px) translateZ(0);
+    }
+    to { 
+      opacity: 1; 
+      transform: translateY(0) translateZ(0);
+    }
   }
 
   .clickable-console {
@@ -573,45 +595,65 @@
   /* Stack overflow easter egg */
   .stackoverflow-reference:hover::after {
     content: "Answer: Just use jQuery (marked as duplicate)";
-    position: absolute;
-    top: -50px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--space-black);
+    background: linear-gradient(135deg, 
+      var(--space-void) 0%, 
+      var(--space-deep) 100%);
+    backdrop-filter: blur(12px) saturate(180%);
     color: var(--synthwave-orange);
     padding: 6px 12px;
-    border-radius: 6px;
+    border-radius: 8px;
     font-size: 11px;
     font-family: 'JetBrains Mono', monospace;
     border: 1px solid var(--synthwave-orange);
+    box-shadow: 
+      0 8px 32px hsla(220, 100%, 4%, 0.4),
+      0 0 15px var(--synthwave-orange);
     white-space: nowrap;
-    z-index: 1000;
     animation: fade-in-tooltip 0.3s ease;
   }
 
   /* Git commit humor */
   .git-commit-humor:hover::after {
     content: "git commit -m 'fixed bug (maybe)'";
-    position: absolute;
-    top: -40px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--space-black);
-    color: var(--synthwave-green);
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 12px;
+    background: linear-gradient(135deg, 
+      var(--space-void) 0%, 
+      var(--space-deep) 100%);
+    backdrop-filter: blur(12px) saturate(180%);
+    color: var(--spectrum-green);
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 11px;
     font-family: 'JetBrains Mono', monospace;
-    border: 1px solid var(--synthwave-green);
+    border: 1px solid var(--spectrum-green);
+    box-shadow: 
+      0 8px 32px hsla(220, 100%, 4%, 0.4),
+      0 0 15px var(--spectrum-green);
     white-space: nowrap;
-    z-index: 1000;
     animation: fade-in-tooltip 0.3s ease;
   }
 
-  /* Global tooltip z-index fix */
+  /* Global tooltip positioning and z-index fix */
   [class*="-tooltip"]:hover::after,
   [class*="hover-"]:hover::after {
+    position: fixed !important;
+    top: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
     z-index: 99999 !important;
+  }
+
+  /* Menu-specific tooltip positioning */
+  nav [class*="-tooltip"]:hover::after,
+  nav [class*="hover-"]:hover::after {
+    position: absolute !important;
+    top: calc(100% + 8px) !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    z-index: 99999 !important;
+    max-width: 200px !important;
+    word-wrap: break-word !important;
   }
 
   /* Technology-specific tooltips */
