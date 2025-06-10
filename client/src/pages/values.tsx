@@ -555,7 +555,7 @@ export default function Values() {
 
               <div className="space-y-2 text-xs">
                 <div className="flex items-center">
-                  <ii className="fas fa-puzzle-piece text-[var(--synthwave-gold)] mr-2"></i>
+                  <i className="fas fa-puzzle-piece text-[var(--synthwave-gold)] mr-2"></i>
                   <span className="text-gray-400">Creative problem-solving approaches</span>
                 </div>
                 <div className="flex items-center">

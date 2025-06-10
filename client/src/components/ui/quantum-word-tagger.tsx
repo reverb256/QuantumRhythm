@@ -106,7 +106,7 @@ export function QuantumWordTagger({
     // Split by words while preserving punctuation and spaces
     const words = text.split(/(\s+|[^\w\s])/);
     
-    return words.map((word, index) => {
+    return words.map((word, index): React.ReactNode => {
       const cleanWord = word.replace(/[^\w]/g, '').toLowerCase();
       const tagConfig = tagMap.get(cleanWord);
       
@@ -122,9 +122,11 @@ export function QuantumWordTagger({
         };
         
         return (
-          
-            {word}
-          
+          <IntelligentTooltip key={index} tooltipData={tooltipData}>
+            <span className="text-cyan-400 hover:text-cyan-300 cursor-help underline decoration-dotted decoration-cyan-400/50">
+              {word}
+            </span>
+          </IntelligentTooltip>
         );
       }
       

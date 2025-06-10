@@ -214,7 +214,7 @@ export function IntelligentTooltip({ children, tooltipData, className = '' }: In
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2 flex-1 min-w-0">
                     <span className="text-lg flex-shrink-0">{getDifficultyIcon(tooltipData.difficulty)}</span>
-                    <h3 className="text-white font-bold text-sm truncate">{tooltipData.term}</h3>
+                    <div className="text-white font-bold text-sm truncate">{tooltipData.term}</div>
                   </div>
                   <span className={`px-2 py-1 text-xs rounded-full bg-gradient-to-r ${getCategoryColor(tooltipData.category)} text-white font-medium flex-shrink-0 ml-2`}>
                     {tooltipData.category}
