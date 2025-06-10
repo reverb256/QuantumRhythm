@@ -35,10 +35,10 @@ export class QuantumTrader {
   
   // CORRECTED: Dynamic allocation system after 99.7% loss analysis
   private riskAllocationTiers = {
-    conservative: 0.003,  // 0.3% - learned from catastrophic failure
-    moderate: 0.007,      // 0.7% - strict risk management
-    aggressive: 0.012,    // 1.2% - maximum for pump.fun tokens
-    unhinged: 0.015       // 1.5% - absolute ceiling, never higher
+    conservative: 0.015,  // 1.5% - conservative but allowing growth
+    moderate: 0.025,      // 2.5% - moderate risk
+    aggressive: 0.04,     // 4.0% - higher risk for opportunities
+    unhinged: 0.05        // 5.0% - maximum position size
   };
   
   private opportunityBuffer = 0.10; // Always keep 10% ready for sudden opportunities
@@ -509,7 +509,7 @@ export class QuantumTrader {
     // Gas-safe position sizing
     const maxPosition = portfolioBalance * riskTolerance;
     const baseAmount = maxPosition * confidence * (this.unhingedMode ? 1.8 : 1.0);
-    const cappedAmount = Math.min(baseAmount, portfolioBalance * 0.01); // FIXED: Max 1% per trade after 99.7% loss
+    const cappedAmount = Math.min(baseAmount, portfolioBalance * 0.05); // Max 5% per trade - increased from 1%
     
     // Apply gas fee protection
     const safeAmount = this.calculateSafePositionSize(cappedAmount);
