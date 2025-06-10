@@ -18,7 +18,13 @@ const routingRequestSchema = z.object({
   context: z.string().optional(),
   maxTokens: z.number().min(1).max(200000).optional(),
   temperature: z.number().min(0).max(2).optional(),
-  agentId: z.string().optional()
+  agentId: z.string().optional(),
+  apiKeys: z.object({
+    anthropic: z.string().optional(),
+    openai: z.string().optional(),
+    xai: z.string().optional(),
+    io_intelligence: z.string().optional()
+  }).optional()
 });
 
 const batchRequestSchema = z.object({
@@ -35,7 +41,10 @@ router.post('/route', async (req, res) => {
     
     console.log(`🎯 AI Autorouter: Processing ${validatedRequest.intent} request for ${validatedRequest.contentType} content`);
     
-    const response = await aiAutorouter.routeRequest(validatedRequest);
+    // Extract client API keys
+    const clientApiKeys = validatedRequest.apiKeys;
+    
+    const response = await aiAutorouter.routeRequest(validatedRequest, clientApiKeys);
     
     res.json({
       success: true,
@@ -43,7 +52,9 @@ router.post('/route', async (req, res) => {
       metadata: {
         routingConfidence: response.confidence,
         estimatedSavings: calculateCostSavings(response),
-        processingTime: response.processingTime
+        processingTime: response.processingTime,
+        tokensUsed: response.tokensUsed,
+        cost: response.cost
       }
     });
 

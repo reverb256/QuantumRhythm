@@ -19,7 +19,7 @@ interface RoutingRequest {
 
 interface ModelCapability {
   name: string;
-  provider: 'anthropic' | 'openai' | 'xai' | 'perplexity';
+  provider: 'anthropic' | 'openai' | 'xai' | 'perplexity' | 'io_intelligence';
   strengths: string[];
   contentTypes: string[];
   intents: string[];
@@ -28,6 +28,9 @@ interface ModelCapability {
   responseTime: number; // estimated ms
   reliability: number; // 0-100
   specializations: string[];
+  dailyFreeTokens?: number;
+  tokensUsedToday?: number;
+  resetTime?: Date;
 }
 
 interface RoutingDecision {
@@ -55,9 +58,11 @@ export class AIAutorouter {
   private anthropic: Anthropic;
   private openai: OpenAI;
   private xai: OpenAI; // Using OpenAI client for xAI compatibility
+  private ioIntelligence: OpenAI; // IO Intelligence with OpenAI compatibility
   private availableModels: ModelCapability[];
   private requestHistory: Map<string, RoutingResponse[]>;
   private performanceMetrics: Map<string, { latency: number; successRate: number; }>;
+  private dailyTokenTracking: Map<string, { used: number; limit: number; resetTime: Date; }>;
 
   constructor() {
     // Initialize AI clients
@@ -74,8 +79,18 @@ export class AIAutorouter {
       apiKey: process.env.XAI_API_KEY,
     });
 
+    this.ioIntelligence = new OpenAI({
+      baseURL: "https://api.intelligence.io.solutions/api/v1",
+      apiKey: process.env.IO_INTELLIGENCE_API_KEY,
+    });
+
     this.requestHistory = new Map();
     this.performanceMetrics = new Map();
+    this.dailyTokenTracking = new Map();
+
+    // Initialize token tracking and model discovery
+    this.initializeTokenTracking();
+    this.discoverModels();
 
     // Define model capabilities
     this.availableModels = [
@@ -89,7 +104,10 @@ export class AIAutorouter {
         costPerToken: 0.000015,
         responseTime: 2000,
         reliability: 98,
-        specializations: ['complex reasoning', 'code analysis', 'safety-critical tasks']
+        specializations: ['complex reasoning', 'code analysis', 'safety-critical tasks'],
+        dailyFreeTokens: 0,
+        tokensUsedToday: 0,
+        resetTime: new Date()
       },
       {
         name: 'claude-3-7-sonnet-20250219',
@@ -149,26 +167,192 @@ export class AIAutorouter {
         costPerToken: 0.00002,
         responseTime: 3500,
         reliability: 85,
-        specializations: ['image understanding', 'visual analysis']
+        specializations: ['image understanding', 'visual analysis'],
+        dailyFreeTokens: 0,
+        tokensUsedToday: 0,
+        resetTime: new Date()
       }
     ];
 
-    console.log('🤖 AI Autorouter initialized with 6 models across 3 providers');
+    console.log('🤖 AI Autorouter initialized with 6 models across 4 providers');
+  }
+
+  /**
+   * Initialize token tracking system
+   */
+  private initializeTokenTracking(): void {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
+    // Initialize daily token tracking for all models
+    this.availableModels?.forEach(model => {
+      this.dailyTokenTracking.set(model.name, {
+        used: 0,
+        limit: model.dailyFreeTokens || 0,
+        resetTime: tomorrow
+      });
+    });
+
+    console.log('📊 Token tracking initialized for all models');
+  }
+
+  /**
+   * Discover available models and agents from IO Intelligence
+   */
+  private async discoverModels(): Promise<void> {
+    try {
+      if (!process.env.IO_INTELLIGENCE_API_KEY) {
+        console.log('⚠️ IO Intelligence API key not available, skipping model discovery');
+        return;
+      }
+
+      // Discover available models
+      const modelsResponse = await this.ioIntelligence.models.list();
+      
+      // Add discovered IO Intelligence models
+      const ioModels = modelsResponse.data.map(model => ({
+        name: model.id,
+        provider: 'io_intelligence' as const,
+        strengths: this.inferModelStrengths(model.id),
+        contentTypes: ['text', 'code', 'analysis'] as const,
+        intents: ['generate', 'analyze', 'summarize'] as const,
+        maxTokens: model.max_model_len || 32000,
+        costPerToken: 0.000005, // Estimated cost
+        responseTime: 2000,
+        reliability: 92,
+        specializations: this.inferSpecializations(model.id),
+        dailyFreeTokens: this.getDailyFreeTokens(model.id),
+        tokensUsedToday: 0,
+        resetTime: new Date()
+      }));
+
+      // Add IO Intelligence models to available models
+      this.availableModels.push(...ioModels);
+
+      console.log(`🔍 Discovered ${ioModels.length} IO Intelligence models`);
+      
+      // Initialize token tracking for new models
+      ioModels.forEach(model => {
+        this.dailyTokenTracking.set(model.name, {
+          used: 0,
+          limit: model.dailyFreeTokens || 0,
+          resetTime: new Date()
+        });
+      });
+
+    } catch (error) {
+      console.log(`⚠️ Model discovery failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
+  }
+
+  /**
+   * Infer model strengths from model name
+   */
+  private inferModelStrengths(modelId: string): string[] {
+    const strengths = [];
+    
+    if (modelId.includes('llama')) {
+      strengths.push('reasoning', 'general purpose', 'efficiency');
+    }
+    if (modelId.includes('claude')) {
+      strengths.push('safety', 'analysis', 'code');
+    }
+    if (modelId.includes('gpt')) {
+      strengths.push('creativity', 'multimodal', 'general purpose');
+    }
+    if (modelId.includes('mixtral')) {
+      strengths.push('reasoning', 'multilingual', 'efficiency');
+    }
+    
+    return strengths.length > 0 ? strengths : ['general purpose'];
+  }
+
+  /**
+   * Infer model specializations from model name
+   */
+  private inferSpecializations(modelId: string): string[] {
+    const specializations = [];
+    
+    if (modelId.includes('instruct')) {
+      specializations.push('instruction following');
+    }
+    if (modelId.includes('code')) {
+      specializations.push('code generation', 'programming');
+    }
+    if (modelId.includes('chat')) {
+      specializations.push('conversational AI');
+    }
+    if (modelId.includes('70b') || modelId.includes('72b')) {
+      specializations.push('large model reasoning');
+    }
+    
+    return specializations.length > 0 ? specializations : ['general tasks'];
+  }
+
+  /**
+   * Get daily free tokens for IO Intelligence models
+   */
+  private getDailyFreeTokens(modelId: string): number {
+    // Different models have different daily free token allowances
+    if (modelId.includes('70b') || modelId.includes('72b')) {
+      return 50000; // Large models get fewer free tokens
+    }
+    if (modelId.includes('8b') || modelId.includes('7b')) {
+      return 200000; // Smaller models get more free tokens
+    }
+    return 100000; // Default allocation
+  }
+
+  /**
+   * Check if model has available tokens
+   */
+  private hasAvailableTokens(modelName: string, requestedTokens: number): boolean {
+    const tracking = this.dailyTokenTracking.get(modelName);
+    if (!tracking) return true; // No tracking means unlimited
+
+    // Check if we need to reset daily counters
+    if (new Date() >= tracking.resetTime) {
+      tracking.used = 0;
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      tomorrow.setHours(0, 0, 0, 0);
+      tracking.resetTime = tomorrow;
+    }
+
+    return (tracking.used + requestedTokens) <= tracking.limit;
+  }
+
+  /**
+   * Track token usage
+   */
+  private trackTokenUsage(modelName: string, tokensUsed: number): void {
+    const tracking = this.dailyTokenTracking.get(modelName);
+    if (tracking) {
+      tracking.used += tokensUsed;
+    }
   }
 
   /**
    * Route request to optimal AI model
    */
-  async routeRequest(request: RoutingRequest): Promise<RoutingResponse> {
+  async routeRequest(request: RoutingRequest, clientApiKeys?: { [provider: string]: string }): Promise<RoutingResponse> {
     try {
-      // Analyze request and determine optimal routing
-      const routingDecision = await this.analyzeAndRoute(request);
+      // Check token availability and prevent rate limits
+      const estimatedTokens = this.estimateTokenUsage(request);
+      
+      // Analyze request and determine optimal routing with token consideration
+      const routingDecision = await this.analyzeAndRoute(request, estimatedTokens, clientApiKeys);
       
       console.log(`🎯 Routing to ${routingDecision.selectedModel} (confidence: ${routingDecision.confidence}%)`);
       console.log(`💡 Reasoning: ${routingDecision.reasoning}`);
 
-      // Execute request with selected model
-      const response = await this.executeRequest(request, routingDecision);
+      // Execute request with selected model and client keys
+      const response = await this.executeRequest(request, routingDecision, clientApiKeys);
+      
+      // Track token usage
+      this.trackTokenUsage(routingDecision.selectedModel, response.tokensUsed);
       
       // Update performance metrics
       this.updatePerformanceMetrics(routingDecision.selectedModel, response);
@@ -182,14 +366,24 @@ export class AIAutorouter {
       console.log(`❌ Primary routing failed: ${error}`);
       
       // Attempt fallback routing
-      return await this.attemptFallback(request);
+      return await this.attemptFallback(request, clientApiKeys);
     }
+  }
+
+  /**
+   * Estimate token usage for request
+   */
+  private estimateTokenUsage(request: RoutingRequest): number {
+    // Rough estimation: 1 token per 3-4 characters for input + requested output
+    const inputTokens = Math.ceil(request.content.length / 3.5);
+    const outputTokens = request.maxTokens || 1000;
+    return inputTokens + outputTokens;
   }
 
   /**
    * Analyze request and determine optimal model routing
    */
-  private async analyzeAndRoute(request: RoutingRequest): Promise<RoutingDecision> {
+  private async analyzeAndRoute(request: RoutingRequest, estimatedTokens: number, clientApiKeys?: { [provider: string]: string }): Promise<RoutingDecision> {
     const candidates = this.filterCompatibleModels(request);
     
     if (candidates.length === 0) {
