@@ -95,104 +95,84 @@
 }
 
 :root {
-  /* Base Deep Sky Blue Foundation */
-  --background: hsl(220, 85%, 4%);
-  --foreground: hsl(195, 100%, 92%);
-  --muted: hsl(215, 40%, 8%);
-  --muted-foreground: hsl(200, 60%, 75%);
-  --popover: hsl(218, 50%, 6%);
-  --popover-foreground: hsl(195, 100%, 90%);
-  --card: hsl(216, 45%, 7%);
-  --card-foreground: hsl(195, 100%, 88%);
-  --border: hsl(212, 35%, 15%);
-  --input: hsl(214, 40%, 10%);
-  --primary: hsl(190, 100%, 65%);
-  --primary-foreground: hsl(220, 85%, 4%);
-  --secondary: hsl(210, 60%, 20%);
-  --secondary-foreground: hsl(195, 100%, 90%);
-  --accent: hsl(200, 100%, 70%);
-  --accent-foreground: hsl(220, 85%, 4%);
-  --destructive: hsl(340, 85%, 65%);
-  --destructive-foreground: hsl(195, 100%, 95%);
-  --ring: hsl(190, 100%, 65%);
-  --radius: 1rem;
+  /* Oceanic theme extracted from reference image - Light mode */
+  --background: hsl(210, 100%, 98%);
+  --foreground: hsl(215, 35%, 15%);
+  --card: hsl(210, 50%, 99%);
+  --card-foreground: hsl(215, 35%, 15%);
+  --popover: hsl(210, 50%, 99%);
+  --popover-foreground: hsl(215, 35%, 15%);
+  --primary: hsl(198, 75%, 45%);
+  --primary-foreground: hsl(210, 40%, 98%);
+  --secondary: hsl(210, 15%, 92%);
+  --secondary-foreground: hsl(215, 35%, 15%);
+  --muted: hsl(210, 15%, 92%);
+  --muted-foreground: hsl(215, 20%, 45%);
+  --accent: hsl(12, 88%, 68%);
+  --accent-foreground: hsl(210, 40%, 98%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(210, 40%, 98%);
+  --border: hsl(210, 25%, 88%);
+  --input: hsl(210, 25%, 88%);
+  --ring: hsl(198, 75%, 45%);
+  --radius: 0.75rem;
 
-  /* Prismatic Blue Foundation */
-  --prismatic-deep: hsl(220, 90%, 8%);
-  --prismatic-mid: hsl(215, 85%, 15%);
-  --prismatic-bright: hsl(200, 100%, 65%);
-  --prismatic-cyan: hsl(190, 100%, 70%);
-  --prismatic-sky: hsl(200, 100%, 75%);
-
-  /* Prismatic Spectrum Refractions */
-  --spectrum-violet: hsl(260, 100%, 70%);
-  --spectrum-indigo: hsl(240, 100%, 70%);
-  --spectrum-blue: hsl(210, 100%, 70%);
-  --spectrum-cyan: hsl(190, 100%, 70%);
-  --spectrum-teal: hsl(170, 100%, 70%);
-  --spectrum-green: hsl(150, 80%, 65%);
-  --spectrum-yellow: hsl(50, 100%, 70%);
-  --spectrum-orange: hsl(25, 100%, 70%);
-  --spectrum-red: hsl(350, 90%, 70%);
-  --spectrum-pink: hsl(320, 100%, 75%);
-  --spectrum-white: hsl(200, 100%, 95%);
-
-  /* Deep Space Blues - Unified Background System */
-  --space-black: hsl(220, 100%, 2%);
-  --space-void: hsl(218, 85%, 5%);
-  --space-deep: hsl(215, 75%, 10%);
-  --space-mid: hsl(210, 65%, 18%);
-  --space-nebula: hsl(205, 55%, 25%);
-
-  /* Glass Prismatic Effects - Unified Glass System */
-  --glass-primary: hsla(200, 100%, 65%, 0.15);
-  --glass-secondary: hsla(190, 100%, 70%, 0.1);
-  --glass-border: hsla(200, 100%, 70%, 0.3);
-  --glass-highlight: hsla(200, 100%, 85%, 0.2);
-
-  /* Unified Color Harmonization System */
-  --synthwave-cyan: hsl(190, 100%, 70%);
-  --synthwave-pink: hsl(320, 100%, 75%);
-  --synthwave-gold: hsl(50, 100%, 70%);
-  --bright-blue: hsl(200, 100%, 75%);
-  --light-beam: hsl(200, 100%, 85%);
-
-  /* Component Color Harmonization - WCAG AA/AAA Compliant */
-  --card-primary: hsla(200, 100%, 65%, 0.15);
-  --card-secondary: hsla(190, 100%, 70%, 0.1);
-  --card-accent: hsla(320, 100%, 75%, 0.12);
-  --text-primary: hsl(200, 100%, 96%);      /* 18.5:1 contrast ratio */
-  --text-secondary: hsl(200, 80%, 88%);     /* 12.3:1 contrast ratio */
-  --text-muted: hsl(200, 60%, 75%);         /* 7.2:1 contrast ratio - AAA large text */
-  --text-link: hsl(190, 100%, 78%);         /* Enhanced link visibility */
-  --text-focus: hsl(180, 100%, 85%);        /* High contrast focus states */
-
-  /* Gradient Harmonization */
-  --gradient-primary: linear-gradient(135deg, var(--spectrum-cyan), var(--spectrum-blue));
-  --gradient-secondary: linear-gradient(135deg, var(--spectrum-pink), var(--spectrum-violet));
-  --gradient-accent: linear-gradient(135deg, var(--spectrum-gold), var(--spectrum-orange));
+  /* Custom oceanic palette variables from reference image */
+  --deep-ocean: hsl(215, 40%, 12%);
+  --ocean-primary: hsl(198, 75%, 35%);
+  --ocean-secondary: hsl(198, 60%, 55%);
+  --coral-primary: hsl(12, 88%, 68%);
+  --coral-secondary: hsl(345, 85%, 70%);
+  --cyan-accent: hsl(180, 100%, 85%);
+  --ocean-mist: hsl(210, 30%, 95%);
+  --deep-shadow: hsl(215, 50%, 8%);
+  
+  /* Chart and data visualization colors */
+  --chart-1: hsl(198, 75%, 45%);
+  --chart-2: hsl(12, 88%, 68%);
+  --chart-3: hsl(180, 100%, 85%);
+  --chart-4: hsl(345, 85%, 70%);
+  --chart-5: hsl(215, 35%, 25%);
 }
 
 .dark {
-  --background: hsl(240, 25%, 4%);
-  --foreground: hsl(0, 0%, 98%);
-  --muted: hsl(240, 10%, 15%);
-  --muted-foreground: hsl(240, 5%, 65%);
-  --popover: hsl(240, 25%, 4%);
-  --popover-foreground: hsl(0, 0%, 98%);
-  --card: hsl(240, 25%, 4%);
-  --card-foreground: hsl(0, 0%, 98%);
-  --border: hsl(240, 15%, 20%);
-  --input: hsl(240, 15%, 20%);
-  --primary: hsl(207, 90%, 54%);
-  --primary-foreground: hsl(211, 100%, 99%);
-  --secondary: hsl(240, 10%, 15%);
-  --secondary-foreground: hsl(0, 0%, 98%);
-  --accent: hsl(240, 10%, 15%);
-  --accent-foreground: hsl(0, 0%, 98%);
-  --destructive: hsl(0, 62.8%, 30.6%);
-  --destructive-foreground: hsl(0, 0%, 98%);
-  --ring: hsl(240, 4.9%, 83.9%);
+  /* Dark mode with deep oceanic blues as primary foundation */
+  --background: hsl(215, 40%, 12%);
+  --foreground: hsl(210, 30%, 95%);
+  --card: hsl(215, 35%, 15%);
+  --card-foreground: hsl(210, 30%, 95%);
+  --popover: hsl(215, 35%, 15%);
+  --popover-foreground: hsl(210, 30%, 95%);
+  --primary: hsl(198, 75%, 55%);
+  --primary-foreground: hsl(215, 40%, 12%);
+  --secondary: hsl(215, 30%, 20%);
+  --secondary-foreground: hsl(210, 30%, 95%);
+  --muted: hsl(215, 30%, 18%);
+  --muted-foreground: hsl(210, 15%, 65%);
+  --accent: hsl(12, 88%, 68%);
+  --accent-foreground: hsl(215, 40%, 12%);
+  --destructive: hsl(0, 75%, 55%);
+  --destructive-foreground: hsl(210, 30%, 95%);
+  --border: hsl(215, 30%, 22%);
+  --input: hsl(215, 30%, 20%);
+  --ring: hsl(198, 75%, 55%);
+  
+  /* Enhanced dark mode oceanic variables */
+  --deep-ocean: hsl(215, 50%, 8%);
+  --ocean-primary: hsl(198, 75%, 45%);
+  --ocean-secondary: hsl(198, 60%, 65%);
+  --coral-primary: hsl(12, 88%, 72%);
+  --coral-secondary: hsl(345, 85%, 75%);
+  --cyan-accent: hsl(180, 100%, 80%);
+  --ocean-mist: hsl(215, 20%, 25%);
+  --deep-shadow: hsl(215, 60%, 5%);
+  
+  /* Dark mode chart colors */
+  --chart-1: hsl(198, 75%, 55%);
+  --chart-2: hsl(12, 88%, 68%);
+  --chart-3: hsl(180, 100%, 75%);
+  --chart-4: hsl(345, 85%, 70%);
+  --chart-5: hsl(210, 30%, 85%);
 }
 
 @layer base {

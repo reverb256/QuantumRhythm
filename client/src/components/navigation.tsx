@@ -71,7 +71,7 @@ export default function Navigation() {
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-      scrolled ? 'bg-[var(--space-black)]/95 backdrop-blur-xl border-b border-cyan-400/20' : 'bg-[var(--space-black)]/80 backdrop-blur-md'
+      scrolled ? 'bg-background/95 backdrop-blur-xl border-b border-primary/20' : 'bg-background/80 backdrop-blur-md'
     }`}>
       <nav className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
         <div className="flex items-center justify-between">
@@ -79,22 +79,15 @@ export default function Navigation() {
           <div className="flex items-center space-x-3 sm:space-x-4">
             <Link 
               href="/" 
-              className="font-bold text-lg sm:text-xl text-cyan-300 flex items-center hover:text-cyan-100 transition-colors duration-300 cursor-pointer group"
+              className="font-bold text-lg sm:text-xl text-primary hover:text-accent transition-colors duration-300 cursor-pointer group"
               onMouseEnter={() => handleMouseEnter({
                 title: "reverb256",
-                description: "Consciousness architect shaped by Shotokan karate ethics and Charter-protected free speech principles",
-                category: "Personal Brand"
+                description: "Portfolio featuring AI-orchestrated Cloudflare optimization and oceanic design",
+                category: "Portfolio"
               })}
               onMouseLeave={handleMouseLeave}
             >
-              <motion.div
-                whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.5 }}
-                className="w-6 h-6 sm:w-7 sm:h-7 bg-gradient-to-br from-cyan-400 to-purple-500 rounded-lg flex items-center justify-center mr-2"
-              >
-                <Zap className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
-              </motion.div>
-              reverb256<span className="console-cursor text-[var(--synthwave-cyan)] group-hover:animate-pulse">|</span>
+              reverb256<span className="console-cursor text-accent group-hover:animate-pulse">|</span>
             </Link>
 
             {/* Permanent Console Interface */}
@@ -102,15 +95,15 @@ export default function Navigation() {
               onClick={toggleConsole}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className={`relative flex items-center space-x-1.5 bg-cyan-400/10 hover:bg-cyan-400/20 border border-cyan-400/30 hover:border-cyan-400/50 rounded-lg px-2.5 py-1.5 transition-all duration-300 group shadow-lg hover:shadow-cyan-400/20 ${
-                isConsoleOpen ? 'shadow-[0_0_20px_rgba(34,211,238,0.4)] border-cyan-400/60' : ''
+              className={`relative flex items-center space-x-1.5 bg-primary/10 hover:bg-primary/20 border border-primary/30 hover:border-primary/50 rounded-lg px-2.5 py-1.5 transition-all duration-300 group shadow-lg hover:shadow-primary/20 ${
+                isConsoleOpen ? 'shadow-[0_0_20px_hsla(var(--primary),.4)] border-primary/60' : ''
               }`}
             >
-              <Terminal className="w-3 h-3 sm:w-4 sm:h-4 text-cyan-400 group-hover:text-cyan-300" />
-              <span className="text-xs sm:text-sm font-mono text-cyan-300 group-hover:text-cyan-200 hidden sm:inline">
+              <Terminal className="w-3 h-3 sm:w-4 sm:h-4 text-primary group-hover:text-accent" />
+              <span className="text-xs sm:text-sm font-mono text-primary group-hover:text-accent hidden sm:inline">
                 console
               </span>
-              <div className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-cyan-400 rounded-full animate-pulse opacity-60"></div>
+              <div className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-primary rounded-full animate-pulse opacity-60"></div>
             </motion.button>
           </div>
 
