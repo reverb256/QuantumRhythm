@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
-import Navigation from '@/components/navigation';
+import Navigation from '@/components/Navigation';
+import { SmartTooltip } from '@/components/TooltipSystem';
+import { Sword, Target, Heart, Brain } from 'lucide-react';
 
 const philosophySections = [
   {

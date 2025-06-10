@@ -1,7 +1,9 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
-import Navigation from '@/components/navigation';
+import Navigation from '@/components/Navigation';
+import { SmartTooltip } from '@/components/TooltipSystem';
+import { ExternalLink, Github, Gem, Star } from 'lucide-react';
 
 export default function TrovesCovesPage() {
   return (
