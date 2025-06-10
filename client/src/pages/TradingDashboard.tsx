@@ -94,11 +94,11 @@ export default function TradingDashboard() {
   }
 
   // VibeCoding graceful data extraction with authenticated sources
-  const agentData = agentStatus?.status?.agent || { id: 'quantum-agent', status: 'active' };
+  const agentData = agentStatus?.status?.agent || defaultAgentStatus.status.agent;
   const signals = Array.isArray(signalsData?.signals) ? signalsData.signals : [];
-  const vibeMetrics = vibeData || { overallScore: 0.86 };
-  const crossMetrics = crossEmpowerment || { overallPower: 0.75 };
-  const performance = profitData || { currentBalance: 0.181854 };
+  const vibeMetrics = vibeData || defaultVibeData;
+  const crossMetrics = crossEmpowerment || defaultCrossEmpowerment;
+  const performance = profitData || defaultProfitData;
 
   // Intelligent defaults with consciousness-driven fallbacks
   const isTrading = agentData.status === 'active';
