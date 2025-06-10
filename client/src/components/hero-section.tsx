@@ -182,7 +182,7 @@ export default function HeroSection() {
           </div>
 
           {/* Main Identity Card */}
-          <div className="prismatic-glass p-8 md:p-12 rounded-3xl mb-8 border border-cyan-400/50 relative overflow-hidden">
+          <div className="holo-panel p-8 md:p-12 rounded-3xl mb-8 border border-cyan-400/50 gacha-shine relative overflow-hidden">
             {/* Background Circuit Pattern */}
             <div className="absolute inset-0 opacity-5">
               <div className="w-full h-full cyber-grid"></div>
@@ -221,7 +221,7 @@ export default function HeroSection() {
 
           {/* Bio Description with Console Style */}
           <div 
-            className="prismatic-glass p-6 md:p-8 rounded-2xl mb-10 border border-cyan-400/30 clickable-console"
+            className="holo-panel p-6 md:p-8 rounded-2xl mb-10 border border-cyan-400/30 gacha-shine clickable-console"
             onClick={() => setShowConsole(true)}
           >
             <div className="font-mono text-sm text-[var(--synthwave-green)] mb-2">
