@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { createPortal } from 'react-dom';
 
 interface TooltipData {
   term: string;
@@ -146,15 +147,15 @@ export function IntelligentTooltip({ children, tooltipData, className = '' }: In
         const rect = triggerRef.current.getBoundingClientRect();
         const viewportWidth = window.innerWidth;
         const viewportHeight = window.innerHeight;
-        
+
         let x = rect.left + rect.width / 2;
         let y = rect.top - 10;
-        
+
         // For navigation items, show tooltip below to avoid clipping
         if (rect.top < 100) {
           y = rect.bottom + 10;
         }
-        
+
         // Prevent horizontal overflow
         const tooltipWidth = 320; // Fixed width assumption
         if (x - tooltipWidth / 2 < 20) {
@@ -162,7 +163,7 @@ export function IntelligentTooltip({ children, tooltipData, className = '' }: In
         } else if (x + tooltipWidth / 2 > viewportWidth - 20) {
           x = viewportWidth - tooltipWidth / 2 - 20;
         }
-        
+
         setPosition({ x, y });
       }
     };
@@ -191,8 +192,8 @@ export function IntelligentTooltip({ children, tooltipData, className = '' }: In
         {children}
       </span>
 
-      <AnimatePresence>
-        {isVisible && (
+      {isVisible && createPortal(
+        <AnimatePresence>
           <motion.div
             ref={tooltipRef}
             className="intelligent-tooltip-container"
@@ -201,7 +202,7 @@ export function IntelligentTooltip({ children, tooltipData, className = '' }: In
               left: position.x,
               top: position.y,
               transform: position.y > 100 ? 'translateX(-50%) translateY(-100%)' : 'translateX(-50%)',
-              zIndex: 9999
+              zIndex: 2147483647
             }}
             initial={{ opacity: 0, scale: 0.8, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -229,7 +230,7 @@ export function IntelligentTooltip({ children, tooltipData, className = '' }: In
                 {/* Context */}
                 {tooltipData.context && (
                   <div className="mb-3">
-                    <span className="text-cyan-400 text-xs font-medium">Context: </span>
+                    <span className="text-cyan-400 text-xs font-medium">Context: </span> 
                     <span className="text-gray-400 text-xs break-words">{tooltipData.context}</span>
                   </div>
                 )}
@@ -251,30 +252,31 @@ export function IntelligentTooltip({ children, tooltipData, className = '' }: In
                 {/* Fun Fact */}
                 {tooltipData.funFact && (
                   <div className="border-t border-gray-700 pt-3">
-                    <span className="text-yellow-400 text-xs font-medium">💡 Fun Fact: </span>
+                    <span className="text-yellow-400 text-xs font-medium">💡 Fun Fact: </span> 
                     <span className="text-gray-400 text-xs italic break-words">{tooltipData.funFact}</span>
                   </div>
                 )}
               </div>
             </div>
           </motion.div>
-        )}
-      </AnimatePresence>
+        </AnimatePresence>,
+        document.body
+      )}
     </>
   );
 }
 
 export function createTooltipSpan(text: string, className?: string) {
   const tooltipData = tooltipDatabase[text] || tooltipDatabase[className || ''];
-  
+
   if (!tooltipData) {
     return <span className={className}>{text}</span>;
   }
 
   return (
-    
+
       {text}
-    
+
   );
 }
 

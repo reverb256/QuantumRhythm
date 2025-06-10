@@ -1,3 +1,6 @@
+import React, { useState, useRef } from 'react';
+import { createPortal } from 'react-dom';
+
 interface TooltipProps {
   children: React.ReactNode;
   content: string;
@@ -6,13 +9,49 @@ interface TooltipProps {
 }
 
 export function Tooltip({ children, content, type = 'definition', className = '' }: TooltipProps) {
+  const [isVisible, setIsVisible] = useState(false);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const triggerRef = useRef<HTMLSpanElement>(null);
+
+  const updatePosition = () => {
+    if (triggerRef.current) {
+      const rect = triggerRef.current.getBoundingClientRect();
+      setPosition({
+        x: rect.left + rect.width / 2,
+        y: rect.top - 10
+      });
+    }
+  };
+
   return (
-    <span className={`tooltip-trigger ${className}`}>
-      {children}
-      <span className={`tooltip ${type}`}>
-        {content}
+    <>
+      <span 
+        ref={triggerRef}
+        className={`tooltip-trigger ${className}`}
+        onMouseEnter={() => {
+          setIsVisible(true);
+          updatePosition();
+        }}
+        onMouseLeave={() => setIsVisible(false)}
+      >
+        {children}
       </span>
-    </span>
+      {isVisible && createPortal(
+        <div 
+          className={`tooltip ${type}`}
+          style={{
+            position: 'fixed',
+            left: position.x - 100,
+            top: position.y,
+            zIndex: 2147483647,
+            pointerEvents: 'none'
+          }}
+        >
+          {content}
+        </div>,
+        document.body
+      )}
+    </>
   );
 }
 
