@@ -6,6 +6,7 @@ import legalComplianceRouter from "./routes/legal-compliance";
 import analyticsRouter from "./routes/analytics";
 import parameterInsightsRouter from "./routes/parameter-insights";
 import aiAutorouterRouter from "./routes/ai-autorouter";
+import agentInsightsRouter from "./routes/agent-insights";
 import { donationTracker } from "./donation-tracker";
 import { fileURLToPath } from "url";
 
@@ -70,6 +71,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   // Mount AI autorouter routes
   app.use('/api/ai', aiAutorouterRouter);
+  
+  // Mount agent insights routes
+  app.use('/api/agent', agentInsightsRouter);
 
   // Cloudflare AI optimization endpoints
   app.get('/api/cloudflare/status', async (req, res) => {
