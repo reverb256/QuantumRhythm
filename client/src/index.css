@@ -247,6 +247,35 @@
   50% { opacity: 1; transform: scale(1.02); }
 }
 
+@keyframes heart-pulse {
+  0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.6; }
+  50% { transform: scale(1.2) rotate(2deg); opacity: 1; }
+}
+
+@keyframes animate-float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(180deg); }
+}
+
+@keyframes matrix-pulse {
+  0%, 100% { transform: scale(1) rotateZ(0deg); }
+  50% { transform: scale(1.1) rotateZ(5deg); }
+}
+
+@keyframes code-float {
+  0%, 100% { transform: translateY(0px) rotateZ(var(--rotation, 0deg)); }
+  50% { transform: translateY(-15px) rotateZ(calc(var(--rotation, 0deg) + 180deg)); }
+}
+
+@keyframes network-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+.animate-float {
+  animation: animate-float 6s ease-in-out infinite;
+}
+
 @keyframes electric-glow {
   0%, 100% { box-shadow: 0 0 10px var(--consciousness-primary); }
   50% { box-shadow: 0 0 25px var(--consciousness-primary), 0 0 40px var(--consciousness-secondary); }

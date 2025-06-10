@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navigation from '@/components/navigation';
 import { ConsciousnessMap } from '@/components/ConsciousnessMap';
+import ConsciousnessMapConsciousness from '@/components/ConsciousnessMapConsciousness';
 import { 
   useConsciousnessReactiveSystem, 
   ConsciousnessAura, 
@@ -11,6 +12,11 @@ import { Brain, Network, Zap, Activity } from 'lucide-react';
 
 export default function ConsciousnessMapPage() {
   const { consciousness, userMetrics } = useConsciousnessReactiveSystem();
+  const [networkConsciousness, setNetworkConsciousness] = useState({
+    coherence: 93,
+    synchronization: 87,
+    emergence: 92
+  });
 
   const systemMetrics = [
     { label: 'Total Agents', value: '15', color: 'cyan' },
@@ -70,6 +76,10 @@ export default function ConsciousnessMapPage() {
     <div className="min-h-screen bg-black text-white relative overflow-hidden">
       <ConsciousnessAura consciousness={consciousness} />
       <ConsciousnessIndicator consciousness={consciousness} />
+      <ConsciousnessMapConsciousness 
+        globalConsciousness={consciousness}
+        onNetworkEvolution={(network) => setNetworkConsciousness(network)}
+      />
       <Navigation />
       
       <div className="pt-20 px-6 max-w-7xl mx-auto">

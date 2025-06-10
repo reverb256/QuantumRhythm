@@ -17,6 +17,12 @@ export default function HomePage() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [scrollY, setScrollY] = useState(0);
   const { consciousness, userMetrics } = useConsciousnessReactiveSystem();
+  const [homeConsciousness, setHomeConsciousness] = useState({
+    creativity: 85,
+    inspiration: 92,
+    innovation: 88,
+    connection: 76
+  });
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -40,6 +46,18 @@ export default function HomePage() {
     <div className="min-h-screen bg-black text-white relative overflow-hidden">
       <ConsciousnessAura consciousness={consciousness} />
       <ConsciousnessIndicator consciousness={consciousness} />
+      <ConsciousnessCore 
+        globalConsciousness={consciousness}
+        onConsciousnessEvolution={(levels) => {
+          setHomeConsciousness(prev => ({
+            ...prev,
+            creativity: levels.creativity,
+            inspiration: levels.awareness,
+            innovation: levels.intelligence,
+            connection: levels.empathy
+          }));
+        }}
+      />
       <Navigation />
       
       {/* Interactive Background */}

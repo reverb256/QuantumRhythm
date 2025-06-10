@@ -11,6 +11,11 @@ import { Brain, Heart, Sword, Zap, Star, Globe, BookOpen, Mountain, Waves, Sun }
 
 export default function PhilosophyPage() {
   const { consciousness, userMetrics } = useConsciousnessReactiveSystem();
+  const [philosophyWisdom, setPhilosophyWisdom] = useState({
+    compassion: 84,
+    understanding: 91,
+    balance: 77
+  });
 
   const philosophicalPillars = [
     {
@@ -88,6 +93,10 @@ export default function PhilosophyPage() {
     <div className="min-h-screen bg-black text-white relative overflow-hidden">
       <ConsciousnessAura consciousness={consciousness} />
       <ConsciousnessIndicator consciousness={consciousness} />
+      <PhilosophyConsciousness 
+        globalConsciousness={consciousness}
+        onWisdomEvolution={(wisdom) => setPhilosophyWisdom(wisdom)}
+      />
       <Navigation />
       
       <div className="pt-20 px-6 max-w-7xl mx-auto">

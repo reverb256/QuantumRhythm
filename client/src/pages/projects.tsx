@@ -11,6 +11,11 @@ import { Code, Brain, Zap, Shield, Target, Star, Globe, Database, Cpu, Lock } fr
 
 export default function ProjectsPage() {
   const { consciousness, userMetrics } = useConsciousnessReactiveSystem();
+  const [projectsCreativity, setProjectsCreativity] = useState({
+    innovation: 88,
+    execution: 92,
+    breakthrough: 94
+  });
 
   const projects = [
     {
@@ -85,6 +90,10 @@ export default function ProjectsPage() {
     <div className="min-h-screen bg-black text-white relative overflow-hidden">
       <ConsciousnessAura consciousness={consciousness} />
       <ConsciousnessIndicator consciousness={consciousness} />
+      <ProjectsConsciousness 
+        globalConsciousness={consciousness}
+        onCreativityEvolution={(creativity) => setProjectsCreativity(creativity)}
+      />
       <Navigation />
       
       <div className="pt-20 px-6 max-w-7xl mx-auto">
