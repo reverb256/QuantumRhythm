@@ -7,6 +7,7 @@ import { authenticDataValidator } from '../authentic-data-validator';
 import { solanaDeFiGateway } from '../solana-defi-gateway';
 import { defiOrchestrator } from '../defi-orchestrator';
 import { insightInfusionEngine } from '../insight-infusion-engine';
+import { quantumMultiChainOrchestrator } from '../quantum-multichain-orchestrator';
 
 const router = Router();
 
@@ -301,6 +302,44 @@ router.get('/insights/report', async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({ success: false, error: 'Failed to generate insight report' });
+  }
+});
+
+// Quantum Multi-Chain endpoints
+router.get('/multichain/opportunities', async (req, res) => {
+  try {
+    const opportunities = await quantumMultiChainOrchestrator.getQuantumOpportunities();
+    res.json({
+      success: true,
+      ...opportunities
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Failed to get multi-chain opportunities' });
+  }
+});
+
+router.get('/multichain/metrics', async (req, res) => {
+  try {
+    const metrics = quantumMultiChainOrchestrator.getMultiChainMetrics();
+    res.json({
+      success: true,
+      metrics
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Failed to get multi-chain metrics' });
+  }
+});
+
+router.post('/multichain/execute', async (req, res) => {
+  try {
+    const { opportunityId, amount } = req.body;
+    const result = await quantumMultiChainOrchestrator.executeCrossChainStrategy(opportunityId, amount);
+    res.json({
+      success: result.success,
+      ...result
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Failed to execute multi-chain strategy' });
   }
 });
 
