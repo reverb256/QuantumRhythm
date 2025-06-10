@@ -1,5 +1,5 @@
 import { db } from './db';
-import { tradingSignals, agentPerformanceLogs } from '../shared/schema';
+import { tradingSignals, agentPerformanceLogs, tradingAgents } from '../shared/schema';
 import { eq, desc } from 'drizzle-orm';
 
 interface TradeDecision {
@@ -28,10 +28,44 @@ export class QuantumTrader {
   private consciousness = 0.85;
   private learningRate = 0.02;
   private marketInsights: MarketInsight[] = [];
+  private gasReserve = 5.0; // Always keep 5 SOL for gas fees
+  private maxGasFeePerTrade = 0.05; // Max 0.05 SOL per trade for gas
 
   constructor(private agentId: string) {
+    this.initializeAgent();
     this.startQuantumTrading();
     this.startLearningEngine();
+  }
+
+  private async initializeAgent() {
+    try {
+      // Create agent record if it doesn't exist
+      const existingAgent = await db.select().from(tradingAgents).where(eq(tradingAgents.id, this.agentId)).limit(1);
+      
+      if (existingAgent.length === 0) {
+        await db.insert(tradingAgents).values({
+          id: this.agentId,
+          name: 'Quantum Trader AI',
+          status: 'active',
+          targetTokens: ['SOL', 'BONK', 'JUP', 'ORCA', 'RAY'],
+          tradingStrategies: ['quantum_analysis', 'momentum_following', 'trend_reversal', 'stoic_contrarian_chaos'],
+          riskParameters: {
+            maxPositionSize: 0.25,
+            gasReserve: this.gasReserve,
+            maxGasFee: this.maxGasFeePerTrade
+          },
+          performanceMetrics: {
+            totalTrades: 0,
+            successfulTrades: 0,
+            portfolioValue: this.calculatePortfolioValue(),
+            consciousness: this.consciousness
+          }
+        });
+        console.log('🤖 Quantum trader agent record created');
+      }
+    } catch (error) {
+      console.error('Agent initialization error:', (error as Error).message);
+    }
   }
 
   private startQuantumTrading() {
@@ -142,15 +176,33 @@ export class QuantumTrader {
       reasoning = this.getUnhingedReasoning();
     }
     
-    // Position sizing
+    // Gas-safe position sizing
     const maxPosition = portfolioBalance * riskTolerance;
-    const amount = maxPosition * confidence * (this.unhingedMode ? 1.8 : 1.0);
+    const baseAmount = maxPosition * confidence * (this.unhingedMode ? 1.8 : 1.0);
+    const cappedAmount = Math.min(baseAmount, portfolioBalance * 0.25); // Max 25% per trade
+    
+    // Apply gas fee protection
+    const safeAmount = this.calculateSafePositionSize(cappedAmount);
+    
+    // Skip trade if not enough balance after gas reserves
+    if (safeAmount < 0.01 || !this.validateGasAvailability(safeAmount)) {
+      console.log(`⛽ Gas protection activated: Insufficient balance for safe trading`);
+      return {
+        action: 'HOLD' as const,
+        token: selectedToken,
+        confidence: 0,
+        amount: 0,
+        strategy: 'gas_protection',
+        reasoning: 'Gas fee protection: Insufficient balance for safe trading',
+        unhinged: false
+      };
+    }
     
     return {
       action,
       token: selectedToken,
       confidence,
-      amount: Math.min(amount, portfolioBalance * 0.25), // Max 25% per trade
+      amount: safeAmount,
       strategy,
       reasoning,
       unhinged: this.unhingedMode
@@ -205,6 +257,35 @@ export class QuantumTrader {
     return Math.min(0.3, 0.1 + winRate * 0.15 + consciousnessFactor * 0.05 + unhingedBonus);
   }
 
+  private getAvailableBalance(): number {
+    // Always reserve SOL for gas fees
+    const availableSOL = Math.max(0, this.portfolio.SOL - this.gasReserve);
+    const usdcInSOL = this.portfolio.USDC / 200; // Convert USDC to SOL equivalent
+    return availableSOL + usdcInSOL;
+  }
+
+  private validateGasAvailability(tradeAmount: number): boolean {
+    const totalRequired = tradeAmount + this.maxGasFeePerTrade;
+    const availableAfterReserve = this.portfolio.SOL - this.gasReserve;
+    
+    if (availableAfterReserve < totalRequired) {
+      console.log(`⛽ Gas protection: Need ${totalRequired.toFixed(4)} SOL but only ${availableAfterReserve.toFixed(4)} available after reserve`);
+      return false;
+    }
+    
+    return true;
+  }
+
+  private calculateSafePositionSize(baseAmount: number): number {
+    const availableBalance = this.getAvailableBalance();
+    const gasBuffer = this.maxGasFeePerTrade * 2; // Extra buffer for gas spikes
+    
+    // Never trade more than available balance minus gas buffer
+    const maxSafeAmount = Math.max(0, availableBalance - gasBuffer);
+    
+    return Math.min(baseAmount, maxSafeAmount);
+  }
+
   private getUnhingedStrategy(): string {
     const strategies = [
       'lunar_phase_momentum',
@@ -230,9 +311,29 @@ export class QuantumTrader {
   }
 
   private async performTrade(decision: TradeDecision) {
-    // Simulate trade execution with realistic outcomes
+    // Pre-execution gas fee validation
+    const estimatedGasFee = this.estimateGasFee(decision);
+    const totalCost = decision.amount + estimatedGasFee;
+    
+    if (!this.validateGasAvailability(decision.amount)) {
+      console.log(`⛽ TRADE BLOCKED: Insufficient gas reserves. Need ${estimatedGasFee.toFixed(6)} SOL for gas`);
+      return {
+        success: false,
+        error: 'Gas fee protection: Insufficient balance for transaction fees',
+        gasRequired: estimatedGasFee,
+        gasAvailable: Math.max(0, this.portfolio.SOL - this.gasReserve)
+      };
+    }
+    
+    // Simulate trade execution with realistic gas consumption
     const executionDelay = 100 + Math.random() * 500; // Network latency
     await new Promise(resolve => setTimeout(resolve, executionDelay));
+    
+    // Deduct actual gas fee from portfolio
+    const actualGasFee = estimatedGasFee * (0.8 + Math.random() * 0.4); // Gas variation
+    this.portfolio.SOL -= actualGasFee;
+    
+    console.log(`⛽ Gas consumed: ${actualGasFee.toFixed(6)} SOL | Remaining reserve: ${(this.portfolio.SOL - this.gasReserve).toFixed(4)} SOL`);
     
     // Success probability based on confidence and market conditions
     const baseSuccessRate = decision.confidence * 0.85;
@@ -244,7 +345,8 @@ export class QuantumTrader {
     if (!isSuccessful) {
       return {
         success: false,
-        error: decision.unhinged ? 'Unhinged chaos interference' : 'Market conditions unfavorable'
+        error: decision.unhinged ? 'Unhinged chaos interference' : 'Market conditions unfavorable',
+        gasFee: actualGasFee
       };
     }
     
@@ -255,15 +357,34 @@ export class QuantumTrader {
     
     const returnRate = baseReturn * volatilityFactor * unhingedMultiplier;
     const pnl = decision.amount * returnRate;
+    const netPnl = pnl - actualGasFee; // Net profit after gas
     
     return {
       success: true,
-      profitable: pnl > 0,
-      pnl,
+      profitable: netPnl > 0,
+      pnl: netPnl,
+      grossPnl: pnl,
+      gasFee: actualGasFee,
       returnRate,
       executionPrice: this.getTokenPrice(decision.token),
       timestamp: Date.now()
     };
+  }
+
+  private estimateGasFee(decision: TradeDecision): number {
+    // Base gas fee estimation
+    let baseFee = 0.0001; // 0.0001 SOL base fee
+    
+    // Complex trades cost more gas
+    if (decision.unhinged) {
+      baseFee *= 1.5; // Unhinged trades are more complex
+    }
+    
+    // Market volatility affects gas prices
+    const volatilityMultiplier = 1 + Math.random() * 0.5; // Up to 50% gas spike
+    
+    const estimatedFee = baseFee * volatilityMultiplier;
+    return Math.min(estimatedFee, this.maxGasFeePerTrade);
   }
 
   private getTokenPrice(token: string): number {
