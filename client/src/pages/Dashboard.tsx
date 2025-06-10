@@ -23,10 +23,16 @@ export default function Dashboard() {
     refetchInterval: 3000
   });
 
-  // Provide fallback data for better UX
-  const safeAgentStatus = agentStatus || { status: 'Loading...', lastActivity: 'Initializing...', performanceMetrics: { winRate: 0 } };
-  const safeVibeMetrics = vibeMetrics || { pizzaKitchenReliability: '0.85', rhythmGamingPrecision: '0.92', vrChatSocialInsights: '0.78', classicalPhilosophyWisdom: '0.95', overallScore: '0.87' };
-  const safeTradingSignals = tradingSignals || [];
+  // Safe data access with proper types
+  const status = agentStatus?.status || 'Loading...';
+  const lastActivity = agentStatus?.lastActivity || 'Initializing...';
+  const winRate = agentStatus?.performanceMetrics?.winRate || 0;
+  const overallScore = vibeMetrics?.overallScore || 0.87;
+  const pizzaReliability = vibeMetrics?.pizzaKitchenReliability || 0.85;
+  const rhythmPrecision = vibeMetrics?.rhythmGamingPrecision || 0.92;
+  const vrInsights = vibeMetrics?.vrChatSocialInsights || 0.78;
+  const philosophyWisdom = vibeMetrics?.classicalPhilosophyWisdom || 0.95;
+  const signals = Array.isArray(tradingSignals) ? tradingSignals : [];
 
   return (
     <div className="min-h-screen bg-[var(--space-black)] text-white pt-16">
@@ -88,10 +94,10 @@ export default function Dashboard() {
               <Activity className="w-8 h-8 text-green-400 mb-4" />
               <h3 className="text-lg font-semibold text-green-300 mb-2">Agent Status</h3>
               <p className="text-2xl font-bold text-green-400">
-                {safeAgentStatus.status}
+                {status}
               </p>
               <p className="text-sm text-gray-400">
-                {safeAgentStatus.lastActivity}
+                {lastActivity}
               </p>
             </div>
 
@@ -100,7 +106,7 @@ export default function Dashboard() {
               <Brain className="w-8 h-8 text-purple-400 mb-4" />
               <h3 className="text-lg font-semibold text-purple-300 mb-2">VibeCoding Score</h3>
               <p className="text-2xl font-bold text-purple-400">
-                {`${(parseFloat(safeVibeMetrics.overallScore) * 100).toFixed(1)}%`}
+                {`${(overallScore * 100).toFixed(1)}%`}
               </p>
               <p className="text-sm text-gray-400">Overall methodology strength</p>
             </div>
@@ -110,7 +116,7 @@ export default function Dashboard() {
               <TrendingUp className="w-8 h-8 text-cyan-400 mb-4" />
               <h3 className="text-lg font-semibold text-cyan-300 mb-2">Performance</h3>
               <p className="text-2xl font-bold text-cyan-400">
-                {`${(safeAgentStatus.performanceMetrics.winRate * 100).toFixed(1)}%`}
+                {`${(winRate * 100).toFixed(1)}%`}
               </p>
               <p className="text-sm text-gray-400">Win rate</p>
             </div>
@@ -120,7 +126,7 @@ export default function Dashboard() {
               <Zap className="w-8 h-8 text-yellow-400 mb-4" />
               <h3 className="text-lg font-semibold text-yellow-300 mb-2">Active Signals</h3>
               <p className="text-2xl font-bold text-yellow-400">
-                {safeTradingSignals.length}
+                {signals.length}
               </p>
               <p className="text-sm text-gray-400">Recent trading signals</p>
             </div>
