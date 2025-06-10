@@ -111,6 +111,10 @@ app.use((req, res, next) => {
   const { default: tradingAgentRoutes } = await import('./routes/trading-agent.js');
   app.use('/api/trading-agent', tradingAgentRoutes);
   
+  // Import and register Cyber Terminal routes
+  const { default: cyberTerminalRoutes } = await import('./routes/cyber-terminal.js');
+  app.use('/api', cyberTerminalRoutes);
+  
   // Register live stats routes
   app.use('/api/live', liveStatsRouter);
   
