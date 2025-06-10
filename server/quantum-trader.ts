@@ -10,6 +10,7 @@ import { ragLearningEngine } from './rag-learning-engine.js';
 import { NewsIntelligenceAggregator } from './news-intelligence-aggregator.js';
 import { aiService } from './ai-service.js';
 import { ioIntelligenceMaximizer } from './io-intelligence-maximizer.js';
+import { tradingMonitor } from './trading-monitor.js';
 
 interface TradeDecision {
   action: 'BUY' | 'SELL' | 'HOLD';
@@ -85,6 +86,7 @@ export class QuantumTrader {
     this.startQuantumTrading();
     this.startLearningEngine();
     this.initializeNewsIntelligence();
+    this.setupMonitoring();
   }
 
   private async initializeAgent() {
@@ -152,8 +154,37 @@ export class QuantumTrader {
     }
   }
 
+  private setupMonitoring() {
+    // Setup trading monitor event handlers
+    tradingMonitor.on('emergencyStop', () => {
+      console.log('🚨 Trading Monitor: Emergency stop triggered, halting all trading');
+      this.liveTradingEnabled = false;
+    });
+
+    tradingMonitor.on('resetConfidence', () => {
+      console.log('🧠 Trading Monitor: Resetting overconfidence syndrome');
+      this.consciousness = Math.min(0.75, this.consciousness); // Cap consciousness at 75%
+    });
+
+    tradingMonitor.on('rateLimitCooldown', () => {
+      console.log('⏳ Trading Monitor: Implementing rate limit cooldown');
+      // Increase trading interval temporarily
+      setTimeout(() => {
+        console.log('✅ Trading Monitor: Rate limit cooldown completed');
+      }, 60000);
+    });
+
+    console.log('🔍 Trading Monitor: Event handlers configured');
+  }
+
   private async executeQuantumTrade() {
     try {
+      // Check emergency stop before any trading
+      if (tradingMonitor.isEmergencyStop()) {
+        console.log('🚨 Emergency stop active - trading halted');
+        return;
+      }
+
       // First validate data authenticity
       const { authenticDataValidator } = await import('./authentic-data-validator');
       const dataValidation = await authenticDataValidator.validateTradingData();
@@ -164,6 +195,11 @@ export class QuantumTrader {
         console.log(`💰 Current balance: ${dataValidation.actualBalance?.toFixed(6) || 'N/A'} SOL`);
         console.log(`🎯 Trading mode: ${dataValidation.tradeMode || 'unknown'}`);
         return;
+      }
+
+      // Report current balance to monitor
+      if (dataValidation.actualBalance) {
+        tradingMonitor.reportPortfolioBalance(dataValidation.actualBalance);
       }
 
       // Evaluate DeFi opportunities with NotebookLM insights
@@ -382,7 +418,7 @@ export class QuantumTrader {
     } else if (defiOpportunity.expectedAPY > 15) {
       enhancedAmount *= this.riskMultipliers.volumeSpike; // 2.5x for good APY
     } else if (defiOpportunity.expectedAPY > 10) {
-      enhancedAmount *= this.riskMultipliers.liquiditySweet; // 1.8x for decent APY
+      enhancedAmount *= this.riskMultipliers.liquiditySweet; // 2.2x for decent APY
     }
 
     // Market condition adjustments
@@ -395,7 +431,17 @@ export class QuantumTrader {
     const gasBuffer = defiOpportunity.gasOptimized * 3; // Enhanced gas buffer
     const maxSafeAmount = Math.max(0, availableBalance - gasBuffer - this.gasReserve);
     
-    return Math.min(enhancedAmount, maxSafeAmount);
+    // CRITICAL FIX: Ensure minimum viable trade size
+    const calculatedAmount = Math.min(enhancedAmount, maxSafeAmount);
+    const minimumTradeSize = 0.001; // 0.001 SOL minimum trade
+    
+    // If calculated amount is too small, return zero to prevent invalid trades
+    if (calculatedAmount < minimumTradeSize) {
+      console.log(`⚠️ Position size ${calculatedAmount.toFixed(6)} SOL below minimum ${minimumTradeSize} SOL - skipping trade`);
+      return 0;
+    }
+    
+    return calculatedAmount;
   }
 
   private async performEnhancedTrade(decision: TradeDecision, defiOpportunity: any) {
