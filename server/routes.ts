@@ -3,6 +3,7 @@ import { createServer, type Server } from "http";
 import path from "path";
 import tradingRouter from "./routes/trading";
 import legalComplianceRouter from "./routes/legal-compliance";
+import { donationTracker } from "./donation-tracker";
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -23,6 +24,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   // Mount legal compliance routes
   app.use('/api/legal', legalComplianceRouter);
+
+  // Donation tracking endpoint
+  app.get('/api/donations/stats', async (req, res) => {
+    try {
+      const stats = await donationTracker.getCurrentStats();
+      res.json({ success: true, ...stats });
+    } catch (error) {
+      res.status(500).json({ success: false, error: 'Failed to fetch donation stats' });
+    }
+  });
+
+  app.get('/api/donations/recent', async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit as string) || 10;
+      const recentDonations = await donationTracker.getRecentDonations(limit);
+      res.json({ success: true, donations: recentDonations });
+    } catch (error) {
+      res.status(500).json({ success: false, error: 'Failed to fetch recent donations' });
+    }
+  });
 
   // SPA routes - serve index.html for all client-side routes
   app.get("/values", (req, res) => {
