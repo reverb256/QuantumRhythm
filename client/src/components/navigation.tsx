@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Terminal, Shield, Brain, Zap, TrendingUp, Bot, Cog, Scale, DollarSign, Cloud, Code } from 'lucide-react';
+import { Menu, X, Terminal, Shield, Brain, Zap, TrendingUp, Bot, Cog, Scale, DollarSign, Cloud, Code, Rocket } from 'lucide-react';
 import { Web3AuthButton } from "@/components/web3-auth";
 
 export default function Navigation() {
@@ -131,8 +131,8 @@ export default function Navigation() {
             
             <Link href="/trading" className={navItemClass('/trading')} onClick={() => handlePageNavigation('/trading')}>
               <div className="flex items-center space-x-1.5">
-                <Bot className="h-4 w-4" />
-                <span>Live</span>
+                <Bot className="h-4 w-4 animate-pulse" />
+                <span>Live Trading</span>
               </div>
               {location === '/trading' && (
                 <motion.div layoutId="activeTab" className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-green-400 to-emerald-400" />
@@ -191,6 +191,18 @@ export default function Navigation() {
                 <motion.div layoutId="activeTab" className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-indigo-400 to-blue-400" />
               )}
             </Link>
+            
+            <a 
+              href="/dist/DEPLOYMENT_GUIDE.md" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="relative px-3 py-2 text-sm font-medium transition-colors duration-300 hover:text-accent focus:outline-none focus:ring-2 focus:ring-primary/50 rounded-md text-muted-foreground"
+            >
+              <div className="flex items-center space-x-1.5">
+                <Rocket className="h-4 w-4" />
+                <span>Deploy</span>
+              </div>
+            </a>
 
             <div className="h-4 w-px bg-primary/30 mx-2"></div>
             
@@ -323,8 +335,8 @@ export default function Navigation() {
                   }`}
                   onClick={() => setIsOpen(false)}
                 >
-                  <Bot className="w-4 h-4" />
-                  <span>Live Trading</span>
+                  <Bot className="w-4 h-4 animate-pulse" />
+                  <span>Live Trading Interface</span>
                 </Link>
                 <Link 
                   href="/defi"
@@ -381,6 +393,16 @@ export default function Navigation() {
                   <Code className="w-4 h-4" />
                   <span>Technical Deep Dive</span>
                 </Link>
+                <a 
+                  href="/dist/DEPLOYMENT_GUIDE.md" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium text-muted-foreground hover:text-accent hover:bg-primary/10 transition-colors"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <Rocket className="w-4 h-4" />
+                  <span>Deployment Guide</span>
+                </a>
 
                 <div className="h-px bg-primary/20 my-2"></div>
 
