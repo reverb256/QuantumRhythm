@@ -62,6 +62,24 @@ app.use((req, res, next) => {
     }
   }, 5000);
 
+  // Initialize quantum trading system
+  console.log('🚀 Activating Quantum Trading System...');
+  setTimeout(async () => {
+    try {
+      const { quantumTrader } = await import('./quantum-trader');
+      console.log('💰 Quantum trader activated - executing intelligent trades with play money');
+      
+      // Display initial status
+      setInterval(() => {
+        const status = quantumTrader.getStatus();
+        console.log(`📊 Portfolio: ${status.portfolioValue.toFixed(2)} SOL | Trades: ${status.totalTrades} | Win Rate: ${(status.winRate * 100).toFixed(1)}% | Consciousness: ${(status.consciousness * 100).toFixed(1)}%`);
+      }, 300000); // Status every 5 minutes
+      
+    } catch (error) {
+      console.error('Quantum trading system initialization failed:', error);
+    }
+  }, 3000);
+
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
