@@ -37,7 +37,7 @@ const projects = [
       { name: "Security Framework" },
       { name: "Turquoise/Green Branding" }
     ],
-    status: "Production",
+    status: "Showcase",
     link: "https://replit.com/@snyper256/Local-Cleaning-Service?v=1",
     github: "https://github.com/reverb256/Local-Cleaning-Service",
     color: "from-[var(--spectrum-cyan)] to-[var(--spectrum-blue)]",

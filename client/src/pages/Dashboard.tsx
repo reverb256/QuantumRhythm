@@ -29,12 +29,28 @@ export default function Dashboard() {
   const safeTradingSignals = tradingSignals || [];
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[var(--space-black)] text-white pt-16">
+      {/* Unified Quantum Background */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none opacity-20">
+        {[...Array(15)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 bg-cyan-400 rounded-full animate-pulse"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 3}s`,
+              animationDuration: `${2 + Math.random() * 4}s`
+            }}
+          />
+        ))}
+      </div>
+
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-40 bg-black/20 backdrop-blur-xl border-b border-white/10">
+      <nav className="fixed top-0 left-0 right-0 z-40 bg-[var(--space-black)]/80 backdrop-blur-xl border-b border-cyan-400/20">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <Link href="/">
-            <Button variant="ghost" className="text-cyan-300 hover:text-cyan-200">
+            <Button variant="ghost" className="text-cyan-300 hover:text-cyan-200 hover:bg-cyan-400/10">
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Portfolio
             </Button>
@@ -43,7 +59,7 @@ export default function Dashboard() {
       </nav>
 
       {/* Main Content */}
-      <div className="pt-24 px-6">
+      <div className="pt-24 px-6 relative z-10">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
           <motion.div
@@ -52,7 +68,7 @@ export default function Dashboard() {
             transition={{ duration: 0.6 }}
             className="text-center mb-12"
           >
-            <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent mb-6">
+            <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent mb-6 font-space">
               Quantum Dashboard
             </h1>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
