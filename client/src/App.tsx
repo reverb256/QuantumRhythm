@@ -115,7 +115,10 @@ function App() {
   }, [metaManager]);
 
   return (
-    <ErrorBoundary FallbackComponent={ErrorBoundaryFallback}>
+    <ErrorBoundary 
+      FallbackComponent={({ error, resetErrorBoundary }) => (
+        <ErrorBoundaryFallback error={error} resetError={resetErrorBoundary} />
+      )}>
       <QueryClientProvider client={queryClient}>
         <WalletProvider>
           <ConsciousContainer learningRate={0.15}>
