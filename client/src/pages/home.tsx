@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
 import Navigation from '@/components/navigation';
+import { LiveMetrics } from '@/components/LiveMetrics';
 import reverbPortraitUrl from '@assets/image_1749583181474.png';
 
 export default function HomePage() {
@@ -59,23 +60,8 @@ export default function HomePage() {
                 </p>
               </div>
 
-              {/* Key Metrics - Live Data */}
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-                <div className="bg-gradient-to-br from-cyan-500/10 to-blue-600/10 backdrop-blur-sm rounded-xl p-4 border border-cyan-500/20">
-                  <div className="text-2xl md:text-3xl font-bold text-cyan-400">86.5%</div>
-                  <div className="text-sm text-gray-400">AI Evolution</div>
-                </div>
-                
-                <div className="bg-gradient-to-br from-green-500/10 to-emerald-600/10 backdrop-blur-sm rounded-xl p-4 border border-green-500/20">
-                  <div className="text-2xl md:text-3xl font-bold text-green-400">82.4%</div>
-                  <div className="text-sm text-gray-400">Success Rate</div>
-                </div>
-                
-                <div className="bg-gradient-to-br from-purple-500/10 to-pink-600/10 backdrop-blur-sm rounded-xl p-4 border border-purple-500/20 col-span-2 md:col-span-1">
-                  <div className="text-2xl md:text-3xl font-bold text-purple-400">0.288736</div>
-                  <div className="text-sm text-gray-400">SOL Balance</div>
-                </div>
-              </div>
+              {/* Live Portfolio Metrics */}
+              <LiveMetrics />
 
               {/* Action Buttons */}
               <div className="flex flex-wrap gap-4">
