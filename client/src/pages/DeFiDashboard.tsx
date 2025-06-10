@@ -7,18 +7,18 @@ export function DeFiDashboard() {
   const [selectedOpportunity, setSelectedOpportunity] = useState<any>(null);
 
   // DeFi data queries with graceful degradation
-  const { data: opportunities = [], isLoading: opportunitiesLoading } = useQuery({
-    queryKey: ['/api/defi/opportunities'],
+  const { data: opportunities = { opportunities: [] }, isLoading: opportunitiesLoading } = useQuery({
+    queryKey: ['/api/trading-agent/defi/opportunities'],
     refetchInterval: 30000
   });
 
   const { data: positions = { positions: [], metrics: { balance: 0.181854, gasEfficiency: 99.5, activeStrategies: 0, profitToday: 0 } } } = useQuery({
-    queryKey: ['/api/defi/positions'],
+    queryKey: ['/api/trading-agent/defi/positions'],
     refetchInterval: 10000
   });
 
   const { data: insights = { topProtocols: [], marketTrends: [], opportunities: [] } } = useQuery({
-    queryKey: ['/api/defi/insights'],
+    queryKey: ['/api/trading-agent/defi/insights'],
     refetchInterval: 60000
   });
 
