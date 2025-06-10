@@ -257,13 +257,27 @@ class QuantumSecurityVault {
    * Calculate comprehensive security metrics
    */
   private async calculateSecurityMetrics(): Promise<VibeCodingSecurityMetrics> {
-    return {
+    const metrics = {
       pizzaKitchenReliability: 95, // Operational consistency
       rhythmGamingPrecision: 98,   // Timing accuracy
       vrchatSocialIntelligence: 92, // Human behavior verification
       classicalWisdomIntegration: 88, // Philosophical security depth
       quantumReadiness: 100,        // Post-quantum preparedness
-      overallSecurityConsciousness: 94.6
+    };
+    
+    // Calculate weighted composite score
+    const weights = { pizzaKitchen: 0.25, rhythmGaming: 0.25, vrchat: 0.25, classical: 0.15, quantum: 0.1 };
+    const overallScore = (
+      metrics.pizzaKitchenReliability * weights.pizzaKitchen +
+      metrics.rhythmGamingPrecision * weights.rhythmGaming +
+      metrics.vrchatSocialIntelligence * weights.vrchat +
+      metrics.classicalWisdomIntegration * weights.classical +
+      metrics.quantumReadiness * weights.quantum
+    );
+    
+    return {
+      ...metrics,
+      overallSecurityConsciousness: Math.round(overallScore * 100) / 100
     };
   }
 
