@@ -1,8 +1,17 @@
 import { createRoot } from "react-dom/client";
-import { DebugTest } from "./components/debug-test";
+import { StrictMode } from "react";
+import App from "./App";
 import "./index.css";
 
-// Test with simple component first
+// Global error handler for unhandled errors
+window.addEventListener('error', (event) => {
+  console.error('Global error:', event.error);
+});
+
+window.addEventListener('unhandledrejection', (event) => {
+  console.error('Unhandled promise rejection:', event.reason);
+});
+
 const rootElement = document.getElementById("root");
 
 if (!rootElement) {
@@ -16,13 +25,20 @@ if (!rootElement) {
 } else {
   try {
     const root = createRoot(rootElement);
-    root.render(<DebugTest />);
+    root.render(
+      <StrictMode>
+        <App />
+      </StrictMode>
+    );
   } catch (error) {
     console.error("Failed to render app:", error);
     rootElement.innerHTML = `
       <div style="padding: 20px; text-align: center; font-family: Arial, sans-serif;">
         <h1>Quantum AI Trading Platform</h1>
-        <p>React failed to load. Error: ${error.message}</p>
+        <p>Loading error: ${error?.message || 'Unknown error'}</p>
+        <button onclick="window.location.reload()" style="margin-top: 10px; padding: 10px; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
+          Reload App
+        </button>
       </div>
     `;
   }
