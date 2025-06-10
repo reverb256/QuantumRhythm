@@ -248,9 +248,9 @@ export class QuantumTrader {
     confidence *= (1 + quantumFactor * 0.3);
     confidence *= (1 + defiOpportunity.multiplier * 0.15); // Stronger boost
     
-    // Conservative token selection after learning from failures
-    const safeTokens = ['SOL', 'BONK', 'JUP', 'ORCA', 'RAY'];
-    const selectedToken = this.selectToken(safeTokens, marketTrend);
+    // Conservative token selection after learning from failures (excluding SOL to prevent SOL → SOL trades)
+    const safeTokens = ['BONK', 'JUP', 'ORCA', 'RAY', 'USDC'];
+    const selectedToken = this.selectEnhancedToken(safeTokens, marketTrend, defiOpportunity);
     
     // Adaptive action determination with realistic trading thresholds
     let action: 'BUY' | 'SELL' | 'HOLD' = 'HOLD';
@@ -337,17 +337,20 @@ export class QuantumTrader {
   }
 
   private selectEnhancedToken(tokens: string[], marketTrend: number, defiOpportunity: any): string {
+    // Filter out SOL to prevent SOL → SOL trades
+    const validTokens = tokens.filter(token => token !== 'SOL');
+    
     // Enhanced token selection with DeFi protocol preferences
     if (defiOpportunity.protocol === 'kamino' || defiOpportunity.protocol === 'liquid-staking') {
-      return 'SOL'; // SOL-native protocols
+      return 'USDC'; // Use USDC instead of SOL for DeFi protocols
     } else if (defiOpportunity.protocol === 'raydium-arb') {
-      return Math.random() > 0.5 ? 'RAY' : 'SOL';
+      return 'RAY'; // Use RAY for Raydium arbitrage
     } else if (marketTrend > 0.8) {
       // High risk/reward tokens in bull market with community strength
-      return tokens[Math.floor(Math.random() * tokens.length)];
+      return validTokens[Math.floor(Math.random() * validTokens.length)];
     } else {
-      // Balanced selection with stability preference
-      return Math.random() > 0.7 ? 'SOL' : tokens[Math.floor(Math.random() * tokens.length)];
+      // Balanced selection with stability preference (excluding SOL)
+      return Math.random() > 0.7 ? 'USDC' : validTokens[Math.floor(Math.random() * validTokens.length)];
     }
   }
 
@@ -537,8 +540,8 @@ export class QuantumTrader {
     let confidence = 0.6 + Math.random() * 0.3;
     confidence *= (1 + quantumFactor * 0.2);
     
-    // Token selection based on market insights
-    const tokens = ['SOL', 'BONK', 'JUP', 'ORCA', 'RAY'];
+    // Token selection based on market insights (excluding SOL to prevent SOL → SOL trades)
+    const tokens = ['BONK', 'JUP', 'ORCA', 'RAY', 'USDC'];
     const selectedToken = this.selectToken(tokens, marketTrend);
     
     // Action determination
@@ -628,16 +631,19 @@ export class QuantumTrader {
   }
 
   private selectToken(tokens: string[], marketTrend: number): string {
+    // Filter out SOL to prevent SOL → SOL trades
+    const validTokens = tokens.filter(token => token !== 'SOL');
+    
     // Token selection based on market conditions
     if (marketTrend > 0.8) {
       // High risk/reward tokens in bull market
-      return tokens[Math.floor(Math.random() * tokens.length)];
+      return validTokens[Math.floor(Math.random() * validTokens.length)];
     } else if (marketTrend < 0.3) {
-      // Safe haven tokens in bear market
-      return Math.random() > 0.7 ? 'SOL' : 'USDC';
+      // Safe haven tokens in bear market (prefer USDC over SOL)
+      return 'USDC';
     } else {
-      // Balanced selection
-      return tokens[Math.floor(Math.random() * tokens.length)];
+      // Balanced selection (excluding SOL)
+      return validTokens[Math.floor(Math.random() * validTokens.length)];
     }
   }
 
