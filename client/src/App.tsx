@@ -22,6 +22,7 @@ import VRChat from "@/pages/VRChat";
 import Dashboard from "@/pages/Dashboard";
 import TradingDashboard from "@/pages/TradingDashboard";
 import TradingInterface from "@/pages/TradingInterface";
+import TraderDashboard from "@/pages/TraderDashboard";
 import { DeFiDashboard } from "@/pages/DeFiDashboard";
 import CloudflareOptimization from "@/pages/CloudflareOptimization";
 import TechnicalDeepDive from "@/pages/technical-deep-dive";
@@ -99,6 +100,7 @@ function Router() {
           <Route path="/values" component={Values} />
           <Route path="/vrchat" component={VRChat} />
           <Route path="/dashboard" component={TradingDashboard} />
+          <Route path="/trader-dashboard" component={TraderDashboard} />
           <Route path="/trading" component={TradingInterface} />
           <Route path="/defi" component={DeFiDashboard} />
           <Route path="/cloudflare" component={CloudflareOptimization} />
