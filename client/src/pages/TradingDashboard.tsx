@@ -152,7 +152,7 @@ export default function TradingDashboard() {
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
                 <Activity className="h-6 w-6 text-green-400" />
-                <Badge className="bg-green-400/20 text-green-300 border-green-400/30">
+                <Badge className="bg-green-400/20 text-green-300 border-green-400/30 text-xs px-2 py-1 whitespace-nowrap">
                   {isTrading ? 'ACTIVE' : 'STANDBY'}
                 </Badge>
               </div>
@@ -172,7 +172,7 @@ export default function TradingDashboard() {
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
                 <Brain className="h-6 w-6 text-cyan-400" />
-                <Badge className="bg-cyan-400/20 text-cyan-300 border-cyan-400/30">
+                <Badge className="bg-cyan-400/20 text-cyan-300 border-cyan-400/30 text-xs px-2 py-1 whitespace-nowrap">
                   QUANTUM
                 </Badge>
               </div>
@@ -192,7 +192,7 @@ export default function TradingDashboard() {
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
                 <TrendingUp className="h-6 w-6 text-blue-400" />
-                <Badge className="bg-blue-400/20 text-blue-300 border-blue-400/30">
+                <Badge className="bg-blue-400/20 text-blue-300 border-blue-400/30 text-xs px-2 py-1 whitespace-nowrap">
                   SCANNING
                 </Badge>
               </div>
@@ -202,8 +202,10 @@ export default function TradingDashboard() {
                 {signals.length}
               </div>
               <p className="text-sm text-gray-400">Active Signals</p>
-              <div className="mt-3 text-xs text-blue-300/70">
-                Pump.fun • Twitter • RSS Intelligence
+              <div className="mt-3 text-xs text-blue-300/70 flex flex-wrap gap-1">
+                <span className="px-2 py-0.5 bg-blue-500/20 rounded">Pump.fun</span>
+                <span className="px-2 py-0.5 bg-blue-500/20 rounded">Twitter</span>
+                <span className="px-2 py-0.5 bg-blue-500/20 rounded">RSS</span>
               </div>
             </CardContent>
           </Card>
@@ -212,7 +214,7 @@ export default function TradingDashboard() {
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
                 <Shield className="h-6 w-6 text-purple-400" />
-                <Badge className="bg-purple-400/20 text-purple-300 border-purple-400/30">
+                <Badge className="bg-purple-400/20 text-purple-300 border-purple-400/30 text-xs px-2 py-1 whitespace-nowrap">
                   SECURED
                 </Badge>
               </div>

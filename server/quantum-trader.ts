@@ -473,6 +473,7 @@ export class QuantumTrader {
       }
 
       await db.insert(tradingSignals).values({
+        agentId: this.agentId,
         tokenAddress: this.getTokenAddress(decision.token),
         signalType: decision.action,
         confidence: decision.confidence.toString(),
