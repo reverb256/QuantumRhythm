@@ -48,6 +48,7 @@ function Router() {
     if (location === '/values') return 'values';
     if (location === '/dashboard') return 'dashboard';
     if (location === '/trading-dashboard') return 'trading-dashboard';
+    if (location === '/cloudflare') return 'cloudflare';
     if (location === '/technical-deep-dive') return 'technical-deep-dive';
     return 'home';
   };
@@ -67,6 +68,7 @@ function Router() {
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/trading" component={TradingDashboard} />
           <Route path="/defi" component={DeFiDashboard} />
+          <Route path="/cloudflare" component={CloudflareOptimization} />
           <Route path="/technical" component={TechnicalDeepDive} />
           <Route path="/legal" component={Legal} />
           <Route component={NotFound} />
