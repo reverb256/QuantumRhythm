@@ -70,6 +70,7 @@ function Router() {
     if (location === '/') return 'home';
     if (location === '/projects') return 'projects';
     if (location === '/philosophy') return 'philosophy';
+    if (location === '/consciousness-map') return 'consciousness-map';
     if (location === '/vrchat') return 'vrchat';
     if (location === '/values') return 'values';
     if (location === '/dashboard') return 'dashboard';
