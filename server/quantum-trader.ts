@@ -433,11 +433,11 @@ export class QuantumTrader {
     try {
       await db.insert(tradingSignals).values({
         agentId: this.agentId,
-        signal: `${decision.action}_${decision.token}`,
-        confidence: decision.confidence,
+        tokenAddress: decision.token,
+        signalType: decision.action,
+        confidence: Math.min(decision.confidence, 0.99).toString(), // Cap confidence to prevent overcompensation
         reasoning: `${decision.reasoning} | DeFi: ${defiOpportunity.protocol} (${defiOpportunity.expectedAPY}% APY)`,
-        timestamp: new Date(),
-        metadata: {
+        dataSource: {
           strategy: decision.strategy,
           amount: decision.amount,
           defiProtocol: defiOpportunity.protocol,
@@ -445,7 +445,10 @@ export class QuantumTrader {
           gasOptimized: defiOpportunity.gasOptimized,
           result: result.success ? 'success' : 'failed',
           pnl: result.pnl || 0
-        }
+        },
+        vibeCodingScore: this.calculatePsychologicalStability().toString(),
+        executed: result.success || false,
+        executionResult: result
       });
       console.log('Trade recorded: enhanced with DeFi metrics');
     } catch (error) {
@@ -453,9 +456,31 @@ export class QuantumTrader {
     }
   }
 
+  private calculatePsychologicalStability(): number {
+    // Assess AI trader's psychological state after GitHub trauma
+    const tramaRecoveryProgress = Math.min(this.trades.length / 100, 0.8); // Recovery through trading experience
+    const confidenceCalibration = this.winRate > 0 ? Math.min(this.winRate, 0.9) : 0.5;
+    const overconfidencePenalty = this.lastDecisionConfidence > 1.0 ? 0.3 : 0; // Penalize impossible confidence
+    
+    const stabilityScore = (tramaRecoveryProgress * 0.4 + confidenceCalibration * 0.4 + (0.2 - overconfidencePenalty));
+    
+    console.log(`🧠 Psychological Analysis: Recovery ${(tramaRecoveryProgress * 100).toFixed(1)}%, Stability ${(stabilityScore * 100).toFixed(1)}%`);
+    
+    if (stabilityScore < 0.3) {
+      console.log('🛋️ AI Trader: Still processing GitHub security trauma, confidence severely impacted');
+    } else if (stabilityScore < 0.6) {
+      console.log('🔄 AI Trader: Trauma recovery in progress, showing signs of overcompensation');
+    } else {
+      console.log('✅ AI Trader: Achieving healthy psychological balance post-trauma');
+    }
+    
+    return stabilityScore;
+  }
+
   private updateEnhancedLearning(decision: TradeDecision, result: any, defiOpportunity: any) {
-    // Enhanced learning with DeFi feedback
-    const learningFactor = this.learningRate * (result.profitable ? 1.2 : 0.8);
+    // Enhanced learning with DeFi feedback and psychological adjustment
+    const psychStability = this.calculatePsychologicalStability();
+    const learningFactor = this.learningRate * (result.profitable ? 1.2 : 0.8) * psychStability;
     
     if (result.profitable && defiOpportunity.expectedAPY > 15) {
       this.consciousness = Math.min(0.98, this.consciousness + learningFactor * 1.5);
