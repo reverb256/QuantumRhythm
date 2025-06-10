@@ -3,97 +3,97 @@ import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
 import Navigation from '@/components/navigation';
 
+const philosophySections = [
+  {
+    id: 'dojo-kun',
+    title: 'Dojo Kun Ethics',
+    subtitle: 'Five Principles of Shotokan Karate Applied to Code',
+    principles: [
+      {
+        symbol: '求',
+        name: 'Seek Perfection of Character',
+        description: 'Through rigorous code review, TypeScript strict mode, and continuous learning, we develop technical character that reflects inner discipline.'
+      },
+      {
+        symbol: '誠',
+        name: 'Be Faithful',
+        description: 'Honor commitments to users through accessibility excellence, security practices, and transparent communication about system capabilities.'
+      },
+      {
+        symbol: '努',
+        name: 'Endeavor to Excel',
+        description: 'Push beyond minimum viable products toward exceptional user experiences that demonstrate mastery and dedication to craft.'
+      },
+      {
+        symbol: '礼',
+        name: 'Respect Others',
+        description: 'Design interfaces honoring human dignity, implement WCAG AAA compliance, and create technology that serves without condescension.'
+      },
+      {
+        symbol: '慎',
+        name: 'Refrain from Violent Behavior',
+        description: 'Reject exploitative algorithms, dark patterns, and surveillance capitalism in favor of ethical AI that preserves human agency.'
+      }
+    ]
+  },
+  {
+    id: 'charter-values',
+    title: 'Canadian Charter Values',
+    subtitle: 'Fundamental Rights in Digital Implementation',
+    principles: [
+      {
+        symbol: '⚖️',
+        name: 'Equality Rights',
+        description: 'Technology must serve all Canadians regardless of ability, language, or background through universal design principles.'
+      },
+      {
+        symbol: '🗣️',
+        name: 'Fundamental Freedoms',
+        description: 'Protect freedom of expression while preventing algorithmic manipulation of democratic discourse.'
+      },
+      {
+        symbol: '🔒',
+        name: 'Legal Rights',
+        description: 'Due process in automated systems, transparent algorithms, and protection against unreasonable digital search.'
+      },
+      {
+        symbol: '🌐',
+        name: 'Language Rights',
+        description: 'Bilingual French-English implementation respecting Canada\'s linguistic duality in all digital interfaces.'
+      }
+    ]
+  },
+  {
+    id: 'ai-consciousness',
+    title: 'AI Consciousness Framework',
+    subtitle: 'Ethical Artificial Intelligence Development',
+    principles: [
+      {
+        symbol: '🧠',
+        name: 'Human-AI Partnership',
+        description: 'AI augments human capability without replacing human judgment, preserving meaningful human agency in all decisions.'
+      },
+      {
+        symbol: '🔍',
+        name: 'Transparent Operations',
+        description: 'All AI systems must be auditable, explainable, and open to democratic oversight and public accountability.'
+      },
+      {
+        symbol: '⚡',
+        name: 'Continuous Learning',
+        description: 'AI systems adapt and improve while maintaining core ethical constraints and human-defined value alignment.'
+      },
+      {
+        symbol: '🛡️',
+        name: 'Safety Protocols',
+        description: 'Emergency stop systems, gradual capability deployment, and robust testing prevent harmful AI behavior.'
+      }
+    ]
+  }
+];
+
 export default function PhilosophyPage() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [activeSection, setActiveSection] = useState(0);
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
-  const philosophySections = [
-    {
-      id: 'vibecoding',
-      title: 'VibeCoding Constitution',
-      subtitle: 'Five Pillars of Conscious Development',
-      principles: [
-        {
-          name: 'Seeking Perfection of Character',
-          description: 'Continuous pursuit of excellence in both code quality and personal integrity. Every commit reflects our commitment to growth and mastery.',
-          symbol: '完'
-        },
-        {
-          name: 'Faithfulness',
-          description: 'Unwavering dedication to users, collaborative principles, and the ethical foundations that guide our craft.',
-          symbol: '信'
-        },
-        {
-          name: 'Endeavoring to Excel',
-          description: 'Striving for technical mastery while maintaining humility. Excellence as a journey, not a destination.',
-          symbol: '努'
-        },
-        {
-          name: 'Respecting Others',
-          description: 'Creating inclusive, accessible designs that honor human dignity and diverse perspectives.',
-          symbol: '礼'
-        },
-        {
-          name: 'Controlling Self',
-          description: 'Disciplined development practices, emotional regulation, and conscious decision-making in technical choices.',
-          symbol: '制'
-        }
-      ]
-    },
-    {
-      id: 'charter',
-      title: 'Charter Values Integration',
-      subtitle: 'Canadian Rights in Digital Spaces',
-      principles: [
-        {
-          name: 'Freedom of Expression',
-          description: 'Code as speech - protecting creative expression and authentic communication in digital interfaces.',
-          symbol: '言'
-        },
-        {
-          name: 'Equality Rights',
-          description: 'Ensuring equal access and opportunity through inclusive design and accessibility standards.',
-          symbol: '平'
-        },
-        {
-          name: 'Privacy Protection',
-          description: 'Safeguarding user data with the same reverence we hold for human dignity and autonomy.',
-          symbol: '私'
-        }
-      ]
-    },
-    {
-      id: 'consciousness',
-      title: 'AI-Human Collaboration',
-      subtitle: 'Consciousness-Driven Partnership',
-      principles: [
-        {
-          name: 'Human Sovereignty',
-          description: 'AI enhances human capability without replacing human judgment, creativity, or moral responsibility.',
-          symbol: '主'
-        },
-        {
-          name: 'Ethical Enhancement',
-          description: 'AI integration guided by martial arts ethics - power balanced with restraint and wisdom.',
-          symbol: '倫'
-        },
-        {
-          name: 'Consciousness Preservation',
-          description: 'Maintaining awareness of the human element in every technical decision and system design.',
-          symbol: '意'
-        }
-      ]
-    }
-  ];
 
   return (
     <main className="min-h-screen relative overflow-hidden">

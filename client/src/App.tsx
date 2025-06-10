@@ -78,6 +78,9 @@ function Router() {
     if (location === '/ai-onboarding') return 'ai-onboarding';
     if (location === '/agent-insights') return 'agent-insights';
     if (location === '/legal') return 'legal';
+    if (location === '/workplace-janitorial') return 'workplace-janitorial';
+    if (location === '/troves-coves') return 'troves-coves';
+    if (location === '/frostbite-gazette') return 'frostbite-gazette';
     return 'home';
   };
 
@@ -103,6 +106,9 @@ function Router() {
           <Route path="/ai-onboarding" component={AIOnboarding} />
           <Route path="/agent-insights" component={AgentInsights} />
           <Route path="/legal" component={Legal} />
+          <Route path="/workplace-janitorial" component={WorkplaceJanitorial} />
+          <Route path="/troves-coves" component={TrovesCoves} />
+          <Route path="/frostbite-gazette" component={FrostbiteGazette} />
           <Route component={NotFound} />
         </Switch>
       </BreathingPageWrapper>
