@@ -2,10 +2,16 @@ import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import { legalComplianceAgent } from "./legal-compliance-agent";
+import { dataProtection } from "./data-protection-middleware";
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+// Initialize data protection middleware to sanitize all responses
+app.use(dataProtection.protectResponse());
+dataProtection.protectConsoleOutput();
+dataProtection.monitorDataExposure();
 
 app.use((req, res, next) => {
   const start = Date.now();

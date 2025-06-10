@@ -205,8 +205,16 @@ export class DataProtectionMiddleware {
     }
     
     // Additional checks for wallet addresses in any form
-    if (originalJson.includes('PAYOUT_TOKEN') || originalJson.includes('BqAoRFm6WF2zpTV1Fj8di3BvsTuSkGMPWewrwc9RtMPR')) {
-      violations.push('Wallet address potentially exposed');
+    const sensitiveStrings = [
+      'PAYOUT_TOKEN', 'BqAoRFm6WF2zpTV1Fj8di3BvsTuSkGMPWewrwc9RtMPR',
+      'JA63CrEdqjK6cyEkGquuYmk4xyTVgTXSFABZDNW3Qnfj', 'DATABASE_URL',
+      'ANTHROPIC_API_KEY', 'PERPLEXITY_API_KEY'
+    ];
+    
+    for (const sensitiveString of sensitiveStrings) {
+      if (originalJson.includes(sensitiveString)) {
+        violations.push(`Sensitive data detected: ${sensitiveString.substring(0, 8)}...`);
+      }
     }
     
     return {
