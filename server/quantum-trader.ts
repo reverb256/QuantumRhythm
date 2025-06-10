@@ -44,15 +44,16 @@ export class QuantumTrader {
       
       if (existingAgent.length === 0) {
         await db.insert(tradingAgents).values({
-          id: this.agentId,
           name: 'Quantum Trader AI',
           status: 'active',
-          targetTokens: ['SOL', 'BONK', 'JUP', 'ORCA', 'RAY'],
-          tradingStrategies: ['quantum_analysis', 'momentum_following', 'trend_reversal', 'stoic_contrarian_chaos'],
-          riskParameters: {
-            maxPositionSize: 0.25,
-            gasReserve: this.gasReserve,
-            maxGasFee: this.maxGasFeePerTrade
+          configuration: {
+            targetTokens: ['SOL', 'BONK', 'JUP', 'ORCA', 'RAY'],
+            tradingStrategies: ['quantum_analysis', 'momentum_following', 'trend_reversal', 'stoic_contrarian_chaos'],
+            riskParameters: {
+              maxPositionSize: 0.25,
+              gasReserve: this.gasReserve,
+              maxGasFee: this.maxGasFeePerTrade
+            }
           },
           performanceMetrics: {
             totalTrades: 0,

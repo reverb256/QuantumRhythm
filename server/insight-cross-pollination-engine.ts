@@ -120,11 +120,12 @@ export class InsightCrossPollinationEngine {
     const insights: CrossPollinatedInsight[] = [];
     
     try {
-      // Simulate market data for now since schema needs updating
-      const recentStreams = [
-        { id: 'mock-1', source: 'pumpfun_scanner', data: { signal_strength: 0.8, actionability: 0.7 } },
-        { id: 'mock-2', source: 'twitter_scanner', data: { signal_strength: 0.75, actionability: 0.65 } }
-      ];
+      // Get recent market data streams from authentic sources
+      const recentStreams = await db.select()
+        .from(marketDataStreams)
+        .where(eq(marketDataStreams.processed, false))
+        .orderBy(desc(marketDataStreams.timestamp))
+        .limit(20);
 
       for (const stream of recentStreams) {
         const marketData = stream.data as any;
