@@ -37,7 +37,7 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-black text-white relative overflow-hidden light-infused page-anaxa">
+    <div className="min-h-screen bg-black text-white relative overflow-hidden">
       <ConsciousnessAura consciousness={consciousness} />
       <ConsciousnessIndicator consciousness={consciousness} />
       <Navigation />
@@ -51,7 +51,7 @@ export default function HomePage() {
       />
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center px-6 z-20 pt-20">
+      <section className="relative min-h-screen flex items-center px-6 z-20 pt-24">
         <div className="max-w-7xl mx-auto w-full">
           <div className="flex flex-col items-center text-center space-y-12">
             

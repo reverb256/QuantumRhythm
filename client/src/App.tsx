@@ -17,6 +17,7 @@ import { BreathingPageWrapper } from "@/components/breathing-animation";
 import Home from "@/pages/home";
 import Projects from "@/pages/projects";
 import Philosophy from "@/pages/philosophy";
+import ConsciousnessMapPage from "@/pages/consciousness-map";
 import Values from "@/pages/values";
 import VRChat from "@/pages/VRChat";
 import Dashboard from "@/pages/Dashboard";
@@ -97,6 +98,7 @@ function Router() {
           <Route path="/" component={Home} />
           <Route path="/projects" component={Projects} />
           <Route path="/philosophy" component={Philosophy} />
+          <Route path="/consciousness-map" component={ConsciousnessMapPage} />
           <Route path="/values" component={Values} />
           <Route path="/vrchat" component={VRChat} />
           <Route path="/dashboard" component={TradingDashboard} />
