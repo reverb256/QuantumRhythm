@@ -80,6 +80,31 @@ app.use((req, res, next) => {
     }
   }, 3000);
 
+  // Initialize secure wallet manager
+  console.log('🔐 Initializing Secure Wallet Manager...');
+  setTimeout(async () => {
+    try {
+      const { secureWallet } = await import('./secure-wallet-manager');
+      
+      // Check wallet balance and security compliance
+      const [walletInfo, compliance] = await Promise.all([
+        secureWallet.getWalletBalance(),
+        secureWallet.validateSecurityCompliance()
+      ]);
+      
+      if (walletInfo.isValid) {
+        console.log(`💳 Authorized Wallet: ${walletInfo.address}`);
+        console.log(`💰 Current Balance: ${walletInfo.solBalance.toFixed(6)} SOL`);
+        console.log(`🔒 Security: ${compliance.compliant ? 'COMPLIANT' : 'VIOLATIONS DETECTED'}`);
+      } else {
+        console.log('❌ Wallet validation failed - payout operations disabled');
+      }
+      
+    } catch (error) {
+      console.error('Secure wallet manager initialization failed:', error);
+    }
+  }, 4000);
+
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
