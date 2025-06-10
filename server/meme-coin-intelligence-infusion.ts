@@ -258,11 +258,12 @@ ${topStrategies.map(s => `• ${s.name}: ${s.description}`).join('\n')}
     };
   }
 
-  public getRiskParameters(): { maxSinglePosition: number; quickExitThreshold: number; stopLoss: number } {
+  public getRiskParameters(): { maxSinglePosition: number; quickExitThreshold: number; stopLoss: number; unhingedAllocation: number } {
     return {
-      maxSinglePosition: 0.05, // Max 5% capital per coin
-      quickExitThreshold: 2.0, // Exit at 2x profit for quick gains
-      stopLoss: 0.15 // 15% stop loss for meme coins
+      maxSinglePosition: 0.15, // Max 15% capital per unhinged trade
+      quickExitThreshold: 3.0, // Exit at 3x profit for massive gains
+      stopLoss: 0.25, // 25% stop loss for unhinged positions
+      unhingedAllocation: 0.15 // 15% total allocation for unhinged tradinge coins
     };
   }
 }

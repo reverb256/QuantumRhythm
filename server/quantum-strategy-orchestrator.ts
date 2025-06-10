@@ -11,7 +11,7 @@ import { crossChainArbitrageEngine } from './cross-chain-arbitrage-engine';
 interface StrategyAllocation {
   strategy: string;
   allocation: number;
-  riskLevel: 'low' | 'medium' | 'high';
+  riskLevel: 'low' | 'medium' | 'high' | 'extreme';
   expectedReturn: number;
   maxDrawdown: number;
   timeHorizon: string;
@@ -41,7 +41,7 @@ export class QuantumStrategyOrchestrator {
     const baseStrategies: StrategyAllocation[] = [
       {
         strategy: 'drift_leverage',
-        allocation: 0.25,
+        allocation: 0.20,
         riskLevel: 'high',
         expectedReturn: 0.35,
         maxDrawdown: 0.20,
@@ -50,7 +50,7 @@ export class QuantumStrategyOrchestrator {
       },
       {
         strategy: 'jupiter_dca',
-        allocation: 0.20,
+        allocation: 0.25,
         riskLevel: 'low',
         expectedReturn: 0.15,
         maxDrawdown: 0.08,
@@ -59,7 +59,7 @@ export class QuantumStrategyOrchestrator {
       },
       {
         strategy: 'jupiter_grid',
-        allocation: 0.15,
+        allocation: 0.20,
         riskLevel: 'medium',
         expectedReturn: 0.22,
         maxDrawdown: 0.12,
@@ -76,20 +76,11 @@ export class QuantumStrategyOrchestrator {
         active: true
       },
       {
-        strategy: 'cross_chain_arbitrage',
+        strategy: 'unhinged_trading',
         allocation: 0.15,
-        riskLevel: 'medium',
-        expectedReturn: 0.25,
-        maxDrawdown: 0.10,
-        timeHorizon: 'short',
-        active: true
-      },
-      {
-        strategy: 'flash_loan_arbitrage',
-        allocation: 0.05,
-        riskLevel: 'high',
-        expectedReturn: 0.45,
-        maxDrawdown: 0.25,
+        riskLevel: 'extreme',
+        expectedReturn: 0.55,
+        maxDrawdown: 0.35,
         timeHorizon: 'very_short',
         active: true
       }
