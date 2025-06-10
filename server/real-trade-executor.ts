@@ -43,8 +43,15 @@ export class RealTradeExecutor {
       try {
         let decoded: Uint8Array;
         
+        // Handle JSON array format first (most common for Solana)
+        if (privateKey.startsWith('[') && privateKey.endsWith(']')) {
+          console.log('🔍 Trying JSON array format');
+          const keyArray = JSON.parse(privateKey);
+          decoded = new Uint8Array(keyArray);
+          console.log(`✅ JSON array parsed successfully, ${decoded.length} bytes`);
+        }
         // Try different private key formats
-        if (privateKey.length === 128) {
+        else if (privateKey.length === 128) {
           // Hex format (64 bytes as hex string)
           console.log('🔍 Trying hex format (128 chars)');
           decoded = new Uint8Array(Buffer.from(privateKey, 'hex'));
