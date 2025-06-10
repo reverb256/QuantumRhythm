@@ -11,6 +11,7 @@ import { NewsIntelligenceAggregator } from './news-intelligence-aggregator.js';
 import { aiService } from './ai-service.js';
 import { ioIntelligenceMaximizer } from './io-intelligence-maximizer.js';
 import { tradingMonitor } from './trading-monitor.js';
+import { streamlinedTradingEngine } from './streamlined-trading-engine.js';
 
 interface TradeDecision {
   action: 'BUY' | 'SELL' | 'HOLD';
@@ -222,8 +223,25 @@ export class QuantumTrader {
         return;
       }
 
+      // CRITICAL FIX: Validate trade amount before execution
+      if (decision.amount <= 0) {
+        console.log(`⚠️ Skipping trade execution - invalid amount: ${decision.amount}`);
+        tradingMonitor.reportTradeAttempt(decision.amount, decision.confidence, false);
+        return;
+      }
+
+      // Cap extreme confidence levels
+      const cappedConfidence = Math.min(decision.confidence, 0.95);
+      if (decision.confidence > 1.0) {
+        console.log(`🧠 Monitor: Capping overconfidence ${(decision.confidence * 100).toFixed(1)}% → 95%`);
+        decision.confidence = cappedConfidence;
+      }
+
       // Execute the trade with DeFi optimization
       const result = await this.performEnhancedTrade(decision, defiOpportunity);
+      
+      // Report trade attempt to monitor
+      tradingMonitor.reportTradeAttempt(decision.amount, decision.confidence, result.success, result.pnl);
       
       if (result.success) {
         this.totalTrades++;
@@ -289,31 +307,26 @@ export class QuantumTrader {
   }
 
   private async generateEnhancedTradeDecision(defiOpportunity: any): Promise<TradeDecision> {
-    // Enhanced decision generation with pump.fun integration and leverage
-    const marketTrend = this.analyzeMarketTrend();
-    const portfolioBalance = this.calculatePortfolioValue();
+    // Use streamlined engine instead of complex redundant calculations
+    const marketContext = {
+      balance: this.portfolio.SOL,
+      trend: this.analyzeMarketTrend(),
+      volatility: 0.3,
+      recentPerformance: this.totalTrades > 0 ? this.successfulTrades / this.totalTrades : 0
+    };
+
+    const streamlinedDecision = await streamlinedTradingEngine.generateDecision(marketContext);
     
-    // Dynamic risk allocation based on opportunity type
-    const baseAllocation = this.calculateDynamicAllocation(defiOpportunity, marketTrend);
-    const riskTolerance = this.calculateEnhancedRiskTolerance(defiOpportunity);
-    
-    // Quantum consciousness factor with aggressive enhancement
-    const quantumFactor = Math.sin(Date.now() / 10000) * this.consciousness;
-    let confidence = 0.7 + Math.random() * 0.25; // Higher base confidence for live trading
-    confidence *= (1 + quantumFactor * 0.3);
-    confidence *= (1 + defiOpportunity.multiplier * 0.15); // Stronger boost
-    
-    // Conservative token selection after learning from failures (excluding SOL to prevent SOL → SOL trades)
-    const safeTokens = ['BONK', 'JUP', 'ORCA', 'RAY', 'USDC'];
-    const selectedToken = this.selectEnhancedToken(safeTokens, marketTrend, defiOpportunity);
-    
-    // Adaptive action determination with realistic trading thresholds
-    let action: 'BUY' | 'SELL' | 'HOLD' = 'HOLD';
-    let strategy = `adaptive_${defiOpportunity.protocol}`;
-    let reasoning = `Monitoring market conditions with adaptive thresholds`;
-    
-    // Live trading with moderate confidence thresholds
-    const winRate = this.totalTrades > 0 ? this.successfulTrades / this.totalTrades : 0;
+    // Convert to TradeDecision format
+    return {
+      action: streamlinedDecision.action,
+      token: streamlinedDecision.token,
+      confidence: streamlinedDecision.confidence,
+      amount: streamlinedDecision.amount,
+      strategy: streamlinedDecision.strategy,
+      reasoning: streamlinedDecision.reasoning,
+      unhinged: false
+    };
     
     if (confidence > 0.80 && marketTrend > 0.7 && defiOpportunity.expectedAPY > 10) {
       action = 'BUY';
