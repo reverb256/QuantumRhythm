@@ -53,9 +53,9 @@ export default function HomePage() {
                 </h1>
                 
                 <p className="text-xl md:text-2xl text-gray-300 max-w-2xl leading-relaxed">
-                  Autonomous trading platform powered by advanced AI consciousness.
+                  Autonomous trading portfolio demonstrating advanced AI-driven strategies.
                   <span className="block text-cyan-400 font-medium mt-2">
-                    Real-time DeFi optimization with multi-chain intelligence.
+                    Live DeFi analysis with real Solana blockchain integration.
                   </span>
                 </p>
               </div>
