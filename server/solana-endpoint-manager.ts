@@ -166,10 +166,17 @@ export class SolanaEndpointManager {
         // Mark endpoint as healthy again on success
         endpoint.isHealthy = true;
         
+        // Record successful request in monitor
+        rateLimitMonitor.recordRequest(true, responseTime);
+        
         return result;
       } catch (error: any) {
         lastError = error;
         endpoint.errorCount++;
+        
+        // Record failed request in monitor
+        const responseTime = Date.now() - start;
+        rateLimitMonitor.recordRequest(false, responseTime, error.message);
         
         // If rate limited, implement circuit breaker pattern
         if (error.message?.includes('429') || error.message?.includes('Too Many Requests')) {
