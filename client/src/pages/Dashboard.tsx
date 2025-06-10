@@ -29,8 +29,9 @@ export default function Dashboard() {
   });
 
   // Safe data access with proper types
-  const status = agentStatus?.status || 'Loading...';
-  const lastActivity = agentStatus?.lastActivity || 'Initializing...';
+  const status = typeof agentStatus?.status === 'string' ? agentStatus.status : 
+                typeof agentStatus?.status === 'object' ? 'Active' : 'Loading...';
+  const lastActivity = typeof agentStatus?.lastActivity === 'string' ? agentStatus.lastActivity : 'Initializing...';
   const winRate = agentStatus?.performanceMetrics?.winRate || 0;
   const overallScore = vibeMetrics?.overallScore || 0.87;
   const pizzaReliability = vibeMetrics?.pizzaKitchenReliability || 0.85;
