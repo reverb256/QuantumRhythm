@@ -1,6 +1,6 @@
 import { Connection, PublicKey, ParsedTransactionWithMeta } from '@solana/web3.js';
 import { dataProtection } from './data-protection-middleware';
-import { intelligentRateLimiter } from './intelligent-rate-limiter';
+import { solanaEndpointManager } from './solana-endpoint-manager';
 
 interface RealProfitAnalysis {
   actualBalance: number;
@@ -33,22 +33,18 @@ export class RealTimeProfitTracker {
     try {
       const publicKey = new PublicKey(this.walletAddress);
       
-      // Get current balance with rate limiting
-      const balance = await intelligentRateLimiter.makeRequest(
-        'solana-rpc',
-        async (url) => {
-          const conn = new Connection(url, 'confirmed');
-          return await conn.getBalance(publicKey);
+      // Get current balance using endpoint manager
+      const balance = await solanaEndpointManager.makeRequest(
+        async (connection) => {
+          return await connection.getBalance(publicKey);
         }
       );
       const actualBalance = balance / 1_000_000_000; // Convert lamports to SOL
       
-      // Get transaction history with rate limiting
-      const signatures = await intelligentRateLimiter.makeRequest(
-        'solana-rpc',
-        async (url) => {
-          const conn = new Connection(url, 'confirmed');
-          return await conn.getSignaturesForAddress(publicKey, { limit: 50 });
+      // Get transaction history using endpoint manager
+      const signatures = await solanaEndpointManager.makeRequest(
+        async (connection) => {
+          return await connection.getSignaturesForAddress(publicKey, { limit: 20 });
         }
       );
       
@@ -70,13 +66,11 @@ export class RealTimeProfitTracker {
       for (let i = 0; i < recentSignatures.length; i += batchSize) {
         const batch = recentSignatures.slice(i, i + batchSize);
         
-        const batchPromises = batch.map(async (sig) => {
+        const batchPromises = batch.map(async (sig: any) => {
           try {
-            return await intelligentRateLimiter.makeRequest(
-              'solana-rpc',
-              async (url) => {
-                const conn = new Connection(url, 'confirmed');
-                return await conn.getParsedTransaction(sig.signature, {
+            return await solanaEndpointManager.makeRequest(
+              async (connection) => {
+                return await connection.getParsedTransaction(sig.signature, {
                   maxSupportedTransactionVersion: 0
                 });
               }
@@ -89,7 +83,7 @@ export class RealTimeProfitTracker {
         const batchResults = await Promise.all(batchPromises);
         
         // Process batch results
-        batch.forEach((sig, index) => {
+        batch.forEach((sig: any, index: number) => {
           const tx = batchResults[index];
           if (tx && tx.meta) {
             const fee = tx.meta.fee / 1_000_000_000;

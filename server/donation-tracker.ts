@@ -1,5 +1,6 @@
 import { Keypair, Connection, PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js';
 import { db } from './db';
+import { solanaEndpointManager } from './solana-endpoint-manager';
 
 // Generate a dedicated donation wallet (different from trading wallet)
 const donationKeypair = Keypair.generate();
@@ -19,23 +20,29 @@ interface DonationRecord {
 }
 
 export class DonationTracker {
-  private connection: Connection;
   private totalDonations: number = 0;
   private donationCount: number = 0;
 
   constructor() {
-    this.connection = new Connection('https://api.mainnet-beta.solana.com');
     this.initializeTracking();
   }
 
   private async initializeTracking() {
     try {
-      // Get current balance and transaction history
-      const balance = await this.connection.getBalance(donationKeypair.publicKey);
+      // Get current balance using endpoint manager
+      const balance = await solanaEndpointManager.makeRequest(
+        async (connection) => {
+          return await connection.getBalance(donationKeypair.publicKey);
+        }
+      );
       this.totalDonations = balance / LAMPORTS_PER_SOL;
       
-      // Get transaction history to count donations
-      const signatures = await this.connection.getSignaturesForAddress(donationKeypair.publicKey);
+      // Get transaction history using endpoint manager
+      const signatures = await solanaEndpointManager.makeRequest(
+        async (connection) => {
+          return await connection.getSignaturesForAddress(donationKeypair.publicKey);
+        }
+      );
       this.donationCount = signatures.length;
       
       console.log(`💰 Donation Tracker Initialized: ${this.totalDonations} SOL from ${this.donationCount} donations`);
@@ -46,10 +53,18 @@ export class DonationTracker {
 
   async getCurrentStats() {
     try {
-      const balance = await this.connection.getBalance(donationKeypair.publicKey);
+      const balance = await solanaEndpointManager.makeRequest(
+        async (connection) => {
+          return await connection.getBalance(donationKeypair.publicKey);
+        }
+      );
       const currentBalance = balance / LAMPORTS_PER_SOL;
       
-      const signatures = await this.connection.getSignaturesForAddress(donationKeypair.publicKey);
+      const signatures = await solanaEndpointManager.makeRequest(
+        async (connection) => {
+          return await connection.getSignaturesForAddress(donationKeypair.publicKey);
+        }
+      );
       const donationCount = signatures.length;
       
       return {
