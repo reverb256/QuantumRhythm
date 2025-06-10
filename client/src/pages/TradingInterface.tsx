@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import AIDeploymentDashboard from '@/components/ai-deployment-dashboard';
 import CyberTradingTerminal from '@/components/cyber-trading-terminal';
 import EdgePerformanceVisualizer from '@/components/edge-performance-visualizer';
+import AdvancedTradingStats from '@/components/advanced-trading-stats';
 
 const TradingInterface: React.FC = () => {
-  const [activeView, setActiveView] = useState<'terminal' | 'deployment' | 'edge'>('terminal');
+  const [activeView, setActiveView] = useState<'terminal' | 'deployment' | 'edge' | 'analytics'>('terminal');
 
   return (
     <div className="min-h-screen bg-black">
@@ -52,6 +53,16 @@ const TradingInterface: React.FC = () => {
               >
                 🌐 EDGE NETWORK
               </button>
+              <button
+                onClick={() => setActiveView('analytics')}
+                className={`px-4 py-2 rounded text-sm font-medium transition-all ${
+                  activeView === 'analytics'
+                    ? 'bg-green-400 text-black border border-green-400'
+                    : 'bg-black text-green-400 border border-green-400 border-opacity-50 hover:border-opacity-100'
+                }`}
+              >
+                📊 QUANTUM ANALYTICS
+              </button>
             </div>
           </div>
         </div>
@@ -64,6 +75,11 @@ const TradingInterface: React.FC = () => {
         {activeView === 'edge' && (
           <div className="p-6">
             <EdgePerformanceVisualizer />
+          </div>
+        )}
+        {activeView === 'analytics' && (
+          <div className="p-6">
+            <AdvancedTradingStats />
           </div>
         )}
       </div>

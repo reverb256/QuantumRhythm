@@ -3,6 +3,7 @@ import { createServer, type Server } from "http";
 import path from "path";
 import tradingRouter from "./routes/trading";
 import legalComplianceRouter from "./routes/legal-compliance";
+import analyticsRouter from "./routes/analytics";
 import { donationTracker } from "./donation-tracker";
 import { fileURLToPath } from "url";
 

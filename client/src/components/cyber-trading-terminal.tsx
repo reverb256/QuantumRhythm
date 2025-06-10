@@ -68,6 +68,30 @@ const CyberTradingTerminal: React.FC = () => {
     staleTime: 0
   });
 
+  const { data: liveMetrics } = useQuery({
+    queryKey: ['/api/live-metrics'],
+    refetchInterval: 1000,
+    staleTime: 0
+  });
+
+  const { data: tradingHistory } = useQuery({
+    queryKey: ['/api/trading-history'],
+    refetchInterval: 5000,
+    staleTime: 0
+  });
+
+  const { data: marketAnalysis } = useQuery({
+    queryKey: ['/api/market-analysis'],
+    refetchInterval: 3000,
+    staleTime: 0
+  });
+
+  const { data: portfolioMetrics } = useQuery({
+    queryKey: ['/api/portfolio-metrics'],
+    refetchInterval: 2000,
+    staleTime: 0
+  });
+
   const anonymizeAddress = (address: string) => {
     if (!address || address.length < 8) return 'ANON_' + Math.random().toString(36).substr(2, 6).toUpperCase();
     return address.substring(0, 4) + '****' + address.substring(address.length - 4);
