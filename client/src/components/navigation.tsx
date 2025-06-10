@@ -108,8 +108,17 @@ export default function Navigation() {
           </div>
 
           <div className="hidden md:flex space-x-8">
-            <Link href="/defi" className={`hover:text-cyan-300 transition-colors duration-300 focus-enhanced hdr-enhanced ${
-              location === '/defi' ? 'text-cyan-400' : 'text-gray-300'
+            <Link href="/cloudflare" className={`hover:text-accent transition-colors duration-300 focus-enhanced hdr-enhanced ${
+              location === '/cloudflare' ? 'text-accent' : 'text-muted-foreground'
+            }`}>
+              <div className="flex items-center space-x-2">
+                <Brain className="h-4 w-4" />
+                <span>Cloudflare AI</span>
+              </div>
+            </Link>
+            
+            <Link href="/defi" className={`hover:text-accent transition-colors duration-300 focus-enhanced hdr-enhanced ${
+              location === '/defi' ? 'text-accent' : 'text-muted-foreground'
             }`}>
               <div className="flex items-center space-x-2">
                 <Zap className="h-4 w-4" />
@@ -119,10 +128,10 @@ export default function Navigation() {
             
             <button 
               onClick={() => scrollToSection('about')} 
-              className={`hover:text-cyan-300 transition-colors duration-300 focus-enhanced hdr-enhanced ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
+              className={`hover:text-accent transition-colors duration-300 focus-enhanced hdr-enhanced ${location === '/' ? 'text-primary' : 'text-muted-foreground'}`}
               onMouseEnter={() => handleMouseEnter({
                 title: "About",
-                description: "Learn about the consciousness architect behind quantum development methodologies",
+                description: "Portfolio featuring AI-orchestrated Cloudflare optimization and oceanic design",
                 category: "Personal"
               })}
               onMouseLeave={handleMouseLeave}
@@ -132,10 +141,10 @@ export default function Navigation() {
             </button>
             <button 
               onClick={() => scrollToSection('projects')} 
-              className={`relative px-2 py-1 text-sm lg:text-base font-medium hover:text-cyan-300 transition-colors duration-300 focus-enhanced hdr-enhanced ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
+              className={`relative px-2 py-1 text-sm lg:text-base font-medium hover:text-accent transition-colors duration-300 focus-enhanced hdr-enhanced ${location === '/' ? 'text-primary' : 'text-muted-foreground'}`}
               onMouseEnter={() => handleMouseEnter({
                 title: "Projects",
-                description: "Production-ready applications showcasing VibeCoding methodology in action",
+                description: "Production-ready applications showcasing AI-orchestrated Cloudflare optimization",
                 category: "Portfolio"
               })}
               onMouseLeave={handleMouseLeave}
@@ -145,10 +154,10 @@ export default function Navigation() {
             </button>
             <button 
               onClick={() => scrollToSection('skills')} 
-              className={`relative px-2 py-1 text-sm lg:text-base font-medium hover:text-cyan-300 transition-colors duration-300 focus-enhanced hdr-enhanced ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
+              className={`relative px-2 py-1 text-sm lg:text-base font-medium hover:text-accent transition-colors duration-300 focus-enhanced hdr-enhanced ${location === '/' ? 'text-primary' : 'text-muted-foreground'}`}
               onMouseEnter={() => handleMouseEnter({
                 title: "Skills",
-                description: "Technical expertise spanning infrastructure, development, and consciousness research",
+                description: "Technical expertise in AI orchestration, edge optimization, and portfolio development",
                 category: "Technical"
               })}
               onMouseLeave={handleMouseLeave}
@@ -158,10 +167,10 @@ export default function Navigation() {
             </button>
             <Link 
               href="/values"
-              className={`relative px-2 py-1 text-sm lg:text-base font-medium hover:text-cyan-300 transition-colors duration-300 focus-enhanced link-enhanced hdr-enhanced ${location === '/values' ? 'text-cyan-300' : 'text-gray-400'}`}
+              className={`relative px-2 py-1 text-sm lg:text-base font-medium hover:text-accent transition-colors duration-300 focus-enhanced link-enhanced hdr-enhanced ${location === '/values' ? 'text-accent' : 'text-muted-foreground'}`}
               onMouseEnter={() => handleMouseEnter({
                 title: "Values",
-                description: "Ethical framework and principles guiding development decisions",
+                description: "Ethical framework and principles guiding portfolio development",
                 category: "Philosophy"
               })}
               onMouseLeave={handleMouseLeave}
@@ -171,7 +180,7 @@ export default function Navigation() {
               {location === '/values' && (
                 <motion.div
                   layoutId="activeTab"
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-400"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary to-accent"
                   initial={false}
                   transition={{ type: "spring", stiffness: 500, damping: 30 }}
                 />
@@ -179,7 +188,7 @@ export default function Navigation() {
             </Link>
             <Link 
               href="/vrchat"
-              className={`relative px-2 py-1 text-sm lg:text-base font-medium hover:text-cyan-300 transition-colors duration-300 focus-enhanced link-enhanced hdr-enhanced ${location === '/vrchat' ? 'text-cyan-300' : 'text-gray-400'}`}
+              className={`relative px-2 py-1 text-sm lg:text-base font-medium hover:text-accent transition-colors duration-300 focus-enhanced link-enhanced hdr-enhanced ${location === '/vrchat' ? 'text-accent' : 'text-muted-foreground'}`}
               onMouseEnter={() => handleMouseEnter({
                 title: "VR Research",
                 description: "4,320 hours of virtual reality consciousness exploration and social interaction research",
