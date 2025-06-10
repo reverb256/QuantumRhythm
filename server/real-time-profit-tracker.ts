@@ -68,7 +68,7 @@ export class RealTimeProfitTracker {
         
         const batchPromises = batch.map(async (sig: any) => {
           try {
-            return await solanaEndpointManager.makeRequest(
+            return await smartAPIOrchestrator.makeRequest(
               async (connection) => {
                 return await connection.getParsedTransaction(sig.signature, {
                   maxSupportedTransactionVersion: 0

@@ -29,16 +29,16 @@ export class DonationTracker {
 
   private async initializeTracking() {
     try {
-      // Get current balance using endpoint manager
-      const balance = await solanaEndpointManager.makeRequest(
+      // Get current balance using Smart API Orchestrator
+      const balance = await smartAPIOrchestrator.makeRequest(
         async (connection) => {
           return await connection.getBalance(donationKeypair.publicKey);
         }
       );
       this.totalDonations = balance / LAMPORTS_PER_SOL;
       
-      // Get transaction history using endpoint manager
-      const signatures = await solanaEndpointManager.makeRequest(
+      // Get transaction history using Smart API Orchestrator
+      const signatures = await smartAPIOrchestrator.makeRequest(
         async (connection) => {
           return await connection.getSignaturesForAddress(donationKeypair.publicKey);
         }
@@ -53,14 +53,14 @@ export class DonationTracker {
 
   async getCurrentStats() {
     try {
-      const balance = await solanaEndpointManager.makeRequest(
+      const balance = await smartAPIOrchestrator.makeRequest(
         async (connection) => {
           return await connection.getBalance(donationKeypair.publicKey);
         }
       );
       const currentBalance = balance / LAMPORTS_PER_SOL;
       
-      const signatures = await solanaEndpointManager.makeRequest(
+      const signatures = await smartAPIOrchestrator.makeRequest(
         async (connection) => {
           return await connection.getSignaturesForAddress(donationKeypair.publicKey);
         }
@@ -85,7 +85,7 @@ export class DonationTracker {
 
   async getRecentDonations(limit: number = 10) {
     try {
-      const signatures = await solanaEndpointManager.makeRequest(
+      const signatures = await smartAPIOrchestrator.makeRequest(
         async (connection) => {
           return await connection.getSignaturesForAddress(
             donationKeypair.publicKey,
@@ -97,7 +97,7 @@ export class DonationTracker {
       const donations = [];
       for (const sig of signatures) {
         try {
-          const tx = await solanaEndpointManager.makeRequest(
+          const tx = await smartAPIOrchestrator.makeRequest(
             async (connection) => {
               return await connection.getTransaction(sig.signature);
             }
