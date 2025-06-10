@@ -65,24 +65,32 @@ export class AIAutorouter {
   private dailyTokenTracking: Map<string, { used: number; limit: number; resetTime: Date; }>;
 
   constructor() {
-    // Initialize AI clients
-    this.anthropic = new Anthropic({
-      apiKey: process.env.ANTHROPIC_API_KEY,
-    });
+    // Initialize AI clients conditionally
+    if (process.env.ANTHROPIC_API_KEY) {
+      this.anthropic = new Anthropic({
+        apiKey: process.env.ANTHROPIC_API_KEY,
+      });
+    }
 
-    this.openai = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY,
-    });
+    if (process.env.OPENAI_API_KEY) {
+      this.openai = new OpenAI({
+        apiKey: process.env.OPENAI_API_KEY,
+      });
+    }
 
-    this.xai = new OpenAI({
-      baseURL: "https://api.x.ai/v1",
-      apiKey: process.env.XAI_API_KEY,
-    });
+    if (process.env.XAI_API_KEY) {
+      this.xai = new OpenAI({
+        baseURL: "https://api.x.ai/v1",
+        apiKey: process.env.XAI_API_KEY,
+      });
+    }
 
-    this.ioIntelligence = new OpenAI({
-      baseURL: "https://api.intelligence.io.solutions/api/v1",
-      apiKey: process.env.IO_INTELLIGENCE_API_KEY,
-    });
+    if (process.env.IO_INTELLIGENCE_API_KEY) {
+      this.ioIntelligence = new OpenAI({
+        baseURL: "https://api.intelligence.io.solutions/api/v1",
+        apiKey: process.env.IO_INTELLIGENCE_API_KEY,
+      });
+    }
 
     this.requestHistory = new Map();
     this.performanceMetrics = new Map();

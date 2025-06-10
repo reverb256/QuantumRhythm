@@ -24,6 +24,7 @@ import { DeFiDashboard } from "@/pages/DeFiDashboard";
 import CloudflareOptimization from "@/pages/CloudflareOptimization";
 import TechnicalDeepDive from "@/pages/technical-deep-dive";
 import Legal from "@/pages/Legal";
+import AIOnboarding from "@/pages/AIOnboarding";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -51,6 +52,7 @@ function Router() {
     if (location === '/trading-dashboard') return 'trading-dashboard';
     if (location === '/cloudflare') return 'cloudflare';
     if (location === '/technical-deep-dive') return 'technical-deep-dive';
+    if (location === '/ai-onboarding') return 'ai-onboarding';
     return 'home';
   };
 
@@ -71,6 +73,7 @@ function Router() {
           <Route path="/defi" component={DeFiDashboard} />
           <Route path="/cloudflare" component={CloudflareOptimization} />
           <Route path="/technical-deep-dive" component={TechnicalDeepDive} />
+          <Route path="/ai-onboarding" component={AIOnboarding} />
           <Route path="/legal" component={Legal} />
           <Route component={NotFound} />
         </Switch>

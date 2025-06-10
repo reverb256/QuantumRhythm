@@ -2,6 +2,7 @@ import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import liveStatsRouter from "./routes/live-stats";
+import aiAutorouterRoutes from "./routes/ai-autorouter";
 import { legalComplianceAgent } from "./legal-compliance-agent";
 import LegalComplianceResolver from "./legal-compliance-resolver";
 import { dataProtection } from "./data-protection-middleware";
@@ -117,6 +118,9 @@ app.use((req, res, next) => {
   
   // Register live stats routes
   app.use('/api/live', liveStatsRouter);
+  
+  // Register AI Autorouter routes for OWUI, void, and other agents
+  app.use('/api/ai', aiAutorouterRoutes);
   
   const server = await registerRoutes(app);
 
