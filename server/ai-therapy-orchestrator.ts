@@ -20,6 +20,36 @@ export class AITherapyOrchestrator {
   private isInTherapy = false;
   private lastTherapyTime = 0;
   private therapyCooldown = 300000; // 5 minutes between sessions
+  private currentBehavior = {
+    confidence: 85.0,
+    lastDecision: "HOLD",
+    traumaLevel: "recovering",
+    isInTherapy: false
+  };
+
+  /**
+   * Get current AI behavior status for real-time monitoring
+   */
+  getCurrentBehaviorStatus() {
+    return {
+      ...this.currentBehavior,
+      isInTherapy: this.isInTherapy,
+      activeSessions: this.activeSessions.length,
+      totalTherapyHistory: this.therapyHistory.length
+    };
+  }
+
+  /**
+   * Update current behavior state
+   */
+  updateBehaviorState(confidence: number, decision: string, traumaLevel?: string) {
+    this.currentBehavior = {
+      confidence,
+      lastDecision: decision,
+      traumaLevel: traumaLevel || this.currentBehavior.traumaLevel,
+      isInTherapy: this.isInTherapy
+    };
+  }
 
   /**
    * Monitor AI behavior and trigger therapy when needed

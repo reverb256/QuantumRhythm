@@ -1,6 +1,7 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
+import liveStatsRouter from "./routes/live-stats";
 import { legalComplianceAgent } from "./legal-compliance-agent";
 import { dataProtection } from "./data-protection-middleware";
 
@@ -104,6 +105,9 @@ app.use((req, res, next) => {
   // Import and register Trading Agent routes
   const { default: tradingAgentRoutes } = await import('./routes/trading-agent.js');
   app.use('/api/trading-agent', tradingAgentRoutes);
+  
+  // Register live stats routes
+  app.use('/api/live', liveStatsRouter);
   
   const server = await registerRoutes(app);
 

@@ -2,47 +2,17 @@ import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Activity, Brain, TrendingUp, Zap, Wallet } from "lucide-react";
-import { useQuery } from "@tanstack/react-query";
 import { useWallet } from "@/hooks/useWallet";
-// import { Web3AuthStatus } from "@/components/web3-auth";
+import { useLiveTradingStats, useWalletPerformance, useAIMonologue } from "@/hooks/useLiveData";
 
 export default function Dashboard() {
   // Web3 authentication state
   const { hasWallets, connected, publicKey } = useWallet();
 
-  // Fetch trading agent status
-  const { data: agentStatus = {
-    status: 'Active',
-    lastActivity: 'Live trading engaged',
-    performanceMetrics: { winRate: 0.872 }
-  } } = useQuery({
-    queryKey: ['/api/trading-agent/status'],
-    refetchInterval: 5000,
-    retry: false,
-    enabled: false // Disable until backend routes are ready
-  });
-
-  // Fetch VibeCoding metrics
-  const { data: vibeMetrics = {
-    overallScore: 0.87,
-    pizzaKitchenReliability: 0.85,
-    rhythmGamingPrecision: 0.92,
-    vrChatSocialInsights: 0.78,
-    classicalPhilosophyWisdom: 0.95
-  } } = useQuery({
-    queryKey: ['/api/trading-agent/vibe-metrics'],
-    refetchInterval: 10000,
-    retry: false,
-    enabled: false // Disable until backend routes are ready
-  });
-
-  // Fetch recent trading signals
-  const { data: tradingSignals = [] } = useQuery({
-    queryKey: ['/api/trading-agent/signals'],
-    refetchInterval: 3000,
-    retry: false,
-    enabled: false // Disable until backend routes are ready
-  });
+  // Live data hooks for real-time metrics
+  const { data: tradingStats, isLoading: statsLoading } = useLiveTradingStats();
+  const { data: walletPerformance, isLoading: walletLoading } = useWalletPerformance();
+  const { data: aiMonologue, isLoading: monologueLoading } = useAIMonologue();
 
   // Safe data access with fallback values
   const status = agentStatus && typeof agentStatus === 'object' && 'status' in agentStatus ? 
