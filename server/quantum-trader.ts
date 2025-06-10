@@ -5,6 +5,7 @@ import { aiSystemReset } from './ai-system-reset';
 import RealTradeExecutor from './real-trade-executor';
 import { TradingPairValidator } from './trading-pair-validator.js';
 import { TradingPairDiscoveryService } from './trading-pair-discovery-service.js';
+import { IntelligentTokenWhitelistManager } from './intelligent-token-whitelist-manager.js';
 
 interface TradeDecision {
   action: 'BUY' | 'SELL' | 'HOLD';
@@ -39,6 +40,7 @@ export class QuantumTrader {
   private tradeExecutor: RealTradeExecutor;
   private pairValidator: TradingPairValidator;
   private pairDiscovery: TradingPairDiscoveryService;
+  private tokenWhitelist: IntelligentTokenWhitelistManager;
   
   // CORRECTED: Dynamic allocation system after 99.7% loss analysis
   private riskAllocationTiers = {
@@ -72,6 +74,7 @@ export class QuantumTrader {
     this.tradeExecutor = new RealTradeExecutor();
     this.pairValidator = new TradingPairValidator();
     this.pairDiscovery = new TradingPairDiscoveryService();
+    this.tokenWhitelist = new IntelligentTokenWhitelistManager();
     this.initializeAgent();
     this.startQuantumTrading();
     this.startLearningEngine();
@@ -540,9 +543,11 @@ export class QuantumTrader {
     let confidence = 0.6 + Math.random() * 0.3;
     confidence *= (1 + quantumFactor * 0.2);
     
-    // Token selection based on market insights (excluding SOL to prevent SOL → SOL trades)
-    const tokens = ['BONK', 'JUP', 'ORCA', 'RAY', 'USDC'];
-    const selectedToken = this.selectToken(tokens, marketTrend);
+    // Intelligent token selection using whitelist manager (excluding SOL to prevent SOL → SOL trades)
+    const riskTolerance = confidence > 0.8 ? 'aggressive' : confidence > 0.6 ? 'moderate' : 'conservative';
+    const whitelistedTokens = this.tokenWhitelist.getTokensForTrading(riskTolerance);
+    const tokens = whitelistedTokens.filter(token => token !== 'SOL').slice(0, 8); // Top 8 tokens, exclude SOL
+    const selectedToken = this.selectIntelligentToken(tokens, marketTrend, confidence);
     
     // Action determination
     let action: 'BUY' | 'SELL' | 'HOLD' = 'HOLD';
@@ -630,21 +635,70 @@ export class QuantumTrader {
     return avgSentiment;
   }
 
-  private selectToken(tokens: string[], marketTrend: number): string {
-    // Filter out SOL to prevent SOL → SOL trades
-    const validTokens = tokens.filter(token => token !== 'SOL');
-    
-    // Token selection based on market conditions
-    if (marketTrend > 0.8) {
-      // High risk/reward tokens in bull market
-      return validTokens[Math.floor(Math.random() * validTokens.length)];
-    } else if (marketTrend < 0.3) {
-      // Safe haven tokens in bear market (prefer USDC over SOL)
-      return 'USDC';
-    } else {
-      // Balanced selection (excluding SOL)
-      return validTokens[Math.floor(Math.random() * validTokens.length)];
+  private selectIntelligentToken(tokens: string[], marketTrend: number, confidence: number): string {
+    if (tokens.length === 0) {
+      // Fallback to basic tokens if whitelist is empty
+      return ['USDC', 'BONK', 'JUP', 'ORCA', 'RAY'][Math.floor(Math.random() * 5)];
     }
+
+    // Enhanced weighted selection using whitelist scores and market intelligence
+    const weights = tokens.map((token, index) => {
+      let weight = 1;
+      
+      // Get token metrics from whitelist
+      const metrics = this.tokenWhitelist.getTokenMetrics(token);
+      if (metrics) {
+        // Base weight from whitelist score
+        weight = metrics.whitelistScore / 100;
+        
+        // Confidence-based tier preference
+        if (confidence > 0.8 && metrics.tradingTier === 'premium') weight *= 1.5;
+        if (confidence > 0.6 && metrics.tradingTier === 'standard') weight *= 1.2;
+        if (confidence < 0.5 && metrics.riskLevel === 'low') weight *= 1.3;
+        
+        // Market trend influence
+        if (marketTrend > 0.6) {
+          // Bullish market - favor higher volatility for gains
+          weight *= (1 + metrics.volatility * 0.5);
+        } else if (marketTrend < 0.4) {
+          // Bearish market - favor low volatility and high liquidity
+          weight *= (2 - metrics.volatility);
+          if (metrics.liquidity > 100000) weight *= 1.2;
+        }
+        
+        // Volume and liquidity scoring
+        if (metrics.volume24h > 1000000) weight *= 1.1; // High volume bonus
+        if (metrics.liquidity > 500000) weight *= 1.1; // High liquidity bonus
+      } else {
+        // No metrics available - use basic heuristics
+        if (['USDC', 'ORCA'].includes(token)) weight = 0.8; // Conservative
+        if (['BONK', 'RAY', 'JUP'].includes(token)) weight = 1.0; // Standard
+      }
+      
+      // Position-based weight (whitelist order indicates quality)
+      weight *= (1 + (tokens.length - index) * 0.05);
+      
+      // Add quantum randomness
+      weight *= (0.8 + Math.random() * 0.4);
+      
+      return Math.max(0.1, weight); // Minimum weight to avoid zero
+    });
+    
+    // Weighted random selection
+    const totalWeight = weights.reduce((sum, w) => sum + w, 0);
+    let random = Math.random() * totalWeight;
+    
+    for (let i = 0; i < tokens.length; i++) {
+      random -= weights[i];
+      if (random <= 0) return tokens[i];
+    }
+    
+    return tokens[0]; // Fallback to first (highest quality) token
+  }
+
+  private selectToken(tokens: string[], marketTrend: number): string {
+    // Legacy method - now redirects to intelligent selection
+    return this.selectIntelligentToken(tokens, marketTrend, 0.7);
   }
 
   private calculatePortfolioValue(): number {
