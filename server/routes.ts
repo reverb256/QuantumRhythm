@@ -19,6 +19,40 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
   });
 
+  // On-chain verification endpoint
+  app.get('/api/verify-trading', async (req, res) => {
+    try {
+      const { OnChainTransactionVerifier } = await import('./on-chain-transaction-verifier');
+      const verifier = new OnChainTransactionVerifier();
+      
+      await verifier.initializeVerification();
+      const tradingStatus = await verifier.verifyLiveTrading();
+      const transactionHistory = await verifier.getDetailedTransactionHistory();
+      
+      res.json({
+        success: true,
+        verification: {
+          walletAddress: '4jTtAYiHP3tHqXcmi5T1riS1AcGmxNNhLZTw65vrKpkA',
+          tradingMode: tradingStatus.isLive ? 'live' : 'simulation',
+          balance: tradingStatus.walletBalance,
+          onChainTransactions: tradingStatus.transactionCount,
+          recentActivity: tradingStatus.recentActivity,
+          lastTransaction: tradingStatus.lastTransaction,
+          history: transactionHistory,
+          guardianActive: transactionHistory.guardianReport.active,
+          timestamp: new Date().toISOString()
+        }
+      });
+    } catch (error) {
+      console.error('Error verifying trading:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Failed to verify trading status',
+        timestamp: new Date().toISOString()
+      });
+    }
+  });
+
   // Mount trading routes
   app.use('/api/trading-agent', tradingRouter);
   
