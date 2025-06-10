@@ -28,6 +28,9 @@ import TechnicalDeepDive from "@/pages/technical-deep-dive";
 import Legal from "@/pages/Legal";
 import AIOnboarding from "@/pages/AIOnboarding";
 import AgentInsights from "@/pages/AgentInsights";
+import WorkplaceJanitorial from "@/pages/workplace-janitorial";
+import TrovesCoves from "@/pages/troves-coves";
+import FrostbiteGazette from "@/pages/frostbite-gazette";
 import NotFound from "@/pages/not-found";
 
 function Router() {
