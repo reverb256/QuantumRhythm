@@ -207,9 +207,8 @@ export class DataProtectionMiddleware {
     
     // Additional checks for wallet addresses in any form
     const sensitiveStrings = [
-      'PAYOUT_TOKEN', 'BqAoRFm6WF2zpTV1Fj8di3BvsTuSkGMPWewrwc9RtMPR',
-      'JA63CrEdqjK6cyEkGquuYmk4xyTVgTXSFABZDNW3Qnfj', 'DATABASE_URL',
-      'ANTHROPIC_API_KEY', 'PERPLEXITY_API_KEY'
+      'PAYOUT_TOKEN', 'DATABASE_URL',
+      'ANTHROPIC_API_KEY', 'PERPLEXITY_API_KEY', 'PRIVATE_KEY', 'SECRET_KEY'
     ];
     
     for (const sensitiveString of sensitiveStrings) {

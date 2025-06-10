@@ -6,8 +6,8 @@ import { smartAPIOrchestrator } from './smart-api-orchestrator';
 const donationKeypair = Keypair.generate();
 export const DONATION_WALLET_ADDRESS = donationKeypair.publicKey.toString();
 
-// Store the private key securely (in production, use environment variables)
-const DONATION_PRIVATE_KEY = Buffer.from(donationKeypair.secretKey).toString('base64');
+// SECURITY: Private key is generated at runtime and never stored
+// For persistence, use environment variables in production
 
 console.log('🎁 Donation Wallet Generated:', DONATION_WALLET_ADDRESS);
 
