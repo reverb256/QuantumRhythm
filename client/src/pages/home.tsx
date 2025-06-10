@@ -95,24 +95,21 @@ export default function HomePage() {
         </div>
       </section>
 
-      <PriorityLoader priority="low">
-        <Suspense fallback={<div className="h-64 bg-gray-800 animate-pulse" />}>
-          <ContactSection />
-        </Suspense>
-      </PriorityLoader>
-
-      <Footer />
-
-
-
-      {/* Performance metrics in dev mode */}
-      {process.env.NODE_ENV === 'development' && (
-        <div className="fixed bottom-4 right-4 bg-black/80 text-green-400 p-2 rounded text-xs font-mono">
-          <div>FCP: {metrics.fcp.toFixed(0)}ms</div>
-          <div>LCP: {metrics.lcp.toFixed(0)}ms</div>
-          <div>CLS: {metrics.cls.toFixed(3)}</div>
+      {/* Footer Section */}
+      <footer className="bg-black/50 backdrop-blur border-t border-cyan-400/20 py-12">
+        <div className="container mx-auto px-6 text-center">
+          <div className="text-gray-400 mb-6">
+            <p>&copy; 2025 Quantum AI Trading Platform. Advanced autonomous trading with consciousness.</p>
+          </div>
+          <div className="flex justify-center space-x-6 text-sm text-cyan-400">
+            <span>Real-time CAD P&L</span>
+            <span>•</span>
+            <span>95% Confidence Cap</span>
+            <span>•</span>
+            <span>Multi-chain Ready</span>
+          </div>
         </div>
-      )}
+      </footer>
     </main>
   );
 }
