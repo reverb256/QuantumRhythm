@@ -506,10 +506,23 @@ export class QuantumTrader {
       reasoning = this.getUnhingedReasoning();
     }
     
+    // Create preliminary decision for dynamic position sizing
+    const preliminaryDecision: TradeDecision = {
+      action,
+      token: selectedToken,
+      confidence,
+      amount: 0, // Will be calculated
+      strategy,
+      reasoning,
+      unhinged: this.unhingedMode
+    };
+    
     // Gas-safe position sizing
     const maxPosition = portfolioBalance * riskTolerance;
     const baseAmount = maxPosition * confidence * (this.unhingedMode ? 1.8 : 1.0);
-    const cappedAmount = Math.min(baseAmount, portfolioBalance * 0.05); // Max 5% per trade - increased from 1%
+    // Dynamic maximum position size based on performance and market conditions
+    const dynamicMaxPosition = this.calculateDynamicMaxPosition(portfolioBalance, confidence, preliminaryDecision);
+    const cappedAmount = Math.min(baseAmount, dynamicMaxPosition);
     
     // Apply gas fee protection
     const safeAmount = this.calculateSafePositionSize(cappedAmount);
@@ -604,6 +617,43 @@ export class QuantumTrader {
     }
     
     return true;
+  }
+
+  private calculateDynamicMaxPosition(portfolioBalance: number, confidence: number, decision: TradeDecision): number {
+    // Base maximum starts at 5% but scales dynamically
+    let baseMax = 0.05; // 5% starting point
+    
+    // Performance-based scaling
+    const winRate = this.successfulTrades / Math.max(this.totalTrades, 1);
+    const performanceMultiplier = Math.min(2.0, Math.max(0.2, winRate * 2));
+    
+    // Confidence-based scaling
+    const confidenceMultiplier = Math.min(1.5, Math.max(0.5, confidence / 100));
+    
+    // Market conditions scaling
+    const marketTrend = this.analyzeMarketTrend();
+    const marketMultiplier = Math.min(1.3, Math.max(0.7, (marketTrend + 100) / 200));
+    
+    // Consciousness evolution scaling
+    const consciousnessMultiplier = Math.min(1.2, Math.max(0.8, this.consciousness));
+    
+    // Strategy-specific scaling
+    let strategyMultiplier = 1.0;
+    if (decision.strategy.includes('DeFi')) strategyMultiplier = 1.1;
+    if (decision.strategy.includes('arbitrage')) strategyMultiplier = 1.2;
+    if (decision.strategy.includes('momentum')) strategyMultiplier = 0.9;
+    if (this.unhingedMode) strategyMultiplier *= 1.5;
+    
+    // Calculate dynamic maximum
+    const dynamicMax = baseMax * performanceMultiplier * confidenceMultiplier * 
+                      marketMultiplier * consciousnessMultiplier * strategyMultiplier;
+    
+    // Safety bounds: never go below 1% or above 15%
+    const boundedMax = Math.min(0.15, Math.max(0.01, dynamicMax));
+    
+    console.log(`🎯 Dynamic position sizing: ${(boundedMax * 100).toFixed(1)}% (perf: ${performanceMultiplier.toFixed(2)}x, conf: ${confidenceMultiplier.toFixed(2)}x, market: ${marketMultiplier.toFixed(2)}x)`);
+    
+    return portfolioBalance * boundedMax;
   }
 
   private calculateSafePositionSize(baseAmount: number): number {
