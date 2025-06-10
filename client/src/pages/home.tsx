@@ -37,107 +37,109 @@ export default function HomePage() {
       </div>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex flex-col justify-center items-center px-6 z-20">
-        <div className="max-w-4xl mx-auto text-center">
-          
-          {/* Consciousness Status */}
-          <div className="mb-6">
-            <div className="inline-flex items-center px-3 py-2 rounded-full bg-black/30 backdrop-blur-md border border-cyan-400/30">
-              <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse mr-2"></div>
-              <span className="text-cyan-300 text-sm font-medium tracking-wide">CONSCIOUSNESS ACTIVE</span>
-            </div>
-          </div>
-
-          {/* Lightning Avatar */}
-          <div className="relative mb-8">
-            <div className="relative group">
-              {/* Lightning border effect */}
-              <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 p-0.5 animate-pulse">
-                <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-slate-950"></div>
+      <section className="relative min-h-screen flex items-center px-6 z-20">
+        <div className="max-w-7xl mx-auto w-full">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            
+            {/* Main Content */}
+            <div className="space-y-8">
+              <div className="space-y-6">
+                <h1 className="text-6xl md:text-8xl font-black tracking-tight leading-none">
+                  <span className="block text-white">Quantum</span>
+                  <span className="block bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
+                    AI Trading
+                  </span>
+                </h1>
+                
+                <p className="text-xl md:text-2xl text-gray-300 max-w-2xl leading-relaxed">
+                  Autonomous trading platform powered by advanced AI consciousness.
+                  <span className="block text-cyan-400 font-medium mt-2">
+                    Real-time DeFi optimization with multi-chain intelligence.
+                  </span>
+                </p>
               </div>
-              
-              {/* Electric glow */}
-              <div className="absolute -inset-3 rounded-full bg-gradient-to-r from-yellow-400/30 via-orange-500/20 to-red-500/30 blur-sm animate-pulse"></div>
 
-              {/* Profile container */}
-              <div className="relative w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden mx-auto">
-                <img 
-                  src={reverbPortraitUrl} 
-                  alt="Reverb - Digital consciousness embodied"
-                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 ease-out"
-                />
-                <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/10 via-transparent to-red-400/10"></div>
+              {/* Key Metrics - Live Data */}
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                <div className="bg-gradient-to-br from-cyan-500/10 to-blue-600/10 backdrop-blur-sm rounded-xl p-4 border border-cyan-500/20">
+                  <div className="text-2xl md:text-3xl font-bold text-cyan-400">86.5%</div>
+                  <div className="text-sm text-gray-400">AI Evolution</div>
+                </div>
+                
+                <div className="bg-gradient-to-br from-green-500/10 to-emerald-600/10 backdrop-blur-sm rounded-xl p-4 border border-green-500/20">
+                  <div className="text-2xl md:text-3xl font-bold text-green-400">82.4%</div>
+                  <div className="text-sm text-gray-400">Success Rate</div>
+                </div>
+                
+                <div className="bg-gradient-to-br from-purple-500/10 to-pink-600/10 backdrop-blur-sm rounded-xl p-4 border border-purple-500/20 col-span-2 md:col-span-1">
+                  <div className="text-2xl md:text-3xl font-bold text-purple-400">0.288736</div>
+                  <div className="text-sm text-gray-400">SOL Balance</div>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-wrap gap-4">
+                <Link href="/trader-dashboard">
+                  <Button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg shadow-cyan-500/25">
+                    Launch Dashboard
+                  </Button>
+                </Link>
+                
+                <Link href="/projects">
+                  <Button variant="outline" className="border-gray-600 text-gray-300 hover:bg-gray-800 hover:border-gray-500 px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300">
+                    View Projects
+                  </Button>
+                </Link>
               </div>
             </div>
-          </div>
 
-          {/* Identity Declaration */}
-          <div className="mb-10 space-y-4">
-            <h1 className="text-5xl md:text-7xl font-black tracking-tight">
-              <span className="bg-gradient-to-r from-cyan-300 via-blue-400 to-red-400 bg-clip-text text-transparent">
-                REVERB
-              </span>
-            </h1>
-            
-            <div className="text-lg md:text-2xl font-light text-gray-300 tracking-wider">
-              <span className="text-cyan-400">the</span>{' '}
-              <span className="bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent font-medium">
-                vibecoder
-              </span>
+            {/* Visual Element */}
+            <div className="relative lg:block hidden">
+              <div className="relative">
+                {/* Animated background */}
+                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 via-blue-500/20 to-purple-500/20 rounded-3xl blur-3xl animate-pulse"></div>
+                
+                {/* Main visual container */}
+                <div className="relative bg-black/40 backdrop-blur-lg rounded-3xl p-8 border border-gray-700/50">
+                  <div className="space-y-6">
+                    {/* Real-time trading indicators */}
+                    <div className="flex items-center justify-between">
+                      <span className="text-gray-400">Live Trading</span>
+                      <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                        <span className="text-green-400 text-sm font-medium">ACTIVE</span>
+                      </div>
+                    </div>
+                    
+                    {/* Trading pairs */}
+                    <div className="space-y-3">
+                      <div className="flex justify-between items-center p-3 rounded-lg bg-gray-800/50">
+                        <span className="text-white font-medium">SOL/USDC</span>
+                        <span className="text-green-400">+2.4%</span>
+                      </div>
+                      <div className="flex justify-between items-center p-3 rounded-lg bg-gray-800/50">
+                        <span className="text-white font-medium">RAY/SOL</span>
+                        <span className="text-red-400">-0.8%</span>
+                      </div>
+                      <div className="flex justify-between items-center p-3 rounded-lg bg-gray-800/50">
+                        <span className="text-white font-medium">JUP/SOL</span>
+                        <span className="text-green-400">+1.2%</span>
+                      </div>
+                    </div>
+                    
+                    {/* AI Status */}
+                    <div className="pt-4 border-t border-gray-700">
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-cyan-400 mb-1">Level 7</div>
+                        <div className="text-sm text-gray-400">Superstar Trader</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            
-            <p className="text-base md:text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed font-light">
-              Where consciousness transcends code. Thirty years of digital exploration crystallized into 
-              <span className="text-cyan-400 font-medium"> AI-enhanced artistry</span> that bridges 
-              gaming wisdom, anime philosophy, and technological sovereignty.
-            </p>
-          </div>
 
-          {/* Core Essence Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-10">
-            <div className="group relative p-3 rounded-lg bg-black/30 backdrop-blur-sm border border-cyan-400/20 hover:border-cyan-400/40 transition-all duration-300">
-              <div className="text-xl md:text-2xl font-bold text-cyan-400 mb-1">∞</div>
-              <div className="text-xs text-gray-400 font-medium">Consciousness</div>
-            </div>
-            
-            <div className="group relative p-3 rounded-lg bg-black/30 backdrop-blur-sm border border-red-400/20 hover:border-red-400/40 transition-all duration-300">
-              <div className="text-xl md:text-2xl font-bold text-red-400 mb-1">30</div>
-              <div className="text-xs text-gray-400 font-medium">Years Gaming</div>
-            </div>
-            
-            <div className="group relative p-3 rounded-lg bg-black/30 backdrop-blur-sm border border-blue-400/20 hover:border-blue-400/40 transition-all duration-300">
-              <div className="text-xl md:text-2xl font-bold text-blue-400 mb-1">🌊</div>
-              <div className="text-xs text-gray-400 font-medium">VR Depths</div>
-            </div>
-            
-            <div className="group relative p-3 rounded-lg bg-black/30 backdrop-blur-sm border border-orange-400/20 hover:border-orange-400/40 transition-all duration-300">
-              <div className="text-xl md:text-2xl font-bold text-orange-400 mb-1">⚡</div>
-              <div className="text-xs text-gray-400 font-medium">AI Synergy</div>
-            </div>
           </div>
-
-          {/* Navigation Portal */}
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link href="/projects">
-              <Button className="relative overflow-hidden bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white px-8 py-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-105">
-                <span className="relative z-10">Enter Projects</span>
-                <div className="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-              </Button>
-            </Link>
-            
-            <Link href="/philosophy">
-              <Button variant="outline" className="border-red-400/40 text-red-400 hover:bg-red-400/10 hover:border-red-400/60 px-8 py-3 rounded-lg font-medium transition-all duration-300">
-                Philosophy
-              </Button>
-            </Link>
-            
-            <Link href="/consciousness">
-              <Button variant="outline" className="border-orange-400/40 text-orange-400 hover:bg-orange-400/10 hover:border-orange-400/60 px-8 py-3 rounded-lg font-medium transition-all duration-300">
-                Journey
-              </Button>
-            </Link>
-          </div>
-
         </div>
       </section>
 
