@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
-import Navigation from '@/components/Navigation';
+import Navigation from '@/components/navigation';
 import reverbPortraitUrl from '@assets/image_1749583181474.png';
 
 export default function HomePage() {
