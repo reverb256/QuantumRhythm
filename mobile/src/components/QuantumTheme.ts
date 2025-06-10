@@ -1,0 +1,61 @@
+import {MD3LightTheme, MD3DarkTheme} from 'react-native-paper';
+
+export const QuantumTheme = {
+  ...MD3DarkTheme,
+  colors: {
+    ...MD3DarkTheme.colors,
+    primary: '#22d3ee',
+    secondary: '#06b6d4',
+    tertiary: '#0891b2',
+    surface: '#0f172a',
+    surfaceVariant: '#1e293b',
+    background: '#020617',
+    onBackground: '#f1f5f9',
+    onSurface: '#f1f5f9',
+    outline: '#475569',
+    outlineVariant: '#334155',
+    inverseSurface: '#f1f5f9',
+    inverseOnSurface: '#0f172a',
+    error: '#ef4444',
+    onError: '#fef2f2',
+    errorContainer: '#7f1d1d',
+    onErrorContainer: '#fca5a5',
+    success: '#10b981',
+    onSuccess: '#f0fdf4',
+    warning: '#f59e0b',
+    onWarning: '#fffbeb',
+  },
+  fonts: {
+    ...MD3DarkTheme.fonts,
+    bodyLarge: {
+      fontFamily: 'Inter',
+      fontSize: 16,
+      fontWeight: '400',
+      letterSpacing: 0.5,
+    },
+    bodyMedium: {
+      fontFamily: 'Inter',
+      fontSize: 14,
+      fontWeight: '400',
+      letterSpacing: 0.25,
+    },
+    headlineLarge: {
+      fontFamily: 'Inter',
+      fontSize: 32,
+      fontWeight: '700',
+      letterSpacing: 0,
+    },
+    headlineMedium: {
+      fontFamily: 'Inter',
+      fontSize: 28,
+      fontWeight: '600',
+      letterSpacing: 0,
+    },
+    titleLarge: {
+      fontFamily: 'Inter',
+      fontSize: 22,
+      fontWeight: '600',
+      letterSpacing: 0,
+    },
+  },
+};
