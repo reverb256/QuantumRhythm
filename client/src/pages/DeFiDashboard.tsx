@@ -350,7 +350,7 @@ export function DeFiDashboard() {
         </div>
 
         {/* Current Positions */}
-        {positions.positions?.length > 0 && (
+        {positions?.positions && positions.positions.length > 0 && (
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -360,7 +360,7 @@ export function DeFiDashboard() {
             <h3 className="text-xl font-semibold text-green-300 mb-4">Active Positions</h3>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {positions.positions.map((position: any, index: number) => (
+              {positions?.positions?.map((position: any, index: number) => (
                 <div key={index} className="bg-gray-800/30 rounded-lg p-4 border border-gray-600/30">
                   <div className="flex justify-between items-start mb-2">
                     <div>
