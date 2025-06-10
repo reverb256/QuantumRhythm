@@ -4,6 +4,7 @@ import path from "path";
 import tradingRouter from "./routes/trading";
 import legalComplianceRouter from "./routes/legal-compliance";
 import analyticsRouter from "./routes/analytics";
+import parameterInsightsRouter from "./routes/parameter-insights";
 import { donationTracker } from "./donation-tracker";
 import { fileURLToPath } from "url";
 
