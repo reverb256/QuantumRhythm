@@ -5,6 +5,7 @@
 
 import { Router } from 'express';
 import { aiAutorouter } from '../ai-autorouter.js';
+import { aiParameterOptimizer } from '../ai-parameter-optimizer.js';
 import { z } from 'zod';
 
 const router = Router();
