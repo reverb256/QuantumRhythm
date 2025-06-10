@@ -122,9 +122,9 @@ export function QuantumWordTagger({
         };
         
         return (
-          <IntelligentTooltip key={index} tooltipData={tooltipData}>
+          
             {word}
-          </IntelligentTooltip>
+          
         );
       }
       
@@ -150,9 +150,9 @@ export function tagTerm(
   };
   
   return (
-    <IntelligentTooltip tooltipData={tooltipData}>
+    
       {text}
-    </IntelligentTooltip>
+    
   );
 }
 

@@ -76,7 +76,7 @@ export default function ContactSection() {
             filter: 'brightness(0.2) saturate(1.4)',
           }}
         />
-        
+
         {/* Digital communication streams */}
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat mix-blend-screen opacity-15" 
@@ -84,7 +84,7 @@ export default function ContactSection() {
             backgroundImage: `url('/attached_assets/image_1749437206205.png')`,
           }}
         />
-        
+
         {/* Neural connection patterns */}
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat mix-blend-overlay opacity-20" 
@@ -101,18 +101,18 @@ export default function ContactSection() {
 
       <div className="container mx-auto px-6 relative z-20">
         <div className="max-w-7xl mx-auto">
-          
+
           {/* Section Header */}
           <div className="text-center mb-16">
             <div className="inline-flex items-center justify-center px-6 py-3 holo-panel rounded-full border border-cyan-400/50 mb-8">
               <i className="fas fa-satellite-dish text-cyan-400 mr-3"></i>
               <span className="text-cyan-300 text-sm font-medium">NEURAL_NETWORK_ACCESS</span>
             </div>
-            
+
             <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 font-space">
               <span className="holo-text">Connect</span>
             </h2>
-            
+
             <p className="text-xl text-[var(--text-secondary)] max-w-3xl mx-auto">
               Ready to venture into convergent possibilities where classical wisdom meets revolutionary technology?
             </p>
@@ -147,7 +147,7 @@ export default function ContactSection() {
                 <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${method.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 mx-auto`}>
                   <i className={`${method.icon} text-white text-2xl`}></i>
                 </div>
-                
+
                 <h3 className="text-xl font-bold text-[var(--spectrum-cyan)] mb-2 text-center">{method.platform}</h3>
                 <p className="text-[var(--text-secondary)] text-sm mb-4 text-center">{method.label}</p>
                 <p className="text-[var(--spectrum-cyan)] font-mono text-sm mb-4 text-center">{method.handle}</p>
@@ -158,14 +158,14 @@ export default function ContactSection() {
 
           {/* Collaboration Areas */}
           <div className="grid lg:grid-cols-2 gap-12 mb-16">
-            
+
             {/* Areas of Interest */}
             <div className="holo-panel p-8 rounded-3xl border border-cyan-400/50 gacha-shine">
               <h3 className="text-2xl font-bold text-[var(--spectrum-cyan)] mb-8 flex items-center">
                 <i className="fas fa-lightbulb text-[var(--spectrum-cyan)] mr-4"></i>
                 Collaboration Realms
               </h3>
-              
+
               <div className="space-y-4">
                 {collaborationAreas.map((area, index) => (
                   <div key={area} className="flex items-center group">
@@ -174,7 +174,7 @@ export default function ContactSection() {
                   </div>
                 ))}
               </div>
-              
+
               <div className="mt-8 p-6 bg-blue-900/20 rounded-xl border border-cyan-400/20">
                 <p className="text-[var(--text-secondary)] text-sm leading-relaxed">
                   <strong className="text-[var(--spectrum-cyan)]">Open to:</strong> Full-stack development projects, technical consulting, 
@@ -190,7 +190,7 @@ export default function ContactSection() {
                 <i className="fas fa-clock text-cyan-400 mr-4"></i>
                 Neural Response Matrix
               </h3>
-              
+
               <div className="space-y-6">
                 {[
                   { channel: "Email", time: "< 24 hours", priority: "Enterprise & Collaboration", status: "Primary" },
@@ -219,13 +219,13 @@ export default function ContactSection() {
               <i className="fas fa-rocket text-cyan-400 mr-4"></i>
               Ready to Begin?
             </h3>
-            
+
             <p className="text-xl text-cyan-100 mb-8 max-w-3xl mx-auto leading-relaxed">
               Ready to discuss your next project? Whether you need full-stack development, technical consulting, 
               or want to explore innovative solutions for your business, I'd love to hear about your vision and 
               how we can bring it to life.
             </p>
-            
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button 
                 onClick={scrollToProjects}
@@ -234,7 +234,7 @@ export default function ContactSection() {
                 <i className="fas fa-code mr-2"></i>
                 Explore My Work
               </button>
-              
+
               <a
                 href="mailto:contact@reverb256.ca"
                 className="bg-gradient-to-r from-purple-400 to-pink-500 hover:from-purple-300 hover:to-pink-400 text-white px-8 py-4 rounded-2xl font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-purple-400/50"

@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Code, Zap, Terminal, Shield, Brain, TrendingUp } from 'lucide-react';
-import { useTooltip, TooltipData } from "@/components/universal-cursor-tooltip";
 import SecurityFramework from "@/lib/security-framework";
 
 interface TooltipInfo {
@@ -25,7 +24,7 @@ export default function Navigation() {
     };
 
     window.addEventListener('consoleStateChange', handleConsoleStateChange as EventListener);
-    
+
     return () => {
       window.removeEventListener('consoleStateChange', handleConsoleStateChange as EventListener);
     };
@@ -96,7 +95,7 @@ export default function Navigation() {
               </motion.div>
               reverb256<span className="console-cursor text-[var(--synthwave-cyan)] group-hover:animate-pulse">|</span>
             </Link>
-            
+
             {/* Permanent Console Interface */}
             <motion.button
               onClick={toggleConsole}

@@ -13,11 +13,11 @@ const projects = [
     description: "Production-ready e-commerce platform with authentic mystical branding and AI-orchestrated customer service. Features comprehensive crystal catalog, secure payment processing, and enterprise-grade security compliance. Deployed with Cloudflare optimization for global performance.",
     image: trovesCovestImage,
     technologies: [
-      { name: "React 18", class: "react-tooltip" },
-      { name: "Multi-LLM AI", class: "ai-tooltip" },
-      { name: "Cloudflare KV", class: "cloudflare-tooltip" },
-      { name: "ISO 27001", class: "security-tooltip" },
-      { name: "Edge Computing", class: "edge-tooltip" }
+      { name: "React 18" },
+      { name: "Multi-LLM AI" },
+      { name: "Cloudflare KV" },
+      { name: "ISO 27001" },
+      { name: "Edge Computing" }
     ],
     status: "Production",
     link: "https://replit.com/@snyper256/TrovesLuxury?v=1",
@@ -31,11 +31,11 @@ const projects = [
     description: "Professional service platform demonstrating glassmorphism design architecture with 60fps performance optimization. Features memory-efficient backend, complete OWASP security compliance, and WCAG AAA accessibility standards. Showcases advanced CSS techniques and responsive design patterns.",
     image: cleaningServiceImage,
     technologies: [
-      { name: "Glassmorphism", class: "glassmorphism-tooltip" },
-      { name: "Performance Engineering", class: "performance-tooltip" },
-      { name: "WCAG AAA", class: "accessibility-tooltip" },
-      { name: "Security Framework", class: "security-tooltip" },
-      { name: "Turquoise/Green Branding", class: "branding-tooltip" }
+      { name: "Glassmorphism" },
+      { name: "Performance Engineering" },
+      { name: "WCAG AAA" },
+      { name: "Security Framework" },
+      { name: "Turquoise/Green Branding" }
     ],
     status: "Production",
     link: "https://replit.com/@snyper256/Local-Cleaning-Service?v=1",
@@ -49,11 +49,11 @@ const projects = [
     description: "This very portfolio - a self-referential cyberpunk masterpiece featuring quantum particle systems, prismatic spectrum harmonization, and philosophical depth. Demonstrates meta-recursive design principles where the portfolio showcases itself through unified visual components.",
     image: portfolioImage,
     technologies: [
-      { name: "React 18", class: "react-tooltip" },
-      { name: "Cyberpunk Aesthetics", class: "cyberpunk-tooltip" },
-      { name: "Quantum Animations", class: "quantum-tooltip" },
-      { name: "Meta-Recursion", class: "meta-tooltip" },
-      { name: "Spectrum Variables", class: "spectrum-tooltip" }
+      { name: "React 18" },
+      { name: "Cyberpunk Aesthetics" },
+      { name: "Quantum Animations" },
+      { name: "Meta-Recursion" },
+      { name: "Spectrum Variables" }
     ],
     status: "Active Development",
     link: "/",
@@ -67,11 +67,11 @@ const projects = [
     description: "4-node Proxmox cluster with Ansible automation and Terraform IaC. Features Ryzen 9 5950X/3900X powerhouses, Intel i5-9500 balanced performance, and R7 1700 legacy integration. AI-assisted infrastructure orchestration through VibeCoding methodology with comprehensive resource management.",
     image: undefined, // Using CSS background instead
     technologies: [
-      { name: "Proxmox VE", class: "proxmox-tooltip" },
-      { name: "Ansible Automation", class: "ansible-tooltip" },
-      { name: "Terraform IaC", class: "terraform-tooltip" },
-      { name: "AI-Assisted Orchestration", class: "ai-tooltip" },
-      { name: "VibeCoding Infrastructure", class: "vibecoding-tooltip" }
+      { name: "Proxmox VE" },
+      { name: "Ansible Automation" },
+      { name: "Terraform IaC" },
+      { name: "AI-Assisted Orchestration" },
+      { name: "VibeCoding Infrastructure" }
     ],
     status: "Production",
     link: "/infrastructure",
@@ -86,11 +86,11 @@ const projects = [
     description: "AI-enhanced journalism platform focused on Canadian democratic accountability and transparency. Features bilingual content management, advanced search capabilities, and Charter-compliant data handling. Designed to support democratic discourse through technology-assisted journalism.",
     image: "/frostbite-gazette-teaser.svg",
     technologies: [
-      { name: "Quantum RAG", class: "quantum-tooltip" },
-      { name: "5GW Defense", class: "defense-tooltip" },
-      { name: "Bilingual AI", class: "bilingual-tooltip" },
-      { name: "Charter Compliance", class: "charter-tooltip" },
-      { name: "Democratic Tools", class: "democratic-tooltip" }
+      { name: "Quantum RAG" },
+      { name: "5GW Defense" },
+      { name: "Bilingual AI" },
+      { name: "Charter Compliance" },
+      { name: "Democratic Tools" }
     ],
     status: "Coming Soon",
     link: "https://replit.com/@snyper256/Frostbite-Gazette?v=1",

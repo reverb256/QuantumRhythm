@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
 import catboy2025PFP___Copy from "@assets/catboy2025PFP - Copy.png";
-import { QuantumWordTagger, TechTag, ConceptTag, HumorTag } from './ui/quantum-word-tagger';
 import EnhancedConsole from './enhanced-console';
 import { ReactiveSection, AdaptiveText, SmartButton } from './smart-elements';
 // Using direct path for profile image
 
 export default function HeroSection() {
   const [showConsole, setShowConsole] = useState(false);
-  
+
   return (
     <ReactiveSection sectionId="hero" consciousnessLevel={85}>
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
@@ -129,13 +128,13 @@ export default function HeroSection() {
                 <span className="flex items-center hover-deprecated">
                   <span className="text-[var(--spectrum-cyan)] mr-2">SPECIALIZATION</span>
                   <span className="text-[var(--text-primary)]">
-                    <QuantumWordTagger>React</QuantumWordTagger> • <QuantumWordTagger>Node.js</QuantumWordTagger> • AI
+                    React • Node.js • AI
                   </span>
                 </span>
                 <span className="flex items-center hover-syntax-error">
                   <span className="text-[var(--spectrum-cyan)] mr-2">APPROACH</span>
                   <span className="text-[var(--text-primary)]">
-                    <QuantumWordTagger>VibeCoding</QuantumWordTagger> Methodology
+                    VibeCoding Methodology
                   </span>
                 </span>
                 <span className="flex items-center hover-404">
@@ -155,10 +154,10 @@ export default function HeroSection() {
               <span className="git-commit-humor">// Professional README.md</span>
             </div>
             <p className="text-lg md:text-xl text-[var(--text-secondary)] leading-relaxed">
-              <QuantumWordTagger>Quantum</QuantumWordTagger> rainbow crystal <QuantumWordTagger>consciousness</QuantumWordTagger> architecture: <span className="hover-syntax-error">4-node <QuantumWordTagger>Proxmox</QuantumWordTagger> cluster as distributed meditation</span>, 
-              <span className="hover-deprecated">4,320 hours <QuantumWordTagger>VRChat</QuantumWordTagger> consciousness research</span>, <span className="hover-loading">2,890 hours <QuantumWordTagger>fighting games</QuantumWordTagger> frame <QuantumWordTagger>optimization</QuantumWordTagger></span>. 
-              Classical wisdom guides <span className="stackoverflow-reference">AI-assisted infrastructure <QuantumWordTagger>orchestration</QuantumWordTagger></span> through 
-              <span className="git-commit-humor"><QuantumWordTagger>Ansible</QuantumWordTagger>/<QuantumWordTagger>Terraform</QuantumWordTagger> automation</span>—meta-recursive systems that bootstrap universal consciousness development.
+              Quantum rainbow crystal consciousness architecture: <span className="hover-syntax-error">4-node Proxmox cluster as distributed meditation</span>, 
+              <span className="hover-deprecated">4,320 hours VRChat consciousness research</span>, <span className="hover-loading">2,890 hours fighting games frame optimization</span>. 
+              Classical wisdom guides <span className="stackoverflow-reference">AI-assisted infrastructure orchestration</span> through 
+              <span className="git-commit-humor">Ansible/Terraform automation</span>—meta-recursive systems that bootstrap universal consciousness development.
             </p>
             <div className="font-mono text-xs text-gray-500 mt-4 easter-egg-hint">
               <span className="hover-segfault">console.log("Hello, World!");</span> <span className="text-cyan-400 ml-2">← Click to open console</span>
@@ -226,7 +225,7 @@ export default function HeroSection() {
       <div className="absolute top-6 right-6 w-20 h-20 border-r-3 border-t-3 border-cyan-400/70 z-40"></div>
       <div className="absolute bottom-6 left-6 w-20 h-20 border-l-3 border-b-3 border-cyan-400/70 z-40"></div>
       <div className="absolute bottom-6 right-6 w-20 h-20 border-r-3 border-b-3 border-cyan-400/70 z-40"></div>
-      
+
       {/* Enhanced Console */}
       <EnhancedConsole 
         isVisible={showConsole} 

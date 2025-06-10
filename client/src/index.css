@@ -13,11 +13,11 @@
     --hdr-blue: color(display-p3 0.15 0.7 1);
     --hdr-deep-blue: color(display-p3 0.05 0.15 0.35);
   }
-  
+
   .hdr-enhanced {
     color: var(--hdr-cyan);
   }
-  
+
   .hdr-background {
     background: var(--hdr-deep-blue);
   }
@@ -35,12 +35,12 @@
     --muted: hsl(0, 0%, 10%);
     --muted-foreground: hsl(0, 0%, 90%);
   }
-  
+
   .high-contrast-text {
     color: hsl(0, 0%, 100%) !important;
     text-shadow: 0 0 2px hsl(0, 0%, 0%);
   }
-  
+
   .high-contrast-bg {
     background: hsl(0, 0%, 5%) !important;
     border: 2px solid hsl(0, 0%, 50%) !important;
@@ -80,14 +80,14 @@
   --destructive-foreground: hsl(195, 100%, 95%);
   --ring: hsl(190, 100%, 65%);
   --radius: 1rem;
-  
+
   /* Prismatic Blue Foundation */
   --prismatic-deep: hsl(220, 90%, 8%);
   --prismatic-mid: hsl(215, 85%, 15%);
   --prismatic-bright: hsl(200, 100%, 65%);
   --prismatic-cyan: hsl(190, 100%, 70%);
   --prismatic-sky: hsl(200, 100%, 75%);
-  
+
   /* Prismatic Spectrum Refractions */
   --spectrum-violet: hsl(260, 100%, 70%);
   --spectrum-indigo: hsl(240, 100%, 70%);
@@ -100,27 +100,27 @@
   --spectrum-red: hsl(350, 90%, 70%);
   --spectrum-pink: hsl(320, 100%, 75%);
   --spectrum-white: hsl(200, 100%, 95%);
-  
+
   /* Deep Space Blues - Unified Background System */
   --space-black: hsl(220, 100%, 2%);
   --space-void: hsl(218, 85%, 5%);
   --space-deep: hsl(215, 75%, 10%);
   --space-mid: hsl(210, 65%, 18%);
   --space-nebula: hsl(205, 55%, 25%);
-  
+
   /* Glass Prismatic Effects - Unified Glass System */
   --glass-primary: hsla(200, 100%, 65%, 0.15);
   --glass-secondary: hsla(190, 100%, 70%, 0.1);
   --glass-border: hsla(200, 100%, 70%, 0.3);
   --glass-highlight: hsla(200, 100%, 85%, 0.2);
-  
+
   /* Unified Color Harmonization System */
   --synthwave-cyan: hsl(190, 100%, 70%);
   --synthwave-pink: hsl(320, 100%, 75%);
   --synthwave-gold: hsl(50, 100%, 70%);
   --bright-blue: hsl(200, 100%, 75%);
   --light-beam: hsl(200, 100%, 85%);
-  
+
   /* Component Color Harmonization - WCAG AA/AAA Compliant */
   --card-primary: hsla(200, 100%, 65%, 0.15);
   --card-secondary: hsla(190, 100%, 70%, 0.1);
@@ -130,7 +130,7 @@
   --text-muted: hsl(200, 60%, 75%);         /* 7.2:1 contrast ratio - AAA large text */
   --text-link: hsl(190, 100%, 78%);         /* Enhanced link visibility */
   --text-focus: hsl(180, 100%, 85%);        /* High contrast focus states */
-  
+
   /* Gradient Harmonization */
   --gradient-primary: linear-gradient(135deg, var(--spectrum-cyan), var(--spectrum-blue));
   --gradient-secondary: linear-gradient(135deg, var(--spectrum-pink), var(--spectrum-violet));
@@ -176,15 +176,15 @@
     overflow-x: hidden;
     min-height: 100vh;
   }
-  
+
   html {
     scroll-behavior: smooth;
   }
-  
+
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Space Grotesk', sans-serif;
   }
-  
+
   code, pre {
     font-family: 'JetBrains Mono', monospace;
   }
@@ -207,7 +207,7 @@
     position: relative;
     overflow: hidden;
   }
-  
+
   .prismatic-glass::before {
     content: '';
     position: absolute;
@@ -225,7 +225,7 @@
     opacity: 0.1;
     animation: prism-refraction 8s ease-in-out infinite;
   }
-  
+
   @keyframes prism-refraction {
     0% { left: -100%; opacity: 0; }
     50% { left: 100%; opacity: 0.15; }
@@ -266,7 +266,7 @@
     border: 1px solid hsla(200, 100%, 70%, 0.3);
     position: relative;
   }
-  
+
   .cyber-border::before {
     content: '';
     position: absolute;
@@ -288,7 +288,7 @@
             drop-shadow(0 0 25px var(--spectrum-blue))
             drop-shadow(0 0 35px var(--spectrum-violet));
   }
-  
+
   /* Unified Gacha Shine System - Disabled */
   .gacha-shine {
     position: relative;
@@ -369,7 +369,7 @@
   .quantum-particle {
     display: none;
   }
-  
+
   /* Unified Animation System - GitHub Pages Optimized */
   .fade-in-up {
     opacity: 0;
@@ -378,7 +378,7 @@
     will-change: transform, opacity;
     backface-visibility: hidden;
   }
-  
+
   .fade-in-up.animate {
     opacity: 1;
     transform: translateY(0) translateZ(0);
@@ -625,7 +625,7 @@
   .stackoverflow-reference {
     position: relative;
   }
-  
+
   .stackoverflow-reference:hover::after {
     content: "Answer: Just use jQuery (marked as duplicate)";
     position: fixed;
@@ -653,7 +653,7 @@
   .git-commit-humor {
     position: relative;
   }
-  
+
   .git-commit-humor:hover::after {
     content: "git commit -m 'fixed bug (maybe)'";
     position: fixed;
@@ -717,7 +717,8 @@
   }
 
   /* Right-aligned menu items - adjust tooltip position */
-  nav .ml-auto [class*="-tooltip"]:hover::after,
+  nav .ml-auto```python
+[class*="-tooltip"]:hover::after,
   nav .ml-auto [class*="hover-"]:hover::after {
     left: auto !important;
     right: 0 !important;
@@ -1049,11 +1050,11 @@
   .hdr-enhanced {
     color: color(display-p3 0.8 0.95 1.0);
   }
-  
+
   .hdr-background {
     background: color(display-p3 0.02 0.06 0.12);
   }
-  
+
   .focus-enhanced:focus {
     outline-color: color(display-p3 0 1 1);
     box-shadow: 0 0 0 6px color(display-p3 0 1 1 / 0.3);
@@ -1094,7 +1095,7 @@ a.focus-enhanced:focus {
     color: hsl(215, 28%, 8%);
     background-color: hsl(180, 100%, 95%);
   }
-  
+
   .auto-theme .hdr-background {
     background: hsl(180, 100%, 95%);
   }
@@ -2106,7 +2107,7 @@ nav:hover {
     flex-wrap: wrap;
     gap: 1.5rem;
   }
-  
+
   .projects-intelligent-grid > *,
   .categories-grid > *,
   .auto-grid > * {
@@ -2161,404 +2162,7 @@ section {
   gap: clamp(1rem, 2vw, 2rem);
 }
 
-/* ============================================================================
-   INTELLIGENT TOOLTIP & TAGGING SYSTEM
-   Star Rail-inspired interactive information system
-   ============================================================================ */
-
-/* Tooltip Trigger Styling */
-.intelligent-tooltip-trigger {
-  position: relative;
-  cursor: help;
-  border-bottom: 1px dotted currentColor;
-  transition: all 0.3s ease;
-  padding: 0 2px;
-  border-radius: 3px;
-}
-
-.intelligent-tooltip-trigger:hover {
-  transform: translateY(-1px);
-  filter: brightness(1.2);
-}
-
-/* Category-based Color Coding */
-.tech-tag {
-  color: var(--spectrum-cyan);
-  border-color: var(--spectrum-cyan);
-  background: rgba(56, 189, 248, 0.1);
-}
-
-.tech-tag:hover {
-  background: rgba(56, 189, 248, 0.2);
-  box-shadow: 0 0 8px rgba(56, 189, 248, 0.3);
-}
-
-.concept-tag {
-  color: var(--spectrum-violet);
-  border-color: var(--spectrum-violet);
-  background: rgba(147, 51, 234, 0.1);
-}
-
-.concept-tag:hover {
-  background: rgba(147, 51, 234, 0.2);
-  box-shadow: 0 0 8px rgba(147, 51, 234, 0.3);
-}
-
-.humor-tag {
-  color: var(--spectrum-gold);
-  border-color: var(--spectrum-gold);
-  background: rgba(251, 191, 36, 0.1);
-}
-
-.humor-tag:hover {
-  background: rgba(251, 191, 36, 0.2);
-  box-shadow: 0 0 8px rgba(251, 191, 36, 0.3);
-}
-
-.gaming-tag {
-  color: var(--spectrum-green);
-  border-color: var(--spectrum-green);
-  background: rgba(34, 197, 94, 0.1);
-}
-
-.gaming-tag:hover {
-  background: rgba(34, 197, 94, 0.2);
-  box-shadow: 0 0 8px rgba(34, 197, 94, 0.3);
-}
-
-.error-tag {
-  color: var(--spectrum-red);
-  border-color: var(--spectrum-red);
-  background: rgba(239, 68, 68, 0.1);
-}
-
-.error-tag:hover {
-  background: rgba(239, 68, 68, 0.2);
-  box-shadow: 0 0 8px rgba(239, 68, 68, 0.3);
-}
-
-.loading-tag {
-  color: var(--spectrum-blue);
-  border-color: var(--spectrum-blue);
-  background: rgba(59, 130, 246, 0.1);
-  animation: loading-pulse 2s ease-in-out infinite;
-}
-
-.loading-tag:hover {
-  background: rgba(59, 130, 246, 0.2);
-  box-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
-}
-
-.deprecated-tag {
-  color: var(--text-muted);
-  border-color: var(--text-muted);
-  background: rgba(107, 114, 128, 0.1);
-  text-decoration: line-through;
-  opacity: 0.7;
-}
-
-.deprecated-tag:hover {
-  background: rgba(107, 114, 128, 0.2);
-  box-shadow: 0 0 8px rgba(107, 114, 128, 0.3);
-}
-
-.success-tag {
-  color: var(--spectrum-emerald);
-  border-color: var(--spectrum-emerald);
-  background: rgba(16, 185, 129, 0.1);
-}
-
-.success-tag:hover {
-  background: rgba(16, 185, 129, 0.2);
-  box-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
-}
-
-/* Tooltip Container Styling */
-.intelligent-tooltip-container {
-  pointer-events: none;
-  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.3));
-  position: fixed;
-  z-index: 10000;
-  max-width: 320px;
-  width: 320px;
-}
-
-.intelligent-tooltip {
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  width: 100%;
-}
-
-/* Loading Animation */
-@keyframes loading-pulse {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 1; }
-}
-
-/* Enhanced Hover Effects */
-.hover-glitch {
-  position: relative;
-  color: var(--spectrum-cyan);
-  transition: all 0.3s ease;
-}
-
-.hover-glitch:hover {
-  animation: glitch-effect 0.3s ease-in-out;
-  text-shadow: 2px 0 var(--spectrum-pink), -2px 0 var(--spectrum-cyan);
-}
-
-@keyframes glitch-effect {
-  0% { transform: translate(0); }
-  20% { transform: translate(-2px, 2px); }
-  40% { transform: translate(-2px, -2px); }
-  60% { transform: translate(2px, 2px); }
-  80% { transform: translate(2px, -2px); }
-  100% { transform: translate(0); }
-}
-
-.hover-syntax-error {
-  color: var(--spectrum-red);
-  position: relative;
-}
-
-.hover-syntax-error:hover::after {
-  content: "❌ SyntaxError";
-  position: absolute;
-  bottom: -20px;
-  left: 0;
-  font-size: 10px;
-  color: var(--spectrum-red);
-  white-space: nowrap;
-  animation: fade-in 0.3s ease;
-  max-width: 150px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.hover-404 {
-  color: var(--spectrum-orange);
-}
-
-.hover-404:hover::after {
-  content: "🔍 404 Not Found";
-  position: absolute;
-  bottom: -20px;
-  left: 0;
-  font-size: 10px;
-  color: var(--spectrum-orange);
-  white-space: nowrap;
-  animation: fade-in 0.3s ease;
-  max-width: 120px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.hover-deprecated {
-  color: var(--text-muted);
-  opacity: 0.7;
-  text-decoration: line-through;
-}
-
-.hover-deprecated:hover {
-  opacity: 1;
-  text-decoration: none;
-}
-
-.hover-deprecated:hover::after {
-  content: "⚠️ Deprecated: Consider upgrading";
-  position: absolute;
-  bottom: -20px;
-  left: 0;
-  font-size: 10px;
-  color: var(--spectrum-yellow);
-  white-space: nowrap;
-  animation: fade-in 0.3s ease;
-}
-
-.hover-loading {
-  color: var(--spectrum-blue);
-  position: relative;
-}
-
-.hover-loading:hover {
-  animation: loading-dots 1.5s ease-in-out infinite;
-}
-
-.hover-loading:hover::after {
-  content: "⏳ Loading...";
-  position: absolute;
-  bottom: -20px;
-  left: 0;
-  font-size: 10px;
-  color: var(--spectrum-blue);
-  white-space: nowrap;
-  animation: fade-in 0.3s ease;
-}
-
-@keyframes loading-dots {
-  0%, 20% { opacity: 1; }
-  50% { opacity: 0.5; }
-  100% { opacity: 1; }
-}
-
-@keyframes fade-in {
-  0% { opacity: 0; transform: translateY(5px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-/* Tech Humor Specific Styles */
-.git-commit-humor {
-  color: var(--spectrum-green);
-}
-
-.git-commit-humor:hover::after {
-  content: "🌿 git commit";
-  position: absolute;
-  bottom: -20px;
-  left: 0;
-  font-size: 10px;
-  color: var(--spectrum-green);
-  white-space: nowrap;
-  animation: fade-in 0.3s ease;
-  max-width: 100px;
-  overflow: hidden;
-}
-
-.stackoverflow-reference {
-  color: var(--spectrum-orange);
-}
-
-.stackoverflow-reference:hover::after {
-  content: "📚 Stack Overflow";
-  position: absolute;
-  bottom: -20px;
-  left: 0;
-  font-size: 10px;
-  color: var(--spectrum-orange);
-  white-space: nowrap;
-  animation: fade-in 0.3s ease;
-  max-width: 120px;
-  overflow: hidden;
-}
-
-.easter-egg-hint {
-  color: var(--text-muted);
-  transition: all 0.3s ease;
-}
-
-.easter-egg-hint:hover {
-  color: var(--spectrum-cyan);
-  cursor: pointer;
-}
-
-.hover-segfault {
-  color: var(--spectrum-red);
-}
-
-.hover-segfault:hover::after {
-  content: "💥 Segmentation fault (core dumped)";
-  position: absolute;
-  bottom: -20px;
-  left: 0;
-  font-size: 10px;
-  color: var(--spectrum-red);
-  white-space: nowrap;
-  animation: fade-in 0.3s ease;
-}
-
-/* Interactive Console Integration */
-.clickable-console {
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-.clickable-console:hover {
-  background: rgba(56, 189, 248, 0.05);
-  border-color: rgba(56, 189, 248, 0.3);
-  transform: translateY(-2px);
-}
-
-/* Quantum Effects for Special Terms */
-.quantum-term {
-  background: linear-gradient(45deg, var(--spectrum-violet), var(--spectrum-cyan), var(--spectrum-pink));
-  background-size: 200% 200%;
-  animation: quantum-shift 3s ease-in-out infinite;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-@keyframes quantum-shift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
-
-/* Accessibility Enhancements */
-@media (prefers-reduced-motion: reduce) {
-  .intelligent-tooltip-trigger,
-  .hover-glitch,
-  .hover-loading,
-  .quantum-term {
-    animation: none;
-    transition: none;
-  }
-}
-
-/* Navigation Tooltip Drawer */
-.nav-tooltip-drawer {
-  backdrop-filter: blur(20px);
-  border-image: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.3), transparent) 1;
-}
-
-/* Mobile Optimizations */
-@media (max-width: 768px) {
-  .intelligent-tooltip-container {
-    max-width: min(320px, 95vw);
-  }
-  
-  .intelligent-tooltip {
-    font-size: 14px;
-  }
-  
-  .intelligent-tooltip-trigger:hover::after,
-  .hover-syntax-error:hover::after,
-  .hover-404:hover::after,
-  .hover-deprecated:hover::after,
-  .hover-loading:hover::after,
-  .git-commit-humor:hover::after,
-  .stackoverflow-reference:hover::after,
-  .hover-segfault:hover::after {
-    display: none; /* Hide micro-tooltips on mobile */
-  }
-}
-
-/* Tooltip positioning fixes */
-.intelligent-tooltip-container[style*="left"] {
-  transform: translateX(-50%) translateY(-100%);
-}
-
-/* Fix for overflowing tooltip text */
-.intelligent-tooltip p,
-.intelligent-tooltip span {
-  word-break: break-word;
-  overflow-wrap: break-word;
-  hyphens: auto;
-}
-
-/* Enhanced tooltip backdrop */
-.intelligent-tooltip-container::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: transparent;
-  z-index: -1;
-  pointer-events: auto;
-}
+/* Ambient Glow System - Subtle Enhancement */
 
 /* Categories intelligent grid system */
 .categories-grid {
@@ -2889,27 +2493,27 @@ section {
     font-weight: 500;
     text-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
   }
-  
+
   .text-wcag-aa {
     color: var(--text-secondary);
     font-weight: 400;
   }
-  
+
   .text-enhanced-contrast {
     color: var(--text-focus);
     font-weight: 600;
     text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
   }
-  
+
   /* HDR Enhanced Elements */
   .hdr-enhanced {
     color: var(--hdr-cyan, var(--spectrum-cyan));
   }
-  
+
   .hdr-background {
     background: var(--hdr-deep-blue, var(--space-void));
   }
-  
+
   /* Focus States - Enhanced Visibility */
   .focus-enhanced:focus {
     outline: 3px solid var(--text-focus);
@@ -2917,7 +2521,7 @@ section {
     background: hsla(180, 100%, 85%, 0.1);
     box-shadow: 0 0 0 6px hsla(180, 100%, 85%, 0.2);
   }
-  
+
   /* Screen Reader Support */
   .sr-only {
     position: absolute;
@@ -2930,42 +2534,42 @@ section {
     white-space: nowrap;
     border: 0;
   }
-  
+
   /* Motion Preferences */
   .respect-motion-preference {
     animation: auto;
     transition: auto;
   }
-  
+
   @media (prefers-reduced-motion: reduce) {
     .respect-motion-preference {
       animation: none !important;
       transition: none !important;
     }
   }
-  
+
   /* Color Blind Safe Indicators */
   .colorblind-safe::before {
     content: "●";
     margin-right: 0.5rem;
     font-weight: bold;
   }
-  
+
   .status-success.colorblind-safe::before {
     content: "✓";
     color: var(--spectrum-green);
   }
-  
+
   .status-warning.colorblind-safe::before {
     content: "⚠";
     color: var(--spectrum-yellow);
   }
-  
+
   .status-error.colorblind-safe::before {
     content: "✕";
     color: var(--spectrum-red);
   }
-  
+
   /* Enhanced Link Visibility */
   .link-enhanced {
     color: var(--text-link);
@@ -2974,13 +2578,13 @@ section {
     text-underline-offset: 3px;
     transition: all 0.2s ease;
   }
-  
+
   .link-enhanced:hover {
     color: var(--text-focus);
     text-decoration-thickness: 3px;
     text-shadow: 0 0 4px var(--text-focus);
   }
-  
+
   .link-enhanced:focus {
     outline: 2px solid var(--text-focus);
     outline-offset: 2px;
@@ -2992,41 +2596,41 @@ section {
   .font-space {
     font-family: 'Space Grotesk', sans-serif;
   }
-  
+
   .font-mono {
     font-family: 'JetBrains Mono', monospace;
   }
-  
+
   /* Contrast Enhancement Utilities */
   .contrast-high {
     filter: contrast(1.3) brightness(1.1);
   }
-  
+
   .contrast-ultra {
     filter: contrast(1.5) brightness(1.2);
   }
-  
+
   /* HDR Color Space Support */
   @supports (color: color(display-p3 1 1 1)) {
     .hdr-cyan {
       color: color(display-p3 0.3 0.95 1);
     }
-    
+
     .hdr-blue {
       color: color(display-p3 0.15 0.7 1);
     }
-    
+
     .hdr-white {
       color: color(display-p3 1 1 1);
     }
   }
-  
+
   /* Performance Optimizations */
   .gpu-accelerated {
     transform: translateZ(0);
     will-change: transform;
   }
-  
+
   .smooth-60fps {
     backface-visibility: hidden;
     perspective: 1000px;

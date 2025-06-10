@@ -272,9 +272,9 @@ export function createTooltipSpan(text: string, className?: string) {
   }
 
   return (
-    <IntelligentTooltip tooltipData={tooltipData} className={className}>
+    
       {text}
-    </IntelligentTooltip>
+    
   );
 }
 

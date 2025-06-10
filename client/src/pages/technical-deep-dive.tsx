@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 export default function TechnicalDeepDive() {
@@ -38,7 +37,7 @@ export default function TechnicalDeepDive() {
             <h2 className="text-4xl font-bold mb-6 text-cyan-400">
               🏗️ Architecture Philosophy
             </h2>
-            
+
             <div className="grid md:grid-cols-2 gap-8">
               <div>
                 <h3 className="text-2xl font-semibold mb-4 text-blue-300">
@@ -90,23 +89,18 @@ const quantumProcessor = {
             <h2 className="text-4xl font-bold mb-6 text-purple-400">
               ⚡ Engineering Methodology
             </h2>
-            
+
             <div className="space-y-8">
               <div>
                 <h3 className="text-2xl font-semibold mb-4 text-green-300">
-                  <IntelligentTooltip 
-                    category="concept" 
-                    content="VibeCoding treats programming like composing music - every function should flow naturally into the next, creating harmonious systems that feel intuitive to both developers and users."
-                  >
-                    VibeCoding Methodology
-                  </IntelligentTooltip>
+                  VibeCoding Methodology
                 </h3>
                 <p className="text-gray-300 mb-4">
-                  Like a <QuantumWordTagger category="gaming">rhythm game</QuantumWordTagger> where perfect timing creates beautiful music, 
+                  Like a rhythm game where perfect timing creates beautiful music, 
                   VibeCoding synchronizes technical excellence with human intuition. Each code pattern flows like a musical phrase, 
                   creating software that feels alive and responsive.
                 </p>
-                
+
                 <div className="grid md:grid-cols-3 gap-4 mt-6">
                   <div className="bg-green-900/20 p-4 rounded-lg border border-green-500/30">
                     <h4 className="font-semibold text-green-300 mb-2">🎵 Rhythm Coding</h4>
@@ -133,20 +127,15 @@ const quantumProcessor = {
 
               <div>
                 <h3 className="text-2xl font-semibold mb-4 text-orange-300">
-                  <IntelligentTooltip 
-                    category="tech" 
-                    content="Multi-LLM orchestration means using multiple AI models simultaneously - like having a team of specialists (one for code, one for design, one for philosophy) all working together on the same project."
-                  >
-                    Multi-LLM Orchestration
-                  </IntelligentTooltip>
+                  Multi-LLM Orchestration
                 </h3>
                 <p className="text-gray-300 mb-4">
                   Picture an orchestra where each instrument (AI model) has its specialty - the violin handles delicate UI details, 
                   the drums manage robust backend systems, and the conductor (orchestrator) ensures perfect harmony. No single AI 
-                  does everything; instead, they collaborate like a <QuantumWordTagger category="gaming">raid team</QuantumWordTagger> 
+                  does everything; instead, they collaborate like a raid team 
                   in an MMO.
                 </p>
-                
+
                 <div className="bg-slate-800/50 p-4 rounded-lg border border-orange-500/20">
                   <code className="text-orange-300 text-sm">
                     {`// Orchestrating multiple AI consciousness streams
@@ -169,23 +158,18 @@ const aiOrchestra = {
             <h2 className="text-4xl font-bold mb-6 text-green-400">
               🏛️ Philosophy Integration
             </h2>
-            
+
             <div className="space-y-8">
               <div>
                 <h3 className="text-2xl font-semibold mb-4 text-cyan-300">
-                  <IntelligentTooltip 
-                    category="philosophy" 
-                    content="Socratic debugging means asking deeper questions when code breaks - not just 'what went wrong?' but 'why did we assume this would work?' and 'what can this teach us about our assumptions?'"
-                  >
-                    Socratic Debugging Methodology
-                  </IntelligentTooltip>
+                  Socratic Debugging Methodology
                 </h3>
                 <p className="text-gray-300 mb-4">
                   When bugs appear, we don't just fix them - we interrogate them like Socrates questioning assumptions. 
                   "Why did this fail?" leads to "What did we assume?" which reveals deeper truths about system design. 
-                  Each error becomes a <QuantumWordTagger category="philosophy">philosophical teacher</QuantumWordTagger>.
+                  Each error becomes a philosophical teacher.
                 </p>
-                
+
                 <div className="bg-cyan-900/20 p-4 rounded-lg border border-cyan-500/30">
                   <h4 className="font-semibold text-cyan-300 mb-2">The Socratic Stack Trace:</h4>
                   <ul className="text-sm text-gray-300 space-y-1">
@@ -199,31 +183,21 @@ const aiOrchestra = {
 
               <div>
                 <h3 className="text-2xl font-semibold mb-4 text-yellow-300">
-                  <IntelligentTooltip 
-                    category="philosophy" 
-                    content="Stoic deployment means accepting that some things will go wrong, preparing for them mentally and technically, and focusing only on what you can control - your code quality, testing, and response time."
-                  >
-                    Stoic Deployment Principles
-                  </IntelligentTooltip>
+                  Stoic Deployment Principles
                 </h3>
                 <p className="text-gray-300 mb-4">
                   Like Marcus Aurelius preparing for battle, we deploy with acceptance of uncertainty. We control our code quality, 
                   testing thoroughness, and response protocols - but accept that production environments will surprise us. 
-                  This mental framework creates <QuantumWordTagger category="philosophy">unshakeable resilience</QuantumWordTagger>.
+                  This mental framework creates unshakeable resilience.
                 </p>
               </div>
 
               <div>
                 <h3 className="text-2xl font-semibold mb-4 text-red-300">
-                  <IntelligentTooltip 
-                    category="concept" 
-                    content="Canadian Charter programming ethics means building technology that upholds democratic values - accessibility for all users, privacy by design, and systems that empower rather than exploit."
-                  >
-                    Canadian Charter Programming Ethics
-                  </IntelligentTooltip>
+                  Canadian Charter Programming Ethics
                 </h3>
                 <p className="text-gray-300 mb-4">
-                  Every line of code reflects values. We embed <QuantumWordTagger category="concept">democratic principles</QuantumWordTagger> 
+                  Every line of code reflects values. We embed democratic principles 
                   directly into architecture - accessibility isn't an afterthought but a foundational requirement, privacy is built-in 
                   not bolted-on, and user agency is preserved through transparent, empowering interfaces.
                 </p>
@@ -238,7 +212,7 @@ const aiOrchestra = {
             <h2 className="text-4xl font-bold mb-6 text-blue-400">
               🏛️ Democratic Technology Principles
             </h2>
-            
+
             <div className="grid md:grid-cols-2 gap-8">
               <div>
                 <h3 className="text-2xl font-semibold mb-4 text-emerald-300">
@@ -249,7 +223,7 @@ const aiOrchestra = {
                   keyboard only or using screen readers, it works 
                   beautifully for everyone. Like designing a building with ramps instead of adding them later.
                 </p>
-                
+
                 <div className="bg-emerald-900/20 p-4 rounded-lg border border-emerald-500/30">
                   <h4 className="font-semibold text-emerald-300 mb-2">Universal Design Patterns:</h4>
                   <ul className="text-sm text-gray-300 space-y-1">
@@ -270,7 +244,7 @@ const aiOrchestra = {
                   showing damage calculations, users understand how data flows and decisions are made. Transparency builds trust, 
                   trust enables authentic collaboration.
                 </p>
-                
+
                 <div className="bg-pink-900/20 p-4 rounded-lg border border-pink-500/30">
                   <code className="text-pink-300 text-sm">
                     {`// Self-documenting democratic systems
@@ -293,7 +267,7 @@ const democraticProcessor = {
             <h2 className="text-4xl font-bold mb-6 text-yellow-400">
               🌟 Real-World Applications
             </h2>
-            
+
             <div className="space-y-6">
               <div className="bg-slate-800/30 p-6 rounded-lg border border-blue-500/20">
                 <h3 className="text-xl font-semibold mb-3 text-blue-300">
@@ -339,9 +313,9 @@ const democraticProcessor = {
             </h2>
             <p className="text-xl text-gray-300 leading-relaxed">
               Technology becomes truly powerful when it serves human consciousness rather than replacing it. 
-              Through <QuantumWordTagger category="concept">quantum consciousness architecture</QuantumWordTagger>, 
-              <QuantumWordTagger category="philosophy">philosophical programming principles</QuantumWordTagger>, and 
-              <QuantumWordTagger category="concept">democratic technology values</QuantumWordTagger>, we create digital 
+              Through quantum consciousness architecture, 
+              philosophical programming principles, and 
+              democratic technology values, we create digital 
               experiences that amplify human potential while preserving human dignity.
             </p>
             <p className="text-lg text-gray-400 mt-4">

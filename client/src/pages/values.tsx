@@ -1,7 +1,6 @@
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import GeometricBackground from "@/components/geometric-background";
 import Footer from "@/components/footer";
-import { QuantumWordTagger } from '@/components/ui/quantum-word-tagger';
 // import EnhancedConsole from '@/components/enhanced-console';
 import { useState } from 'react';
 
@@ -11,7 +10,7 @@ export default function Values() {
 
   return (
     <div className="min-h-screen bg-[var(--space-black)] text-white pt-16">{/* Add padding top for fixed nav */}
-      
+
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0 opacity-20">
@@ -21,7 +20,7 @@ export default function Values() {
             className="w-full h-full object-cover" 
           />
         </div>
-        
+
         {/* Quantum Particles */}
         <div className="absolute inset-0 z-10 pointer-events-none">
           {[...Array(15)].map((_, i) => (
@@ -36,18 +35,18 @@ export default function Values() {
             />
           ))}
         </div>
-        
+
         <div className="container mx-auto px-6 relative z-20">
           <div className="max-w-4xl mx-auto text-center">
             <div className="inline-flex items-center justify-center px-6 py-3 prismatic-glass rounded-full border border-cyan-400/50 mb-8">
               <i className="fas fa-compass text-cyan-400 mr-3"></i>
               <span className="text-cyan-300 text-sm font-medium">CORE_VALUES</span>
             </div>
-            
+
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 font-space">
               <span className="holo-text">Core Values</span>
             </h1>
-            
+
             <p className="text-xl text-cyan-100 max-w-3xl mx-auto">
               Principles that guide my development philosophy and approach to building meaningful technology
             </p>
@@ -61,7 +60,7 @@ export default function Values() {
           <h2 className={`text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 font-space text-center fade-in-up ${isVisible ? 'animate' : ''}`}>
             <span className="holo-text">Development Philosophy</span>
           </h2>
-          
+
           <div className={`max-w-4xl mx-auto text-center mb-16 fade-in-up ${isVisible ? 'animate' : ''}`}>
             <div className="holo-panel p-8 rounded-3xl border border-cyan-400/50 gacha-shine">
               <div className="font-mono text-sm text-left bg-[var(--space-black)] p-6 rounded-lg border border-cyan-400/30 shadow-lg shadow-cyan-500/20 clickable-console">
@@ -80,7 +79,7 @@ export default function Values() {
               </p>
             </div>
           </div>
-          
+
           <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto mb-12">
             {/* User-Centered Design */}
             <div className={`holo-panel p-8 rounded-3xl border border-cyan-400/50 gacha-shine energy-flow fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.2s' }}>
@@ -91,13 +90,13 @@ export default function Values() {
                 <h3 className="font-semibold text-xl text-[var(--synthwave-gold)]">User-Centered Design</h3>
                 <p className="text-sm text-gray-400 mt-2">Human-First Development</p>
               </div>
-              
+
               <p className="text-gray-300 mb-6 text-center leading-relaxed">
                 Every interface should feel intuitive, every interaction meaningful. I prioritize accessibility, 
                 usability, and genuine user needs over flashy features. Technology should enhance human capability, 
                 not create barriers.
               </p>
-              
+
               <div className="space-y-3">
                 <div className="flex items-start">
                   <i className="fas fa-universal-access text-[var(--synthwave-gold)] mr-3 mt-1"></i>
@@ -123,13 +122,13 @@ export default function Values() {
                 <h3 className="font-semibold text-xl text-[var(--synthwave-cyan)]">Technical Excellence</h3>
                 <p className="text-sm text-gray-400 mt-2">Quality & Performance</p>
               </div>
-              
+
               <p className="text-gray-300 mb-6 text-center leading-relaxed">
                 Clean, maintainable code isn't just a preference—it's a responsibility. I follow best practices, 
                 write comprehensive tests, and build systems that scale. Every project is an opportunity to 
                 demonstrate craftsmanship.
               </p>
-              
+
               <div className="space-y-3">
                 <div className="flex items-start">
                   <i className="fas fa-shield-alt text-[var(--synthwave-cyan)] mr-3 mt-1"></i>
@@ -153,7 +152,7 @@ export default function Values() {
               <h3 className="font-semibold text-2xl mb-6 text-pink-300 text-center">
                 <i className="fas fa-heart mr-3"></i>Values in Action: Interactive Demo
               </h3>
-              
+
               <div className="grid md:grid-cols-2 gap-6">
                 {/* Humanity Demo */}
                 <div className="bg-gradient-to-br from-red-900/20 to-pink-900/20 p-6 rounded-xl border border-pink-400/30">
@@ -250,19 +249,19 @@ export default function Values() {
               <h3 className="font-semibold text-2xl mb-6 text-[var(--spectrum-violet)] text-center">
                 <i className="fas fa-code mr-3"></i>VibeCoding: Philosophy Meets Production
               </h3>
-              
+
               <div className="space-y-6 text-gray-300 leading-relaxed">
                 <p className="text-lg text-center italic text-[var(--bright-purple)]">
                   "The Neural Network Portfolio: Where consciousness converges with computation."
                 </p>
-                
+
                 <p>
                   VibeCoding isn't just methodology—it's digital alchemy. Where Socratic inquiry debugs reality, 
                   Aristotelian analysis architected Troves & Coves' AI orchestration, and Platonic ideals shaped 
                   the perfect Forms of clean code. Because if you're going to build the future, might as well 
                   bring some ancient wisdom to the party.
                 </p>
-                
+
                 <div className="grid md:grid-cols-3 gap-4">
                   <div className="holo-panel p-4 rounded-xl border border-[var(--synthwave-cyan)]/50 gacha-shine">
                     <h4 className="font-semibold text-[var(--synthwave-cyan)] mb-2 flex items-center text-sm">
@@ -275,7 +274,7 @@ export default function Values() {
                       <li>• Platonic Forms guide clean code</li>
                     </ul>
                   </div>
-                  
+
                   <div className="holo-panel p-4 rounded-xl border border-[var(--synthwave-pink)]/50 gacha-shine">
                     <h4 className="font-semibold text-[var(--synthwave-pink)] mb-2 flex items-center text-sm">
                       <i className="fas fa-robot mr-2"></i>AI-First Orchestration
@@ -287,7 +286,7 @@ export default function Values() {
                       <li>• Idempotent workflow poetry</li>
                     </ul>
                   </div>
-                  
+
                   <div className="holo-panel p-4 rounded-xl border border-[var(--synthwave-gold)]/50 gacha-shine">
                     <h4 className="font-semibold text-[var(--synthwave-gold)] mb-2 flex items-center text-sm">
                       <i className="fas fa-shield-alt mr-2"></i>5GW Defense Ready
@@ -300,7 +299,7 @@ export default function Values() {
                     </ul>
                   </div>
                 </div>
-                
+
                 <p>
                   The Neural Network Portfolio you're browsing? It's a meta-recursive proof-of-concept where 
                   the showcase includes itself—because nothing says "I understand recursive design patterns" 
@@ -308,7 +307,15 @@ export default function Values() {
                   security on a 512MB memory budget. Frostbite Gazette processes 15K daily AI calls with 
                   zero-trust verification. Sometimes the best portfolio project is the portfolio itself.
                 </p>
+
                 
+                <p className="text-gray-300 leading-relaxed mb-6">
+                Every line of code carries intention. Every interface decision shapes human experience. 
+                VibeCoding recognizes that technology is never neutral—it amplifies the consciousness 
+                and values of its creators.
+              </p>
+               
+
                 <div className="bg-gradient-to-r from-[var(--synthwave-violet)]/10 to-[var(--synthwave-cyan)]/10 p-6 rounded-lg border border-[var(--synthwave-violet)]/30">
                   <p className="text-center font-semibold text-[var(--synthwave-gold)]">
                     "Code is law. Let's write laws that protect consciousness, amplify creativity, and serve the flourishing of authentic digital expression."
@@ -317,8 +324,7 @@ export default function Values() {
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        
 
       {/* Cyberpunk Design Philosophy */}
       <section className="py-20 relative">
@@ -328,19 +334,19 @@ export default function Values() {
               <h2 className="font-bold text-2xl md:text-3xl mb-8 text-[var(--spectrum-green)] text-center">
                 <i className="fas fa-eye mr-3"></i>Cyberpunk Design Philosophy
               </h2>
-              
+
               <div className="space-y-6 text-[var(--text-secondary)] leading-relaxed">
                 <p className="text-lg text-center italic text-[var(--bright-green)]">
                   "Technology as art. Code as consciousness. Interfaces that acknowledge the cyborg nature of modern digital interaction."
                 </p>
-                
+
                 <p>
                   Most portfolios follow predictable patterns—clean minimalism that screams "hire me, I'm safe." 
                   But why settle for corporate beige when you can have prismatic spectrum harmonization? 
                   This cyberpunk aesthetic isn't style over substance; it's substance through authentic style. 
                   Because if your interface doesn't suggest underlying digital physics, are you even trying?
                 </p>
-                
+
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="holo-panel p-6 rounded-2xl border border-[var(--synthwave-cyan)]/50 gacha-shine">
                     <h4 className="font-semibold text-[var(--synthwave-cyan)] mb-3 flex items-center">
@@ -353,7 +359,7 @@ export default function Values() {
                       <li>• Visual metaphors for consciousness complexity</li>
                     </ul>
                   </div>
-                  
+
                   <div className="holo-panel p-6 rounded-2xl border border-[var(--synthwave-pink)]/50 gacha-shine">
                     <h4 className="font-semibold text-[var(--synthwave-pink)] mb-3 flex items-center">
                       <i className="fas fa-universal-access mr-2"></i>Accessible Cyberpunk
@@ -366,14 +372,14 @@ export default function Values() {
                     </ul>
                   </div>
                 </div>
-                
+
                 <p>
                   The meta-recursive project showcase—including this portfolio within itself—creates temporal 
                   paradox within the browsing experience. It's not just clever; it's essential cyberpunk philosophy: 
                   acknowledging that all interfaces are constructs, all portfolios are performances, and the 
                   most honest approach embraces this truth rather than hiding it.
                 </p>
-                
+
                 <div className="bg-gradient-to-r from-[var(--synthwave-green)]/10 to-[var(--synthwave-blue)]/10 p-6 rounded-lg border border-[var(--synthwave-green)]/30">
                   <p className="text-center font-semibold text-[var(--synthwave-gold)]">
                     "In the digital realm, authenticity means embracing the artificial. Let consciousness and computation converge with style."
@@ -393,19 +399,19 @@ export default function Values() {
               <h2 className="font-bold text-2xl md:text-3xl mb-8 text-[var(--spectrum-blue)] text-center">
                 <i className="fas fa-shield-alt mr-3"></i>5th Generation Warfare Defense
               </h2>
-              
+
               <div className="space-y-6 text-[var(--text-secondary)] leading-relaxed">
                 <p className="text-lg text-center italic text-[var(--bright-blue)]">
                   "In the digital realm, code is law. Let's write laws that defend consciousness."
                 </p>
-                
+
                 <p>
                   Information warfare isn't science fiction—it's Tuesday. From narrative seeding to Overton window 
                   manipulation, modern conflict happens in perception space. Frostbite Gazette's defense framework 
                   implements zero-trust verification, cryptographic content integrity, and real-time threat intelligence. 
                   Because when algorithms determine what truth gets seen, transparency becomes a national security issue.
                 </p>
-                
+
                 <div className="grid md:grid-cols-3 gap-4">
                   <div className="holo-panel p-4 rounded-xl border border-[var(--synthwave-cyan)]/50 gacha-shine">
                     <h4 className="font-semibold text-[var(--synthwave-cyan)] mb-2 flex items-center text-sm">
@@ -418,7 +424,7 @@ export default function Values() {
                       <li>• Foreign interference monitoring</li>
                     </ul>
                   </div>
-                  
+
                   <div className="holo-panel p-4 rounded-xl border border-[var(--synthwave-pink)]/50 gacha-shine">
                     <h4 className="font-semibold text-[var(--synthwave-pink)] mb-2 flex items-center text-sm">
                       <i className="fas fa-lock mr-2"></i>Cryptographic Integrity
@@ -430,7 +436,7 @@ export default function Values() {
                       <li>• Digital signature validation</li>
                     </ul>
                   </div>
-                  
+
                   <div className="holo-panel p-4 rounded-xl border border-[var(--synthwave-gold)]/50 gacha-shine">
                     <h4 className="font-semibold text-[var(--synthwave-gold)] mb-2 flex items-center text-sm">
                       <i className="fas fa-brain mr-2"></i>Cognitive Security
@@ -443,14 +449,14 @@ export default function Values() {
                     </ul>
                   </div>
                 </div>
-                
+
                 <p>
                   The Canadian context adds complexity—linguistic division exploitation, resource politics manipulation, 
                   Arctic sovereignty information campaigns. Our defense architecture protects democratic discourse through 
                   multi-dimensional verification, Overton window monitoring, and quantum-resistant cryptography. 
                   Sometimes the most patriotic thing you can do is build systems that defend shared truth.
                 </p>
-                
+
                 <div className="bg-gradient-to-r from-[var(--synthwave-blue)]/10 to-[var(--synthwave-cyan)]/10 p-6 rounded-lg border border-[var(--synthwave-blue)]/30">
                   <p className="text-center font-semibold text-[var(--synthwave-gold)]">
                     "Disinformation spreads like wildfire; truth builds like architecture. Choose your building materials wisely."
@@ -468,7 +474,7 @@ export default function Values() {
           <h2 className="font-bold text-3xl md:text-4xl text-center mb-16 text-[var(--bright-blue)]">
             Technical Implementation
           </h2>
-          
+
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-12">
             {/* Continuous Learning */}
             <div className="holo-panel p-6 rounded-3xl border border-cyan-400/50 gacha-shine energy-flow">
@@ -479,12 +485,12 @@ export default function Values() {
                 <h3 className="font-semibold text-lg text-[var(--synthwave-pink)]">Continuous Learning</h3>
                 <p className="text-xs text-gray-400">Growth Mindset</p>
               </div>
-              
+
               <p className="text-gray-300 text-sm text-center mb-4">
                 Technology evolves rapidly, and staying current requires dedication to learning. 
                 I embrace new frameworks and techniques while maintaining focus on fundamentals.
               </p>
-              
+
               <div className="space-y-2 text-xs">
                 <div className="flex items-center">
                   <i className="fas fa-book text-[var(--synthwave-pink)] mr-2"></i>
@@ -510,12 +516,12 @@ export default function Values() {
                 <h3 className="font-semibold text-lg text-[var(--synthwave-cyan)]">Collaboration</h3>
                 <p className="text-xs text-gray-400">Team Success</p>
               </div>
-              
+
               <p className="text-gray-300 text-sm text-center mb-4">
                 Great software is built by teams, not individuals. I value clear communication, 
                 constructive feedback, and shared ownership of outcomes.
               </p>
-              
+
               <div className="space-y-2 text-xs">
                 <div className="flex items-center">
                   <i className="fas fa-comments text-[var(--synthwave-cyan)] mr-2"></i>
@@ -541,15 +547,15 @@ export default function Values() {
                 <h3 className="font-semibold text-lg text-[var(--synthwave-gold)]">Innovation</h3>
                 <p className="text-xs text-gray-400">Creative Solutions</p>
               </div>
-              
+
               <p className="text-gray-300 text-sm text-center mb-4">
                 While respecting proven patterns, I actively seek creative approaches to complex problems. 
                 Innovation comes from understanding both constraints and possibilities.
               </p>
-              
+
               <div className="space-y-2 text-xs">
                 <div className="flex items-center">
-                  <i className="fas fa-puzzle-piece text-[var(--synthwave-gold)] mr-2"></i>
+                  <ii className="fas fa-puzzle-piece text-[var(--synthwave-gold)] mr-2"></i>
                   <span className="text-gray-400">Creative problem-solving approaches</span>
                 </div>
                 <div className="flex items-center">
@@ -574,18 +580,18 @@ export default function Values() {
               <h2 className="font-bold text-2xl md:text-3xl mb-8 text-[var(--synthwave-cyan)] text-center">
                 <i className="fas fa-infinity mr-3"></i>The VibeCoding Methodology
               </h2>
-              
+
               <div className="space-y-6 text-gray-300 leading-relaxed">
                 <p className="text-lg text-center italic text-[var(--bright-blue)]">
                   "When technical excellence meets thoughtful design, software becomes an expression of human potential."
                 </p>
-                
+
                 <p>
                   VibeCoding represents my integrated approach to software development—where philosophical principles inform 
                   technical decisions, and every project reflects a commitment to meaningful impact. It's about building 
                   technology that enhances human capability while respecting human agency.
                 </p>
-                
+
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="holo-panel p-6 rounded-2xl border border-[var(--synthwave-gold)]/50 gacha-shine">
                     <h4 className="font-semibold text-[var(--synthwave-gold)] mb-3 flex items-center">
@@ -598,7 +604,7 @@ export default function Values() {
                       <li>• Accessibility and inclusive design from day one</li>
                     </ul>
                   </div>
-                  
+
                   <div className="holo-panel p-6 rounded-2xl border border-[var(--synthwave-cyan)]/50 gacha-shine">
                     <h4 className="font-semibold text-[var(--synthwave-cyan)] mb-3 flex items-center">
                       <i className="fas fa-heart mr-2"></i>Human-Centered Values
@@ -611,7 +617,7 @@ export default function Values() {
                     </ul>
                   </div>
                 </div>
-                
+
                 <div className="bg-gradient-to-r from-[var(--synthwave-pink)]/10 to-[var(--synthwave-gold)]/10 p-6 rounded-lg border border-[var(--synthwave-pink)]/30">
                   <p className="text-center font-semibold text-[var(--synthwave-gold)]">
                     "Great software doesn't just work—it empowers people to achieve their goals with dignity and joy."
@@ -631,25 +637,25 @@ export default function Values() {
               <h2 className="font-bold text-2xl md:text-3xl mb-8 text-[var(--spectrum-cyan)] text-center">
                 <i className="fas fa-bullhorn mr-3"></i>Free Speech & Digital Rights
               </h2>
-              
+
               <div className="space-y-6 text-[var(--text-secondary)] leading-relaxed">
                 <p className="text-lg text-center italic text-[var(--bright-blue)]">
                   "The right to speak freely is the foundation upon which all other freedoms rest."
                 </p>
-                
+
                 <p>
                   In an era where digital platforms increasingly control the flow of information, defending free speech 
                   becomes a fundamental responsibility for every developer. The code we write, the platforms we build, 
                   and the systems we architect must preserve the fundamental human right to express ideas without fear 
                   of censorship or retribution.
                 </p>
-                
+
                 <p>
                   Technology should empower diverse voices, not silence them. Every algorithm that determines what content 
                   gets seen, every moderation system that decides what speech is acceptable, and every platform policy 
                   that governs expression represents a critical choice about the kind of digital society we're building.
                 </p>
-                
+
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="holo-panel p-6 rounded-2xl border border-[var(--synthwave-cyan)]/50 gacha-shine">
                     <h4 className="font-semibold text-[var(--synthwave-cyan)] mb-3 flex items-center">
@@ -662,7 +668,7 @@ export default function Values() {
                       <li>• Decentralized systems that resist single points of censorship</li>
                     </ul>
                   </div>
-                  
+
                   <div className="holo-panel p-6 rounded-2xl border border-[var(--synthwave-pink)]/50 gacha-shine">
                     <h4 className="font-semibold text-[var(--synthwave-pink)] mb-3 flex items-center">
                       <i className="fas fa-users mr-2"></i>Developer Responsibility
@@ -675,13 +681,13 @@ export default function Values() {
                     </ul>
                   </div>
                 </div>
-                
+
                 <p>
                   The internet was built on principles of open communication and free exchange of ideas. As developers, 
                   we have the power and responsibility to ensure these principles survive and thrive in the digital age. 
                   Every line of code is a choice between freedom and control, between empowerment and suppression.
                 </p>
-                
+
                 <div className="bg-gradient-to-r from-[var(--synthwave-cyan)]/10 to-[var(--synthwave-pink)]/10 p-6 rounded-lg border border-[var(--synthwave-cyan)]/30">
                   <p className="text-center font-semibold text-[var(--synthwave-gold)]">
                     "In the digital realm, code is law. Let us write laws that protect the fundamental human right to speak, think, and express freely."
@@ -692,7 +698,7 @@ export default function Values() {
           </div>
         </div>
       </section>
-      
+
       <Footer />
     </div>
   );
