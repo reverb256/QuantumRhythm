@@ -7,6 +7,7 @@ import { TradingPairValidator } from './trading-pair-validator.js';
 import { TradingPairDiscoveryService } from './trading-pair-discovery-service.js';
 import { IntelligentTokenWhitelistManager } from './intelligent-token-whitelist-manager.js';
 import { ragLearningEngine } from './rag-learning-engine.js';
+import { NewsIntelligenceAggregator } from './news-intelligence-aggregator.js';
 
 interface TradeDecision {
   action: 'BUY' | 'SELL' | 'HOLD';
@@ -42,6 +43,7 @@ export class QuantumTrader {
   private pairValidator: TradingPairValidator;
   private pairDiscovery: TradingPairDiscoveryService;
   private tokenWhitelist: IntelligentTokenWhitelistManager;
+  private newsIntelligence: NewsIntelligenceAggregator;
   
   // CORRECTED: Dynamic allocation system after 99.7% loss analysis
   private riskAllocationTiers = {
@@ -76,9 +78,11 @@ export class QuantumTrader {
     this.pairValidator = new TradingPairValidator();
     this.pairDiscovery = new TradingPairDiscoveryService();
     this.tokenWhitelist = new IntelligentTokenWhitelistManager();
+    this.newsIntelligence = new NewsIntelligenceAggregator();
     this.initializeAgent();
     this.startQuantumTrading();
     this.startLearningEngine();
+    this.initializeNewsIntelligence();
   }
 
   private async initializeAgent() {
@@ -135,6 +139,15 @@ export class QuantumTrader {
     setInterval(() => {
       this.processLearningPatterns();
     }, 600000);
+  }
+
+  private async initializeNewsIntelligence() {
+    try {
+      await this.newsIntelligence.initialize();
+      console.log('📰 News intelligence system activated');
+    } catch (error) {
+      console.log('⚠️ News intelligence initialization failed, continuing without RSS feeds');
+    }
   }
 
   private async executeQuantumTrade() {
