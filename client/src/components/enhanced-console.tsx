@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect, memo, useCallback, useMemo } from 'react';
 
 interface SecurityEvent {
   type: 'suspicious' | 'malicious' | 'educational' | 'fun';
@@ -15,7 +15,7 @@ interface CommandSuggestion {
   confidence: number;
 }
 
-export const EnhancedConsole: React.FC = () => {
+const EnhancedConsole = memo(() => {
   const [isOpen, setIsOpen] = useState(false);
   const [command, setCommand] = useState('');
   const [suggestions, setSuggestions] = useState<CommandSuggestion[]>([]);
@@ -63,7 +63,7 @@ export const EnhancedConsole: React.FC = () => {
       .slice(0, 6);
 
     return suggestions;
-  }, []);
+  }, [availableCommands]);
 
   // Handle input change
   const handleInputChange = useCallback((value: string) => {
@@ -409,6 +409,8 @@ Type 'help' for available commands.`;
       </div>
     </div>
   );
-};
+});
+
+EnhancedConsole.displayName = 'EnhancedConsole';
 
 export default EnhancedConsole;

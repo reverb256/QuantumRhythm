@@ -1,6 +1,7 @@
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { Button } from "@/components/ui/button";
 import { MetaRecursiveProject } from "./meta-recursive-project";
+import { memo, useMemo } from "react";
 import trovesCovestImage from "@assets/image_1749452464369.png";
 import cleaningServiceImage from "@assets/image_1749452436437.png";
 import portfolioImage from "@assets/image_1749452548538.png";
@@ -102,8 +103,40 @@ const projects = [
 
 ];
 
-export default function ProjectsSection() {
+const ProjectsSection = memo(() => {
   const { elementRef, isVisible } = useScrollAnimation();
+  
+  // Memoize heavy computations
+  const projectCategories = useMemo(() => [
+    {
+      title: "E-commerce Platforms",
+      icon: "fas fa-shopping-cart",
+      description: "Production-ready retail platforms with payment integration and AI-enhanced customer experiences",
+      count: 1,
+      color: "from-purple-400 to-pink-500"
+    },
+    {
+      title: "Service Platforms", 
+      icon: "fas fa-cogs",
+      description: "Professional service management systems with automated workflows and client portals",
+      count: 1,
+      color: "from-cyan-400 to-blue-500"
+    },
+    {
+      title: "Portfolio & Infrastructure",
+      icon: "fas fa-server", 
+      description: "Meta-recursive portfolios and enterprise infrastructure showcasing authentic development journeys",
+      count: 2,
+      color: "from-green-400 to-teal-500"
+    }
+  ], []);
+  
+  const philosophyPrinciples = useMemo(() => [
+    { icon: "fas fa-yin-yang", label: "Balance", description: "Harmony between form and function" },
+    { icon: "fas fa-infinity", label: "Infinite", description: "Unlimited potential in every creation" },
+    { icon: "fas fa-atom", label: "Quantum", description: "Superposition of possibilities" },
+    { icon: "fas fa-eye", label: "Vision", description: "Future-focused perspectives" }
+  ], []);
 
   return (
     <section id="projects" className="py-20 relative min-h-screen overflow-hidden" ref={elementRef}>
@@ -409,31 +442,9 @@ export default function ProjectsSection() {
             })}
           </div>
 
-          {/* Project Categories - Intelligent Dynamic Grid */}
+          {/* Project Categories - Optimized Grid */}
           <div className="categories-grid mb-16">
-            {[
-              {
-                title: "E-commerce Platforms",
-                icon: "fas fa-shopping-cart",
-                description: "Production-ready retail platforms with payment integration and AI-enhanced customer experiences",
-                count: 1,
-                color: "from-purple-400 to-pink-500"
-              },
-              {
-                title: "Service Platforms",
-                icon: "fas fa-cogs",
-                description: "Professional service management systems with automated workflows and client portals",
-                count: 1,
-                color: "from-cyan-400 to-blue-500"
-              },
-              {
-                title: "Portfolio & Infrastructure",
-                icon: "fas fa-server",
-                description: "Meta-recursive portfolios and enterprise infrastructure showcasing authentic development journeys",
-                count: 2,
-                color: "from-green-400 to-teal-500"
-              }
-            ].map((category, index) => (
+            {projectCategories.map((category, index) => (
               <div key={category.title} className="holo-panel p-8 rounded-3xl border border-cyan-400/50 gacha-shine text-center intelligent-container">
                 <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${category.color} flex items-center justify-center mx-auto mb-6`}>
                   <i className={`${category.icon} text-white text-2xl`}></i>
@@ -465,12 +476,7 @@ export default function ProjectsSection() {
             </div>
 
             <div className="auto-grid mt-10" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(200px, 100%), 1fr))' }}>
-              {[
-                { icon: "fas fa-yin-yang", label: "Balance", description: "Harmony between form and function" },
-                { icon: "fas fa-infinity", label: "Infinite", description: "Unlimited potential in every creation" },
-                { icon: "fas fa-atom", label: "Quantum", description: "Superposition of possibilities" },
-                { icon: "fas fa-eye", label: "Vision", description: "Future-focused perspectives" }
-              ].map((principle, index) => (
+              {philosophyPrinciples.map((principle, index) => (
                 <div key={principle.label} className="text-center group intelligent-container">
                   <div className="w-16 h-16 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                     <i className={`${principle.icon} text-white text-xl`}></i>
@@ -485,4 +491,8 @@ export default function ProjectsSection() {
       </div>
     </section>
   );
-}
+});
+
+ProjectsSection.displayName = 'ProjectsSection';
+
+export default ProjectsSection;

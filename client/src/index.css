@@ -12,14 +12,14 @@
     /* Smooth scrolling */
     scroll-behavior: smooth;
   }
-  
+
   body {
     /* Better touch scrolling on iOS */
     -webkit-overflow-scrolling: touch;
     /* Prevent pull-to-refresh */
     overscroll-behavior-y: contain;
   }
-  
+
   /* Touch-friendly minimum sizes */
   button, 
   [role="button"],
@@ -28,7 +28,7 @@
     min-height: 44px;
     min-width: 44px;
   }
-  
+
   /* Prevent iOS input zoom */
   input[type="text"],
   input[type="email"],
@@ -2678,56 +2678,56 @@ section {
   .touch-manipulation {
     touch-action: manipulation;
   }
-  
+
   .touch-scroll {
     -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
   }
-  
+
   /* Mobile safe area handling */
   .safe-area-inset {
     padding-left: max(1rem, env(safe-area-inset-left));
     padding-right: max(1rem, env(safe-area-inset-right));
   }
-  
+
   .safe-area-top {
     padding-top: max(1rem, env(safe-area-inset-top));
   }
-  
+
   .safe-area-bottom {
     padding-bottom: max(1rem, env(safe-area-inset-bottom));
   }
-  
+
   /* Responsive text scaling */
   .responsive-text-sm {
     font-size: clamp(0.875rem, 2.5vw, 1rem);
   }
-  
+
   .responsive-text-base {
     font-size: clamp(1rem, 3vw, 1.125rem);
   }
-  
+
   .responsive-text-lg {
     font-size: clamp(1.125rem, 3.5vw, 1.25rem);
   }
-  
+
   .responsive-text-xl {
     font-size: clamp(1.25rem, 4vw, 1.5rem);
   }
-  
+
   .responsive-text-2xl {
     font-size: clamp(1.5rem, 5vw, 2rem);
   }
-  
+
   .responsive-text-3xl {
     font-size: clamp(2rem, 6vw, 3rem);
   }
-  
+
   /* Mobile grid utilities */
   .mobile-grid-auto {
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   }
-  
+
   .mobile-grid-cards {
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   }
@@ -2738,9 +2738,113 @@ section {
     will-change: transform;
     backface-visibility: hidden;
   }
-  
+
   .mobile-smooth-scroll {
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Performance-Optimized Color System */
+:root {
+  /* Core spectrum - reduced to essential colors for performance */
+  --spectrum-violet: #b866ff;
+  --spectrum-blue: #66b3ff;
+  --spectrum-cyan: #66ffff;
+  --spectrum-teal: #66ffb3;
+  --spectrum-green: #66ff66;
+  --spectrum-yellow: #ffff66;
+  --spectrum-orange: #ffb366;
+  --spectrum-red: #ff6666;
+  --spectrum-pink: #ff66b3;
+  --spectrum-magenta: #ff66ff;
+
+  /* Optimized text hierarchy */
+  --text-primary: #f0f9ff;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --text-accent: var(--spectrum-cyan);
+
+  /* Pre-computed gradients for performance */
+  --bg-primary: linear-gradient(135deg, #0a0f1a 0%, #151b2e 100%);
+  --bg-secondary: linear-gradient(135deg, #151b2e 0%, #1e293b 100%);
+
+  /* Optimized glassmorphism */
+  --glass-bg: rgba(6, 182, 212, 0.05);
+  --glass-border: rgba(103, 232, 249, 0.2);
+
+  /* Hardware-accelerated transitions */
+  --transition-fast: 0.15s ease-out;
+  --transition-medium: 0.3s ease-out;
+  --transition-slow: 0.5s ease-out;
+}
+
+/* Optimized Grid Systems */
+.projects-intelligent-grid,
+.categories-grid {
+  display: grid;
+  gap: 2rem;
+  align-items: start;
+}
+
+.projects-intelligent-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(400px, 100%), 1fr));
+}
+
+.categories-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+}
+
+.auto-grid {
+  display: grid;
+  gap: 2rem;
+  align-items: start;
+  grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+}
+
+/* Simplified responsive behavior */
+@media (max-width: 768px) {
+  .projects-intelligent-grid,
+  .categories-grid {
+    gap: 1.5rem;
+  }
+}
+
+/* Hardware-Accelerated Animations */
+.gacha-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.gacha-shine::before {
+  content: '';
+  position: absolute;
+  inset: -50%;
+  background: linear-gradient(
+    45deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 60%
+  );
+  transform: translateX(-100%);
+  animation: shine 3s infinite;
+  will-change: transform;
+}
+
+@keyframes shine {
+  to { transform: translateX(100%); }
+}
+
+.energy-flow {
+  animation: energyFlow 4s ease-in-out infinite;
+  will-change: box-shadow;
+}
+
+@keyframes energyFlow {
+  0%, 100% { 
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+  }
+  50% { 
+    box-shadow: 0 0 40px rgba(6, 182, 212, 0.6);
   }
 }
