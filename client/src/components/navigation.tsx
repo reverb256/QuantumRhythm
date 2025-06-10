@@ -1,31 +1,21 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Code, Zap, Terminal, Shield, Brain, TrendingUp } from 'lucide-react';
-import SecurityFramework from "@/lib/security-framework";
+import { Menu, X, Terminal, Shield, Brain, Zap } from 'lucide-react';
 import { Web3AuthButton } from "@/components/web3-auth";
-
-interface TooltipInfo {
-  title: string;
-  description: string;
-  category: string;
-}
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [location] = useLocation();
-  const [activeTooltip, setActiveTooltip] = useState<TooltipInfo | null>(null);
   const [isConsoleOpen, setIsConsoleOpen] = useState(false);
 
-  // Listen for console state changes
   useEffect(() => {
     const handleConsoleStateChange = (event: CustomEvent) => {
       setIsConsoleOpen(event.detail.isOpen);
     };
 
     window.addEventListener('consoleStateChange', handleConsoleStateChange as EventListener);
-
     return () => {
       window.removeEventListener('consoleStateChange', handleConsoleStateChange as EventListener);
     };
@@ -52,14 +42,6 @@ export default function Navigation() {
     }
   };
 
-  const handleMouseEnter = (tooltip: TooltipInfo) => {
-    setActiveTooltip(tooltip);
-  };
-
-  const handleMouseLeave = () => {
-    setActiveTooltip(null);
-  };
-
   const toggleConsole = () => {
     const event = new KeyboardEvent('keydown', { 
       key: '`', 
@@ -69,28 +51,34 @@ export default function Navigation() {
     document.dispatchEvent(event);
   };
 
+  const navItemClass = (path: string) => `
+    relative px-3 py-2 text-sm font-medium transition-colors duration-300 
+    hover:text-accent focus:outline-none focus:ring-2 focus:ring-primary/50 rounded-md
+    ${location === path ? 'text-accent' : 'text-muted-foreground'}
+  `;
+
+  const sectionButtonClass = `
+    px-3 py-2 text-sm font-medium transition-colors duration-300 
+    hover:text-accent focus:outline-none focus:ring-2 focus:ring-primary/50 rounded-md
+    ${location === '/' ? 'text-primary' : 'text-muted-foreground'}
+  `;
+
   return (
     <header className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
       scrolled ? 'bg-background/95 backdrop-blur-xl border-b border-primary/20' : 'bg-background/80 backdrop-blur-md'
     }`}>
       <nav className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
         <div className="flex items-center justify-between">
-          {/* Brand with Console */}
+          {/* Brand */}
           <div className="flex items-center space-x-3 sm:space-x-4">
             <Link 
               href="/" 
               className="font-bold text-lg sm:text-xl text-primary hover:text-accent transition-colors duration-300 cursor-pointer group"
-              onMouseEnter={() => handleMouseEnter({
-                title: "reverb256",
-                description: "Portfolio featuring AI-orchestrated Cloudflare optimization and oceanic design",
-                category: "Portfolio"
-              })}
-              onMouseLeave={handleMouseLeave}
             >
-              reverb256<span className="console-cursor text-accent group-hover:animate-pulse">|</span>
+              reverb256<span className="text-accent group-hover:animate-pulse">|</span>
             </Link>
 
-            {/* Permanent Console Interface */}
+            {/* Console Toggle */}
             <motion.button
               onClick={toggleConsole}
               whileHover={{ scale: 1.05 }}
@@ -107,75 +95,37 @@ export default function Navigation() {
             </motion.button>
           </div>
 
-          <div className="hidden md:flex space-x-8">
-            <Link href="/cloudflare" className={`hover:text-accent transition-colors duration-300 focus-enhanced hdr-enhanced ${
-              location === '/cloudflare' ? 'text-accent' : 'text-muted-foreground'
-            }`}>
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-2">
+            {/* Page Links */}
+            <Link href="/cloudflare" className={navItemClass('/cloudflare')}>
               <div className="flex items-center space-x-2">
                 <Brain className="h-4 w-4" />
                 <span>Cloudflare AI</span>
               </div>
             </Link>
             
-            <Link href="/defi" className={`hover:text-accent transition-colors duration-300 focus-enhanced hdr-enhanced ${
-              location === '/defi' ? 'text-accent' : 'text-muted-foreground'
-            }`}>
+            <Link href="/defi" className={navItemClass('/defi')}>
               <div className="flex items-center space-x-2">
                 <Zap className="h-4 w-4" />
                 <span>DeFi</span>
               </div>
             </Link>
             
-            <button 
-              onClick={() => scrollToSection('about')} 
-              className={`hover:text-accent transition-colors duration-300 focus-enhanced hdr-enhanced ${location === '/' ? 'text-primary' : 'text-muted-foreground'}`}
-              onMouseEnter={() => handleMouseEnter({
-                title: "About",
-                description: "Portfolio featuring AI-orchestrated Cloudflare optimization and oceanic design",
-                category: "Personal"
-              })}
-              onMouseLeave={handleMouseLeave}
-              aria-label="Navigate to About section"
-            >
+            {/* Section Buttons (for home page) */}
+            <button onClick={() => scrollToSection('about')} className={sectionButtonClass}>
               About
             </button>
-            <button 
-              onClick={() => scrollToSection('projects')} 
-              className={`relative px-2 py-1 text-sm lg:text-base font-medium hover:text-accent transition-colors duration-300 focus-enhanced hdr-enhanced ${location === '/' ? 'text-primary' : 'text-muted-foreground'}`}
-              onMouseEnter={() => handleMouseEnter({
-                title: "Projects",
-                description: "Production-ready applications showcasing AI-orchestrated Cloudflare optimization",
-                category: "Portfolio"
-              })}
-              onMouseLeave={handleMouseLeave}
-              aria-label="Navigate to Projects section"
-            >
+            
+            <button onClick={() => scrollToSection('projects')} className={sectionButtonClass}>
               Projects
             </button>
-            <button 
-              onClick={() => scrollToSection('skills')} 
-              className={`relative px-2 py-1 text-sm lg:text-base font-medium hover:text-accent transition-colors duration-300 focus-enhanced hdr-enhanced ${location === '/' ? 'text-primary' : 'text-muted-foreground'}`}
-              onMouseEnter={() => handleMouseEnter({
-                title: "Skills",
-                description: "Technical expertise in AI orchestration, edge optimization, and portfolio development",
-                category: "Technical"
-              })}
-              onMouseLeave={handleMouseLeave}
-              aria-label="Navigate to Skills section"
-            >
+            
+            <button onClick={() => scrollToSection('skills')} className={sectionButtonClass}>
               Skills
             </button>
-            <Link 
-              href="/values"
-              className={`relative px-2 py-1 text-sm lg:text-base font-medium hover:text-accent transition-colors duration-300 focus-enhanced link-enhanced hdr-enhanced ${location === '/values' ? 'text-accent' : 'text-muted-foreground'}`}
-              onMouseEnter={() => handleMouseEnter({
-                title: "Values",
-                description: "Ethical framework and principles guiding portfolio development",
-                category: "Philosophy"
-              })}
-              onMouseLeave={handleMouseLeave}
-              aria-label="Navigate to Values page"
-            >
+            
+            <Link href="/values" className={navItemClass('/values')}>
               Values
               {location === '/values' && (
                 <motion.div
@@ -186,38 +136,20 @@ export default function Navigation() {
                 />
               )}
             </Link>
-            <Link 
-              href="/vrchat"
-              className={`relative px-2 py-1 text-sm lg:text-base font-medium hover:text-accent transition-colors duration-300 focus-enhanced link-enhanced hdr-enhanced ${location === '/vrchat' ? 'text-accent' : 'text-muted-foreground'}`}
-              onMouseEnter={() => handleMouseEnter({
-                title: "VR Research",
-                description: "4,320 hours of virtual reality consciousness exploration and social interaction research",
-                category: "Research"
-              })}
-              onMouseLeave={handleMouseLeave}
-              aria-label="Navigate to VRChat Research page"
-            >
+            
+            <Link href="/vrchat" className={navItemClass('/vrchat')}>
               VRChat
               {location === '/vrchat' && (
                 <motion.div
                   layoutId="activeTab"
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-400 hdr-enhanced"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-400"
                   initial={false}
                   transition={{ type: "spring", stiffness: 500, damping: 30 }}
                 />
               )}
             </Link>
-            <Link 
-              href="/dashboard"
-              className={`relative px-2 py-1 text-sm lg:text-base font-medium hover:text-cyan-300 transition-colors duration-300 focus-enhanced link-enhanced hdr-enhanced ${location === '/dashboard' ? 'text-cyan-300' : 'text-gray-400'}`}
-              onMouseEnter={() => handleMouseEnter({
-                title: "Trading",
-                description: "Autonomous Solana trading system with quantum consciousness architecture",
-                category: "AI"
-              })}
-              onMouseLeave={handleMouseLeave}
-              aria-label="Navigate to Trading Dashboard"
-            >
+            
+            <Link href="/dashboard" className={navItemClass('/dashboard')}>
               Trading
               {location === '/dashboard' && (
                 <motion.div
@@ -228,17 +160,8 @@ export default function Navigation() {
                 />
               )}
             </Link>
-            <Link 
-              href="/technical-deep-dive"
-              className={`relative px-2 py-1 text-sm lg:text-base font-medium hover:text-cyan-300 transition-colors duration-300 focus-enhanced link-enhanced hdr-enhanced ${location === '/technical-deep-dive' ? 'text-cyan-300' : 'text-gray-400'}`}
-              onMouseEnter={() => handleMouseEnter({
-                title: "Tech Deep Dive",
-                description: "Comprehensive technical documentation and system architecture insights",
-                category: "Technical"
-              })}
-              onMouseLeave={handleMouseLeave}
-              aria-label="Navigate to Technical Deep Dive"
-            >
+            
+            <Link href="/technical-deep-dive" className={navItemClass('/technical-deep-dive')}>
               Tech
               {location === '/technical-deep-dive' && (
                 <motion.div
@@ -249,19 +172,12 @@ export default function Navigation() {
                 />
               )}
             </Link>
-            <Link 
-              href="/legal"
-              className={`relative px-2 py-1 text-sm lg:text-base font-medium hover:text-cyan-300 transition-colors duration-300 focus-enhanced link-enhanced hdr-enhanced ${location === '/legal' ? 'text-cyan-300' : 'text-gray-400'}`}
-              onMouseEnter={() => handleMouseEnter({
-                title: "Legal Compliance",
-                description: "Comprehensive regulatory compliance monitoring across US, EU, and Canadian jurisdictions",
-                category: "Legal"
-              })}
-              onMouseLeave={handleMouseLeave}
-              aria-label="Navigate to Legal Compliance Dashboard"
-            >
-              <Shield className="w-4 h-4 inline mr-1" />
-              Legal
+            
+            <Link href="/legal" className={navItemClass('/legal')}>
+              <div className="flex items-center space-x-1">
+                <Shield className="w-4 h-4" />
+                <span>Legal</span>
+              </div>
               {location === '/legal' && (
                 <motion.div
                   layoutId="activeTab"
@@ -272,7 +188,6 @@ export default function Navigation() {
               )}
             </Link>
             
-            {/* Web3 Authentication - Only shows when Solana wallets detected */}
             <Web3AuthButton />
           </div>
 
@@ -280,7 +195,7 @@ export default function Navigation() {
           <motion.button
             whileTap={{ scale: 0.95 }}
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 rounded-md text-cyan-400 hover:text-cyan-300 hover:bg-cyan-400/10 transition-colors"
+            className="md:hidden p-2 rounded-md text-primary hover:text-accent hover:bg-primary/10 transition-colors"
           >
             {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </motion.button>
@@ -293,33 +208,33 @@ export default function Navigation() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden border-t border-cyan-400/20 bg-[var(--space-black)]/95 backdrop-blur-md mt-3"
+              className="md:hidden border-t border-primary/20 bg-background/95 backdrop-blur-md mt-3"
             >
               <div className="px-3 py-3 space-y-2">
                 <button 
                   onClick={() => { scrollToSection('about'); setIsOpen(false); }} 
-                  className="w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium text-gray-300 hover:text-cyan-300 hover:bg-cyan-400/10 border border-transparent hover:border-cyan-400/20 transition-all duration-300"
+                  className="w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium text-muted-foreground hover:text-accent hover:bg-primary/10 transition-colors"
                 >
                   About
                 </button>
                 <button 
                   onClick={() => { scrollToSection('projects'); setIsOpen(false); }} 
-                  className="w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium text-gray-300 hover:text-cyan-300 hover:bg-cyan-400/10 border border-transparent hover:border-cyan-400/20 transition-all duration-300"
+                  className="w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium text-muted-foreground hover:text-accent hover:bg-primary/10 transition-colors"
                 >
                   Projects
                 </button>
                 <button 
                   onClick={() => { scrollToSection('skills'); setIsOpen(false); }} 
-                  className="w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium text-gray-300 hover:text-cyan-300 hover:bg-cyan-400/10 border border-transparent hover:border-cyan-400/20 transition-all duration-300"
+                  className="w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium text-muted-foreground hover:text-accent hover:bg-primary/10 transition-colors"
                 >
                   Skills
                 </button>
                 <Link 
                   href="/values"
-                  className={`block px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 ${
+                  className={`block px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                     location === '/values'
-                      ? 'text-cyan-300 bg-cyan-400/15 border border-cyan-400/30'
-                      : 'text-gray-300 hover:text-cyan-300 hover:bg-cyan-400/10 border border-transparent hover:border-cyan-400/20'
+                      ? 'text-accent bg-primary/15'
+                      : 'text-muted-foreground hover:text-accent hover:bg-primary/10'
                   }`}
                   onClick={() => setIsOpen(false)}
                 >
@@ -327,10 +242,10 @@ export default function Navigation() {
                 </Link>
                 <Link 
                   href="/vrchat"
-                  className={`block px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 ${
+                  className={`block px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                     location === '/vrchat'
-                      ? 'text-cyan-300 bg-cyan-400/15 border border-cyan-400/30'
-                      : 'text-gray-300 hover:text-cyan-300 hover:bg-cyan-400/10 border border-transparent hover:border-cyan-400/20'
+                      ? 'text-accent bg-primary/15'
+                      : 'text-muted-foreground hover:text-accent hover:bg-primary/10'
                   }`}
                   onClick={() => setIsOpen(false)}
                 >
@@ -338,10 +253,10 @@ export default function Navigation() {
                 </Link>
                 <Link 
                   href="/dashboard"
-                  className={`block px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 ${
+                  className={`block px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                     location === '/dashboard'
-                      ? 'text-cyan-300 bg-cyan-400/15 border border-cyan-400/30'
-                      : 'text-gray-300 hover:text-cyan-300 hover:bg-cyan-400/10 border border-transparent hover:border-cyan-400/20'
+                      ? 'text-accent bg-primary/15'
+                      : 'text-muted-foreground hover:text-accent hover:bg-primary/10'
                   }`}
                   onClick={() => setIsOpen(false)}
                 >
@@ -349,26 +264,48 @@ export default function Navigation() {
                 </Link>
                 <Link 
                   href="/technical-deep-dive"
-                  className={`block px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 ${
+                  className={`block px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                     location === '/technical-deep-dive'
-                      ? 'text-cyan-300 bg-cyan-400/15 border border-cyan-400/30'
-                      : 'text-gray-300 hover:text-cyan-300 hover:bg-cyan-400/10 border border-transparent hover:border-cyan-400/20'
+                      ? 'text-accent bg-primary/15'
+                      : 'text-muted-foreground hover:text-accent hover:bg-primary/10'
                   }`}
                   onClick={() => setIsOpen(false)}
                 >
                   Tech Deep Dive
                 </Link>
                 <Link 
-                  href="/legal"
-                  className={`block px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 ${
-                    location === '/legal'
-                      ? 'text-cyan-300 bg-cyan-400/15 border border-cyan-400/30'
-                      : 'text-gray-300 hover:text-cyan-300 hover:bg-cyan-400/10 border border-transparent hover:border-cyan-400/20'
+                  href="/cloudflare"
+                  className={`block px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                    location === '/cloudflare'
+                      ? 'text-accent bg-primary/15'
+                      : 'text-muted-foreground hover:text-accent hover:bg-primary/10'
                   }`}
                   onClick={() => setIsOpen(false)}
                 >
-                  <Shield className="w-4 h-4 inline mr-2" />
-                  Legal Compliance
+                  Cloudflare AI
+                </Link>
+                <Link 
+                  href="/defi"
+                  className={`block px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                    location === '/defi'
+                      ? 'text-accent bg-primary/15'
+                      : 'text-muted-foreground hover:text-accent hover:bg-primary/10'
+                  }`}
+                  onClick={() => setIsOpen(false)}
+                >
+                  DeFi
+                </Link>
+                <Link 
+                  href="/legal"
+                  className={`flex items-center space-x-2 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                    location === '/legal'
+                      ? 'text-accent bg-primary/15'
+                      : 'text-muted-foreground hover:text-accent hover:bg-primary/10'
+                  }`}
+                  onClick={() => setIsOpen(false)}
+                >
+                  <Shield className="w-4 h-4" />
+                  <span>Legal Compliance</span>
                 </Link>
               </div>
             </motion.div>

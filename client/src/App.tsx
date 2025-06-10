@@ -65,11 +65,10 @@ function Router() {
           <Route path="/" component={Home} />
           <Route path="/values" component={Values} />
           <Route path="/vrchat" component={VRChat} />
-          <Route path="/dashboard" component={Dashboard} />
-          <Route path="/trading" component={TradingDashboard} />
+          <Route path="/dashboard" component={TradingDashboard} />
           <Route path="/defi" component={DeFiDashboard} />
           <Route path="/cloudflare" component={CloudflareOptimization} />
-          <Route path="/technical" component={TechnicalDeepDive} />
+          <Route path="/technical-deep-dive" component={TechnicalDeepDive} />
           <Route path="/legal" component={Legal} />
           <Route component={NotFound} />
         </Switch>
