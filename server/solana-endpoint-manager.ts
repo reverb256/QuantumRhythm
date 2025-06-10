@@ -4,6 +4,7 @@
  */
 
 import { Connection, PublicKey } from '@solana/web3.js';
+import { rateLimitMonitor } from './api-rate-limit-monitor';
 
 interface SolanaEndpoint {
   url: string;
@@ -26,7 +27,7 @@ export class SolanaEndpointManager {
       lastError: 0,
       isHealthy: true,
       avgResponseTime: 0,
-      maxRPM: 20
+      maxRPM: 15
     },
     {
       url: 'https://solana-api.projectserum.com',
@@ -36,7 +37,7 @@ export class SolanaEndpointManager {
       lastError: 0,
       isHealthy: true,
       avgResponseTime: 0,
-      maxRPM: 30
+      maxRPM: 20
     },
     {
       url: 'https://rpc.ankr.com/solana',
@@ -46,7 +47,27 @@ export class SolanaEndpointManager {
       lastError: 0,
       isHealthy: true,
       avgResponseTime: 0,
+      maxRPM: 18
+    },
+    {
+      url: 'https://solana-mainnet.g.alchemy.com/v2/demo',
+      name: 'Alchemy',
+      requestCount: 0,
+      errorCount: 0,
+      lastError: 0,
+      isHealthy: true,
+      avgResponseTime: 0,
       maxRPM: 25
+    },
+    {
+      url: 'https://api.devnet.solana.com',
+      name: 'Solana Devnet',
+      requestCount: 0,
+      errorCount: 0,
+      lastError: 0,
+      isHealthy: true,
+      avgResponseTime: 0,
+      maxRPM: 30
     }
   ];
 
@@ -116,14 +137,21 @@ export class SolanaEndpointManager {
   async makeRequest<T>(requestFn: (connection: Connection) => Promise<T>): Promise<T> {
     let lastError: Error | null = null;
     
-    // Try up to 3 different endpoints
-    for (let attempt = 0; attempt < 3; attempt++) {
+    // Try up to 5 different endpoints with progressive delays
+    for (let attempt = 0; attempt < 5; attempt++) {
       const endpoint = this.getNextHealthyEndpoint();
       if (!endpoint) {
-        throw new Error('No Solana endpoints available');
+        // Wait longer before declaring complete failure
+        await new Promise(resolve => setTimeout(resolve, 5000));
+        continue;
       }
 
       try {
+        // Add progressive delay between requests to avoid overwhelming any endpoint
+        if (attempt > 0) {
+          await new Promise(resolve => setTimeout(resolve, Math.min(2000 * attempt, 10000)));
+        }
+
         const start = Date.now();
         const connection = new Connection(endpoint.url, 'confirmed');
         const result = await requestFn(connection);
@@ -135,23 +163,33 @@ export class SolanaEndpointManager {
           ? responseTime 
           : (endpoint.avgResponseTime + responseTime) / 2;
         
+        // Mark endpoint as healthy again on success
+        endpoint.isHealthy = true;
+        
         return result;
       } catch (error: any) {
         lastError = error;
         endpoint.errorCount++;
-        endpoint.isHealthy = false;
-        endpoint.lastError = Date.now();
         
-        // If rate limited, mark endpoint as unhealthy temporarily
+        // If rate limited, implement circuit breaker pattern
         if (error.message?.includes('429') || error.message?.includes('Too Many Requests')) {
           endpoint.isHealthy = false;
-          // Wait before retrying with different endpoint
-          await new Promise(resolve => setTimeout(resolve, 1000 * (attempt + 1)));
+          endpoint.lastError = Date.now();
+          
+          // Progressive backoff for rate limit errors
+          const backoffTime = Math.min(5000 * Math.pow(2, attempt), 30000);
+          console.log(`Rate limit hit on ${endpoint.name}, backing off for ${backoffTime}ms`);
+          await new Promise(resolve => setTimeout(resolve, backoffTime));
+        } else {
+          // For other errors, shorter delay
+          endpoint.isHealthy = false;
+          endpoint.lastError = Date.now();
+          await new Promise(resolve => setTimeout(resolve, 1000));
         }
       }
     }
 
-    throw lastError || new Error('All Solana endpoints failed');
+    throw lastError || new Error('All Solana endpoints exhausted after circuit breaker');
   }
 
   getHealthStatus() {

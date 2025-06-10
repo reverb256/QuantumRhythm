@@ -85,15 +85,23 @@ export class DonationTracker {
 
   async getRecentDonations(limit: number = 10) {
     try {
-      const signatures = await this.connection.getSignaturesForAddress(
-        donationKeypair.publicKey,
-        { limit }
+      const signatures = await solanaEndpointManager.makeRequest(
+        async (connection) => {
+          return await connection.getSignaturesForAddress(
+            donationKeypair.publicKey,
+            { limit }
+          );
+        }
       );
       
       const donations = [];
       for (const sig of signatures) {
         try {
-          const tx = await this.connection.getTransaction(sig.signature);
+          const tx = await solanaEndpointManager.makeRequest(
+            async (connection) => {
+              return await connection.getTransaction(sig.signature);
+            }
+          );
           if (tx && tx.meta) {
             const amount = (tx.meta.postBalances[0] - tx.meta.preBalances[0]) / LAMPORTS_PER_SOL;
             if (amount > 0) {
