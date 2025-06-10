@@ -2,6 +2,7 @@ import { createRoot } from "react-dom/client";
 import { StrictMode } from "react";
 import App from "./App";
 import "./index.css";
+import "./lib/buffer-polyfill";
 
 // Global error handler for unhandled errors
 window.addEventListener('error', (event) => {
@@ -35,7 +36,7 @@ if (!rootElement) {
     rootElement.innerHTML = `
       <div style="padding: 20px; text-align: center; font-family: Arial, sans-serif;">
         <h1>Quantum AI Trading Platform</h1>
-        <p>Loading error: ${error?.message || 'Unknown error'}</p>
+        <p>Loading error: ${(error as Error)?.message || 'Unknown error'}</p>
         <button onclick="window.location.reload()" style="margin-top: 10px; padding: 10px; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
           Reload App
         </button>
