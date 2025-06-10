@@ -19,7 +19,7 @@ export default function HeroSectionMidjourney() {
         <div 
           className="absolute inset-0 opacity-50"
           style={{
-            backgroundImage: `url('/images/midjourney_cosmic_ocean.png')`,
+            background: 'radial-gradient(ellipse at center, rgba(0,100,255,0.4) 0%, rgba(0,50,200,0.2) 50%, transparent 100%)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat'
@@ -30,7 +30,7 @@ export default function HeroSectionMidjourney() {
         <div 
           className="absolute inset-0 opacity-30"
           style={{
-            backgroundImage: `url('/images/midjourney_neon_cosmos.png')`,
+            background: 'conic-gradient(from 0deg, transparent, rgba(0,255,255,0.3), transparent, rgba(255,0,150,0.2), transparent)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
@@ -42,7 +42,7 @@ export default function HeroSectionMidjourney() {
         <div 
           className="absolute top-20 right-20 w-96 h-96 opacity-25"
           style={{
-            backgroundImage: `url('/images/midjourney_expansive_energy.png')`,
+            background: 'radial-gradient(circle, rgba(255,0,150,0.3) 0%, rgba(0,255,255,0.2) 50%, transparent 100%)',
             backgroundSize: 'contain',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat'
@@ -53,7 +53,7 @@ export default function HeroSectionMidjourney() {
         <div 
           className="absolute bottom-32 left-16 w-64 h-64 opacity-20"
           style={{
-            backgroundImage: `url('/images/midjourney_abstract_flow.png')`,
+            background: 'linear-gradient(135deg, rgba(0,255,255,0.2) 0%, rgba(255,0,150,0.15) 100%)',
             backgroundSize: 'contain',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat'
@@ -69,11 +69,9 @@ export default function HeroSectionMidjourney() {
         <div className="glass-morphism p-8 md:p-12 rounded-3xl cyber-border">
           {/* Catboy Profile Avatar */}
           <div className="mb-8">
-            <img 
-              src="/images/catboy_profile.png" 
-              alt="reverb256 - Anime catboy profile picture" 
-              className="w-24 h-24 md:w-32 md:h-32 rounded-full mx-auto border-4 border-cyan-400 shadow-lg shadow-cyan-400/50 object-cover ethereal-glow"
-            />
+            <div className="w-24 h-24 md:w-32 md:h-32 rounded-full mx-auto border-4 border-cyan-400 shadow-lg shadow-cyan-400/50 bg-gradient-to-br from-cyan-400/30 to-purple-500/30 flex items-center justify-center ethereal-glow">
+              <span className="text-2xl md:text-3xl">🤖</span>
+            </div>
           </div>
           
           <h1 className="font-bold text-4xl md:text-6xl lg:text-7xl mb-6 bg-gradient-to-r from-cyan-300 via-purple-300 to-pink-300 bg-clip-text text-transparent">

@@ -27,7 +27,7 @@ export default function SkillsSection() {
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat" 
           style={{
-            backgroundImage: `url('/attached_assets/Reverb_beautiful_night_sky_billions_of_stars_ocean_a_neon_city__a3a3884e-7211-4196-a8fc-8fdfb0613b3b_1749430538297.png')`,
+            background: 'radial-gradient(ellipse at center, rgba(0,100,255,0.3) 0%, rgba(0,50,150,0.15) 50%, transparent 100%)',
             filter: 'brightness(0.2) saturate(1.5)',
           }}
         />

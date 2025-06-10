@@ -94,7 +94,7 @@ export default function GamingSection() {
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat" 
           style={{
-            backgroundImage: `url('/attached_assets/VRChat_2024-07-13_22-51-01.625_3840x2160_1749433585286.png')`,
+            background: 'radial-gradient(ellipse at center, rgba(128,0,255,0.3) 0%, rgba(255,0,150,0.2) 50%, transparent 100%)',
             filter: 'brightness(0.2) saturate(1.4)',
           }}
         />
