@@ -47,32 +47,32 @@ export class QuantumTrader {
   private tokenWhitelist: IntelligentTokenWhitelistManager;
   private newsIntelligence: NewsIntelligenceAggregator;
   
-  // CORRECTED: Dynamic allocation system after 99.7% loss analysis
+  // Enhanced allocation system for larger position sizes
   private riskAllocationTiers = {
-    conservative: 0.015,  // 1.5% - conservative but allowing growth
-    moderate: 0.025,      // 2.5% - moderate risk
-    aggressive: 0.04,     // 4.0% - higher risk for opportunities
-    unhinged: 0.05        // 5.0% - maximum position size
+    conservative: 0.05,   // 5% - increased from 1.5%
+    moderate: 0.08,       // 8% - increased from 2.5%
+    aggressive: 0.12,     // 12% - increased from 4%
+    unhinged: 0.15        // 15% - increased from 5%
   };
   
   private opportunityBuffer = 0.10; // Always keep 10% ready for sudden opportunities
   private riskMultipliers = {
-    volumeSpike: 1.2,     // REDUCED: Volume spikes get modest 1.2x allocation
-    communityStrength: 1.1, // REDUCED: Community tokens get 1.1x allocation
-    liquiditySweet: 1.15,  // REDUCED: Liquidity sweet spot gets 1.15x
-    holderStability: 1.1,  // REDUCED: Stable holders get 1.1x allocation
-    defiYield: 1.05,      // REDUCED: High APY gets minimal 1.05x
-    arbitrage: 1.3,       // REDUCED: Arbitrage gets 1.3x allocation max
-    perpetuals: 1.0,      // DISABLED: No multiplier for perpetuals
-    leverage: 1.0         // DISABLED: No multiplier for leverage
+    volumeSpike: 2.5,     // Enhanced: Volume spikes get 2.5x allocation
+    communityStrength: 2.0, // Enhanced: Community tokens get 2x allocation
+    liquiditySweet: 2.2,  // Enhanced: Liquidity sweet spot gets 2.2x
+    holderStability: 1.8, // Enhanced: Stable holders get 1.8x allocation
+    defiYield: 2.8,       // Enhanced: High APY gets 2.8x allocation
+    arbitrage: 3.0,       // Enhanced: Arbitrage gets 3x allocation max
+    perpetuals: 2.5,      // Enabled: Perpetuals get 2.5x multiplier
+    leverage: 2.0         // Enabled: Leverage gets 2x multiplier
   };
 
-  // Trading instruments configuration
+  // Trading instruments configuration - enhanced for larger positions
   private tradingInstruments = {
-    spot: { enabled: true, maxAllocation: 0.3 },
-    perpetuals: { enabled: true, maxAllocation: 0.4, maxLeverage: 10 },
-    leverage: { enabled: true, maxAllocation: 0.3, maxLeverage: 5 },
-    options: { enabled: false, maxAllocation: 0.1 }
+    spot: { enabled: true, maxAllocation: 0.6 },
+    perpetuals: { enabled: true, maxAllocation: 0.7, maxLeverage: 10 },
+    leverage: { enabled: true, maxAllocation: 0.5, maxLeverage: 5 },
+    options: { enabled: true, maxAllocation: 0.3 }
   };
 
   constructor(private agentId: string) {
