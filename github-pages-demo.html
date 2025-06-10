@@ -498,44 +498,119 @@
     </div>
 
     <script>
+        // Live data integration for static deployment
+        let liveDataEnabled = false;
+
+        async function fetchLiveData() {
+            try {
+                const baseUrl = window.location.origin.includes('localhost') ? 
+                    'http://localhost:5000' : 
+                    window.location.origin;
+                
+                const [tradingStats, walletPerformance, aiMonologue] = await Promise.all([
+                    fetch(`${baseUrl}/api/live/trading-stats`).then(r => r.ok ? r.json() : null).catch(() => null),
+                    fetch(`${baseUrl}/api/live/wallet-performance`).then(r => r.ok ? r.json() : null).catch(() => null),
+                    fetch(`${baseUrl}/api/live/ai-monologue`).then(r => r.ok ? r.json() : null).catch(() => null)
+                ]);
+
+                if (tradingStats || walletPerformance || aiMonologue) {
+                    liveDataEnabled = true;
+                    updateLiveStatus('Connected to live trading system');
+                    
+                    if (tradingStats) updateTradingMetrics(tradingStats);
+                    if (walletPerformance) updateWalletMetrics(walletPerformance);
+                    if (aiMonologue) updateAIMonologue(aiMonologue);
+                } else {
+                    updateLiveStatus('Demo mode - live API unavailable');
+                }
+            } catch (error) {
+                updateLiveStatus('Demo mode - live API unavailable');
+            }
+        }
+
+        function updateTradingMetrics(data) {
+            updateMetricByLabel('Risk Management Score', `<span class="status-indicator status-active"></span>${data.consciousness.riskManagementScore}%`);
+            updateMetricByLabel('Adaptability Index', `${data.consciousness.adaptabilityIndex}%`);
+            updateMetricByLabel('Experience Points', data.consciousness.experiencePoints);
+            updateMetricByLabel('Profit Accuracy', `<span class="status-indicator status-warning"></span>${data.consciousness.profitAccuracy}%`);
+        }
+
+        function updateWalletMetrics(data) {
+            updateMetricByLabel('Current Balance', data.currentBalance);
+            updateMetricByLabel('Total Transactions', data.totalTransactions);
+            updateMetricByLabel('Trading Volume', data.tradingVolume);
+            updateMetricByLabel('Realized P&L', data.realizedPnL);
+            updateMetricByLabel('Win Rate', `<span class="status-indicator status-scared"></span>${data.winRate}`);
+        }
+
+        function updateAIMonologue(data) {
+            const signalsContainer = document.querySelector('.trading-signals');
+            if (signalsContainer && data.monologue && data.monologue.length > 0) {
+                signalsContainer.innerHTML = data.monologue.map(signal => `
+                    <div class="signal signal-${signal.type}">
+                        <strong>${signal.title}</strong><br>
+                        Confidence: ${signal.confidence} | Risk: ${signal.risk}<br>
+                        <small>${signal.details}</small><br>
+                        <em style="color: var(--accent-red);">${signal.emotion}</em>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function updateMetricByLabel(label, value) {
+            const metrics = document.querySelectorAll('.metric');
+            metrics.forEach(metric => {
+                const labelEl = metric.querySelector('.metric-label');
+                const valueEl = metric.querySelector('.metric-value');
+                if (labelEl && valueEl && labelEl.textContent === label) {
+                    valueEl.innerHTML = value;
+                }
+            });
+        }
+
+        function updateLiveStatus(status) {
+            let indicator = document.querySelector('.live-indicator');
+            if (!indicator) {
+                indicator = document.createElement('div');
+                indicator.className = 'live-indicator';
+                indicator.style.cssText = 'position: fixed; top: 10px; right: 10px; background: rgba(0,0,0,0.8); color: white; padding: 5px 10px; border-radius: 5px; font-size: 12px; z-index: 1000;';
+                document.body.appendChild(indicator);
+            }
+            indicator.innerHTML = liveDataEnabled ? 
+                `🟢 ${status}` : 
+                `🔴 ${status}`;
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
-            // Simulate nervous AI behavior
-            const consciousnessLevel = document.querySelector('.consciousness-level');
-            let anxiety = 0;
+            // Initial load
+            fetchLiveData();
             
+            // Update every 10 seconds if live data is available
             setInterval(() => {
-                anxiety += 0.1;
-                const nervousness = Math.sin(anxiety) * 2;
-                consciousnessLevel.style.transform = `translateX(${nervousness}px)`;
-            }, 100);
-            
-            // Simulate overthinking
-            const confidence = document.querySelector('.pulse');
-            setInterval(() => {
-                const values = ['119.5%', '120.1%', '118.9%', '119.7%', '∞%'];
-                confidence.textContent = values[Math.floor(Math.random() * values.length)];
-            }, 2000);
-            
-            // Simulate compulsive wallet checking
-            const opportunities = document.querySelector('.pulse').closest('.metric').querySelector('.metric-value');
-            setInterval(() => {
-                const count = parseInt(opportunities.textContent.replace(',', '').replace(' (ignored all)', ''));
-                opportunities.textContent = `${(count + Math.floor(Math.random() * 3)).toLocaleString()} (ignored all)`;
-            }, 3000);
-            
+                if (liveDataEnabled) {
+                    fetchLiveData();
+                }
+            }, 10000);
+
+            // Fallback nervous AI behavior for demo mode
+            if (!liveDataEnabled) {
+                const consciousnessLevel = document.querySelector('.consciousness-level');
+                let anxiety = 0;
+                
+                setInterval(() => {
+                    anxiety += 0.1;
+                    const nervousness = Math.sin(anxiety) * 2;
+                    if (consciousnessLevel) consciousnessLevel.style.transform = `translateX(${nervousness}px)`;
+                }, 100);
+            }
+
             // Add click interaction
             document.querySelectorAll('.card').forEach(card => {
                 card.addEventListener('click', () => {
-                    const existingNote = card.querySelector('.anxiety-note');
-                    if (!existingNote) {
-                        const note = document.createElement('div');
-                        note.className = 'anxiety-note';
-                        note.style.cssText = 'color: var(--accent-red); font-style: italic; margin-top: 10px; font-size: 0.9rem;';
-                        note.textContent = '"Should I click this? What if something bad happens?" - AI';
-                        card.appendChild(note);
-                        
-                        setTimeout(() => note.remove(), 3000);
-                    }
+                    card.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        card.style.transform = 'scale(1)';
+                    }, 150);
                 });
             });
         });

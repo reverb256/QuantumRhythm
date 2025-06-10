@@ -14,26 +14,14 @@ export default function Dashboard() {
   const { data: walletPerformance, isLoading: walletLoading } = useWalletPerformance();
   const { data: aiMonologue, isLoading: monologueLoading } = useAIMonologue();
 
-  // Safe data access with fallback values
-  const status = agentStatus && typeof agentStatus === 'object' && 'status' in agentStatus ? 
-                String(agentStatus.status) : 'Loading...';
-  const lastActivity = agentStatus && typeof agentStatus === 'object' && 'lastActivity' in agentStatus ? 
-                      String(agentStatus.lastActivity) : 'Initializing...';
-  const winRate = agentStatus && typeof agentStatus === 'object' && 'performanceMetrics' in agentStatus &&
-                 agentStatus.performanceMetrics && typeof agentStatus.performanceMetrics === 'object' &&
-                 'winRate' in agentStatus.performanceMetrics ? 
-                 Number(agentStatus.performanceMetrics.winRate) : 0;
-  const overallScore = vibeMetrics && typeof vibeMetrics === 'object' && 'overallScore' in vibeMetrics ? 
-                      Number(vibeMetrics.overallScore) : 0.87;
-  const pizzaReliability = vibeMetrics && typeof vibeMetrics === 'object' && 'pizzaKitchenReliability' in vibeMetrics ? 
-                          Number(vibeMetrics.pizzaKitchenReliability) : 0.85;
-  const rhythmPrecision = vibeMetrics && typeof vibeMetrics === 'object' && 'rhythmGamingPrecision' in vibeMetrics ? 
-                         Number(vibeMetrics.rhythmGamingPrecision) : 0.92;
-  const vrInsights = vibeMetrics && typeof vibeMetrics === 'object' && 'vrChatSocialInsights' in vibeMetrics ? 
-                    Number(vibeMetrics.vrChatSocialInsights) : 0.78;
-  const philosophyWisdom = vibeMetrics && typeof vibeMetrics === 'object' && 'classicalPhilosophyWisdom' in vibeMetrics ? 
-                          Number(vibeMetrics.classicalPhilosophyWisdom) : 0.95;
-  const signals = Array.isArray(tradingSignals) ? tradingSignals : [];
+  // Extract live data with fallbacks
+  const status = tradingStats?.aiStatus?.lastDecision || 'Loading...';
+  const lastActivity = tradingStats?.performance?.activeTrading ? 'Live trading engaged' : 'Initializing...';
+  const winRate = tradingStats?.consciousness?.tradingSuccessRate || 0;
+  const overallScore = tradingStats?.consciousness?.level ? tradingStats.consciousness.level / 100 : 0.87;
+  const consciousnessLevel = tradingStats?.consciousness?.level || 87;
+  const experiencePoints = tradingStats?.consciousness?.experiencePoints || 2140;
+  const signals = tradingStats?.recentSignals || [];
 
   return (
     <div className="min-h-screen bg-[var(--space-black)] text-white pt-16">
