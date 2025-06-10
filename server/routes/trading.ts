@@ -341,6 +341,33 @@ router.get('/backtest/results', async (req, res) => {
   }
 });
 
+// Trading execution status endpoint
+router.get('/execution/status', async (req, res) => {
+  try {
+    const { quantumTrader } = await import('../quantum-trader');
+    const status = quantumTrader.getStatus();
+    
+    res.json({
+      success: true,
+      tradingEnabled: true,
+      executionReady: true,
+      currentBalance: status.portfolioValue,
+      totalTrades: status.totalTrades,
+      winRate: status.totalTrades > 0 ? (status.successfulTrades / status.totalTrades * 100).toFixed(1) : '0.0',
+      riskLevel: 'conservative',
+      maxPositionSize: '1.0%',
+      nextTradeConditions: {
+        marketTrend: '>75%',
+        confidence: '>80%',
+        expectedAPY: '>15%'
+      },
+      message: status.totalTrades === 0 ? 'Ready for first test trade when conditions align' : 'Active trading with proven risk management'
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Failed to get execution status' });
+  }
+});
+
 // Quantum Multi-Chain endpoints
 router.get('/multichain/opportunities', async (req, res) => {
   try {

@@ -235,25 +235,27 @@ export class QuantumTrader {
     const safeTokens = ['SOL', 'BONK', 'JUP', 'ORCA', 'RAY'];
     const selectedToken = this.selectToken(safeTokens, marketTrend);
     
-    // Action determination with leverage and perpetuals
-    let action: 'BUY' | 'SELL' | 'HOLD' = 'BUY'; // Default to aggressive buying
-    let strategy = `leverage_${defiOpportunity.protocol}`;
-    let reasoning = `Aggressive pump.fun opportunity with ${defiOpportunity.expectedAPY}% potential`;
+    // Conservative action determination after learning from 99.7% loss
+    let action: 'BUY' | 'SELL' | 'HOLD' = 'HOLD'; // Default to conservative holding
+    let strategy = `safe_${defiOpportunity.protocol}`;
+    let reasoning = `Conservative approach after portfolio loss - monitoring conditions`;
     
-    // High-opportunity conditions with leverage
-    if (marketTrend > 0.6 && confidence > 0.7) {
+    // Only trade with very high confidence and proven conditions
+    const winRate = this.totalTrades > 0 ? this.successfulTrades / this.totalTrades : 0;
+    
+    if (marketTrend > 0.8 && confidence > 0.85 && defiOpportunity.expectedAPY > 15) {
       action = 'BUY';
-      strategy = `perpetual_${defiOpportunity.protocol}`;
-      reasoning = `High-confidence perpetual position on ${selectedToken}`;
-    } else if (defiOpportunity.expectedAPY > 10 && confidence > 0.65) {
+      strategy = `careful_${defiOpportunity.protocol}`;
+      reasoning = `High-confidence opportunity with strong market conditions`;
+    } else if (winRate > 0.5 && this.totalTrades > 5 && marketTrend > 0.7 && confidence > 0.75) {
       action = 'BUY';
-      strategy = `leverage_meme_${defiOpportunity.protocol}`;
-      reasoning = `Leveraged meme coin position: ${defiOpportunity.expectedAPY}% potential`;
-    } else if (this.unhingedMode && defiOpportunity.riskLevel === 'unhinged') {
+      strategy = `proven_success_${defiOpportunity.protocol}`;
+      reasoning = `Expanding trades after proven success pattern`;
+    } else if (this.totalTrades === 0 && marketTrend > 0.75 && confidence > 0.8) {
+      // Allow first test trade with tiny position
       action = 'BUY';
-      confidence = Math.min(0.95, confidence * 1.8);
-      strategy = `unhinged_${defiOpportunity.protocol}`;
-      reasoning = `Maximum risk/reward DeFi opportunity with quantum chaos enhancement`;
+      strategy = `first_test_${defiOpportunity.protocol}`;
+      reasoning = `Initial test trade with minimal position size`;
     }
     
     // Dynamic position sizing with opportunity multipliers
