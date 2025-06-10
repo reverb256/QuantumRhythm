@@ -3,7 +3,7 @@
  * Tracks and reports on the effectiveness of rate limiting strategies
  */
 
-import { solanaEndpointManager } from './solana-endpoint-manager';
+import { smartAPIOrchestrator } from './smart-api-orchestrator';
 
 interface RateLimitMetrics {
   totalRequests: number;
@@ -54,8 +54,8 @@ export class APIRateLimitMonitor {
     this.metrics.averageResponseTime = this.requestTimes.reduce((a, b) => a + b, 0) / this.requestTimes.length;
 
     // Update endpoint health
-    const endpointStatus = solanaEndpointManager.getHealthStatus();
-    this.metrics.healthyEndpoints = endpointStatus.totalHealthy;
+    const endpointStatus = smartAPIOrchestrator.getStatus();
+    this.metrics.healthyEndpoints = endpointStatus.healthyEndpoints;
     this.metrics.totalEndpoints = endpointStatus.totalEndpoints;
   }
 
