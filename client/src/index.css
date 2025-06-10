@@ -717,8 +717,7 @@
   }
 
   /* Right-aligned menu items - adjust tooltip position */
-  nav .ml-auto```python
-[class*="-tooltip"]:hover::after,
+  nav .ml-auto [class*="-tooltip"]:hover::after,
   nav .ml-auto [class*="hover-"]:hover::after {
     left: auto !important;
     right: 0 !important;

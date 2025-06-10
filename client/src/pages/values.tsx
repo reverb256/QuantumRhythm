@@ -324,7 +324,8 @@ export default function Values() {
               </div>
             </div>
           </div>
-        
+        </div>
+      </section>
 
       {/* Cyberpunk Design Philosophy */}
       <section className="py-20 relative">
