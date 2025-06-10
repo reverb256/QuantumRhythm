@@ -15,6 +15,7 @@ import { streamlinedTradingEngine } from './streamlined-trading-engine.js';
 import { insightInfusionOptimizer } from './insight-infusion-optimizer.js';
 import { SystemRecoveryOptimizer } from './system-recovery-optimizer.js';
 import { keyInsightExtractor } from './key-insight-extractor.js';
+import { comprehensiveSystemConsolidator } from './comprehensive-system-consolidator.js';
 
 interface TradeDecision {
   action: 'BUY' | 'SELL' | 'HOLD';
@@ -184,22 +185,20 @@ export class QuantumTrader {
 
   private async initializeOptimizedSystems() {
     try {
-      // Extract and apply key insights to fix all critical issues
+      // Execute comprehensive system consolidation to eliminate all redundancy
+      const consolidation = await comprehensiveSystemConsolidator.executeConsolidation();
+      console.log(`🔧 System consolidated: ${consolidation.redundantSystemsEliminated} redundant systems eliminated, ${consolidation.performanceGain}% performance gain`);
+      
+      // Apply key insights for final optimization
       const optimizations = await keyInsightExtractor.infuseKeyInsights();
-      console.log(`🧠 Key insights applied: ${optimizations.criticalFixesApplied} critical fixes, ${optimizations.memoryReduction}% memory reduction`);
+      console.log(`🧠 Insights applied: ${optimizations.criticalFixesApplied} critical fixes`);
       
-      // Validate system health after optimization
-      const health = keyInsightExtractor.getSystemHealth(this.portfolio.SOL);
-      console.log(`🟢 System health: ${health.status} (${health.healthy ? 'Operational' : 'Needs attention'})`);
-      
-      // Apply system recovery for any remaining issues
-      if (!health.healthy) {
-        const recovery = await SystemRecoveryOptimizer.executeSystemRecovery();
-        console.log(`🔧 Recovery applied: ${recovery.performanceGain} performance boost`);
-      }
+      // Validate final system health
+      const isHealthy = comprehensiveSystemConsolidator.validateSystemHealth(this.portfolio.SOL);
+      console.log(`🟢 Final system status: ${isHealthy ? 'FULLY OPERATIONAL' : 'REQUIRES ATTENTION'}`);
       
     } catch (error) {
-      console.log('⚠️ Optimization failed, applying emergency stabilization');
+      console.log('⚠️ Consolidation failed, applying emergency stabilization');
       await this.emergencyStabilization();
     }
   }
@@ -342,7 +341,7 @@ export class QuantumTrader {
   }
 
   private async generateEnhancedTradeDecision(defiOpportunity: any): Promise<TradeDecision> {
-    // Use key insight extractor for optimized decisions
+    // Use consolidated system for all decision generation
     const marketContext = {
       balance: this.portfolio.SOL,
       trend: this.analyzeMarketTrend(),
@@ -350,16 +349,22 @@ export class QuantumTrader {
       recentPerformance: this.totalTrades > 0 ? this.successfulTrades / this.totalTrades : 0
     };
 
-    const optimizedDecision = keyInsightExtractor.generateOptimizedDecision(marketContext);
+    const consolidatedDecision = comprehensiveSystemConsolidator.generateConsolidatedDecision(marketContext);
     
-    // Apply all safety constraints from insights
+    // Apply consolidated risk management
+    const finalDecision = comprehensiveSystemConsolidator.applyRiskManagement(consolidatedDecision);
+    
+    // Ensure type safety for action
+    const validActions: ('BUY' | 'SELL' | 'HOLD')[] = ['BUY', 'SELL', 'HOLD'];
+    const safeAction = validActions.includes(finalDecision.action as any) ? finalDecision.action as 'BUY' | 'SELL' | 'HOLD' : 'HOLD';
+    
     return {
-      action: optimizedDecision.action,
-      token: optimizedDecision.token,
-      confidence: Math.min(optimizedDecision.confidence, 0.95),
-      amount: Math.max(0, optimizedDecision.amount),
-      strategy: optimizedDecision.strategy,
-      reasoning: optimizedDecision.reasoning,
+      action: safeAction,
+      token: finalDecision.token || 'USDC',
+      confidence: Math.min(finalDecision.confidence || 0, 0.95),
+      amount: Math.max(finalDecision.amount || 0, 0),
+      strategy: finalDecision.strategy || 'consolidated_safe',
+      reasoning: finalDecision.reasoning || 'Consolidated system decision',
       unhinged: false
     };
   }
