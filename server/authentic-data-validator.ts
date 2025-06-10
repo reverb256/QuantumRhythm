@@ -104,10 +104,10 @@ export class AuthenticDataValidator {
     return this.tradeHistory;
   }
 
-  async getAuthenticMarketData() {
+  async getAuthenticMarketData(): Promise<Record<string, number | null>> {
     // Get real market data from authentic sources only
     const tokens = ['SOL', 'BONK', 'JUP', 'ORCA', 'RAY'];
-    const marketData = {};
+    const marketData: Record<string, number | null> = {};
     
     for (const token of tokens) {
       try {

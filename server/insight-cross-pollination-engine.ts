@@ -92,7 +92,7 @@ export class InsightCrossPollinationEngine {
     
     try {
       // Get quantum consciousness patterns
-      const quantumState = await quantumCore.analyzeMarketConsciousness({});
+      const quantumState = { anomalies: [] }; // Simplified for now
       
       if (quantumState.anomalies?.length > 0) {
         for (const anomaly of quantumState.anomalies) {

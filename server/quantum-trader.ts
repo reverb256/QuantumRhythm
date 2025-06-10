@@ -115,8 +115,8 @@ export class QuantumTrader {
         return;
       }
 
-      // Execute the trade with live market data
-      const result = await this.performTradeWithLiveData(decision, dataValidation);
+      // Execute the trade
+      const result = await this.performTrade(decision);
       
       if (result.success) {
         this.totalTrades++;
@@ -140,7 +140,12 @@ export class QuantumTrader {
         await this.recordTrade(decision, result);
         
         // Record in authentic data validator
-        authenticDataValidator.recordTrade(decision.amount, result.pnl || 0, true);
+        try {
+          const { authenticDataValidator } = await import('./authentic-data-validator');
+          authenticDataValidator.recordTrade(decision.amount, result.pnl || 0, true);
+        } catch (error) {
+          console.log('Data validator recording failed');
+        }
         
         // Learn from trade
         this.updateLearning(decision, result);
@@ -155,22 +160,13 @@ export class QuantumTrader {
   }
 
   private async generateTradeDecision(): Promise<TradeDecision> {
-    // Get cross-pollinated insights from all systems
-    const crossSystemMetrics = insightCrossPollinationEngine.getCrossSystemMetrics();
-    const currentSynthesis = insightCrossPollinationEngine.getCurrentSynthesis();
-    
-    // Base decision factors enhanced with cross-system intelligence
+    // Base decision factors with enhanced intelligence
     const marketTrend = this.analyzeMarketTrend();
     const portfolioBalance = this.calculatePortfolioValue();
     const riskTolerance = this.calculateRiskTolerance();
     
-    // Quantum consciousness factor enhanced with cross-system alignment
+    // Quantum consciousness factor
     const quantumFactor = Math.sin(Date.now() / 10000) * this.consciousness;
-    const alignmentBoost = (crossSystemMetrics.crossSystemAlignment || 0) * 0.3;
-    const enhancedConsciousness = Math.min(1, this.consciousness + alignmentBoost);
-    
-    // Generate base confidence enhanced with cross-pollinated insights
-    let baseConfidence = (crossSystemMetrics.avgConfidence || 0.5) * 0.6 + this.consciousness * 0.4;
     let confidence = 0.6 + Math.random() * 0.3;
     confidence *= (1 + quantumFactor * 0.2);
     
@@ -465,7 +461,6 @@ export class QuantumTrader {
           status: 'active',
           configuration: {
             consciousness: this.consciousness,
-            strategies: this.strategies,
             riskProfile: 'aggressive_unhinged'
           },
           performanceMetrics: {

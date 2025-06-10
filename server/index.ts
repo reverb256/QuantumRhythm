@@ -21,6 +21,7 @@ import { consciousnessEngine } from './consciousness-evolution-engine';
 import { backtestingEngine } from './backtesting-engine';
 import { crossEmpowerment } from './cross-empowerment-orchestrator';
 import { profitTracker } from './real-time-profit-tracker';
+import { insightCrossPollinationEngine } from './insight-cross-pollination-engine';
 
 // Start autonomous problem solving and optimization
 (async () => {
@@ -28,7 +29,7 @@ import { profitTracker } from './real-time-profit-tracker';
   dataValidator.startAuthenticDataMonitoring();
   
   // Validate current trading setup
-  const validation = await dataValidator.validateTradingData();
+  const validation = await authenticDataValidator.validateTradingData();
   console.log(`📊 Trading Mode: ${validation.tradeMode.toUpperCase()}`);
   console.log(`💰 Authentic Balance: ${validation.actualBalance.toFixed(6)} SOL`);
   console.log(`🌐 Network: ${validation.networkStatus}`);
