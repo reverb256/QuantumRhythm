@@ -42,6 +42,11 @@ export default function Navigation() {
     }
   };
 
+  const handlePageNavigation = (href: string) => {
+    setIsOpen(false);
+    // Let the router handle navigation and scroll behavior
+  };
+
   const toggleConsole = () => {
     const event = new KeyboardEvent('keydown', { 
       key: '`', 
@@ -114,7 +119,7 @@ export default function Navigation() {
             )}
             
             {/* Trading & DeFi */}
-            <Link href="/dashboard" className={navItemClass('/dashboard')}>
+            <Link href="/dashboard" className={navItemClass('/dashboard')} onClick={() => handlePageNavigation('/dashboard')}>
               <div className="flex items-center space-x-1.5">
                 <TrendingUp className="h-4 w-4" />
                 <span>Trading</span>
@@ -124,7 +129,7 @@ export default function Navigation() {
               )}
             </Link>
             
-            <Link href="/trading" className={navItemClass('/trading')}>
+            <Link href="/trading" className={navItemClass('/trading')} onClick={() => handlePageNavigation('/trading')}>
               <div className="flex items-center space-x-1.5">
                 <Bot className="h-4 w-4" />
                 <span>Live</span>
@@ -134,7 +139,7 @@ export default function Navigation() {
               )}
             </Link>
             
-            <Link href="/defi" className={navItemClass('/defi')}>
+            <Link href="/defi" className={navItemClass('/defi')} onClick={() => handlePageNavigation('/defi')}>
               <div className="flex items-center space-x-1.5">
                 <DollarSign className="h-4 w-4" />
                 <span>DeFi</span>
@@ -147,7 +152,7 @@ export default function Navigation() {
             <div className="h-4 w-px bg-primary/30 mx-2"></div>
             
             {/* AI & Tech */}
-            <Link href="/cloudflare" className={navItemClass('/cloudflare')}>
+            <Link href="/cloudflare" className={navItemClass('/cloudflare')} onClick={() => handlePageNavigation('/cloudflare')}>
               <div className="flex items-center space-x-1.5">
                 <Cloud className="h-4 w-4" />
                 <span>AI</span>
@@ -157,7 +162,7 @@ export default function Navigation() {
               )}
             </Link>
             
-            <Link href="/ai-onboarding" className={navItemClass('/ai-onboarding')}>
+            <Link href="/ai-onboarding" className={navItemClass('/ai-onboarding')} onClick={() => handlePageNavigation('/ai-onboarding')}>
               <div className="flex items-center space-x-1.5">
                 <Brain className="h-4 w-4" />
                 <span>Onboard</span>
@@ -167,7 +172,7 @@ export default function Navigation() {
               )}
             </Link>
             
-            <Link href="/technical-deep-dive" className={navItemClass('/technical-deep-dive')}>
+            <Link href="/technical-deep-dive" className={navItemClass('/technical-deep-dive')} onClick={() => handlePageNavigation('/technical-deep-dive')}>
               <div className="flex items-center space-x-1.5">
                 <Code className="h-4 w-4" />
                 <span>Tech</span>
@@ -180,7 +185,7 @@ export default function Navigation() {
             <div className="h-4 w-px bg-primary/30 mx-2"></div>
             
             {/* Personal & Values */}
-            <Link href="/values" className={navItemClass('/values')}>
+            <Link href="/values" className={navItemClass('/values')} onClick={() => handlePageNavigation('/values')}>
               <div className="flex items-center space-x-1.5">
                 <Scale className="h-4 w-4" />
                 <span>Values</span>
@@ -190,7 +195,7 @@ export default function Navigation() {
               )}
             </Link>
             
-            <Link href="/vrchat" className={navItemClass('/vrchat')}>
+            <Link href="/vrchat" className={navItemClass('/vrchat')} onClick={() => handlePageNavigation('/vrchat')}>
               <div className="flex items-center space-x-1.5">
                 <Zap className="h-4 w-4" />
                 <span>VRChat</span>
@@ -200,7 +205,7 @@ export default function Navigation() {
               )}
             </Link>
             
-            <Link href="/legal" className={navItemClass('/legal')}>
+            <Link href="/legal" className={navItemClass('/legal')} onClick={() => handlePageNavigation('/legal')}>
               <div className="flex items-center space-x-1.5">
                 <Shield className="w-4 h-4" />
                 <span>Legal</span>
@@ -217,19 +222,19 @@ export default function Navigation() {
           
           {/* Compact Desktop Navigation for medium screens */}
           <div className="hidden md:flex lg:hidden items-center space-x-1">
-            <Link href="/dashboard" className={navItemClass('/dashboard')}>
+            <Link href="/dashboard" className={navItemClass('/dashboard')} onClick={() => handlePageNavigation('/dashboard')}>
               <TrendingUp className="h-4 w-4" />
             </Link>
-            <Link href="/defi" className={navItemClass('/defi')}>
+            <Link href="/defi" className={navItemClass('/defi')} onClick={() => handlePageNavigation('/defi')}>
               <DollarSign className="h-4 w-4" />
             </Link>
-            <Link href="/cloudflare" className={navItemClass('/cloudflare')}>
+            <Link href="/cloudflare" className={navItemClass('/cloudflare')} onClick={() => handlePageNavigation('/cloudflare')}>
               <Cloud className="h-4 w-4" />
             </Link>
-            <Link href="/values" className={navItemClass('/values')}>
+            <Link href="/values" className={navItemClass('/values')} onClick={() => handlePageNavigation('/values')}>
               <Scale className="h-4 w-4" />
             </Link>
-            <Link href="/legal" className={navItemClass('/legal')}>
+            <Link href="/legal" className={navItemClass('/legal')} onClick={() => handlePageNavigation('/legal')}>
               <Shield className="h-4 w-4" />
             </Link>
             <Web3AuthButton />

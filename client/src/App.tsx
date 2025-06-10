@@ -31,14 +31,28 @@ function Router() {
   const [location] = useLocation();
   const previousLocation = useRef(location);
   
-  // Scroll management for page transitions
+  // Enhanced scroll management for page transitions
   useEffect(() => {
-    // Only scroll to top on forward navigation (not back button)
     if (previousLocation.current !== location) {
-      const isBackNavigation = window.history.state?.idx < (window.history.state?.previousIdx || 0);
-      if (!isBackNavigation) {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
+      // Small delay to ensure DOM is ready for smooth scrolling
+      const scrollToTop = () => {
+        // For home page, don't auto-scroll to allow section navigation
+        if (location === '/') {
+          // Only scroll to top if coming from another page, not from hash changes
+          if (previousLocation.current !== '/' && !location.includes('#')) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+        } else {
+          // For all other pages, always scroll to top
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      };
+      
+      // Use requestAnimationFrame for better performance
+      requestAnimationFrame(() => {
+        setTimeout(scrollToTop, 50);
+      });
+      
       previousLocation.current = location;
     }
   }, [location]);
@@ -49,10 +63,12 @@ function Router() {
     if (location === '/vrchat') return 'vrchat';
     if (location === '/values') return 'values';
     if (location === '/dashboard') return 'dashboard';
-    if (location === '/trading-dashboard') return 'trading-dashboard';
+    if (location === '/trading') return 'trading';
+    if (location === '/defi') return 'defi';
     if (location === '/cloudflare') return 'cloudflare';
     if (location === '/technical-deep-dive') return 'technical-deep-dive';
     if (location === '/ai-onboarding') return 'ai-onboarding';
+    if (location === '/legal') return 'legal';
     return 'home';
   };
 
