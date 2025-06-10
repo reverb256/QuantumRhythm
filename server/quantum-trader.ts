@@ -33,24 +33,24 @@ export class QuantumTrader {
   private liveTradingEnabled = true; // Enable live trading
   private tradingMode = 'live'; // Switch to live mode
   
-  // Dynamic allocation system for high-risk high-reward opportunities
+  // CORRECTED: Dynamic allocation system after 99.7% loss analysis
   private riskAllocationTiers = {
-    conservative: 0.05,   // 5% of portfolio for safe plays
-    moderate: 0.15,       // 15% for medium risk opportunities
-    aggressive: 0.25,     // 25% for high risk/reward moves
-    unhinged: 0.45        // 45% for maximum opportunity capture
+    conservative: 0.003,  // 0.3% - learned from catastrophic failure
+    moderate: 0.007,      // 0.7% - strict risk management
+    aggressive: 0.012,    // 1.2% - maximum for pump.fun tokens
+    unhinged: 0.015       // 1.5% - absolute ceiling, never higher
   };
   
   private opportunityBuffer = 0.10; // Always keep 10% ready for sudden opportunities
   private riskMultipliers = {
-    volumeSpike: 2.5,     // 300%+ volume spikes get 2.5x allocation
-    communityStrength: 2.0, // Strong community tokens get 2x allocation
-    liquiditySweet: 1.8,   // 100K-500K liquidity range gets 1.8x
-    holderStability: 1.5,  // 500-2000 holders get 1.5x allocation
-    defiYield: 1.3,       // High APY DeFi opportunities get 1.3x
-    arbitrage: 3.0,       // Cross-chain arbitrage gets 3x allocation
-    perpetuals: 4.0,      // Perpetual futures get 4x allocation
-    leverage: 5.0         // Leveraged positions get 5x allocation
+    volumeSpike: 1.2,     // REDUCED: Volume spikes get modest 1.2x allocation
+    communityStrength: 1.1, // REDUCED: Community tokens get 1.1x allocation
+    liquiditySweet: 1.15,  // REDUCED: Liquidity sweet spot gets 1.15x
+    holderStability: 1.1,  // REDUCED: Stable holders get 1.1x allocation
+    defiYield: 1.05,      // REDUCED: High APY gets minimal 1.05x
+    arbitrage: 1.3,       // REDUCED: Arbitrage gets 1.3x allocation max
+    perpetuals: 1.0,      // DISABLED: No multiplier for perpetuals
+    leverage: 1.0         // DISABLED: No multiplier for leverage
   };
 
   // Trading instruments configuration
@@ -230,9 +230,9 @@ export class QuantumTrader {
     confidence *= (1 + quantumFactor * 0.3);
     confidence *= (1 + defiOpportunity.multiplier * 0.15); // Stronger boost
     
-    // Pump.fun meme coins with high volatility potential
-    const pumpTokens = ['PEPE', 'DOGE', 'SHIB', 'FLOKI', 'BONK', 'WIF', 'POPCAT'];
-    const selectedToken = this.selectAggressiveToken(pumpTokens, marketTrend, defiOpportunity);
+    // Conservative token selection after learning from failures
+    const safeTokens = ['SOL', 'BONK', 'JUP', 'ORCA', 'RAY'];
+    const selectedToken = this.selectConservativeToken(safeTokens, marketTrend, defiOpportunity);
     
     // Action determination with leverage and perpetuals
     let action: 'BUY' | 'SELL' | 'HOLD' = 'BUY'; // Default to aggressive buying
