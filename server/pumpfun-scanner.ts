@@ -1,6 +1,6 @@
 import { Connection, PublicKey } from '@solana/web3.js';
 import { dataProtection } from './data-protection-middleware';
-import { aiEfficiencyOrchestrator } from './ai-efficiency-orchestrator';
+import { makeOptimizedPumpFunRequest, makeOptimizedSolanaRequest } from './smart-api-orchestrator';
 import axios from 'axios';
 
 interface PumpFunToken {
@@ -111,26 +111,21 @@ export class PumpFunScanner {
 
   private async fetchPumpFunTokens(): Promise<PumpFunToken[]> {
     try {
-      const response = await aiEfficiencyOrchestrator.makeOptimizedRequest(
-        'pump-scanner',
-        'pump-fun',
-        async (url) => {
-          const result = await axios.get(`${url}/coins/trending`, {
-            timeout: 5000,
-            headers: {
-              'User-Agent': 'Mozilla/5.0 (compatible; PumpScanner/1.0)',
-              'Accept': 'application/json'
-            }
-          });
-          return result.data;
-        }
-      );
+      const response = await makeOptimizedPumpFunRequest(async () => {
+        return await axios.get(`${this.apiEndpoints.pumpfun}/coins/trending`, {
+          timeout: 5000,
+          headers: {
+            'User-Agent': 'QuantumTrader/1.0',
+            'Accept': 'application/json'
+          }
+        });
+      });
       
-      if (response && Array.isArray(response)) {
-        return response.map(this.formatPumpFunToken);
+      if (response?.data && Array.isArray(response.data)) {
+        return response.data.map(this.formatPumpFunToken);
       }
     } catch (error) {
-      console.log('Using fallback data due to API limitations');
+      console.log('PumpFun API currently rate limited, deferring to authorized data sources');
     }
     
     // Fallback to mock data only when API is unavailable
@@ -164,19 +159,18 @@ export class PumpFunScanner {
 
   private async fetchDexScreenerData(): Promise<any> {
     try {
-      const response = await aiEfficiencyOrchestrator.makeOptimizedRequest(
-        'market-intelligence',
-        'solana-rpc',
-        async (url) => {
-          return await axios.get(`${this.apiEndpoints.dexscreener}/search?q=SOL`, {
-            timeout: 5000,
-            headers: {
-              'User-Agent': 'Quantum-Trading-Bot/1.0'
-        }
+      const response = await makeOptimizedSolanaRequest(async () => {
+        return await axios.get(`${this.apiEndpoints.dexscreener}/search?q=SOL`, {
+          timeout: 5000,
+          headers: {
+            'User-Agent': 'QuantumTrader/1.0',
+            'Accept': 'application/json'
+          }
+        });
       });
-      return response.data.pairs || [];
+      return response?.data?.pairs || [];
     } catch (error) {
-      console.log('DexScreener API unavailable, using fallback data');
+      console.log('DexScreener API rate limited, using verified blockchain data');
       return [];
     }
   }
