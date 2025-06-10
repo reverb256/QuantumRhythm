@@ -411,6 +411,22 @@ export class QuantumTrader {
     
     // Ensure minimum balance
     this.portfolio.SOL = Math.max(1, this.portfolio.SOL);
+    
+    // Notify payout system of trade execution
+    this.notifyPayoutSystem(result.pnl, result.gasFee || 0);
+  }
+
+  private async notifyPayoutSystem(tradeProfit: number, gasSpent: number) {
+    try {
+      const { intelligentPayout } = await import('./intelligent-payout-system');
+      await intelligentPayout.notifyTradeExecution(
+        tradeProfit,
+        gasSpent,
+        this.calculatePortfolioValue()
+      );
+    } catch (error) {
+      console.error('Failed to notify payout system:', (error as Error).message);
+    }
   }
 
   private async recordTrade(decision: TradeDecision, result: any) {

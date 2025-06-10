@@ -105,6 +105,36 @@ app.use((req, res, next) => {
     }
   }, 4000);
 
+  // Initialize intelligent payout system
+  console.log('💸 Activating Intelligent Payout System...');
+  setTimeout(async () => {
+    try {
+      const { intelligentPayout } = await import('./intelligent-payout-system');
+      
+      // Validate payout security
+      const security = await intelligentPayout.validatePayoutSecurity();
+      const stats = intelligentPayout.getPayoutStats();
+      
+      console.log(`💸 Payout System: ${security.secure ? 'SECURE' : 'SECURITY ISSUES'}`);
+      console.log(`🎯 Windfall Threshold: ${stats.windfallThreshold} SOL (50% payout)`);
+      console.log(`⏰ Hourly Profit Distribution: 50% (net after gas)`);
+      console.log(`🛡️ Gas Reserve: ${stats.gasReserve} SOL minimum`);
+      console.log(`⏱️ Next Hourly Check: ${stats.nextHourlyCheck.toLocaleTimeString()}`);
+      
+      if (!security.secure) {
+        console.log('⚠️ Payout security issues detected:');
+        security.checks.forEach(check => {
+          if (!check.passed) {
+            console.log(`   ❌ ${check.check}: ${check.details}`);
+          }
+        });
+      }
+      
+    } catch (error) {
+      console.error('Intelligent payout system initialization failed:', error);
+    }
+  }, 5000);
+
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
