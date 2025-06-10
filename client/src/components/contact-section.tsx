@@ -72,8 +72,8 @@ export default function ContactSection() {
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat" 
           style={{
-            backgroundImage: `url('/attached_assets/Reverb_with_all_the_same_colours_but_expansive._its_an_ultra_lo_1e5ce51d-b4d2-4bf2-9130-aa08807662b9_1749430526095.png')`,
-            filter: 'brightness(0.2) saturate(1.4)',
+            background: 'radial-gradient(ellipse at center, rgba(0,150,255,0.4) 0%, rgba(0,100,255,0.2) 50%, transparent 100%)',
+            filter: 'brightness(0.3) saturate(1.4)',
           }}
         />
 
@@ -81,7 +81,7 @@ export default function ContactSection() {
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat mix-blend-screen opacity-15" 
           style={{
-            backgroundImage: `url('/attached_assets/image_1749437206205.png')`,
+            background: 'linear-gradient(45deg, transparent 0%, rgba(0,255,255,0.1) 25%, transparent 50%, rgba(255,255,255,0.05) 75%, transparent 100%)',
           }}
         />
 
@@ -89,7 +89,7 @@ export default function ContactSection() {
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat mix-blend-overlay opacity-20" 
           style={{
-            backgroundImage: `url('/attached_assets/image_1749437219730.png')`,
+            background: 'radial-gradient(circle at 20% 20%, rgba(255,0,150,0.2) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(0,255,150,0.2) 0%, transparent 50%)',
           }}
         />
       </div>

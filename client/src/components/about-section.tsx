@@ -11,7 +11,7 @@ export default function AboutSection() {
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat" 
           style={{
-            backgroundImage: `url('/attached_assets/Reverb_using_a_color_scheme_based_around_071321_ffffff_2f81b1_b_63fe7c14-6841-4b14-a387-8ebe9b50f06d_1749433293324.png')`,
+            background: 'linear-gradient(135deg, rgba(7,19,33,0.8) 0%, rgba(47,129,177,0.6) 50%, rgba(255,255,255,0.1) 100%)',
             filter: 'brightness(0.3) saturate(1.4)',
           }}
         />

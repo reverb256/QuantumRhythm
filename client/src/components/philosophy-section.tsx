@@ -87,8 +87,8 @@ export default function PhilosophySection() {
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat" 
           style={{
-            backgroundImage: `url('/attached_assets/image_1749437151394.png')`,
-            filter: 'brightness(0.08) saturate(2.2)',
+            background: 'linear-gradient(135deg, rgba(20,20,40,0.9) 0%, rgba(40,40,80,0.6) 50%, rgba(80,80,120,0.3) 100%)',
+            filter: 'brightness(0.3) saturate(1.5)',
           }}
         />
         
@@ -96,7 +96,7 @@ export default function PhilosophySection() {
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat mix-blend-screen opacity-12" 
           style={{
-            backgroundImage: `url('/attached_assets/image_1749437161890.png')`,
+            background: 'radial-gradient(circle at 30% 70%, rgba(100,50,200,0.2) 0%, transparent 50%)',
           }}
         />
         
@@ -104,7 +104,7 @@ export default function PhilosophySection() {
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat mix-blend-overlay opacity-15" 
           style={{
-            backgroundImage: `url('/attached_assets/image_1749437193749.png')`,
+            background: 'conic-gradient(from 45deg, transparent, rgba(0,255,255,0.1), transparent)',
           }}
         />
       </div>
