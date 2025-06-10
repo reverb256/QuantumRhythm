@@ -55,10 +55,10 @@ interface RoutingResponse {
 }
 
 export class AIAutorouter {
-  private anthropic: Anthropic;
-  private openai: OpenAI;
-  private xai: OpenAI; // Using OpenAI client for xAI compatibility
-  private ioIntelligence: OpenAI; // IO Intelligence with OpenAI compatibility
+  private anthropic?: Anthropic;
+  private openai?: OpenAI;
+  private xai?: OpenAI; // Using OpenAI client for xAI compatibility
+  private ioIntelligence?: OpenAI; // IO Intelligence with OpenAI compatibility
   private availableModels: ModelCapability[];
   private requestHistory: Map<string, RoutingResponse[]>;
   private performanceMetrics: Map<string, { latency: number; successRate: number; }>;
@@ -490,14 +490,22 @@ export class AIAutorouter {
   /**
    * Check if provider API key is available
    */
-  private isProviderAvailable(provider: string): boolean {
+  private isProviderAvailable(provider: string, clientApiKeys?: { [provider: string]: string }): boolean {
+    // Check client-provided API keys first
+    if (clientApiKeys && clientApiKeys[provider]) {
+      return true;
+    }
+    
+    // Check server environment variables and client instances
     switch (provider) {
       case 'anthropic':
-        return !!process.env.ANTHROPIC_API_KEY;
+        return !!process.env.ANTHROPIC_API_KEY && !!this.anthropic;
       case 'openai':
-        return !!process.env.OPENAI_API_KEY;
+        return !!process.env.OPENAI_API_KEY && !!this.openai;
       case 'xai':
-        return !!process.env.XAI_API_KEY;
+        return !!process.env.XAI_API_KEY && !!this.xai;
+      case 'io_intelligence':
+        return !!process.env.IO_INTELLIGENCE_API_KEY && !!this.ioIntelligence;
       case 'perplexity':
         return !!process.env.PERPLEXITY_API_KEY;
       default:
