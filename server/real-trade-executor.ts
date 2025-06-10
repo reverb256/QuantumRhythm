@@ -54,14 +54,39 @@ export class RealTradeExecutor {
           // Array format like "[1,2,3,...]"
           const arrayData = JSON.parse(privateKey);
           decoded = new Uint8Array(arrayData);
+        } else if (privateKey.length === 92) {
+          // 92-character format - likely base58 with extra characters, decode and validate
+          try {
+            const fullDecoded = bs58.decode(privateKey);
+            console.log(`🔍 Decoded key length: ${fullDecoded.length} bytes`);
+            if (fullDecoded.length === 64) {
+              decoded = fullDecoded;
+            } else if (fullDecoded.length > 64) {
+              decoded = fullDecoded.slice(0, 64); // Take first 64 bytes
+              console.log(`⚠️ Trimmed key from ${fullDecoded.length} to 64 bytes`);
+            } else {
+              throw new Error(`Decoded key too short: ${fullDecoded.length} bytes, need 64`);
+            }
+          } catch (error) {
+            console.log(`❌ 92-character key decode failed: ${error}`);
+            // Try treating as different format - maybe it's a different encoding
+            throw new Error(`Invalid 92-character key format: ${error}`);
+          }
         } else {
           // Try base58 first, then fallback to other formats
           try {
             decoded = bs58.decode(privateKey);
+            // Ensure we have exactly 64 bytes
+            if (decoded.length !== 64) {
+              throw new Error(`Invalid key length: ${decoded.length} bytes, expected 64`);
+            }
           } catch {
             // Try as comma-separated numbers
             const numbers = privateKey.split(',').map(n => parseInt(n.trim()));
             decoded = new Uint8Array(numbers);
+            if (decoded.length !== 64) {
+              throw new Error(`Invalid array length: ${decoded.length} bytes, expected 64`);
+            }
           }
         }
         
