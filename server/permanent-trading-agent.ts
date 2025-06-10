@@ -259,7 +259,7 @@ class AutonomousTradingAgent {
             philosophicalRiskAssessment: true
           },
           riskProfile: {
-            maxPositionSize: 0.15,
+            maxPositionSize: 0.05, // 5% allocation
             stopLossMethod: 'adaptive',
             riskToleranceLevel: 'moderate'
           }
