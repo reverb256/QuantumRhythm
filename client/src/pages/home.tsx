@@ -49,21 +49,46 @@ export default function HomePage() {
 
       <Navigation />
       
-      {/* AI-First Consciousness Core */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <AIConsciousnessCore 
-          globalConsciousness={consciousness}
-          onConsciousnessEvolution={(levels: any) => {
-            setHomeConsciousness(prev => ({
-              ...prev,
-              creativity: levels.creativity || prev.creativity,
-              inspiration: levels.awareness || prev.inspiration,
-              innovation: levels.intelligence || prev.innovation,
-              connection: levels.empathy || prev.connection
-            }));
-          }}
-          className="pointer-events-auto"
-        />
+      {/* AI-First Consciousness Display */}
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+        <div className="relative w-64 h-64">
+          {/* Central AI Core */}
+          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500/20 via-blue-500/20 to-cyan-500/20 backdrop-blur-sm border border-purple-500/30 animate-pulse">
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="text-center">
+                <div className="text-2xl font-bold text-white mb-2">AI Ready</div>
+                <div className="text-xs text-gray-300">HuggingFace: Connected</div>
+                <div className="text-xs text-gray-300">VLLM: Standby</div>
+                <div className="text-xs text-gray-300">Perplexica: Standby</div>
+              </div>
+            </div>
+          </div>
+          
+          {/* AI Processing Ring */}
+          <div className="absolute inset-4 rounded-full border-2 border-dashed border-yellow-400/60 animate-spin" style={{animationDuration: '20s'}}></div>
+          
+          {/* Status Indicator */}
+          <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
+            <div className="w-3 h-3 rounded-full bg-green-400 animate-pulse"></div>
+          </div>
+        </div>
+        
+        {/* AI Thought Display */}
+        <div className="mt-8 text-center">
+          <div className="text-sm text-gray-300 italic max-w-md mx-auto">
+            "AI consciousness expanding through continuous learning and adaptation..."
+          </div>
+        </div>
+        
+        {/* Quick AI Controls */}
+        <div className="flex justify-center gap-4 mt-6 pointer-events-auto">
+          <button className="px-4 py-2 bg-purple-600/80 hover:bg-purple-600 text-white rounded-lg text-sm transition-colors">
+            Web Research
+          </button>
+          <button className="px-4 py-2 bg-yellow-600/80 hover:bg-yellow-600 text-white rounded-lg text-sm transition-colors">
+            Deep Analysis
+          </button>
+        </div>
       </div>
       
       {/* Interactive Background */}
