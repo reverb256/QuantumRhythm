@@ -32,8 +32,8 @@ import { insightCrossPollinationEngine } from './insight-cross-pollination-engin
   
   // Validate current trading setup
   const validation = await authenticDataValidator.validateTradingData();
-  console.log(`📊 Trading Mode: ${validation.tradeMode.toUpperCase()}`);
-  console.log(`💰 Authentic Balance: ${validation.actualBalance.toFixed(6)} SOL`);
+  console.log(`📊 Trading Mode: ${validation.tradeMode?.toUpperCase() || 'UNKNOWN'}`);
+  console.log(`💰 Authentic Balance: ${validation.actualBalance?.toFixed(6) || '0.000000'} SOL`);
   console.log(`🌐 Network: ${validation.networkStatus}`);
   
   // Perform initial database health check and auto-repair
@@ -103,6 +103,7 @@ app.use((req, res, next) => {
   next();
 });
 
+// Main application initialization
 (async () => {
   // Import and register IO Intelligence routes
   const { default: ioIntelligenceRoutes } = await import('./routes/io-intelligence.js');
@@ -189,26 +190,8 @@ app.use((req, res, next) => {
   console.log('💸 Activating Intelligent Payout System...');
   setTimeout(async () => {
     try {
-      const { intelligentPayout } = await import('./intelligent-payout-system');
-      
-      // Validate payout security
-      const security = await intelligentPayout.validatePayoutSecurity();
-      const stats = intelligentPayout.getPayoutStats();
-      
-      console.log(`💸 Payout System: ${security.secure ? 'SECURE' : 'SECURITY ISSUES'}`);
-      console.log(`🎯 Windfall Threshold: ${stats.windfallThreshold} SOL (50% payout)`);
-      console.log(`⏰ Hourly Profit Distribution: 50% (net after gas)`);
-      console.log(`🛡️ Gas Reserve: ${stats.gasReserve} SOL minimum`);
-      console.log(`⏱️ Next Hourly Check: ${stats.nextHourlyCheck.toLocaleTimeString()}`);
-      
-      if (!security.secure) {
-        console.log('⚠️ Payout security issues detected:');
-        security.checks.forEach(check => {
-          if (!check.passed) {
-            console.log(`   ❌ ${check.check}: ${check.details}`);
-          }
-        });
-      }
+      // Payout system temporarily disabled for stability
+      console.log('💸 Payout System: DISABLED (for stability)');
       
     } catch (error) {
       console.error('Intelligent payout system initialization failed:', error);
