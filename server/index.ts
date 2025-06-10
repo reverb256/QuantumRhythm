@@ -15,10 +15,26 @@ dataProtection.monitorDataExposure();
 
 // Initialize comprehensive optimization system
 import { comprehensiveOptimizer } from './comprehensive-optimizer';
-comprehensiveOptimizer.runFullSystemOptimization().then(results => {
+import { problemSolver } from './autonomous-problem-solver';
+
+// Start autonomous problem solving and optimization
+(async () => {
+  // Perform initial database health check and auto-repair
+  await problemSolver.performDatabaseHealthCheck();
+  await problemSolver.performPreventiveMaintenance();
+  
+  // Run full system optimization
+  const results = await comprehensiveOptimizer.runFullSystemOptimization();
   console.log(`🚀 System fully optimized: Security ${comprehensiveOptimizer.getSystemStatus().securityScore}%, Performance +${results.efficiency.performanceGain.toFixed(1)}%`);
+  
+  // Start continuous monitoring
   comprehensiveOptimizer.startContinuousMonitoring();
-});
+  
+  // Schedule regular maintenance
+  setInterval(async () => {
+    await problemSolver.performDatabaseHealthCheck();
+  }, 300000); // Every 5 minutes
+})();
 
 app.use((req, res, next) => {
   const start = Date.now();
