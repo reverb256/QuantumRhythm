@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
-import Navigation from '@/components/navigation';
+import Navigation from '@/components/Navigation';
+import { SmartTooltip } from '@/components/TooltipSystem';
+import { ExternalLink, Github, Star, Target, Trophy, Brain, Gamepad2 } from 'lucide-react';
 
 export default function ProjectsPage() {
   const [activeProject, setActiveProject] = useState(0);
@@ -116,60 +118,36 @@ export default function ProjectsPage() {
   ];
 
   return (
-    <main className="min-h-screen relative overflow-hidden">
+    <div className="min-h-screen bg-black text-white relative overflow-hidden light-infused page-maviuka">
       <Navigation />
       
-      {/* Enhanced Background System */}
-      <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-blue-950 to-cyan-950" />
-        <div className="absolute top-0 right-0 w-full h-1/2 bg-gradient-radial from-red-500/20 via-orange-500/15 to-transparent opacity-80" />
-        
-        {/* Interactive particles */}
-        <div 
-          className="absolute inset-0 opacity-20"
-          style={{
-            background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(0, 255, 255, 0.15) 0%, transparent 50%)`
-          }}
-        />
-        
-        {/* Floating code fragments */}
-        <div className="absolute inset-0 opacity-10">
-          {[...Array(15)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute text-cyan-400/30 font-mono text-xs animate-pulse"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 3}s`,
-                animationDuration: `${3 + Math.random() * 4}s`
-              }}
-            >
-              {['const', 'async', 'await', 'function', 'consciousness', '∞'][Math.floor(Math.random() * 6)]}
-            </div>
-          ))}
-        </div>
-      </div>
+      {/* Interactive Background */}
+      <div 
+        className="fixed inset-0 pointer-events-none"
+        style={{
+          background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(244, 63, 94, 0.15) 0%, transparent 50%)`
+        }}
+      />
 
       {/* Header Section */}
       <section className="relative pt-24 pb-16 px-6 z-20">
         <div className="max-w-5xl mx-auto text-center">
           <div className="mb-8">
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-black/20 backdrop-blur-md border border-cyan-400/30 mb-6">
-              <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse mr-3"></div>
-              <span className="text-cyan-300 text-sm font-medium tracking-wide">PROJECT MATRIX ACTIVE</span>
+            <div className="inline-flex items-center px-4 py-2 rounded-full gacha-card border border-rose-400/30 mb-6">
+              <Trophy className="w-4 h-4 text-rose-400 mr-3" />
+              <span className="text-rose-300 text-sm font-medium tracking-wide">MAVIUKA'S COLLECTION</span>
             </div>
           </div>
 
           <h1 className="text-6xl md:text-8xl font-black mb-6">
-            <span className="bg-gradient-to-r from-cyan-300 via-blue-400 to-red-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-rose-300 via-pink-400 to-red-400 bg-clip-text text-transparent">
               PROJECTS
             </span>
           </h1>
           
           <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed font-light">
-            Consciousness-driven development showcasing the intersection of gaming wisdom, 
-            anime philosophy, and AI-enhanced vibecoding artistry.
+            <SmartTooltip term="vibecoding methodology">Consciousness-driven development</SmartTooltip> showcasing the intersection of gaming wisdom, 
+            <SmartTooltip term="martial discipline">traditional training</SmartTooltip>, and AI-enhanced artistry.
           </p>
         </div>
       </section>
@@ -413,6 +391,6 @@ export default function ProjectsPage() {
 
         </div>
       </section>
-    </main>
+    </div>
   );
 }
