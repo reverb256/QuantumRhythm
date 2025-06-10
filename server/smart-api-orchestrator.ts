@@ -4,6 +4,7 @@
  */
 
 import { Connection, PublicKey } from '@solana/web3.js';
+import { endpointDiscovery } from './endpoint-discovery-agent';
 
 interface EndpointMetrics {
   url: string;
@@ -210,6 +211,35 @@ export class SmartAPIOrchestrator {
     this.startHealthMonitoring();
     this.startRequestProcessor();
     this.resetRPMCounters();
+    this.initializeDynamicEndpoints();
+  }
+
+  private async initializeDynamicEndpoints() {
+    // Wait for endpoint discovery to complete
+    setTimeout(async () => {
+      try {
+        const discoveredEndpoints = endpointDiscovery.exportForOrchestrator();
+        console.log(`🔍 Integrating ${discoveredEndpoints.length} discovered endpoints`);
+        
+        // Replace static endpoints with dynamically discovered ones
+        this.endpoints = discoveredEndpoints;
+        
+        console.log(`🚀 Endpoint pool expanded to ${this.endpoints.length} active endpoints`);
+        this.logEndpointCapacity();
+      } catch (error) {
+        console.log('Using fallback endpoint configuration');
+      }
+    }, 10000); // Give discovery agent time to complete
+  }
+
+  private logEndpointCapacity() {
+    const totalCapacity = this.endpoints.reduce((sum, ep) => sum + ep.maxRPM, 0);
+    const avgResponseTime = this.endpoints.reduce((sum, ep) => sum + ep.avgResponseTime, 0) / this.endpoints.length;
+    
+    console.log(`📊 ENDPOINT CAPACITY REPORT:`);
+    console.log(`🔗 Total endpoints: ${this.endpoints.length}`);
+    console.log(`🚀 Combined capacity: ${totalCapacity} requests/minute`);
+    console.log(`⚡ Average response time: ${avgResponseTime.toFixed(0)}ms`);
   }
 
   private startHealthMonitoring() {
