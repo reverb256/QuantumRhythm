@@ -47,6 +47,21 @@ export const tradingSignals = pgTable("trading_signals", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
+// Legal Compliance Schema
+export const legalCompliance = pgTable("legal_compliance", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  checkDate: timestamp("check_date").defaultNow().notNull(),
+  overallScore: integer("overall_score").notNull(),
+  passed: boolean("passed").notNull(),
+  criticalViolations: integer("critical_violations").default(0),
+  highViolations: integer("high_violations").default(0),
+  mediumViolations: integer("medium_violations").default(0),
+  lowViolations: integer("low_violations").default(0),
+  violations: json("violations").notNull(),
+  recommendations: json("recommendations").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
 // RSS Feed Intelligence
 export const rssFeedSources = pgTable("rss_feed_sources", {
   id: uuid("id").primaryKey().defaultRandom(),
@@ -183,6 +198,9 @@ export const insertTradingAgentSchema = createInsertSchema(tradingAgents);
 export const selectTradingAgentSchema = createSelectSchema(tradingAgents);
 export const insertMarketDataStreamSchema = createInsertSchema(marketDataStreams);
 export const selectMarketDataStreamSchema = createSelectSchema(marketDataStreams);
+
+export const insertLegalComplianceSchema = createInsertSchema(legalCompliance);
+export const selectLegalComplianceSchema = createSelectSchema(legalCompliance);
 export const insertTradingSignalSchema = createInsertSchema(tradingSignals);
 export const selectTradingSignalSchema = createSelectSchema(tradingSignals);
 export const insertRssFeedSourceSchema = createInsertSchema(rssFeedSources);

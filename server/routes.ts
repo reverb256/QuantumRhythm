@@ -2,6 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import path from "path";
 import tradingRouter from "./routes/trading";
+import legalComplianceRouter from "./routes/legal-compliance";
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -19,6 +20,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Mount trading routes
   app.use('/api/trading-agent', tradingRouter);
+  
+  // Mount legal compliance routes
+  app.use('/api/legal', legalComplianceRouter);
 
   // SPA routes - serve index.html for all client-side routes
   app.get("/values", (req, res) => {
