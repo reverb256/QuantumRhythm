@@ -4,6 +4,7 @@
  */
 
 import { RSSIntelligenceEngine } from './rss-intelligence-engine.js';
+import { aiService } from './ai-service.js';
 import axios from 'axios';
 
 interface NewsAlert {
@@ -139,13 +140,43 @@ export class NewsIntelligenceAggregator {
     const alerts: NewsAlert[] = [];
 
     for (const alert of rssAlerts) {
+      let sentiment = alert.type === 'bullish' ? 60 : alert.type === 'bearish' ? -60 : 0;
+      let confidence = alert.confidence;
+
+      // Use centralized AI service for enhanced sentiment analysis
+      try {
+        const aiSentimentAnalysis = await aiService.analyze(
+          `Analyze the sentiment of this crypto news: "${alert.reason}". Provide a sentiment score from -100 (very bearish) to +100 (very bullish) and confidence level 0-100.`,
+          'crypto_news_sentiment',
+          {
+            contentType: 'analysis',
+            intent: 'analyze',
+            priority: 'medium',
+            maxTokens: 200
+          }
+        );
+
+        // Parse AI sentiment response
+        const sentimentMatch = aiSentimentAnalysis.match(/sentiment[:\s]*(-?\d+)/i);
+        const confidenceMatch = aiSentimentAnalysis.match(/confidence[:\s]*(\d+)/i);
+        
+        if (sentimentMatch) {
+          sentiment = Math.max(-100, Math.min(100, parseInt(sentimentMatch[1])));
+        }
+        if (confidenceMatch) {
+          confidence = Math.max(0, Math.min(100, parseInt(confidenceMatch[1])));
+        }
+      } catch (error) {
+        console.log(`⚠️ AI sentiment analysis unavailable for news alert, using fallback: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      }
+
       const newsAlert: NewsAlert = {
         id: this.generateAlertId(),
         timestamp: new Date(),
         title: alert.reason,
         summary: this.generateAlertSummary(alert),
-        sentiment: alert.type === 'bullish' ? 60 : alert.type === 'bearish' ? -60 : 0,
-        confidence: alert.confidence,
+        sentiment,
+        confidence,
         tokens: alert.tokens,
         source: 'RSS Aggregation',
         urgency: alert.urgency,
@@ -282,6 +313,27 @@ export class NewsIntelligenceAggregator {
 
   getNewsAlerts(): NewsAlert[] {
     return this.cachedIntelligence?.alerts || [];
+  }
+
+  getHighImpactNews(): Array<{
+    title: string;
+    sentiment: number;
+    confidence: number;
+    impact: string;
+    urgency: string;
+  }> {
+    if (!this.cachedIntelligence) return [];
+
+    return this.cachedIntelligence.alerts
+      .filter(alert => alert.urgency === 'high' || alert.confidence > 75)
+      .slice(0, 5)
+      .map(alert => ({
+        title: alert.title,
+        sentiment: alert.sentiment,
+        confidence: alert.confidence,
+        impact: alert.impact,
+        urgency: alert.urgency
+      }));
   }
 
   // Integration with trading system
