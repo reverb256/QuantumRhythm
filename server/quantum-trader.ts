@@ -8,6 +8,7 @@ import { TradingPairDiscoveryService } from './trading-pair-discovery-service.js
 import { IntelligentTokenWhitelistManager } from './intelligent-token-whitelist-manager.js';
 import { ragLearningEngine } from './rag-learning-engine.js';
 import { NewsIntelligenceAggregator } from './news-intelligence-aggregator.js';
+import { aiService } from './ai-service.js';
 
 interface TradeDecision {
   action: 'BUY' | 'SELL' | 'HOLD';
@@ -548,23 +549,66 @@ export class QuantumTrader {
   }
 
   private async generateTradeDecision(): Promise<TradeDecision> {
-    // RAG-Enhanced Decision Generation with proven strategies
+    // Enhanced AI-powered decision generation using centralized autorouter
     const marketTrend = this.analyzeMarketTrend();
     const portfolioBalance = this.calculatePortfolioValue();
     
-    // Build current market context for RAG analysis
-    const currentContext = {
+    // Build comprehensive market context
+    const marketContext = {
       trend: marketTrend > 0.6 ? 'bullish' : marketTrend < 0.4 ? 'bearish' : 'neutral',
       volatility: 0.5 + Math.random() * 0.3,
-      liquidity: portfolioBalance * 100000, // Simulate liquidity context
-      position_size: 0.01, // Default 1% position
+      liquidity: portfolioBalance * 100000,
+      portfolio_balance: portfolioBalance,
+      consciousness_level: this.consciousness,
+      recent_news: this.getRecentMarketNews()
+    };
+
+    try {
+      // Use centralized AI service for intelligent trading analysis
+      const aiAnalysis = await aiService.technicalAnalysis(
+        `Market Analysis Request:
+        - Current trend: ${marketContext.trend}
+        - Portfolio balance: ${portfolioBalance} SOL
+        - Volatility: ${(marketContext.volatility * 100).toFixed(1)}%
+        - Consciousness level: ${(this.consciousness * 100).toFixed(1)}%
+        - Available tokens: SOL, USDC, BONK, JUP, ORCA, RAY
+        
+        Provide trading recommendation with:
+        1. Action (BUY/SELL/HOLD)
+        2. Token selection
+        3. Confidence level (0-1)
+        4. Position size recommendation
+        5. Strategy reasoning`,
+        'quantum_trading_analysis',
+        {
+          agentId: this.agentId,
+          priority: 'high',
+          maxTokens: 1000
+        }
+      );
+
+      // Parse AI recommendation
+      const aiDecision = this.parseAITradingRecommendation(aiAnalysis);
+      
+      if (aiDecision && aiDecision.action !== 'HOLD') {
+        console.log(`🤖 AI-Enhanced Decision: ${aiDecision.action} ${aiDecision.token} (${(aiDecision.confidence * 100).toFixed(1)}% confidence)`);
+        return aiDecision;
+      }
+    } catch (error) {
+      console.log(`⚠️ AI analysis unavailable, falling back to RAG system: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
+    
+    // Fallback to RAG-Enhanced Decision Generation
+    const currentContext = {
+      trend: marketContext.trend,
+      volatility: marketContext.volatility,
+      liquidity: marketContext.liquidity,
+      position_size: 0.01,
       portfolio_balance: portfolioBalance
     };
     
-    // Get RAG-informed decision with proven patterns
     const ragDecision = await ragLearningEngine.generateImprovedDecision(currentContext);
     
-    // If RAG provides a decision, use it (proven 65-71% win rates)
     if (ragDecision && ragDecision.action !== 'HOLD') {
       console.log(`🧠 RAG-Enhanced Decision: ${ragDecision.action} ${ragDecision.token} (${(ragDecision.confidence * 100).toFixed(1)}% confidence)`);
       return {
@@ -574,24 +618,21 @@ export class QuantumTrader {
         amount: ragDecision.amount,
         strategy: ragDecision.strategy,
         reasoning: ragDecision.reasoning,
-        unhinged: false // RAG decisions are always calculated
+        unhinged: false
       };
     }
     
-    // Fallback to quantum analysis with conservative approach
+    // Final fallback to conservative quantum analysis
     const riskToleranceLevel = this.consciousness > 0.7 ? 'moderate' : 'conservative';
-    const riskTolerance = this.calculateRiskTolerance();
     const whitelistedTokens = this.tokenWhitelist.getTokensForTrading(riskToleranceLevel);
     const tokens = whitelistedTokens.filter(token => token !== 'SOL').slice(0, 5);
     const selectedToken = tokens.length > 0 ? this.selectIntelligentToken(tokens, marketTrend, 0.6) : 'USDC';
     
-    // Conservative confidence without RAG guidance
     let confidence = Math.max(0.3, this.consciousness * 0.8);
     let action: 'BUY' | 'SELL' | 'HOLD' = 'HOLD';
     let strategy = 'quantum_analysis';
-    let reasoning = 'Standard quantum market analysis';
+    let reasoning = 'Conservative quantum analysis with limited AI guidance';
     
-    // Market conditions analysis
     if (marketTrend > 0.7 && confidence > 0.75) {
       action = 'BUY';
       strategy = 'momentum_following';
@@ -818,6 +859,67 @@ export class QuantumTrader {
     const maxSafeAmount = Math.max(0, availableBalance - gasBuffer);
     
     return Math.min(baseAmount, maxSafeAmount);
+  }
+
+  private getRecentMarketNews(): string {
+    // Get recent news from the intelligence aggregator
+    try {
+      const recentNews = this.newsIntelligence.getHighImpactNews();
+      return recentNews.slice(0, 3).map(news => `${news.title}: ${news.sentiment}`).join('; ');
+    } catch {
+      return 'No recent market news available';
+    }
+  }
+
+  private parseAITradingRecommendation(aiAnalysis: string): TradeDecision | null {
+    try {
+      // Parse AI analysis for structured trading decision
+      const lines = aiAnalysis.toLowerCase().split('\n');
+      
+      let action: 'BUY' | 'SELL' | 'HOLD' = 'HOLD';
+      let token = 'USDC';
+      let confidence = 0.5;
+      let strategy = 'ai_analysis';
+      let reasoning = aiAnalysis.substring(0, 200);
+
+      // Extract action
+      if (aiAnalysis.includes('BUY') || aiAnalysis.includes('buy')) {
+        action = 'BUY';
+      } else if (aiAnalysis.includes('SELL') || aiAnalysis.includes('sell')) {
+        action = 'SELL';
+      }
+
+      // Extract confidence
+      const confidenceMatch = aiAnalysis.match(/confidence[:\s]+(\d+(?:\.\d+)?)/i);
+      if (confidenceMatch) {
+        confidence = Math.min(0.95, Math.max(0.1, parseFloat(confidenceMatch[1]) / 100));
+      }
+
+      // Extract token
+      const tokens = ['BONK', 'JUP', 'ORCA', 'RAY', 'USDC'];
+      for (const t of tokens) {
+        if (aiAnalysis.toUpperCase().includes(t)) {
+          token = t;
+          break;
+        }
+      }
+
+      // Calculate position size based on AI recommendation
+      const portfolioBalance = this.calculatePortfolioValue();
+      const positionSize = this.calculateDynamicMaxPosition(portfolioBalance, confidence, 'moderate');
+      
+      return {
+        action,
+        token,
+        confidence,
+        amount: this.calculateSafePositionSize(positionSize),
+        strategy,
+        reasoning: reasoning.trim()
+      };
+    } catch (error) {
+      console.log(`Failed to parse AI recommendation: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      return null;
+    }
   }
 
   private getUnhingedStrategy(): string {
