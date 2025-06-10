@@ -16,9 +16,21 @@ dataProtection.monitorDataExposure();
 // Initialize comprehensive optimization system
 import { comprehensiveOptimizer } from './comprehensive-optimizer';
 import { problemSolver } from './autonomous-problem-solver';
+import { dataValidator } from './authentic-data-validator';
+import { consciousnessEngine } from './consciousness-evolution-engine';
+import { backtestingEngine } from './backtesting-engine';
 
 // Start autonomous problem solving and optimization
 (async () => {
+  // Initialize authentic data validation first
+  dataValidator.startAuthenticDataMonitoring();
+  
+  // Validate current trading setup
+  const validation = await dataValidator.validateTradingData();
+  console.log(`📊 Trading Mode: ${validation.tradeMode.toUpperCase()}`);
+  console.log(`💰 Authentic Balance: ${validation.actualBalance.toFixed(6)} SOL`);
+  console.log(`🌐 Network: ${validation.networkStatus}`);
+  
   // Perform initial database health check and auto-repair
   await problemSolver.performDatabaseHealthCheck();
   await problemSolver.performPreventiveMaintenance();
@@ -27,12 +39,20 @@ import { problemSolver } from './autonomous-problem-solver';
   const results = await comprehensiveOptimizer.runFullSystemOptimization();
   console.log(`🚀 System fully optimized: Security ${comprehensiveOptimizer.getSystemStatus().securityScore}%, Performance +${results.efficiency.performanceGain.toFixed(1)}%`);
   
+  // Run comprehensive backtesting analysis
+  console.log('📊 Running comprehensive backtesting analysis...');
+  await backtestingEngine.generatePerformanceReport();
+  
+  // Start consciousness evolution monitoring
+  consciousnessEngine.startEvolutionMonitoring();
+  
   // Start continuous monitoring
   comprehensiveOptimizer.startContinuousMonitoring();
   
-  // Schedule regular maintenance
+  // Schedule regular maintenance and validation
   setInterval(async () => {
     await problemSolver.performDatabaseHealthCheck();
+    await dataValidator.validateTradingData();
   }, 300000); // Every 5 minutes
 })();
 
