@@ -5,6 +5,7 @@
  */
 
 import { Connection, PublicKey } from '@solana/web3.js';
+import { IntelligentRateLimitDiscovery } from './intelligent-rate-limit-discovery.js';
 
 interface DiscoveredEndpoint {
   url: string;
@@ -18,6 +19,7 @@ interface DiscoveredEndpoint {
 }
 
 export class EndpointDiscoveryAgent {
+  private rateLimitDiscovery: IntelligentRateLimitDiscovery;
   private knownEndpoints: string[] = [
     // Official endpoints
     'https://api.mainnet-beta.solana.com',
