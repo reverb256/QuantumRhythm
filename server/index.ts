@@ -19,6 +19,8 @@ import { problemSolver } from './autonomous-problem-solver';
 import { dataValidator } from './authentic-data-validator';
 import { consciousnessEngine } from './consciousness-evolution-engine';
 import { backtestingEngine } from './backtesting-engine';
+import { crossEmpowerment } from './cross-empowerment-orchestrator';
+import { profitTracker } from './real-time-profit-tracker';
 
 // Start autonomous problem solving and optimization
 (async () => {
@@ -42,6 +44,14 @@ import { backtestingEngine } from './backtesting-engine';
   // Run comprehensive backtesting analysis
   console.log('📊 Running comprehensive backtesting analysis...');
   await backtestingEngine.generatePerformanceReport();
+  
+  // Initialize cross-empowerment orchestration
+  console.log('🔗 Initializing cross-system empowerment...');
+  await crossEmpowerment.initializeCrossEmpowerment();
+  
+  // Start real-time profit tracking with authentic data
+  console.log('💰 Starting real-time profit tracking...');
+  await profitTracker.compareSimulatedVsReal();
   
   // Start consciousness evolution monitoring
   consciousnessEngine.startEvolutionMonitoring();
