@@ -311,7 +311,8 @@ Type 'help' for available commands.`;
           {/* Output Area */}
           <div 
             ref={consoleRef}
-            className="flex-1 p-4 overflow-y-auto font-mono text-sm space-y-2"
+            className="flex-1 p-4 overflow-y-auto overflow-x-hidden font-mono text-sm space-y-2"
+            style={{ wordBreak: 'break-all', overflowWrap: 'break-word' }}
           >
             {history.map((entry, index) => (
               <div key={index}>
@@ -326,7 +327,7 @@ Type 'help' for available commands.`;
                   entry.type === 'suspicious' ? 'text-yellow-400' :
                   entry.type === 'educational' ? 'text-green-400' :
                   'text-gray-300'
-                } whitespace-pre-wrap`}>
+                } whitespace-pre-wrap break-all max-w-full`}>
                   {entry.output}
                 </div>
               </div>

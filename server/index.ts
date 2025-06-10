@@ -3,6 +3,7 @@ import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import liveStatsRouter from "./routes/live-stats";
 import { legalComplianceAgent } from "./legal-compliance-agent";
+import LegalComplianceResolver from "./legal-compliance-resolver";
 import { dataProtection } from "./data-protection-middleware";
 
 const app = express();
@@ -61,6 +62,10 @@ import { insightCrossPollinationEngine } from './insight-cross-pollination-engin
   comprehensiveOptimizer.startContinuousMonitoring();
   
   // Schedule regular maintenance and validation
+  // Initialize legal compliance resolver
+  const legalResolver = new LegalComplianceResolver();
+  await legalResolver.implementAutomaticCompliance();
+
   setInterval(async () => {
     await problemSolver.performDatabaseHealthCheck();
     await authenticDataValidator.validateTradingData();
