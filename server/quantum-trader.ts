@@ -18,6 +18,9 @@ import { keyInsightExtractor } from './key-insight-extractor.js';
 import { comprehensiveSystemConsolidator } from './comprehensive-system-consolidator.js';
 import { comprehensiveWalletTracker } from './comprehensive-wallet-tracker.js';
 import { portfolioDisplay } from './portfolio-display.js';
+import { predictiveAnalysisEngine } from './predictive-analysis.js';
+import { historicalAnalysisEngine } from './historical-analysis.js';
+import { analysisIntegration } from './analysis-integration.js';
 
 interface TradeDecision {
   action: 'BUY' | 'SELL' | 'HOLD';
