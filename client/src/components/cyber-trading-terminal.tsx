@@ -62,34 +62,39 @@ const CyberTradingTerminal: React.FC = () => {
   const terminalRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const { data: terminalData, isLoading } = useQuery<TerminalData>({
+  const { data: terminalData, isLoading, isFetching } = useQuery<TerminalData>({
     queryKey: ['/api/terminal-insights'],
-    refetchInterval: 2000,
-    staleTime: 0
+    refetchInterval: 8000,
+    staleTime: 5000,
+    refetchOnWindowFocus: false
   });
 
   const { data: liveMetrics } = useQuery({
     queryKey: ['/api/live-metrics'],
-    refetchInterval: 1000,
-    staleTime: 0
+    refetchInterval: 5000,
+    staleTime: 3000,
+    refetchOnWindowFocus: false
   });
 
   const { data: tradingHistory } = useQuery({
     queryKey: ['/api/trading-history'],
-    refetchInterval: 5000,
-    staleTime: 0
+    refetchInterval: 15000,
+    staleTime: 10000,
+    refetchOnWindowFocus: false
   });
 
   const { data: marketAnalysis } = useQuery({
     queryKey: ['/api/market-analysis'],
-    refetchInterval: 3000,
-    staleTime: 0
+    refetchInterval: 10000,
+    staleTime: 5000,
+    refetchOnWindowFocus: false
   });
 
   const { data: portfolioMetrics } = useQuery({
     queryKey: ['/api/portfolio-metrics'],
-    refetchInterval: 2000,
-    staleTime: 0
+    refetchInterval: 7000,
+    staleTime: 4000,
+    refetchOnWindowFocus: false
   });
 
   const anonymizeAddress = (address: string) => {
@@ -237,7 +242,7 @@ const CyberTradingTerminal: React.FC = () => {
     }
   };
 
-  if (isLoading) {
+  if (isLoading && !terminalData) {
     return (
       <div className="min-h-screen bg-black text-green-400 font-mono flex items-center justify-center">
         <div className="text-center">
@@ -279,8 +284,13 @@ const CyberTradingTerminal: React.FC = () => {
               <div className="text-2xl font-bold text-green-400 animate-pulse">
                 ◊ QUANTUM TRADING NEURAL INTERFACE ◊
               </div>
-              <div className="text-sm opacity-80">
-                [CLASSIFIED] Deep AI Analysis Terminal
+              <div className="flex items-center gap-2">
+                <div className="text-sm opacity-80">
+                  [CLASSIFIED] Deep AI Analysis Terminal
+                </div>
+                {isFetching && (
+                  <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
+                )}
               </div>
             </div>
             <div className="text-right">
