@@ -95,9 +95,9 @@
 }
 
 :root {
-  /* Oceanic theme extracted from reference image - Light mode */
-  --background: hsl(210, 100%, 98%);
-  --foreground: hsl(215, 35%, 15%);
+  /* Deep Ocean + Sunset theme from Reverb's image - Light mode */
+  --background: hsl(220, 50%, 95%);
+  --foreground: hsl(215, 40%, 15%);
   --card: hsl(210, 50%, 99%);
   --card-foreground: hsl(215, 35%, 15%);
   --popover: hsl(210, 50%, 99%);

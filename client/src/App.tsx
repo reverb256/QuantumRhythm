@@ -15,6 +15,8 @@ import { WalletProvider } from "@/hooks/useWallet";
 import Navigation from "@/components/navigation";
 import { BreathingPageWrapper } from "@/components/breathing-animation";
 import Home from "@/pages/home";
+import Projects from "@/pages/projects";
+import Philosophy from "@/pages/philosophy";
 import Values from "@/pages/values";
 import VRChat from "@/pages/VRChat";
 import Dashboard from "@/pages/Dashboard";
@@ -61,6 +63,8 @@ function Router() {
   // Determine current page for SEO
   const getCurrentPage = () => {
     if (location === '/') return 'home';
+    if (location === '/projects') return 'projects';
+    if (location === '/philosophy') return 'philosophy';
     if (location === '/vrchat') return 'vrchat';
     if (location === '/values') return 'values';
     if (location === '/dashboard') return 'dashboard';
@@ -84,6 +88,8 @@ function Router() {
       <BreathingPageWrapper>
         <Switch>
           <Route path="/" component={Home} />
+          <Route path="/projects" component={Projects} />
+          <Route path="/philosophy" component={Philosophy} />
           <Route path="/values" component={Values} />
           <Route path="/vrchat" component={VRChat} />
           <Route path="/dashboard" component={TradingDashboard} />
