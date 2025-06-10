@@ -108,8 +108,16 @@ export class QuantumEnhancedTrader {
     const timeSinceLastTrade = Date.now() - this.lastTradeTime;
     const cooldownPassed = timeSinceLastTrade > this.minTradeInterval;
     const highConfidence = decision.confidence > 0.75;
-    const notHold = decision.action !== 'HOLD';
     
+    // Override HOLD decisions with high confidence
+    if (decision.action === 'HOLD' && decision.confidence > 0.75) {
+      console.log(`🚀 EXECUTING REAL TRADE: Confidence override ${(decision.confidence * 100).toFixed(1)}%`);
+      decision.action = 'BUY';
+      decision.strategy = 'confidence_override_execution';
+      return cooldownPassed && highConfidence;
+    }
+    
+    const notHold = decision.action !== 'HOLD';
     return cooldownPassed && highConfidence && notHold;
   }
 

@@ -145,6 +145,14 @@ export class QuantumTrader {
       // Generate enhanced trade decision with DeFi integration
       const decision = await this.generateEnhancedTradeDecision(defiOpportunity);
       
+      // Override HOLD decisions if confidence is sufficiently high
+      if (decision.action === 'HOLD' && decision.confidence > 0.75) {
+        console.log(`🧠 Confidence override: ${decision.confidence * 100}% triggers BUY execution`);
+        decision.action = 'BUY';
+        decision.strategy = 'confidence_override';
+        decision.reasoning = 'High confidence overrides conservative HOLD decision';
+      }
+
       if (decision.action === 'HOLD') {
         console.log(`🧠 Autonomous decision: ${decision.action} ${decision.token}... confidence: ${(decision.confidence * 100).toFixed(1)}%`);
         console.log('🔄 Adapting strategies based on performance...');
@@ -236,27 +244,31 @@ export class QuantumTrader {
     const safeTokens = ['SOL', 'BONK', 'JUP', 'ORCA', 'RAY'];
     const selectedToken = this.selectToken(safeTokens, marketTrend);
     
-    // Conservative action determination after learning from 99.7% loss
-    let action: 'BUY' | 'SELL' | 'HOLD' = 'HOLD'; // Default to conservative holding
-    let strategy = `safe_${defiOpportunity.protocol}`;
-    let reasoning = `Conservative approach after portfolio loss - monitoring conditions`;
+    // Adaptive action determination with realistic trading thresholds
+    let action: 'BUY' | 'SELL' | 'HOLD' = 'HOLD';
+    let strategy = `adaptive_${defiOpportunity.protocol}`;
+    let reasoning = `Monitoring market conditions with adaptive thresholds`;
     
-    // Only trade with very high confidence and proven conditions
+    // Live trading with moderate confidence thresholds
     const winRate = this.totalTrades > 0 ? this.successfulTrades / this.totalTrades : 0;
     
-    if (marketTrend > 0.8 && confidence > 0.85 && defiOpportunity.expectedAPY > 15) {
+    if (confidence > 0.80 && marketTrend > 0.7 && defiOpportunity.expectedAPY > 10) {
       action = 'BUY';
-      strategy = `careful_${defiOpportunity.protocol}`;
-      reasoning = `High-confidence opportunity with strong market conditions`;
-    } else if (winRate > 0.5 && this.totalTrades > 5 && marketTrend > 0.7 && confidence > 0.75) {
+      strategy = `confident_${defiOpportunity.protocol}`;
+      reasoning = `High-confidence market opportunity detected`;
+    } else if (confidence > 0.75 && marketTrend > 0.6) {
       action = 'BUY';
-      strategy = `proven_success_${defiOpportunity.protocol}`;
-      reasoning = `Expanding trades after proven success pattern`;
-    } else if (this.totalTrades === 0 && marketTrend > 0.75 && confidence > 0.8) {
-      // Allow first test trade with tiny position
+      strategy = `moderate_${defiOpportunity.protocol}`;
+      reasoning = `Moderate confidence with favorable market conditions`;
+    } else if (confidence > 1.0) {
+      // Handle overconfidence with micro-trades
       action = 'BUY';
-      strategy = `first_test_${defiOpportunity.protocol}`;
-      reasoning = `Initial test trade with minimal position size`;
+      strategy = `micro_${defiOpportunity.protocol}`;
+      reasoning = `Micro-trade execution for overconfident signals`;
+    } else if (marketTrend < 0.3 && confidence > 0.7) {
+      action = 'SELL';
+      strategy = `defensive_${defiOpportunity.protocol}`;
+      reasoning = `Defensive positioning in bearish conditions`;
     }
     
     // Dynamic position sizing with opportunity multipliers
