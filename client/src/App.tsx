@@ -60,6 +60,7 @@ function Router() {
         <Route path="/vrchat" component={VRChat} />
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/technical-deep-dive" component={TechnicalDeepDive} />
+        <Route path="/legal" component={Legal} />
         <Route component={NotFound} />
       </Switch>
     </>

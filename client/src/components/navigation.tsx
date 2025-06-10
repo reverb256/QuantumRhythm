@@ -237,6 +237,28 @@ export default function Navigation() {
                 />
               )}
             </Link>
+            <Link 
+              href="/legal"
+              className={`relative px-2 py-1 text-sm lg:text-base font-medium hover:text-cyan-300 transition-colors duration-300 focus-enhanced link-enhanced hdr-enhanced ${location === '/legal' ? 'text-cyan-300' : 'text-gray-400'}`}
+              onMouseEnter={() => handleMouseEnter({
+                title: "Legal Compliance",
+                description: "Comprehensive regulatory compliance monitoring across US, EU, and Canadian jurisdictions",
+                category: "Legal"
+              })}
+              onMouseLeave={handleMouseLeave}
+              aria-label="Navigate to Legal Compliance Dashboard"
+            >
+              <Shield className="w-4 h-4 inline mr-1" />
+              Legal
+              {location === '/legal' && (
+                <motion.div
+                  layoutId="activeTab"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-400"
+                  initial={false}
+                  transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                />
+              )}
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -320,6 +342,18 @@ export default function Navigation() {
                   onClick={() => setIsOpen(false)}
                 >
                   Tech Deep Dive
+                </Link>
+                <Link 
+                  href="/legal"
+                  className={`block px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 ${
+                    location === '/legal'
+                      ? 'text-cyan-300 bg-cyan-400/15 border border-cyan-400/30'
+                      : 'text-gray-300 hover:text-cyan-300 hover:bg-cyan-400/10 border border-transparent hover:border-cyan-400/20'
+                  }`}
+                  onClick={() => setIsOpen(false)}
+                >
+                  <Shield className="w-4 h-4 inline mr-2" />
+                  Legal Compliance
                 </Link>
               </div>
             </motion.div>
