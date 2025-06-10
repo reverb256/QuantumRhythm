@@ -1,0 +1,107 @@
+version: '3.8'
+
+services:
+  quantum-ai-trader:
+    image: quantum-ai-trading-platform:latest
+    container_name: quantum-ai-trading-platform
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://trader:${POSTGRES_PASSWORD}@postgres:5432/quantum_trading
+      - WALLET_PRIVATE_KEY=${WALLET_PRIVATE_KEY}
+      - PERPLEXITY_API_KEY=${PERPLEXITY_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - TWITTER_USERNAME=${TWITTER_USERNAME}
+      - TWITTER_PASSWORD=${TWITTER_PASSWORD}
+      - JUPITER_API_KEY=${JUPITER_API_KEY}
+      - CMC_API_KEY=${CMC_API_KEY}
+      - MORALIS_API_KEY=${MORALIS_API_KEY}
+      - WALLET_ADDRESS=4jTtAYiHP3tHqXcmi5T1riS1AcGmxNNhLZTw65vrKpkA
+      - TRADING_MODE=live
+      - LIVE_TRADING_ENABLED=true
+      - REDIS_URL=redis://redis:6379
+      - PORT=5000
+    volumes:
+      - quantum-logs:/app/logs
+      - quantum-data:/app/data
+    networks:
+      - trading-network
+    depends_on:
+      - postgres
+      - redis
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:5000/api/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+          cpus: '1.0'
+        reservations:
+          memory: 1G
+          cpus: '0.5'
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: quantum-ai-database
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=quantum_trading
+      - POSTGRES_USER=trader
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+    networks:
+      - trading-network
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '0.5'
+        reservations:
+          memory: 512M
+          cpus: '0.2'
+
+  redis:
+    image: redis:7-alpine
+    container_name: quantum-ai-cache
+    restart: unless-stopped
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - trading-network
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.2'
+        reservations:
+          memory: 256M
+          cpus: '0.1'
+
+volumes:
+  postgres_data:
+    external: false
+  redis_data:
+    external: false
+  quantum-logs:
+    external: false
+  quantum-data:
+    external: false
+
+networks:
+  trading-network:
+    driver: bridge
+    external: false
