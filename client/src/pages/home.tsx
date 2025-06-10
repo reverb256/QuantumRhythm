@@ -30,17 +30,19 @@ export default function HomePage() {
   }, []);
 
   return (
-    <main className="min-h-screen relative overflow-hidden">
+    <div className="min-h-screen bg-black text-white relative overflow-hidden light-infused page-anaxa">
       <Navigation />
       
-      {/* Clean Ocean Background */}
-      <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-blue-950 to-cyan-950" />
-        <div className="absolute top-0 right-0 w-full h-1/2 bg-gradient-to-bl from-red-500/15 via-orange-500/10 to-transparent" />
-      </div>
+      {/* Interactive Background */}
+      <div 
+        className="fixed inset-0 pointer-events-none"
+        style={{
+          background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(59, 130, 246, 0.15) 0%, transparent 50%)`
+        }}
+      />
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center px-6 z-20">
+      <section className="relative min-h-screen flex items-center px-6 z-20 pt-20">
         <div className="max-w-7xl mx-auto w-full">
           <div className="flex flex-col items-center text-center space-y-12">
             
@@ -108,32 +110,77 @@ export default function HomePage() {
                 />
               </div>
 
-              {/* Portfolio Showcase */}
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-2xl mx-auto">
-                <div className="bg-gradient-to-br from-cyan-500/10 to-blue-600/10 backdrop-blur-sm rounded-xl p-6 border border-cyan-500/20 hover:border-cyan-400/40 transition-all duration-300">
-                  <div className="text-2xl md:text-3xl font-bold text-cyan-400 mb-2">React</div>
-                  <div className="text-sm text-gray-400">Frontend Framework</div>
+              {/* Tech Stack Grid - Gaming Inspired */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
+                <div className="gacha-card text-center space-y-3 p-4">
+                  <Code className="w-8 h-8 mx-auto text-cyan-400" />
+                  <div className="text-sm text-gray-300"><SmartTooltip term="fullstack">Full-Stack</SmartTooltip></div>
+                  <div className="text-xs text-gray-500">Like Anaxa's analytical mind</div>
                 </div>
-                
-                <div className="bg-gradient-to-br from-green-500/10 to-emerald-600/10 backdrop-blur-sm rounded-xl p-6 border border-green-500/20 hover:border-green-400/40 transition-all duration-300">
-                  <div className="text-2xl md:text-3xl font-bold text-green-400 mb-2">TypeScript</div>
-                  <div className="text-sm text-gray-400">Type Safety</div>
+                <div className="gacha-card text-center space-y-3 p-4">
+                  <Brain className="w-8 h-8 mx-auto text-purple-400" />
+                  <div className="text-sm text-gray-300"><SmartTooltip term="quantum trading">Quantum AI</SmartTooltip></div>
+                  <div className="text-xs text-gray-500">Herta's automation wisdom</div>
                 </div>
-                
-                <div className="bg-gradient-to-br from-purple-500/10 to-pink-600/10 backdrop-blur-sm rounded-xl p-6 border border-purple-500/20 hover:border-purple-400/40 transition-all duration-300 col-span-2 md:col-span-1">
-                  <div className="text-2xl md:text-3xl font-bold text-purple-400 mb-2">Solana</div>
-                  <div className="text-sm text-gray-400">Blockchain</div>
+                <div className="gacha-card text-center space-y-3 p-4">
+                  <Gamepad2 className="w-8 h-8 mx-auto text-pink-400" />
+                  <div className="text-sm text-gray-300"><SmartTooltip term="gacha mechanics">Gaming Logic</SmartTooltip></div>
+                  <div className="text-xs text-gray-500">Star Rail strategic thinking</div>
+                </div>
+                <div className="gacha-card text-center space-y-3 p-4">
+                  <Heart className="w-8 h-8 mx-auto text-red-400" />
+                  <div className="text-sm text-gray-300"><SmartTooltip term="soul healing">Soul Tech</SmartTooltip></div>
+                  <div className="text-xs text-gray-500">VRChat connections</div>
                 </div>
               </div>
 
-              {/* Action Buttons */}
-              <div className="flex flex-wrap gap-4 justify-center">
-                <Button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg shadow-cyan-500/25">
-                  View Portfolio
-                </Button>
+              {/* Philosophy & Gaming Showcase */}
+              <div className="grid md:grid-cols-2 gap-8 mt-16">
+                <div className="gacha-card p-6 space-y-4">
+                  <div className="flex items-center space-x-3">
+                    <Star className="w-6 h-6 text-yellow-400" />
+                    <h3 className="text-xl font-semibold text-cyan-300">Gaming Mastery</h3>
+                  </div>
+                  <div className="space-y-2 text-sm text-gray-400">
+                    <div>• <SmartTooltip term="analytical nature">Anaxa's Story</SmartTooltip>: Relatable systematic analysis approach</div>
+                    <div>• <SmartTooltip term="automation wisdom">Herta's Vision</SmartTooltip>: Intelligent automation philosophy</div>
+                    <div>• <strong className="text-cyan-300">Star Rail</strong>: Strategic <SmartTooltip term="erudition path">Erudition</SmartTooltip> combat mastery</div>
+                    <div>• <strong className="text-purple-300">Genshin</strong>: Maviuka's themes, Chasca C1R0, Navia appreciation</div>
+                    <div>• <strong className="text-pink-300">ZZZ</strong>: Burnice, Lighter, desperately wanting Yanagi</div>
+                  </div>
+                </div>
                 
+                <div className="gacha-card p-6 space-y-4">
+                  <div className="flex items-center space-x-3">
+                    <Sword className="w-6 h-6 text-red-400" />
+                    <h3 className="text-xl font-semibold text-red-300">Philosophy & Discipline</h3>
+                  </div>
+                  <div className="space-y-2 text-sm text-gray-400">
+                    <div>• <SmartTooltip term="martial discipline">Traditional Shotokan</SmartTooltip>: Childhood training in precise form</div>
+                    <div>• <SmartTooltip term="consciousness expansion">Consciousness Work</SmartTooltip>: Deep awareness exploration</div>
+                    <div>• <SmartTooltip term="distant love">VRChat Healing</SmartTooltip>: Avatar-mediated soul connections</div>
+                    <div>• <SmartTooltip term="free speech">Charter Rights</SmartTooltip>: Canadian freedom principles</div>
+                    <div>• <strong className="text-yellow-300">Nous Erudition</strong>: Homelab about to be touched by knowledge</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mt-12">
+                <Link href="/projects">
+                  <Button 
+                    className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-3 text-lg font-semibold rounded-xl transition-all duration-300 transform hover:scale-105"
+                  >
+                    <Trophy className="w-5 h-5 mr-2" />
+                    Explore Portfolio
+                  </Button>
+                </Link>
                 <Link href="/trader-dashboard">
-                  <Button variant="outline" className="border-gray-600 text-gray-300 hover:bg-gray-800 hover:border-gray-500 px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300">
+                  <Button 
+                    variant="outline" 
+                    className="border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-black px-8 py-3 text-lg font-semibold rounded-xl transition-all duration-300 transform hover:scale-105"
+                  >
+                    <Target className="w-5 h-5 mr-2" />
                     AI Trading Demo
                   </Button>
                 </Link>
@@ -268,6 +315,6 @@ export default function HomePage() {
           </div>
         </div>
       </footer>
-    </main>
+    </div>
   );
 }
