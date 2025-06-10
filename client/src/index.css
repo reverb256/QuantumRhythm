@@ -168,30 +168,30 @@
  */
 
 :root {
-  /* Core Palette - Extracted from profile electric effects */
-  --electric-cyan: #06b6d4;
-  --quantum-blue: #3b82f6;
-  --consciousness-purple: #8b5cf6;
-  --soul-pink: #ec4899;
-  --erudition-gold: #f59e0b;
+  /* Gaming-Inspired Spectrum */
+  --vibrant-purple: #8b5cf6;
+  --electric-pink: #ec4899;
+  --neon-violet: #a855f7;
+  --cosmic-indigo: #6366f1;
+  --stellar-blue: #3b82f6;
   --void-black: #0a0a0a;
   --light-whisper: #f8fafc;
   
-  /* Gaming-inspired gradients */
-  --anaxa-gradient: linear-gradient(135deg, var(--electric-cyan), var(--quantum-blue));
-  --herta-gradient: linear-gradient(135deg, var(--consciousness-purple), var(--soul-pink));
-  --nous-gradient: linear-gradient(135deg, var(--erudition-gold), var(--electric-cyan));
-  --vrchat-gradient: linear-gradient(135deg, var(--soul-pink), var(--consciousness-purple));
+  /* Gaming UI gradients */
+  --battle-gradient: linear-gradient(135deg, var(--vibrant-purple), var(--electric-pink));
+  --cosmic-gradient: linear-gradient(135deg, var(--neon-violet), var(--cosmic-indigo));
+  --energy-gradient: linear-gradient(135deg, var(--electric-pink), var(--vibrant-purple));
+  --stellar-gradient: linear-gradient(135deg, var(--cosmic-indigo), var(--stellar-blue));
   
-  /* Consciousness layers */
+  /* UI surface layers */
   --surface-0: rgba(10, 10, 10, 0.95);
   --surface-1: rgba(15, 15, 15, 0.9);
   --surface-2: rgba(20, 20, 20, 0.85);
   --surface-3: rgba(25, 25, 25, 0.8);
 }
 
-/* Shotokan-inspired precise animations */
-@keyframes kata-flow {
+/* Gaming-inspired precise animations */
+@keyframes energy-flow {
   0% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
   25% { transform: translateY(-10px) rotate(1deg); opacity: 0.8; }
   50% { transform: translateY(-5px) rotate(-0.5deg); opacity: 1; }
@@ -199,13 +199,13 @@
   100% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
 }
 
-@keyframes consciousness-pulse {
+@keyframes gaming-pulse {
   0%, 100% { 
-    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.4), 0 0 30px rgba(236, 72, 153, 0.2);
     transform: scale(1);
   }
   50% { 
-    box-shadow: 0 0 40px rgba(139, 92, 246, 0.6), 0 0 60px rgba(59, 130, 246, 0.4);
+    box-shadow: 0 0 40px rgba(139, 92, 246, 0.7), 0 0 60px rgba(236, 72, 153, 0.5);
     transform: scale(1.02);
   }
 }
@@ -375,7 +375,7 @@
 }
 
 :root {
-  /* Deep Ocean + Sunset theme from Reverb's image - Light mode */
+  /* VibeCoding theme - Consciousness-driven design system */
   --background: hsl(220, 50%, 95%);
   --foreground: hsl(215, 40%, 15%);
   --card: hsl(210, 50%, 99%);
@@ -397,15 +397,13 @@
   --ring: hsl(198, 75%, 45%);
   --radius: 0.75rem;
 
-  /* Custom oceanic palette variables from reference image */
-  --deep-ocean: hsl(215, 40%, 12%);
-  --ocean-primary: hsl(198, 75%, 35%);
-  --ocean-secondary: hsl(198, 60%, 55%);
-  --coral-primary: hsl(12, 88%, 68%);
-  --coral-secondary: hsl(345, 85%, 70%);
-  --cyan-accent: hsl(180, 100%, 85%);
-  --ocean-mist: hsl(210, 30%, 95%);
-  --deep-shadow: hsl(215, 50%, 8%);
+  /* VibeCoding design system colors */
+  --electric-cyan: hsl(185, 100%, 42%);
+  --quantum-blue: hsl(217, 91%, 60%);
+  --consciousness-purple: hsl(262, 83%, 58%);
+  --soul-pink: hsl(329, 86%, 65%);
+  --void-black: hsl(220, 27%, 4%);
+  --light-whisper: hsl(210, 40%, 98%);
   
   /* Chart and data visualization colors */
   --chart-1: hsl(198, 75%, 45%);
@@ -416,7 +414,7 @@
 }
 
 .dark {
-  /* Dark mode with deep oceanic blues as primary foundation */
+  /* Dark mode with vibecoding electric aesthetics */
   --background: hsl(215, 40%, 12%);
   --foreground: hsl(210, 30%, 95%);
   --card: hsl(215, 35%, 15%);
@@ -437,15 +435,13 @@
   --input: hsl(215, 30%, 20%);
   --ring: hsl(198, 75%, 55%);
   
-  /* Enhanced dark mode oceanic variables */
-  --deep-ocean: hsl(215, 50%, 8%);
-  --ocean-primary: hsl(198, 75%, 45%);
-  --ocean-secondary: hsl(198, 60%, 65%);
-  --coral-primary: hsl(12, 88%, 72%);
-  --coral-secondary: hsl(345, 85%, 75%);
-  --cyan-accent: hsl(180, 100%, 80%);
-  --ocean-mist: hsl(215, 20%, 25%);
-  --deep-shadow: hsl(215, 60%, 5%);
+  /* Enhanced dark mode vibecoding variables */
+  --electric-cyan: hsl(185, 100%, 50%);
+  --quantum-blue: hsl(217, 91%, 65%);
+  --consciousness-purple: hsl(262, 83%, 63%);
+  --soul-pink: hsl(329, 86%, 70%);
+  --void-black: hsl(220, 27%, 2%);
+  --light-whisper: hsl(210, 40%, 95%);
   
   /* Dark mode chart colors */
   --chart-1: hsl(198, 75%, 55%);

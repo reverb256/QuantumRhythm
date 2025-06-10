@@ -10,17 +10,16 @@ export default function FrostbiteGazettePage() {
       
       {/* Clean Background System */}
       <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-blue-950 to-cyan-950" />
-        <div className="absolute top-0 right-0 w-full h-1/2 bg-gradient-radial from-red-500/20 via-orange-500/15 to-transparent opacity-80" />
+        <div className="absolute inset-0 bg-gradient-to-br from-black via-slate-950 to-gray-900" />
       </div>
 
       {/* Header Section */}
       <section className="relative pt-24 pb-16 px-6 z-20">
         <div className="max-w-5xl mx-auto text-center">
           <div className="mb-8">
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-black/20 backdrop-blur-md border border-cyan-400/30 mb-6">
-              <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse mr-3"></div>
-              <span className="text-cyan-300 text-sm font-medium tracking-wide">CITIZEN ENGAGEMENT PLATFORM</span>
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-black/30 backdrop-blur-md border border-purple-500/40 mb-6">
+              <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse mr-3"></div>
+              <span className="text-purple-300 text-sm font-medium tracking-wide">CITIZEN ENGAGEMENT PLATFORM</span>
             </div>
           </div>
 
@@ -56,7 +55,7 @@ export default function FrostbiteGazettePage() {
       <section className="relative pb-20 px-6 z-20">
         <div className="max-w-7xl mx-auto">
           
-          <div className="bg-black/30 backdrop-blur-lg rounded-2xl border border-cyan-400/20 overflow-hidden">
+          <div className="bg-black/40 backdrop-blur-lg rounded-2xl border border-purple-500/30 overflow-hidden">
             
             {/* Democratic Innovation */}
             <div className="p-8 border-b border-gray-700/30">
@@ -144,7 +143,7 @@ export default function FrostbiteGazettePage() {
           {/* Navigation */}
           <div className="text-center mt-16">
             <Link href="/projects">
-              <Button variant="outline" className="border-cyan-400/40 text-cyan-400 hover:bg-cyan-400/10 hover:border-cyan-400/60 px-8 py-3 rounded-lg font-medium transition-all duration-300">
+              <Button variant="outline" className="border-purple-400/50 text-purple-300 hover:bg-gradient-to-r hover:from-purple-500/10 hover:to-pink-500/10 hover:border-purple-400/80 px-8 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg shadow-purple-500/20">
                 Back to Projects
               </Button>
             </Link>

@@ -36,8 +36,8 @@ export class RealTradeExecutor {
     const privateKey = process.env.WALLET_PRIVATE_KEY;
     
     console.log('🔧 RealTradeExecutor initialization...');
-    console.log(`WALLET_PUBLIC_KEY: ${walletAddress ? 'SET' : 'NOT SET'}`);
-    console.log(`WALLET_PRIVATE_KEY: ${privateKey ? 'SET' : 'NOT SET'}`);
+    console.log(`WALLET_PUBLIC_KEY: ${walletAddress ? 'CONFIGURED' : 'NOT SET'}`);
+    console.log(`WALLET_PRIVATE_KEY: ${privateKey ? 'CONFIGURED' : 'NOT SET'}`);
     
     if (!walletAddress) {
       throw new Error('WALLET_PUBLIC_KEY not configured');
@@ -46,7 +46,7 @@ export class RealTradeExecutor {
     this.publicKey = new PublicKey(walletAddress);
     
     if (privateKey && privateKey.trim() !== '' && !privateKey.startsWith('$')) {
-      console.log(`🔑 Private key provided: ${privateKey.substring(0, 10)}... (length: ${privateKey.length})`);
+      console.log(`🔑 Private key provided: [PROTECTED] (length: ${privateKey.length})`);
       try {
         let decoded: Uint8Array;
         
@@ -96,7 +96,7 @@ export class RealTradeExecutor {
                 this.walletKeypair = Keypair.fromSeed(decoded);
                 this.enableLiveTrading = true;
                 console.log('✅ Trading wallet configured from seed');
-                console.log(`🎯 Live trading ENABLED for wallet: ${this.publicKey.toString()}`);
+                console.log(`🎯 Live trading ENABLED for wallet: [PROTECTED]`);
                 return;
               }
             }
@@ -110,7 +110,7 @@ export class RealTradeExecutor {
                 this.walletKeypair = Keypair.fromSeed(decoded);
                 this.enableLiveTrading = true;
                 console.log('✅ Trading wallet configured from base64 seed');
-                console.log(`🎯 Live trading ENABLED for wallet: ${this.publicKey.toString()}`);
+                console.log(`🎯 Live trading ENABLED for wallet: [PROTECTED]`);
                 return;
               }
             } catch (base64Error) {
@@ -148,7 +148,7 @@ export class RealTradeExecutor {
         
         this.enableLiveTrading = true;
         console.log('✅ Trading wallet configured for live execution');
-        console.log(`🎯 Live trading ENABLED for wallet: ${this.publicKey.toString()}`);
+        console.log(`🎯 Live trading ENABLED for wallet: [PROTECTED]`);
       } catch (error) {
         console.log('❌ Invalid private key format - live trading disabled');
         console.log(`Error: ${error}`);

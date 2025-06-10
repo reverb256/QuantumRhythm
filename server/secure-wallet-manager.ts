@@ -30,12 +30,12 @@ export class SecureWalletManager {
       const lamports = await this.connection.getBalance(publicKey);
       const solBalance = lamports / LAMPORTS_PER_SOL;
       
-      console.log(`💳 Wallet Balance Check: ${this.authorizedWallet}`);
+      console.log(`💳 Wallet Balance Check: [PROTECTED]`);
       console.log(`💰 Balance: ${solBalance.toFixed(6)} SOL (${lamports} lamports)`);
       
       // Log balance check for audit
       await this.logWalletActivity('balance_check', {
-        wallet: this.authorizedWallet,
+        wallet: '[PROTECTED]',
         balance: solBalance,
         lamports,
         timestamp: Date.now()
@@ -71,12 +71,12 @@ export class SecureWalletManager {
     const isAuthorized = requestedAddress === this.authorizedWallet;
     
     if (!isAuthorized) {
-      console.log(`🚨 SECURITY ALERT: Unauthorized payout attempt to ${requestedAddress}`);
-      console.log(`🔒 Only authorized wallet: ${this.authorizedWallet}`);
+      console.log(`🚨 SECURITY ALERT: Unauthorized payout attempt to [REDACTED]`);
+      console.log(`🔒 Only authorized wallet: [PROTECTED]`);
       
       await this.logWalletActivity('unauthorized_payout_attempt', {
-        requestedAddress,
-        authorizedWallet: this.authorizedWallet,
+        requestedAddress: '[REDACTED]',
+        authorizedWallet: '[PROTECTED]',
         timestamp: Date.now()
       });
     }
@@ -100,7 +100,7 @@ export class SecureWalletManager {
     const balanceInfo = await this.getWalletBalance();
     
     return {
-      address: this.authorizedWallet,
+      address: `${this.authorizedWallet.substring(0, 4)}***${this.authorizedWallet.substring(this.authorizedWallet.length - 4)}`,
       balance: balanceInfo.solBalance,
       network: 'mainnet-beta',
       security: {

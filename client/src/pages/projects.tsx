@@ -125,7 +125,7 @@ export default function ProjectsPage() {
       <div 
         className="fixed inset-0 pointer-events-none"
         style={{
-          background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(244, 63, 94, 0.15) 0%, transparent 50%)`
+          background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(6, 182, 212, 0.15) 0%, transparent 50%)`
         }}
       />
 

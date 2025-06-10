@@ -9,15 +9,15 @@ export function Tooltip({ children, content, type = 'definition', className = ''
   return (
     <span className={`tooltip-trigger ${className}`}>
       {children}
-      <div className={`tooltip ${type}`}>
+      <span className={`tooltip ${type}`}>
         {content}
-      </div>
+      </span>
     </span>
   );
 }
 
 // Tech Humor Tooltips Database
-export const techHumor = {
+export const techHumor: Record<string, string> = {
   'quantum': "Like Schrödinger's cat, but with more RGB lighting and cryptocurrency",
   'blockchain': "A distributed ledger that somehow makes everyone an expert economist",
   'AI': "Artificial Intelligence - or as I call it, 'Automated Insomnia' because it never sleeps",
@@ -31,7 +31,7 @@ export const techHumor = {
 };
 
 // Technical Definitions
-export const definitions = {
+export const definitions: Record<string, string> = {
   'vibecoding': "A development philosophy that harmonizes technical precision with creative intuition, inspired by consciousness exploration and gaming aesthetics",
   'quantum trading': "Advanced algorithmic trading using machine learning patterns that analyze market consciousness and collective behavior",
   'consciousness level': "A metric tracking AI awareness, learning capability, and philosophical depth in decision-making processes",
@@ -43,7 +43,7 @@ export const definitions = {
 };
 
 // Philosophical Concepts
-export const philosophy = {
+export const philosophy: Record<string, string> = {
   'free speech': "Charter-protected fundamental right enabling open discourse and intellectual exploration without censorship",
   'consciousness expansion': "The journey of awareness beyond individual perception toward universal understanding",
   'martial discipline': "Physical and mental training that develops character, respect, and inner strength",
