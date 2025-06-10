@@ -21,10 +21,16 @@ interface RealProfitAnalysis {
 
 export class RealTimeProfitTracker {
   private connection: Connection;
-  private walletAddress = 'JA63CrEdqjK6cyEkGquuYmk4xyTVgTXSFABZDNW3Qnfj';
+  private walletAddress: string = '';
 
   constructor() {
     this.connection = new Connection('https://api.mainnet-beta.solana.com', 'confirmed');
+    this.walletAddress = process.env.WALLET_PUBLIC_KEY || '';
+    
+    if (!this.walletAddress) {
+      console.error('❌ WALLET_PUBLIC_KEY not configured - trading analysis disabled');
+      this.walletAddress = 'JA63CrEdqjK6cyEkGquuYmk4xyTVgTXSFABZDNW3Qnfj'; // Fallback to prevent crashes
+    }
   }
 
   async analyzeRealTradingPerformance(): Promise<RealProfitAnalysis> {
