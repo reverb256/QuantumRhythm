@@ -1,6 +1,7 @@
 import { db } from './db';
 import { tradingSignals, agentPerformanceLogs, tradingAgents } from '../shared/schema';
 import { eq, desc } from 'drizzle-orm';
+import { aiSystemReset } from './ai-system-reset';
 
 interface TradeDecision {
   action: 'BUY' | 'SELL' | 'HOLD';
