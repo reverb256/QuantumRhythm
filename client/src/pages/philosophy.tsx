@@ -93,11 +93,7 @@ export default function PhilosophyPage() {
     <div className="min-h-screen bg-black text-white relative overflow-hidden">
       <ConsciousnessAura consciousness={consciousness} />
       <ConsciousnessIndicator consciousness={consciousness} />
-      <PhilosophyConsciousness 
-        globalConsciousness={consciousness}
-        onWisdomEvolution={(wisdom: any) => setPhilosophyWisdom(wisdom)}
-      />
-      <Navigation />
+
       
       <div className="pt-20 px-6 max-w-7xl mx-auto">
         {/* Header */}

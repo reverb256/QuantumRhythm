@@ -14,7 +14,7 @@ import { WalletProvider } from "@/hooks/useWallet";
 
 import Navigation from "@/components/navigation";
 import { BreathingPageWrapper } from "@/components/breathing-animation";
-import SimpleFloatingAgents from "@/components/SimpleFloatingAgents";
+import DynamicCharacterSystem from "@/components/DynamicCharacterSystem";
 import Home from "@/pages/home";
 import Projects from "@/pages/projects";
 import Philosophy from "@/pages/philosophy";
@@ -171,7 +171,7 @@ function App() {
             <Toaster />
             <main id="main-content" className="relative z-10 hdr-background text-wcag-aaa focus-enhanced">
               <Router />
-              <SimpleFloatingAgents />
+              <DynamicCharacterSystem />
             </main>
             <EnhancedConsole />
           </ConsciousContainer>
