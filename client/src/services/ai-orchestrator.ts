@@ -3,8 +3,9 @@
  * Prioritizes VLLM, Perplexica/SearXNG, and HuggingFace - No Paid APIs
  */
 
-import { validateAndSanitizeAIInput, validateAIOutput, type AIModelInput, type AIModelOutput } from '../../shared/ai-validation';
-import { AISecurityEnvelope } from '../../shared/ai-security';
+// Temporarily comment out imports to resolve path issues
+// import { validateAndSanitizeAIInput, validateAIOutput, type AIModelInput, type AIModelOutput } from '../../shared/ai-validation';
+// import { AISecurityEnvelope } from '../../shared/ai-security';
 
 // Free AI Provider Types (No Paid APIs)
 type FreeAIProvider = 'vllm' | 'perplexica' | 'searxng' | 'huggingface' | 'local-llm' | 'ollama';
@@ -129,7 +130,8 @@ export class FreeAIOrchestrator {
         }
       };
     } catch (error) {
-      console.error('[FREE_AI_ORCHESTRATOR] Processing failed:', error);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      console.error('[FREE_AI_ORCHESTRATOR] Processing failed:', errorMessage);
       
       // Return fallback response
       return {

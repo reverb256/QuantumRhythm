@@ -95,7 +95,7 @@ export default function PhilosophyPage() {
       <ConsciousnessIndicator consciousness={consciousness} />
       <PhilosophyConsciousness 
         globalConsciousness={consciousness}
-        onWisdomEvolution={(wisdom) => setPhilosophyWisdom(wisdom)}
+        onWisdomEvolution={(wisdom: any) => setPhilosophyWisdom(wisdom)}
       />
       <Navigation />
       

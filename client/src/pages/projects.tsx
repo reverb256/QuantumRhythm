@@ -1,5 +1,6 @@
-import React from 'react';
+import { useState } from 'react';
 import Navigation from '@/components/navigation';
+import ProjectsConsciousness from '@/components/ProjectsConsciousness';
 import { SmartTooltip } from '@/components/TooltipSystem';
 import { 
   useConsciousnessReactiveSystem, 
@@ -92,7 +93,7 @@ export default function ProjectsPage() {
       <ConsciousnessIndicator consciousness={consciousness} />
       <ProjectsConsciousness 
         globalConsciousness={consciousness}
-        onCreativityEvolution={(creativity) => setProjectsCreativity(creativity)}
+        onCreativityEvolution={(creativity: any) => setProjectsCreativity(creativity)}
       />
       <Navigation />
       

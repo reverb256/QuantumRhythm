@@ -6,7 +6,21 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { createFreeAIOrchestrator, type FreeAIOrchestrator } from '../services/ai-orchestrator';
-import { type ConsciousnessState } from '../../shared/ai-validation';
+// import { type ConsciousnessState } from '../../shared/ai-validation';
+
+// Temporary type definition
+interface ConsciousnessState {
+  awareness: number;
+  intelligence: number;
+  empathy: number;
+  creativity: number;
+  focus: number;
+  transcendence: number;
+  userPresence: 'active' | 'idle' | 'focused' | 'away';
+  interactionPattern: 'browsing' | 'learning' | 'creating' | 'analyzing';
+  timestamp: Date;
+  sessionDuration: number;
+}
 
 interface ConsciousnessCoreProps {
   globalConsciousness: ConsciousnessState;

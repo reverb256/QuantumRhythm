@@ -51,7 +51,7 @@ export default function HomePage() {
       
       {/* AI-First Consciousness Core */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <ConsciousnessCore 
+        <AIConsciousnessCore 
           globalConsciousness={consciousness}
           onConsciousnessEvolution={(levels: any) => {
             setHomeConsciousness(prev => ({
