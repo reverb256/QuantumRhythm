@@ -327,38 +327,6 @@ export class QuantumTrader {
       reasoning: streamlinedDecision.reasoning,
       unhinged: false
     };
-    
-    if (confidence > 0.80 && marketTrend > 0.7 && defiOpportunity.expectedAPY > 10) {
-      action = 'BUY';
-      strategy = `confident_${defiOpportunity.protocol}`;
-      reasoning = `High-confidence market opportunity detected`;
-    } else if (confidence > 0.75 && marketTrend > 0.6) {
-      action = 'BUY';
-      strategy = `moderate_${defiOpportunity.protocol}`;
-      reasoning = `Moderate confidence with favorable market conditions`;
-    } else if (confidence > 1.0) {
-      // Handle overconfidence with micro-trades
-      action = 'BUY';
-      strategy = `micro_${defiOpportunity.protocol}`;
-      reasoning = `Micro-trade execution for overconfident signals`;
-    } else if (marketTrend < 0.3 && confidence > 0.7) {
-      action = 'SELL';
-      strategy = `defensive_${defiOpportunity.protocol}`;
-      reasoning = `Defensive positioning in bearish conditions`;
-    }
-    
-    // Dynamic position sizing with opportunity multipliers
-    const enhancedAmount = this.calculateEnhancedPositionSize(baseAllocation, defiOpportunity, marketTrend);
-    
-    return {
-      action,
-      token: selectedToken,
-      confidence,
-      amount: enhancedAmount,
-      strategy,
-      reasoning,
-      unhinged: this.unhingedMode && defiOpportunity.riskLevel === 'unhinged'
-    };
   }
 
   private calculateDynamicAllocation(defiOpportunity: any, marketTrend: number): number {

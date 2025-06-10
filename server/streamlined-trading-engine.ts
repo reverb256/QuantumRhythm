@@ -63,7 +63,7 @@ Example: BUY|USDC|0.75|Strong bullish momentum detected
 
 Keep confidence between 0.3-0.95. Only suggest trades if amount would be >= ${this.minimumTradeSize} SOL after gas reserves.`;
 
-    const response = await aiService.generateText(prompt, {
+    const response = await aiService.generate(prompt, {
       maxTokens: 200,
       temperature: 0.3
     });
