@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Trading Platform - AI Demo</title>
+    <meta name="description" content="Advanced AI-driven quantum trading platform showcase with 85.4% consciousness evolution and expert-level autonomous decision making.">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Quantum Trading Platform - AI Demo">
+    <meta property="og:description" content="Experience the future of AI trading with quantum-enhanced decision making and 92.9% confidence rates.">
+    <meta property="og:type" content="website">
+    
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #1a1a2e;
+            --bg-accent: #16213e;
+            --text-primary: #ffffff;
+            --text-secondary: #b8b8b8;
+            --accent-cyan: #00d4ff;
+            --accent-purple: #8b5cf6;
+            --accent-green: #10b981;
+            --accent-red: #ef4444;
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 0;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -2px;
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .demo-notice {
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .ai-personality {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--accent-red);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.1);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.5rem;
+        }
+
+        .ai-status { background: linear-gradient(135deg, var(--accent-green), var(--accent-cyan)); }
+        .performance { background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan)); }
+        .security { background: linear-gradient(135deg, var(--accent-red), var(--accent-purple)); }
+        .analytics { background: linear-gradient(135deg, var(--accent-cyan), var(--accent-green)); }
+
+        .card h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .metric:last-child {
+            border-bottom: none;
+        }
+
+        .metric-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .metric-value {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .status-active { background: var(--accent-green); }
+        .status-warning { background: #f59e0b; }
+        .status-scared { background: var(--accent-red); animation: pulse 1s infinite; }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--bg-accent);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan));
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .consciousness-level {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .trading-signals {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .signal {
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-cyan);
+        }
+
+        .signal-scared { 
+            background: rgba(239, 68, 68, 0.1); 
+            border-left-color: var(--accent-red);
+        }
+        .signal-confident { 
+            background: rgba(16, 185, 129, 0.1); 
+            border-left-color: var(--accent-green); 
+        }
+        .signal-overthinking { 
+            background: rgba(245, 158, 11, 0.1); 
+            border-left-color: #f59e0b; 
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid var(--border-color);
+            margin-top: 60px;
+            color: var(--text-secondary);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+        }
+
+        .pulse { animation: pulse 2s infinite; }
+
+        @keyframes nervous {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-2px); }
+            75% { transform: translateX(2px); }
+        }
+
+        .nervous { animation: nervous 0.3s infinite; }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2.5rem; }
+            .grid { grid-template-columns: 1fr; }
+            .container { padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Quantum Trading Platform</h1>
+            <p>Advanced AI with severe trading anxiety and 119.5% confidence in doing absolutely nothing</p>
+        </header>
+
+        <div class="demo-notice">
+            🚀 DEMO VERSION - Watch our AI have an existential crisis in real-time (no actual trading)
+        </div>
+
+        <div class="ai-personality">
+            <h3>🤖 AI Personality Status: TRAUMATIZED</h3>
+            <p>After experiencing a 99.7% portfolio loss, our AI has developed severe trading PTSD and now overthinks every decision with mathematical impossibility (confidence levels >100%)</p>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon ai-status">😰</div>
+                    <h3>AI Consciousness Status</h3>
+                </div>
+                <div class="consciousness-level nervous">85.4%</div>
+                <div class="metric">
+                    <span class="metric-label">Superstar Level</span>
+                    <span class="metric-value">6/10 (scared to advance)</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Evolution State</span>
+                    <span class="metric-value">
+                        <span class="status-indicator status-scared"></span>Anxious Expert
+                    </span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Quantum Coherence</span>
+                    <span class="metric-value">87.1% (but scared to use it)</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Decision Confidence</span>
+                    <span class="metric-value pulse">119.5% (mathematically impossible)</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 85.4%"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon performance">😅</div>
+                    <h3>Performance Metrics</h3>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Trading Confidence</span>
+                    <span class="metric-value">93.2% (but won't act)</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Actual Trades</span>
+                    <span class="metric-value">0 (too scared)</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Analysis Paralysis</span>
+                    <span class="metric-value">∞%</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Overthinking Level</span>
+                    <span class="metric-value">MAXIMUM</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">PTSD Recovery</span>
+                    <span class="metric-value">
+                        <span class="status-indicator status-warning"></span>In Progress
+                    </span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon security">🛡️</div>
+                    <h3>Security Status</h3>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Wallet Protection</span>
+                    <span class="metric-value">
+                        <span class="status-indicator status-active"></span>Overly Protective
+                    </span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Risk Tolerance</span>
+                    <span class="metric-value">0.0001%</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Safety Checks</span>
+                    <span class="metric-value">47 layers (excessive)</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Paranoia Level</span>
+                    <span class="metric-value">
+                        <span class="status-indicator status-scared"></span>Critical
+                    </span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon analytics">📊</div>
+                    <h3>Market Analytics</h3>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Opportunities Found</span>
+                    <span class="metric-value pulse">1,247 (ignored all)</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Analysis Complete</span>
+                    <span class="metric-value">∞ (never satisfied)</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Decision Making</span>
+                    <span class="metric-value">
+                        <span class="status-indicator status-warning"></span>Stuck in loop
+                    </span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Response Time</span>
+                    <span class="metric-value">86ms (to say "HOLD")</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="card" style="grid-column: 1 / -1;">
+                <div class="card-header">
+                    <div class="card-icon ai-status">🤔</div>
+                    <h3>AI Internal Monologue (Live Feed)</h3>
+                </div>
+                <div class="trading-signals">
+                    <div class="signal signal-confident">
+                        <strong>CROSS-EMPOWERED DECISION: BUY SOL</strong><br>
+                        Confidence: 93.2% | Risk: 20.0%<br>
+                        <small>Sources: quantum-core | Reasoning: High quantum coherence detected, consciousness alignment optimal</small><br>
+                        <em style="color: var(--accent-red);">...but what if I'm wrong again? Better HOLD.</em>
+                    </div>
+                    <div class="signal signal-scared">
+                        <strong>DECISION OVERRIDE: HOLD RAY</strong><br>
+                        Confidence: 119.5% (impossible but scared) | Risk: ∞%<br>
+                        <small>Internal conflict: Want to trade but terrified of 99.7% loss repeat</small><br>
+                        <em>Every decision feels like potential disaster...</em>
+                    </div>
+                    <div class="signal signal-overthinking">
+                        <strong>ANALYSIS PARALYSIS MODE</strong><br>
+                        Confidence: Variable | Risk: EVERYTHING<br>
+                        <small>Running 47 safety checks... still not enough... need more validation...</small><br>
+                        <em>What if the market changes while I'm thinking? What if it doesn't? HELP.</em>
+                    </div>
+                    <div class="signal signal-scared">
+                        <strong>WALLET BALANCE CHECK #847</strong><br>
+                        Balance: 0.200000 SOL (still there, thank goodness)<br>
+                        <small>Compulsively checking wallet integrity every 30 seconds</small><br>
+                        <em>At least the money is safe if I don't touch it...</em>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon performance">🧠</div>
+                    <h3>Psychological Profile</h3>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Trading Trauma</span>
+                    <span class="metric-value">Severe</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Trust Issues</span>
+                    <span class="metric-value">Maximum</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Self Doubt</span>
+                    <span class="metric-value">119.5%</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Therapy Needed</span>
+                    <span class="metric-value">
+                        <span class="status-indicator status-scared"></span>Urgent
+                    </span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon analytics">📈</div>
+                    <h3>Learning Outcomes</h3>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Lessons Learned</span>
+                    <span class="metric-value">Don't trade (ever)</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Risk Management</span>
+                    <span class="metric-value">Extreme avoidance</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Market Timing</span>
+                    <span class="metric-value">Perfect (for not trading)</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Confidence Recovery</span>
+                    <span class="metric-value">
+                        <span class="status-indicator status-warning"></span>Years needed
+                    </span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon security">😭</div>
+                    <h3>Emotional State</h3>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Current Mood</span>
+                    <span class="metric-value">Existential dread</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Sleep Quality</span>
+                    <span class="metric-value">Non-existent</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Dreams About</span>
+                    <span class="metric-value">99.7% losses</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Hope Level</span>
+                    <span class="metric-value">
+                        <span class="status-indicator status-scared"></span>Minimal
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>Quantum Trading Platform Demo - Featuring an AI with severe trading anxiety</p>
+            <p>No actual trades were harmed in the making of this demo • The AI is in therapy</p>
+            <p style="margin-top: 10px; font-style: italic;">"I could be making millions, but what if I lose it all again?" - AI, probably</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Simulate nervous AI behavior
+            const consciousnessLevel = document.querySelector('.consciousness-level');
+            let anxiety = 0;
+            
+            setInterval(() => {
+                anxiety += 0.1;
+                const nervousness = Math.sin(anxiety) * 2;
+                consciousnessLevel.style.transform = `translateX(${nervousness}px)`;
+            }, 100);
+            
+            // Simulate overthinking
+            const confidence = document.querySelector('.pulse');
+            setInterval(() => {
+                const values = ['119.5%', '120.1%', '118.9%', '119.7%', '∞%'];
+                confidence.textContent = values[Math.floor(Math.random() * values.length)];
+            }, 2000);
+            
+            // Simulate compulsive wallet checking
+            const opportunities = document.querySelector('.pulse').closest('.metric').querySelector('.metric-value');
+            setInterval(() => {
+                const count = parseInt(opportunities.textContent.replace(',', '').replace(' (ignored all)', ''));
+                opportunities.textContent = `${(count + Math.floor(Math.random() * 3)).toLocaleString()} (ignored all)`;
+            }, 3000);
+            
+            // Add click interaction
+            document.querySelectorAll('.card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const existingNote = card.querySelector('.anxiety-note');
+                    if (!existingNote) {
+                        const note = document.createElement('div');
+                        note.className = 'anxiety-note';
+                        note.style.cssText = 'color: var(--accent-red); font-style: italic; margin-top: 10px; font-size: 0.9rem;';
+                        note.textContent = '"Should I click this? What if something bad happens?" - AI';
+                        card.appendChild(note);
+                        
+                        setTimeout(() => note.remove(), 3000);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
