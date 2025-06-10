@@ -13,6 +13,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import { WalletProvider } from "@/hooks/useWallet";
 
 import Navigation from "@/components/navigation";
+import { BreathingPageWrapper } from "@/components/breathing-animation";
 import Home from "@/pages/home";
 import Values from "@/pages/values";
 import VRChat from "@/pages/vrchat";
@@ -21,7 +22,6 @@ import TradingDashboard from "@/pages/TradingDashboard";
 import TechnicalDeepDive from "@/pages/technical-deep-dive";
 import Legal from "@/pages/Legal";
 import NotFound from "@/pages/not-found";
-import PerformanceMonitor from "@/components/ui/performance-monitor";
 
 function Router() {
   const [location] = useLocation();
@@ -57,16 +57,18 @@ function Router() {
     <>
       <SEOHead {...seoData} />
       <Navigation />
-      <Switch>
-        <Route path="/" component={Home} />
-        <Route path="/values" component={Values} />
-        <Route path="/vrchat" component={VRChat} />
-        <Route path="/dashboard" component={Dashboard} />
-        <Route path="/trading-dashboard" component={TradingDashboard} />
-        <Route path="/technical-deep-dive" component={TechnicalDeepDive} />
-        <Route path="/legal" component={Legal} />
-        <Route component={NotFound} />
-      </Switch>
+      <BreathingPageWrapper>
+        <Switch>
+          <Route path="/" component={Home} />
+          <Route path="/values" component={Values} />
+          <Route path="/vrchat" component={VRChat} />
+          <Route path="/dashboard" component={Dashboard} />
+          <Route path="/trading-dashboard" component={TradingDashboard} />
+          <Route path="/technical-deep-dive" component={TechnicalDeepDive} />
+          <Route path="/legal" component={Legal} />
+          <Route component={NotFound} />
+        </Switch>
+      </BreathingPageWrapper>
     </>
   );
 }
