@@ -120,7 +120,7 @@ app.use((req, res, next) => {
   app.use('/api/live', liveStatsRouter);
   
   // Register AI Autorouter routes for OWUI, void, and other agents
-  app.use('/api/ai', aiAutorouterRoutes);
+  app.use('/api/ai-autorouter', aiAutorouterRoutes);
   
   const server = await registerRoutes(app);
 
