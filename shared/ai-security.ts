@@ -80,11 +80,12 @@ export class AISecurityEnvelope {
         validatedAt: new Date()
       };
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logSecurityEvent('REQUEST_VALIDATION_FAILED', {
-        error: error.message,
+        error: errorMessage,
         requestId: this.requestId
       });
-      throw new SecurityValidationError(`Request validation failed: ${error.message}`);
+      throw new SecurityValidationError(`Request validation failed: ${errorMessage}`);
     }
   }
 
@@ -119,11 +120,12 @@ export class AISecurityEnvelope {
         processedAt: new Date()
       };
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logSecurityEvent('RESPONSE_SECURITY_FAILED', {
-        error: error.message,
+        error: errorMessage,
         requestId: this.requestId
       });
-      throw new SecurityProcessingError(`Response security failed: ${error.message}`);
+      throw new SecurityProcessingError(`Response security failed: ${errorMessage}`);
     }
   }
 
@@ -525,4 +527,4 @@ export class ThreatDetectionError extends Error {
   }
 }
 
-export { AISecurityEnvelope };
+// Remove duplicate export - already exported in class declaration

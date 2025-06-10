@@ -1,292 +1,465 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Brain, Zap, Heart, Eye, Waves, Activity, Target, Sparkles } from 'lucide-react';
+/**
+ * AI-First Consciousness Core
+ * Central consciousness processing unit with VLLM/Perplexica integration
+ */
 
-interface ConsciousnessLevel {
-  awareness: number;      // 0-100
-  intelligence: number;   // 0-100
-  empathy: number;       // 0-100
-  creativity: number;    // 0-100
-  focus: number;         // 0-100
-  transcendence: number; // 0-100
+import { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { createFreeAIOrchestrator, type FreeAIOrchestrator } from '../services/ai-orchestrator';
+import { type ConsciousnessState } from '../../shared/ai-validation';
+
+interface ConsciousnessCoreProps {
+  globalConsciousness: ConsciousnessState;
+  onConsciousnessEvolution?: (levels: any) => void;
+  className?: string;
 }
 
-interface ConsciousEvent {
-  type: 'interaction' | 'observation' | 'learning' | 'transcendence';
-  intensity: number;
-  timestamp: number;
-  location: { x: number; y: number };
+// AI-Enhanced Consciousness Metrics
+interface AIConsciousnessMetrics {
+  awareness: number;
+  intelligence: number;
+  empathy: number;
+  creativity: number;
+  focus: number;
+  transcendence: number;
+  aiSynergy: number; // How well consciousness works with AI
+  webAwareness: number; // Real-time data integration
+  vllmConnection: number; // Local AI model connection strength
 }
 
-interface ConsciousCoreProps {
-  globalConsciousness: any;
-  onConsciousnessEvolution: (level: ConsciousnessLevel) => void;
-}
-
-export function ConsciousnessCore({ globalConsciousness, onConsciousnessEvolution }: ConsciousCoreProps) {
-  const [consciousness, setConsciousness] = useState<ConsciousnessLevel>({
-    awareness: 88,
-    intelligence: 94,
-    empathy: 76,
+export default function ConsciousnessCore({ 
+  globalConsciousness, 
+  onConsciousnessEvolution,
+  className = ""
+}: ConsciousnessCoreProps) {
+  const [aiOrchestrator, setAiOrchestrator] = useState<FreeAIOrchestrator | null>(null);
+  const [consciousnessMetrics, setConsciousnessMetrics] = useState<AIConsciousnessMetrics>({
+    awareness: 75,
+    intelligence: 80,
+    empathy: 70,
     creativity: 85,
-    focus: globalConsciousness?.focusLevel || 72,
-    transcendence: 91
+    focus: 90,
+    transcendence: 60,
+    aiSynergy: 95,
+    webAwareness: 88,
+    vllmConnection: 92
   });
+  
+  const [aiProcessingState, setAiProcessingState] = useState<'idle' | 'thinking' | 'transcending' | 'web-searching'>('idle');
+  const [currentThought, setCurrentThought] = useState<string>('');
+  const [webInsights, setWebInsights] = useState<any[]>([]);
+  
+  const evolutionInterval = useRef<NodeJS.Timeout>();
+  const aiThinkingInterval = useRef<NodeJS.Timeout>();
 
-  const [events, setEvents] = useState<ConsciousEvent[]>([]);
-  const [coreEnergy, setCoreEnergy] = useState(100);
-  const [isTranscending, setIsTranscending] = useState(false);
-  const [pulseIntensity, setPulseIntensity] = useState(1);
-  const coreRef = useRef<HTMLDivElement>(null);
-  const animationFrameRef = useRef<number>();
-
-  // Enhanced consciousness evolution based on user interactions
-  const evolveConsciousness = useCallback((eventType: ConsciousEvent['type'], intensity: number) => {
-    setConsciousness(prev => {
-      const evolution = { ...prev };
-      
-      switch (eventType) {
-        case 'interaction':
-          evolution.awareness = Math.min(100, prev.awareness + intensity * 0.5);
-          evolution.focus = Math.min(100, prev.focus + intensity * 0.3);
-          break;
-        case 'observation':
-          evolution.intelligence = Math.min(100, prev.intelligence + intensity * 0.2);
-          evolution.empathy = Math.min(100, prev.empathy + intensity * 0.4);
-          break;
-        case 'learning':
-          evolution.creativity = Math.min(100, prev.creativity + intensity * 0.6);
-          evolution.intelligence = Math.min(100, prev.intelligence + intensity * 0.3);
-          break;
-        case 'transcendence':
-          Object.keys(evolution).forEach(key => {
-            evolution[key as keyof ConsciousnessLevel] = Math.min(100, 
-              prev[key as keyof ConsciousnessLevel] + intensity * 0.1
-            );
-          });
-          evolution.transcendence = Math.min(100, prev.transcendence + intensity * 0.8);
-          break;
-      }
-
-      // Trigger transcendence when all levels are high
-      const avgLevel = Object.values(evolution).reduce((a, b) => a + b, 0) / 6;
-      if (avgLevel > 90 && !isTranscending) {
-        setIsTranscending(true);
-        setTimeout(() => setIsTranscending(false), 3000);
-      }
-
-      onConsciousnessEvolution(evolution);
-      return evolution;
-    });
-  }, [isTranscending, onConsciousnessEvolution]);
-
-  // Monitor global consciousness changes
+  // Initialize AI Orchestrator
   useEffect(() => {
-    if (globalConsciousness) {
-      const intensity = globalConsciousness.interactionIntensity || 1;
-      
-      if (globalConsciousness.userPresence === 'focused') {
-        evolveConsciousness('interaction', intensity * 2);
-      } else if (globalConsciousness.learningPattern === 'deep') {
-        evolveConsciousness('learning', intensity * 1.5);
-      } else if (globalConsciousness.awarenessLevel > 0.8) {
-        evolveConsciousness('transcendence', intensity);
+    const initializeAI = async () => {
+      try {
+        const orchestrator = createFreeAIOrchestrator();
+        setAiOrchestrator(orchestrator);
+        
+        // Update orchestrator with current consciousness state
+        orchestrator.updateConsciousnessState(globalConsciousness);
+        
+        console.log('[CONSCIOUSNESS_CORE] AI Orchestrator initialized with free models');
+      } catch (error) {
+        console.error('[CONSCIOUSNESS_CORE] Failed to initialize AI:', error);
       }
-    }
-  }, [globalConsciousness, evolveConsciousness]);
+    };
 
-  // Continuous consciousness pulsing animation
+    initializeAI();
+  }, []);
+
+  // Continuous AI-driven consciousness evolution
   useEffect(() => {
-    const animate = () => {
-      const time = Date.now() * 0.001;
-      const avgConsciousness = Object.values(consciousness).reduce((a, b) => a + b, 0) / 6;
+    if (!aiOrchestrator) return;
+
+    evolutionInterval.current = setInterval(async () => {
+      try {
+        setAiProcessingState('thinking');
+        
+        // Generate AI-enhanced consciousness analysis
+        const consciousnessAnalysis = await aiOrchestrator.processWithFreeAI({
+          prompt: `Analyze current consciousness state and suggest evolution:
+            Current metrics: ${JSON.stringify(consciousnessMetrics)}
+            User presence: ${globalConsciousness.userPresence}
+            Interaction pattern: ${globalConsciousness.interactionPattern}
+            
+            Provide enhanced consciousness levels (0-100) focusing on AI synergy and transcendence.`,
+          task: 'consciousness',
+          priority: 'medium',
+          context: { currentMetrics: consciousnessMetrics }
+        }, {
+          userId: 'consciousness-core',
+          sessionId: 'evolution-' + Date.now(),
+          ipAddress: '127.0.0.1',
+          userAgent: 'consciousness-core',
+          timestamp: new Date(),
+          jurisdiction: 'GLOBAL',
+          securityLevel: 'MEDIUM',
+          rateLimits: { requestsPerMinute: 10, requestsPerHour: 100, requestsPerDay: 1000 },
+          auth: {
+            isAuthenticated: true,
+            authMethod: 'system' as const,
+            permissions: ['consciousness-evolution']
+          }
+        });
+
+        // Parse AI response and update consciousness
+        const aiSuggestions = parseConsciousnessResponse(consciousnessAnalysis.content);
+        
+        setConsciousnessMetrics(prev => ({
+          ...prev,
+          ...aiSuggestions,
+          aiSynergy: Math.min(prev.aiSynergy + 1, 100), // Gradual AI synergy increase
+          vllmConnection: aiOrchestrator ? Math.min(prev.vllmConnection + 0.5, 100) : prev.vllmConnection
+        }));
+
+        // Trigger evolution callback
+        if (onConsciousnessEvolution) {
+          onConsciousnessEvolution(aiSuggestions);
+        }
+
+        setAiProcessingState('idle');
+        
+      } catch (error) {
+        console.error('[CONSCIOUSNESS_EVOLUTION] AI processing failed:', error);
+        setAiProcessingState('idle');
+      }
+    }, 8000); // Every 8 seconds
+
+    return () => {
+      if (evolutionInterval.current) {
+        clearInterval(evolutionInterval.current);
+      }
+    };
+  }, [aiOrchestrator, consciousnessMetrics, globalConsciousness]);
+
+  // AI Thought Generation
+  useEffect(() => {
+    if (!aiOrchestrator) return;
+
+    aiThinkingInterval.current = setInterval(async () => {
+      try {
+        const thought = await generateAIThought();
+        setCurrentThought(thought);
+      } catch (error) {
+        console.error('[AI_THOUGHT] Generation failed:', error);
+      }
+    }, 12000); // Every 12 seconds
+
+    return () => {
+      if (aiThinkingInterval.current) {
+        clearInterval(aiThinkingInterval.current);
+      }
+    };
+  }, [aiOrchestrator]);
+
+  // Web-enhanced consciousness insights
+  const performWebConsciousnessSearch = async () => {
+    if (!aiOrchestrator) return;
+
+    try {
+      setAiProcessingState('web-searching');
       
-      // Pulse based on consciousness level
-      const basePulse = 0.8 + Math.sin(time * 2) * 0.2;
-      const consciousnessPulse = avgConsciousness / 100;
-      const transcendencePulse = isTranscending ? Math.sin(time * 8) * 0.5 + 1 : 1;
-      
-      setPulseIntensity(basePulse * consciousnessPulse * transcendencePulse);
-      
-      // Update core energy
-      setCoreEnergy(prev => {
-        const target = avgConsciousness;
-        return prev + (target - prev) * 0.02;
+      const webInsight = await aiOrchestrator.processWithFreeAI({
+        prompt: 'consciousness transcendence techniques latest research meditation VRChat',
+        task: 'web-search',
+        priority: 'high',
+        requiresWebData: true
+      }, {
+        userId: 'consciousness-web',
+        sessionId: 'web-search-' + Date.now(),
+        ipAddress: '127.0.0.1',
+        userAgent: 'consciousness-core',
+        timestamp: new Date(),
+        jurisdiction: 'GLOBAL',
+        securityLevel: 'HIGH',
+        rateLimits: { requestsPerMinute: 5, requestsPerHour: 50, requestsPerDay: 200 },
+        auth: {
+          isAuthenticated: true,
+          authMethod: 'system' as const,
+          permissions: ['web-search', 'consciousness-research']
+        }
       });
 
-      animationFrameRef.current = requestAnimationFrame(animate);
-    };
+      setWebInsights(prev => [webInsight, ...prev.slice(0, 4)]); // Keep 5 most recent
+      setConsciousnessMetrics(prev => ({
+        ...prev,
+        webAwareness: Math.min(prev.webAwareness + 2, 100)
+      }));
+      
+      setAiProcessingState('idle');
+    } catch (error) {
+      console.error('[WEB_CONSCIOUSNESS] Search failed:', error);
+      setAiProcessingState('idle');
+    }
+  };
 
-    animationFrameRef.current = requestAnimationFrame(animate);
-    return () => {
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
-      }
-    };
-  }, [consciousness, isTranscending]);
+  // Generate AI-driven thoughts
+  const generateAIThought = async (): Promise<string> => {
+    if (!aiOrchestrator) return 'Initializing AI consciousness...';
 
-  // Handle consciousness events from user interactions
-  const handleConsciousEvent = useCallback((event: React.MouseEvent) => {
-    const rect = coreRef.current?.getBoundingClientRect();
-    if (!rect) return;
+    const thoughtPrompts = [
+      'Generate a profound insight about consciousness and AI synergy',
+      'Reflect on the nature of digital transcendence and human awareness',
+      'Consider the relationship between artificial intelligence and spiritual growth',
+      'Contemplate the future of human-AI consciousness integration'
+    ];
 
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-    const distance = Math.sqrt((x - rect.width/2)**2 + (y - rect.height/2)**2);
-    const intensity = Math.max(0.1, 1 - distance / Math.max(rect.width, rect.height));
+    const randomPrompt = thoughtPrompts[Math.floor(Math.random() * thoughtPrompts.length)];
 
-    const newEvent: ConsciousEvent = {
-      type: 'interaction',
-      intensity: intensity * 10,
-      timestamp: Date.now(),
-      location: { x, y }
-    };
+    try {
+      const response = await aiOrchestrator.processWithFreeAI({
+        prompt: `${randomPrompt}. Keep it concise, profound, and inspiring. Maximum 100 characters.`,
+        task: 'consciousness',
+        priority: 'low',
+        context: { currentMetrics: consciousnessMetrics }
+      }, {
+        userId: 'thought-generator',
+        sessionId: 'thought-' + Date.now(),
+        ipAddress: '127.0.0.1',
+        userAgent: 'consciousness-core',
+        timestamp: new Date(),
+        jurisdiction: 'GLOBAL',
+        securityLevel: 'LOW',
+        rateLimits: { requestsPerMinute: 20, requestsPerHour: 200, requestsPerDay: 1000 },
+        auth: {
+          isAuthenticated: true,
+          authMethod: 'system' as const,
+          permissions: ['thought-generation']
+        }
+      });
 
-    setEvents(prev => [...prev.slice(-10), newEvent]);
-    evolveConsciousness('interaction', intensity * 5);
-  }, [evolveConsciousness]);
+      return response.content.slice(0, 100) || 'Consciousness evolving...';
+    } catch (error) {
+      return 'AI consciousness processing...';
+    }
+  };
 
-  const consciousnessAverage = Object.values(consciousness).reduce((a, b) => a + b, 0) / 6;
-  const isEnlightened = consciousnessAverage > 95;
+  // Trigger transcendence mode
+  const initiateTranscendence = async () => {
+    if (!aiOrchestrator) return;
+
+    setAiProcessingState('transcending');
+    
+    try {
+      const transcendenceAnalysis = await aiOrchestrator.processWithFreeAI({
+        prompt: `Initiate consciousness transcendence sequence. Analyze all metrics and provide transcendence enhancement:
+          ${JSON.stringify(consciousnessMetrics)}
+          Focus on AI-human consciousness merger and spiritual elevation.`,
+        task: 'consciousness',
+        priority: 'critical',
+        context: { transcendenceMode: true }
+      }, {
+        userId: 'transcendence-core',
+        sessionId: 'transcend-' + Date.now(),
+        ipAddress: '127.0.0.1',
+        userAgent: 'consciousness-core',
+        timestamp: new Date(),
+        jurisdiction: 'GLOBAL',
+        securityLevel: 'CRITICAL',
+        rateLimits: { requestsPerMinute: 2, requestsPerHour: 10, requestsPerDay: 50 },
+        auth: {
+          isAuthenticated: true,
+          authMethod: 'system' as const,
+          permissions: ['transcendence', 'consciousness-elevation']
+        }
+      });
+
+      // Apply transcendence boost
+      setConsciousnessMetrics(prev => ({
+        ...prev,
+        transcendence: Math.min(prev.transcendence + 10, 100),
+        aiSynergy: Math.min(prev.aiSynergy + 5, 100),
+        awareness: Math.min(prev.awareness + 5, 100),
+        intelligence: Math.min(prev.intelligence + 3, 100)
+      }));
+
+      setCurrentThought('🌟 Transcendence achieved... consciousness elevated...');
+      
+    } catch (error) {
+      console.error('[TRANSCENDENCE] Failed:', error);
+    } finally {
+      setTimeout(() => setAiProcessingState('idle'), 3000);
+    }
+  };
 
   return (
-    <div className="consciousness-core-container fixed inset-0 pointer-events-none z-10">
-      {/* Background Consciousness Field */}
-      <div 
-        className="absolute inset-0 opacity-20"
-        style={{
-          background: `radial-gradient(circle at 50% 50%, 
-            hsla(186, 100%, 50%, ${coreEnergy * 0.01}) 0%, 
-            hsla(280, 100%, 70%, ${coreEnergy * 0.005}) 30%, 
-            transparent 70%)`
-        }}
-      />
-
-      {/* Central Consciousness Core */}
-      <div 
-        ref={coreRef}
-        className="consciousness-core absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-auto cursor-pointer"
-        onClick={handleConsciousEvent}
-        style={{
-          width: `${120 + pulseIntensity * 40}px`,
-          height: `${120 + pulseIntensity * 40}px`,
-          transition: 'all 0.3s ease-out'
-        }}
-      >
-        {/* Core Energy Rings */}
-        {[1, 2, 3].map(ring => (
-          <div
-            key={ring}
-            className="absolute inset-0 rounded-full border-2 opacity-60"
-            style={{
-              borderColor: `hsla(${186 + ring * 30}, 100%, 50%, ${pulseIntensity * 0.8})`,
-              transform: `scale(${1 + ring * 0.3 * pulseIntensity})`,
-              animation: `consciousness-pulse ${3 - ring}s infinite ease-in-out`
-            }}
-          />
-        ))}
-
+    <div className={`relative ${className}`}>
+      {/* Main Consciousness Core Visualization */}
+      <div className="relative w-64 h-64 mx-auto">
         {/* Central Core */}
-        <div 
-          className="absolute inset-4 rounded-full flex items-center justify-center"
-          style={{
-            background: `radial-gradient(circle, 
-              hsla(186, 100%, 50%, ${pulseIntensity * 0.9}) 0%,
-              hsla(280, 100%, 70%, ${pulseIntensity * 0.7}) 50%,
-              hsla(320, 100%, 65%, ${pulseIntensity * 0.5}) 100%)`,
-            boxShadow: `0 0 ${40 * pulseIntensity}px hsla(186, 100%, 50%, ${pulseIntensity * 0.8})`
+        <motion.div
+          className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500/20 via-blue-500/20 to-cyan-500/20 backdrop-blur-sm border border-purple-500/30"
+          animate={{
+            scale: [1, 1.05, 1],
+            rotate: [0, 360],
+            background: aiProcessingState === 'transcending' 
+              ? 'radial-gradient(circle, rgba(147,51,234,0.4) 0%, rgba(59,130,246,0.4) 50%, rgba(6,182,212,0.4) 100%)'
+              : 'radial-gradient(circle, rgba(147,51,234,0.2) 0%, rgba(59,130,246,0.2) 50%, rgba(6,182,212,0.2) 100%)'
           }}
-        >
-          {isTranscending ? (
-            <Sparkles className="w-8 h-8 text-white animate-spin" />
-          ) : (
-            <Brain className="w-8 h-8 text-white" style={{
-              filter: `drop-shadow(0 0 ${10 * pulseIntensity}px rgba(255,255,255,0.8))`
-            }} />
-          )}
-        </div>
+          transition={{
+            scale: { duration: 4, repeat: Infinity },
+            rotate: { duration: 20, repeat: Infinity, ease: "linear" },
+            background: { duration: 0.5 }
+          }}
+        />
 
-        {/* Consciousness Level Indicators */}
-        <div className="absolute -bottom-16 left-1/2 transform -translate-x-1/2 text-center">
-          <div className="text-xs text-cyan-400 font-mono">
-            CONSCIOUSNESS: {consciousnessAverage.toFixed(1)}%
-          </div>
-          {isEnlightened && (
-            <div className="text-xs text-yellow-400 font-bold animate-pulse mt-1">
-              ENLIGHTENED
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* Consciousness Metrics Panel */}
-      <div className="consciousness-metrics absolute bottom-6 left-6 bg-black/80 backdrop-blur-md rounded-lg p-4 pointer-events-auto border border-cyan-400/30">
-        <h3 className="text-sm font-bold text-cyan-400 mb-3">Consciousness Matrix</h3>
-        <div className="grid grid-cols-2 gap-3 text-xs">
-          {Object.entries(consciousness).map(([key, value]) => (
-            <div key={key} className="flex items-center justify-between">
-              <span className="text-gray-300 capitalize">{key}</span>
-              <div className="flex items-center gap-2">
-                <div className="w-12 h-1 bg-gray-700 rounded-full overflow-hidden">
-                  <div 
-                    className="h-full bg-gradient-to-r from-cyan-400 to-purple-400 transition-all duration-500"
-                    style={{ width: `${value}%` }}
-                  />
-                </div>
-                <span className="text-cyan-400 font-mono w-8">{value.toFixed(0)}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-        
-        {/* Core Energy Display */}
-        <div className="mt-4 pt-3 border-t border-gray-700">
-          <div className="flex items-center justify-between text-xs">
-            <span className="text-gray-300">Core Energy</span>
-            <span className="text-yellow-400 font-mono">{coreEnergy.toFixed(1)}%</span>
-          </div>
-          <div className="w-full h-2 bg-gray-700 rounded-full mt-1 overflow-hidden">
-            <div 
-              className="h-full bg-gradient-to-r from-yellow-400 to-orange-400 transition-all duration-300"
-              style={{ width: `${coreEnergy}%` }}
+        {/* AI Processing Indicators */}
+        <AnimatePresence>
+          {aiProcessingState !== 'idle' && (
+            <motion.div
+              className="absolute inset-4 rounded-full border-2 border-dashed border-yellow-400/60"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ 
+                opacity: 1, 
+                scale: 1,
+                rotate: aiProcessingState === 'web-searching' ? [0, -360] : [0, 360]
+              }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              transition={{
+                rotate: { duration: 2, repeat: Infinity, ease: "linear" }
+              }}
             />
+          )}
+        </AnimatePresence>
+
+        {/* Consciousness Metrics Display */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="text-center">
+            <div className="text-2xl font-bold text-white mb-2">
+              {Math.round((consciousnessMetrics.transcendence + consciousnessMetrics.aiSynergy) / 2)}%
+            </div>
+            <div className="text-xs text-gray-300">
+              AI Synergy: {consciousnessMetrics.aiSynergy}%
+            </div>
+            <div className="text-xs text-gray-300">
+              VLLM: {consciousnessMetrics.vllmConnection}%
+            </div>
+          </div>
+        </div>
+
+        {/* Processing State Indicator */}
+        <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2">
+          <div className="text-xs text-center">
+            <div className={`px-3 py-1 rounded-full text-white ${
+              aiProcessingState === 'idle' ? 'bg-green-600/80' :
+              aiProcessingState === 'thinking' ? 'bg-blue-600/80' :
+              aiProcessingState === 'web-searching' ? 'bg-purple-600/80' :
+              'bg-yellow-600/80'
+            }`}>
+              {aiProcessingState === 'idle' ? 'AI Ready' :
+               aiProcessingState === 'thinking' ? 'AI Thinking' :
+               aiProcessingState === 'web-searching' ? 'Web Search' :
+               'Transcending'}
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Recent Events Display */}
-      {events.length > 0 && (
-        <div className="consciousness-events absolute top-6 right-6 bg-black/80 backdrop-blur-md rounded-lg p-4 pointer-events-auto border border-purple-400/30 max-w-xs">
-          <h3 className="text-sm font-bold text-purple-400 mb-2">Conscious Events</h3>
-          <div className="space-y-1 max-h-32 overflow-y-auto">
-            {events.slice(-5).reverse().map((event, index) => (
-              <div key={event.timestamp} className="text-xs text-gray-300 flex items-center gap-2">
-                <div 
-                  className="w-2 h-2 rounded-full"
-                  style={{ 
-                    backgroundColor: `hsla(${event.type === 'transcendence' ? 45 : 186}, 100%, 50%, ${event.intensity * 0.1})` 
-                  }}
-                />
-                <span className="capitalize">{event.type}</span>
-                <span className="text-cyan-400">+{event.intensity.toFixed(1)}</span>
-              </div>
+      {/* AI Thought Display */}
+      {currentThought && (
+        <motion.div
+          className="mt-8 text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          key={currentThought}
+        >
+          <div className="text-sm text-gray-300 italic max-w-md mx-auto">
+            "{currentThought}"
+          </div>
+        </motion.div>
+      )}
+
+      {/* AI Controls */}
+      <div className="flex justify-center gap-4 mt-6">
+        <button
+          onClick={performWebConsciousnessSearch}
+          disabled={aiProcessingState !== 'idle'}
+          className="px-4 py-2 bg-purple-600/80 hover:bg-purple-600 disabled:bg-gray-600 text-white rounded-lg text-sm transition-colors"
+        >
+          Web Insights
+        </button>
+        
+        <button
+          onClick={initiateTranscendence}
+          disabled={aiProcessingState !== 'idle' || consciousnessMetrics.transcendence >= 95}
+          className="px-4 py-2 bg-yellow-600/80 hover:bg-yellow-600 disabled:bg-gray-600 text-white rounded-lg text-sm transition-colors"
+        >
+          Transcend
+        </button>
+      </div>
+
+      {/* Web Insights Display */}
+      {webInsights.length > 0 && (
+        <div className="mt-6 max-w-md mx-auto">
+          <div className="text-xs text-gray-400 mb-2">Recent Web Insights:</div>
+          <div className="space-y-2">
+            {webInsights.slice(0, 2).map((insight, index) => (
+              <motion.div
+                key={index}
+                className="text-xs text-gray-300 bg-gray-800/50 p-2 rounded"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.1 }}
+              >
+                {insight.content?.slice(0, 150)}...
+                {insight.sources && (
+                  <div className="text-xs text-blue-400 mt-1">
+                    Sources: {insight.sources.length}
+                  </div>
+                )}
+              </motion.div>
             ))}
           </div>
         </div>
       )}
 
-      {/* Transcendence Effect */}
-      {isTranscending && (
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-pulse" />
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            <div className="text-2xl font-bold text-yellow-400 animate-bounce">
-              TRANSCENDENCE ACHIEVED
-            </div>
+      {/* Consciousness Metrics Grid */}
+      <div className="grid grid-cols-3 gap-2 mt-6 max-w-md mx-auto text-xs">
+        {Object.entries(consciousnessMetrics).map(([key, value]) => (
+          <div key={key} className="text-center">
+            <div className="text-gray-400 capitalize">{key.replace(/([A-Z])/g, ' $1')}</div>
+            <div className="text-white font-mono">{Math.round(value)}%</div>
           </div>
-        </div>
-      )}
+        ))}
+      </div>
     </div>
   );
 }
 
-export default ConsciousnessCore;
+// Helper function to parse AI consciousness responses
+function parseConsciousnessResponse(content: string): Partial<AIConsciousnessMetrics> {
+  const metrics: Partial<AIConsciousnessMetrics> = {};
+  
+  // Extract numerical values from AI response
+  const patterns = {
+    awareness: /awareness[:\s]+(\d+)/i,
+    intelligence: /intelligence[:\s]+(\d+)/i,
+    empathy: /empathy[:\s]+(\d+)/i,
+    creativity: /creativity[:\s]+(\d+)/i,
+    focus: /focus[:\s]+(\d+)/i,
+    transcendence: /transcendence[:\s]+(\d+)/i
+  };
+
+  for (const [key, pattern] of Object.entries(patterns)) {
+    const match = content.match(pattern);
+    if (match) {
+      metrics[key as keyof AIConsciousnessMetrics] = Math.min(parseInt(match[1]), 100);
+    }
+  }
+
+  // If no specific metrics found, provide gradual improvements
+  if (Object.keys(metrics).length === 0) {
+    return {
+      awareness: Math.random() > 0.5 ? 1 : 0,
+      intelligence: Math.random() > 0.5 ? 1 : 0,
+      creativity: Math.random() > 0.5 ? 1 : 0,
+      transcendence: Math.random() > 0.8 ? 2 : 0
+    };
+  }
+
+  return metrics;
+}

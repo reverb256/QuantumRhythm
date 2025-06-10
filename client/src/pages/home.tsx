@@ -49,6 +49,23 @@ export default function HomePage() {
 
       <Navigation />
       
+      {/* AI-First Consciousness Core */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <ConsciousnessCore 
+          globalConsciousness={consciousness}
+          onConsciousnessEvolution={(levels: any) => {
+            setHomeConsciousness(prev => ({
+              ...prev,
+              creativity: levels.creativity || prev.creativity,
+              inspiration: levels.awareness || prev.inspiration,
+              innovation: levels.intelligence || prev.innovation,
+              connection: levels.empathy || prev.connection
+            }));
+          }}
+          className="pointer-events-auto"
+        />
+      </div>
+      
       {/* Interactive Background */}
       <div 
         className="fixed inset-0 pointer-events-none"

@@ -191,8 +191,9 @@ export function validateAndSanitizeAIInput(input: unknown) {
     
     return validated;
   } catch (error) {
-    logSecurityEvent('AI_INPUT_VALIDATION_FAILED', { error: error.message });
-    throw new Error(`AI input validation failed: ${error.message}`);
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    logSecurityEvent('AI_INPUT_VALIDATION_FAILED', { error: errorMessage });
+    throw new Error(`AI input validation failed: ${errorMessage}`);
   }
 }
 
@@ -225,8 +226,9 @@ export function validateAIOutput(output: unknown, jurisdiction: string = 'GLOBAL
     
     return validated;
   } catch (error) {
-    logSecurityEvent('AI_OUTPUT_VALIDATION_FAILED', { error: error.message });
-    throw new Error(`AI output validation failed: ${error.message}`);
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    logSecurityEvent('AI_OUTPUT_VALIDATION_FAILED', { error: errorMessage });
+    throw new Error(`AI output validation failed: ${errorMessage}`);
   }
 }
 
