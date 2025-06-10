@@ -358,7 +358,34 @@ const ProjectsSection = memo(() => {
                       className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-700"
                     />
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                  {/* Coming Soon Teaser Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-purple-900/40 to-transparent">
+                    {project.status === 'Coming Soon' && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+                        <div className="text-center p-6">
+                          <div className="relative mb-4">
+                            <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-r from-cyan-400 to-purple-500 flex items-center justify-center animate-pulse">
+                              <i className="fas fa-rocket text-white text-2xl"></i>
+                            </div>
+                            <div className="absolute -top-1 -right-1 w-6 h-6 bg-yellow-400 rounded-full flex items-center justify-center">
+                              <span className="text-xs font-bold text-black">!</span>
+                            </div>
+                          </div>
+                          <h4 className="text-xl font-bold text-transparent bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text mb-2">
+                            Something Epic Coming
+                          </h4>
+                          <p className="text-cyan-100 text-sm mb-3">
+                            Revolutionary features in development
+                          </p>
+                          <div className="flex items-center justify-center space-x-1">
+                            <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce"></div>
+                            <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                            <div className="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
 
                   {/* Status Badge with Beat Sync */}
                   <div className="absolute top-4 right-4">
