@@ -16,7 +16,7 @@ import Navigation from "@/components/navigation";
 import { BreathingPageWrapper } from "@/components/breathing-animation";
 import Home from "@/pages/home";
 import Values from "@/pages/values";
-import VRChat from "@/pages/vrchat";
+import VRChat from "@/pages/VRChat";
 import Dashboard from "@/pages/Dashboard";
 import TradingDashboard from "@/pages/TradingDashboard";
 import { DeFiDashboard } from "@/pages/DeFiDashboard";
