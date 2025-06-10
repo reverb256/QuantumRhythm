@@ -216,7 +216,13 @@ const FloatingAgent: React.FC<FloatingAgentProps> = ({
 export function FloatingAgents() {
   const [location] = useLocation();
   const [agents, setAgents] = useState<AgentPersonality[]>([]);
-  const [agentPositions, setAgentPositions] = useState<Record<AgentType, { x: number; y: number }>>({});
+  const [agentPositions, setAgentPositions] = useState<Record<AgentType, { x: number; y: number }>>({
+    portal: { x: 10, y: 5 },
+    analyst: { x: 90, y: 20 },
+    creator: { x: 10, y: 95 },
+    sage: { x: 90, y: 80 },
+    navigator: { x: 50, y: 5 }
+  });
   const [chatState, setChatState] = useState<AgentChatState>({
     isOpen: false,
     targetAgent: null,
@@ -271,7 +277,13 @@ export function FloatingAgents() {
   };
 
   const generateAgentPositions = (activeAgents: AgentPersonality[]) => {
-    const positions: Record<AgentType, { x: number; y: number }> = {};
+    const positions: Record<AgentType, { x: number; y: number }> = {
+      portal: { x: 10, y: 5 },
+      analyst: { x: 90, y: 20 },
+      creator: { x: 10, y: 95 },
+      sage: { x: 90, y: 80 },
+      navigator: { x: 50, y: 5 }
+    };
     
     activeAgents.forEach((agent, index) => {
       // Position agents along screen edges in a strategic formation
@@ -320,7 +332,10 @@ export function FloatingAgents() {
     setChatState({
       isOpen: true,
       targetAgent: agentType,
-      messages: recentMessages.filter(msg => msg.from === agentType || msg.to === agentType),
+      messages: recentMessages.filter(msg => 
+        msg.from === agentType || 
+        (Array.isArray(msg.to) ? msg.to.includes(agentType) : msg.to === agentType)
+      ),
       inputValue: ''
     });
 

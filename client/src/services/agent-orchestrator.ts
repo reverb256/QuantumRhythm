@@ -82,7 +82,7 @@ export class AgentOrchestrator {
 
   constructor(sessionId?: string) {
     this.userProfile = this.initializeUserProfile(sessionId || this.generateSessionId());
-    this.initializeAgentPersonalities();
+    this.initializeAgentPersonalities().catch(console.error);
   }
 
   /**
@@ -125,8 +125,12 @@ export class AgentOrchestrator {
    * Activate an agent when user visits a page
    */
   async activateAgent(type: AgentType): Promise<AgentPersonality> {
-    const agent = this.agents.get(type);
-    if (!agent) throw new Error(`Agent ${type} not found`);
+    let agent = this.agents.get(type);
+    if (!agent) {
+      // Generate agent if not found
+      agent = await this.generateAgentPersonality(type);
+      this.agents.set(type, agent);
+    }
 
     if (!this.activeAgents.has(type)) {
       this.activeAgents.add(type);
