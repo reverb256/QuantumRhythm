@@ -3,6 +3,7 @@ import AIDeploymentDashboard from '@/components/ai-deployment-dashboard';
 import CyberTradingTerminal from '@/components/cyber-trading-terminal';
 import EdgePerformanceVisualizer from '@/components/edge-performance-visualizer';
 import AdvancedTradingStats from '@/components/advanced-trading-stats';
+import { WalletConnector } from '@/components/wallet-connector';
 
 const TradingInterface: React.FC = () => {
   const [activeView, setActiveView] = useState<'terminal' | 'deployment' | 'edge' | 'analytics'>('terminal');

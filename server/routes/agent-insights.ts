@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { Connection, PublicKey } from '@solana/web3.js';
+import { walletManager } from '../wallet-manager';
 
 const router = Router();
 
@@ -8,7 +9,14 @@ router.get('/thoughts', async (req, res) => {
   try {
     // Get real trading system state
     const connection = new Connection(process.env.SOLANA_RPC_URL || 'https://api.mainnet-beta.solana.com');
-    const wallet = new PublicKey(process.env.WALLET_PUBLIC_KEY || 'So11111111111111111111111111111111111111112');
+    const wallet = walletManager.getCurrentPublicKey();
+    
+    if (!wallet) {
+      return res.status(400).json({
+        error: 'No wallet connected',
+        message: 'Please connect a wallet to view trading insights'
+      });
+    }
     
     // Extract real consciousness level from system
     const consciousnessLevel = global.consciousnessLevel || 20.0;

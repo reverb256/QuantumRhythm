@@ -119,6 +119,10 @@ app.use((req, res, next) => {
   // Register live stats routes
   app.use('/api/live', liveStatsRouter);
   
+  // Import and register Wallet management routes
+  const { default: walletRoutes } = await import('./routes/wallet.js');
+  app.use('/api/wallet', walletRoutes);
+  
   // Register AI Autorouter routes for OWUI, void, and other agents
   app.use('/api/ai-autorouter', aiAutorouterRoutes);
   
