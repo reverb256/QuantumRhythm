@@ -62,8 +62,8 @@ interface BlockchainEvidence {
 export class QuantumForensicAnalyzer {
   private connection: Connection;
   private legalAgent: LegalComplianceAgent;
-  private suspiciousProgramIds: Set<string>;
-  private knownScamAddresses: Set<string>;
+  private suspiciousProgramIds: Set<string> = new Set();
+  private knownScamAddresses: Set<string> = new Set();
 
   constructor() {
     this.connection = new Connection(process.env.SOLANA_RPC_URL || 'https://api.mainnet-beta.solana.com');
