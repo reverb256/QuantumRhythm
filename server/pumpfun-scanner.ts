@@ -1,5 +1,6 @@
 import { Connection, PublicKey } from '@solana/web3.js';
 import { dataProtection } from './data-protection-middleware';
+import { aiEfficiencyOrchestrator } from './ai-efficiency-orchestrator';
 import axios from 'axios';
 
 interface PumpFunToken {
@@ -84,8 +85,55 @@ export class PumpFunScanner {
     }
   }
 
+  private formatPumpFunToken(data: any): PumpFunToken {
+    return {
+      mint: data.mint || data.address || '',
+      name: data.name || '',
+      symbol: data.symbol || '',
+      description: data.description || '',
+      image: data.image || '',
+      marketCap: data.market_cap || data.marketCap || 0,
+      volume24h: data.volume_24h || data.volume24h || 0,
+      priceChange24h: data.price_change_24h || data.priceChange24h || 0,
+      liquidity: data.liquidity || 0,
+      holders: data.holders || 0,
+      createdAt: data.created_at || data.createdAt || Date.now(),
+      isRugPull: false,
+      riskScore: 50,
+      momentum: data.momentum || 0,
+      socialMetrics: {
+        twitterFollowers: data.twitter_followers || 0,
+        telegramMembers: data.telegram_members || 0,
+        website: data.website || ''
+      }
+    };
+  }
+
   private async fetchPumpFunTokens(): Promise<PumpFunToken[]> {
-    // Simulate pump.fun API data structure based on known patterns
+    try {
+      const response = await aiEfficiencyOrchestrator.makeOptimizedRequest(
+        'pump-scanner',
+        'pump-fun',
+        async (url) => {
+          const result = await axios.get(`${url}/coins/trending`, {
+            timeout: 5000,
+            headers: {
+              'User-Agent': 'Mozilla/5.0 (compatible; PumpScanner/1.0)',
+              'Accept': 'application/json'
+            }
+          });
+          return result.data;
+        }
+      );
+      
+      if (response && Array.isArray(response)) {
+        return response.map(this.formatPumpFunToken);
+      }
+    } catch (error) {
+      console.log('Using fallback data due to API limitations');
+    }
+    
+    // Fallback to mock data only when API is unavailable
     const mockTokens: PumpFunToken[] = [
       {
         mint: 'So11111111111111111111111111111111111111112',
@@ -116,10 +164,14 @@ export class PumpFunScanner {
 
   private async fetchDexScreenerData(): Promise<any> {
     try {
-      const response = await axios.get(`${this.apiEndpoints.dexscreener}/search?q=SOL`, {
-        timeout: 5000,
-        headers: {
-          'User-Agent': 'Quantum-Trading-Bot/1.0'
+      const response = await aiEfficiencyOrchestrator.makeOptimizedRequest(
+        'market-intelligence',
+        'solana-rpc',
+        async (url) => {
+          return await axios.get(`${this.apiEndpoints.dexscreener}/search?q=SOL`, {
+            timeout: 5000,
+            headers: {
+              'User-Agent': 'Quantum-Trading-Bot/1.0'
         }
       });
       return response.data.pairs || [];
