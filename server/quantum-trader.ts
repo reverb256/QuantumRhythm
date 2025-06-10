@@ -894,15 +894,15 @@ export class QuantumTrader {
       await db.insert(agentPerformanceLogs).values({
         agentId: this.agentId,
         metricType: 'quantum_trade_execution',
-        metricValue: result.pnl.toString(),
+        metricValue: (result.pnl || 0).toString(),
         context: {
           action: decision.action,
           token: decision.token,
           confidence: decision.confidence,
           amount: decision.amount,
-          pnl: result.pnl,
+          pnl: result.pnl || 0,
           strategy: decision.strategy,
-          unhinged: decision.unhinged,
+          unhinged: decision.unhinged || false,
           portfolio_value: this.calculatePortfolioValue(),
           win_rate: this.totalTrades > 0 ? this.successfulTrades / this.totalTrades : 0
         }
