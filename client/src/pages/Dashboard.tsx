@@ -176,9 +176,9 @@ export default function Dashboard() {
             className="bg-black/40 backdrop-blur-xl rounded-xl p-8 border border-cyan-400/20"
           >
             <h3 className="text-2xl font-semibold text-cyan-300 mb-6">Recent Trading Signals</h3>
-            {safeTradingSignals.length > 0 ? (
+            {signals.length > 0 ? (
               <div className="space-y-4">
-                {safeTradingSignals.slice(0, 5).map((signal: any, index: number) => (
+                {signals.slice(0, 5).map((signal: any, index: number) => (
                   <div key={signal.id} className="bg-black/20 rounded-lg p-4 border border-gray-600/30">
                     <div className="flex justify-between items-center">
                       <div>

@@ -25,9 +25,13 @@ interface ComplianceViolation {
 export class LegalComplianceAgent {
   private rules: ComplianceRule[] = [];
   private violations: ComplianceViolation[] = [];
+  private dynamicRules: Map<string, ComplianceRule> = new Map();
+  private lastRuleUpdate: Date = new Date();
+  private ruleUpdateInterval: number = 24 * 60 * 60 * 1000; // 24 hours
   
   constructor() {
     this.initializeComplianceRules();
+    this.startDynamicRuleDiscovery();
   }
 
   private initializeComplianceRules() {
@@ -582,23 +586,302 @@ export class LegalComplianceAgent {
     return this.rules;
   }
 
+  // Dynamic rule discovery system
+  private startDynamicRuleDiscovery() {
+    // Check for new regulations every 24 hours
+    setInterval(() => {
+      this.discoverNewRegulations();
+    }, this.ruleUpdateInterval);
+    
+    // Run initial discovery
+    setTimeout(() => {
+      this.discoverNewRegulations();
+    }, 5000); // 5 seconds after startup
+  }
+
+  private async discoverNewRegulations() {
+    console.log('🔍 Legal Agent: Scanning for new regulatory requirements...');
+    
+    // Simulate comprehensive regulatory scanning
+    const emergingRegulations = await this.scanRegulatoryLandscape();
+    
+    // Add new rules to dynamic rules collection
+    emergingRegulations.forEach(rule => {
+      if (!this.dynamicRules.has(rule.id) && !this.rules.find(r => r.id === rule.id)) {
+        this.dynamicRules.set(rule.id, rule);
+        console.log(`📋 Legal Agent: Added new regulation ${rule.id} - ${rule.regulation}`);
+      }
+    });
+
+    this.lastRuleUpdate = new Date();
+  }
+
+  private async scanRegulatoryLandscape(): Promise<ComplianceRule[]> {
+    const currentYear = new Date().getFullYear();
+    const emergingRules: ComplianceRule[] = [];
+
+    // AI Act Implementation (EU) - Phased rollout
+    if (currentYear >= 2024) {
+      emergingRules.push({
+        id: 'ai-act-002',
+        category: 'ai',
+        jurisdiction: 'EU',
+        regulation: 'EU AI Act',
+        requirement: 'High-risk AI system conformity assessment and CE marking',
+        severity: 'critical',
+        automated: true,
+        checkFunction: this.checkAIActHighRisk.bind(this)
+      });
+    }
+
+    // Digital Services Act (DSA) - EU
+    if (currentYear >= 2024) {
+      emergingRules.push({
+        id: 'dsa-001',
+        category: 'data',
+        jurisdiction: 'EU',
+        regulation: 'Digital Services Act',
+        requirement: 'Content moderation and transparency reporting',
+        severity: 'high',
+        automated: true,
+        checkFunction: this.checkDSACompliance.bind(this)
+      });
+    }
+
+    // Crypto Asset Regulation (MiCA) - EU
+    if (currentYear >= 2024) {
+      emergingRules.push({
+        id: 'mica-001',
+        category: 'crypto',
+        jurisdiction: 'EU',
+        regulation: 'Markets in Crypto-Assets (MiCA)',
+        requirement: 'Crypto asset service provider authorization',
+        severity: 'critical',
+        automated: true,
+        checkFunction: this.checkMiCACompliance.bind(this)
+      });
+    }
+
+    // Upcoming US AI Executive Order implementations
+    if (currentYear >= 2024) {
+      emergingRules.push({
+        id: 'us-ai-eo-001',
+        category: 'ai',
+        jurisdiction: 'US',
+        regulation: 'AI Executive Order',
+        requirement: 'AI safety evaluation and risk assessment',
+        severity: 'high',
+        automated: true,
+        checkFunction: this.checkUSAIExecutiveOrder.bind(this)
+      });
+    }
+
+    // Canadian AIDA (Artificial Intelligence and Data Act)
+    if (currentYear >= 2024) {
+      emergingRules.push({
+        id: 'aida-002',
+        category: 'ai',
+        jurisdiction: 'CA',
+        regulation: 'AIDA',
+        requirement: 'AI impact assessment for high-impact systems',
+        severity: 'critical',
+        automated: true,
+        checkFunction: this.checkAIDAImpactAssessment.bind(this)
+      });
+    }
+
+    // Future regulatory projections based on global trends
+    if (currentYear >= 2025) {
+      emergingRules.push(
+        {
+          id: 'quantum-security-001',
+          category: 'data',
+          jurisdiction: 'Global',
+          regulation: 'Post-Quantum Cryptography Standards',
+          requirement: 'Quantum-resistant encryption implementation',
+          severity: 'critical',
+          automated: true,
+          checkFunction: this.checkQuantumSecurityCompliance.bind(this)
+        },
+        {
+          id: 'carbon-disclosure-001',
+          category: 'international',
+          jurisdiction: 'Global',
+          regulation: 'Carbon Disclosure Requirements',
+          requirement: 'AI carbon footprint reporting and offsetting',
+          severity: 'medium',
+          automated: true,
+          checkFunction: this.checkCarbonDisclosureCompliance.bind(this)
+        }
+      );
+    }
+
+    return emergingRules;
+  }
+
+  // New compliance check functions for emerging regulations
+  private async checkAIActHighRisk(): Promise<boolean> {
+    // Check for high-risk AI system markers
+    const hasAITrading = this.systemHasComponent('trading-agent');
+    const hasUserProfiling = this.systemHasComponent('user-profiling');
+    const hasAutomatedDecisions = this.systemHasComponent('automated-decisions');
+    
+    if (hasAITrading || hasUserProfiling || hasAutomatedDecisions) {
+      // Requires conformity assessment
+      return this.hasConformityAssessment();
+    }
+    return true;
+  }
+
+  private async checkDSACompliance(): Promise<boolean> {
+    const hasUserContent = this.systemHasComponent('user-generated-content');
+    const hasContentModeration = this.systemHasComponent('content-moderation');
+    
+    return !hasUserContent || hasContentModeration;
+  }
+
+  private async checkMiCACompliance(): Promise<boolean> {
+    const hasCryptoServices = this.systemHasComponent('crypto-trading');
+    const hasLicensing = this.systemHasComponent('crypto-licensing');
+    
+    return !hasCryptoServices || hasLicensing;
+  }
+
+  private async checkUSAIExecutiveOrder(): Promise<boolean> {
+    const hasHighCapacityAI = this.systemHasComponent('high-capacity-ai');
+    const hasAISafetyEvaluation = this.systemHasComponent('ai-safety-evaluation');
+    
+    return !hasHighCapacityAI || hasAISafetyEvaluation;
+  }
+
+  private async checkAIDAImpactAssessment(): Promise<boolean> {
+    const hasHighImpactAI = this.systemHasComponent('high-impact-ai');
+    const hasImpactAssessment = this.systemHasComponent('impact-assessment');
+    
+    return !hasHighImpactAI || hasImpactAssessment;
+  }
+
+  private async checkQuantumSecurityCompliance(): Promise<boolean> {
+    const hasQuantumResistantCrypto = this.systemHasComponent('quantum-resistant-crypto');
+    const hasLegacyCrypto = this.systemHasComponent('legacy-crypto');
+    
+    return hasQuantumResistantCrypto && !hasLegacyRisks();
+  }
+
+  private async checkCarbonDisclosureCompliance(): Promise<boolean> {
+    const hasCarbonTracking = this.systemHasComponent('carbon-tracking');
+    const hasAICompute = this.systemHasComponent('ai-compute');
+    
+    return !hasAICompute || hasCarbonTracking;
+  }
+
+  // Helper methods for system component detection
+  private systemHasComponent(component: string): boolean {
+    const componentMap: Record<string, boolean> = {
+      'trading-agent': true, // We have autonomous trading
+      'user-profiling': false,
+      'automated-decisions': true, // Trading decisions
+      'user-generated-content': false,
+      'content-moderation': false,
+      'crypto-trading': true, // Solana trading
+      'crypto-licensing': false, // Would need implementation
+      'high-capacity-ai': true, // Our AI systems
+      'ai-safety-evaluation': false, // Would need implementation
+      'high-impact-ai': true, // Financial AI impacts
+      'impact-assessment': false, // Would need implementation
+      'quantum-resistant-crypto': false, // Future implementation
+      'legacy-crypto': true, // Current crypto usage
+      'carbon-tracking': false, // Would need implementation
+      'ai-compute': true // We use AI compute
+    };
+    
+    return componentMap[component] || false;
+  }
+
+  private hasConformityAssessment(): boolean {
+    // Would check for EU AI Act conformity documentation
+    return false; // Requires implementation
+  }
+
+  private hasLegacyRisks(): boolean {
+    // Check for quantum-vulnerable cryptography
+    return true; // Most current systems have legacy risks
+  }
+
+  // Enhanced compliance check that includes dynamic rules
+  async runComplianceCheck(): Promise<{ passed: boolean; score: number; violations: ComplianceViolation[] }> {
+    console.log('🏛️ Running comprehensive legal compliance check...');
+    
+    // Combine static and dynamic rules
+    const allRules = [...this.rules, ...Array.from(this.dynamicRules.values())];
+    this.violations = [];
+
+    for (const rule of allRules) {
+      if (rule.automated && rule.checkFunction) {
+        try {
+          const isCompliant = await rule.checkFunction();
+          console.log(`${isCompliant ? '✅' : '❌'} ${rule.regulation} ${rule.id}: ${isCompliant ? 'COMPLIANT' : 'VIOLATION'}`);
+          
+          if (!isCompliant) {
+            this.violations.push({
+              ruleId: rule.id,
+              description: `Violation of ${rule.regulation}: ${rule.requirement}`,
+              severity: rule.severity,
+              recommendation: this.getRecommendation(rule),
+              timestamp: new Date(),
+              resolved: false
+            });
+          }
+        } catch (error) {
+          console.error(`Error checking rule ${rule.id}:`, error);
+        }
+      }
+    }
+
+    const totalRules = allRules.filter(r => r.automated).length;
+    const passedRules = totalRules - this.violations.length;
+    const score = Math.round((passedRules / totalRules) * 100);
+    const passed = this.violations.filter(v => v.severity === 'critical').length === 0;
+
+    console.log(`🏛️ Legal Compliance: ${passed ? 'COMPLIANT' : 'VIOLATIONS DETECTED'} (Score: ${score}%)`);
+    
+    // Log results to database
+    await this.logComplianceResult(passed, score, this.violations);
+
+    return {
+      passed,
+      score,
+      violations: this.violations
+    };
+  }
+
   async generateComplianceReport() {
     const result = await this.runComplianceCheck();
     const history = await this.getComplianceHistory(5);
+    const allRules = [...this.rules, ...Array.from(this.dynamicRules.values())];
 
     return {
       timestamp: new Date().toISOString(),
       overallScore: result.score,
       passed: result.passed,
-      totalRules: this.rules.length,
-      automatedRules: this.rules.filter(r => r.automated).length,
+      totalRules: allRules.length,
+      staticRules: this.rules.length,
+      dynamicRules: this.dynamicRules.size,
+      automatedRules: allRules.filter(r => r.automated).length,
+      lastRuleUpdate: this.lastRuleUpdate.toISOString(),
       violations: result.violations,
       criticalIssues: result.violations.filter(v => v.severity === 'critical'),
       highPriorityIssues: result.violations.filter(v => v.severity === 'high'),
       complianceHistory: history,
-      jurisdictions: [...new Set(this.rules.map(r => r.jurisdiction))],
-      regulations: [...new Set(this.rules.map(r => r.regulation))],
-      categories: [...new Set(this.rules.map(r => r.category))]
+      jurisdictions: [...new Set(allRules.map(r => r.jurisdiction))],
+      regulations: [...new Set(allRules.map(r => r.regulation))],
+      categories: [...new Set(allRules.map(r => r.category))],
+      emergingRegulations: Array.from(this.dynamicRules.values()).map(r => ({
+        id: r.id,
+        regulation: r.regulation,
+        jurisdiction: r.jurisdiction,
+        severity: r.severity
+      }))
     };
   }
 }
