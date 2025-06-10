@@ -20,6 +20,7 @@ import VRChat from "@/pages/vrchat";
 import Dashboard from "@/pages/Dashboard";
 import TradingDashboard from "@/pages/TradingDashboard";
 import { DeFiDashboard } from "@/pages/DeFiDashboard";
+import CloudflareOptimization from "@/pages/CloudflareOptimization";
 import TechnicalDeepDive from "@/pages/technical-deep-dive";
 import Legal from "@/pages/Legal";
 import NotFound from "@/pages/not-found";

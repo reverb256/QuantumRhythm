@@ -25,6 +25,51 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Mount legal compliance routes
   app.use('/api/legal', legalComplianceRouter);
 
+  // Cloudflare AI optimization endpoints
+  app.get('/api/cloudflare/status', async (req, res) => {
+    try {
+      const { cloudflareAIOrchestrator } = await import('./cloudflare-ai-orchestrator');
+      const features = await cloudflareAIOrchestrator.getFeatureStatus();
+      const optimizations = await cloudflareAIOrchestrator.getOptimizationRecommendations();
+      
+      res.json({
+        success: true,
+        totalFeatures: features.size,
+        enabledFeatures: Array.from(features.values()).filter(f => f.enabled).length,
+        optimizations: optimizations.length,
+        features: Object.fromEntries(features)
+      });
+    } catch (error) {
+      res.status(500).json({ success: false, error: 'Failed to get Cloudflare status' });
+    }
+  });
+
+  app.get('/api/cloudflare/report', async (req, res) => {
+    try {
+      const { cloudflareAIOrchestrator } = await import('./cloudflare-ai-orchestrator');
+      const report = await cloudflareAIOrchestrator.getIntelligentReport();
+      res.json({ success: true, report });
+    } catch (error) {
+      res.status(500).json({ success: false, error: 'Failed to generate Cloudflare report' });
+    }
+  });
+
+  app.post('/api/cloudflare/enable/:feature', async (req, res) => {
+    try {
+      const { cloudflareAIOrchestrator } = await import('./cloudflare-ai-orchestrator');
+      const { feature } = req.params;
+      const enabled = await cloudflareAIOrchestrator.enableFeature(feature);
+      
+      if (enabled) {
+        res.json({ success: true, message: `Feature ${feature} enabled` });
+      } else {
+        res.status(404).json({ success: false, error: 'Feature not found' });
+      }
+    } catch (error) {
+      res.status(500).json({ success: false, error: 'Failed to enable feature' });
+    }
+  });
+
   // Donation tracking endpoint
   app.get('/api/donations/stats', async (req, res) => {
     try {
