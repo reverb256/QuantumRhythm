@@ -2,11 +2,32 @@ import { Keypair } from '@solana/web3.js';
 import bs58 from 'bs58';
 
 // VibeCoding Quantum Trading Wallet
-const WALLET_DATA = {
-  address: 'JA63CrEdqjK6cyEkGquuYmk4xyTVgTXSFABZDNW3Qnfj',
-  privateKeyBase64: 'v5GMZ+noFlOubSXS4kadPa3px5+D0kTyx9zx/1MH4vb+6pn9OKcxgQByvygYFidGw/DXCUYMPXANAWFLFEGIMg==',
-  privateKeyArray: [191,145,140,103,233,232,22,83,174,109,37,210,226,70,157,61,173,233,199,159,131,210,68,242,199,220,241,255,83,7,226,246,254,234,153,253,56,167,49,129,0,114,191,40,24,22,39,70,195,240,215,9,70,12,61,112,13,1,97,75,20,65,136,50]
+// SECURITY NOTICE: Private keys have been removed from source code
+// Use environment variables for sensitive data:
+// WALLET_PRIVATE_KEY=your_private_key_here
+// WALLET_PUBLIC_KEY=your_public_key_here
+
+const WALLET_CONFIG = {
+  // Public information only - no sensitive data in source code
+  networkEndpoint: 'https://api.mainnet-beta.solana.com',
+  environment: process.env.NODE_ENV || 'development'
 };
+
+// Secure wallet initialization
+async function initializeSecureWallet() {
+  const privateKey = process.env.WALLET_PRIVATE_KEY;
+  const publicKey = process.env.WALLET_PUBLIC_KEY;
+  
+  if (!privateKey || !publicKey) {
+    throw new Error('Wallet credentials must be provided via environment variables');
+  }
+  
+  return {
+    address: publicKey,
+    // Private key handling done securely in memory only
+    initialized: true
+  };
+}
 
 console.log('🔐 VibeCoding Wallet Import Guide');
 console.log('=================================');
