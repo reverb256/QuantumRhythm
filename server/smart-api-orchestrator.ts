@@ -58,13 +58,13 @@ export class SmartAPIOrchestrator {
     },
     {
       url: 'https://solana-mainnet.g.alchemy.com/v2/demo',
-      name: 'Alchemy',
+      name: 'Alchemy Demo',
       requestCount: 0,
       errorCount: 0,
       lastError: 0,
       isHealthy: true,
       avgResponseTime: 0,
-      maxRPM: 60,
+      maxRPM: 30,
       currentRPM: 0,
       lastRequestTime: 0
     },
@@ -89,6 +89,114 @@ export class SmartAPIOrchestrator {
       isHealthy: true,
       avgResponseTime: 0,
       maxRPM: 55,
+      currentRPM: 0,
+      lastRequestTime: 0
+    },
+    {
+      url: 'https://api.mainnet.rpcpool.com',
+      name: 'RPC Pool Alt',
+      requestCount: 0,
+      errorCount: 0,
+      lastError: 0,
+      isHealthy: true,
+      avgResponseTime: 0,
+      maxRPM: 40,
+      currentRPM: 0,
+      lastRequestTime: 0
+    },
+    {
+      url: 'https://ssc-dao.genesysgo.net',
+      name: 'GenesysGo',
+      requestCount: 0,
+      errorCount: 0,
+      lastError: 0,
+      isHealthy: true,
+      avgResponseTime: 0,
+      maxRPM: 25,
+      currentRPM: 0,
+      lastRequestTime: 0
+    },
+    {
+      url: 'https://solana-mainnet.rpc.extrnode.com',
+      name: 'ExtrNode',
+      requestCount: 0,
+      errorCount: 0,
+      lastError: 0,
+      isHealthy: true,
+      avgResponseTime: 0,
+      maxRPM: 30,
+      currentRPM: 0,
+      lastRequestTime: 0
+    },
+    {
+      url: 'https://solana.blockpi.network/v1/rpc/public',
+      name: 'BlockPI',
+      requestCount: 0,
+      errorCount: 0,
+      lastError: 0,
+      isHealthy: true,
+      avgResponseTime: 0,
+      maxRPM: 35,
+      currentRPM: 0,
+      lastRequestTime: 0
+    },
+    {
+      url: 'https://rpc.hellomoon.io',
+      name: 'HelloMoon',
+      requestCount: 0,
+      errorCount: 0,
+      lastError: 0,
+      isHealthy: true,
+      avgResponseTime: 0,
+      maxRPM: 20,
+      currentRPM: 0,
+      lastRequestTime: 0
+    },
+    {
+      url: 'https://solana.api.onfinality.io/public',
+      name: 'OnFinality',
+      requestCount: 0,
+      errorCount: 0,
+      lastError: 0,
+      isHealthy: true,
+      avgResponseTime: 0,
+      maxRPM: 25,
+      currentRPM: 0,
+      lastRequestTime: 0
+    },
+    {
+      url: 'https://rpc.solanabeach.io',
+      name: 'Solana Beach',
+      requestCount: 0,
+      errorCount: 0,
+      lastError: 0,
+      isHealthy: true,
+      avgResponseTime: 0,
+      maxRPM: 30,
+      currentRPM: 0,
+      lastRequestTime: 0
+    },
+    {
+      url: 'https://solana-rpc.publicnode.com',
+      name: 'PublicNode',
+      requestCount: 0,
+      errorCount: 0,
+      lastError: 0,
+      isHealthy: true,
+      avgResponseTime: 0,
+      maxRPM: 40,
+      currentRPM: 0,
+      lastRequestTime: 0
+    },
+    {
+      url: 'https://rpc.shyft.to',
+      name: 'Shyft',
+      requestCount: 0,
+      errorCount: 0,
+      lastError: 0,
+      isHealthy: true,
+      avgResponseTime: 0,
+      maxRPM: 20,
       currentRPM: 0,
       lastRequestTime: 0
     }
@@ -128,25 +236,74 @@ export class SmartAPIOrchestrator {
   }
 
   private getOptimalEndpoint(): EndpointMetrics | null {
-    const healthyEndpoints = this.endpoints.filter(ep => 
+    // Calculate health scores for intelligent prioritization
+    this.updateHealthScores();
+    
+    const availableEndpoints = this.endpoints.filter(ep => 
       ep.isHealthy && 
-      ep.currentRPM < ep.maxRPM * 0.8 && // Stay below 80% of max RPM
-      Date.now() - ep.lastRequestTime > 1000 // Minimum 1 second between requests
+      ep.currentRPM < ep.maxRPM * 0.9 && // Stay below 90% of max RPM
+      Date.now() - ep.lastRequestTime > 500 // Minimum 500ms between requests
     );
 
-    if (healthyEndpoints.length === 0) {
-      return null;
+    if (availableEndpoints.length === 0) {
+      // If no ideal endpoints, try any healthy one with lower standards
+      const fallbackEndpoints = this.endpoints.filter(ep => 
+        ep.isHealthy && ep.currentRPM < ep.maxRPM
+      );
+      
+      if (fallbackEndpoints.length === 0) {
+        return null;
+      }
+      
+      return fallbackEndpoints[0];
     }
 
-    // Sort by lowest current RPM, then by response time
-    healthyEndpoints.sort((a, b) => {
-      if (a.currentRPM !== b.currentRPM) {
-        return a.currentRPM - b.currentRPM;
-      }
+    // Intelligent sorting based on multiple factors
+    availableEndpoints.sort((a, b) => {
+      // Primary: Health score (higher is better)
+      const healthDiff = this.getHealthScore(b) - this.getHealthScore(a);
+      if (Math.abs(healthDiff) > 0.1) return healthDiff;
+      
+      // Secondary: Current load (lower is better)
+      const loadA = a.currentRPM / a.maxRPM;
+      const loadB = b.currentRPM / b.maxRPM;
+      const loadDiff = loadA - loadB;
+      if (Math.abs(loadDiff) > 0.1) return loadDiff;
+      
+      // Tertiary: Response time (lower is better)
       return a.avgResponseTime - b.avgResponseTime;
     });
 
-    return healthyEndpoints[0];
+    return availableEndpoints[0];
+  }
+
+  private updateHealthScores() {
+    this.endpoints.forEach(endpoint => {
+      const successRate = endpoint.requestCount > 0 ? 
+        (endpoint.requestCount - endpoint.errorCount) / endpoint.requestCount : 1;
+      const responseTimeFactor = Math.max(0, 1 - (endpoint.avgResponseTime / 5000)); // 5s max
+      const loadFactor = Math.max(0, 1 - (endpoint.currentRPM / endpoint.maxRPM));
+      const timeSinceErrorFactor = endpoint.lastError > 0 ? 
+        Math.min(1, (Date.now() - endpoint.lastError) / 300000) : 1; // 5 minutes to recover
+      
+      const healthScore = (successRate * 0.4 + responseTimeFactor * 0.3 + 
+                          loadFactor * 0.2 + timeSinceErrorFactor * 0.1);
+      
+      // Store health score for this endpoint
+      endpoint.isHealthy = healthScore > 0.5;
+    });
+  }
+
+  private getHealthScore(endpoint: EndpointMetrics): number {
+    const successRate = endpoint.requestCount > 0 ? 
+      (endpoint.requestCount - endpoint.errorCount) / endpoint.requestCount : 1;
+    const responseTimeFactor = Math.max(0, 1 - (endpoint.avgResponseTime / 5000));
+    const loadFactor = Math.max(0, 1 - (endpoint.currentRPM / endpoint.maxRPM));
+    const timeSinceErrorFactor = endpoint.lastError > 0 ? 
+      Math.min(1, (Date.now() - endpoint.lastError) / 300000) : 1;
+    
+    return successRate * 0.4 + responseTimeFactor * 0.3 + 
+           loadFactor * 0.2 + timeSinceErrorFactor * 0.1;
   }
 
   private async startRequestProcessor() {
