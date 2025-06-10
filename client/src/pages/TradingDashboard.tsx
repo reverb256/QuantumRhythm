@@ -162,8 +162,9 @@ export default function TradingDashboard() {
                 {balance.toFixed(6)} SOL
               </div>
               <p className="text-sm text-gray-400">Current Balance</p>
-              <div className="mt-3 text-xs text-green-300/70">
-                Network: Mainnet • Live Mode
+              <div className="mt-3 text-xs text-green-300/70 flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-green-400"></div>
+                <span>Network: Mainnet • Live Mode</span>
               </div>
             </CardContent>
           </Card>
