@@ -3,6 +3,7 @@ import { tradingSignals, agentPerformanceLogs, tradingAgents } from '../shared/s
 import { eq, desc } from 'drizzle-orm';
 import { aiSystemReset } from './ai-system-reset';
 import RealTradeExecutor from './real-trade-executor';
+import { TradingPairValidator } from './trading-pair-validator.js';
 
 interface TradeDecision {
   action: 'BUY' | 'SELL' | 'HOLD';
@@ -66,6 +67,7 @@ export class QuantumTrader {
 
   constructor(private agentId: string) {
     this.tradeExecutor = new RealTradeExecutor();
+    this.pairValidator = new TradingPairValidator();
     this.initializeAgent();
     this.startQuantumTrading();
     this.startLearningEngine();
