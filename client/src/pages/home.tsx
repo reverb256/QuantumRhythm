@@ -57,23 +57,36 @@ export default function HomePage() {
                 </h1>
                 
                 <p className="text-xl md:text-2xl text-gray-300 max-w-2xl leading-relaxed">
-                  Advanced portfolio showcasing autonomous AI consciousness and real-time DeFi trading intelligence.
+                  Full-stack developer specializing in AI-powered applications, blockchain integration, and cutting-edge web technologies.
                   <span className="block text-cyan-400 font-medium mt-2">
-                    Live blockchain integration with Solana ecosystem.
+                    React • TypeScript • Solana • AI/ML • Node.js
                   </span>
                 </p>
               </div>
 
-              {/* Live Portfolio Metrics */}
-              <LiveMetrics />
+              {/* Portfolio Showcase */}
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                <div className="bg-gradient-to-br from-cyan-500/10 to-blue-600/10 backdrop-blur-sm rounded-xl p-4 border border-cyan-500/20">
+                  <div className="text-2xl md:text-3xl font-bold text-cyan-400">React</div>
+                  <div className="text-sm text-gray-400">Frontend Framework</div>
+                </div>
+                
+                <div className="bg-gradient-to-br from-green-500/10 to-emerald-600/10 backdrop-blur-sm rounded-xl p-4 border border-green-500/20">
+                  <div className="text-2xl md:text-3xl font-bold text-green-400">TypeScript</div>
+                  <div className="text-sm text-gray-400">Type Safety</div>
+                </div>
+                
+                <div className="bg-gradient-to-br from-purple-500/10 to-pink-600/10 backdrop-blur-sm rounded-xl p-4 border border-purple-500/20 col-span-2 md:col-span-1">
+                  <div className="text-2xl md:text-3xl font-bold text-purple-400">Solana</div>
+                  <div className="text-sm text-gray-400">Blockchain</div>
+                </div>
+              </div>
 
               {/* Action Buttons */}
               <div className="flex flex-wrap gap-4">
-                <Link href="/trader-dashboard">
-                  <Button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg shadow-cyan-500/25">
-                    Launch Dashboard
-                  </Button>
-                </Link>
+                <Button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg shadow-cyan-500/25">
+                  View Portfolio
+                </Button>
                 
                 <Link href="/projects">
                   <Button variant="outline" className="border-gray-600 text-gray-300 hover:bg-gray-800 hover:border-gray-500 px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300">
