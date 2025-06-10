@@ -83,6 +83,85 @@
   }
 }
 
+/* Electric spark animations */
+@keyframes electric-pulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+    filter: blur(0px);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+    filter: blur(1px);
+  }
+}
+
+@keyframes electric-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(6, 182, 212, 0.6), 0 0 60px rgba(59, 130, 246, 0.4);
+  }
+}
+
+.electric-border {
+  position: relative;
+  animation: electric-glow 2s ease-in-out infinite;
+}
+
+.electric-spark {
+  animation: electric-pulse 1.5s ease-in-out infinite;
+}
+
+.animation-delay-500 {
+  animation-delay: 0.5s;
+}
+
+.animation-delay-1000 {
+  animation-delay: 1s;
+}
+
+.animation-delay-300 {
+  animation-delay: 0.3s;
+}
+
+.animation-delay-700 {
+  animation-delay: 0.7s;
+}
+
+/* Electric spark animations */
+@keyframes electric-pulse {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+    filter: blur(0px);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.3);
+    filter: blur(2px);
+  }
+}
+
+@keyframes electric-glow {
+  0%, 100% {
+    box-shadow: 0 0 30px rgba(6, 182, 212, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 60px rgba(6, 182, 212, 0.8), 0 0 90px rgba(59, 130, 246, 0.6);
+  }
+}
+
+.electric-border {
+  animation: electric-glow 3s ease-in-out infinite;
+}
+
+.electric-spark {
+  animation: electric-pulse 2s ease-in-out infinite;
+}
+
 /* Reduced Motion Support */
 @media (prefers-reduced-motion: reduce) {
   *,

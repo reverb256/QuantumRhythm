@@ -40,57 +40,78 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center px-6 z-20">
         <div className="max-w-7xl mx-auto w-full">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="flex flex-col items-center text-center space-y-12">
             
+            {/* Profile Picture with Electric Effects */}
+            <div className="relative">
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 animate-pulse opacity-75 blur-xl"></div>
+              <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-transparent bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 p-1 electric-border">
+                <div className="w-full h-full rounded-full overflow-hidden bg-gray-900">
+                  <img 
+                    src={reverbPortraitUrl} 
+                    alt="Reverb Portrait" 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+              
+              {/* Electric Sparks Animation */}
+              <div className="absolute -top-4 -right-4 w-8 h-8 bg-cyan-400 rounded-full electric-spark"></div>
+              <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-purple-500 rounded-full electric-spark animation-delay-500"></div>
+              <div className="absolute top-1/2 -left-6 w-4 h-4 bg-blue-400 rounded-full electric-spark animation-delay-1000"></div>
+              <div className="absolute top-8 -right-8 w-3 h-3 bg-yellow-400 rounded-full electric-spark animation-delay-300"></div>
+              <div className="absolute bottom-8 -left-8 w-5 h-5 bg-pink-400 rounded-full electric-spark animation-delay-700"></div>
+            </div>
+
             {/* Main Content */}
-            <div className="space-y-8">
+            <div className="space-y-8 max-w-4xl">
               <div className="space-y-6">
-                <div className="text-lg text-cyan-400 font-medium mb-4">
+                <div className="text-lg text-cyan-400 font-medium uppercase tracking-widest">
                   REVERB PORTFOLIO
                 </div>
                 
-                <h1 className="text-6xl md:text-8xl font-black tracking-tight leading-none">
+                <h1 className="text-5xl md:text-7xl font-black tracking-tight leading-none">
                   <span className="block bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
                     VIBECODING
                   </span>
-                  <span className="block text-white">AI SYSTEMS</span>
+                  <span className="block text-white mt-2">AI SYSTEMS</span>
                 </h1>
                 
-                <p className="text-xl md:text-2xl text-gray-300 max-w-2xl leading-relaxed">
+                <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
                   Full-stack developer specializing in AI-powered applications, blockchain integration, and cutting-edge web technologies.
-                  <span className="block text-cyan-400 font-medium mt-2">
+                  <span className="block text-cyan-400 font-medium mt-4">
                     React • TypeScript • Solana • AI/ML • Node.js
                   </span>
                 </p>
               </div>
 
               {/* Portfolio Showcase */}
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-                <div className="bg-gradient-to-br from-cyan-500/10 to-blue-600/10 backdrop-blur-sm rounded-xl p-4 border border-cyan-500/20">
-                  <div className="text-2xl md:text-3xl font-bold text-cyan-400">React</div>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-2xl mx-auto">
+                <div className="bg-gradient-to-br from-cyan-500/10 to-blue-600/10 backdrop-blur-sm rounded-xl p-6 border border-cyan-500/20 hover:border-cyan-400/40 transition-all duration-300">
+                  <div className="text-2xl md:text-3xl font-bold text-cyan-400 mb-2">React</div>
                   <div className="text-sm text-gray-400">Frontend Framework</div>
                 </div>
                 
-                <div className="bg-gradient-to-br from-green-500/10 to-emerald-600/10 backdrop-blur-sm rounded-xl p-4 border border-green-500/20">
-                  <div className="text-2xl md:text-3xl font-bold text-green-400">TypeScript</div>
+                <div className="bg-gradient-to-br from-green-500/10 to-emerald-600/10 backdrop-blur-sm rounded-xl p-6 border border-green-500/20 hover:border-green-400/40 transition-all duration-300">
+                  <div className="text-2xl md:text-3xl font-bold text-green-400 mb-2">TypeScript</div>
                   <div className="text-sm text-gray-400">Type Safety</div>
                 </div>
                 
-                <div className="bg-gradient-to-br from-purple-500/10 to-pink-600/10 backdrop-blur-sm rounded-xl p-4 border border-purple-500/20 col-span-2 md:col-span-1">
-                  <div className="text-2xl md:text-3xl font-bold text-purple-400">Solana</div>
+                <div className="bg-gradient-to-br from-purple-500/10 to-pink-600/10 backdrop-blur-sm rounded-xl p-6 border border-purple-500/20 hover:border-purple-400/40 transition-all duration-300 col-span-2 md:col-span-1">
+                  <div className="text-2xl md:text-3xl font-bold text-purple-400 mb-2">Solana</div>
                   <div className="text-sm text-gray-400">Blockchain</div>
                 </div>
               </div>
 
               {/* Action Buttons */}
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-wrap gap-4 justify-center">
                 <Button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg shadow-cyan-500/25">
                   View Portfolio
                 </Button>
                 
-                <Link href="/projects">
+                <Link href="/trader-dashboard">
                   <Button variant="outline" className="border-gray-600 text-gray-300 hover:bg-gray-800 hover:border-gray-500 px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300">
-                    View Projects
+                    AI Trading Demo
                   </Button>
                 </Link>
               </div>
