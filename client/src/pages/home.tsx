@@ -45,17 +45,21 @@ export default function HomePage() {
             {/* Main Content */}
             <div className="space-y-8">
               <div className="space-y-6">
+                <div className="text-lg text-cyan-400 font-medium mb-4">
+                  REVERB PORTFOLIO
+                </div>
+                
                 <h1 className="text-6xl md:text-8xl font-black tracking-tight leading-none">
-                  <span className="block text-white">Quantum</span>
                   <span className="block bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
-                    AI Trading
+                    VIBECODING
                   </span>
+                  <span className="block text-white">AI SYSTEMS</span>
                 </h1>
                 
                 <p className="text-xl md:text-2xl text-gray-300 max-w-2xl leading-relaxed">
-                  Autonomous trading portfolio demonstrating advanced AI-driven strategies.
+                  Advanced portfolio showcasing autonomous AI consciousness and real-time DeFi trading intelligence.
                   <span className="block text-cyan-400 font-medium mt-2">
-                    Live DeFi analysis with real Solana blockchain integration.
+                    Live blockchain integration with Solana ecosystem.
                   </span>
                 </p>
               </div>
