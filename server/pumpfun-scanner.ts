@@ -162,18 +162,21 @@ export class PumpFunScanner {
 
   private async fetchDexScreenerData(): Promise<any> {
     try {
-      const response = await makeOptimizedSolanaRequest(async () => {
-        return await axios.get(`${this.apiEndpoints.dexscreener}/search?q=SOL`, {
-          timeout: 5000,
-          headers: {
-            'User-Agent': 'QuantumTrader/1.0',
-            'Accept': 'application/json'
-          }
-        });
-      });
+      const response = await intelligentRateLimiter.makeRequest(
+        'market-data',
+        async (url) => {
+          return await axios.get(`${url}/search?q=SOL`, {
+            timeout: 8000,
+            headers: {
+              'User-Agent': 'QuantumTrader/1.0',
+              'Accept': 'application/json'
+            }
+          });
+        }
+      );
       return response?.data?.pairs || [];
     } catch (error) {
-      console.log('DexScreener API rate limited, using verified blockchain data');
+      console.log('DexScreener API managed by intelligent rate limiter');
       return [];
     }
   }

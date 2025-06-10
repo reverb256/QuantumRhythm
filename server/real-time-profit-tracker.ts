@@ -1,5 +1,6 @@
 import { Connection, PublicKey, ParsedTransactionWithMeta } from '@solana/web3.js';
 import { dataProtection } from './data-protection-middleware';
+import { intelligentRateLimiter } from './intelligent-rate-limiter';
 
 interface RealProfitAnalysis {
   actualBalance: number;
@@ -32,14 +33,23 @@ export class RealTimeProfitTracker {
     try {
       const publicKey = new PublicKey(this.walletAddress);
       
-      // Get current balance
-      const balance = await this.connection.getBalance(publicKey);
+      // Get current balance with rate limiting
+      const balance = await intelligentRateLimiter.makeRequest(
+        'solana-rpc',
+        async (url) => {
+          const conn = new Connection(url, 'confirmed');
+          return await conn.getBalance(publicKey);
+        }
+      );
       const actualBalance = balance / 1_000_000_000; // Convert lamports to SOL
       
-      // Get transaction history
-      const signatures = await this.connection.getSignaturesForAddress(
-        publicKey,
-        { limit: 1000 }
+      // Get transaction history with rate limiting
+      const signatures = await intelligentRateLimiter.makeRequest(
+        'solana-rpc',
+        async (url) => {
+          const conn = new Connection(url, 'confirmed');
+          return await conn.getSignaturesForAddress(publicKey, { limit: 50 });
+        }
       );
       
       console.log(`💰 Current Balance: ${actualBalance.toFixed(6)} SOL`);
