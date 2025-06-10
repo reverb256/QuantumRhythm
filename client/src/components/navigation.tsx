@@ -172,6 +172,16 @@ export default function Navigation() {
               )}
             </Link>
             
+            <Link href="/agent-insights" className={navItemClass('/agent-insights')} onClick={() => handlePageNavigation('/agent-insights')}>
+              <div className="flex items-center space-x-1.5">
+                <Bot className="h-4 w-4 animate-pulse" />
+                <span>Neural</span>
+              </div>
+              {location === '/agent-insights' && (
+                <motion.div layoutId="activeTab" className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-400" />
+              )}
+            </Link>
+            
             <Link href="/technical-deep-dive" className={navItemClass('/technical-deep-dive')} onClick={() => handlePageNavigation('/technical-deep-dive')}>
               <div className="flex items-center space-x-1.5">
                 <Code className="h-4 w-4" />

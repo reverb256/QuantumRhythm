@@ -25,6 +25,7 @@ import CloudflareOptimization from "@/pages/CloudflareOptimization";
 import TechnicalDeepDive from "@/pages/technical-deep-dive";
 import Legal from "@/pages/Legal";
 import AIOnboarding from "@/pages/AIOnboarding";
+import AgentInsights from "@/pages/AgentInsights";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -68,6 +69,7 @@ function Router() {
     if (location === '/cloudflare') return 'cloudflare';
     if (location === '/technical-deep-dive') return 'technical-deep-dive';
     if (location === '/ai-onboarding') return 'ai-onboarding';
+    if (location === '/agent-insights') return 'agent-insights';
     if (location === '/legal') return 'legal';
     return 'home';
   };
@@ -90,6 +92,7 @@ function Router() {
           <Route path="/cloudflare" component={CloudflareOptimization} />
           <Route path="/technical-deep-dive" component={TechnicalDeepDive} />
           <Route path="/ai-onboarding" component={AIOnboarding} />
+          <Route path="/agent-insights" component={AgentInsights} />
           <Route path="/legal" component={Legal} />
           <Route component={NotFound} />
         </Switch>
