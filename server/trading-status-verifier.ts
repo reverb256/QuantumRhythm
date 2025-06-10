@@ -3,7 +3,7 @@ import { dataProtection } from './data-protection-middleware';
 
 export class TradingStatusVerifier {
   private connection: Connection;
-  private targetWallet = 'JA63CrEdqjK6cyEkGquuYmk4xyTVgTXSFABZDNW3Qnfj';
+  private targetWallet = process.env.WALLET_PUBLIC_KEY || '4jTtAYiHP3tHqXcmi5T1riS1AcGmxNNhLZTw65vrKpkA';
 
   constructor() {
     this.connection = new Connection('https://api.mainnet-beta.solana.com', 'confirmed');

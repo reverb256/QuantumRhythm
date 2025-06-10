@@ -179,17 +179,35 @@ export class AuthenticDataValidator {
    * Validate trading data specifically
    */
   async validateTradingData(): Promise<DataValidationResult> {
-    return {
-      isAuthentic: true,
-      confidence: 0.9,
-      issues: [],
-      source: 'trading_system',
-      timestamp: new Date(),
-      tradeMode: 'live',
-      actualBalance: 0.181854,
-      networkStatus: 'mainnet',
-      isLiveChain: true
-    };
+    try {
+      // Get real wallet balance from secure wallet manager
+      const { secureWallet } = await import('./secure-wallet-manager');
+      const walletInfo = await secureWallet.getWalletBalance();
+      
+      return {
+        isAuthentic: true,
+        confidence: 0.95,
+        issues: [],
+        source: 'trading_system',
+        timestamp: new Date(),
+        tradeMode: 'live',
+        actualBalance: walletInfo.solBalance,
+        networkStatus: 'mainnet',
+        isLiveChain: walletInfo.solBalance > 0.01
+      };
+    } catch (error) {
+      return {
+        isAuthentic: false,
+        confidence: 0.0,
+        issues: ['Wallet validation failed'],
+        source: 'trading_system',
+        timestamp: new Date(),
+        tradeMode: 'simulation',
+        actualBalance: 0,
+        networkStatus: 'unknown',
+        isLiveChain: false
+      };
+    }
   }
 
   /**
