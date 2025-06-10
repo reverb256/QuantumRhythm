@@ -46,18 +46,7 @@ export default function HomePage() {
     <div className="min-h-screen bg-black text-white relative overflow-hidden">
       <ConsciousnessAura consciousness={consciousness} />
       <ConsciousnessIndicator consciousness={consciousness} />
-      <ConsciousnessCore 
-        globalConsciousness={consciousness}
-        onConsciousnessEvolution={(levels) => {
-          setHomeConsciousness(prev => ({
-            ...prev,
-            creativity: levels.creativity,
-            inspiration: levels.awareness,
-            innovation: levels.intelligence,
-            connection: levels.empathy
-          }));
-        }}
-      />
+
       <Navigation />
       
       {/* Interactive Background */}

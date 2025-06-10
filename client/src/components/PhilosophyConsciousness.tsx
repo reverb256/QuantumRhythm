@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Heart, Infinity, Lotus, Star, Wind, Mountain } from 'lucide-react';
+import { Heart, Infinity, Star, Wind, Mountain, Flower } from 'lucide-react';
 
 interface PhilosophyConsciousnessProps {
   globalConsciousness: any;
@@ -88,7 +88,7 @@ export function PhilosophyConsciousness({ globalConsciousness, onWisdomEvolution
 
       {/* Floating Philosophical Symbols */}
       <div className="absolute inset-0">
-        {[Infinity, Lotus, Star, Wind, Mountain].map((Symbol, index) => (
+        {[Infinity, Flower, Star, Wind, Mountain].map((Symbol, index) => (
           <div
             key={index}
             className="absolute animate-float"

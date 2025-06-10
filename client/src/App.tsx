@@ -102,7 +102,7 @@ function Router() {
           <Route path="/consciousness-map" component={ConsciousnessMapPage} />
           <Route path="/values" component={Values} />
           <Route path="/vrchat" component={VRChat} />
-          <Route path="/dashboard" component={TradingDashboard} />
+          <Route path="/dashboard" component={Dashboard} />
           <Route path="/trader-dashboard" component={TraderDashboard} />
           <Route path="/trading" component={TradingInterface} />
           <Route path="/defi" component={DeFiDashboard} />
