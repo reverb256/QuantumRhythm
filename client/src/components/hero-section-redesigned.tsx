@@ -29,7 +29,7 @@ export default function HeroSectionRedesigned() {
         <div 
           className="absolute inset-0 opacity-35"
           style={{
-            backgroundImage: `url('/images/cyber_portal_ring.png')`,
+            background: 'radial-gradient(circle, rgba(0,255,255,0.3) 0%, transparent 70%)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat'
@@ -40,7 +40,7 @@ export default function HeroSectionRedesigned() {
         <div 
           className="absolute inset-0 opacity-30"
           style={{
-            backgroundImage: `url('/images/energy_spiral_vortex.png')`,
+            background: 'conic-gradient(from 0deg, transparent, rgba(0,255,255,0.2), transparent)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat'
@@ -51,7 +51,7 @@ export default function HeroSectionRedesigned() {
         <div 
           className="absolute bottom-0 left-0 right-0 h-3/4 opacity-20"
           style={{
-            backgroundImage: `url('/images/holographic_platform.png')`,
+            background: 'linear-gradient(45deg, rgba(0,255,255,0.1) 0%, rgba(0,100,255,0.1) 100%)',
             backgroundSize: 'cover',
             backgroundPosition: 'center bottom',
             backgroundRepeat: 'no-repeat'
@@ -62,7 +62,7 @@ export default function HeroSectionRedesigned() {
         <div 
           className="absolute top-10 right-10 w-80 h-80 opacity-20 animate-pulse"
           style={{
-            backgroundImage: `url('/images/floating_crystal_cubes.png')`,
+            background: 'repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,255,255,0.05) 10px, rgba(0,255,255,0.05) 20px)',
             backgroundSize: 'contain',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
@@ -74,7 +74,7 @@ export default function HeroSectionRedesigned() {
         <div 
           className="absolute bottom-20 left-20 w-64 h-64 opacity-25"
           style={{
-            backgroundImage: `url('/images/synthwave_energy_burst.png')`,
+            background: 'radial-gradient(ellipse at center, rgba(255,0,150,0.2) 0%, transparent 50%)',
             backgroundSize: 'contain',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat'
@@ -85,7 +85,7 @@ export default function HeroSectionRedesigned() {
         <div 
           className="absolute top-1/3 right-1/4 w-56 h-56 opacity-15 animate-bounce"
           style={{
-            backgroundImage: `url('/images/cyber_fragments_ring.png')`,
+            background: 'linear-gradient(90deg, transparent 0%, rgba(0,255,255,0.1) 50%, transparent 100%)',
             backgroundSize: 'contain',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
