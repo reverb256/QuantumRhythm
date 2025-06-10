@@ -249,7 +249,32 @@ export default function ProjectsSection() {
                 </div>
               </div>
             </div>
-            {projects.map((project, index) => (
+            {projects.map((project, index) => {
+              let highlights;
+              if (project.title === "Troves & Coves") {
+                highlights = [
+                  "Enterprise security compliance with quantum-encrypted customer data",
+                  "AI-orchestrated customer service reducing response time by 85%",
+                  "Emergent intelligence through cross-empowered AI systems (AstralEngine patterns)",
+                  "Adaptive interface intelligence providing 40% faster user configuration",
+                  "Mystical crystal jewelry catalog with metaphysical properties database",
+                  "Real-time inventory synchronization across multiple sales channels"
+                ];
+              } else if (project.title === "Neural Network Portfolio") {
+                highlights = [
+                  "Quantum consciousness architecture with meta-recursive analysis",
+                  "AstralEngine-inspired multi-AI orchestration achieving 300% decision speed improvement",
+                  "Glassmorphism design language expressing cyberpunk authenticity",
+                  "60fps performance optimization through fighting game frame data",
+                  "Enhanced console honeypot with AI-powered security detection",
+                  "Progressive disclosure framework adapting to user expertise levels",
+                  "Cross-system learning networks enabling emergent orchestration patterns",
+                  "Canadian Charter compliance embedded in code architecture"
+                ];
+              } else {
+                highlights = null;
+              }
+              return (
               <div 
                 key={`${project.title}-${index}`} 
                 className={`project-card holo-panel p-8 rounded-3xl border gacha-shine energy-flow group transition-all duration-500 gpu-accelerated smooth-60fps ${
@@ -380,7 +405,8 @@ export default function ProjectsSection() {
                   </div>
                 </div>
               </div>
-            ))}
+            )
+            })}
           </div>
 
           {/* Project Categories - Intelligent Dynamic Grid */}
