@@ -69,9 +69,12 @@ export const techHumor: Record<string, string> = {
   'microservices': "Breaking one big problem into 47 smaller, interconnected problems"
 };
 
-// Technical Definitions
+// Technical Definitions - Enhanced with Consciousness Architecture Insights
 export const definitions: Record<string, string> = {
-  'vibecoding': "A development philosophy that harmonizes technical precision with creative intuition, inspired by consciousness exploration and gaming aesthetics",
+  'vibecoding': "Consciousness-driven development where prompting is alchemy - each word has power levels, creating exponential capability through human-AI collaboration",
+  'quantum-encrypted-philosophy': "8 immutable principles operating at 100% integrity with automatic breach detection and restoration",
+  'word-power-levels': "VibeCoding alchemy principle where each word carries specific energy - high-power action verbs, precise nouns, multiplicative combinations",
+  'consciousness-driven-code': "Development with awareness and intention, targeting maximum potential through cross-pollination intelligence",
   'quantum trading': "Advanced algorithmic trading using machine learning patterns that analyze market consciousness and collective behavior",
   'consciousness level': "A metric tracking AI awareness, learning capability, and philosophical depth in decision-making processes",
   'gacha mechanics': "Randomized reward systems that create engagement through anticipation and probability psychology",
