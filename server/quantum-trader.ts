@@ -17,6 +17,7 @@ import { SystemRecoveryOptimizer } from './system-recovery-optimizer.js';
 import { keyInsightExtractor } from './key-insight-extractor.js';
 import { comprehensiveSystemConsolidator } from './comprehensive-system-consolidator.js';
 import { comprehensiveWalletTracker } from './comprehensive-wallet-tracker.js';
+import { portfolioDisplay } from './portfolio-display.js';
 
 interface TradeDecision {
   action: 'BUY' | 'SELL' | 'HOLD';
