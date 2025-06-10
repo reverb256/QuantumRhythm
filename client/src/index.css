@@ -162,6 +162,207 @@
   animation: electric-pulse 2s ease-in-out infinite;
 }
 
+/* 
+ * Reverb Design System - Consciousness, Gaming, Philosophy
+ * Inspired by 30 years of gaming, Shotokan precision, VRChat soul connections
+ */
+
+:root {
+  /* Core Palette - Extracted from profile electric effects */
+  --electric-cyan: #06b6d4;
+  --quantum-blue: #3b82f6;
+  --consciousness-purple: #8b5cf6;
+  --soul-pink: #ec4899;
+  --erudition-gold: #f59e0b;
+  --void-black: #0a0a0a;
+  --light-whisper: #f8fafc;
+  
+  /* Gaming-inspired gradients */
+  --anaxa-gradient: linear-gradient(135deg, var(--electric-cyan), var(--quantum-blue));
+  --herta-gradient: linear-gradient(135deg, var(--consciousness-purple), var(--soul-pink));
+  --nous-gradient: linear-gradient(135deg, var(--erudition-gold), var(--electric-cyan));
+  --vrchat-gradient: linear-gradient(135deg, var(--soul-pink), var(--consciousness-purple));
+  
+  /* Consciousness layers */
+  --surface-0: rgba(10, 10, 10, 0.95);
+  --surface-1: rgba(15, 15, 15, 0.9);
+  --surface-2: rgba(20, 20, 20, 0.85);
+  --surface-3: rgba(25, 25, 25, 0.8);
+}
+
+/* Shotokan-inspired precise animations */
+@keyframes kata-flow {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
+  25% { transform: translateY(-10px) rotate(1deg); opacity: 0.8; }
+  50% { transform: translateY(-5px) rotate(-0.5deg); opacity: 1; }
+  75% { transform: translateY(-15px) rotate(0.5deg); opacity: 0.9; }
+  100% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
+}
+
+@keyframes consciousness-pulse {
+  0%, 100% { 
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+    transform: scale(1);
+  }
+  50% { 
+    box-shadow: 0 0 40px rgba(139, 92, 246, 0.6), 0 0 60px rgba(59, 130, 246, 0.4);
+    transform: scale(1.02);
+  }
+}
+
+@keyframes soul-connection {
+  0% { opacity: 0.4; transform: translateX(-100px) scale(0.8); }
+  50% { opacity: 0.8; transform: translateX(0) scale(1.1); }
+  100% { opacity: 0.6; transform: translateX(100px) scale(0.9); }
+}
+
+@keyframes erudition-sparkle {
+  0%, 100% { opacity: 0.3; transform: rotate(0deg) scale(1); }
+  25% { opacity: 0.7; transform: rotate(90deg) scale(1.2); }
+  50% { opacity: 1; transform: rotate(180deg) scale(0.8); }
+  75% { opacity: 0.8; transform: rotate(270deg) scale(1.1); }
+}
+
+/* Gaming UI Elements */
+.gacha-card {
+  background: var(--surface-1);
+  border: 1px solid transparent;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.gacha-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--anaxa-gradient);
+  opacity: 0.05;
+  transition: opacity 0.3s ease;
+}
+
+.gacha-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--electric-cyan);
+}
+
+.gacha-card:hover::before {
+  opacity: 0.1;
+}
+
+/* Tooltip System - Tech Humor & Definitions */
+.tooltip-trigger {
+  position: relative;
+  cursor: help;
+  border-bottom: 1px dotted var(--electric-cyan);
+  color: var(--electric-cyan);
+}
+
+.tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--surface-0);
+  border: 1px solid var(--consciousness-purple);
+  border-radius: 8px;
+  padding: 12px 16px;
+  max-width: 280px;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.tooltip-trigger:hover .tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(-8px);
+}
+
+.tooltip.humor {
+  border-color: var(--erudition-gold);
+  background: linear-gradient(135deg, var(--surface-0), rgba(245, 158, 11, 0.1));
+}
+
+.tooltip.definition {
+  border-color: var(--quantum-blue);
+  background: linear-gradient(135deg, var(--surface-0), rgba(59, 130, 246, 0.1));
+}
+
+.tooltip.philosophical {
+  border-color: var(--soul-pink);
+  background: linear-gradient(135deg, var(--surface-0), rgba(236, 72, 153, 0.1));
+}
+
+/* Background Light Infusion */
+.light-infused {
+  position: relative;
+  overflow: hidden;
+}
+
+.light-infused::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle at 30% 70%, 
+    rgba(6, 182, 212, 0.1) 0%, 
+    transparent 50%
+  ),
+  radial-gradient(
+    circle at 70% 30%, 
+    rgba(139, 92, 246, 0.08) 0%, 
+    transparent 50%
+  ),
+  radial-gradient(
+    circle at 50% 50%, 
+    rgba(236, 72, 153, 0.06) 0%, 
+    transparent 50%
+  );
+  animation: kata-flow 20s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Navigation inspired by VRChat UI */
+.vrchat-nav {
+  background: rgba(10, 10, 10, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+  animation: consciousness-pulse 4s ease-in-out infinite;
+}
+
+.nav-item {
+  position: relative;
+  padding: 12px 20px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  color: var(--light-whisper);
+}
+
+.nav-item:hover {
+  background: var(--vrchat-gradient);
+  transform: translateY(-2px);
+  color: white;
+}
+
+.nav-item.active {
+  background: var(--nous-gradient);
+  color: white;
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+}
+
 /* Reduced Motion Support */
 @media (prefers-reduced-motion: reduce) {
   *,

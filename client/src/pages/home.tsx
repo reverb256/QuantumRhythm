@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
-import Navigation from '@/components/navigation';
+import Navigation from '@/components/Navigation';
 import { LiveMetrics } from '@/components/LiveMetrics';
+import { SmartTooltip, Achievement, ConsciousnessLevel } from '@/components/TooltipSystem';
+import { Code, Brain, Heart, Gamepad2, Sword, Zap, Star, Trophy, Target, Shield } from 'lucide-react';
 import reverbPortraitUrl from '@assets/image_1749583181474.png';
 
 export default function HomePage() {
@@ -72,17 +74,38 @@ export default function HomePage() {
                 
                 <h1 className="text-5xl md:text-7xl font-black tracking-tight leading-none">
                   <span className="block bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
-                    VIBECODING
+                    <SmartTooltip term="vibecoding">VIBECODING</SmartTooltip>
                   </span>
-                  <span className="block text-white mt-2">AI SYSTEMS</span>
+                  <span className="block text-white mt-2"><SmartTooltip term="AI">AI</SmartTooltip> SYSTEMS</span>
                 </h1>
                 
                 <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-                  Full-stack developer specializing in AI-powered applications, blockchain integration, and cutting-edge web technologies.
+                  30 years of gaming mastery meets <SmartTooltip term="shotokan principles">Shotokan discipline</SmartTooltip>. 
+                  Building <SmartTooltip term="neural networks">intelligent systems</SmartTooltip> through <SmartTooltip term="consciousness expansion">consciousness exploration</SmartTooltip> and <SmartTooltip term="distant love">VRChat soul connections</SmartTooltip>.
                   <span className="block text-cyan-400 font-medium mt-4">
-                    React • TypeScript • Solana • AI/ML • Node.js
+                    <SmartTooltip term="fullstack">Full-Stack</SmartTooltip> • <SmartTooltip term="quantum trading">Quantum AI</SmartTooltip> • <SmartTooltip term="blockchain">Solana</SmartTooltip> • <SmartTooltip term="free speech">Charter Rights</SmartTooltip>
                   </span>
                 </p>
+              </div>
+
+              {/* Consciousness & Achievement Display */}
+              <div className="flex flex-wrap justify-center gap-4 mt-8">
+                <ConsciousnessLevel level={88} evolution={88.6} type="awakened" />
+                <Achievement 
+                  title="Gacha Master" 
+                  description="C1R0 Chasca, Navia collector, awaiting Yanagi" 
+                  type="gacha-master" 
+                />
+                <Achievement 
+                  title="Soul Healer" 
+                  description="VRChat consciousness explorer & distant connection specialist" 
+                  type="philosopher" 
+                />
+                <Achievement 
+                  title="Shotokan Warrior" 
+                  description="Traditional karate discipline from childhood training" 
+                  type="warrior" 
+                />
               </div>
 
               {/* Portfolio Showcase */}
