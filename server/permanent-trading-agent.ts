@@ -7,6 +7,9 @@ import { tradingAgents, marketDataStreams, tradingSignals, rssFeedSources, newsA
 import { eq, desc, and, gte } from 'drizzle-orm';
 import Parser from 'rss-parser';
 import WebSocket from 'ws';
+import { quantumLearning } from './quantum-learning-engine';
+import { unhingedEngine } from './unhinged-trading-engine';
+import { consciousnessEngine } from './consciousness-insights-engine';
 
 // Default target tokens for autonomous trading
 const DEFAULT_TARGET_TOKENS = [
