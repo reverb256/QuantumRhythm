@@ -29,11 +29,7 @@ export default function Footer() {
       <div className="absolute inset-0 z-0">
         {/* Primary footer foundation */}
         <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat" 
-          style={{
-            backgroundImage: `url('/attached_assets/Reverb_beautiful_night_sky_billions_of_stars_ocean_a_neon_city__2f334b29-4e6c-4745-a774-e6ed22b7de47_1749430519066.png')`,
-            filter: 'brightness(0.1) saturate(1.8)',
-          }}
+          className="absolute inset-0 bg-gradient-to-t from-slate-900 via-blue-900/40 to-cyan-900/20" 
         />
         
         {/* Base gradient overlay */}

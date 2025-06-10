@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
-import catboy2025PFP___Copy from "@assets/catboy2025PFP - Copy.png";
+// Removed broken asset import - using icon instead
 import EnhancedConsole from './enhanced-console';
 import { ReactiveSection, AdaptiveText, SmartButton } from './smart-elements';
 // Using direct path for profile image
@@ -16,7 +16,7 @@ export default function HeroSection() {
       <div className="absolute inset-0 z-0">
         {/* Static Deep Space Background */}
         <div 
-          className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-purple-900/10 to-cyan-900/15"
+          className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-slate-900/10 to-cyan-900/15"
         />
 
         {/* Cyberpunk Grid Overlay */}
@@ -88,7 +88,7 @@ export default function HeroSection() {
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="w-56 h-56 md:w-72 md:h-72 border-2 border-cyan-400/40 rounded-full">
                 <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-cyan-400 rounded-full shadow-lg shadow-cyan-400/50"></div>
-                <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 w-4 h-4 bg-purple-400 rounded-full shadow-lg shadow-purple-400/50"></div>
+                <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 w-4 h-4 bg-blue-400 rounded-full shadow-lg shadow-blue-400/50"></div>
                 <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1/2 w-3 h-3 bg-green-400 rounded-full shadow-lg shadow-green-400/50"></div>
                 <div className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-1/2 w-3 h-3 bg-orange-400 rounded-full shadow-lg shadow-orange-400/50"></div>
               </div>
@@ -97,12 +97,10 @@ export default function HeroSection() {
             {/* Portrait Container */}
             <div className="relative flex items-center justify-center">
               <div className="relative">
-                <img
-                  src={catboy2025PFP___Copy}
-                  alt="reverb256 Digital Architect"
-                  className="w-40 h-40 md:w-52 md:h-52 rounded-full object-cover border-4 border-cyan-300/60 shadow-2xl shadow-cyan-400/40"
-                />
-                <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-cyan-400/20 via-transparent to-purple-400/20 pointer-events-none"></div>
+                <div className="w-40 h-40 md:w-52 md:h-52 rounded-full bg-gradient-to-br from-cyan-400/20 via-blue-500/30 to-cyan-600/40 border-4 border-cyan-300/60 shadow-2xl shadow-cyan-400/40 flex items-center justify-center">
+                  <div className="text-6xl md:text-8xl text-cyan-300">R</div>
+                </div>
+                <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-cyan-400/20 via-transparent to-slate-400/20 pointer-events-none"></div>
               </div>
             </div>
           </div>

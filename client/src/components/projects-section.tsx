@@ -2,7 +2,7 @@ import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { Button } from "@/components/ui/button";
 import { MetaRecursiveProject } from "./meta-recursive-project";
 import { memo, useMemo } from "react";
-// Using available assets from attached_assets
+// Project images from available assets  
 import trovesCovestImage from "@assets/image_1749430989511.png";
 import cleaningServiceImage from "@assets/image_1749523304770.png";
 import portfolioImage from "@assets/image_1749524240962.png";
