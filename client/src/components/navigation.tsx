@@ -115,6 +115,15 @@ export default function Navigation() {
           </div>
 
           <div className="hidden md:flex space-x-8">
+            <Link href="/defi" className={`hover:text-cyan-300 transition-colors duration-300 focus-enhanced hdr-enhanced ${
+              location === '/defi' ? 'text-cyan-400' : 'text-gray-300'
+            }`}>
+              <div className="flex items-center space-x-2">
+                <Zap className="h-4 w-4" />
+                <span>DeFi</span>
+              </div>
+            </Link>
+            
             <button 
               onClick={() => scrollToSection('about')} 
               className={`hover:text-cyan-300 transition-colors duration-300 focus-enhanced hdr-enhanced ${location === '/' ? 'text-cyan-100' : 'text-gray-400'}`}
