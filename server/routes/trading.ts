@@ -4,6 +4,9 @@ import { tradingAgents, tradingSignals, vibeCodingMetrics } from '@shared/schema
 import { eq, desc } from 'drizzle-orm';
 import { vibeCodingEngine } from '../vibecoding-consciousness-engine';
 import { authenticDataValidator } from '../authentic-data-validator';
+import { solanaDeFiGateway } from '../solana-defi-gateway';
+import { defiOrchestrator } from '../defi-orchestrator';
+import { insightInfusionEngine } from '../insight-infusion-engine';
 
 const router = Router();
 
@@ -232,6 +235,72 @@ router.get('/vibe-metrics', async (req, res) => {
   } catch (error) {
     console.error('Error fetching VibeCoding metrics:', error);
     return res.status(500).json({ error: 'Failed to get VibeCoding metrics' });
+  }
+});
+
+// DeFi endpoints
+router.get('/defi/opportunities', async (req, res) => {
+  try {
+    const opportunities = await solanaDeFiGateway.getOptimalStrategies();
+    res.json({
+      success: true,
+      opportunities,
+      gasEfficiency: 99.5,
+      totalProtocols: 8
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Failed to get DeFi opportunities' });
+  }
+});
+
+router.get('/defi/positions', async (req, res) => {
+  try {
+    const positions = await solanaDeFiGateway.getWalletPositions();
+    const metrics = solanaDeFiGateway.getRealtimeMetrics();
+    res.json({
+      success: true,
+      positions,
+      metrics
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Failed to get DeFi positions' });
+  }
+});
+
+router.get('/defi/insights', async (req, res) => {
+  try {
+    const insights = await defiOrchestrator.getDeFiInsights();
+    res.json({
+      success: true,
+      ...insights
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Failed to get DeFi insights' });
+  }
+});
+
+// Insight infusion endpoint
+router.get('/insights/infuse', async (req, res) => {
+  try {
+    const result = await insightInfusionEngine.infuseInsightsIntoTrading();
+    res.json({
+      success: true,
+      ...result
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Failed to infuse insights' });
+  }
+});
+
+router.get('/insights/report', async (req, res) => {
+  try {
+    const report = await insightInfusionEngine.generateInsightReport();
+    res.json({
+      success: true,
+      report
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Failed to generate insight report' });
   }
 });
 
