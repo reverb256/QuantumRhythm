@@ -1,165 +1,265 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
 
 export default function ProjectsPage() {
+  const [activeProject, setActiveProject] = useState(0);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  const projects = [
+    {
+      id: 'quantum-ai',
+      title: 'Quantum AI Trading Platform',
+      subtitle: 'Consciousness-Level Decision Making',
+      description: 'Advanced autonomous trading system demonstrating AI-human collaboration at its finest. Features consciousness-level decision making, predictive analysis, and real-time portfolio tracking.',
+      tags: ['AI/ML', 'TypeScript', 'Real-time', 'Quantum'],
+      link: '/trading',
+      metrics: { accuracy: '95%', uptime: '99.9%', consciousness: '∞' }
+    },
+    {
+      id: 'vibecoding',
+      title: 'VibeCoding Methodology',
+      subtitle: 'Martial Arts Ethics in Development',
+      description: 'Revolutionary development framework combining Shotokan karate ethics, Canadian Charter values, and conscious AI collaboration for character-driven development.',
+      tags: ['Philosophy', 'Ethics', 'Framework', 'Consciousness'],
+      link: '/methodology',
+      metrics: { principles: '5', adoption: 'Growing', impact: 'Transformative' }
+    },
+    {
+      id: 'portfolio',
+      title: 'This Portfolio',
+      subtitle: 'Meta-Recursive Showcase',
+      description: 'Self-aware portfolio demonstrating vibecoding principles. Features dynamic ocean aesthetics, sunset highlights, and consciousness-driven design.',
+      tags: ['React', 'TypeScript', 'Tailwind', 'Meta-Recursive'],
+      link: '/',
+      metrics: { recursion: 'Infinite', awareness: 'High', beauty: 'Subjective' }
+    }
+  ];
+
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-cyan-900 relative overflow-hidden">
-      {/* Deep Ocean Background with Sunset Highlights */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/80 via-slate-900/60 to-cyan-900/80" />
-        <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-gradient-to-bl from-red-500/20 via-orange-500/10 to-transparent" />
-        <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-gradient-to-tr from-red-600/15 via-pink-500/10 to-transparent" />
+    <main className="min-h-screen relative overflow-hidden">
+      {/* Enhanced Background System */}
+      <div className="fixed inset-0 z-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-blue-950 to-cyan-950" />
+        <div className="absolute top-0 right-0 w-full h-1/2 bg-gradient-radial from-red-500/20 via-orange-500/15 to-transparent opacity-80" />
+        
+        {/* Interactive particles */}
+        <div 
+          className="absolute inset-0 opacity-20"
+          style={{
+            background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(0, 255, 255, 0.15) 0%, transparent 50%)`
+          }}
+        />
+        
+        {/* Floating code fragments */}
+        <div className="absolute inset-0 opacity-10">
+          {[...Array(15)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute text-cyan-400/30 font-mono text-xs animate-pulse"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 3}s`,
+                animationDuration: `${3 + Math.random() * 4}s`
+              }}
+            >
+              {['const', 'async', 'await', 'function', 'consciousness', '∞'][Math.floor(Math.random() * 6)]}
+            </div>
+          ))}
+        </div>
       </div>
 
-      {/* Animated Grid Pattern */}
-      <div className="absolute inset-0 opacity-20 z-5">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `
-            linear-gradient(rgba(59, 130, 246, 0.3) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(59, 130, 246, 0.3) 1px, transparent 1px)
-          `,
-          backgroundSize: '60px 60px'
-        }}></div>
-      </div>
+      {/* Header Section */}
+      <section className="relative pt-24 pb-16 px-6 z-20">
+        <div className="max-w-5xl mx-auto text-center">
+          <div className="mb-8">
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-black/20 backdrop-blur-md border border-cyan-400/30 mb-6">
+              <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse mr-3"></div>
+              <span className="text-cyan-300 text-sm font-medium tracking-wide">PROJECT MATRIX ACTIVE</span>
+            </div>
+          </div>
 
-      <div className="container mx-auto px-6 pt-24 pb-12 relative z-20">
-        <div className="max-w-6xl mx-auto">
+          <h1 className="text-6xl md:text-8xl font-black mb-6">
+            <span className="bg-gradient-to-r from-cyan-300 via-blue-400 to-red-400 bg-clip-text text-transparent">
+              PROJECTS
+            </span>
+          </h1>
           
-          {/* Header */}
-          <div className="text-center mb-16">
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-cyan-300 via-blue-400 to-red-400 bg-clip-text text-transparent leading-tight">
-              Projects
-            </h1>
-            <p className="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed max-w-4xl mx-auto">
-              Consciousness-driven development showcasing the intersection of gaming wisdom, anime philosophy, and AI-enhanced vibecoding artistry.
-            </p>
+          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed font-light">
+            Consciousness-driven development showcasing the intersection of gaming wisdom, 
+            anime philosophy, and AI-enhanced vibecoding artistry.
+          </p>
+        </div>
+      </section>
+
+      {/* Projects Showcase */}
+      <section className="relative pb-20 px-6 z-20">
+        <div className="max-w-7xl mx-auto">
+          
+          {/* Project Navigation */}
+          <div className="flex flex-wrap justify-center gap-2 mb-12">
+            {projects.map((project, index) => (
+              <button
+                key={project.id}
+                onClick={() => setActiveProject(index)}
+                className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+                  activeProject === index
+                    ? 'bg-cyan-400/20 text-cyan-400 border border-cyan-400/50'
+                    : 'bg-black/20 text-gray-400 border border-gray-600/30 hover:border-gray-500/50'
+                }`}
+              >
+                {project.title}
+              </button>
+            ))}
           </div>
 
-          {/* Projects Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-            
-            {/* Quantum AI Trading Platform */}
-            <div className="bg-black/40 backdrop-blur-lg rounded-xl p-6 border border-cyan-400/20 hover:border-cyan-400/40 transition-all duration-300 transform hover:scale-105">
-              <div className="text-cyan-400 text-3xl mb-4">🚀</div>
-              <h3 className="text-xl font-semibold text-white mb-3">Quantum AI Trading Platform</h3>
-              <p className="text-gray-400 mb-4">Advanced autonomous trading system with consciousness-level decision making, predictive analysis, and real-time portfolio tracking. Demonstrates AI-human collaboration at the highest levels.</p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                <span className="text-xs bg-cyan-400/20 text-cyan-300 px-2 py-1 rounded">AI/ML</span>
-                <span className="text-xs bg-blue-400/20 text-blue-300 px-2 py-1 rounded">TypeScript</span>
-                <span className="text-xs bg-green-400/20 text-green-300 px-2 py-1 rounded">Real-time</span>
-                <span className="text-xs bg-purple-400/20 text-purple-300 px-2 py-1 rounded">Quantum</span>
-              </div>
-              <Link href="/trading">
-                <Button size="sm" className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700">
-                  Explore System
-                </Button>
-              </Link>
-            </div>
+          {/* Featured Project Display */}
+          <div className="relative min-h-[600px]">
+            {projects.map((project, index) => (
+              <div
+                key={project.id}
+                className={`transition-all duration-700 ${
+                  activeProject === index ? 'opacity-100 scale-100' : 'opacity-0 scale-95 absolute inset-0 pointer-events-none'
+                }`}
+              >
+                <div className="bg-black/30 backdrop-blur-lg rounded-2xl border border-cyan-400/20 overflow-hidden">
+                  
+                  {/* Project Header */}
+                  <div className="p-8 border-b border-gray-700/30">
+                    <div className="flex items-start justify-between mb-6">
+                      <div>
+                        <h2 className="text-3xl font-bold text-white mb-2">{project.title}</h2>
+                        <p className="text-cyan-400 font-medium">{project.subtitle}</p>
+                      </div>
+                      <Link href={project.link}>
+                        <Button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white px-6 py-2 rounded-lg font-medium transition-all duration-300">
+                          Explore
+                        </Button>
+                      </Link>
+                    </div>
+                    
+                    <p className="text-gray-300 text-lg leading-relaxed mb-6">
+                      {project.description}
+                    </p>
 
-            {/* VibeCoding Methodology */}
-            <div className="bg-black/40 backdrop-blur-lg rounded-xl p-6 border border-red-400/20 hover:border-red-400/40 transition-all duration-300 transform hover:scale-105">
-              <div className="text-red-400 text-3xl mb-4">🥋</div>
-              <h3 className="text-xl font-semibold text-white mb-3">VibeCoding Methodology</h3>
-              <p className="text-gray-400 mb-4">Revolutionary development approach combining martial arts ethics, Charter values, and conscious AI collaboration. A comprehensive framework for character-driven development.</p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                <span className="text-xs bg-red-400/20 text-red-300 px-2 py-1 rounded">Philosophy</span>
-                <span className="text-xs bg-orange-400/20 text-orange-300 px-2 py-1 rounded">Ethics</span>
-                <span className="text-xs bg-yellow-400/20 text-yellow-300 px-2 py-1 rounded">Framework</span>
-                <span className="text-xs bg-pink-400/20 text-pink-300 px-2 py-1 rounded">Consciousness</span>
-              </div>
-              <Link href="/methodology">
-                <Button size="sm" className="bg-gradient-to-r from-red-500 to-orange-600 hover:from-red-600 hover:to-orange-700">
-                  Learn Framework
-                </Button>
-              </Link>
-            </div>
+                    {/* Tags */}
+                    <div className="flex flex-wrap gap-2 mb-6">
+                      {project.tags.map((tag, tagIndex) => (
+                        <span
+                          key={tagIndex}
+                          className="text-xs bg-cyan-400/20 text-cyan-300 px-3 py-1 rounded-full"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
 
-            {/* AI-Infused Portfolio */}
-            <div className="bg-black/40 backdrop-blur-lg rounded-xl p-6 border border-orange-400/20 hover:border-orange-400/40 transition-all duration-300 transform hover:scale-105">
-              <div className="text-orange-400 text-3xl mb-4">🌟</div>
-              <h3 className="text-xl font-semibold text-white mb-3">This Portfolio</h3>
-              <p className="text-gray-400 mb-4">Meta-recursive showcase demonstrating vibecoding principles in action. Deep ocean aesthetics meet sunset highlights in a consciousness-driven design experience.</p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                <span className="text-xs bg-blue-400/20 text-blue-300 px-2 py-1 rounded">React</span>
-                <span className="text-xs bg-cyan-400/20 text-cyan-300 px-2 py-1 rounded">TypeScript</span>
-                <span className="text-xs bg-purple-400/20 text-purple-300 px-2 py-1 rounded">Tailwind</span>
-                <span className="text-xs bg-green-400/20 text-green-300 px-2 py-1 rounded">Meta-Recursive</span>
-              </div>
-              <Link href="/">
-                <Button size="sm" className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700">
-                  View Source
-                </Button>
-              </Link>
-            </div>
+                    {/* Metrics */}
+                    <div className="grid grid-cols-3 gap-4">
+                      {Object.entries(project.metrics).map(([key, value]) => (
+                        <div key={key} className="text-center">
+                          <div className="text-2xl font-bold text-cyan-400">{value}</div>
+                          <div className="text-sm text-gray-400 capitalize">{key}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
 
-            {/* Gaming Systems Research */}
-            <div className="bg-black/40 backdrop-blur-lg rounded-xl p-6 border border-purple-400/20 hover:border-purple-400/40 transition-all duration-300 transform hover:scale-105">
-              <div className="text-purple-400 text-3xl mb-4">🎮</div>
-              <h3 className="text-xl font-semibold text-white mb-3">Gaming Systems Research</h3>
-              <p className="text-gray-400 mb-4">Thirty years of gaming wisdom translated into development insights. From rhythm game precision to MMO coordination strategies applied to technical architecture.</p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                <span className="text-xs bg-purple-400/20 text-purple-300 px-2 py-1 rounded">Gaming</span>
-                <span className="text-xs bg-blue-400/20 text-blue-300 px-2 py-1 rounded">Systems</span>
-                <span className="text-xs bg-green-400/20 text-green-300 px-2 py-1 rounded">Research</span>
-                <span className="text-xs bg-pink-400/20 text-pink-300 px-2 py-1 rounded">Analysis</span>
-              </div>
-              <Link href="/gaming">
-                <Button size="sm" className="bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700">
-                  Explore Research
-                </Button>
-              </Link>
-            </div>
+                  {/* Project Content */}
+                  <div className="p-8">
+                    <div className="grid md:grid-cols-2 gap-8">
+                      
+                      {/* Technical Overview */}
+                      <div>
+                        <h3 className="text-xl font-semibold text-white mb-4">Technical Excellence</h3>
+                        <div className="space-y-3 text-gray-400">
+                          {index === 0 && (
+                            <>
+                              <p>• Advanced ML algorithms with consciousness-level decision making</p>
+                              <p>• Real-time multi-chain portfolio tracking and analysis</p>
+                              <p>• Quantum-inspired optimization algorithms</p>
+                              <p>• Emergency stop protocols and risk management</p>
+                            </>
+                          )}
+                          {index === 1 && (
+                            <>
+                              <p>• Five principles of Shotokan karate ethics integration</p>
+                              <p>• Canadian Charter of Rights compliance framework</p>
+                              <p>• Classical learning methodologies (Socratic, Aristotelian)</p>
+                              <p>• Meta-recursive development patterns</p>
+                            </>
+                          )}
+                          {index === 2 && (
+                            <>
+                              <p>• Self-aware portfolio demonstrating its own principles</p>
+                              <p>• Dynamic ocean aesthetics with sunset highlights</p>
+                              <p>• Interactive mouse-responsive background effects</p>
+                              <p>• Consciousness-driven design philosophy</p>
+                            </>
+                          )}
+                        </div>
+                      </div>
 
-            {/* VRChat Avatar Psychology */}
-            <div className="bg-black/40 backdrop-blur-lg rounded-xl p-6 border border-pink-400/20 hover:border-pink-400/40 transition-all duration-300 transform hover:scale-105">
-              <div className="text-pink-400 text-3xl mb-4">👾</div>
-              <h3 className="text-xl font-semibold text-white mb-3">VRChat Avatar Psychology</h3>
-              <p className="text-gray-400 mb-4">Exploring digital consciousness through avatar-mediated experiences. How virtual identity expression informs human-computer interface design and empathy.</p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                <span className="text-xs bg-pink-400/20 text-pink-300 px-2 py-1 rounded">VR</span>
-                <span className="text-xs bg-purple-400/20 text-purple-300 px-2 py-1 rounded">Psychology</span>
-                <span className="text-xs bg-blue-400/20 text-blue-300 px-2 py-1 rounded">Identity</span>
-                <span className="text-xs bg-cyan-400/20 text-cyan-300 px-2 py-1 rounded">Consciousness</span>
-              </div>
-              <Link href="/vrchat">
-                <Button size="sm" className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700">
-                  Explore Studies
-                </Button>
-              </Link>
-            </div>
+                      {/* Philosophy Integration */}
+                      <div>
+                        <h3 className="text-xl font-semibold text-white mb-4">Consciousness Integration</h3>
+                        <div className="space-y-3 text-gray-400">
+                          {index === 0 && (
+                            <>
+                              <p>• AI-human partnership preserving human sovereignty</p>
+                              <p>• Martial arts ethics preventing harmful trading behavior</p>
+                              <p>• Character development through technical mastery</p>
+                              <p>• Respect for market participants and ecosystem health</p>
+                            </>
+                          )}
+                          {index === 1 && (
+                            <>
+                              <p>• Seeking perfection of character through code quality</p>
+                              <p>• Faithfulness to users and collaborative principles</p>
+                              <p>• Endeavoring to excel while maintaining humility</p>
+                              <p>• Respecting others through inclusive design</p>
+                            </>
+                          )}
+                          {index === 2 && (
+                            <>
+                              <p>• Meta-recursive awareness of its own construction</p>
+                              <p>• Visual metaphors for digital consciousness</p>
+                              <p>• Authentic expression rejecting corporate blandness</p>
+                              <p>• Bridge between human creativity and AI enhancement</p>
+                            </>
+                          )}
+                        </div>
+                      </div>
 
-            {/* Anime Philosophy Integration */}
-            <div className="bg-black/40 backdrop-blur-lg rounded-xl p-6 border border-yellow-400/20 hover:border-yellow-400/40 transition-all duration-300 transform hover:scale-105">
-              <div className="text-yellow-400 text-3xl mb-4">🌸</div>
-              <h3 className="text-xl font-semibold text-white mb-3">Anime Philosophy Integration</h3>
-              <p className="text-gray-400 mb-4">Character development principles from anime applied to software architecture. Deep narrative structures informing user experience and system design patterns.</p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                <span className="text-xs bg-yellow-400/20 text-yellow-300 px-2 py-1 rounded">Anime</span>
-                <span className="text-xs bg-red-400/20 text-red-300 px-2 py-1 rounded">Philosophy</span>
-                <span className="text-xs bg-orange-400/20 text-orange-300 px-2 py-1 rounded">Narrative</span>
-                <span className="text-xs bg-pink-400/20 text-pink-300 px-2 py-1 rounded">Character</span>
-              </div>
-              <Link href="/anime">
-                <Button size="sm" className="bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-600 hover:to-orange-700">
-                  Explore Insights
-                </Button>
-              </Link>
-            </div>
+                    </div>
+                  </div>
 
+                </div>
+              </div>
+            ))}
           </div>
 
-          {/* Back to Home */}
-          <div className="text-center">
+          {/* Navigation */}
+          <div className="text-center mt-16">
             <Link href="/">
-              <Button variant="outline" className="border-cyan-400/50 text-cyan-400 hover:bg-cyan-400/10 px-8 py-3 rounded-lg font-semibold transition-all duration-300">
+              <Button variant="outline" className="border-cyan-400/40 text-cyan-400 hover:bg-cyan-400/10 hover:border-cyan-400/60 px-8 py-3 rounded-lg font-medium transition-all duration-300">
                 Return to Consciousness
               </Button>
             </Link>
           </div>
 
         </div>
-      </div>
+      </section>
     </main>
   );
 }
