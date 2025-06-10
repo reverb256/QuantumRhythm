@@ -49,18 +49,55 @@ interface CrossChainOpportunity {
   executionTime: number;
 }
 
+interface ChainPerformanceMetrics {
+  chainId: string;
+  responseTime: number;
+  opportunityDensity: number;
+  gasEfficiency: number;
+  liquidityDepth: number;
+  tvlRatio: number;
+  lastUpdated: number;
+  profitability: number;
+  stabilityScore: number;
+}
+
 export class QuantumMultiChainOrchestrator {
   private supportedChains: Map<string, ChainConfig> = new Map();
   private activePositions: MultiChainPosition[] = [];
   private btcLightNode: boolean = false;
+  
+  // Dynamic chain monitoring system
+  private dynamicChainPool: Map<string, ChainConfig> = new Map();
+  private activeChainMonitors: Set<string> = new Set();
+  private performanceMetrics: Map<string, ChainPerformanceMetrics> = new Map();
+  private maxActiveChains: number = 12; // Starting with 12 chains
+  private minActiveChains: number = 5;  // Minimum for core coverage
+  private chainEfficiencyThreshold: number = 0.75;
+  private opportunityDensityTarget: number = 0.60;
+  
+  // Lightning speed optimization
+  private parallelProcessingEnabled: boolean = true;
+  private chainPriorityQueue: string[] = [];
+  private lightningModeActive: boolean = false;
+  private responseTimeTargetMs: number = 150; // 150ms max response time
 
   constructor() {
-    this.initializeSupportedChains();
-    this.startMultiChainMonitoring();
+    this.initializeAllAvailableChains();
+    this.initializeDynamicMonitoring();
+    this.startIntelligentChainSelection();
     this.initializeBTCStack();
   }
 
-  private initializeSupportedChains() {
+  private initializeAllAvailableChains() {
+    // Initialize comprehensive chain pool - 15+ chains available
+    this.initializeCoreChains();
+    this.initializeEVMChains();
+    this.initializeBitcoinL2Chains();
+    this.initializeEmergingChains();
+    this.startPerformanceTracking();
+  }
+
+  private initializeCoreChains() {
     // Primary: Solana (home base)
     this.supportedChains.set('solana', {
       id: 'solana',
@@ -82,7 +119,7 @@ export class QuantumMultiChainOrchestrator {
     });
 
     // BNB Chain (preferred alternative)
-    this.supportedChains.set('bnb', {
+    this.dynamicChainPool.set('bnb', {
       id: 'bnb',
       name: 'BNB Smart Chain',
       rpc: 'https://bsc-dataseed.binance.org',
@@ -92,6 +129,454 @@ export class QuantumMultiChainOrchestrator {
       bridgeProtocols: ['Stargate', 'Multichain', 'Celer'],
       stakingProtocols: ['Venus', 'Alpaca', 'Beefy'],
       gasEfficiency: 85,
+      regulatoryCompliance: {
+        jurisdiction: ['Global'],
+        kycRequired: true,
+        amlCompliant: true,
+        micaCompliant: false,
+        restrictions: ['US_RESTRICTED']
+      }
+    });
+  }
+
+  private initializeEVMChains() {
+    // Ethereum Mainnet
+    this.dynamicChainPool.set('ethereum', {
+      id: 'ethereum',
+      name: 'Ethereum',
+      rpc: 'https://eth-mainnet.alchemyapi.io/v2/',
+      nativeCurrency: 'ETH',
+      dexAggregators: ['1inch', 'Paraswap', 'Matcha'],
+      primaryDEXs: ['Uniswap V3', 'SushiSwap', 'Curve'],
+      bridgeProtocols: ['Wormhole', 'LayerZero', 'Stargate'],
+      stakingProtocols: ['Lido', 'RocketPool', 'Frax'],
+      gasEfficiency: 45,
+      regulatoryCompliance: {
+        jurisdiction: ['US', 'EU', 'CA'],
+        kycRequired: false,
+        amlCompliant: true,
+        micaCompliant: true,
+        restrictions: []
+      }
+    });
+
+    // Arbitrum One
+    this.dynamicChainPool.set('arbitrum', {
+      id: 'arbitrum',
+      name: 'Arbitrum One',
+      rpc: 'https://arb1.arbitrum.io/rpc',
+      nativeCurrency: 'ETH',
+      dexAggregators: ['1inch', 'Paraswap'],
+      primaryDEXs: ['Uniswap V3', 'SushiSwap', 'Camelot'],
+      bridgeProtocols: ['Arbitrum Bridge', 'Stargate'],
+      stakingProtocols: ['GMX', 'Radiant', 'Plutus'],
+      gasEfficiency: 92,
+      regulatoryCompliance: {
+        jurisdiction: ['US', 'EU'],
+        kycRequired: false,
+        amlCompliant: true,
+        micaCompliant: true,
+        restrictions: []
+      }
+    });
+
+    // Polygon
+    this.dynamicChainPool.set('polygon', {
+      id: 'polygon',
+      name: 'Polygon',
+      rpc: 'https://polygon-rpc.com',
+      nativeCurrency: 'MATIC',
+      dexAggregators: ['1inch', 'Paraswap', 'KyberSwap'],
+      primaryDEXs: ['QuickSwap', 'SushiSwap', 'Uniswap V3'],
+      bridgeProtocols: ['Polygon Bridge', 'Stargate', 'Synapse'],
+      stakingProtocols: ['Aave', 'Compound', 'Beefy'],
+      gasEfficiency: 88,
+      regulatoryCompliance: {
+        jurisdiction: ['Global'],
+        kycRequired: false,
+        amlCompliant: true,
+        micaCompliant: true,
+        restrictions: []
+      }
+    });
+
+    // Base
+    this.dynamicChainPool.set('base', {
+      id: 'base',
+      name: 'Base',
+      rpc: 'https://mainnet.base.org',
+      nativeCurrency: 'ETH',
+      dexAggregators: ['1inch', 'Odos'],
+      primaryDEXs: ['Uniswap V3', 'SushiSwap', 'Aerodrome'],
+      bridgeProtocols: ['Base Bridge', 'Stargate'],
+      stakingProtocols: ['Compound', 'Aave'],
+      gasEfficiency: 94,
+      regulatoryCompliance: {
+        jurisdiction: ['US'],
+        kycRequired: false,
+        amlCompliant: true,
+        micaCompliant: false,
+        restrictions: []
+      }
+    });
+
+    // Optimism
+    this.dynamicChainPool.set('optimism', {
+      id: 'optimism',
+      name: 'Optimism',
+      rpc: 'https://mainnet.optimism.io',
+      nativeCurrency: 'ETH',
+      dexAggregators: ['1inch', 'Paraswap'],
+      primaryDEXs: ['Uniswap V3', 'Velodrome', 'SushiSwap'],
+      bridgeProtocols: ['Optimism Bridge', 'Stargate'],
+      stakingProtocols: ['Aave', 'Synthetix'],
+      gasEfficiency: 91,
+      regulatoryCompliance: {
+        jurisdiction: ['US', 'EU'],
+        kycRequired: false,
+        amlCompliant: true,
+        micaCompliant: true,
+        restrictions: []
+      }
+    });
+  }
+
+  private initializeBitcoinL2Chains() {
+    // Merlin Chain (Largest Bitcoin L2 by TVL)
+    this.dynamicChainPool.set('merlin', {
+      id: 'merlin',
+      name: 'Merlin Chain',
+      rpc: 'https://rpc.merlinchain.io',
+      nativeCurrency: 'BTC',
+      dexAggregators: ['MerlinSwap'],
+      primaryDEXs: ['MerlinSwap', 'BitcoinDEX'],
+      bridgeProtocols: ['Merlin Bridge'],
+      stakingProtocols: ['Merlin Staking'],
+      gasEfficiency: 87,
+      regulatoryCompliance: {
+        jurisdiction: ['Global'],
+        kycRequired: false,
+        amlCompliant: true,
+        micaCompliant: false,
+        restrictions: []
+      }
+    });
+
+    // Rootstock (RSK)
+    this.dynamicChainPool.set('rootstock', {
+      id: 'rootstock',
+      name: 'Rootstock',
+      rpc: 'https://public-node.rsk.co',
+      nativeCurrency: 'RBTC',
+      dexAggregators: ['RSK Swap'],
+      primaryDEXs: ['Sovryn', 'TEX'],
+      bridgeProtocols: ['RSK Bridge', 'Flyover'],
+      stakingProtocols: ['Sovryn', 'Money on Chain'],
+      gasEfficiency: 82,
+      regulatoryCompliance: {
+        jurisdiction: ['Global'],
+        kycRequired: false,
+        amlCompliant: true,
+        micaCompliant: false,
+        restrictions: []
+      }
+    });
+  }
+
+  private initializeEmergingChains() {
+    // Avalanche
+    this.dynamicChainPool.set('avalanche', {
+      id: 'avalanche',
+      name: 'Avalanche',
+      rpc: 'https://api.avax.network/ext/bc/C/rpc',
+      nativeCurrency: 'AVAX',
+      dexAggregators: ['1inch', 'Paraswap'],
+      primaryDEXs: ['Trader Joe', 'Pangolin', 'SushiSwap'],
+      bridgeProtocols: ['Avalanche Bridge', 'Stargate'],
+      stakingProtocols: ['Benqi', 'Aave', 'Yield Yak'],
+      gasEfficiency: 89,
+      regulatoryCompliance: {
+        jurisdiction: ['US', 'EU'],
+        kycRequired: false,
+        amlCompliant: true,
+        micaCompliant: true,
+        restrictions: []
+      }
+    });
+
+    // Fantom
+    this.dynamicChainPool.set('fantom', {
+      id: 'fantom',
+      name: 'Fantom',
+      rpc: 'https://rpc.ftm.tools',
+      nativeCurrency: 'FTM',
+      dexAggregators: ['1inch', 'Paraswap'],
+      primaryDEXs: ['SpookySwap', 'SpiritSwap', 'Beethoven X'],
+      bridgeProtocols: ['Multichain', 'Stargate'],
+      stakingProtocols: ['Geist', 'Tarot', 'Beefy'],
+      gasEfficiency: 93,
+      regulatoryCompliance: {
+        jurisdiction: ['Global'],
+        kycRequired: false,
+        amlCompliant: true,
+        micaCompliant: false,
+        restrictions: []
+      }
+    });
+
+    // Cronos
+    this.dynamicChainPool.set('cronos', {
+      id: 'cronos',
+      name: 'Cronos',
+      rpc: 'https://evm.cronos.org',
+      nativeCurrency: 'CRO',
+      dexAggregators: ['1inch'],
+      primaryDEXs: ['VVS Finance', 'CroSwap', 'MM Finance'],
+      bridgeProtocols: ['Cronos Bridge'],
+      stakingProtocols: ['VVS Finance', 'Tectonic'],
+      gasEfficiency: 86,
+      regulatoryCompliance: {
+        jurisdiction: ['Global'],
+        kycRequired: true,
+        amlCompliant: true,
+        micaCompliant: false,
+        restrictions: ['US_RESTRICTED']
+      }
+    });
+
+    // Sui Network
+    this.dynamicChainPool.set('sui', {
+      id: 'sui',
+      name: 'Sui Network',
+      rpc: 'https://fullnode.mainnet.sui.io',
+      nativeCurrency: 'SUI',
+      dexAggregators: ['Aftermath'],
+      primaryDEXs: ['Cetus', 'Turbos', 'Aftermath'],
+      bridgeProtocols: ['Wormhole', 'LayerZero'],
+      stakingProtocols: ['Sui Staking'],
+      gasEfficiency: 96,
+      regulatoryCompliance: {
+        jurisdiction: ['Global'],
+        kycRequired: false,
+        amlCompliant: true,
+        micaCompliant: false,
+        restrictions: []
+      }
+    });
+
+    // Aptos
+    this.dynamicChainPool.set('aptos', {
+      id: 'aptos',
+      name: 'Aptos',
+      rpc: 'https://fullnode.mainnet.aptoslabs.com/v1',
+      nativeCurrency: 'APT',
+      dexAggregators: ['Hippo'],
+      primaryDEXs: ['PancakeSwap', 'LiquidSwap', 'AuxExchange'],
+      bridgeProtocols: ['Wormhole', 'LayerZero'],
+      stakingProtocols: ['Aptos Staking'],
+      gasEfficiency: 95,
+      regulatoryCompliance: {
+        jurisdiction: ['Global'],
+        kycRequired: false,
+        amlCompliant: true,
+        micaCompliant: false,
+        restrictions: []
+      }
+    });
+
+    console.log(`🌐 Dynamic chain pool initialized: ${this.dynamicChainPool.size} chains available`);
+  }
+
+  private initializeDynamicMonitoring() {
+    // Initialize performance tracking for all chains
+    for (const [chainId, config] of this.dynamicChainPool) {
+      this.performanceMetrics.set(chainId, {
+        chainId,
+        responseTime: 0,
+        opportunityDensity: 0,
+        gasEfficiency: config.gasEfficiency / 100,
+        liquidityDepth: 0,
+        tvlRatio: 0,
+        lastUpdated: Date.now(),
+        profitability: 0,
+        stabilityScore: 0.5
+      });
+    }
+
+    // Start with core chains always active
+    this.activeChainMonitors.add('solana'); // Primary chain always active
+    this.supportedChains.set('solana', this.dynamicChainPool.get('solana')!);
+
+    console.log(`⚡ Dynamic monitoring initialized for ${this.activeChainMonitors.size} active chains`);
+  }
+
+  private startIntelligentChainSelection() {
+    // Intelligent chain selection every 30 seconds
+    setInterval(() => {
+      this.optimizeChainSelection();
+    }, 30000);
+
+    // Performance evaluation every 10 seconds
+    setInterval(() => {
+      this.evaluateChainPerformance();
+    }, 10000);
+
+    // Lightning mode evaluation every 5 seconds
+    setInterval(() => {
+      this.evaluateLightningMode();
+    }, 5000);
+
+    console.log(`🧠 Intelligent chain selection activated`);
+  }
+
+  private async optimizeChainSelection() {
+    const startTime = Date.now();
+    
+    try {
+      // Evaluate all chains and rank them
+      const chainScores = await this.calculateChainScores();
+      const rankedChains = Array.from(chainScores.entries())
+        .sort(([,a], [,b]) => b - a)
+        .slice(0, this.maxActiveChains);
+
+      // Update active chains based on performance
+      const newActiveChains = new Set<string>();
+      newActiveChains.add('solana'); // Always keep Solana active
+
+      // Add top performing chains
+      for (const [chainId] of rankedChains) {
+        if (newActiveChains.size >= this.maxActiveChains) break;
+        newActiveChains.add(chainId);
+      }
+
+      // Update active monitoring
+      await this.updateActiveMonitoring(newActiveChains);
+
+      const executionTime = Date.now() - startTime;
+      if (executionTime > this.responseTimeTargetMs) {
+        console.log(`⚠️ Chain optimization took ${executionTime}ms (target: ${this.responseTimeTargetMs}ms)`);
+        this.activateLightningMode();
+      }
+
+      console.log(`🔄 Chain optimization: ${newActiveChains.size} active chains (${executionTime}ms)`);
+    } catch (error) {
+      console.error('Chain optimization error:', error);
+    }
+  }
+
+  private async calculateChainScores(): Promise<Map<string, number>> {
+    const scores = new Map<string, number>();
+
+    for (const [chainId, metrics] of this.performanceMetrics) {
+      let score = 0;
+
+      // Performance factors (0-1 scale)
+      score += metrics.gasEfficiency * 0.25;          // 25% weight
+      score += metrics.opportunityDensity * 0.30;     // 30% weight  
+      score += metrics.profitability * 0.25;          // 25% weight
+      score += metrics.stabilityScore * 0.10;         // 10% weight
+      score += (1 / Math.max(metrics.responseTime, 1)) * 0.10; // 10% weight
+
+      // Lightning mode bonus
+      if (this.lightningModeActive && metrics.responseTime < 100) {
+        score *= 1.2; // 20% bonus for fast chains
+      }
+
+      scores.set(chainId, score);
+    }
+
+    return scores;
+  }
+
+  private async updateActiveMonitoring(newActiveChains: Set<string>) {
+    // Add new chains
+    for (const chainId of newActiveChains) {
+      if (!this.activeChainMonitors.has(chainId)) {
+        const config = this.dynamicChainPool.get(chainId);
+        if (config) {
+          this.supportedChains.set(chainId, config);
+          this.activeChainMonitors.add(chainId);
+          console.log(`✅ Activated monitoring: ${config.name}`);
+        }
+      }
+    }
+
+    // Remove inactive chains (except Solana)
+    for (const chainId of this.activeChainMonitors) {
+      if (!newActiveChains.has(chainId) && chainId !== 'solana') {
+        this.supportedChains.delete(chainId);
+        this.activeChainMonitors.delete(chainId);
+        console.log(`🔴 Deactivated monitoring: ${chainId}`);
+      }
+    }
+  }
+
+  private async evaluateChainPerformance() {
+    const promises = Array.from(this.activeChainMonitors).map(chainId => 
+      this.measureChainPerformance(chainId)
+    );
+
+    await Promise.allSettled(promises);
+  }
+
+  private async measureChainPerformance(chainId: string) {
+    const startTime = Date.now();
+    const metrics = this.performanceMetrics.get(chainId);
+    if (!metrics) return;
+
+    try {
+      // Simulate performance measurement (replace with actual RPC calls)
+      const responseTime = Date.now() - startTime;
+      const opportunityDensity = Math.random() * 0.8 + 0.2; // Simulated
+      const profitability = Math.random() * 0.6 + 0.4; // Simulated
+
+      metrics.responseTime = responseTime;
+      metrics.opportunityDensity = opportunityDensity;
+      metrics.profitability = profitability;
+      metrics.lastUpdated = Date.now();
+
+      // Update stability score based on consistency
+      const avgResponseTime = 150; // Target response time
+      const stabilityFactor = Math.max(0, 1 - (responseTime - avgResponseTime) / avgResponseTime);
+      metrics.stabilityScore = metrics.stabilityScore * 0.8 + stabilityFactor * 0.2;
+
+    } catch (error) {
+      metrics.stabilityScore = Math.max(0.1, metrics.stabilityScore * 0.9);
+      console.error(`Performance measurement failed for ${chainId}:`, error);
+    }
+  }
+
+  private evaluateLightningMode() {
+    const avgResponseTime = Array.from(this.performanceMetrics.values())
+      .reduce((sum, metrics) => sum + metrics.responseTime, 0) / this.performanceMetrics.size;
+
+    const shouldActivateLightning = avgResponseTime > this.responseTimeTargetMs * 1.5;
+
+    if (shouldActivateLightning && !this.lightningModeActive) {
+      this.activateLightningMode();
+    } else if (!shouldActivateLightning && this.lightningModeActive) {
+      this.deactivateLightningMode();
+    }
+  }
+
+  private activateLightningMode() {
+    this.lightningModeActive = true;
+    this.maxActiveChains = Math.max(this.minActiveChains, Math.floor(this.maxActiveChains * 0.7));
+    this.responseTimeTargetMs = 100; // Tighter target
+    console.log(`⚡ LIGHTNING MODE ACTIVATED: Monitoring ${this.maxActiveChains} chains`);
+  }
+
+  private deactivateLightningMode() {
+    this.lightningModeActive = false;
+    this.maxActiveChains = 12; // Reset to default
+    this.responseTimeTargetMs = 150;
+    console.log(`🌐 Lightning mode deactivated: Expanding to ${this.maxActiveChains} chains`);
+  }
+
+  private startPerformanceTracking() {
+    // Start monitoring immediately for active chains
+    this.evaluateChainPerformance();
+    console.log(`📊 Performance tracking started for all chains,
       regulatoryCompliance: {
         jurisdiction: ['Global'],
         kycRequired: true,
@@ -186,7 +671,7 @@ export class QuantumMultiChainOrchestrator {
       gasEfficiency: 68
     });
 
-    console.log(`⚡ Quantum Multi-Chain: Initialized ${this.supportedChains.size} chains`);
+    console.log(`Quantum Multi-Chain: Initialized ${this.supportedChains.size} chains`);
   }
 
   private async initializeBTCStack() {
@@ -214,7 +699,7 @@ export class QuantumMultiChainOrchestrator {
     // Stacks (STX) stacking
     const stacksOpportunities = await this.scanStacksStacking();
 
-    console.log(`₿ Bitcoin Layers: ${lightningOpportunities.length + liquidOpportunities.length + stacksOpportunities.length} opportunities found`);
+    console.log(`Bitcoin Layers: ${lightningOpportunities.length + liquidOpportunities.length + stacksOpportunities.length} opportunities found`);
   }
 
   async scanLightningOpportunities(): Promise<CrossChainOpportunity[]> {
