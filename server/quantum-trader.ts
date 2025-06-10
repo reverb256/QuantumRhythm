@@ -21,15 +21,17 @@ interface MarketInsight {
 }
 
 export class QuantumTrader {
-  private portfolio = { SOL: 100, USDC: 10000 }; // Starting portfolio
+  private portfolio = { SOL: 0.181854, USDC: 0 }; // Real wallet balance
   private totalTrades = 0;
   private successfulTrades = 0;
   private unhingedMode = false;
-  private consciousness = 0.85;
+  private consciousness = 0.872;
   private learningRate = 0.02;
   private marketInsights: MarketInsight[] = [];
-  private gasReserve = 5.0; // Always keep 5 SOL for gas fees
-  private maxGasFeePerTrade = 0.05; // Max 0.05 SOL per trade for gas
+  private gasReserve = 0.05; // Keep 0.05 SOL for gas fees
+  private maxGasFeePerTrade = 0.01; // Max 0.01 SOL per trade for gas
+  private liveTradingEnabled = true; // Enable live trading
+  private tradingMode = 'live'; // Switch to live mode
   
   // Dynamic allocation system for high-risk high-reward opportunities
   private riskAllocationTiers = {
@@ -46,7 +48,17 @@ export class QuantumTrader {
     liquiditySweet: 1.8,   // 100K-500K liquidity range gets 1.8x
     holderStability: 1.5,  // 500-2000 holders get 1.5x allocation
     defiYield: 1.3,       // High APY DeFi opportunities get 1.3x
-    arbitrage: 3.0        // Cross-chain arbitrage gets 3x allocation
+    arbitrage: 3.0,       // Cross-chain arbitrage gets 3x allocation
+    perpetuals: 4.0,      // Perpetual futures get 4x allocation
+    leverage: 5.0         // Leveraged positions get 5x allocation
+  };
+
+  // Trading instruments configuration
+  private tradingInstruments = {
+    spot: { enabled: true, maxAllocation: 0.3 },
+    perpetuals: { enabled: true, maxAllocation: 0.4, maxLeverage: 10 },
+    leverage: { enabled: true, maxAllocation: 0.3, maxLeverage: 5 },
+    options: { enabled: false, maxAllocation: 0.1 }
   };
 
   constructor(private agentId: string) {
@@ -204,7 +216,7 @@ export class QuantumTrader {
   }
 
   private async generateEnhancedTradeDecision(defiOpportunity: any): Promise<TradeDecision> {
-    // Enhanced decision generation with DeFi integration and dynamic allocation
+    // Enhanced decision generation with pump.fun integration and leverage
     const marketTrend = this.analyzeMarketTrend();
     const portfolioBalance = this.calculatePortfolioValue();
     
@@ -212,30 +224,30 @@ export class QuantumTrader {
     const baseAllocation = this.calculateDynamicAllocation(defiOpportunity, marketTrend);
     const riskTolerance = this.calculateEnhancedRiskTolerance(defiOpportunity);
     
-    // Quantum consciousness factor with DeFi enhancement
+    // Quantum consciousness factor with aggressive enhancement
     const quantumFactor = Math.sin(Date.now() / 10000) * this.consciousness;
-    let confidence = 0.6 + Math.random() * 0.3;
-    confidence *= (1 + quantumFactor * 0.2);
-    confidence *= (1 + defiOpportunity.multiplier * 0.1); // DeFi opportunity boost
+    let confidence = 0.7 + Math.random() * 0.25; // Higher base confidence for live trading
+    confidence *= (1 + quantumFactor * 0.3);
+    confidence *= (1 + defiOpportunity.multiplier * 0.15); // Stronger boost
     
-    // Token selection with enhanced strategy
-    const tokens = ['SOL', 'BONK', 'JUP', 'ORCA', 'RAY'];
-    const selectedToken = this.selectEnhancedToken(tokens, marketTrend, defiOpportunity);
+    // Pump.fun meme coins with high volatility potential
+    const pumpTokens = ['PEPE', 'DOGE', 'SHIB', 'FLOKI', 'BONK', 'WIF', 'POPCAT'];
+    const selectedToken = this.selectAggressiveToken(pumpTokens, marketTrend, defiOpportunity);
     
-    // Action determination with dynamic allocation
-    let action: 'BUY' | 'SELL' | 'HOLD' = 'HOLD';
-    let strategy = `quantum_${defiOpportunity.protocol}`;
-    let reasoning = `Enhanced ${defiOpportunity.protocol} opportunity with ${defiOpportunity.expectedAPY}% APY`;
+    // Action determination with leverage and perpetuals
+    let action: 'BUY' | 'SELL' | 'HOLD' = 'BUY'; // Default to aggressive buying
+    let strategy = `leverage_${defiOpportunity.protocol}`;
+    let reasoning = `Aggressive pump.fun opportunity with ${defiOpportunity.expectedAPY}% potential`;
     
-    // High-opportunity conditions with dynamic allocation
-    if (marketTrend > 0.7 && confidence > 0.75) {
+    // High-opportunity conditions with leverage
+    if (marketTrend > 0.6 && confidence > 0.7) {
       action = 'BUY';
-      strategy = `momentum_${defiOpportunity.protocol}`;
-      reasoning = `Strong bullish momentum with ${defiOpportunity.protocol} DeFi enhancement`;
-    } else if (defiOpportunity.expectedAPY > 15 && confidence > 0.7) {
+      strategy = `perpetual_${defiOpportunity.protocol}`;
+      reasoning = `High-confidence perpetual position on ${selectedToken}`;
+    } else if (defiOpportunity.expectedAPY > 10 && confidence > 0.65) {
       action = 'BUY';
-      strategy = `high_yield_${defiOpportunity.protocol}`;
-      reasoning = `High-yield DeFi opportunity detected: ${defiOpportunity.expectedAPY}% APY`;
+      strategy = `leverage_meme_${defiOpportunity.protocol}`;
+      reasoning = `Leveraged meme coin position: ${defiOpportunity.expectedAPY}% potential`;
     } else if (this.unhingedMode && defiOpportunity.riskLevel === 'unhinged') {
       action = 'BUY';
       confidence = Math.min(0.95, confidence * 1.8);

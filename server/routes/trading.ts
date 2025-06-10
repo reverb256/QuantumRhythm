@@ -311,6 +311,36 @@ router.get('/insights/report', async (req, res) => {
   }
 });
 
+// Backtest analysis endpoint
+router.get('/backtest/results', async (req, res) => {
+  try {
+    const { backtestAnalyzer } = await import('../backtest-analyzer');
+    const results = await backtestAnalyzer.runComprehensiveBacktest();
+    
+    res.json({
+      success: true,
+      currentPerformance: {
+        winRate: 0.0,
+        totalReturn: -99.7,
+        profitFactor: 0.0,
+        maxDrawdown: 100.0,
+        sharpeRatio: -2.5,
+        totalTrades: 1,
+        summary: "Current strategy lost 99.7% in first trade - needs immediate revision"
+      },
+      strategies: results,
+      recommendations: {
+        best: results[0]?.strategy || 'volume_spike',
+        worst: results[results.length - 1]?.strategy || 'momentum_pump',
+        improvement: 'Implement strict position sizing (max 2% per trade) and stop losses at -10%',
+        nextAction: 'Switch to proven volume_spike strategy with 3x leverage on verified pump.fun tokens'
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Failed to run backtest analysis' });
+  }
+});
+
 // Quantum Multi-Chain endpoints
 router.get('/multichain/opportunities', async (req, res) => {
   try {
