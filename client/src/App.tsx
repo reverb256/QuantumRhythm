@@ -10,6 +10,7 @@ import { EnhancedConsole } from "@/components/enhanced-console";
 import { MetaTagManager, useAISEO } from "@/lib/ai-seo-engine";
 import { ErrorBoundaryFallback } from "@/components/error-state-manager";
 import { ErrorBoundary } from "react-error-boundary";
+import { WalletProvider } from "@/hooks/useWallet";
 
 import Navigation from "@/components/navigation";
 import Home from "@/pages/home";
@@ -107,14 +108,16 @@ function App() {
   return (
     <ErrorBoundary FallbackComponent={ErrorBoundaryFallback}>
       <QueryClientProvider client={queryClient}>
-        <ConsciousContainer learningRate={0.15}>
+        <WalletProvider>
+          <ConsciousContainer learningRate={0.15}>
 
-          <Toaster />
-          <main id="main-content" className="relative z-10 hdr-background text-wcag-aaa focus-enhanced">
-            <Router />
-          </main>
-          <EnhancedConsole />
-        </ConsciousContainer>
+            <Toaster />
+            <main id="main-content" className="relative z-10 hdr-background text-wcag-aaa focus-enhanced">
+              <Router />
+            </main>
+            <EnhancedConsole />
+          </ConsciousContainer>
+        </WalletProvider>
       </QueryClientProvider>
     </ErrorBoundary>
   );

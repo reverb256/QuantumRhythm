@@ -3,6 +3,7 @@ import { Link, useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Code, Zap, Terminal, Shield, Brain, TrendingUp } from 'lucide-react';
 import SecurityFramework from "@/lib/security-framework";
+import { Web3AuthButton } from "@/components/web3-auth";
 
 interface TooltipInfo {
   title: string;
@@ -259,6 +260,9 @@ export default function Navigation() {
                 />
               )}
             </Link>
+            
+            {/* Web3 Authentication - Only shows when Solana wallets detected */}
+            <Web3AuthButton />
           </div>
 
           {/* Mobile Menu Button */}
