@@ -242,33 +242,33 @@ export class ComprehensiveWalletTracker {
    * Calculate comprehensive P&L metrics
    */
   public async calculatePnL(): Promise<PortfolioMetrics> {
-    const currentValueUsd = await this.calculateTotalValueUsd();
-    const totalPnlUsd = currentValueUsd - this.initialPortfolioValue;
+    const currentValueCad = await this.calculateTotalValueCad();
+    const totalPnlCad = currentValueCad - this.initialPortfolioValue;
     
     const dayStart = Date.now() - (24 * 60 * 60 * 1000);
     const dayTrades = this.tradeHistory.filter(t => t.timestamp >= dayStart);
-    const dayPnlUsd = dayTrades.reduce((sum, trade) => {
-      return sum + (trade.action === 'SELL' ? trade.totalUsd : -trade.totalUsd);
+    const dayPnlCad = dayTrades.reduce((sum, trade) => {
+      return sum + (trade.action === 'SELL' ? trade.totalCad : -trade.totalCad);
     }, 0);
 
     const totalGasFees = this.tradeHistory.reduce((sum, trade) => sum + trade.gasFee, 0);
     const profitableTrades = this.tradeHistory.filter(trade => {
       // Simplified profitability check
-      return trade.action === 'SELL' && trade.totalUsd > 0;
+      return trade.action === 'SELL' && trade.totalCad > 0;
     }).length;
 
     const winRate = this.tradeHistory.length > 0 ? (profitableTrades / this.tradeHistory.length) * 100 : 0;
 
     const metrics: PortfolioMetrics = {
-      totalValueUsd: currentValueUsd,
-      totalPnlUsd,
-      dayPnlUsd,
+      totalValueCad: currentValueCad,
+      totalPnlCad,
+      dayPnlCad,
       totalGasFees,
       winRate,
       totalTrades: this.tradeHistory.length,
       profitableTrades,
-      largestWin: Math.max(...this.tradeHistory.map(t => t.totalUsd), 0),
-      largestLoss: Math.min(...this.tradeHistory.map(t => -t.totalUsd), 0),
+      largestWin: Math.max(...this.tradeHistory.map(t => t.totalCad), 0),
+      largestLoss: Math.min(...this.tradeHistory.map(t => -t.totalCad), 0),
       sharpeRatio: this.calculateSharpeRatio()
     };
 
@@ -279,7 +279,7 @@ export class ComprehensiveWalletTracker {
     if (this.tradeHistory.length < 2) return 0;
     
     const returns = this.tradeHistory.map(trade => 
-      trade.action === 'SELL' ? trade.totalUsd / this.initialPortfolioValue : 0
+      trade.action === 'SELL' ? trade.totalCad / this.initialPortfolioValue : 0
     );
     
     const avgReturn = returns.reduce((a, b) => a + b, 0) / returns.length;
@@ -289,11 +289,11 @@ export class ComprehensiveWalletTracker {
     return stdDev > 0 ? avgReturn / stdDev : 0;
   }
 
-  private async calculateTotalValueUsd(): Promise<number> {
+  private async calculateTotalValueCad(): Promise<number> {
     let total = 0;
     
     for (const holding of this.holdings.values()) {
-      total += holding.usdValue;
+      total += holding.cadValue;
     }
     
     return total;
@@ -322,17 +322,17 @@ export class ComprehensiveWalletTracker {
     
     console.log('\n💼 COMPREHENSIVE PORTFOLIO SUMMARY');
     console.log('=====================================');
-    console.log(`💰 Total Value: $${metrics.totalValueUsd.toFixed(2)}`);
-    console.log(`📈 Total P&L: ${metrics.totalPnlUsd >= 0 ? '+' : ''}$${metrics.totalPnlUsd.toFixed(2)} (${((metrics.totalPnlUsd / this.initialPortfolioValue) * 100).toFixed(2)}%)`);
-    console.log(`📊 24h P&L: ${metrics.dayPnlUsd >= 0 ? '+' : ''}$${metrics.dayPnlUsd.toFixed(2)}`);
-    console.log(`⛽ Total Gas Fees: $${(metrics.totalGasFees * 200).toFixed(2)}`); // Assuming SOL price ~$200
+    console.log(`💰 Total Value: $${metrics.totalValueCad.toFixed(2)} CAD`);
+    console.log(`📈 Total P&L: ${metrics.totalPnlCad >= 0 ? '+' : ''}$${metrics.totalPnlCad.toFixed(2)} CAD (${((metrics.totalPnlCad / this.initialPortfolioValue) * 100).toFixed(2)}%)`);
+    console.log(`📊 24h P&L: ${metrics.dayPnlCad >= 0 ? '+' : ''}$${metrics.dayPnlCad.toFixed(2)} CAD`);
+    console.log(`⛽ Total Gas Fees: $${(metrics.totalGasFees * 270).toFixed(2)} CAD`); // SOL price ~$270 CAD
     console.log(`🎯 Win Rate: ${metrics.winRate.toFixed(1)}% (${metrics.profitableTrades}/${metrics.totalTrades})`);
     console.log(`📊 Sharpe Ratio: ${metrics.sharpeRatio.toFixed(3)}`);
     
     console.log('\n🪙 TOKEN HOLDINGS:');
     for (const holding of this.holdings.values()) {
       const changeIcon = holding.change24h >= 0 ? '📈' : '📉';
-      console.log(`${changeIcon} ${holding.symbol}: ${holding.balance.toFixed(6)} ($${holding.usdValue.toFixed(2)})`);
+      console.log(`${changeIcon} ${holding.symbol}: ${holding.balance.toFixed(6)} ($${holding.cadValue.toFixed(2)} CAD)`);
     }
     console.log('=====================================\n');
   }
