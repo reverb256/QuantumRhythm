@@ -29,9 +29,18 @@ export class IntelligentPayoutSystem {
   private windfallThreshold = 10.0; // 10 SOL windfall threshold
   private gasReserve = 5.0; // Always keep 5 SOL for gas
   private lastPayoutTime = Date.now();
+  private primaryWallet: string; // PAYOUT_TOKEN
+  private exchangeWallet: string; // PAYOUT_TOKEN_B (exchange deposit)
 
   constructor() {
     this.connection = new Connection('https://api.mainnet-beta.solana.com');
+    this.primaryWallet = process.env.PAYOUT_TOKEN || '';
+    this.exchangeWallet = process.env.PAYOUT_TOKEN_B || '';
+    
+    if (!this.primaryWallet || !this.exchangeWallet) {
+      throw new Error('Both PAYOUT_TOKEN and PAYOUT_TOKEN_B must be configured');
+    }
+    
     this.startHourlyPayoutCycle();
   }
 
@@ -106,9 +115,20 @@ export class IntelligentPayoutSystem {
     }
   }
 
+  private calculatePayoutSplit(totalPayout: number): {
+    primaryAmount: number;
+    exchangeAmount: number;
+  } {
+    // 50% to primary wallet, 25% to exchange (total 75% distributed)
+    const primaryAmount = totalPayout * (50/75); // 2/3 of distributed amount
+    const exchangeAmount = totalPayout * (25/75); // 1/3 of distributed amount
+    
+    return { primaryAmount, exchangeAmount };
+  }
+
   private calculateWindfallPayout(tradeProfit: number, portfolioValue: number): number {
-    // 50% of windfall profit, but ensure we maintain gas reserves
-    const proposedPayout = tradeProfit * 0.5;
+    // 75% total distribution (50% + 25% split)
+    const proposedPayout = tradeProfit * 0.75;
     const availableForPayout = portfolioValue - this.gasReserve;
     
     // Never payout more than what's safely available
@@ -118,8 +138,8 @@ export class IntelligentPayoutSystem {
   }
 
   private calculateHourlyPayout(netProfit: number, portfolioValue: number): number {
-    // 50% of net hourly profit, with safety constraints
-    const proposedPayout = netProfit * 0.5;
+    // 75% total distribution (50% + 25% split)
+    const proposedPayout = netProfit * 0.75;
     const availableForPayout = portfolioValue - this.gasReserve;
     
     // Additional safety: don't payout more than 20% of total portfolio per hour
@@ -134,38 +154,56 @@ export class IntelligentPayoutSystem {
     try {
       console.log(`💸 Initiating ${payoutEvent.type} payout: ${payoutEvent.amount.toFixed(6)} SOL`);
       
-      // Get authorized payout address
-      const payoutAddress = await secureWallet.getAuthorizedWallet();
+      // Calculate split between primary and exchange wallets
+      const { primaryAmount, exchangeAmount } = this.calculatePayoutSplit(payoutEvent.amount);
       
-      // Validate payout address security
-      const isAuthorized = await secureWallet.validatePayoutAddress(payoutAddress);
-      if (!isAuthorized) {
-        console.log('🚨 PAYOUT BLOCKED: Unauthorized address');
+      // Validate both wallet addresses
+      const primaryAuthorized = await secureWallet.validatePayoutAddress(this.primaryWallet);
+      const exchangeAuthorized = this.validateExchangeAddress(this.exchangeWallet);
+      
+      if (!primaryAuthorized || !exchangeAuthorized) {
+        console.log('🚨 PAYOUT BLOCKED: Unauthorized address detected');
         return;
       }
       
-      // For demo purposes, simulate the payout transaction
-      // In production, this would create and send actual Solana transactions
-      const simulatedPayout = await this.simulatePayout(payoutEvent);
+      // Execute dual payouts
+      const [primaryPayout, exchangePayout] = await Promise.all([
+        this.simulatePayout({ ...payoutEvent, amount: primaryAmount }),
+        this.simulatePayout({ ...payoutEvent, amount: exchangeAmount })
+      ]);
       
-      if (simulatedPayout.success) {
-        console.log(`✅ ${payoutEvent.type.toUpperCase()} PAYOUT EXECUTED`);
-        console.log(`💰 Amount: ${payoutEvent.amount.toFixed(6)} SOL`);
-        console.log(`📍 To: ${payoutAddress}`);
-        console.log(`🆔 Transaction: ${simulatedPayout.signature}`);
+      if (primaryPayout.success && exchangePayout.success) {
+        console.log(`✅ ${payoutEvent.type.toUpperCase()} DUAL PAYOUT EXECUTED`);
+        console.log(`💰 Primary: ${primaryAmount.toFixed(6)} SOL → ${this.primaryWallet.slice(0, 8)}...`);
+        console.log(`🏦 Exchange: ${exchangeAmount.toFixed(6)} SOL → ${this.exchangeWallet.slice(0, 8)}...`);
+        console.log(`🆔 Primary TX: ${primaryPayout.signature}`);
+        console.log(`🆔 Exchange TX: ${exchangePayout.signature}`);
         
-        // Log payout for audit trail
-        await this.logPayout(payoutEvent, simulatedPayout);
+        // Log both payouts for audit trail
+        await Promise.all([
+          this.logPayout({ ...payoutEvent, amount: primaryAmount }, primaryPayout, 'primary'),
+          this.logPayout({ ...payoutEvent, amount: exchangeAmount }, exchangePayout, 'exchange')
+        ]);
         
         // Update portfolio tracking
         this.updatePortfolioAfterPayout(payoutEvent.amount);
         
       } else {
-        console.log(`❌ Payout failed: ${simulatedPayout.error}`);
+        console.log(`❌ Payout failed: Primary: ${primaryPayout.error || 'OK'}, Exchange: ${exchangePayout.error || 'OK'}`);
       }
       
     } catch (error) {
       console.error('Payout execution failed:', error);
+    }
+  }
+
+  private validateExchangeAddress(address: string): boolean {
+    // Validate exchange deposit address format
+    try {
+      new PublicKey(address);
+      return true;
+    } catch {
+      return false;
     }
   }
 
