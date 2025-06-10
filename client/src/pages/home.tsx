@@ -95,11 +95,11 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Avatar with Dynamic Frame */}
+          {/* Avatar with Static Frame */}
           <div className="relative mb-10">
             <div className="relative group cursor-pointer">
-              {/* Outer energy ring */}
-              <div className="absolute -inset-6 rounded-full bg-gradient-conic from-cyan-400 via-blue-500 to-red-500 p-0.5 animate-spin-slow opacity-75">
+              {/* Static outer ring */}
+              <div className="absolute -inset-6 rounded-full bg-gradient-to-br from-cyan-400/40 via-blue-500/40 to-red-500/40 p-0.5">
                 <div className="w-36 h-36 md:w-48 md:h-48 rounded-full bg-black/90"></div>
               </div>
               

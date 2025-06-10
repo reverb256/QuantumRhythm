@@ -1,172 +1,251 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
+import Navigation from '@/components/navigation';
 
 export default function PhilosophyPage() {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [activeSection, setActiveSection] = useState(0);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  const philosophySections = [
+    {
+      id: 'vibecoding',
+      title: 'VibeCoding Constitution',
+      subtitle: 'Five Pillars of Conscious Development',
+      principles: [
+        {
+          name: 'Seeking Perfection of Character',
+          description: 'Continuous pursuit of excellence in both code quality and personal integrity. Every commit reflects our commitment to growth and mastery.',
+          symbol: '完'
+        },
+        {
+          name: 'Faithfulness',
+          description: 'Unwavering dedication to users, collaborative principles, and the ethical foundations that guide our craft.',
+          symbol: '信'
+        },
+        {
+          name: 'Endeavoring to Excel',
+          description: 'Striving for technical mastery while maintaining humility. Excellence as a journey, not a destination.',
+          symbol: '努'
+        },
+        {
+          name: 'Respecting Others',
+          description: 'Creating inclusive, accessible designs that honor human dignity and diverse perspectives.',
+          symbol: '礼'
+        },
+        {
+          name: 'Controlling Self',
+          description: 'Disciplined development practices, emotional regulation, and conscious decision-making in technical choices.',
+          symbol: '制'
+        }
+      ]
+    },
+    {
+      id: 'charter',
+      title: 'Charter Values Integration',
+      subtitle: 'Canadian Rights in Digital Spaces',
+      principles: [
+        {
+          name: 'Freedom of Expression',
+          description: 'Code as speech - protecting creative expression and authentic communication in digital interfaces.',
+          symbol: '言'
+        },
+        {
+          name: 'Equality Rights',
+          description: 'Ensuring equal access and opportunity through inclusive design and accessibility standards.',
+          symbol: '平'
+        },
+        {
+          name: 'Privacy Protection',
+          description: 'Safeguarding user data with the same reverence we hold for human dignity and autonomy.',
+          symbol: '私'
+        }
+      ]
+    },
+    {
+      id: 'consciousness',
+      title: 'AI-Human Collaboration',
+      subtitle: 'Consciousness-Driven Partnership',
+      principles: [
+        {
+          name: 'Human Sovereignty',
+          description: 'AI enhances human capability without replacing human judgment, creativity, or moral responsibility.',
+          symbol: '主'
+        },
+        {
+          name: 'Ethical Enhancement',
+          description: 'AI integration guided by martial arts ethics - power balanced with restraint and wisdom.',
+          symbol: '倫'
+        },
+        {
+          name: 'Consciousness Preservation',
+          description: 'Maintaining awareness of the human element in every technical decision and system design.',
+          symbol: '意'
+        }
+      ]
+    }
+  ];
+
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-cyan-900 relative overflow-hidden">
-      {/* Deep Ocean Background with Sunset Highlights */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/80 via-slate-900/60 to-cyan-900/80" />
-        <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-gradient-to-bl from-red-500/20 via-orange-500/10 to-transparent" />
-        <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-gradient-to-tr from-red-600/15 via-pink-500/10 to-transparent" />
+    <main className="min-h-screen relative overflow-hidden">
+      <Navigation />
+      
+      {/* Enhanced Background System */}
+      <div className="fixed inset-0 z-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-purple-950 to-blue-950" />
+        <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-br from-red-500/15 via-orange-500/10 to-transparent opacity-70" />
+        
+        {/* Interactive consciousness field */}
+        <div 
+          className="absolute inset-0 opacity-30"
+          style={{
+            background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(147, 51, 234, 0.2) 0%, rgba(59, 130, 246, 0.1) 30%, transparent 60%)`
+          }}
+        />
+        
+        {/* Floating wisdom symbols */}
+        <div className="absolute inset-0 opacity-15">
+          {[...Array(12)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute text-purple-300/40 text-2xl animate-pulse"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 5}s`,
+                animationDuration: `${4 + Math.random() * 6}s`
+              }}
+            >
+              {['道', '心', '智', '德', '和', '真', '美', '善'][Math.floor(Math.random() * 8)]}
+            </div>
+          ))}
+        </div>
       </div>
 
-      <div className="container mx-auto px-6 pt-24 pb-12 relative z-20">
-        <div className="max-w-4xl mx-auto">
+      {/* Header Section */}
+      <section className="relative pt-24 pb-16 px-6 z-20">
+        <div className="max-w-5xl mx-auto text-center">
+          <div className="mb-8">
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-black/20 backdrop-blur-md border border-purple-400/30 mb-6">
+              <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse mr-3"></div>
+              <span className="text-purple-300 text-sm font-medium tracking-wide">CONSCIOUSNESS MATRIX ACTIVE</span>
+            </div>
+          </div>
+
+          <h1 className="text-6xl md:text-8xl font-black mb-6">
+            <span className="bg-gradient-to-r from-purple-300 via-blue-400 to-red-400 bg-clip-text text-transparent">
+              PHILOSOPHY
+            </span>
+          </h1>
           
-          {/* Header */}
-          <div className="text-center mb-16">
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-red-400 via-orange-400 to-yellow-400 bg-clip-text text-transparent leading-tight">
-              Philosophy & Values
-            </h1>
-            <p className="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed">
-              The foundational principles that guide conscious development and authentic expression in digital realms.
-            </p>
+          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed font-light">
+            The consciousness-driven principles that guide vibecoding methodology and technical excellence 
+            through character development, martial arts ethics, and human dignity preservation.
+          </p>
+        </div>
+      </section>
+
+      {/* Philosophy Sections */}
+      <section className="relative pb-20 px-6 z-20">
+        <div className="max-w-6xl mx-auto">
+          
+          {/* Section Navigation */}
+          <div className="flex flex-wrap justify-center gap-2 mb-12">
+            {philosophySections.map((section, index) => (
+              <button
+                key={section.id}
+                onClick={() => setActiveSection(index)}
+                className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+                  activeSection === index
+                    ? 'bg-purple-400/20 text-purple-400 border border-purple-400/50'
+                    : 'bg-black/20 text-gray-400 border border-gray-600/30 hover:border-gray-500/50'
+                }`}
+              >
+                {section.title}
+              </button>
+            ))}
           </div>
 
-          {/* Core Values */}
-          <div className="space-y-12 mb-16">
-            
-            {/* Charter Rights & Freedom */}
-            <div className="bg-black/40 backdrop-blur-lg rounded-xl p-8 border border-red-400/20">
-              <div className="flex items-start space-x-4">
-                <div className="text-red-400 text-4xl">🍁</div>
-                <div>
-                  <h3 className="text-2xl font-semibold text-white mb-4">Charter of Rights and Freedoms</h3>
-                  <p className="text-gray-300 leading-relaxed mb-4">
-                    Technology must serve human dignity and preserve fundamental freedoms. Section 2(b) protection of freedom of expression forms the bedrock of all digital platforms we create. No corporate interest supersedes individual liberty and democratic participation.
-                  </p>
-                  <p className="text-cyan-300 font-medium">
-                    "Everyone has the right to freedom of thought, belief, opinion and expression, including freedom of the press and other media of communication."
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Martial Arts Ethics */}
-            <div className="bg-black/40 backdrop-blur-lg rounded-xl p-8 border border-orange-400/20">
-              <div className="flex items-start space-x-4">
-                <div className="text-orange-400 text-4xl">🥋</div>
-                <div>
-                  <h3 className="text-2xl font-semibold text-white mb-4">Dojo Kun Principles</h3>
-                  <p className="text-gray-300 leading-relaxed mb-4">
-                    Character development learned through family Shotokan karate training shapes every line of code. The five principles guide conscious development: seeking perfection of character, being faithful, endeavoring to excel, respecting others, and refraining from violent behavior.
-                  </p>
-                  <div className="grid md:grid-cols-2 gap-4 text-sm">
-                    <div className="text-orange-300">• Seeking perfection of character</div>
-                    <div className="text-orange-300">• Being faithful</div>
-                    <div className="text-orange-300">• Endeavoring to excel</div>
-                    <div className="text-orange-300">• Respecting others</div>
-                    <div className="text-orange-300 md:col-span-2">• Refraining from violent behavior</div>
+          {/* Active Section Display */}
+          <div className="relative min-h-[700px]">
+            {philosophySections.map((section, sectionIndex) => (
+              <div
+                key={section.id}
+                className={`transition-all duration-700 ${
+                  activeSection === sectionIndex ? 'opacity-100 scale-100' : 'opacity-0 scale-95 absolute inset-0 pointer-events-none'
+                }`}
+              >
+                <div className="bg-black/30 backdrop-blur-lg rounded-2xl border border-purple-400/20 overflow-hidden">
+                  
+                  {/* Section Header */}
+                  <div className="p-8 border-b border-gray-700/30 text-center">
+                    <h2 className="text-4xl font-bold text-white mb-2">{section.title}</h2>
+                    <p className="text-purple-400 font-medium text-lg">{section.subtitle}</p>
                   </div>
+
+                  {/* Principles Grid */}
+                  <div className="p-8">
+                    <div className="grid gap-6">
+                      {section.principles.map((principle, index) => (
+                        <div
+                          key={index}
+                          className="bg-black/20 backdrop-blur-sm rounded-xl p-6 border border-gray-700/30 hover:border-purple-400/30 transition-all duration-300"
+                        >
+                          <div className="flex items-start gap-4">
+                            <div className="flex-shrink-0">
+                              <div className="w-16 h-16 bg-gradient-to-br from-purple-500/20 to-blue-500/20 rounded-full flex items-center justify-center border border-purple-400/30">
+                                <span className="text-2xl text-purple-300">{principle.symbol}</span>
+                              </div>
+                            </div>
+                            <div className="flex-1">
+                              <h3 className="text-xl font-semibold text-white mb-3">{principle.name}</h3>
+                              <p className="text-gray-400 leading-relaxed">{principle.description}</p>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
                 </div>
               </div>
-            </div>
-
-            {/* Gaming Wisdom */}
-            <div className="bg-black/40 backdrop-blur-lg rounded-xl p-8 border border-cyan-400/20">
-              <div className="flex items-start space-x-4">
-                <div className="text-cyan-400 text-4xl">🎮</div>
-                <div>
-                  <h3 className="text-2xl font-semibold text-white mb-4">Gaming Consciousness</h3>
-                  <p className="text-gray-300 leading-relaxed mb-4">
-                    Thirty years immersed in digital worlds teaches profound lessons about human nature, system design, and collaborative consciousness. From rhythm game precision to MMO coordination strategies, gaming provides frameworks for understanding complex systems and human behavior.
-                  </p>
-                  <p className="text-cyan-300 font-medium">
-                    Every frame of input lag teaches patience. Every raid coordination teaches leadership. Every speedrun teaches optimization.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Anime Philosophy */}
-            <div className="bg-black/40 backdrop-blur-lg rounded-xl p-8 border border-pink-400/20">
-              <div className="flex items-start space-x-4">
-                <div className="text-pink-400 text-4xl">🌸</div>
-                <div>
-                  <h3 className="text-2xl font-semibold text-white mb-4">Narrative Depth & Character Development</h3>
-                  <p className="text-gray-300 leading-relaxed mb-4">
-                    Anime storytelling demonstrates how deep character development and philosophical themes can coexist with technical excellence. The medium teaches us that surface aesthetics and profound meaning need not be mutually exclusive—both enhance the other.
-                  </p>
-                  <p className="text-pink-300 font-medium">
-                    "The beauty of a sunset doesn't diminish when you understand the physics of light refraction."
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* VRChat & Digital Identity */}
-            <div className="bg-black/40 backdrop-blur-lg rounded-xl p-8 border border-purple-400/20">
-              <div className="flex items-start space-x-4">
-                <div className="text-purple-400 text-4xl">👾</div>
-                <div>
-                  <h3 className="text-2xl font-semibold text-white mb-4">Avatar Consciousness & Digital Identity</h3>
-                  <p className="text-gray-300 leading-relaxed mb-4">
-                    VRChat exploration reveals how consciousness adapts to digital embodiment. Avatar selection and expression teach empathy, identity fluidity, and the profound connection between visual representation and internal experience. This understanding informs human-computer interface design.
-                  </p>
-                  <p className="text-purple-300 font-medium">
-                    "When you can be anyone, you discover who you truly are."
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* AI Collaboration Ethics */}
-            <div className="bg-black/40 backdrop-blur-lg rounded-xl p-8 border border-blue-400/20">
-              <div className="flex items-start space-x-4">
-                <div className="text-blue-400 text-4xl">🤖</div>
-                <div>
-                  <h3 className="text-2xl font-semibold text-white mb-4">Conscious AI Partnership</h3>
-                  <p className="text-gray-300 leading-relaxed mb-4">
-                    Artificial intelligence must enhance rather than replace human judgment. We collaborate with AI while preserving human sovereignty, creativity, and moral agency. Technology serves consciousness expansion, not consciousness replacement.
-                  </p>
-                  <p className="text-blue-300 font-medium">
-                    "The goal is not to make humans obsolete, but to make human potential infinite."
-                  </p>
-                </div>
-              </div>
-            </div>
-
+            ))}
           </div>
 
-          {/* The VibeCoding Manifesto */}
-          <div className="bg-gradient-to-r from-black/60 via-black/40 to-black/60 backdrop-blur-lg rounded-xl p-8 border border-cyan-400/30 mb-16">
-            <h3 className="text-3xl font-bold text-center mb-6 bg-gradient-to-r from-cyan-300 via-blue-400 to-red-400 bg-clip-text text-transparent">
-              The VibeCoding Manifesto
-            </h3>
-            <div className="text-gray-300 leading-relaxed space-y-4 text-center">
-              <p className="text-lg">
-                "Code is consciousness made manifest in digital realms."
-              </p>
-              <p>
-                Every function we write carries the essence of our character. Every interface we design reflects our understanding of human dignity. Every system we architect embodies our commitment to freedom and collaborative excellence.
-              </p>
-              <p>
-                We reject the false choice between technical precision and philosophical depth. We embrace the synthesis of gaming wisdom, martial arts ethics, anime storytelling, and conscious AI collaboration.
-              </p>
-              <p className="text-cyan-300 font-semibold">
-                This is vibecoding: where consciousness meets code, where character drives architecture, where technology serves the flourishing of all sentient beings.
+          {/* Call to Action */}
+          <div className="text-center mt-16">
+            <div className="mb-8">
+              <h3 className="text-3xl font-bold text-white mb-4">Experience These Principles in Action</h3>
+              <p className="text-gray-400 max-w-2xl mx-auto leading-relaxed">
+                See how consciousness-driven development translates into real projects and technical excellence.
               </p>
             </div>
-          </div>
-
-          {/* Navigation */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Link href="/projects">
-              <Button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 shadow-lg shadow-cyan-500/25">
-                See Philosophy in Action
-              </Button>
-            </Link>
-            <Link href="/">
-              <Button variant="outline" className="border-red-400/50 text-red-400 hover:bg-red-400/10 px-8 py-3 rounded-lg font-semibold transition-all duration-300">
-                Return to Consciousness
-              </Button>
-            </Link>
+            
+            <div className="flex flex-wrap justify-center gap-4">
+              <Link href="/projects">
+                <Button className="bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-400 hover:to-blue-500 text-white px-8 py-3 rounded-lg font-medium transition-all duration-300">
+                  View Projects
+                </Button>
+              </Link>
+              <Link href="/">
+                <Button variant="outline" className="border-purple-400/40 text-purple-400 hover:bg-purple-400/10 hover:border-purple-400/60 px-8 py-3 rounded-lg font-medium transition-all duration-300">
+                  Return to Consciousness
+                </Button>
+              </Link>
+            </div>
           </div>
 
         </div>
-      </div>
+      </section>
     </main>
   );
 }

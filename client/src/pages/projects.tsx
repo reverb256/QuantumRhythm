@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
+import Navigation from '@/components/navigation';
 
 export default function ProjectsPage() {
   const [activeProject, setActiveProject] = useState(0);
@@ -47,6 +48,8 @@ export default function ProjectsPage() {
 
   return (
     <main className="min-h-screen relative overflow-hidden">
+      <Navigation />
+      
       {/* Enhanced Background System */}
       <div className="fixed inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-blue-950 to-cyan-950" />

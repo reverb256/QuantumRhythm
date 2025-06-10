@@ -109,12 +109,12 @@ app.use((req, res, next) => {
   app.use('/api/io-intelligence', ioIntelligenceRoutes);
   
   // Import and register Trading Agent routes
-  const { default: tradingAgentRoutes } = await import('./routes/trading-agent.js');
-  app.use('/api/trading-agent', tradingAgentRoutes);
+  // const { default: tradingAgentRoutes } = await import('./routes/trading-agent.js');
+  // app.use('/api/trading-agent', tradingAgentRoutes);
   
   // Import and register Cyber Terminal routes
-  const { default: cyberTerminalRoutes } = await import('./routes/cyber-terminal.js');
-  app.use('/api', cyberTerminalRoutes);
+  // const { default: cyberTerminalRoutes } = await import('./routes/cyber-terminal.js');
+  // app.use('/api', cyberTerminalRoutes);
   
   // Register live stats routes
   app.use('/api/live', liveStatsRouter);
