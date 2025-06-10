@@ -17,6 +17,7 @@ import Home from "@/pages/home";
 import Values from "@/pages/values";
 import VRChat from "@/pages/vrchat";
 import Dashboard from "@/pages/Dashboard";
+import TradingDashboard from "@/pages/TradingDashboard";
 import TechnicalDeepDive from "@/pages/technical-deep-dive";
 import Legal from "@/pages/Legal";
 import NotFound from "@/pages/not-found";
@@ -44,6 +45,7 @@ function Router() {
     if (location === '/vrchat') return 'vrchat';
     if (location === '/values') return 'values';
     if (location === '/dashboard') return 'dashboard';
+    if (location === '/trading-dashboard') return 'trading-dashboard';
     if (location === '/technical-deep-dive') return 'technical-deep-dive';
     return 'home';
   };
@@ -60,6 +62,7 @@ function Router() {
         <Route path="/values" component={Values} />
         <Route path="/vrchat" component={VRChat} />
         <Route path="/dashboard" component={Dashboard} />
+        <Route path="/trading-dashboard" component={TradingDashboard} />
         <Route path="/technical-deep-dive" component={TechnicalDeepDive} />
         <Route path="/legal" component={Legal} />
         <Route component={NotFound} />
