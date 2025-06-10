@@ -65,13 +65,13 @@ export function SmartTooltip({ children, term, className = '' }: SmartTooltipPro
   let content = '';
   let type: 'humor' | 'definition' | 'philosophical' = 'definition';
   
-  if (techHumor[lowerTerm]) {
+  if (lowerTerm in techHumor) {
     content = techHumor[lowerTerm];
     type = 'humor';
-  } else if (definitions[lowerTerm]) {
+  } else if (lowerTerm in definitions) {
     content = definitions[lowerTerm];
     type = 'definition';
-  } else if (philosophy[lowerTerm]) {
+  } else if (lowerTerm in philosophy) {
     content = philosophy[lowerTerm];
     type = 'philosophical';
   } else {

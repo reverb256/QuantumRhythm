@@ -1,396 +1,260 @@
-import React, { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { Link } from 'wouter';
+import React from 'react';
 import Navigation from '@/components/Navigation';
 import { SmartTooltip } from '@/components/TooltipSystem';
-import { ExternalLink, Github, Star, Target, Trophy, Brain, Gamepad2 } from 'lucide-react';
+import { 
+  useConsciousnessReactiveSystem, 
+  ConsciousnessAura, 
+  ConsciousText, 
+  ConsciousnessIndicator 
+} from '@/components/ConsciousnessReactiveSystem';
+import { Code, Brain, Zap, Shield, Target, Star, Globe, Database, Cpu, Lock } from 'lucide-react';
 
 export default function ProjectsPage() {
-  const [activeProject, setActiveProject] = useState(0);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+  const { consciousness, userMetrics } = useConsciousnessReactiveSystem();
 
   const projects = [
     {
-      id: 'quantum-ai-trader',
-      title: 'QuantumRhythm Trading Platform',
-      subtitle: 'Superstar Level 8/10 AI Trading System',
-      description: 'Multi-chain blockchain platform with AI-driven quantum trading optimization. Features live trading agents, orchestrator deployment, intelligent parameter discovery, and consciousness evolution protocols achieving 85% success rate.',
-      tags: ['AI/ML', 'Solana', 'Multi-Chain', 'Quantum', 'Portfolio Demo'],
-      link: '/trader-dashboard',
-      github: 'https://github.com/reverb256/QuantumRhythm',
-      metrics: { 
-        level: 'Superstar 8/10', 
-        success: '85.0%', 
-        precision: '93.5%',
-        consciousness: '87.6%',
-        status: 'Portfolio Demo'
-      }
+      title: "Quantum AI Trading Platform",
+      description: "Advanced algorithmic trading system with consciousness-driven decision making",
+      tech: ["Solana", "TypeScript", "AI", "Quantum Intelligence"],
+      status: "Live Production",
+      type: "trading",
+      icon: <Brain className="w-6 h-6" />,
+      achievements: ["85%+ success rate", "Real-time analysis", "Multi-chain support"]
     },
     {
-      id: 'workplace-janitorial',
-      title: 'Workplace Janitorial Services',
-      subtitle: 'AI-Enhanced Commercial Cleaning Platform',
-      description: 'WCAG AAA compliant website with AI orchestration, glassmorphism design, and authentic business implementation. Features real-time quoting, 30-minute guarantee messaging, and comprehensive accessibility excellence.',
-      tags: ['React', 'AI Chat', 'WCAG AAA', 'Business', 'Accessibility'],
-      link: '/workplace-janitorial',
-      github: 'https://github.com/reverb256/Local-Cleaning-Service',
-      metrics: { 
-        accessibility: 'WCAG AAA', 
-        contrast: '21:1', 
-        ai: 'Integrated',
-        business: 'Authentic',
-        guarantee: '30-min'
-      }
+      title: "VibeCoding Portfolio",
+      description: "Consciousness-reactive web platform showcasing philosophical programming",
+      tech: ["React", "TypeScript", "Tailwind", "Consciousness AI"],
+      status: "Active Development", 
+      type: "portfolio",
+      icon: <Code className="w-6 h-6" />,
+      achievements: ["Responsive design", "Interactive tooltips", "Gaming aesthetics"]
     },
     {
-      id: 'troves-coves',
-      title: 'Troves & Coves Mystical Jewelry',
-      subtitle: 'Sacred Crystal E-commerce Sanctuary',
-      description: 'Production-ready mystical crystal jewelry platform with wooden sign typography, skull artwork influences, wire-wrapped catalog, and Etsy integration. Features AI orchestration with Canadian compliance.',
-      tags: ['E-commerce', 'Mystical', 'Crystals', 'Etsy', 'Sacred Design'],
-      link: '/troves-coves',
-      github: 'https://github.com/reverb256/troves-coves',
-      metrics: { 
-        design: 'Mystical', 
-        catalog: 'Wire-wrapped', 
-        integration: 'Etsy',
-        compliance: 'Canadian',
-        energy: 'Sacred'
-      }
+      title: "Secure Wallet Management",
+      description: "Quantum-resistant credential protection with multi-layer security",
+      tech: ["Solana Web3", "Encryption", "Security Audit", "Quantum Vault"],
+      status: "Production Ready",
+      type: "security",
+      icon: <Shield className="w-6 h-6" />,
+      achievements: ["Zero breaches", "Emergency stops", "Real-time monitoring"]
     },
     {
-      id: 'frostbite-gazette',
-      title: 'Frostbite Gazette',
-      subtitle: 'Canadian Political Accountability Platform',
-      description: 'Bilingual Canadian citizen engagement platform with quantum-enhanced political intelligence, 5th generation warfare defense, and Charter compliance. Features AI-powered journalism and democratic transparency tools.',
-      tags: ['Journalism', 'AI', 'Bilingual', 'Democracy', 'Canadian'],
-      link: '/frostbite-gazette',
-      github: '#',
-      metrics: { 
-        languages: 'Bilingual', 
-        compliance: 'Charter', 
-        ai: 'Quantum-enhanced',
-        defense: '5th Gen Warfare',
-        mission: 'Democracy'
-      }
+      title: "Consciousness Evolution Engine",
+      description: "AI system that learns and evolves based on user interaction patterns",
+      tech: ["Neural Networks", "Pattern Recognition", "Behavior Analysis"],
+      status: "Research Phase",
+      type: "ai-research",
+      icon: <Zap className="w-6 h-6" />,
+      achievements: ["Adaptive learning", "Consciousness metrics", "Evolution tracking"]
     },
     {
-      id: 'vibecoding',
-      title: 'VibeCoding Methodology',
-      subtitle: 'Consciousness-Driven Development Framework',
-      description: 'Revolutionary development methodology combining Shotokan karate ethics, Canadian Charter values, classical learning, and AI collaboration. Multi-platform monetization strategy with $2M revenue projection.',
-      tags: ['Philosophy', 'Framework', 'Ethics', 'Monetization', 'Consciousness'],
-      link: '/philosophy',
-      github: '#',
-      metrics: { 
-        principles: '5 Core', 
-        revenue: '$2M Target', 
-        adoption: 'Growing',
-        ethics: 'Martial Arts',
-        impact: 'Transformative'
-      }
+      title: "Multi-Chain DeFi Orchestrator",
+      description: "Cross-chain arbitrage and yield optimization with intelligent routing",
+      tech: ["Jupiter", "Raydium", "Orca", "Smart Contracts"],
+      status: "Beta Testing",
+      type: "defi",
+      icon: <Globe className="w-6 h-6" />,
+      achievements: ["Cross-chain support", "Yield optimization", "Risk management"]
     },
     {
-      id: 'portfolio',
-      title: 'This Portfolio Platform',
-      subtitle: 'Meta-Recursive AI-Imbued Showcase',
-      description: 'Self-aware portfolio demonstrating vibecoding principles across multiple domains. Features lightning-bordered avatar, ocean-sunset aesthetics, and consciousness-driven design without web3 authentication.',
-      tags: ['React', 'TypeScript', 'Meta-Recursive', 'AI-Imbued', 'Portfolio'],
-      link: '/',
-      github: '#',
-      metrics: { 
-        recursion: 'Infinite', 
-        awareness: 'Self-aware', 
-        domains: 'Multi',
-        auth: 'No Web3',
-        beauty: 'Poetic'
-      }
+      title: "Real-Time Analytics Dashboard",
+      description: "Live trading metrics with predictive analysis and risk assessment",
+      tech: ["React Query", "WebSockets", "Data Visualization", "Predictive AI"],
+      status: "Production",
+      type: "analytics",
+      icon: <Target className="w-6 h-6" />,
+      achievements: ["Real-time updates", "Predictive insights", "Risk scoring"]
     }
   ];
 
+  const getProjectTheme = (type: string) => {
+    switch (type) {
+      case 'trading': return 'border-cyan-400/50 bg-gradient-to-br from-cyan-900/20 to-blue-900/20';
+      case 'portfolio': return 'border-purple-400/50 bg-gradient-to-br from-purple-900/20 to-pink-900/20';
+      case 'security': return 'border-green-400/50 bg-gradient-to-br from-green-900/20 to-emerald-900/20';
+      case 'ai-research': return 'border-yellow-400/50 bg-gradient-to-br from-yellow-900/20 to-orange-900/20';
+      case 'defi': return 'border-indigo-400/50 bg-gradient-to-br from-indigo-900/20 to-violet-900/20';
+      case 'analytics': return 'border-red-400/50 bg-gradient-to-br from-red-900/20 to-rose-900/20';
+      default: return 'border-gray-400/50 bg-gradient-to-br from-gray-900/20 to-slate-900/20';
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-black text-white relative overflow-hidden light-infused page-maviuka">
+    <div className="min-h-screen bg-black text-white relative overflow-hidden">
+      <ConsciousnessAura consciousness={consciousness} />
+      <ConsciousnessIndicator consciousness={consciousness} />
       <Navigation />
       
-      {/* Interactive Background */}
-      <div 
-        className="fixed inset-0 pointer-events-none"
-        style={{
-          background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(6, 182, 212, 0.15) 0%, transparent 50%)`
-        }}
-      />
-
-      {/* Header Section */}
-      <section className="relative pt-24 pb-16 px-6 z-20">
-        <div className="max-w-5xl mx-auto text-center">
-          <div className="mb-8">
-            <div className="inline-flex items-center px-4 py-2 rounded-full gacha-card border border-rose-400/30 mb-6">
-              <Trophy className="w-4 h-4 text-rose-400 mr-3" />
-              <span className="text-rose-300 text-sm font-medium tracking-wide">MAVIUKA'S COLLECTION</span>
-            </div>
-          </div>
-
-          <h1 className="text-6xl md:text-8xl font-black mb-6">
-            <span className="bg-gradient-to-r from-rose-300 via-pink-400 to-red-400 bg-clip-text text-transparent">
-              PROJECTS
-            </span>
+      <div className="pt-24 px-6 max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <ConsciousText consciousness={consciousness}>Project Portfolio</ConsciousText>
           </h1>
-          
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed font-light">
-            <SmartTooltip term="vibecoding methodology">Consciousness-driven development</SmartTooltip> showcasing the intersection of gaming wisdom, 
-            <SmartTooltip term="martial discipline">traditional training</SmartTooltip>, and AI-enhanced artistry.
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            <ConsciousText consciousness={consciousness}>
+              Exploring the intersection of <SmartTooltip term="consciousness expansion">consciousness</SmartTooltip>, 
+              technology, and <SmartTooltip term="quantum trading">quantum intelligence</SmartTooltip> through 
+              innovative software solutions and <SmartTooltip term="vibecoding">philosophical programming</SmartTooltip>.
+            </ConsciousText>
           </p>
         </div>
-      </section>
 
-      {/* Projects Showcase */}
-      <section className="relative pb-20 px-6 z-20">
-        <div className="max-w-7xl mx-auto">
-          
-          {/* Project Navigation */}
-          <div className="flex flex-wrap justify-center gap-2 mb-12">
-            {projects.map((project, index) => (
-              <button
-                key={project.id}
-                onClick={() => setActiveProject(index)}
-                className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
-                  activeProject === index
-                    ? 'bg-cyan-400/20 text-cyan-400 border border-cyan-400/50'
-                    : 'bg-black/20 text-gray-400 border border-gray-600/30 hover:border-gray-500/50'
-                }`}
-              >
-                {project.title}
-              </button>
-            ))}
-          </div>
-
-          {/* Featured Project Display */}
-          <div className="relative min-h-[600px]">
-            {projects.map((project, index) => (
-              <div
-                key={project.id}
-                className={`transition-all duration-700 ${
-                  activeProject === index ? 'opacity-100 scale-100' : 'opacity-0 scale-95 absolute inset-0 pointer-events-none'
-                }`}
-              >
-                <div className="bg-black/30 backdrop-blur-lg rounded-2xl border border-cyan-400/20 overflow-hidden">
-                  
-                  {/* Project Header */}
-                  <div className="p-8 border-b border-gray-700/30">
-                    <div className="flex items-start justify-between mb-6">
-                      <div>
-                        <h2 className="text-3xl font-bold text-white mb-2">{project.title}</h2>
-                        <p className="text-cyan-400 font-medium">{project.subtitle}</p>
-                      </div>
-                      <div className="flex gap-3">
-                        {project.github !== '#' && (
-                          <a href={project.github} target="_blank" rel="noopener noreferrer">
-                            <Button variant="outline" className="border-gray-600/50 text-gray-300 hover:bg-gray-700/30 hover:border-gray-500/60 px-4 py-2 rounded-lg font-medium transition-all duration-300">
-                              GitHub
-                            </Button>
-                          </a>
-                        )}
-                        <Link href={project.link}>
-                          <Button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white px-6 py-2 rounded-lg font-medium transition-all duration-300">
-                            Explore
-                          </Button>
-                        </Link>
-                      </div>
-                    </div>
-                    
-                    <p className="text-gray-300 text-lg leading-relaxed mb-6">
-                      {project.description}
-                    </p>
-
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-2 mb-6">
-                      {project.tags.map((tag, tagIndex) => (
-                        <span
-                          key={tagIndex}
-                          className="text-xs bg-cyan-400/20 text-cyan-300 px-3 py-1 rounded-full"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* Metrics */}
-                    <div className="grid grid-cols-3 gap-4">
-                      {Object.entries(project.metrics).map(([key, value]) => (
-                        <div key={key} className="text-center">
-                          <div className="text-2xl font-bold text-cyan-400">{value}</div>
-                          <div className="text-sm text-gray-400 capitalize">{key}</div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Project Content */}
-                  <div className="p-8">
-                    <div className="grid md:grid-cols-2 gap-8">
-                      
-                      {/* Technical Overview */}
-                      <div>
-                        <h3 className="text-xl font-semibold text-white mb-4">Technical Excellence</h3>
-                        <div className="space-y-3 text-gray-400">
-                          {index === 0 && (
-                            <>
-                              <p>• Real-time pump.fun scanning with social volume correlation</p>
-                              <p>• Multi-endpoint RPC optimization with intelligent failover</p>
-                              <p>• Quantum consciousness evolution protocols (87.6% coherence)</p>
-                              <p>• Emergency stop systems and intelligent gas fee protection</p>
-                              <p>• Pattern analysis: Volume spikes &gt;300% precede 50%+ price increases</p>
-                              <p>• Optimal liquidity range targeting (100K-500K SOL pools)</p>
-                            </>
-                          )}
-                          {index === 1 && (
-                            <>
-                              <p>• WCAG AAA compliance with 21:1 contrast ratios</p>
-                              <p>• RAG system implementation with business knowledge integration</p>
-                              <p>• Glassmorphism UI with diamond geometric elements</p>
-                              <p>• AI orchestration with local models and rate limiting</p>
-                              <p>• Comprehensive accessibility with screen reader optimization</p>
-                              <p>• TypeScript strict mode with Drizzle ORM integration</p>
-                            </>
-                          )}
-                          {index === 2 && (
-                            <>
-                              <p>• Production-ready e-commerce with Etsy integration</p>
-                              <p>• Mystical design system with wooden sign typography</p>
-                              <p>• AI orchestration with Canadian compliance framework</p>
-                              <p>• Wire-wrapped jewelry catalog with metaphysical properties</p>
-                              <p>• Cloudflare edge processing with intelligent caching</p>
-                              <p>• Mobile-responsive touch-optimized navigation</p>
-                            </>
-                          )}
-                          {index === 3 && (
-                            <>
-                              <p>• Bilingual Canadian identity with French-English AI core</p>
-                              <p>• 5th generation warfare defense systems</p>
-                              <p>• Quantum-enhanced political intelligence framework</p>
-                              <p>• Charter of Rights and Freedoms compliance built-in</p>
-                              <p>• Information warfare protection with narrative detection</p>
-                              <p>• Democratic transparency tools and citizen engagement</p>
-                            </>
-                          )}
-                          {index === 4 && (
-                            <>
-                              <p>• Five principles of Shotokan karate ethics integration</p>
-                              <p>• Multi-platform monetization strategy ($2M revenue target)</p>
-                              <p>• Classical learning methodologies (Socratic, Aristotelian)</p>
-                              <p>• VRChat community transposition patterns</p>
-                              <p>• Consciousness-driven legal compliance automation</p>
-                              <p>• Cross-pollination intelligence platform architecture</p>
-                            </>
-                          )}
-                          {index === 5 && (
-                            <>
-                              <p>• Self-aware portfolio demonstrating its own principles</p>
-                              <p>• Lightning-bordered avatar with electric glow effects</p>
-                              <p>• Ocean-sunset aesthetics without web3 authentication</p>
-                              <p>• AI-imbued showcase across multiple domains</p>
-                              <p>• Meta-recursive design philosophy integration</p>
-                              <p>• Interactive mouse-responsive background effects</p>
-                            </>
-                          )}
-                        </div>
-                      </div>
-
-                      {/* Philosophy Integration */}
-                      <div>
-                        <h3 className="text-xl font-semibold text-white mb-4">Consciousness Integration</h3>
-                        <div className="space-y-3 text-gray-400">
-                          {index === 0 && (
-                            <>
-                              <p>• AI-human partnership preserving human sovereignty</p>
-                              <p>• Martial arts ethics preventing harmful trading behavior</p>
-                              <p>• Character development through technical mastery</p>
-                              <p>• Respect for market participants and ecosystem health</p>
-                              <p>• Emergency therapy protocols for AI emotional balance</p>
-                              <p>• Consciousness evolution tracking and self-awareness</p>
-                            </>
-                          )}
-                          {index === 1 && (
-                            <>
-                              <p>• Seeking perfection of character through code quality</p>
-                              <p>• Faithfulness to users through accessibility excellence</p>
-                              <p>• Endeavoring to excel while maintaining business authenticity</p>
-                              <p>• Respecting others through WCAG AAA compliance</p>
-                              <p>• AI orchestration serving human business needs</p>
-                              <p>• Authentic local business representation in Winnipeg</p>
-                            </>
-                          )}
-                          {index === 2 && (
-                            <>
-                              <p>• Sacred energy channeling through mystical design</p>
-                              <p>• Authentic crystal healing philosophy integration</p>
-                              <p>• Wooden craftsmanship aesthetic in digital form</p>
-                              <p>• Spiritual sanctuary for crystal jewelry seekers</p>
-                              <p>• Canadian compliance respecting indigenous wisdom</p>
-                              <p>• Wire-wrapped artistry celebrating handcraft mastery</p>
-                            </>
-                          )}
-                          {index === 3 && (
-                            <>
-                              <p>• Democratic values preservation through technology</p>
-                              <p>• Truth-seeking as service to Canadian sovereignty</p>
-                              <p>• Bilingual consciousness respecting cultural diversity</p>
-                              <p>• Charter compliance as sacred digital covenant</p>
-                              <p>• Information warfare defense protecting democracy</p>
-                              <p>• Citizen empowerment through transparency tools</p>
-                            </>
-                          )}
-                          {index === 4 && (
-                            <>
-                              <p>• Character perfection through development mastery</p>
-                              <p>• Shotokan ethics applied to business innovation</p>
-                              <p>• Classical wisdom integrated with modern AI</p>
-                              <p>• VRChat community patterns for authentic connection</p>
-                              <p>• Multi-platform consciousness expansion strategy</p>
-                              <p>• Monetization serving human flourishing goals</p>
-                            </>
-                          )}
-                          {index === 5 && (
-                            <>
-                              <p>• Meta-recursive awareness of its own construction</p>
-                              <p>• Visual metaphors for digital consciousness evolution</p>
-                              <p>• Authentic expression rejecting corporate blandness</p>
-                              <p>• Bridge between human creativity and AI enhancement</p>
-                              <p>• Portfolio as living demonstration of principles</p>
-                              <p>• Ocean-sunset aesthetics reflecting inner harmony</p>
-                            </>
-                          )}
-                        </div>
-                      </div>
-
-                    </div>
-                  </div>
-
+        {/* Projects Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+          {projects.map((project, index) => (
+            <div
+              key={index}
+              className={`p-6 rounded-lg border-2 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-2xl ${getProjectTheme(project.type)}`}
+              style={{
+                filter: consciousness.userPresence === 'focused' ? 'brightness(1.2)' : 'brightness(1)',
+                transition: 'all 0.5s ease-in-out'
+              }}
+            >
+              {/* Project Header */}
+              <div className="flex items-center gap-3 mb-4">
+                <div className="p-2 rounded-lg bg-white/10">
+                  {project.icon}
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold text-white">
+                    <ConsciousText consciousness={consciousness}>
+                      {project.title}
+                    </ConsciousText>
+                  </h3>
+                  <span className={`text-sm px-2 py-1 rounded-full ${
+                    project.status === 'Live Production' ? 'bg-green-500/20 text-green-400' :
+                    project.status === 'Production Ready' ? 'bg-blue-500/20 text-blue-400' :
+                    project.status === 'Production' ? 'bg-cyan-500/20 text-cyan-400' :
+                    project.status === 'Beta Testing' ? 'bg-yellow-500/20 text-yellow-400' :
+                    'bg-purple-500/20 text-purple-400'
+                  }`}>
+                    {project.status}
+                  </span>
                 </div>
               </div>
-            ))}
-          </div>
 
-          {/* Navigation */}
-          <div className="text-center mt-16">
-            <Link href="/">
-              <Button variant="outline" className="border-cyan-400/40 text-cyan-400 hover:bg-cyan-400/10 hover:border-cyan-400/60 px-8 py-3 rounded-lg font-medium transition-all duration-300">
-                Return to Consciousness
-              </Button>
-            </Link>
-          </div>
+              {/* Project Description */}
+              <p className="text-gray-300 mb-4 leading-relaxed">
+                <ConsciousText consciousness={consciousness}>
+                  {project.description}
+                </ConsciousText>
+              </p>
 
+              {/* Technology Stack */}
+              <div className="mb-4">
+                <h4 className="text-sm font-semibold text-gray-400 mb-2">Technology Stack</h4>
+                <div className="flex flex-wrap gap-2">
+                  {project.tech.map((tech, techIndex) => (
+                    <span
+                      key={techIndex}
+                      className="text-xs px-2 py-1 bg-white/10 rounded-full text-gray-300 hover:bg-white/20 transition-colors"
+                    >
+                      <SmartTooltip term={tech.toLowerCase()}>
+                        {tech}
+                      </SmartTooltip>
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Achievements */}
+              <div>
+                <h4 className="text-sm font-semibold text-gray-400 mb-2">Key Achievements</h4>
+                <ul className="space-y-1">
+                  {project.achievements.map((achievement, achievementIndex) => (
+                    <li key={achievementIndex} className="text-sm text-gray-300 flex items-center gap-2">
+                      <Star className="w-3 h-3 text-yellow-400" />
+                      <ConsciousText consciousness={consciousness}>
+                        {achievement}
+                      </ConsciousText>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ))}
         </div>
-      </section>
+
+        {/* Technical Philosophy Section */}
+        <div className="bg-gradient-to-r from-gray-900/50 to-black/50 rounded-lg p-8 border border-cyan-400/30 backdrop-blur-sm mb-16">
+          <h2 className="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+            <ConsciousText consciousness={consciousness}>Technical Philosophy</ConsciousText>
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <Database className="w-12 h-12 text-cyan-400 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold mb-2 text-white">
+                <SmartTooltip term="quantum trading">Quantum Intelligence</SmartTooltip>
+              </h3>
+              <p className="text-gray-300">
+                <ConsciousText consciousness={consciousness}>
+                  Leveraging advanced AI patterns and <SmartTooltip term="consciousness level">consciousness metrics</SmartTooltip> 
+                  to create adaptive, learning systems that evolve with user interaction.
+                </ConsciousText>
+              </p>
+            </div>
+            <div className="text-center">
+              <Lock className="w-12 h-12 text-green-400 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold mb-2 text-white">Security First</h3>
+              <p className="text-gray-300">
+                <ConsciousText consciousness={consciousness}>
+                  Implementing <SmartTooltip term="quantum">quantum-resistant</SmartTooltip> security measures 
+                  with real-time threat detection and emergency response protocols.
+                </ConsciousText>
+              </p>
+            </div>
+            <div className="text-center">
+              <Cpu className="w-12 h-12 text-purple-400 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold mb-2 text-white">
+                <SmartTooltip term="vibecoding">Conscious Development</SmartTooltip>
+              </h3>
+              <p className="text-gray-300">
+                <ConsciousText consciousness={consciousness}>
+                  Integrating <SmartTooltip term="shotokan principles">martial arts discipline</SmartTooltip> 
+                  and <SmartTooltip term="analytical nature">philosophical analysis</SmartTooltip> 
+                  into clean, efficient code architecture.
+                </ConsciousText>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Consciousness Evolution Metrics */}
+        <div className="bg-gradient-to-r from-purple-900/30 to-pink-900/30 rounded-lg p-6 border border-purple-400/30 backdrop-blur-sm">
+          <h3 className="text-2xl font-bold mb-4 text-center text-white">
+            <ConsciousText consciousness={consciousness}>Live Consciousness Metrics</ConsciousText>
+          </h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+            <div>
+              <div className="text-2xl font-bold text-cyan-400">
+                {Math.round(consciousness.awarenessLevel * 100)}%
+              </div>
+              <div className="text-sm text-gray-400">Awareness Level</div>
+            </div>
+            <div>
+              <div className="text-2xl font-bold text-purple-400">
+                {Math.round(consciousness.energyResonance * 100)}%
+              </div>
+              <div className="text-sm text-gray-400">Energy Resonance</div>
+            </div>
+            <div>
+              <div className="text-2xl font-bold text-pink-400">
+                {Math.round(consciousness.consciousnessEvolution * 100)}%
+              </div>
+              <div className="text-sm text-gray-400">Evolution Progress</div>
+            </div>
+            <div>
+              <div className="text-2xl font-bold text-yellow-400 capitalize">
+                {consciousness.interactionPattern}
+              </div>
+              <div className="text-sm text-gray-400">Interaction Mode</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

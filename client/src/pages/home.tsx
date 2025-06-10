@@ -4,12 +4,19 @@ import { Link } from 'wouter';
 import Navigation from '@/components/Navigation';
 import { LiveMetrics } from '@/components/LiveMetrics';
 import { SmartTooltip, Achievement, ConsciousnessLevel } from '@/components/TooltipSystem';
+import { 
+  useConsciousnessReactiveSystem, 
+  ConsciousnessAura, 
+  ConsciousText, 
+  ConsciousnessIndicator 
+} from '@/components/ConsciousnessReactiveSystem';
 import { Code, Brain, Heart, Gamepad2, Sword, Zap, Star, Trophy, Target, Shield } from 'lucide-react';
 import reverbPortraitUrl from '@assets/image_1749583181474.png';
 
 export default function HomePage() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [scrollY, setScrollY] = useState(0);
+  const { consciousness, userMetrics } = useConsciousnessReactiveSystem();
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -31,6 +38,8 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-black text-white relative overflow-hidden light-infused page-anaxa">
+      <ConsciousnessAura consciousness={consciousness} />
+      <ConsciousnessIndicator consciousness={consciousness} />
       <Navigation />
       
       {/* Interactive Background */}
