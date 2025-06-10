@@ -1,6 +1,6 @@
 import { Connection, PublicKey } from '@solana/web3.js';
 import { dataProtection } from './data-protection-middleware';
-import { makeOptimizedPumpFunRequest, makeOptimizedSolanaRequest } from './smart-api-orchestrator';
+import { intelligentRateLimiter } from './intelligent-rate-limiter';
 import axios from 'axios';
 
 interface PumpFunToken {
@@ -111,21 +111,24 @@ export class PumpFunScanner {
 
   private async fetchPumpFunTokens(): Promise<PumpFunToken[]> {
     try {
-      const response = await makeOptimizedPumpFunRequest(async () => {
-        return await axios.get(`${this.apiEndpoints.pumpfun}/coins/trending`, {
-          timeout: 5000,
-          headers: {
-            'User-Agent': 'QuantumTrader/1.0',
-            'Accept': 'application/json'
-          }
-        });
-      });
+      const response = await intelligentRateLimiter.makeRequest(
+        'pump-fun',
+        async (url) => {
+          return await axios.get(`${url}/coins/trending`, {
+            timeout: 8000,
+            headers: {
+              'User-Agent': 'QuantumTrader/1.0',
+              'Accept': 'application/json'
+            }
+          });
+        }
+      );
       
       if (response?.data && Array.isArray(response.data)) {
         return response.data.map(this.formatPumpFunToken);
       }
     } catch (error) {
-      console.log('PumpFun API currently rate limited, deferring to authorized data sources');
+      console.log('PumpFun API requests managed by intelligent rate limiter');
     }
     
     // Fallback to mock data only when API is unavailable

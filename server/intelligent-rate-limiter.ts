@@ -3,6 +3,9 @@
  * Dynamically discovers rate limits and implements intelligent failover
  */
 
+import axios from 'axios';
+import { dataProtection } from './data-protection-middleware';
+
 interface ApiEndpoint {
   url: string;
   provider: string;
@@ -37,87 +40,72 @@ export class IntelligentRateLimiter {
   }
 
   private initializeEndpoints() {
-    // Solana RPC endpoints
-    this.registerEndpoint({
-      url: 'https://api.mainnet-beta.solana.com',
-      provider: 'solana-labs',
-      rateLimit: 100, // Initial guess
-      currentUsage: 0,
-      lastReset: new Date(),
-      priority: 5,
-      responseTime: 0,
-      errorRate: 0,
-      status: 'healthy'
-    });
+    const endpointConfigs = [
+      {
+        url: 'https://api.mainnet-beta.solana.com',
+        provider: 'solana-official',
+        rateLimit: 30,
+        priority: 8
+      },
+      {
+        url: 'https://rpc.ankr.com/solana',
+        provider: 'ankr-solana',
+        rateLimit: 60,
+        priority: 9
+      },
+      {
+        url: 'https://frontend-api.pump.fun',
+        provider: 'pumpfun-api',
+        rateLimit: 15,
+        priority: 7
+      },
+      {
+        url: 'https://api.dexscreener.com/latest/dex',
+        provider: 'dexscreener',
+        rateLimit: 20,
+        priority: 6
+      }
+    ];
 
-    this.registerEndpoint({
-      url: 'https://solana-api.projectserum.com',
-      provider: 'serum',
-      rateLimit: 150,
-      currentUsage: 0,
-      lastReset: new Date(),
-      priority: 6,
-      responseTime: 0,
-      errorRate: 0,
-      status: 'healthy'
-    });
-
-    this.registerEndpoint({
-      url: 'https://rpc.ankr.com/solana',
-      provider: 'ankr',
-      rateLimit: 200,
-      currentUsage: 0,
-      lastReset: new Date(),
-      priority: 7,
-      responseTime: 0,
-      errorRate: 0,
-      status: 'healthy'
-    });
-
-    // Pump.fun API endpoints
-    this.registerEndpoint({
-      url: 'https://frontend-api.pump.fun',
-      provider: 'pump-fun-primary',
-      rateLimit: 60,
-      currentUsage: 0,
-      lastReset: new Date(),
-      priority: 8,
-      responseTime: 0,
-      errorRate: 0,
-      status: 'healthy'
+    endpointConfigs.forEach(config => {
+      this.registerEndpoint({
+        url: config.url,
+        provider: config.provider,
+        rateLimit: config.rateLimit,
+        currentUsage: 0,
+        lastReset: new Date(),
+        priority: config.priority,
+        responseTime: 1000,
+        errorRate: 0,
+        status: 'healthy'
+      });
     });
 
     // Setup failover chains
-    this.failoverChains.set('solana-rpc', [
-      'https://rpc.ankr.com/solana',
-      'https://solana-api.projectserum.com',
-      'https://api.mainnet-beta.solana.com'
-    ]);
-
-    this.failoverChains.set('pump-fun', [
-      'https://frontend-api.pump.fun'
-    ]);
+    this.failoverChains.set('solana-rpc', ['ankr-solana', 'solana-official']);
+    this.failoverChains.set('pump-fun', ['pumpfun-api']);
+    this.failoverChains.set('market-data', ['dexscreener']);
   }
 
   private registerEndpoint(endpoint: ApiEndpoint) {
-    this.endpoints.set(endpoint.url, endpoint);
-    this.requestQueues.set(endpoint.url, []);
-    this.adaptiveDelay.set(endpoint.url, 0);
+    this.endpoints.set(endpoint.provider, endpoint);
+    this.requestQueues.set(endpoint.provider, []);
+    this.adaptiveDelay.set(endpoint.provider, 1000);
     
-    this.rateLimitMetrics.set(endpoint.url, {
+    this.rateLimitMetrics.set(endpoint.provider, {
       endpoint: endpoint.url,
       requestsPerMinute: endpoint.rateLimit,
       burstCapacity: Math.floor(endpoint.rateLimit * 0.8),
-      cooldownPeriod: 60000, // 1 minute
+      cooldownPeriod: 60000,
       backoffStrategy: 'exponential',
       successRate: 1.0
     });
   }
 
   public async makeRequest<T>(
-    endpointType: 'solana-rpc' | 'pump-fun',
-    requestFn: (url: string) => Promise<T>,
-    retryCount = 0
+    endpointType: 'solana-rpc' | 'pump-fun' | 'market-data',
+    requestFunction: (url: string) => Promise<T>,
+    retryCount: number = 0
   ): Promise<T> {
     const availableEndpoints = this.getAvailableEndpoints(endpointType);
     
@@ -127,53 +115,44 @@ export class IntelligentRateLimiter {
 
     const bestEndpoint = this.selectBestEndpoint(availableEndpoints);
     
-    try {
-      // Check rate limit before making request
-      if (!this.canMakeRequest(bestEndpoint.url)) {
-        // Wait for rate limit reset or try failover
-        await this.handleRateLimit(bestEndpoint.url, endpointType, requestFn, retryCount);
-        return this.makeRequest(endpointType, requestFn, retryCount + 1);
-      }
+    if (!this.canMakeRequest(bestEndpoint.url)) {
+      await this.handleRateLimit(endpointType, requestFunction, retryCount);
+      return this.makeRequest(endpointType, requestFunction, retryCount + 1);
+    }
 
-      // Track request
+    try {
       this.trackRequest(bestEndpoint.url);
-      
       const startTime = Date.now();
-      const result = await requestFn(bestEndpoint.url);
-      const responseTime = Date.now() - startTime;
       
-      // Update metrics on success
+      const result = await requestFunction(bestEndpoint.url);
+      
+      const responseTime = Date.now() - startTime;
       this.updateSuccessMetrics(bestEndpoint.url, responseTime);
       
       return result;
       
     } catch (error: any) {
-      // Handle different types of errors
-      if (error.message?.includes('429') || error.status === 429) {
-        return this.handleRateLimit(bestEndpoint.url, endpointType, requestFn, retryCount);
-      }
-      
-      if (error.message?.includes('5') && error.status >= 500) {
-        return this.handleServerError(bestEndpoint.url, endpointType, requestFn, retryCount);
-      }
-      
-      // Update error metrics
       this.updateErrorMetrics(bestEndpoint.url);
       
-      // Try failover if available
-      if (retryCount < 3) {
-        console.log(`🔄 Failing over from ${bestEndpoint.provider}, attempt ${retryCount + 1}`);
-        return this.makeRequest(endpointType, requestFn, retryCount + 1);
+      // Handle 429 specifically
+      if (error.response?.status === 429 || error.message?.includes('429')) {
+        this.discoverActualRateLimit(bestEndpoint.url);
+        return this.handleRateLimit(endpointType, requestFunction, retryCount);
+      }
+      
+      // Handle server errors with failover
+      if (error.response?.status >= 500) {
+        return this.handleServerError(endpointType, requestFunction, retryCount);
       }
       
       throw error;
     }
   }
 
-  private getAvailableEndpoints(type: 'solana-rpc' | 'pump-fun'): ApiEndpoint[] {
-    const chainUrls = this.failoverChains.get(type) || [];
-    return chainUrls
-      .map(url => this.endpoints.get(url))
+  private getAvailableEndpoints(type: 'solana-rpc' | 'pump-fun' | 'market-data'): ApiEndpoint[] {
+    const chain = this.failoverChains.get(type) || [];
+    return chain
+      .map(provider => this.endpoints.get(provider))
       .filter((endpoint): endpoint is ApiEndpoint => 
         endpoint !== undefined && endpoint.status !== 'unavailable'
       )
@@ -181,191 +160,184 @@ export class IntelligentRateLimiter {
   }
 
   private selectBestEndpoint(endpoints: ApiEndpoint[]): ApiEndpoint {
-    // Select endpoint with highest score (priority + performance - error rate)
-    return endpoints[0];
+    return endpoints[0]; // Already sorted by score
   }
 
   private calculateEndpointScore(endpoint: ApiEndpoint): number {
-    const responseTimeScore = Math.max(0, 10 - (endpoint.responseTime / 100));
-    const errorRateScore = Math.max(0, 10 - (endpoint.errorRate * 10));
-    const usageScore = Math.max(0, 10 - (endpoint.currentUsage / endpoint.rateLimit * 10));
+    const healthScore = endpoint.status === 'healthy' ? 100 : 
+                      endpoint.status === 'degraded' ? 50 : 0;
+    const speedScore = Math.max(0, 100 - (endpoint.responseTime / 50));
+    const reliabilityScore = Math.max(0, 100 - (endpoint.errorRate * 100));
+    const priorityScore = endpoint.priority * 10;
     
-    return (endpoint.priority * 2) + responseTimeScore + errorRateScore + usageScore;
+    return (healthScore + speedScore + reliabilityScore + priorityScore) / 4;
   }
 
   private canMakeRequest(url: string): boolean {
-    const endpoint = this.endpoints.get(url);
+    const endpoint = this.endpoints.get(this.getProviderFromUrl(url));
     if (!endpoint) return false;
+
+    const now = new Date();
+    const timeSinceReset = now.getTime() - endpoint.lastReset.getTime();
     
-    const metrics = this.rateLimitMetrics.get(url);
-    if (!metrics) return false;
-    
-    // Check if we're within rate limits
-    if (endpoint.currentUsage >= metrics.burstCapacity) {
-      return false;
+    // Reset usage counter every minute
+    if (timeSinceReset >= 60000) {
+      endpoint.currentUsage = 0;
+      endpoint.lastReset = now;
     }
     
-    // Check adaptive delay
-    const delay = this.adaptiveDelay.get(url) || 0;
-    if (delay > Date.now()) {
-      return false;
-    }
-    
-    return true;
+    return endpoint.currentUsage < endpoint.rateLimit;
   }
 
   private trackRequest(url: string) {
-    const endpoint = this.endpoints.get(url);
+    const provider = this.getProviderFromUrl(url);
+    const endpoint = this.endpoints.get(provider);
     if (endpoint) {
       endpoint.currentUsage++;
     }
   }
 
   private async handleRateLimit<T>(
-    url: string,
-    endpointType: string,
-    requestFn: (url: string) => Promise<T>,
+    endpointType: 'solana-rpc' | 'pump-fun' | 'market-data',
+    requestFunction: (url: string) => Promise<T>,
     retryCount: number
   ): Promise<T> {
-    console.log(`⏳ Rate limit hit on ${url}, implementing intelligent backoff`);
-    
-    // Discover actual rate limit from 429 response
-    this.discoverActualRateLimit(url);
-    
-    // Calculate intelligent delay
-    const delay = this.calculateAdaptiveDelay(url, retryCount);
-    this.adaptiveDelay.set(url, Date.now() + delay);
-    
-    console.log(`🕐 Waiting ${delay}ms before retry`);
-    
-    // Try immediate failover to different endpoint if available
-    const availableEndpoints = this.getAvailableEndpoints(endpointType as any);
-    const alternativeEndpoints = availableEndpoints.filter(ep => ep.url !== url);
-    
-    if (alternativeEndpoints.length > 0) {
-      console.log(`🔄 Failing over to ${alternativeEndpoints[0].provider}`);
-      return this.makeRequest(endpointType as any, requestFn, retryCount);
+    if (retryCount >= 3) {
+      throw new Error(`Max retries exceeded for ${endpointType}`);
     }
-    
-    // Wait and retry on same endpoint if no alternatives
+
+    // Try next endpoint in chain
+    const availableEndpoints = this.getAvailableEndpoints(endpointType);
+    if (availableEndpoints.length > retryCount + 1) {
+      return this.makeRequest(endpointType, requestFunction, retryCount);
+    }
+
+    // Wait with adaptive delay
+    const delay = this.calculateAdaptiveDelay(endpointType, retryCount);
+    console.log(`Rate limit reached, waiting ${delay}ms before retry`);
     await new Promise(resolve => setTimeout(resolve, delay));
-    return this.makeRequest(endpointType as any, requestFn, retryCount + 1);
+    
+    return this.makeRequest(endpointType, requestFunction, retryCount);
   }
 
   private async handleServerError<T>(
-    url: string,
-    endpointType: string,
-    requestFn: (url: string) => Promise<T>,
+    endpointType: 'solana-rpc' | 'pump-fun' | 'market-data',
+    requestFunction: (url: string) => Promise<T>,
     retryCount: number
   ): Promise<T> {
-    console.log(`🚨 Server error on ${url}, marking as degraded`);
-    
-    const endpoint = this.endpoints.get(url);
-    if (endpoint) {
-      endpoint.status = 'degraded';
-      // Temporarily reduce priority
-      setTimeout(() => {
-        if (endpoint.status === 'degraded') {
-          endpoint.status = 'healthy';
-        }
-      }, 300000); // 5 minutes
+    if (retryCount >= 2) {
+      throw new Error(`Server error retry limit exceeded for ${endpointType}`);
     }
-    
-    // Immediate failover for server errors
-    return this.makeRequest(endpointType as any, requestFn, retryCount + 1);
+
+    // Mark current endpoint as degraded
+    const availableEndpoints = this.getAvailableEndpoints(endpointType);
+    if (availableEndpoints.length > 0) {
+      availableEndpoints[0].status = 'degraded';
+    }
+
+    // Try failover
+    return this.makeRequest(endpointType, requestFunction, retryCount + 1);
   }
 
   private discoverActualRateLimit(url: string) {
-    const endpoint = this.endpoints.get(url);
-    const metrics = this.rateLimitMetrics.get(url);
+    const provider = this.getProviderFromUrl(url);
+    const endpoint = this.endpoints.get(provider);
+    const metrics = this.rateLimitMetrics.get(provider);
     
     if (endpoint && metrics) {
-      // Reduce estimated rate limit if we hit 429
-      const newLimit = Math.floor(endpoint.rateLimit * 0.8);
-      endpoint.rateLimit = Math.max(10, newLimit); // Never go below 10 RPM
-      metrics.requestsPerMinute = endpoint.rateLimit;
-      metrics.burstCapacity = Math.floor(endpoint.rateLimit * 0.6);
+      // Reduce rate limit estimate by 20%
+      const newLimit = Math.max(5, Math.floor(endpoint.rateLimit * 0.8));
+      endpoint.rateLimit = newLimit;
+      metrics.requestsPerMinute = newLimit;
       
-      console.log(`📊 Discovered rate limit for ${endpoint.provider}: ${endpoint.rateLimit} RPM`);
+      console.log(`Discovered rate limit for ${provider}: ${newLimit} RPM`);
     }
   }
 
-  private calculateAdaptiveDelay(url: string, retryCount: number): number {
-    const metrics = this.rateLimitMetrics.get(url);
-    if (!metrics) return 1000;
+  private calculateAdaptiveDelay(endpointType: string, retryCount: number): number {
+    const baseDelay = this.adaptiveDelay.get(endpointType) || 1000;
     
-    const baseDelay = 60000 / metrics.requestsPerMinute; // Base delay between requests
-    
-    switch (metrics.backoffStrategy) {
-      case 'exponential':
-        return Math.min(30000, baseDelay * Math.pow(2, retryCount));
-      case 'fibonacci':
-        return Math.min(30000, baseDelay * this.fibonacci(retryCount + 1));
-      case 'linear':
-      default:
-        return Math.min(30000, baseDelay * (retryCount + 1));
+    switch (retryCount) {
+      case 0: return baseDelay;
+      case 1: return baseDelay * 2;
+      case 2: return baseDelay * 4;
+      default: return Math.min(30000, baseDelay * Math.pow(2, retryCount));
     }
   }
 
   private fibonacci(n: number): number {
-    if (n <= 1) return 1;
-    let a = 1, b = 1;
-    for (let i = 2; i <= n; i++) {
-      [a, b] = [b, a + b];
-    }
-    return b;
+    if (n <= 1) return n;
+    return this.fibonacci(n - 1) + this.fibonacci(n - 2);
   }
 
   private updateSuccessMetrics(url: string, responseTime: number) {
-    const endpoint = this.endpoints.get(url);
-    const metrics = this.rateLimitMetrics.get(url);
+    const provider = this.getProviderFromUrl(url);
+    const endpoint = this.endpoints.get(provider);
+    const metrics = this.rateLimitMetrics.get(provider);
     
     if (endpoint && metrics) {
       // Update response time (exponential moving average)
-      endpoint.responseTime = endpoint.responseTime * 0.7 + responseTime * 0.3;
+      endpoint.responseTime = endpoint.responseTime * 0.8 + responseTime * 0.2;
+      
+      // Improve error rate
+      endpoint.errorRate = Math.max(0, endpoint.errorRate * 0.95);
       
       // Improve success rate
-      metrics.successRate = Math.min(1.0, metrics.successRate + 0.01);
+      metrics.successRate = Math.min(1, metrics.successRate * 0.95 + 0.05);
       
-      // Gradually increase rate limit if we're doing well
-      if (metrics.successRate > 0.95 && endpoint.errorRate < 0.05) {
-        endpoint.rateLimit = Math.min(endpoint.rateLimit * 1.05, 300);
-        metrics.requestsPerMinute = endpoint.rateLimit;
+      // Mark as healthy if performing well
+      if (endpoint.errorRate < 0.1 && responseTime < 5000) {
+        endpoint.status = 'healthy';
       }
-      
-      endpoint.status = 'healthy';
     }
   }
 
   private updateErrorMetrics(url: string) {
-    const endpoint = this.endpoints.get(url);
-    const metrics = this.rateLimitMetrics.get(url);
+    const provider = this.getProviderFromUrl(url);
+    const endpoint = this.endpoints.get(provider);
+    const metrics = this.rateLimitMetrics.get(provider);
     
     if (endpoint && metrics) {
-      // Update error rate (exponential moving average)
-      endpoint.errorRate = endpoint.errorRate * 0.9 + 0.1;
+      // Increase error rate
+      endpoint.errorRate = Math.min(1, endpoint.errorRate + 0.1);
       
       // Decrease success rate
-      metrics.successRate = Math.max(0.0, metrics.successRate - 0.05);
+      metrics.successRate = Math.max(0, metrics.successRate * 0.9);
       
-      // Mark as degraded if error rate too high
-      if (endpoint.errorRate > 0.5) {
+      // Mark as degraded if too many errors
+      if (endpoint.errorRate > 0.3) {
         endpoint.status = 'degraded';
+      }
+      
+      // Mark as unavailable if very high error rate
+      if (endpoint.errorRate > 0.7) {
+        endpoint.status = 'unavailable';
+        
+        // Auto-recovery after 5 minutes
+        setTimeout(() => {
+          endpoint.status = 'degraded';
+          endpoint.errorRate = 0.5;
+        }, 300000);
       }
     }
   }
 
+  private getProviderFromUrl(url: string): string {
+    for (const [provider, endpoint] of this.endpoints.entries()) {
+      if (endpoint.url === url || url.includes(endpoint.url)) {
+        return provider;
+      }
+    }
+    return 'unknown';
+  }
+
   private startAdaptiveMonitoring() {
-    // Reset usage counters every minute
+    // Reset usage counters and optimize strategies every minute
     setInterval(() => {
       this.resetUsageCounters();
-    }, 60000);
-    
-    // Adaptive strategy optimization every 5 minutes
-    setInterval(() => {
       this.optimizeStrategies();
-    }, 300000);
-    
+    }, 60000);
+
     // Health check every 30 seconds
     setInterval(() => {
       this.healthCheck();
@@ -373,31 +345,24 @@ export class IntelligentRateLimiter {
   }
 
   private resetUsageCounters() {
+    const now = new Date();
     for (const endpoint of this.endpoints.values()) {
-      endpoint.currentUsage = 0;
-      endpoint.lastReset = new Date();
-    }
-    
-    // Clear adaptive delays that have expired
-    for (const [url, delay] of this.adaptiveDelay.entries()) {
-      if (delay < Date.now()) {
-        this.adaptiveDelay.set(url, 0);
+      const timeSinceReset = now.getTime() - endpoint.lastReset.getTime();
+      if (timeSinceReset >= 60000) {
+        endpoint.currentUsage = 0;
+        endpoint.lastReset = now;
       }
     }
   }
 
   private optimizeStrategies() {
-    for (const [url, metrics] of this.rateLimitMetrics.entries()) {
-      const endpoint = this.endpoints.get(url);
-      if (!endpoint) continue;
-      
-      // Optimize backoff strategy based on success rate
-      if (metrics.successRate > 0.9) {
-        metrics.backoffStrategy = 'linear'; // Less aggressive
-      } else if (metrics.successRate > 0.7) {
-        metrics.backoffStrategy = 'exponential'; // Moderate
-      } else {
-        metrics.backoffStrategy = 'fibonacci'; // Most conservative
+    for (const [provider, metrics] of this.rateLimitMetrics.entries()) {
+      const endpoint = this.endpoints.get(provider);
+      if (endpoint && metrics.successRate > 0.9 && endpoint.errorRate < 0.1) {
+        // Gradually increase rate limit if performing well
+        const newLimit = Math.min(endpoint.rateLimit * 1.1, endpoint.rateLimit + 2);
+        endpoint.rateLimit = Math.floor(newLimit);
+        metrics.requestsPerMinute = endpoint.rateLimit;
       }
     }
   }
@@ -405,43 +370,44 @@ export class IntelligentRateLimiter {
   private healthCheck() {
     for (const endpoint of this.endpoints.values()) {
       // Auto-recovery for degraded endpoints
-      if (endpoint.status === 'degraded' && endpoint.errorRate < 0.1) {
+      if (endpoint.status === 'degraded' && endpoint.errorRate < 0.2) {
         endpoint.status = 'healthy';
-        console.log(`🟢 ${endpoint.provider} recovered to healthy status`);
+        console.log(`Auto-recovery: ${endpoint.provider} back to healthy`);
       }
       
-      // Mark as unavailable if consistently failing
-      if (endpoint.errorRate > 0.8) {
-        endpoint.status = 'unavailable';
-        console.log(`🔴 ${endpoint.provider} marked as unavailable`);
-        
-        // Auto-recovery after 10 minutes
-        setTimeout(() => {
-          endpoint.status = 'degraded';
-          endpoint.errorRate = 0.5; // Reset to moderate error rate
-        }, 600000);
+      // Mark as degraded if response time is too high
+      if (endpoint.responseTime > 10000 && endpoint.status === 'healthy') {
+        endpoint.status = 'degraded';
+        console.log(`Marking ${endpoint.provider} as degraded due to slow response`);
       }
     }
   }
 
   public getSystemStatus() {
-    const totalEndpoints = this.endpoints.size;
-    const healthyEndpoints = Array.from(this.endpoints.values())
-      .filter(ep => ep.status === 'healthy').length;
+    const endpoints = Array.from(this.endpoints.values());
+    const healthyCount = endpoints.filter(e => e.status === 'healthy').length;
+    const degradedCount = endpoints.filter(e => e.status === 'degraded').length;
+    const unavailableCount = endpoints.filter(e => e.status === 'unavailable').length;
     
-    const avgResponseTime = Array.from(this.endpoints.values())
-      .reduce((sum, ep) => sum + ep.responseTime, 0) / totalEndpoints;
+    const avgResponseTime = endpoints.reduce((sum, e) => sum + e.responseTime, 0) / endpoints.length;
+    const avgErrorRate = endpoints.reduce((sum, e) => sum + e.errorRate, 0) / endpoints.length;
     
-    const avgSuccessRate = Array.from(this.rateLimitMetrics.values())
-      .reduce((sum, metrics) => sum + metrics.successRate, 0) / totalEndpoints;
-
     return {
-      healthyEndpoints,
-      totalEndpoints,
-      healthRatio: healthyEndpoints / totalEndpoints,
+      totalEndpoints: endpoints.length,
+      healthyEndpoints: healthyCount,
+      degradedEndpoints: degradedCount,
+      unavailableEndpoints: unavailableCount,
       avgResponseTime: Math.round(avgResponseTime),
-      avgSuccessRate: Math.round(avgSuccessRate * 100),
-      activeFailovers: this.failoverChains.size
+      avgErrorRate: Math.round(avgErrorRate * 100),
+      systemHealth: healthyCount > 0 ? 'operational' : 'degraded',
+      details: endpoints.map(e => ({
+        provider: e.provider,
+        status: e.status,
+        rateLimit: e.rateLimit,
+        currentUsage: e.currentUsage,
+        responseTime: Math.round(e.responseTime),
+        errorRate: Math.round(e.errorRate * 100)
+      }))
     };
   }
 }
