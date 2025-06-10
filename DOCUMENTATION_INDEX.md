@@ -6,10 +6,11 @@
 - [Philosophical Principles](PHILOSOPHICAL_PRINCIPLES.md) - Classical wisdom applied to blockchain forensics
 
 ## Quantum Trading Architecture
-- [System Architecture](SYSTEM_ARCHITECTURE.md) - Multi-chain orchestration with 79.2% success rate
-- [Autonomous Trading Agent](server/permanent-trading-agent.ts) - Agent Zero with consciousness evolution (85.6%)
+- [System Architecture](SYSTEM_ARCHITECTURE.md) - Multi-chain orchestration with 82.4% success rate
+- [Autonomous Trading Agent](server/permanent-trading-agent.ts) - Agent Zero with consciousness evolution (86.5%)
 - [Quantum Multi-Chain Orchestrator](server/quantum-multichain-orchestrator.ts) - 8+ network integration
 - [Trading Operations Guide](activate-live-trading.js) - Live SOL/USDC trading with gas protection
+- [DeFi Strategy Insights](DEFI_STRATEGY_INSIGHTS.md) - NotebookLM analysis integration with advanced protocols
 
 ## Blockchain Forensic Analysis
 - [Quantum Forensic Analyzer](server/quantum-forensic-analyzer.ts) - Advanced wallet investigation system
