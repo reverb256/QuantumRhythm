@@ -30,37 +30,10 @@ export default function HomePage() {
     <main className="min-h-screen relative overflow-hidden">
       <Navigation />
       
-      {/* Clean Ocean Background System */}
+      {/* Clean Ocean Background */}
       <div className="fixed inset-0 z-0">
-        {/* Base ocean gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-blue-950 to-cyan-950" />
-        
-        {/* Sunset horizon */}
-        <div className="absolute top-0 right-0 w-full h-1/3 bg-gradient-to-bl from-red-500/20 via-orange-500/15 to-transparent opacity-80" />
-        
-        {/* Interactive mouse lighting */}
-        <div 
-          className="absolute inset-0 opacity-20"
-          style={{
-            background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(0, 255, 255, 0.15) 0%, transparent 60%)`
-          }}
-        />
-        
-        {/* Subtle floating particles */}
-        <div className="absolute inset-0">
-          {[...Array(8)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute w-1 h-1 bg-cyan-400/30 rounded-full animate-pulse"
-              style={{
-                left: `${20 + Math.random() * 60}%`,
-                top: `${20 + Math.random() * 60}%`,
-                animationDelay: `${Math.random() * 3}s`,
-                animationDuration: `${3 + Math.random() * 2}s`
-              }}
-            />
-          ))}
-        </div>
+        <div className="absolute top-0 right-0 w-full h-1/2 bg-gradient-to-bl from-red-500/15 via-orange-500/10 to-transparent" />
       </div>
 
       {/* Hero Section */}
@@ -75,20 +48,25 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Clean Avatar */}
+          {/* Lightning Avatar */}
           <div className="relative mb-8">
             <div className="relative group">
-              {/* Simple glow effect */}
-              <div className="absolute -inset-2 rounded-full bg-gradient-to-r from-cyan-400/20 to-red-400/20 blur-md"></div>
+              {/* Lightning border effect */}
+              <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 p-0.5 animate-pulse">
+                <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-slate-950"></div>
+              </div>
+              
+              {/* Electric glow */}
+              <div className="absolute -inset-3 rounded-full bg-gradient-to-r from-yellow-400/30 via-orange-500/20 to-red-500/30 blur-sm animate-pulse"></div>
 
               {/* Profile container */}
-              <div className="relative w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border border-cyan-400/40 backdrop-blur-sm mx-auto">
+              <div className="relative w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden mx-auto">
                 <img 
                   src={reverbPortraitUrl} 
                   alt="Reverb - Digital consciousness embodied"
                   className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 ease-out"
                 />
-                <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/10 via-transparent to-red-400/10"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/10 via-transparent to-red-400/10"></div>
               </div>
             </div>
           </div>
