@@ -99,41 +99,103 @@ export default function PhilosophyPage() {
     <main className="min-h-screen relative overflow-hidden">
       <Navigation />
       
-      {/* Enhanced Background System */}
+      {/* Clean Background System */}
       <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-purple-950 to-blue-950" />
-        <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-br from-red-500/15 via-orange-500/10 to-transparent opacity-70" />
-        
-        {/* Interactive consciousness field */}
-        <div 
-          className="absolute inset-0 opacity-30"
-          style={{
-            background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(147, 51, 234, 0.2) 0%, rgba(59, 130, 246, 0.1) 30%, transparent 60%)`
-          }}
-        />
-        
-        {/* Floating wisdom symbols */}
-        <div className="absolute inset-0 opacity-15">
-          {[...Array(12)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute text-purple-300/40 text-2xl animate-pulse"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 5}s`,
-                animationDuration: `${4 + Math.random() * 6}s`
-              }}
-            >
-              {['道', '心', '智', '德', '和', '真', '美', '善'][Math.floor(Math.random() * 8)]}
-            </div>
-          ))}
-        </div>
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-blue-950 to-cyan-950" />
+        <div className="absolute top-0 right-0 w-full h-1/2 bg-gradient-radial from-red-500/20 via-orange-500/15 to-transparent opacity-80" />
       </div>
 
       {/* Header Section */}
       <section className="relative pt-24 pb-16 px-6 z-20">
         <div className="max-w-5xl mx-auto text-center">
+          <div className="mb-8">
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-black/20 backdrop-blur-md border border-cyan-400/30 mb-6">
+              <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse mr-3"></div>
+              <span className="text-cyan-300 text-sm font-medium tracking-wide">CONSCIOUSNESS MATRIX ACTIVE</span>
+            </div>
+          </div>
+
+          <h1 className="text-6xl md:text-8xl font-black mb-6">
+            <span className="bg-gradient-to-r from-cyan-300 via-purple-400 to-red-400 bg-clip-text text-transparent">
+              PHILOSOPHY
+            </span>
+          </h1>
+          
+          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed font-light">
+            The VibeCoding manifesto - where Shotokan karate ethics meet Canadian Charter values 
+            in conscious AI-human collaboration.
+          </p>
+        </div>
+      </section>
+
+      {/* Philosophy Sections */}
+      <section className="relative pb-20 px-6 z-20">
+        <div className="max-w-7xl mx-auto">
+          
+          {/* Section Navigation */}
+          <div className="flex flex-wrap justify-center gap-2 mb-12">
+            {philosophySections.map((section, index) => (
+              <button
+                key={section.id}
+                onClick={() => setActiveSection(index)}
+                className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+                  activeSection === index
+                    ? 'bg-cyan-400/20 text-cyan-400 border border-cyan-400/50'
+                    : 'bg-black/20 text-gray-400 border border-gray-600/30 hover:border-gray-500/50'
+                }`}
+              >
+                {section.title}
+              </button>
+            ))}
+          </div>
+
+          {/* Featured Section Display */}
+          <div className="relative min-h-[600px]">
+            {philosophySections.map((section, sectionIndex) => (
+              <div
+                key={section.id}
+                className={`transition-all duration-700 ${
+                  activeSection === sectionIndex ? 'opacity-100 scale-100' : 'opacity-0 scale-95 absolute inset-0 pointer-events-none'
+                }`}
+              >
+                <div className="bg-black/30 backdrop-blur-lg rounded-2xl border border-cyan-400/20 overflow-hidden">
+                  
+                  {/* Section Header */}
+                  <div className="p-8 border-b border-gray-700/30">
+                    <h2 className="text-3xl font-bold text-white mb-2">{section.title}</h2>
+                    <p className="text-cyan-400 font-medium mb-6">{section.subtitle}</p>
+                    
+                    {/* Principles Grid */}
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {section.principles.map((principle, index) => (
+                        <div key={index} className="bg-black/40 rounded-xl p-6 border border-gray-700/30">
+                          <div className="flex items-center mb-4">
+                            <div className="w-12 h-12 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-lg flex items-center justify-center text-white text-xl font-bold mr-4">
+                              {principle.symbol}
+                            </div>
+                            <h3 className="text-lg font-semibold text-white">{principle.name}</h3>
+                          </div>
+                          <p className="text-gray-400 leading-relaxed">{principle.description}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Navigation */}
+          <div className="text-center mt-16">
+            <Link href="/">
+              <Button variant="outline" className="border-cyan-400/40 text-cyan-400 hover:bg-cyan-400/10 hover:border-cyan-400/60 px-8 py-3 rounded-lg font-medium transition-all duration-300">
+                Return to Consciousness
+              </Button>
+            </Link>
+          </div>
+
+        </div>
           <div className="mb-8">
             <div className="inline-flex items-center px-4 py-2 rounded-full bg-black/20 backdrop-blur-md border border-purple-400/30 mb-6">
               <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse mr-3"></div>

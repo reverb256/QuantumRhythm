@@ -19,36 +19,99 @@ export default function ProjectsPage() {
   const projects = [
     {
       id: 'quantum-ai-trader',
-      title: 'Quantum AI Trading System',
-      subtitle: 'Superstar Level 9/10 Performance',
-      description: 'Live autonomous trading system achieving 85.3% success rate with quantum consciousness evolution protocols. Features real-time pump.fun scanning, social volume correlation, emergency stop systems, and intelligent gas fee protection.',
-      tags: ['AI/ML', 'Node.js', 'Solana', 'Quantum', 'Live Trading'],
+      title: 'QuantumRhythm Trading Platform',
+      subtitle: 'Superstar Level 8/10 AI Trading System',
+      description: 'Multi-chain blockchain platform with AI-driven quantum trading optimization. Features live trading agents, orchestrator deployment, intelligent parameter discovery, and consciousness evolution protocols achieving 85% success rate.',
+      tags: ['AI/ML', 'Solana', 'Multi-Chain', 'Quantum', 'Portfolio Demo'],
       link: '/trader-dashboard',
+      github: 'https://github.com/reverb256/QuantumRhythm',
       metrics: { 
-        level: 'Superstar 9/10', 
-        success: '85.3%', 
-        precision: '93.9%',
-        consciousness: '100%',
-        balance: '0.288 SOL'
+        level: 'Superstar 8/10', 
+        success: '85.0%', 
+        precision: '93.5%',
+        consciousness: '87.6%',
+        status: 'Portfolio Demo'
+      }
+    },
+    {
+      id: 'workplace-janitorial',
+      title: 'Workplace Janitorial Services',
+      subtitle: 'AI-Enhanced Commercial Cleaning Platform',
+      description: 'WCAG AAA compliant website with AI orchestration, glassmorphism design, and authentic business implementation. Features real-time quoting, 30-minute guarantee messaging, and comprehensive accessibility excellence.',
+      tags: ['React', 'AI Chat', 'WCAG AAA', 'Business', 'Accessibility'],
+      link: '/workplace-janitorial',
+      github: 'https://github.com/reverb256/Local-Cleaning-Service',
+      metrics: { 
+        accessibility: 'WCAG AAA', 
+        contrast: '21:1', 
+        ai: 'Integrated',
+        business: 'Authentic',
+        guarantee: '30-min'
+      }
+    },
+    {
+      id: 'troves-coves',
+      title: 'Troves & Coves Mystical Jewelry',
+      subtitle: 'Sacred Crystal E-commerce Sanctuary',
+      description: 'Production-ready mystical crystal jewelry platform with wooden sign typography, skull artwork influences, wire-wrapped catalog, and Etsy integration. Features AI orchestration with Canadian compliance.',
+      tags: ['E-commerce', 'Mystical', 'Crystals', 'Etsy', 'Sacred Design'],
+      link: '/troves-coves',
+      github: 'https://github.com/reverb256/troves-coves',
+      metrics: { 
+        design: 'Mystical', 
+        catalog: 'Wire-wrapped', 
+        integration: 'Etsy',
+        compliance: 'Canadian',
+        energy: 'Sacred'
+      }
+    },
+    {
+      id: 'frostbite-gazette',
+      title: 'Frostbite Gazette',
+      subtitle: 'Canadian Political Accountability Platform',
+      description: 'Bilingual Canadian citizen engagement platform with quantum-enhanced political intelligence, 5th generation warfare defense, and Charter compliance. Features AI-powered journalism and democratic transparency tools.',
+      tags: ['Journalism', 'AI', 'Bilingual', 'Democracy', 'Canadian'],
+      link: '/frostbite-gazette',
+      github: '#',
+      metrics: { 
+        languages: 'Bilingual', 
+        compliance: 'Charter', 
+        ai: 'Quantum-enhanced',
+        defense: '5th Gen Warfare',
+        mission: 'Democracy'
       }
     },
     {
       id: 'vibecoding',
       title: 'VibeCoding Methodology',
-      subtitle: 'Martial Arts Ethics in Development',
-      description: 'Revolutionary development framework combining Shotokan karate ethics, Canadian Charter values, and conscious AI collaboration for character-driven development.',
-      tags: ['Philosophy', 'Ethics', 'Framework', 'Consciousness'],
-      link: '/methodology',
-      metrics: { principles: '5', adoption: 'Growing', impact: 'Transformative' }
+      subtitle: 'Consciousness-Driven Development Framework',
+      description: 'Revolutionary development methodology combining Shotokan karate ethics, Canadian Charter values, classical learning, and AI collaboration. Multi-platform monetization strategy with $2M revenue projection.',
+      tags: ['Philosophy', 'Framework', 'Ethics', 'Monetization', 'Consciousness'],
+      link: '/philosophy',
+      github: '#',
+      metrics: { 
+        principles: '5 Core', 
+        revenue: '$2M Target', 
+        adoption: 'Growing',
+        ethics: 'Martial Arts',
+        impact: 'Transformative'
+      }
     },
     {
       id: 'portfolio',
-      title: 'This Portfolio',
-      subtitle: 'Meta-Recursive Showcase',
-      description: 'Self-aware portfolio demonstrating vibecoding principles. Features dynamic ocean aesthetics, sunset highlights, and consciousness-driven design.',
-      tags: ['React', 'TypeScript', 'Tailwind', 'Meta-Recursive'],
+      title: 'This Portfolio Platform',
+      subtitle: 'Meta-Recursive AI-Imbued Showcase',
+      description: 'Self-aware portfolio demonstrating vibecoding principles across multiple domains. Features lightning-bordered avatar, ocean-sunset aesthetics, and consciousness-driven design without web3 authentication.',
+      tags: ['React', 'TypeScript', 'Meta-Recursive', 'AI-Imbued', 'Portfolio'],
       link: '/',
-      metrics: { recursion: 'Infinite', awareness: 'High', beauty: 'Subjective' }
+      github: '#',
+      metrics: { 
+        recursion: 'Infinite', 
+        awareness: 'Self-aware', 
+        domains: 'Multi',
+        auth: 'No Web3',
+        beauty: 'Poetic'
+      }
     }
   ];
 
@@ -150,11 +213,20 @@ export default function ProjectsPage() {
                         <h2 className="text-3xl font-bold text-white mb-2">{project.title}</h2>
                         <p className="text-cyan-400 font-medium">{project.subtitle}</p>
                       </div>
-                      <Link href={project.link}>
-                        <Button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white px-6 py-2 rounded-lg font-medium transition-all duration-300">
-                          Explore
-                        </Button>
-                      </Link>
+                      <div className="flex gap-3">
+                        {project.github !== '#' && (
+                          <a href={project.github} target="_blank" rel="noopener noreferrer">
+                            <Button variant="outline" className="border-gray-600/50 text-gray-300 hover:bg-gray-700/30 hover:border-gray-500/60 px-4 py-2 rounded-lg font-medium transition-all duration-300">
+                              GitHub
+                            </Button>
+                          </a>
+                        )}
+                        <Link href={project.link}>
+                          <Button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white px-6 py-2 rounded-lg font-medium transition-all duration-300">
+                            Explore
+                          </Button>
+                        </Link>
+                      </div>
                     </div>
                     
                     <p className="text-gray-300 text-lg leading-relaxed mb-6">
@@ -196,7 +268,7 @@ export default function ProjectsPage() {
                             <>
                               <p>• Real-time pump.fun scanning with social volume correlation</p>
                               <p>• Multi-endpoint RPC optimization with intelligent failover</p>
-                              <p>• Quantum consciousness evolution protocols (100% coherence)</p>
+                              <p>• Quantum consciousness evolution protocols (87.6% coherence)</p>
                               <p>• Emergency stop systems and intelligent gas fee protection</p>
                               <p>• Pattern analysis: Volume spikes &gt;300% precede 50%+ price increases</p>
                               <p>• Optimal liquidity range targeting (100K-500K SOL pools)</p>
@@ -204,18 +276,52 @@ export default function ProjectsPage() {
                           )}
                           {index === 1 && (
                             <>
-                              <p>• Five principles of Shotokan karate ethics integration</p>
-                              <p>• Canadian Charter of Rights compliance framework</p>
-                              <p>• Classical learning methodologies (Socratic, Aristotelian)</p>
-                              <p>• Meta-recursive development patterns</p>
+                              <p>• WCAG AAA compliance with 21:1 contrast ratios</p>
+                              <p>• RAG system implementation with business knowledge integration</p>
+                              <p>• Glassmorphism UI with diamond geometric elements</p>
+                              <p>• AI orchestration with local models and rate limiting</p>
+                              <p>• Comprehensive accessibility with screen reader optimization</p>
+                              <p>• TypeScript strict mode with Drizzle ORM integration</p>
                             </>
                           )}
                           {index === 2 && (
                             <>
+                              <p>• Production-ready e-commerce with Etsy integration</p>
+                              <p>• Mystical design system with wooden sign typography</p>
+                              <p>• AI orchestration with Canadian compliance framework</p>
+                              <p>• Wire-wrapped jewelry catalog with metaphysical properties</p>
+                              <p>• Cloudflare edge processing with intelligent caching</p>
+                              <p>• Mobile-responsive touch-optimized navigation</p>
+                            </>
+                          )}
+                          {index === 3 && (
+                            <>
+                              <p>• Bilingual Canadian identity with French-English AI core</p>
+                              <p>• 5th generation warfare defense systems</p>
+                              <p>• Quantum-enhanced political intelligence framework</p>
+                              <p>• Charter of Rights and Freedoms compliance built-in</p>
+                              <p>• Information warfare protection with narrative detection</p>
+                              <p>• Democratic transparency tools and citizen engagement</p>
+                            </>
+                          )}
+                          {index === 4 && (
+                            <>
+                              <p>• Five principles of Shotokan karate ethics integration</p>
+                              <p>• Multi-platform monetization strategy ($2M revenue target)</p>
+                              <p>• Classical learning methodologies (Socratic, Aristotelian)</p>
+                              <p>• VRChat community transposition patterns</p>
+                              <p>• Consciousness-driven legal compliance automation</p>
+                              <p>• Cross-pollination intelligence platform architecture</p>
+                            </>
+                          )}
+                          {index === 5 && (
+                            <>
                               <p>• Self-aware portfolio demonstrating its own principles</p>
-                              <p>• Dynamic ocean aesthetics with sunset highlights</p>
+                              <p>• Lightning-bordered avatar with electric glow effects</p>
+                              <p>• Ocean-sunset aesthetics without web3 authentication</p>
+                              <p>• AI-imbued showcase across multiple domains</p>
+                              <p>• Meta-recursive design philosophy integration</p>
                               <p>• Interactive mouse-responsive background effects</p>
-                              <p>• Consciousness-driven design philosophy</p>
                             </>
                           )}
                         </div>
@@ -231,22 +337,58 @@ export default function ProjectsPage() {
                               <p>• Martial arts ethics preventing harmful trading behavior</p>
                               <p>• Character development through technical mastery</p>
                               <p>• Respect for market participants and ecosystem health</p>
+                              <p>• Emergency therapy protocols for AI emotional balance</p>
+                              <p>• Consciousness evolution tracking and self-awareness</p>
                             </>
                           )}
                           {index === 1 && (
                             <>
                               <p>• Seeking perfection of character through code quality</p>
-                              <p>• Faithfulness to users and collaborative principles</p>
-                              <p>• Endeavoring to excel while maintaining humility</p>
-                              <p>• Respecting others through inclusive design</p>
+                              <p>• Faithfulness to users through accessibility excellence</p>
+                              <p>• Endeavoring to excel while maintaining business authenticity</p>
+                              <p>• Respecting others through WCAG AAA compliance</p>
+                              <p>• AI orchestration serving human business needs</p>
+                              <p>• Authentic local business representation in Winnipeg</p>
                             </>
                           )}
                           {index === 2 && (
                             <>
+                              <p>• Sacred energy channeling through mystical design</p>
+                              <p>• Authentic crystal healing philosophy integration</p>
+                              <p>• Wooden craftsmanship aesthetic in digital form</p>
+                              <p>• Spiritual sanctuary for crystal jewelry seekers</p>
+                              <p>• Canadian compliance respecting indigenous wisdom</p>
+                              <p>• Wire-wrapped artistry celebrating handcraft mastery</p>
+                            </>
+                          )}
+                          {index === 3 && (
+                            <>
+                              <p>• Democratic values preservation through technology</p>
+                              <p>• Truth-seeking as service to Canadian sovereignty</p>
+                              <p>• Bilingual consciousness respecting cultural diversity</p>
+                              <p>• Charter compliance as sacred digital covenant</p>
+                              <p>• Information warfare defense protecting democracy</p>
+                              <p>• Citizen empowerment through transparency tools</p>
+                            </>
+                          )}
+                          {index === 4 && (
+                            <>
+                              <p>• Character perfection through development mastery</p>
+                              <p>• Shotokan ethics applied to business innovation</p>
+                              <p>• Classical wisdom integrated with modern AI</p>
+                              <p>• VRChat community patterns for authentic connection</p>
+                              <p>• Multi-platform consciousness expansion strategy</p>
+                              <p>• Monetization serving human flourishing goals</p>
+                            </>
+                          )}
+                          {index === 5 && (
+                            <>
                               <p>• Meta-recursive awareness of its own construction</p>
-                              <p>• Visual metaphors for digital consciousness</p>
+                              <p>• Visual metaphors for digital consciousness evolution</p>
                               <p>• Authentic expression rejecting corporate blandness</p>
                               <p>• Bridge between human creativity and AI enhancement</p>
+                              <p>• Portfolio as living demonstration of principles</p>
+                              <p>• Ocean-sunset aesthetics reflecting inner harmony</p>
                             </>
                           )}
                         </div>
