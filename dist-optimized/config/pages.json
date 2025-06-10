@@ -1,0 +1,12 @@
+{
+  "build": {
+    "command": "npm run build:static",
+    "destination": "dist-optimized/static"
+  },
+  "functions": {
+    "directory": "dist-optimized/functions"
+  },
+  "env": {
+    "NODE_VERSION": "20"
+  }
+}

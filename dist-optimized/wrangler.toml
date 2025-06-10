@@ -1,0 +1,7 @@
+name = "quantum-ai-trading-platform"
+main = "workers/ai-orchestrator.js"
+compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
+vars = {"ENVIRONMENT":"production","PORTFOLIO_DOMAIN":"reverb256.ca","TRADER_DOMAIN":"trader.reverb256.ca","REPLIT_BACKEND":"https://workspace.snyper256.repl.co"}
+kv_namespaces = [{"binding":"AI_TRADING_CACHE","id":"cache-namespace","preview_id":"cache-preview"}]
+routes = [{"pattern":"reverb256.ca/*","zone_name":"reverb256.ca"},{"pattern":"trader.reverb256.ca/*","zone_name":"reverb256.ca"}]
