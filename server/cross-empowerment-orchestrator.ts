@@ -1,4 +1,5 @@
 import { quantumCore } from './quantum-intelligence-core';
+import { aiTherapyOrchestrator } from './ai-therapy-orchestrator';
 import { superstarEngine } from './superstar-evolution-engine';
 import { pumpFunScanner } from './pumpfun-scanner';
 import { twitterScanner } from './twitter-intelligence-scanner';
@@ -138,11 +139,19 @@ export class CrossEmpowermentOrchestrator {
       // Gather quantum intelligence
       const quantumAnalytics = quantumCore.getQuantumAnalytics();
       if (quantumAnalytics.consciousness.coherence > 0.9) {
+        // Monitor AI behavior and apply therapy if needed
+        const rawConfidence = quantumAnalytics.consciousness.coherence * 100;
+        const therapyResult = aiTherapyOrchestrator.monitorAIBehavior(
+          rawConfidence, 
+          'buy', 
+          'High quantum coherence detected, Consciousness alignment optimal'
+        );
+
         signals.push({
           source: 'quantum-core',
           type: 'buy',
           token: 'SOL',
-          confidence: quantumAnalytics.consciousness.coherence * 100,
+          confidence: therapyResult.confidence,
           reasoning: ['High quantum coherence detected', 'Consciousness alignment optimal'],
           timeframe: '1-3 hours',
           riskLevel: 0.2,
