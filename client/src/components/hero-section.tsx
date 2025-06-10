@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
-// Removed broken asset import - using icon instead
 import EnhancedConsole from './enhanced-console';
 import { ReactiveSection, AdaptiveText, SmartButton } from './smart-elements';
-// Using direct path for profile image
 
 export default function HeroSection() {
   const [showConsole, setShowConsole] = useState(false);
@@ -94,13 +92,99 @@ export default function HeroSection() {
               </div>
             </div>
 
-            {/* Portrait Container */}
+            {/* Optimized Portrait Container */}
             <div className="relative flex items-center justify-center">
-              <div className="relative">
-                <div className="w-40 h-40 md:w-52 md:h-52 rounded-full bg-gradient-to-br from-cyan-400/20 via-blue-500/30 to-cyan-600/40 border-4 border-cyan-300/60 shadow-2xl shadow-cyan-400/40 flex items-center justify-center">
-                  <div className="text-6xl md:text-8xl text-cyan-300">R</div>
+              <div className="relative group">
+                {/* Outer holographic ring */}
+                <div className="absolute -inset-4 rounded-full bg-gradient-to-r from-cyan-400/30 via-blue-500/40 to-purple-500/30 p-1 animate-pulse">
+                  <div className="w-48 h-48 md:w-60 md:h-60 rounded-full bg-black/90"></div>
                 </div>
-                <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-cyan-400/20 via-transparent to-slate-400/20 pointer-events-none"></div>
+                
+                {/* Main portrait container */}
+                <div className="relative w-40 h-40 md:w-52 md:h-52 rounded-full overflow-hidden border-4 border-cyan-300/80 shadow-2xl shadow-cyan-400/50 group-hover:shadow-cyan-400/70 transition-all duration-300">
+                  {/* Optimized portrait image with advanced filtering */}
+                  <img 
+                    src="/attached_assets/image_1749533308359.png" 
+                    alt="Reverb - Consciousness Architect" 
+                    className="w-full h-full object-cover object-center group-hover:scale-110 transition-all duration-700 filter brightness-105 contrast-110 saturate-110 hue-rotate-15"
+                    loading="eager"
+                    decoding="async"
+                    style={{
+                      imageRendering: 'crisp-edges',
+                      filter: 'brightness(1.05) contrast(1.1) saturate(1.1) hue-rotate(15deg) drop-shadow(0 0 8px rgba(6, 182, 212, 0.4))'
+                    } as React.CSSProperties}
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = 'none';
+                      // Show fallback design instead
+                      const fallback = target.parentElement?.querySelector('.fallback-avatar');
+                      if (fallback) {
+                        (fallback as HTMLElement).style.display = 'flex';
+                      }
+                    }}
+                  />
+                  
+                  {/* Fallback avatar design */}
+                  <div className="fallback-avatar hidden w-full h-full items-center justify-center bg-gradient-to-br from-cyan-500/30 via-blue-600/40 to-purple-600/30">
+                    <div className="text-4xl md:text-6xl font-bold text-cyan-300 drop-shadow-lg">R</div>
+                  </div>
+                  
+                  {/* Advanced cybernetic overlay effects */}
+                  <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400/25 via-transparent to-blue-500/25 mix-blend-overlay group-hover:opacity-75 transition-opacity duration-500"></div>
+                  <div className="absolute inset-0 bg-gradient-to-bl from-transparent via-purple-500/15 to-pink-500/25 mix-blend-screen group-hover:opacity-60 transition-opacity duration-500"></div>
+                  
+                  {/* Dynamic holographic scan lines */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-400/15 to-transparent animate-pulse opacity-70 group-hover:opacity-90 transition-opacity duration-300"></div>
+                  
+                  {/* Prismatic refraction effect */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-red-400/5 via-green-400/5 to-blue-400/5 mix-blend-color-dodge opacity-40 group-hover:opacity-60 transition-opacity duration-500"></div>
+                  
+                  {/* Quantum particle effects around edge */}
+                  <div className="absolute inset-0 rounded-full">
+                    {[...Array(8)].map((_, i) => (
+                      <div
+                        key={i}
+                        className="absolute w-2 h-2 bg-cyan-400 rounded-full animate-ping"
+                        style={{
+                          top: `${50 + 40 * Math.cos(i * Math.PI / 4)}%`,
+                          left: `${50 + 40 * Math.sin(i * Math.PI / 4)}%`,
+                          animationDelay: `${i * 0.2}s`,
+                          animationDuration: '2s'
+                        }}
+                      />
+                    ))}
+                  </div>
+                </div>
+                
+                {/* Status indicators */}
+                <div className="absolute -top-2 -right-2 w-6 h-6 bg-green-400 rounded-full border-2 border-black shadow-lg animate-pulse flex items-center justify-center">
+                  <div className="w-2 h-2 bg-green-200 rounded-full"></div>
+                </div>
+                
+                {/* Neural network connections */}
+                <div className="absolute inset-0 pointer-events-none">
+                  <svg className="w-full h-full" viewBox="0 0 200 200">
+                    <defs>
+                      <linearGradient id="neural-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="rgba(6, 182, 212, 0.6)" />
+                        <stop offset="100%" stopColor="rgba(168, 85, 247, 0.6)" />
+                      </linearGradient>
+                    </defs>
+                    {[...Array(6)].map((_, i) => (
+                      <line
+                        key={i}
+                        x1={100 + 60 * Math.cos(i * Math.PI / 3)}
+                        y1={100 + 60 * Math.sin(i * Math.PI / 3)}
+                        x2={100 + 80 * Math.cos(i * Math.PI / 3 + 0.5)}
+                        y2={100 + 80 * Math.sin(i * Math.PI / 3 + 0.5)}
+                        stroke="url(#neural-gradient)"
+                        strokeWidth="2"
+                        className="animate-pulse"
+                        style={{ animationDelay: `${i * 0.3}s` }}
+                      />
+                    ))}
+                  </svg>
+                </div>
               </div>
             </div>
           </div>
