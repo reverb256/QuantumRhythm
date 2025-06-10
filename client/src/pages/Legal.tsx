@@ -90,7 +90,7 @@ const categoryColors = {
 export default function Legal() {
   const [isRunningCheck, setIsRunningCheck] = useState(false);
 
-  const { data: dashboard, isLoading, refetch } = useQuery<ComplianceDashboard>({
+  const { data: dashboardResponse, isLoading, refetch } = useQuery<{data: ComplianceDashboard}>({
     queryKey: ['/api/legal/dashboard'],
     refetchInterval: 60000 // Refresh every minute
   });
@@ -98,6 +98,8 @@ export default function Legal() {
   const { data: rules } = useQuery<{data: any[]}>({
     queryKey: ['/api/legal/rules']
   });
+
+  const dashboard = dashboardResponse?.data;
 
   const runComplianceCheck = async () => {
     setIsRunningCheck(true);
@@ -156,7 +158,7 @@ export default function Legal() {
         </div>
 
         {/* Overview Cards */}
-        {dashboard && (
+        {dashboard?.overview && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <Card className="bg-black/40 border-cyan-400/30">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -219,7 +221,7 @@ export default function Legal() {
           </TabsList>
 
           <TabsContent value="overview" className="space-y-6">
-            {dashboard && (
+            {dashboard?.breakdown?.bySeverity && (
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Severity Breakdown */}
                 <Card className="bg-black/40 border-cyan-400/30">
@@ -251,7 +253,7 @@ export default function Legal() {
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-2">
-                      {dashboard.topRecommendations.slice(0, 5).map((recommendation, index) => (
+                      {dashboard?.topRecommendations?.slice(0, 5).map((recommendation, index) => (
                         <div key={index} className="text-sm text-gray-300 p-2 bg-black/20 rounded">
                           {recommendation}
                         </div>
@@ -264,7 +266,7 @@ export default function Legal() {
           </TabsContent>
 
           <TabsContent value="violations" className="space-y-6">
-            {dashboard && (
+            {dashboard?.recentViolations && (
               <Card className="bg-black/40 border-red-400/30">
                 <CardHeader>
                   <CardTitle className="text-red-300">Recent Violations</CardTitle>
@@ -307,7 +309,7 @@ export default function Legal() {
           </TabsContent>
 
           <TabsContent value="categories" className="space-y-6">
-            {dashboard && (
+            {dashboard?.breakdown?.byCategory && (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {Object.entries(dashboard.breakdown.byCategory).map(([category, count]) => {
                   const IconComponent = categoryIcons[category] || FileText;
@@ -331,7 +333,7 @@ export default function Legal() {
           </TabsContent>
 
           <TabsContent value="jurisdictions" className="space-y-6">
-            {dashboard && (
+            {dashboard?.breakdown?.byJurisdiction && (
               <Card className="bg-black/40 border-cyan-400/30">
                 <CardHeader>
                   <CardTitle className="text-cyan-300">Violations by Jurisdiction</CardTitle>
