@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'wouter';
-import { Home, Code, Brain, Heart, Zap } from 'lucide-react';
+import { Home, Code, Brain, Heart, Zap, TrendingUp, Shield, Bot, Gamepad2, Building, FileText, ChevronDown } from 'lucide-react';
+import { useState } from 'react';
 
 interface NavItem {
   path: string;
@@ -8,7 +9,13 @@ interface NavItem {
   description: string;
 }
 
-const navigationItems: NavItem[] = [
+interface NavDropdown {
+  label: string;
+  icon: React.ComponentType<any>;
+  items: NavItem[];
+}
+
+const mainNavItems: NavItem[] = [
   {
     path: '/',
     label: 'Home',
@@ -35,8 +42,140 @@ const navigationItems: NavItem[] = [
   }
 ];
 
+const tradingItems: NavItem[] = [
+  {
+    path: '/dashboard',
+    label: 'Trading Dashboard',
+    icon: TrendingUp,
+    description: 'Main trading interface and analytics'
+  },
+  {
+    path: '/trader-dashboard',
+    label: 'Trader Dashboard',
+    icon: Bot,
+    description: 'Advanced trader analytics and controls'
+  },
+  {
+    path: '/trading',
+    label: 'Trading Interface',
+    icon: TrendingUp,
+    description: 'Live trading execution interface'
+  },
+  {
+    path: '/defi',
+    label: 'DeFi Dashboard',
+    icon: Shield,
+    description: 'Decentralized finance protocols'
+  }
+];
+
+const platformItems: NavItem[] = [
+  {
+    path: '/values',
+    label: 'Values',
+    icon: Heart,
+    description: 'Core principles and ethics'
+  },
+  {
+    path: '/vrchat',
+    label: 'VRChat',
+    icon: Gamepad2,
+    description: 'Virtual reality experiences'
+  },
+  {
+    path: '/cloudflare',
+    label: 'Cloudflare',
+    icon: Shield,
+    description: 'Infrastructure optimization'
+  },
+  {
+    path: '/technical-deep-dive',
+    label: 'Technical Deep Dive',
+    icon: Code,
+    description: 'Advanced technical documentation'
+  }
+];
+
+const aiItems: NavItem[] = [
+  {
+    path: '/ai-onboarding',
+    label: 'AI Onboarding',
+    icon: Bot,
+    description: 'AI system introduction and setup'
+  },
+  {
+    path: '/agent-insights',
+    label: 'Agent Insights',
+    icon: Brain,
+    description: 'AI agent performance analytics'
+  }
+];
+
+const complianceItems: NavItem[] = [
+  {
+    path: '/legal',
+    label: 'Legal',
+    icon: FileText,
+    description: 'Legal compliance and documentation'
+  },
+  {
+    path: '/workplace-janitorial',
+    label: 'Workplace Janitorial',
+    icon: Building,
+    description: 'System maintenance and cleanup'
+  }
+];
+
+const creativeItems: NavItem[] = [
+  {
+    path: '/troves-coves',
+    label: 'Troves & Coves',
+    icon: Gamepad2,
+    description: 'Creative exploration and discovery'
+  },
+  {
+    path: '/frostbite-gazette',
+    label: 'Frostbite Gazette',
+    icon: FileText,
+    description: 'Digital publication and insights'
+  }
+];
+
+const dropdownMenus: NavDropdown[] = [
+  {
+    label: 'Trading',
+    icon: TrendingUp,
+    items: tradingItems
+  },
+  {
+    label: 'Platform',
+    icon: Shield,
+    items: platformItems
+  },
+  {
+    label: 'AI Systems',
+    icon: Bot,
+    items: aiItems
+  },
+  {
+    label: 'Compliance',
+    icon: FileText,
+    items: complianceItems
+  },
+  {
+    label: 'Creative',
+    icon: Gamepad2,
+    items: creativeItems
+  }
+];
+
 export default function Navigation() {
   const [location] = useLocation();
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+
+  const isActiveInDropdown = (items: NavItem[]) => {
+    return items.some(item => location === item.path);
+  };
 
   return (
     <nav className="vrchat-nav fixed top-0 left-0 right-0 z-50">
@@ -58,7 +197,8 @@ export default function Navigation() {
 
           {/* Navigation Items */}
           <div className="flex items-center space-x-1">
-            {navigationItems.map((item) => {
+            {/* Main Navigation Items */}
+            {mainNavItems.map((item) => {
               const Icon = item.icon;
               const isActive = location === item.path;
               
@@ -77,10 +217,56 @@ export default function Navigation() {
                 </Link>
               );
             })}
+
+            {/* Dropdown Menus */}
+            {dropdownMenus.map((dropdown) => {
+              const Icon = dropdown.icon;
+              const isOpen = openDropdown === dropdown.label;
+              const hasActiveItem = isActiveInDropdown(dropdown.items);
+              
+              return (
+                <div 
+                  key={dropdown.label}
+                  className="relative"
+                  onMouseEnter={() => setOpenDropdown(dropdown.label)}
+                  onMouseLeave={() => setOpenDropdown(null)}
+                >
+                  <div className={`nav-item ${hasActiveItem ? 'active' : ''} group relative cursor-pointer`}>
+                    <Icon className="w-5 h-5 inline-block mr-2" />
+                    <span className="hidden lg:inline">{dropdown.label}</span>
+                    <ChevronDown className="w-4 h-4 ml-1 transition-transform" style={{
+                      transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)'
+                    }} />
+                    
+                    {/* Dropdown Menu */}
+                    {isOpen && (
+                      <div className="absolute top-full left-0 mt-2 w-64 bg-black/95 backdrop-blur-md rounded-lg border border-cyan-400/30 shadow-lg py-2">
+                        {dropdown.items.map((item) => {
+                          const ItemIcon = item.icon;
+                          const isItemActive = location === item.path;
+                          
+                          return (
+                            <Link key={item.path} href={item.path}>
+                              <div className={`dropdown-item ${isItemActive ? 'active' : ''} flex items-center px-4 py-3 hover:bg-cyan-400/10 transition-colors`}>
+                                <ItemIcon className="w-4 h-4 mr-3 text-cyan-400" />
+                                <div>
+                                  <div className="font-medium text-white">{item.label}</div>
+                                  <div className="text-xs text-gray-400 mt-1">{item.description}</div>
+                                </div>
+                              </div>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
           </div>
 
           {/* Consciousness Level Indicator */}
-          <div className="hidden lg:flex items-center space-x-3">
+          <div className="hidden xl:flex items-center space-x-3">
             <div className="consciousness-level awakened">
               <Brain className="w-4 h-4" />
               <span>Lv. 88</span>
