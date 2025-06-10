@@ -765,7 +765,7 @@ export class LegalComplianceAgent {
     const hasQuantumResistantCrypto = this.systemHasComponent('quantum-resistant-crypto');
     const hasLegacyCrypto = this.systemHasComponent('legacy-crypto');
     
-    return hasQuantumResistantCrypto && !hasLegacyRisks();
+    return hasQuantumResistantCrypto && !this.hasLegacyRisks();
   }
 
   private async checkCarbonDisclosureCompliance(): Promise<boolean> {

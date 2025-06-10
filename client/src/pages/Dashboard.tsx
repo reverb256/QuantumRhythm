@@ -1,10 +1,15 @@
 import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Activity, Brain, TrendingUp, Zap } from "lucide-react";
+import { ArrowLeft, Activity, Brain, TrendingUp, Zap, Wallet } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
+import { useWallet } from "@/hooks/useWallet";
+import { Web3AuthStatus } from "@/components/web3-auth";
 
 export default function Dashboard() {
+  // Web3 authentication state
+  const { hasWallets, connected, publicKey } = useWallet();
+
   // Fetch trading agent status
   const { data: agentStatus } = useQuery({
     queryKey: ['/api/trading-agent/status'],
@@ -130,6 +135,33 @@ export default function Dashboard() {
               </p>
               <p className="text-sm text-gray-400">Recent trading signals</p>
             </div>
+
+            {/* Wallet Status - Only shows when Solana wallets detected */}
+            {hasWallets && (
+              <div className={`bg-black/40 backdrop-blur-xl rounded-xl p-6 border ${
+                connected ? 'border-green-400/20' : 'border-orange-400/20'
+              }`}>
+                <Wallet className={`w-8 h-8 mb-4 ${
+                  connected ? 'text-green-400' : 'text-orange-400'
+                }`} />
+                <h3 className={`text-lg font-semibold mb-2 ${
+                  connected ? 'text-green-300' : 'text-orange-300'
+                }`}>
+                  Wallet Status
+                </h3>
+                <p className={`text-2xl font-bold ${
+                  connected ? 'text-green-400' : 'text-orange-400'
+                }`}>
+                  {connected ? 'Connected' : 'Disconnected'}
+                </p>
+                <p className="text-sm text-gray-400">
+                  {connected && publicKey 
+                    ? `${publicKey.toString().slice(0, 8)}...${publicKey.toString().slice(-8)}`
+                    : 'No wallet connected'
+                  }
+                </p>
+              </div>
+            )}
           </motion.div>
 
           {/* VibeCoding Metrics Breakdown */}
