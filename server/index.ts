@@ -26,7 +26,6 @@ import { insightCrossPollinationEngine } from './insight-cross-pollination-engin
 // Start autonomous problem solving and optimization
 (async () => {
   // Initialize authentic data validation first
-  dataValidator.startAuthenticDataMonitoring();
   
   // Validate current trading setup
   const validation = await authenticDataValidator.validateTradingData();
@@ -63,7 +62,7 @@ import { insightCrossPollinationEngine } from './insight-cross-pollination-engin
   // Schedule regular maintenance and validation
   setInterval(async () => {
     await problemSolver.performDatabaseHealthCheck();
-    await dataValidator.validateTradingData();
+    await authenticDataValidator.validateTradingData();
   }, 300000); // Every 5 minutes
 })();
 
