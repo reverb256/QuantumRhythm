@@ -37,10 +37,17 @@ export function WalletConnector() {
 
   const connectMutation = useMutation({
     mutationFn: async (publicKey: string) => {
-      return apiRequest('/api/wallet/connect', {
+      const response = await fetch('/api/wallet/connect', {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({ publicKey, source: 'user_input' })
       });
+      if (!response.ok) {
+        throw new Error(await response.text());
+      }
+      return response.json();
     },
     onSuccess: () => {
       toast({
@@ -61,9 +68,16 @@ export function WalletConnector() {
 
   const disconnectMutation = useMutation({
     mutationFn: async () => {
-      return apiRequest('/api/wallet/disconnect', {
-        method: 'POST'
+      const response = await fetch('/api/wallet/disconnect', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        }
       });
+      if (!response.ok) {
+        throw new Error(await response.text());
+      }
+      return response.json();
     },
     onSuccess: () => {
       toast({

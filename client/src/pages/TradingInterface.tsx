@@ -6,7 +6,7 @@ import AdvancedTradingStats from '@/components/advanced-trading-stats';
 import { WalletConnector } from '@/components/wallet-connector';
 
 const TradingInterface: React.FC = () => {
-  const [activeView, setActiveView] = useState<'terminal' | 'deployment' | 'edge' | 'analytics'>('terminal');
+  const [activeView, setActiveView] = useState<'terminal' | 'deployment' | 'edge' | 'analytics' | 'wallet'>('terminal');
 
   return (
     <div className="min-h-screen bg-black">
@@ -64,6 +64,16 @@ const TradingInterface: React.FC = () => {
               >
                 📊 QUANTUM ANALYTICS
               </button>
+              <button
+                onClick={() => setActiveView('wallet')}
+                className={`px-4 py-2 rounded text-sm font-medium transition-all ${
+                  activeView === 'wallet'
+                    ? 'bg-green-400 text-black border border-green-400'
+                    : 'bg-black text-green-400 border border-green-400 border-opacity-50 hover:border-opacity-100'
+                }`}
+              >
+                💳 WALLET CONFIG
+              </button>
             </div>
           </div>
         </div>
@@ -81,6 +91,11 @@ const TradingInterface: React.FC = () => {
         {activeView === 'analytics' && (
           <div className="p-6">
             <AdvancedTradingStats />
+          </div>
+        )}
+        {activeView === 'wallet' && (
+          <div className="p-6">
+            <WalletConnector />
           </div>
         )}
       </div>
