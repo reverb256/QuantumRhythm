@@ -4,6 +4,42 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Mobile-First Responsive Optimizations */
+@layer base {
+  html {
+    /* Prevent zoom on iOS inputs */
+    -webkit-text-size-adjust: 100%;
+    /* Smooth scrolling */
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    /* Better touch scrolling on iOS */
+    -webkit-overflow-scrolling: touch;
+    /* Prevent pull-to-refresh */
+    overscroll-behavior-y: contain;
+  }
+  
+  /* Touch-friendly minimum sizes */
+  button, 
+  [role="button"],
+  input[type="submit"],
+  input[type="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Prevent iOS input zoom */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  textarea,
+  select {
+    font-size: 16px;
+  }
+}
+
 /* HDR Display Support */
 @media (dynamic-range: high) {
   :root {
@@ -2633,5 +2669,78 @@ section {
   .smooth-60fps {
     backface-visibility: hidden;
     perspective: 1000px;
+  }
+}
+
+/* Mobile Responsive Utilities */
+@layer utilities {
+  /* Mobile touch optimizations */
+  .touch-manipulation {
+    touch-action: manipulation;
+  }
+  
+  .touch-scroll {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+  
+  /* Mobile safe area handling */
+  .safe-area-inset {
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+  }
+  
+  .safe-area-top {
+    padding-top: max(1rem, env(safe-area-inset-top));
+  }
+  
+  .safe-area-bottom {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+  
+  /* Responsive text scaling */
+  .responsive-text-sm {
+    font-size: clamp(0.875rem, 2.5vw, 1rem);
+  }
+  
+  .responsive-text-base {
+    font-size: clamp(1rem, 3vw, 1.125rem);
+  }
+  
+  .responsive-text-lg {
+    font-size: clamp(1.125rem, 3.5vw, 1.25rem);
+  }
+  
+  .responsive-text-xl {
+    font-size: clamp(1.25rem, 4vw, 1.5rem);
+  }
+  
+  .responsive-text-2xl {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+  }
+  
+  .responsive-text-3xl {
+    font-size: clamp(2rem, 6vw, 3rem);
+  }
+  
+  /* Mobile grid utilities */
+  .mobile-grid-auto {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+  
+  .mobile-grid-cards {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  }
+
+  /* Performance optimizations for mobile */
+  .mobile-optimized {
+    transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+  
+  .mobile-smooth-scroll {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
   }
 }
