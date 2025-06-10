@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
 import EnhancedConsole from './enhanced-console';
 import { ReactiveSection, AdaptiveText, SmartButton } from './smart-elements';
+import userPortraitUrl from '@/assets/image_1749536178696.png';
 
 export default function HeroSection() {
   const [showConsole, setShowConsole] = useState(false);
@@ -104,15 +105,11 @@ export default function HeroSection() {
                 <div className="relative w-40 h-40 md:w-52 md:h-52 rounded-full overflow-hidden border-4 border-cyan-300/80 shadow-2xl shadow-cyan-400/50 group-hover:shadow-cyan-400/70 transition-all duration-300">
                   {/* Optimized portrait image with responsive loading */}
                   <img 
-                    src="/attached_assets/user-portrait-optimized.jpg"
+                    src={userPortraitUrl}
                     alt="Reverb - Consciousness Architect" 
                     className="w-full h-full object-cover object-center group-hover:scale-110 transition-all duration-700 filter brightness-105 contrast-110 saturate-110"
                     loading="eager"
                     decoding="async"
-                    onError={(e) => {
-                      // Fallback to original PNG if optimized version fails
-                      (e.target as HTMLImageElement).src = "/attached_assets/image_1749536178696.png";
-                    }}
                     style={{
                       imageRendering: 'crisp-edges',
                       filter: 'brightness(1.05) contrast(1.1) saturate(1.1) drop-shadow(0 0 8px rgba(6, 182, 212, 0.4))'
