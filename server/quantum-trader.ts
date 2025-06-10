@@ -4,6 +4,7 @@ import { eq, desc } from 'drizzle-orm';
 import { aiSystemReset } from './ai-system-reset';
 import RealTradeExecutor from './real-trade-executor';
 import { TradingPairValidator } from './trading-pair-validator.js';
+import { TradingPairDiscoveryService } from './trading-pair-discovery-service.js';
 
 interface TradeDecision {
   action: 'BUY' | 'SELL' | 'HOLD';
@@ -36,6 +37,8 @@ export class QuantumTrader {
   private liveTradingEnabled = true; // Enable live trading
   private tradingMode = 'live'; // Switch to live mode
   private tradeExecutor: RealTradeExecutor;
+  private pairValidator: TradingPairValidator;
+  private pairDiscovery: TradingPairDiscoveryService;
   
   // CORRECTED: Dynamic allocation system after 99.7% loss analysis
   private riskAllocationTiers = {
@@ -68,6 +71,7 @@ export class QuantumTrader {
   constructor(private agentId: string) {
     this.tradeExecutor = new RealTradeExecutor();
     this.pairValidator = new TradingPairValidator();
+    this.pairDiscovery = new TradingPairDiscoveryService();
     this.initializeAgent();
     this.startQuantumTrading();
     this.startLearningEngine();
@@ -743,6 +747,25 @@ export class QuantumTrader {
   }
 
   private async performTrade(decision: TradeDecision) {
+    // Validate trading pair to prevent same-token trades
+    const pairValidation = this.pairValidator.validateAndFixTradingPair(decision.action, decision.token);
+    
+    if (!pairValidation.isValid) {
+      console.log(`🚫 INVALID TRADING PAIR: ${pairValidation.reason || 'Same-token trade detected'}`);
+      
+      // Use the fallback pair from validator
+      if (pairValidation.fromToken && pairValidation.toToken) {
+        console.log(`🔄 Using fallback pair: ${pairValidation.fromToken} → ${pairValidation.toToken}`);
+        decision.token = decision.action === 'BUY' ? pairValidation.toToken : pairValidation.fromToken;
+      } else {
+        return {
+          success: false,
+          error: 'Invalid trading pair: Cannot trade token with itself',
+          reason: pairValidation.reason
+        };
+      }
+    }
+    
     // Pre-execution gas fee validation
     const estimatedGasFee = this.estimateGasFee(decision);
     const totalCost = decision.amount + estimatedGasFee;
