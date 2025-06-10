@@ -63,6 +63,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   // Mount analytics routes
   app.use('/api', analyticsRouter);
+  
+  // Mount parameter insights routes
+  app.use('/api/parameter-insights', parameterInsightsRouter);
 
   // Cloudflare AI optimization endpoints
   app.get('/api/cloudflare/status', async (req, res) => {
