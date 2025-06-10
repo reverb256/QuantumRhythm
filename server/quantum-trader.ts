@@ -65,6 +65,7 @@ export class QuantumTrader {
     this.initializeAgent();
     this.startQuantumTrading();
     this.startLearningEngine();
+
   }
 
   private async initializeAgent() {
@@ -232,7 +233,7 @@ export class QuantumTrader {
     
     // Conservative token selection after learning from failures
     const safeTokens = ['SOL', 'BONK', 'JUP', 'ORCA', 'RAY'];
-    const selectedToken = this.selectConservativeToken(safeTokens, marketTrend, defiOpportunity);
+    const selectedToken = this.selectToken(safeTokens, marketTrend);
     
     // Action determination with leverage and perpetuals
     let action: 'BUY' | 'SELL' | 'HOLD' = 'BUY'; // Default to aggressive buying
@@ -506,7 +507,7 @@ export class QuantumTrader {
     // Gas-safe position sizing
     const maxPosition = portfolioBalance * riskTolerance;
     const baseAmount = maxPosition * confidence * (this.unhingedMode ? 1.8 : 1.0);
-    const cappedAmount = Math.min(baseAmount, portfolioBalance * 0.25); // Max 25% per trade
+    const cappedAmount = Math.min(baseAmount, portfolioBalance * 0.01); // FIXED: Max 1% per trade after 99.7% loss
     
     // Apply gas fee protection
     const safeAmount = this.calculateSafePositionSize(cappedAmount);
