@@ -1,5 +1,5 @@
-import React from 'react';
-import Navigation from '@/components/navigation';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { SmartTooltip } from '@/components/TooltipSystem';
 import { 
   useConsciousnessReactiveSystem, 

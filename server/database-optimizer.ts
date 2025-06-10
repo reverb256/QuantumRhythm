@@ -3,7 +3,8 @@
  * Database Optimizer - Fixes UUID parsing and connection issues
  */
 
-import { Pool } from 'pg';
+import pg from 'pg';
+const { Pool } = pg;
 
 class DatabaseOptimizer {
   private pool: Pool;

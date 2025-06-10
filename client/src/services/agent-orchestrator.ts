@@ -424,7 +424,7 @@ export class AgentOrchestrator {
       creator: Math.random() * 0.4 + 0.3,
       sage: Math.random() * 0.4 + 0.3,
       navigator: Math.random() * 0.4 + 0.3
-    };
+    } as Record<AgentType, number>;
   }
 
   private getAgentSpecializations(type: AgentType): string[] {
