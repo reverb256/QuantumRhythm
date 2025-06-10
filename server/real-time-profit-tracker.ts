@@ -62,15 +62,35 @@ export class RealTimeProfitTracker {
       let lastTxTime = 0;
       let firstTxTime = Date.now();
       
-      // Analyze recent transactions (last 100 for performance)
-      const recentSignatures = signatures.slice(0, 100);
+      // Analyze recent transactions with parallel processing
+      const recentSignatures = signatures.slice(0, 20); // Limit for efficiency
+      const batchSize = 5;
       
-      for (const sig of recentSignatures) {
-        try {
-          const tx = await this.connection.getParsedTransaction(sig.signature, {
-            maxSupportedTransactionVersion: 0
-          });
-          
+      // Process transactions in parallel batches
+      for (let i = 0; i < recentSignatures.length; i += batchSize) {
+        const batch = recentSignatures.slice(i, i + batchSize);
+        
+        const batchPromises = batch.map(async (sig) => {
+          try {
+            return await intelligentRateLimiter.makeRequest(
+              'solana-rpc',
+              async (url) => {
+                const conn = new Connection(url, 'confirmed');
+                return await conn.getParsedTransaction(sig.signature, {
+                  maxSupportedTransactionVersion: 0
+                });
+              }
+            );
+          } catch (error) {
+            return null;
+          }
+        });
+        
+        const batchResults = await Promise.all(batchPromises);
+        
+        // Process batch results
+        batch.forEach((sig, index) => {
+          const tx = batchResults[index];
           if (tx && tx.meta) {
             const fee = tx.meta.fee / 1_000_000_000;
             totalFees += fee;
@@ -95,9 +115,11 @@ export class RealTimeProfitTracker {
               }
             }
           }
-        } catch (error) {
-          // Skip failed transaction analysis
-          continue;
+        });
+        
+        // Small delay between batches to respect rate limits
+        if (i + batchSize < recentSignatures.length) {
+          await new Promise(resolve => setTimeout(resolve, 100));
         }
       }
       
