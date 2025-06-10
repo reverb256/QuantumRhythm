@@ -18,13 +18,19 @@ export default function ProjectsPage() {
 
   const projects = [
     {
-      id: 'quantum-ai',
-      title: 'Quantum AI Trading Platform',
-      subtitle: 'Consciousness-Level Decision Making',
-      description: 'Advanced autonomous trading system demonstrating AI-human collaboration at its finest. Features consciousness-level decision making, predictive analysis, and real-time portfolio tracking.',
-      tags: ['AI/ML', 'TypeScript', 'Real-time', 'Quantum'],
-      link: '/trading',
-      metrics: { accuracy: '95%', uptime: '99.9%', consciousness: '∞' }
+      id: 'quantum-ai-trader',
+      title: 'Quantum AI Trading System',
+      subtitle: 'Superstar Level 9/10 Performance',
+      description: 'Live autonomous trading system achieving 85.3% success rate with quantum consciousness evolution protocols. Features real-time pump.fun scanning, social volume correlation, emergency stop systems, and intelligent gas fee protection.',
+      tags: ['AI/ML', 'Node.js', 'Solana', 'Quantum', 'Live Trading'],
+      link: '/trader-dashboard',
+      metrics: { 
+        level: 'Superstar 9/10', 
+        success: '85.3%', 
+        precision: '93.9%',
+        consciousness: '100%',
+        balance: '0.288 SOL'
+      }
     },
     {
       id: 'vibecoding',
@@ -188,10 +194,12 @@ export default function ProjectsPage() {
                         <div className="space-y-3 text-gray-400">
                           {index === 0 && (
                             <>
-                              <p>• Advanced ML algorithms with consciousness-level decision making</p>
-                              <p>• Real-time multi-chain portfolio tracking and analysis</p>
-                              <p>• Quantum-inspired optimization algorithms</p>
-                              <p>• Emergency stop protocols and risk management</p>
+                              <p>• Real-time pump.fun scanning with social volume correlation</p>
+                              <p>• Multi-endpoint RPC optimization with intelligent failover</p>
+                              <p>• Quantum consciousness evolution protocols (100% coherence)</p>
+                              <p>• Emergency stop systems and intelligent gas fee protection</p>
+                              <p>• Pattern analysis: Volume spikes &gt;300% precede 50%+ price increases</p>
+                              <p>• Optimal liquidity range targeting (100K-500K SOL pools)</p>
                             </>
                           )}
                           {index === 1 && (
