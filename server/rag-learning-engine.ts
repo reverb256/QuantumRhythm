@@ -43,23 +43,33 @@ export class RAGLearningEngine {
 
   constructor() {
     this.initializeKnowledgeBase();
-    this.analyzeHistoricalFailures();
+    this.loadProvenTradingPatterns();
     console.log('🧠 RAG Learning Engine initialized - analyzing failures to improve performance');
   }
 
   private async initializeKnowledgeBase() {
-    // Extract patterns from trading history
-    const recentTrades = await db
-      .select()
-      .from(tradingSignals)
-      .orderBy(desc(tradingSignals.timestamp))
-      .limit(100);
+    try {
+      // Extract patterns from trading history - graceful fallback if DB fails
+      let recentTrades = [];
+      try {
+        recentTrades = await db
+          .select()
+          .from(tradingSignals)
+          .orderBy(desc(tradingSignals.createdAt))
+          .limit(100);
+      } catch (dbError) {
+        console.log('⚠️ Database unavailable, using built-in knowledge patterns');
+      }
 
-    // Analyze the catastrophic loss
-    this.analyzeCurrentFailure();
-    
-    // Load proven patterns from external sources
-    this.loadProvenTradingPatterns();
+      // Analyze the catastrophic loss
+      this.analyzeCurrentFailure();
+      
+      // Load proven patterns from external sources
+      this.loadProvenTradingPatterns();
+    } catch (error) {
+      console.log('⚠️ RAG initialization error, using fallback patterns');
+      this.loadProvenTradingPatterns();
+    }
   }
 
   private analyzeCurrentFailure() {
