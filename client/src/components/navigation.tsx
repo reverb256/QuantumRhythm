@@ -1,14 +1,8 @@
-import { useState, useEffect } from "react";
-import { Link, useLocation } from "wouter";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Terminal, Shield, Brain, Zap, TrendingUp, Bot, Cog, Scale, DollarSign, Cloud, Code, Rocket } from 'lucide-react';
-import { Web3AuthButton } from "@/components/web3-auth";
+import React from 'react';
+import { Link, useLocation } from 'wouter';
 
 export default function Navigation() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const [location] = useLocation();
-  const [isConsoleOpen, setIsConsoleOpen] = useState(false);
 
   useEffect(() => {
     const handleConsoleStateChange = (event: CustomEvent) => {

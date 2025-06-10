@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
+import Navigation from '@/components/Navigation';
 import reverbPortraitUrl from '@assets/image_1749583181474.png';
 
 export default function HomePage() {
@@ -27,6 +28,8 @@ export default function HomePage() {
 
   return (
     <main className="min-h-screen relative overflow-hidden">
+      <Navigation />
+      
       {/* Dynamic Ocean Background System */}
       <div className="fixed inset-0 z-0">
         {/* Base ocean gradient */}
