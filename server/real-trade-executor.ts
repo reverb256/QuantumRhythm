@@ -28,6 +28,10 @@ export class RealTradeExecutor {
     const walletAddress = process.env.WALLET_PUBLIC_KEY;
     const privateKey = process.env.WALLET_PRIVATE_KEY;
     
+    console.log('🔧 RealTradeExecutor initialization...');
+    console.log(`WALLET_PUBLIC_KEY: ${walletAddress ? 'SET' : 'NOT SET'}`);
+    console.log(`WALLET_PRIVATE_KEY: ${privateKey ? 'SET' : 'NOT SET'}`);
+    
     if (!walletAddress) {
       throw new Error('WALLET_PUBLIC_KEY not configured');
     }
@@ -35,23 +39,51 @@ export class RealTradeExecutor {
     this.publicKey = new PublicKey(walletAddress);
     
     if (privateKey && privateKey.trim() !== '' && !privateKey.startsWith('$')) {
+      console.log(`🔑 Private key provided: ${privateKey.substring(0, 10)}... (length: ${privateKey.length})`);
       try {
-        // Decode the private key if provided
-        const decoded = bs58.decode(privateKey);
+        let decoded: Uint8Array;
+        
+        // Try different private key formats
+        if (privateKey.length === 128) {
+          // Hex format (64 bytes as hex string)
+          decoded = new Uint8Array(Buffer.from(privateKey, 'hex'));
+        } else if (privateKey.length === 88) {
+          // Standard base58 format
+          decoded = bs58.decode(privateKey);
+        } else if (privateKey.startsWith('[') && privateKey.endsWith(']')) {
+          // Array format like "[1,2,3,...]"
+          const arrayData = JSON.parse(privateKey);
+          decoded = new Uint8Array(arrayData);
+        } else {
+          // Try base58 first, then fallback to other formats
+          try {
+            decoded = bs58.decode(privateKey);
+          } catch {
+            // Try as comma-separated numbers
+            const numbers = privateKey.split(',').map(n => parseInt(n.trim()));
+            decoded = new Uint8Array(numbers);
+          }
+        }
+        
         this.walletKeypair = Keypair.fromSecretKey(decoded);
         this.enableLiveTrading = true;
-        console.log('🔑 Trading wallet configured for live execution');
+        console.log('✅ Trading wallet configured for live execution');
         console.log(`🎯 Live trading ENABLED for wallet: ${this.publicKey.toString()}`);
       } catch (error) {
-        console.log('⚠️ Invalid private key format - live trading disabled');
+        console.log('❌ Invalid private key format - live trading disabled');
         console.log(`Error: ${error}`);
+        console.log(`Key format help: Expected base58 (88 chars), hex (128 chars), or array format`);
         this.enableLiveTrading = false;
       }
     } else {
-      console.log('⚠️ No private key configured - simulation mode only');
-      console.log(`Private key status: ${privateKey ? 'placeholder detected' : 'not provided'}`);
+      console.log('❌ No valid private key configured - simulation mode only');
+      if (privateKey) {
+        console.log(`Private key status: starts with '$': ${privateKey.startsWith('$')}, length: ${privateKey.length}`);
+      }
       this.enableLiveTrading = false;
     }
+    
+    console.log(`🚀 RealTradeExecutor ready - Live trading: ${this.enableLiveTrading ? 'ENABLED' : 'DISABLED'}`);
   }
 
   async executeSwap(
