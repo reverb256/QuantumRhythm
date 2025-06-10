@@ -164,12 +164,12 @@ const AdvancedTradingStats: React.FC = () => {
       <div className="bg-gray-900 border border-green-400 rounded p-4">
         <div className="flex justify-between items-center">
           <span className="text-green-400 font-mono text-sm">REAL-TIME P&L:</span>
-          <span className={`font-mono text-lg ${getColorForValue(realtimePnL?.total || 0)}`}>
-            {realtimePnL ? `${formatNumber(realtimePnL.total)} SOL` : 'Loading...'}
+          <span className={`font-mono text-lg ${getColorForValue((realtimePnL as any)?.total || 0)}`}>
+            {realtimePnL ? `${formatNumber((realtimePnL as any).total)} SOL` : 'Loading...'}
           </span>
         </div>
         <div className="text-xs text-green-400 mt-1 opacity-70">
-          Last Trade: {realtimePnL?.lastTrade ? new Date(realtimePnL.lastTrade).toLocaleTimeString() : 'N/A'}
+          Last Trade: {(realtimePnL as any)?.lastTrade ? new Date((realtimePnL as any).lastTrade).toLocaleTimeString() : 'N/A'}
         </div>
       </div>
 
@@ -258,7 +258,7 @@ const AdvancedTradingStats: React.FC = () => {
             <div className="bg-gray-900 border border-green-400 rounded p-4">
               <h3 className="text-green-400 font-mono mb-4">CUMULATIVE P&L</h3>
               <ResponsiveContainer width="100%" height={300}>
-                <AreaChart data={realtimePnL?.history || []}>
+                <AreaChart data={(realtimePnL as any)?.history || []}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#22c55e40" />
                   <XAxis dataKey="timestamp" stroke="#22c55e" />
                   <YAxis stroke="#22c55e" />
@@ -376,7 +376,7 @@ const AdvancedTradingStats: React.FC = () => {
             <div className="bg-gray-900 border border-green-400 rounded p-4">
               <h3 className="text-green-400 font-mono mb-4">VOLUME PROFILE</h3>
               <ResponsiveContainer width="100%" height={250}>
-                <BarChart data={marketInsights.volumeProfile} layout="verseXY">
+                <BarChart data={marketInsights.volumeProfile}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#22c55e40" />
                   <XAxis type="number" dataKey="volume" stroke="#22c55e" />
                   <YAxis type="category" dataKey="price" stroke="#22c55e" />

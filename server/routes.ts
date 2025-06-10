@@ -59,6 +59,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   // Mount legal compliance routes
   app.use('/api/legal', legalComplianceRouter);
+  
+  // Mount analytics routes
+  app.use('/api', analyticsRouter);
 
   // Cloudflare AI optimization endpoints
   app.get('/api/cloudflare/status', async (req, res) => {

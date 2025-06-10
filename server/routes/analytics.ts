@@ -13,12 +13,12 @@ const connection = new Connection(process.env.SOLANA_RPC_URL || 'https://api.mai
 
 // In-memory storage for analytics data
 let analyticsCache = {
-  performanceMetrics: null,
-  marketInsights: null,
-  riskMetrics: null,
-  tradingPatterns: null,
-  aiBehavior: null,
-  realtimePnL: null,
+  performanceMetrics: null as any,
+  marketInsights: null as any,
+  riskMetrics: null as any,
+  tradingPatterns: null as any,
+  aiBehavior: null as any,
+  realtimePnL: null as any,
   lastUpdate: 0
 };
 
