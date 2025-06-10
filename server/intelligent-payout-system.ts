@@ -27,7 +27,7 @@ export class IntelligentPayoutSystem {
   };
   
   private windfallThreshold = 10.0; // 10 SOL windfall threshold
-  private gasReserve = 5.0; // Always keep 5 SOL for gas
+  private gasReserve = 0.1; // Always keep 0.1 SOL for gas
   private lastPayoutTime = Date.now();
   private primaryWallet: string; // PAYOUT_TOKEN
   private exchangeWallet: string; // PAYOUT_TOKEN_B (exchange deposit)
