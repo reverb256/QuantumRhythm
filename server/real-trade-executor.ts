@@ -46,31 +46,64 @@ export class RealTradeExecutor {
         // Try different private key formats
         if (privateKey.length === 128) {
           // Hex format (64 bytes as hex string)
+          console.log('🔍 Trying hex format (128 chars)');
           decoded = new Uint8Array(Buffer.from(privateKey, 'hex'));
         } else if (privateKey.length === 88) {
           // Standard base58 format
+          console.log('🔍 Trying standard base58 format (88 chars)');
           decoded = bs58.decode(privateKey);
         } else if (privateKey.startsWith('[') && privateKey.endsWith(']')) {
           // Array format like "[1,2,3,...]"
+          console.log('🔍 Trying JSON array format');
           const arrayData = JSON.parse(privateKey);
           decoded = new Uint8Array(arrayData);
         } else if (privateKey.length === 92) {
-          // 92-character format - likely base58 with extra characters, decode and validate
+          // 92-character format - try multiple approaches
+          console.log('🔍 Trying 92-character format with multiple decoders');
+          
+          // First try: remove potential padding and decode as base58
           try {
-            const fullDecoded = bs58.decode(privateKey);
-            console.log(`🔍 Decoded key length: ${fullDecoded.length} bytes`);
-            if (fullDecoded.length === 64) {
-              decoded = fullDecoded;
-            } else if (fullDecoded.length > 64) {
-              decoded = fullDecoded.slice(0, 64); // Take first 64 bytes
-              console.log(`⚠️ Trimmed key from ${fullDecoded.length} to 64 bytes`);
-            } else {
-              throw new Error(`Decoded key too short: ${fullDecoded.length} bytes, need 64`);
+            let cleanKey = privateKey.trim();
+            // Try removing common padding characters
+            cleanKey = cleanKey.replace(/[=\s]/g, '');
+            console.log(`🔍 Cleaned key length: ${cleanKey.length}`);
+            decoded = bs58.decode(cleanKey);
+            console.log(`✅ Base58 decode successful, ${decoded.length} bytes`);
+          } catch (base58Error) {
+            console.log(`❌ Base58 decode failed: ${base58Error}`);
+            
+            // Second try: treat as hex if it contains only hex characters
+            if (/^[0-9a-fA-F]+$/.test(privateKey)) {
+              console.log('🔍 Treating as hex format');
+              const hexBuffer = Buffer.from(privateKey, 'hex');
+              if (hexBuffer.length === 46) { // 92 chars / 2 = 46 bytes
+                decoded = new Uint8Array(hexBuffer.slice(0, 32)); // Take first 32 bytes for seed
+                // Generate keypair from seed instead of secret key
+                this.walletKeypair = Keypair.fromSeed(decoded);
+                this.enableLiveTrading = true;
+                console.log('✅ Trading wallet configured from seed');
+                console.log(`🎯 Live trading ENABLED for wallet: ${this.publicKey.toString()}`);
+                return;
+              }
             }
-          } catch (error) {
-            console.log(`❌ 92-character key decode failed: ${error}`);
-            // Try treating as different format - maybe it's a different encoding
-            throw new Error(`Invalid 92-character key format: ${error}`);
+            
+            // Third try: treat as base64
+            try {
+              console.log('🔍 Trying base64 decode');
+              const base64Buffer = Buffer.from(privateKey, 'base64');
+              if (base64Buffer.length >= 32) {
+                decoded = new Uint8Array(base64Buffer.slice(0, 32));
+                this.walletKeypair = Keypair.fromSeed(decoded);
+                this.enableLiveTrading = true;
+                console.log('✅ Trading wallet configured from base64 seed');
+                console.log(`🎯 Live trading ENABLED for wallet: ${this.publicKey.toString()}`);
+                return;
+              }
+            } catch (base64Error) {
+              console.log(`❌ Base64 decode failed: ${base64Error}`);
+            }
+            
+            throw new Error(`All decode methods failed for 92-char key: ${base58Error}`);
           }
         } else {
           // Try base58 first, then fallback to other formats
@@ -90,7 +123,15 @@ export class RealTradeExecutor {
           }
         }
         
-        this.walletKeypair = Keypair.fromSecretKey(decoded);
+        // Validate decoded length and create keypair
+        if (decoded.length === 64) {
+          this.walletKeypair = Keypair.fromSecretKey(decoded);
+        } else if (decoded.length === 32) {
+          this.walletKeypair = Keypair.fromSeed(decoded);
+        } else {
+          throw new Error(`Invalid decoded key length: ${decoded.length} bytes, expected 32 or 64`);
+        }
+        
         this.enableLiveTrading = true;
         console.log('✅ Trading wallet configured for live execution');
         console.log(`🎯 Live trading ENABLED for wallet: ${this.publicKey.toString()}`);
