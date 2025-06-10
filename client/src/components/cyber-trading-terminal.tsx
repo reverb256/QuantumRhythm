@@ -485,7 +485,7 @@ const CyberTradingTerminal: React.FC = () => {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         .scrollbar-thin::-webkit-scrollbar {
           width: 4px;
         }

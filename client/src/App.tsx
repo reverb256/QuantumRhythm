@@ -67,6 +67,7 @@ function Router() {
           <Route path="/values" component={Values} />
           <Route path="/vrchat" component={VRChat} />
           <Route path="/dashboard" component={TradingDashboard} />
+          <Route path="/trading" component={TradingInterface} />
           <Route path="/defi" component={DeFiDashboard} />
           <Route path="/cloudflare" component={CloudflareOptimization} />
           <Route path="/technical-deep-dive" component={TechnicalDeepDive} />
