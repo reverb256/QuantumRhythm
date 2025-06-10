@@ -1,6 +1,6 @@
 import { Connection, PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js';
 
-const WALLET_ADDRESS = 'JA63CrEdqjK6cyEkGquuYmk4xyTVgTXSFABZDNW3Qnfj';
+const WALLET_ADDRESS = '4jTtAYiHP3tHqXcmi5T1riS1AcGmxNNhLZTw65vrKpkA';
 const connection = new Connection('https://api.mainnet-beta.solana.com', 'confirmed');
 
 async function checkTradingStatus() {
