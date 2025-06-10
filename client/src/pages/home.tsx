@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
-import Navigation from '@/components/Navigation';
+import Navigation from '@/components/navigation';
 import { LiveMetrics } from '@/components/LiveMetrics';
 import { SmartTooltip, Achievement, ConsciousnessLevel } from '@/components/TooltipSystem';
 import { 

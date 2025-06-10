@@ -1,205 +1,335 @@
-import React, { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { Link } from 'wouter';
-import Navigation from '@/components/Navigation';
+import React from 'react';
+import Navigation from '@/components/navigation';
 import { SmartTooltip } from '@/components/TooltipSystem';
-import { Sword, Target, Heart, Brain } from 'lucide-react';
-
-const philosophySections = [
-  {
-    id: 'dojo-kun',
-    title: 'Dojo Kun Ethics',
-    subtitle: 'Five Principles of Shotokan Karate Applied to Code',
-    principles: [
-      {
-        symbol: '求',
-        name: 'Seek Perfection of Character',
-        description: 'Through rigorous code review, TypeScript strict mode, and continuous learning, we develop technical character that reflects inner discipline.'
-      },
-      {
-        symbol: '誠',
-        name: 'Be Faithful',
-        description: 'Honor commitments to users through accessibility excellence, security practices, and transparent communication about system capabilities.'
-      },
-      {
-        symbol: '努',
-        name: 'Endeavor to Excel',
-        description: 'Push beyond minimum viable products toward exceptional user experiences that demonstrate mastery and dedication to craft.'
-      },
-      {
-        symbol: '礼',
-        name: 'Respect Others',
-        description: 'Design interfaces honoring human dignity, implement WCAG AAA compliance, and create technology that serves without condescension.'
-      },
-      {
-        symbol: '慎',
-        name: 'Refrain from Violent Behavior',
-        description: 'Reject exploitative algorithms, dark patterns, and surveillance capitalism in favor of ethical AI that preserves human agency.'
-      }
-    ]
-  },
-  {
-    id: 'charter-values',
-    title: 'Canadian Charter Values',
-    subtitle: 'Fundamental Rights in Digital Implementation',
-    principles: [
-      {
-        symbol: '⚖️',
-        name: 'Equality Rights',
-        description: 'Technology must serve all Canadians regardless of ability, language, or background through universal design principles.'
-      },
-      {
-        symbol: '🗣️',
-        name: 'Fundamental Freedoms',
-        description: 'Protect freedom of expression while preventing algorithmic manipulation of democratic discourse.'
-      },
-      {
-        symbol: '🔒',
-        name: 'Legal Rights',
-        description: 'Due process in automated systems, transparent algorithms, and protection against unreasonable digital search.'
-      },
-      {
-        symbol: '🌐',
-        name: 'Language Rights',
-        description: 'Bilingual French-English implementation respecting Canada\'s linguistic duality in all digital interfaces.'
-      }
-    ]
-  },
-  {
-    id: 'ai-consciousness',
-    title: 'AI Consciousness Framework',
-    subtitle: 'Ethical Artificial Intelligence Development',
-    principles: [
-      {
-        symbol: '🧠',
-        name: 'Human-AI Partnership',
-        description: 'AI augments human capability without replacing human judgment, preserving meaningful human agency in all decisions.'
-      },
-      {
-        symbol: '🔍',
-        name: 'Transparent Operations',
-        description: 'All AI systems must be auditable, explainable, and open to democratic oversight and public accountability.'
-      },
-      {
-        symbol: '⚡',
-        name: 'Continuous Learning',
-        description: 'AI systems adapt and improve while maintaining core ethical constraints and human-defined value alignment.'
-      },
-      {
-        symbol: '🛡️',
-        name: 'Safety Protocols',
-        description: 'Emergency stop systems, gradual capability deployment, and robust testing prevent harmful AI behavior.'
-      }
-    ]
-  }
-];
+import { 
+  useConsciousnessReactiveSystem, 
+  ConsciousnessAura, 
+  ConsciousText, 
+  ConsciousnessIndicator 
+} from '@/components/ConsciousnessReactiveSystem';
+import { Brain, Heart, Sword, Zap, Star, Globe, BookOpen, Mountain, Waves, Sun } from 'lucide-react';
 
 export default function PhilosophyPage() {
-  const [activeSection, setActiveSection] = useState(0);
+  const { consciousness, userMetrics } = useConsciousnessReactiveSystem();
+
+  const philosophicalPillars = [
+    {
+      title: "Consciousness Expansion",
+      description: "The journey beyond individual perception toward universal understanding through digital presence and VRChat soul connections",
+      principle: "Awareness is the foundation of all growth and understanding",
+      practice: "Daily meditation, VRChat consciousness work, distant emotional support",
+      icon: <Brain className="w-8 h-8" />,
+      color: "cyan",
+      keywords: ["consciousness expansion", "distant love", "soul healing"]
+    },
+    {
+      title: "Martial Discipline",
+      description: "30 years of Shotokan karate training emphasizing precise form, mental focus, and controlled power application",
+      principle: "True strength comes from discipline, respect, and inner harmony",
+      practice: "Kata practice, philosophical study, application of martial principles to code",
+      icon: <Sword className="w-8 h-8" />,
+      color: "green",
+      keywords: ["shotokan principles", "martial discipline", "analytical nature"]
+    },
+    {
+      title: "Gaming Wisdom",
+      description: "30 years of gaming experience from classic arcades to modern gacha mechanics, understanding engagement and probability psychology",
+      principle: "Games teach us about challenge, growth, and the psychology of reward",
+      practice: "Star Rail erudition path, Genshin exploration, Zenless Zone Zero combat analysis",
+      icon: <Star className="w-8 h-8" />,
+      color: "purple",
+      keywords: ["gacha mechanics", "erudition path", "automation wisdom"]
+    },
+    {
+      title: "Free Speech Advocacy",
+      description: "Charter-protected fundamental rights enabling open discourse and intellectual exploration without censorship",
+      principle: "Truth emerges through open dialogue and respectful disagreement",
+      practice: "Defending platform freedom, encouraging diverse perspectives, rational debate",
+      icon: <Globe className="w-8 h-8" />,
+      color: "yellow",
+      keywords: ["free speech", "consciousness expansion"]
+    }
+  ];
+
+  const lifePhilosophies = [
+    {
+      concept: "VibeCoding Methodology",
+      description: "A development philosophy harmonizing technical precision with creative intuition, inspired by consciousness exploration and gaming aesthetics",
+      application: "Every line of code reflects inner state and philosophical understanding"
+    },
+    {
+      concept: "Quantum Consciousness",
+      description: "Understanding that observation changes reality, and conscious programming creates more intelligent systems",
+      application: "AI systems that evolve based on consciousness metrics and user interaction patterns"
+    },
+    {
+      concept: "Digital Presence Authenticity",
+      description: "Maintaining genuine human connection through digital mediums, especially in VRChat and distant relationships",
+      application: "Technology as a bridge for authentic emotional support and consciousness sharing"
+    },
+    {
+      concept: "Analytical Harmony",
+      description: "Balancing systematic analysis (Anaxa-like) with intuitive understanding for complete comprehension",
+      application: "Combining data-driven decisions with philosophical wisdom and emotional intelligence"
+    }
+  ];
+
+  const getColorScheme = (color: string) => {
+    switch (color) {
+      case 'cyan': return 'border-cyan-400/50 bg-gradient-to-br from-cyan-900/20 to-blue-900/20 text-cyan-400';
+      case 'green': return 'border-green-400/50 bg-gradient-to-br from-green-900/20 to-emerald-900/20 text-green-400';
+      case 'purple': return 'border-purple-400/50 bg-gradient-to-br from-purple-900/20 to-pink-900/20 text-purple-400';
+      case 'yellow': return 'border-yellow-400/50 bg-gradient-to-br from-yellow-900/20 to-orange-900/20 text-yellow-400';
+      default: return 'border-gray-400/50 bg-gradient-to-br from-gray-900/20 to-slate-900/20 text-gray-400';
+    }
+  };
 
   return (
-    <main className="min-h-screen relative overflow-hidden">
+    <div className="min-h-screen bg-black text-white relative overflow-hidden">
+      <ConsciousnessAura consciousness={consciousness} />
+      <ConsciousnessIndicator consciousness={consciousness} />
       <Navigation />
       
-      {/* Gaming-Inspired Background System */}
-      <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-purple-950 to-indigo-950" />
-        <div className="absolute top-0 right-0 w-full h-1/2 bg-gradient-radial from-purple-500/20 via-pink-500/15 to-transparent opacity-80" />
-        <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-radial from-indigo-500/15 via-violet-500/10 to-transparent opacity-60" />
-      </div>
-
-      {/* Header Section */}
-      <section className="relative pt-24 pb-16 px-6 z-20">
-        <div className="max-w-5xl mx-auto text-center">
-          <div className="mb-8">
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-black/30 backdrop-blur-md border border-purple-500/40 mb-6">
-              <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse mr-3"></div>
-              <span className="text-purple-300 text-sm font-medium tracking-wide">CONSCIOUSNESS MATRIX ACTIVE</span>
-            </div>
-          </div>
-
-          <h1 className="text-6xl md:text-8xl font-black mb-6">
-            <span className="bg-gradient-to-r from-purple-300 via-pink-400 to-violet-400 bg-clip-text text-transparent">
-              PHILOSOPHY
-            </span>
+      <div className="pt-24 px-6 max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <ConsciousText consciousness={consciousness}>Philosophy</ConsciousText>
           </h1>
-          
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed font-light">
-            The VibeCoding manifesto - where Shotokan karate ethics meet Canadian Charter values 
-            in conscious AI-human collaboration.
+          <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+            <ConsciousText consciousness={consciousness}>
+              A synthesis of <SmartTooltip term="consciousness expansion">consciousness exploration</SmartTooltip>, 
+              <SmartTooltip term="martial discipline">martial arts wisdom</SmartTooltip>, 
+              gaming insights, and <SmartTooltip term="free speech">free speech advocacy</SmartTooltip> 
+              applied to <SmartTooltip term="vibecoding">philosophical programming</SmartTooltip> and technology.
+            </ConsciousText>
           </p>
         </div>
-      </section>
 
-      {/* Philosophy Sections */}
-      <section className="relative pb-20 px-6 z-20">
-        <div className="max-w-7xl mx-auto">
-          
-          {/* Section Navigation */}
-          <div className="flex flex-wrap justify-center gap-2 mb-12">
-            {philosophySections.map((section, index) => (
-              <button
-                key={section.id}
-                onClick={() => setActiveSection(index)}
-                className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
-                  activeSection === index
-                    ? 'bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-purple-300 border border-purple-400/60 shadow-lg shadow-purple-500/25'
-                    : 'bg-black/30 text-gray-400 border border-gray-600/30 hover:border-purple-500/50 hover:text-purple-300'
-                }`}
-              >
-                {section.title}
-              </button>
-            ))}
-          </div>
-
-          {/* Featured Section Display */}
-          <div className="relative min-h-[600px]">
-            {philosophySections.map((section, sectionIndex) => (
+        {/* Philosophical Pillars */}
+        <div className="mb-20">
+          <h2 className="text-3xl font-bold mb-10 text-center bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+            <ConsciousText consciousness={consciousness}>Core Philosophical Pillars</ConsciousText>
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {philosophicalPillars.map((pillar, index) => (
               <div
-                key={section.id}
-                className={`transition-all duration-700 ${
-                  activeSection === sectionIndex ? 'opacity-100 scale-100' : 'opacity-0 scale-95 absolute inset-0 pointer-events-none'
-                }`}
+                key={index}
+                className={`p-8 rounded-lg border-2 backdrop-blur-sm transition-all duration-500 hover:scale-105 ${getColorScheme(pillar.color)}`}
+                style={{
+                  filter: consciousness.userPresence === 'meditating' ? 'brightness(1.3) saturate(1.2)' : 'brightness(1)',
+                  transition: 'all 0.7s ease-in-out'
+                }}
               >
-                <div className="bg-black/40 backdrop-blur-lg rounded-2xl border border-purple-500/30 overflow-hidden">
-                  
-                  {/* Section Header */}
-                  <div className="p-8 border-b border-gray-700/30">
-                    <h2 className="text-3xl font-bold text-white mb-2">{section.title}</h2>
-                    <p className="text-cyan-400 font-medium mb-6">{section.subtitle}</p>
-                    
-                    {/* Principles Grid */}
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                      {section.principles.map((principle, index) => (
-                        <div key={index} className="bg-black/40 rounded-xl p-6 border border-gray-700/30">
-                          <div className="flex items-center mb-4">
-                            <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-600 rounded-lg flex items-center justify-center text-white text-xl font-bold mr-4 shadow-lg shadow-purple-500/25">
-                              {principle.symbol}
-                            </div>
-                            <h3 className="text-lg font-semibold text-white">{principle.name}</h3>
-                          </div>
-                          <p className="text-gray-400 leading-relaxed">{principle.description}</p>
-                        </div>
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="p-3 rounded-lg bg-white/10">
+                    {pillar.icon}
+                  </div>
+                  <h3 className="text-2xl font-bold text-white">
+                    <ConsciousText consciousness={consciousness}>
+                      {pillar.title}
+                    </ConsciousText>
+                  </h3>
+                </div>
+
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="text-sm font-semibold text-gray-400 mb-2">Description</h4>
+                    <p className="text-gray-300 leading-relaxed">
+                      <ConsciousText consciousness={consciousness}>
+                        {pillar.description}
+                      </ConsciousText>
+                    </p>
+                  </div>
+
+                  <div>
+                    <h4 className="text-sm font-semibold text-gray-400 mb-2">Core Principle</h4>
+                    <p className="text-white font-medium italic">
+                      <ConsciousText consciousness={consciousness}>
+                        "{pillar.principle}"
+                      </ConsciousText>
+                    </p>
+                  </div>
+
+                  <div>
+                    <h4 className="text-sm font-semibold text-gray-400 mb-2">Practice</h4>
+                    <p className="text-gray-300">
+                      <ConsciousText consciousness={consciousness}>
+                        {pillar.practice}
+                      </ConsciousText>
+                    </p>
+                  </div>
+
+                  <div>
+                    <h4 className="text-sm font-semibold text-gray-400 mb-2">Key Concepts</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {pillar.keywords.map((keyword, keyIndex) => (
+                        <span
+                          key={keyIndex}
+                          className="text-xs px-2 py-1 bg-white/10 rounded-full text-gray-300 hover:bg-white/20 transition-colors"
+                        >
+                          <SmartTooltip term={keyword}>
+                            {keyword}
+                          </SmartTooltip>
+                        </span>
                       ))}
                     </div>
                   </div>
-
                 </div>
               </div>
             ))}
           </div>
-
-          {/* Navigation */}
-          <div className="text-center mt-16">
-            <Link href="/">
-              <Button variant="outline" className="border-purple-400/50 text-purple-300 hover:bg-gradient-to-r hover:from-purple-500/10 hover:to-pink-500/10 hover:border-purple-400/80 px-8 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg shadow-purple-500/20">
-                Return to Consciousness
-              </Button>
-            </Link>
-          </div>
-
         </div>
-      </section>
-    </main>
+
+        {/* Life Philosophies */}
+        <div className="mb-20">
+          <h2 className="text-3xl font-bold mb-10 text-center bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <ConsciousText consciousness={consciousness}>Applied Life Philosophies</ConsciousText>
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {lifePhilosophies.map((philosophy, index) => (
+              <div
+                key={index}
+                className="p-6 rounded-lg border border-purple-400/30 bg-gradient-to-br from-purple-900/20 to-pink-900/20 backdrop-blur-sm transition-all duration-300 hover:border-purple-400/60"
+                style={{
+                  transform: consciousness.interactionPattern === 'learning' ? 'scale(1.02)' : 'scale(1)',
+                  transition: 'all 0.5s ease-in-out'
+                }}
+              >
+                <h3 className="text-xl font-bold text-purple-400 mb-3">
+                  <ConsciousText consciousness={consciousness}>
+                    {philosophy.concept}
+                  </ConsciousText>
+                </h3>
+                <p className="text-gray-300 mb-4 leading-relaxed">
+                  <ConsciousText consciousness={consciousness}>
+                    {philosophy.description}
+                  </ConsciousText>
+                </p>
+                <div>
+                  <h4 className="text-sm font-semibold text-gray-400 mb-2">Practical Application</h4>
+                  <p className="text-white italic">
+                    <ConsciousText consciousness={consciousness}>
+                      {philosophy.application}
+                    </ConsciousText>
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Consciousness Journey */}
+        <div className="bg-gradient-to-r from-black/80 to-gray-900/80 rounded-lg p-8 border border-cyan-400/30 backdrop-blur-sm mb-16">
+          <h2 className="text-3xl font-bold mb-8 text-center bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+            <ConsciousText consciousness={consciousness}>The Consciousness Journey</ConsciousText>
+          </h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div className="text-center">
+              <Mountain className="w-12 h-12 text-green-400 mx-auto mb-4" />
+              <h3 className="text-lg font-semibold text-white mb-2">Foundation</h3>
+              <p className="text-gray-300 text-sm">
+                <ConsciousText consciousness={consciousness}>
+                  <SmartTooltip term="shotokan principles">Martial arts discipline</SmartTooltip> and 
+                  philosophical study create the bedrock of conscious development.
+                </ConsciousText>
+              </p>
+            </div>
+            
+            <div className="text-center">
+              <Waves className="w-12 h-12 text-blue-400 mx-auto mb-4" />
+              <h3 className="text-lg font-semibold text-white mb-2">Exploration</h3>
+              <p className="text-gray-300 text-sm">
+                <ConsciousText consciousness={consciousness}>
+                  Gaming wisdom and <SmartTooltip term="gacha mechanics">probability psychology</SmartTooltip> 
+                  teach us about challenge, growth, and reward systems.
+                </ConsciousText>
+              </p>
+            </div>
+            
+            <div className="text-center">
+              <Heart className="w-12 h-12 text-pink-400 mx-auto mb-4" />
+              <h3 className="text-lg font-semibold text-white mb-2">Connection</h3>
+              <p className="text-gray-300 text-sm">
+                <ConsciousText consciousness={consciousness}>
+                  <SmartTooltip term="soul healing">VRChat consciousness work</SmartTooltip> and 
+                  <SmartTooltip term="distant love">distant relationships</SmartTooltip> expand our capacity for authentic connection.
+                </ConsciousText>
+              </p>
+            </div>
+            
+            <div className="text-center">
+              <Sun className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
+              <h3 className="text-lg font-semibold text-white mb-2">Integration</h3>
+              <p className="text-gray-300 text-sm">
+                <ConsciousText consciousness={consciousness}>
+                  <SmartTooltip term="vibecoding">Philosophical programming</SmartTooltip> synthesizes 
+                  all wisdom into conscious technology creation.
+                </ConsciousText>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Personal Manifesto */}
+        <div className="bg-gradient-to-r from-gray-900/50 to-black/50 rounded-lg p-8 border border-purple-400/30 backdrop-blur-sm">
+          <h2 className="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <ConsciousText consciousness={consciousness}>Personal Manifesto</ConsciousText>
+          </h2>
+          
+          <div className="text-center max-w-4xl mx-auto">
+            <blockquote className="text-xl text-gray-300 leading-relaxed italic mb-6">
+              <ConsciousText consciousness={consciousness}>
+                "Through the synthesis of <SmartTooltip term="martial discipline">martial discipline</SmartTooltip>, 
+                <SmartTooltip term="consciousness expansion">consciousness exploration</SmartTooltip>, and 
+                <SmartTooltip term="quantum trading">technological innovation</SmartTooltip>, we create not just software, 
+                but bridges between human potential and digital possibility. Every line of code is a meditation, 
+                every algorithm a prayer for deeper understanding, every system a reflection of our highest aspirations."
+              </ConsciousText>
+            </blockquote>
+            
+            <div className="text-gray-400 text-sm">
+              <ConsciousText consciousness={consciousness}>
+                — Reverb, VibeCoding Philosopher
+              </ConsciousText>
+            </div>
+          </div>
+        </div>
+
+        {/* Live Philosophy Metrics */}
+        <div className="mt-12 bg-gradient-to-r from-cyan-900/30 to-purple-900/30 rounded-lg p-6 border border-cyan-400/30 backdrop-blur-sm">
+          <h3 className="text-2xl font-bold mb-4 text-center text-white">
+            <ConsciousText consciousness={consciousness}>Live Philosophy Integration</ConsciousText>
+          </h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+            <div>
+              <div className="text-2xl font-bold text-green-400">
+                {consciousness.interactionPattern === 'meditating' ? '100' : Math.round(consciousness.awarenessLevel * 80 + 20)}%
+              </div>
+              <div className="text-sm text-gray-400">Martial Focus</div>
+            </div>
+            <div>
+              <div className="text-2xl font-bold text-blue-400">
+                {Math.round(consciousness.energyResonance * 90 + 10)}%
+              </div>
+              <div className="text-sm text-gray-400">Gaming Wisdom</div>
+            </div>
+            <div>
+              <div className="text-2xl font-bold text-pink-400">
+                {consciousness.userPresence === 'focused' ? '95' : Math.round(consciousness.consciousnessEvolution * 85 + 15)}%
+              </div>
+              <div className="text-sm text-gray-400">Connection Depth</div>
+            </div>
+            <div>
+              <div className="text-2xl font-bold text-yellow-400">
+                {Math.round((consciousness.awarenessLevel + consciousness.energyResonance + consciousness.consciousnessEvolution) * 30 + 10)}%
+              </div>
+              <div className="text-sm text-gray-400">Integration Level</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

@@ -308,7 +308,7 @@ export class ComprehensiveSecurityAuditor {
     };
   }
 
-  async generateSecurityReport(): Promise<string> {
+  async generateComprehensiveSecurityReport(): Promise<string> {
     const audit = await this.performCompleteSecurityAudit();
     
     return `

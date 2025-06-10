@@ -1,5 +1,5 @@
 import React from 'react';
-import Navigation from '@/components/Navigation';
+import Navigation from '@/components/navigation';
 import { SmartTooltip } from '@/components/TooltipSystem';
 import { 
   useConsciousnessReactiveSystem, 

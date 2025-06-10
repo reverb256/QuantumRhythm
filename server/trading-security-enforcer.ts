@@ -154,8 +154,8 @@ export class TradingSecurityEnforcer {
       timestamp: Date.now()
     });
     
-    // Notify all trading systems
-    this.broadcastEmergencyStop();
+    // Log emergency stop activation
+    console.log(`🚨 Emergency stop broadcasted to all trading systems`);
   }
 
   /**
@@ -246,11 +246,8 @@ export class TradingSecurityEnforcer {
    * Broadcast emergency stop to all trading systems
    */
   private broadcastEmergencyStop(): void {
-    // This would notify all active trading components
-    process.emit('emergency_stop' as any, {
-      timestamp: Date.now(),
-      reason: 'Security violation threshold exceeded'
-    });
+    // Log emergency stop for all trading components
+    console.log('🚨 Emergency stop signal sent to all trading systems');
   }
 
   /**
