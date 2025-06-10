@@ -358,6 +358,34 @@ export function DeFiDashboard() {
             </div>
           </motion.div>
         )}
+
+        {/* Donation QR Code */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8 }}
+          className="bg-gradient-to-br from-purple-900/30 to-pink-900/20 border border-purple-500/30 rounded-xl p-6 text-center"
+        >
+          <h3 className="text-lg font-semibold text-purple-300 mb-4">Support Development</h3>
+          
+          <div className="bg-white p-4 rounded-lg inline-block mb-4">
+            <div className="w-32 h-32 bg-black flex items-center justify-center text-white text-xs">
+              QR Code
+              <br />
+              SOL Donations
+            </div>
+          </div>
+          
+          <div className="text-sm text-gray-300 mb-2">
+            Solana Wallet Address:
+          </div>
+          <div className="text-xs text-purple-400 font-mono bg-gray-800/50 p-2 rounded break-all">
+            9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM
+          </div>
+          <div className="text-xs text-gray-500 mt-2">
+            Help fund quantum consciousness evolution
+          </div>
+        </motion.div>
       </div>
     </div>
   );
