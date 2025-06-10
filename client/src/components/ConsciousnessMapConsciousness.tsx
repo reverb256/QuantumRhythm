@@ -88,13 +88,13 @@ export function ConsciousnessMapConsciousness({ globalConsciousness, onNetworkEv
     const radius = 120;
     const centerX = 150;
     const centerY = 150;
-    
+
     return Array.from({ length: nodeCount }, (_, i) => {
       const angle = (i * 2 * Math.PI) / nodeCount;
       const x = centerX + radius * Math.cos(angle);
       const y = centerY + radius * Math.sin(angle);
       const isActive = activeConnections.includes(i);
-      
+
       return { x, y, isActive, id: i };
     });
   };

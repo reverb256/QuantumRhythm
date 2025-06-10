@@ -28,11 +28,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { OnChainTransactionVerifier } = await import('./on-chain-transaction-verifier');
       const verifier = new OnChainTransactionVerifier();
-      
+
       await verifier.initializeVerification();
       const tradingStatus = await verifier.verifyLiveTrading();
       const transactionHistory = await verifier.getDetailedTransactionHistory();
-      
+
       res.json({
         success: true,
         verification: {
@@ -59,19 +59,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Mount trading routes
   app.use('/api/trading-agent', tradingRouter);
-  
+
   // Mount legal compliance routes
   app.use('/api/legal', legalComplianceRouter);
-  
+
   // Mount analytics routes
   app.use('/api', analyticsRouter);
-  
+
   // Mount parameter insights routes
   app.use('/api/parameter-insights', parameterInsightsRouter);
-  
+
   // Mount AI autorouter routes
   app.use('/api/ai', aiAutorouterRouter);
-  
+
   // Mount agent insights routes
   app.use('/api/agent', agentInsightsRouter);
 
@@ -81,7 +81,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const { cloudflareAIOrchestrator } = await import('./cloudflare-ai-orchestrator');
       const features = await cloudflareAIOrchestrator.getFeatureStatus();
       const optimizations = await cloudflareAIOrchestrator.getOptimizationRecommendations();
-      
+
       res.json({
         success: true,
         totalFeatures: features.size,
@@ -109,7 +109,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const { cloudflareAIOrchestrator } = await import('./cloudflare-ai-orchestrator');
       const { feature } = req.params;
       const enabled = await cloudflareAIOrchestrator.enableFeature(feature);
-      
+
       if (enabled) {
         res.json({ success: true, message: `Feature ${feature} enabled` });
       } else {

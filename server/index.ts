@@ -6,6 +6,8 @@ import aiAutorouterRoutes from "./routes/ai-autorouter";
 import { legalComplianceAgent } from "./legal-compliance-agent";
 import LegalComplianceResolver from "./legal-compliance-resolver";
 import { dataProtection } from "./data-protection-middleware";
+import { systemConsolidation } from './system-consolidation';
+import { databaseOptimizer } from './database-optimizer';
 
 const app = express();
 app.use(express.json());
@@ -29,39 +31,39 @@ import { insightCrossPollinationEngine } from './insight-cross-pollination-engin
 // Start autonomous problem solving and optimization
 (async () => {
   // Initialize authentic data validation first
-  
+
   // Validate current trading setup
   const validation = await authenticDataValidator.validateTradingData();
   console.log(`📊 Trading Mode: ${validation.tradeMode?.toUpperCase() || 'UNKNOWN'}`);
   console.log(`💰 Authentic Balance: ${validation.actualBalance?.toFixed(6) || '0.000000'} SOL`);
   console.log(`🌐 Network: ${validation.networkStatus}`);
-  
+
   // Perform initial database health check and auto-repair
   await problemSolver.performDatabaseHealthCheck();
   await problemSolver.performPreventiveMaintenance();
-  
+
   // Run full system optimization
   const results = await comprehensiveOptimizer.runFullSystemOptimization();
   console.log(`🚀 System fully optimized: Security ${comprehensiveOptimizer.getSystemStatus().securityScore}%, Performance +${results.efficiency.performanceGain.toFixed(1)}%`);
-  
+
   // Run comprehensive backtesting analysis
   console.log('📊 Running comprehensive backtesting analysis...');
   await backtestingEngine.generatePerformanceReport();
-  
+
   // Initialize cross-empowerment orchestration
   console.log('🔗 Initializing cross-system empowerment...');
   await crossEmpowerment.initializeCrossEmpowerment();
-  
+
   // Start real-time profit tracking with authentic data
   console.log('💰 Starting real-time profit tracking...');
   await profitTracker.compareSimulatedVsReal();
-  
+
   // Start consciousness evolution monitoring
   consciousnessEngine.startEvolutionMonitoring();
-  
+
   // Start continuous monitoring
   comprehensiveOptimizer.startContinuousMonitoring();
-  
+
   // Schedule regular maintenance and validation
   // Initialize legal compliance resolver
   const legalResolver = new LegalComplianceResolver();
@@ -108,29 +110,29 @@ app.use((req, res, next) => {
   // Import and register IO Intelligence routes
   const { default: ioIntelligenceRoutes } = await import('./routes/io-intelligence.js');
   app.use('/api/io-intelligence', ioIntelligenceRoutes);
-  
+
   // Import and register AI Consciousness routes
   const { default: aiConsciousnessRoutes } = await import('./routes/ai-consciousness.js');
   app.use('/api', aiConsciousnessRoutes);
-  
+
   // Import and register Trading Agent routes
   // const { default: tradingAgentRoutes } = await import('./routes/trading-agent.js');
   // app.use('/api/trading-agent', tradingAgentRoutes);
-  
+
   // Import and register Cyber Terminal routes
   // const { default: cyberTerminalRoutes } = await import('./routes/cyber-terminal.js');
   // app.use('/api', cyberTerminalRoutes);
-  
+
   // Register live stats routes
   app.use('/api/live', liveStatsRouter);
-  
+
   // Import and register Wallet management routes
   const { default: walletRoutes } = await import('./routes/wallet.js');
   app.use('/api/wallet', walletRoutes);
-  
+
   // Register AI Autorouter routes for OWUI, void, and other agents
   app.use('/api/ai-autorouter', aiAutorouterRoutes);
-  
+
   const server = await registerRoutes(app);
 
   // Initialize legal compliance agent
@@ -153,13 +155,13 @@ app.use((req, res, next) => {
     try {
       const { quantumTrader } = await import('./quantum-trader');
       console.log('💰 Quantum trader activated - executing intelligent trades with play money');
-      
+
       // Display initial status
       setInterval(() => {
         const status = quantumTrader.getStatus();
         console.log(`📊 Portfolio: ${status.portfolioValue.toFixed(2)} SOL | Trades: ${status.totalTrades} | Win Rate: ${(status.winRate * 100).toFixed(1)}% | Consciousness: ${(status.consciousness * 100).toFixed(1)}%`);
       }, 300000); // Status every 5 minutes
-      
+
     } catch (error) {
       console.error('Quantum trading system initialization failed:', error);
     }
@@ -170,13 +172,13 @@ app.use((req, res, next) => {
   setTimeout(async () => {
     try {
       const { secureWallet } = await import('./secure-wallet-manager');
-      
+
       // Check wallet balance and security compliance
       const [walletInfo, compliance] = await Promise.all([
         secureWallet.getWalletBalance(),
         secureWallet.validateSecurityCompliance()
       ]);
-      
+
       if (walletInfo.isValid) {
         console.log(`💳 Authorized Wallet: ${walletInfo.address}`);
         console.log(`💰 Current Balance: ${walletInfo.solBalance.toFixed(6)} SOL`);
@@ -184,7 +186,7 @@ app.use((req, res, next) => {
       } else {
         console.log('❌ Wallet validation failed - payout operations disabled');
       }
-      
+
     } catch (error) {
       console.error('Secure wallet manager initialization failed:', error);
     }
@@ -196,7 +198,7 @@ app.use((req, res, next) => {
     try {
       // Payout system temporarily disabled for stability
       console.log('💸 Payout System: DISABLED (for stability)');
-      
+
     } catch (error) {
       console.error('Intelligent payout system initialization failed:', error);
     }
@@ -227,7 +229,15 @@ app.use((req, res, next) => {
     port,
     host: "0.0.0.0",
     reusePort: true,
-  }, () => {
+  }, async () => {
     log(`serving on port ${port}`);
+
+    // Initialize system consolidation
+    console.log('🚀 Initializing system consolidation...');
+    await systemConsolidation.executeConsolidation();
+
+    // Verify database health
+    const dbHealth = await databaseOptimizer.healthCheck();
+    console.log(`📊 Database health: ${dbHealth ? 'HEALTHY' : 'DEGRADED'}`);
   });
 })();

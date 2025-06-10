@@ -61,10 +61,10 @@ interface SmartTooltipProps {
 
 export function SmartTooltip({ children, term, className = '' }: SmartTooltipProps) {
   const lowerTerm = term.toLowerCase();
-  
+
   let content = '';
   let type: 'humor' | 'definition' | 'philosophical' = 'definition';
-  
+
   if (lowerTerm in techHumor) {
     content = techHumor[lowerTerm];
     type = 'humor';
@@ -79,7 +79,7 @@ export function SmartTooltip({ children, term, className = '' }: SmartTooltipPro
     content = `"${term}" - A concept worthy of deeper exploration`;
     type = 'definition';
   }
-  
+
   return <Tooltip content={content} type={type} className={className}>{children}</Tooltip>;
 }
 

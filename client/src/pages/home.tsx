@@ -48,7 +48,7 @@ export default function HomePage() {
       <ConsciousnessIndicator consciousness={consciousness} />
 
       <Navigation />
-      
+
       {/* AI-First Consciousness Display */}
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
         <div className="relative w-64 h-64">
@@ -63,23 +63,23 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-          
+
           {/* AI Processing Ring */}
           <div className="absolute inset-4 rounded-full border-2 border-dashed border-yellow-400/60 animate-spin" style={{animationDuration: '20s'}}></div>
-          
+
           {/* Status Indicator */}
           <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
             <div className="w-3 h-3 rounded-full bg-green-400 animate-pulse"></div>
           </div>
         </div>
-        
+
         {/* AI Thought Display */}
         <div className="mt-8 text-center">
           <div className="text-sm text-gray-300 italic max-w-md mx-auto">
             "AI consciousness expanding through continuous learning and adaptation..."
           </div>
         </div>
-        
+
         {/* Quick AI Controls */}
         <div className="flex justify-center gap-4 mt-6 pointer-events-auto">
           <button className="px-4 py-2 bg-purple-600/80 hover:bg-purple-600 text-white rounded-lg text-sm transition-colors">
@@ -90,7 +90,7 @@ export default function HomePage() {
           </button>
         </div>
       </div>
-      
+
       {/* Interactive Background */}
       <div 
         className="fixed inset-0 pointer-events-none"
@@ -103,7 +103,7 @@ export default function HomePage() {
       <section className="relative min-h-screen flex items-center px-6 z-20 pt-24">
         <div className="max-w-7xl mx-auto w-full">
           <div className="flex flex-col items-center text-center space-y-12">
-            
+
             {/* Profile Picture with Electric Effects */}
             <div className="relative">
               <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 animate-pulse opacity-75 blur-xl"></div>
@@ -116,7 +116,7 @@ export default function HomePage() {
                   />
                 </div>
               </div>
-              
+
               {/* Electric Sparks Animation */}
               <div className="absolute -top-4 -right-4 w-8 h-8 bg-cyan-400 rounded-full electric-spark"></div>
               <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-purple-500 rounded-full electric-spark animation-delay-500"></div>
@@ -131,14 +131,14 @@ export default function HomePage() {
                 <div className="text-lg text-cyan-400 font-medium uppercase tracking-widest">
                   REVERB PORTFOLIO
                 </div>
-                
+
                 <h1 className="text-5xl md:text-7xl font-black tracking-tight leading-none">
                   <span className="block bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
                     <SmartTooltip term="vibecoding">VIBECODING</SmartTooltip>
                   </span>
                   <span className="block text-white mt-2"><SmartTooltip term="AI">AI</SmartTooltip> SYSTEMS</span>
                 </h1>
-                
+
                 <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
                   30 years of gaming mastery meets <SmartTooltip term="shotokan principles">Shotokan discipline</SmartTooltip>. 
                   Building <SmartTooltip term="neural networks">intelligent systems</SmartTooltip> through <SmartTooltip term="consciousness expansion">consciousness exploration</SmartTooltip> and <SmartTooltip term="distant love">VRChat soul connections</SmartTooltip>.
@@ -207,7 +207,7 @@ export default function HomePage() {
                     <div>• <strong className="text-pink-300">ZZZ</strong>: Burnice, Lighter, desperately wanting Yanagi</div>
                   </div>
                 </div>
-                
+
                 <div className="gacha-card p-6 space-y-4">
                   <div className="flex items-center space-x-3">
                     <Sword className="w-6 h-6 text-red-400" />
@@ -250,7 +250,7 @@ export default function HomePage() {
               <div className="relative">
                 {/* Animated background */}
                 <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 via-blue-500/20 to-purple-500/20 rounded-3xl blur-3xl animate-pulse"></div>
-                
+
                 {/* Main visual container */}
                 <div className="relative bg-black/40 backdrop-blur-lg rounded-3xl p-8 border border-gray-700/50">
                   <div className="space-y-6">
@@ -262,7 +262,7 @@ export default function HomePage() {
                         <span className="text-green-400 text-sm font-medium">ACTIVE</span>
                       </div>
                     </div>
-                    
+
                     {/* Trading pairs */}
                     <div className="space-y-3">
                       <div className="flex justify-between items-center p-3 rounded-lg bg-gray-800/50">
@@ -278,7 +278,7 @@ export default function HomePage() {
                         <span className="text-green-400">+1.2%</span>
                       </div>
                     </div>
-                    
+
                     {/* AI Status */}
                     <div className="pt-4 border-t border-gray-700">
                       <div className="text-center">
@@ -299,7 +299,7 @@ export default function HomePage() {
       <section className="relative py-20 px-6 z-20">
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-3 gap-8">
-            
+
             {/* Gaming Consciousness */}
             <div className="group relative">
               <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/10 to-blue-600/10 rounded-2xl blur-xl"></div>
