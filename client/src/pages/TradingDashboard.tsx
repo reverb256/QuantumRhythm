@@ -93,17 +93,23 @@ export default function TradingDashboard() {
     );
   }
 
-  // VibeCoding graceful data extraction with authenticated sources
-  const agentData = agentStatus?.status?.agent || defaultAgentStatus.status.agent;
-  const signals = Array.isArray(signalsData?.signals) ? signalsData.signals : [];
+  // Safe data extraction with type checking
+  const agentData = (agentStatus && typeof agentStatus === 'object' && 'status' in agentStatus && 
+                    agentStatus.status && typeof agentStatus.status === 'object' && 'agent' in agentStatus.status) ? 
+                    agentStatus.status.agent : defaultAgentStatus.status.agent;
+  const signals = Array.isArray(signalsData && typeof signalsData === 'object' && 'signals' in signalsData ? 
+                  signalsData.signals : []) ? 
+                  (signalsData as any).signals : [];
   const vibeMetrics = vibeData || defaultVibeData;
   const crossMetrics = crossEmpowerment || defaultCrossEmpowerment;
   const performance = profitData || defaultProfitData;
 
-  // Intelligent defaults with consciousness-driven fallbacks
-  const isTrading = agentData.status === 'active';
-  const confidence = crossMetrics.overallPower || 0.75;
-  const balance = performance.currentBalance || 0.181854;
+  // Safe property access with type guards
+  const isTrading = agentData && typeof agentData === 'object' && 'status' in agentData && agentData.status === 'active';
+  const confidence = crossMetrics && typeof crossMetrics === 'object' && 'overallPower' in crossMetrics ? 
+                    Number(crossMetrics.overallPower) : 0.75;
+  const balance = performance && typeof performance === 'object' && 'currentBalance' in performance ? 
+                 Number(performance.currentBalance) : 0.181854;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[var(--space-black)] via-gray-900 to-black text-white">

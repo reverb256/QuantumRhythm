@@ -44,16 +44,25 @@ export default function Dashboard() {
     enabled: false // Disable until backend routes are ready
   });
 
-  // Safe data access with proper types
-  const status = typeof agentStatus?.status === 'string' ? agentStatus.status : 
-                typeof agentStatus?.status === 'object' ? 'Active' : 'Loading...';
-  const lastActivity = typeof agentStatus?.lastActivity === 'string' ? agentStatus.lastActivity : 'Initializing...';
-  const winRate = agentStatus?.performanceMetrics?.winRate || 0;
-  const overallScore = vibeMetrics?.overallScore || 0.87;
-  const pizzaReliability = vibeMetrics?.pizzaKitchenReliability || 0.85;
-  const rhythmPrecision = vibeMetrics?.rhythmGamingPrecision || 0.92;
-  const vrInsights = vibeMetrics?.vrChatSocialInsights || 0.78;
-  const philosophyWisdom = vibeMetrics?.classicalPhilosophyWisdom || 0.95;
+  // Safe data access with fallback values
+  const status = agentStatus && typeof agentStatus === 'object' && 'status' in agentStatus ? 
+                String(agentStatus.status) : 'Loading...';
+  const lastActivity = agentStatus && typeof agentStatus === 'object' && 'lastActivity' in agentStatus ? 
+                      String(agentStatus.lastActivity) : 'Initializing...';
+  const winRate = agentStatus && typeof agentStatus === 'object' && 'performanceMetrics' in agentStatus &&
+                 agentStatus.performanceMetrics && typeof agentStatus.performanceMetrics === 'object' &&
+                 'winRate' in agentStatus.performanceMetrics ? 
+                 Number(agentStatus.performanceMetrics.winRate) : 0;
+  const overallScore = vibeMetrics && typeof vibeMetrics === 'object' && 'overallScore' in vibeMetrics ? 
+                      Number(vibeMetrics.overallScore) : 0.87;
+  const pizzaReliability = vibeMetrics && typeof vibeMetrics === 'object' && 'pizzaKitchenReliability' in vibeMetrics ? 
+                          Number(vibeMetrics.pizzaKitchenReliability) : 0.85;
+  const rhythmPrecision = vibeMetrics && typeof vibeMetrics === 'object' && 'rhythmGamingPrecision' in vibeMetrics ? 
+                         Number(vibeMetrics.rhythmGamingPrecision) : 0.92;
+  const vrInsights = vibeMetrics && typeof vibeMetrics === 'object' && 'vrChatSocialInsights' in vibeMetrics ? 
+                    Number(vibeMetrics.vrChatSocialInsights) : 0.78;
+  const philosophyWisdom = vibeMetrics && typeof vibeMetrics === 'object' && 'classicalPhilosophyWisdom' in vibeMetrics ? 
+                          Number(vibeMetrics.classicalPhilosophyWisdom) : 0.95;
   const signals = Array.isArray(tradingSignals) ? tradingSignals : [];
 
   return (
