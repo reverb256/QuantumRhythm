@@ -412,6 +412,4 @@ Type 'help' for available commands.`;
 });
 
 EnhancedConsole.displayName = 'EnhancedConsole';
-
-export { EnhancedConsole };
 export default EnhancedConsole;
