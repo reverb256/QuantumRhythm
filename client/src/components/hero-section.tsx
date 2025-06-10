@@ -103,27 +103,21 @@ export default function HeroSection() {
                 {/* Main portrait container */}
                 <div className="relative w-40 h-40 md:w-52 md:h-52 rounded-full overflow-hidden border-4 border-cyan-300/80 shadow-2xl shadow-cyan-400/50 group-hover:shadow-cyan-400/70 transition-all duration-300">
                   {/* Optimized portrait image with responsive loading */}
-                  <picture>
-                    <source 
-                      media="(min-width: 768px)" 
-                      srcSet="/attached_assets/user-portrait-400.jpg" 
-                    />
-                    <source 
-                      media="(min-width: 480px)" 
-                      srcSet="/attached_assets/user-portrait-200.jpg" 
-                    />
-                    <img 
-                      src="/attached_assets/user-portrait-100.jpg"
-                      alt="Reverb - Consciousness Architect" 
-                      className="w-full h-full object-cover object-center group-hover:scale-110 transition-all duration-700 filter brightness-105 contrast-110 saturate-110"
-                      loading="eager"
-                      decoding="async"
-                      style={{
-                        imageRendering: 'crisp-edges',
-                        filter: 'brightness(1.05) contrast(1.1) saturate(1.1) drop-shadow(0 0 8px rgba(6, 182, 212, 0.4))'
-                      } as React.CSSProperties}
-                    />
-                  </picture>
+                  <img 
+                    src="/attached_assets/user-portrait-optimized.jpg"
+                    alt="Reverb - Consciousness Architect" 
+                    className="w-full h-full object-cover object-center group-hover:scale-110 transition-all duration-700 filter brightness-105 contrast-110 saturate-110"
+                    loading="eager"
+                    decoding="async"
+                    onError={(e) => {
+                      // Fallback to original PNG if optimized version fails
+                      (e.target as HTMLImageElement).src = "/attached_assets/image_1749536178696.png";
+                    }}
+                    style={{
+                      imageRendering: 'crisp-edges',
+                      filter: 'brightness(1.05) contrast(1.1) saturate(1.1) drop-shadow(0 0 8px rgba(6, 182, 212, 0.4))'
+                    } as React.CSSProperties}
+                  />
                   
                   {/* Fallback avatar design */}
                   <div className="fallback-avatar hidden w-full h-full items-center justify-center bg-gradient-to-br from-cyan-500/30 via-blue-600/40 to-purple-600/30">
