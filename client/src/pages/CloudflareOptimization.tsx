@@ -89,9 +89,13 @@ export default function CloudflareOptimization() {
 
   const enableFeatureMutation = useMutation({
     mutationFn: async (featureName: string) => {
-      return apiRequest(`/api/cloudflare/enable/${featureName}`, {
-        method: 'POST'
+      const response = await fetch(`/api/cloudflare/enable/${featureName}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
+      return response.json();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/cloudflare/status'] });
