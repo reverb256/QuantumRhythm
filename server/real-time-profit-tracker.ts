@@ -1,6 +1,6 @@
 import { Connection, PublicKey, ParsedTransactionWithMeta } from '@solana/web3.js';
 import { dataProtection } from './data-protection-middleware';
-import { solanaEndpointManager } from './solana-endpoint-manager';
+import { smartAPIOrchestrator } from './smart-api-orchestrator';
 
 interface RealProfitAnalysis {
   actualBalance: number;

@@ -60,14 +60,54 @@ export class SolanaEndpointManager {
       maxRPM: 25
     },
     {
-      url: 'https://api.devnet.solana.com',
-      name: 'Solana Devnet',
+      url: 'https://solana.public-rpc.com',
+      name: 'Public RPC',
       requestCount: 0,
       errorCount: 0,
       lastError: 0,
       isHealthy: true,
       avgResponseTime: 0,
-      maxRPM: 30
+      maxRPM: 20
+    },
+    {
+      url: 'https://mainnet.rpcpool.com',
+      name: 'RPC Pool',
+      requestCount: 0,
+      errorCount: 0,
+      lastError: 0,
+      isHealthy: true,
+      avgResponseTime: 0,
+      maxRPM: 35
+    },
+    {
+      url: 'https://api.metaplex.solana.com',
+      name: 'Metaplex',
+      requestCount: 0,
+      errorCount: 0,
+      lastError: 0,
+      isHealthy: true,
+      avgResponseTime: 0,
+      maxRPM: 18
+    },
+    {
+      url: 'https://solana-mainnet.phantom.tech',
+      name: 'Phantom',
+      requestCount: 0,
+      errorCount: 0,
+      lastError: 0,
+      isHealthy: true,
+      avgResponseTime: 0,
+      maxRPM: 25
+    },
+    {
+      url: 'https://api.blockdaemon.com/universal/solana/native',
+      name: 'Blockdaemon',
+      requestCount: 0,
+      errorCount: 0,
+      lastError: 0,
+      isHealthy: true,
+      avgResponseTime: 0,
+      maxRPM: 40
     }
   ];
 
@@ -146,13 +186,13 @@ export class SolanaEndpointManager {
         continue;
       }
 
+      const start = Date.now();
       try {
         // Add progressive delay between requests to avoid overwhelming any endpoint
         if (attempt > 0) {
           await new Promise(resolve => setTimeout(resolve, Math.min(2000 * attempt, 10000)));
         }
 
-        const start = Date.now();
         const connection = new Connection(endpoint.url, 'confirmed');
         const result = await requestFn(connection);
         

@@ -1,6 +1,6 @@
 import { Keypair, Connection, PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js';
 import { db } from './db';
-import { solanaEndpointManager } from './solana-endpoint-manager';
+import { smartAPIOrchestrator } from './smart-api-orchestrator';
 
 // Generate a dedicated donation wallet (different from trading wallet)
 const donationKeypair = Keypair.generate();
