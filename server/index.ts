@@ -1,6 +1,7 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
+import { legalComplianceAgent } from "./legal-compliance-agent";
 
 const app = express();
 app.use(express.json());
@@ -46,6 +47,20 @@ app.use((req, res, next) => {
   app.use('/api/trading-agent', tradingAgentRoutes);
   
   const server = await registerRoutes(app);
+
+  // Initialize legal compliance agent
+  console.log('🏛️ Initializing Legal Compliance Agent...');
+  setTimeout(async () => {
+    try {
+      const initialCheck = await legalComplianceAgent.runComplianceCheck();
+      console.log(`🏛️ Legal Compliance: ${initialCheck.passed ? 'COMPLIANT' : 'VIOLATIONS DETECTED'} (Score: ${initialCheck.score}%)`);
+      if (!initialCheck.passed) {
+        console.log(`⚠️ Critical issues: ${initialCheck.violations.filter(v => v.severity === 'critical').length}`);
+      }
+    } catch (error) {
+      console.error('Legal compliance initialization failed:', error);
+    }
+  }, 5000);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;

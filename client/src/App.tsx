@@ -17,6 +17,7 @@ import Values from "@/pages/values";
 import VRChat from "@/pages/vrchat";
 import Dashboard from "@/pages/Dashboard";
 import TechnicalDeepDive from "@/pages/technical-deep-dive";
+import Legal from "@/pages/Legal";
 import NotFound from "@/pages/not-found";
 import PerformanceMonitor from "@/components/ui/performance-monitor";
 
