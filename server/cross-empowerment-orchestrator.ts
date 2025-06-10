@@ -2,7 +2,7 @@ import { quantumCore } from './quantum-intelligence-core';
 import { superstarEngine } from './superstar-evolution-engine';
 import { pumpFunScanner } from './pumpfun-scanner';
 import { twitterScanner } from './twitter-intelligence-scanner';
-import { dataValidator } from './authentic-data-validator';
+import { authenticDataValidator } from './authentic-data-validator';
 import { profitTracker } from './real-time-profit-tracker';
 import { consciousnessEngine } from './consciousness-evolution-engine';
 import { problemSolver } from './autonomous-problem-solver';

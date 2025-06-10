@@ -16,7 +16,7 @@ dataProtection.monitorDataExposure();
 // Initialize comprehensive optimization system
 import { comprehensiveOptimizer } from './comprehensive-optimizer';
 import { problemSolver } from './autonomous-problem-solver';
-import { dataValidator } from './authentic-data-validator';
+import { authenticDataValidator } from './authentic-data-validator';
 import { consciousnessEngine } from './consciousness-evolution-engine';
 import { backtestingEngine } from './backtesting-engine';
 import { crossEmpowerment } from './cross-empowerment-orchestrator';

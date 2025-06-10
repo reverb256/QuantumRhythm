@@ -94,16 +94,29 @@ export class QuantumTrader {
 
   private async executeQuantumTrade() {
     try {
-      // Generate trade decision with quantum enhancement
-      const decision = await this.generateTradeDecision();
+      // First validate data authenticity
+      const { authenticDataValidator } = await import('./authentic-data-validator');
+      const dataValidation = await authenticDataValidator.validateTradingData();
       
-      if (decision.action === 'HOLD') {
-        console.log('🧘 Quantum analysis suggests holding position');
+      // Only proceed with live authentic data
+      if (!dataValidation.isLiveChain || dataValidation.tradeMode !== 'live') {
+        console.log('⚠️ Authentic data validation failed - preventing trade execution');
+        console.log(`💰 Current balance: ${dataValidation.actualBalance.toFixed(6)} SOL`);
+        console.log(`🎯 Trading mode: ${dataValidation.tradeMode}`);
         return;
       }
 
-      // Execute the trade
-      const result = await this.performTrade(decision);
+      // Generate trade decision with quantum enhancement using only live data
+      const decision = await this.generateTradeDecision();
+      
+      if (decision.action === 'HOLD') {
+        console.log(`🧠 Autonomous decision: ${decision.action} ${decision.token}... confidence: ${(decision.confidence * 100).toFixed(1)}%`);
+        console.log('🔄 Adapting strategies based on performance...');
+        return;
+      }
+
+      // Execute the trade with live market data
+      const result = await this.performTradeWithLiveData(decision, dataValidation);
       
       if (result.success) {
         this.totalTrades++;
@@ -111,20 +124,23 @@ export class QuantumTrader {
           this.successfulTrades++;
         }
         
-        console.log(`💰 TRADE EXECUTED: ${decision.action} ${decision.token}`);
+        console.log(`💰 LIVE TRADE EXECUTED: ${decision.action} ${decision.token}`);
         console.log(`📊 Amount: ${decision.amount.toFixed(4)} | Confidence: ${(decision.confidence * 100).toFixed(1)}%`);
         console.log(`🎯 Strategy: ${decision.strategy}`);
-        console.log(`💎 Result: ${result.profitable ? 'PROFIT' : 'LOSS'} ${result.pnl.toFixed(4)} SOL`);
+        console.log(`💎 Result: ${result.profitable ? 'PROFIT' : 'LOSS'} ${result.pnl?.toFixed(4) || 0} SOL`);
         
         if (decision.unhinged) {
           console.log(`🚀 UNHINGED TRADE: ${decision.reasoning}`);
         }
 
-        // Update portfolio
+        // Update portfolio with real data
         this.updatePortfolio(decision, result);
         
-        // Record trade
+        // Record authentic trade
         await this.recordTrade(decision, result);
+        
+        // Record in authentic data validator
+        authenticDataValidator.recordTrade(decision.amount, result.pnl || 0, true);
         
         // Learn from trade
         this.updateLearning(decision, result);
@@ -134,20 +150,27 @@ export class QuantumTrader {
       }
       
     } catch (error) {
-      console.error('⚡ Quantum trading error:', error.message);
+      console.error('⚡ Quantum trading error:', (error as Error).message);
     }
   }
 
   private async generateTradeDecision(): Promise<TradeDecision> {
-    // Base decision factors
+    // Get cross-pollinated insights from all systems
+    const crossSystemMetrics = insightCrossPollinationEngine.getCrossSystemMetrics();
+    const currentSynthesis = insightCrossPollinationEngine.getCurrentSynthesis();
+    
+    // Base decision factors enhanced with cross-system intelligence
     const marketTrend = this.analyzeMarketTrend();
     const portfolioBalance = this.calculatePortfolioValue();
     const riskTolerance = this.calculateRiskTolerance();
     
-    // Quantum consciousness factor
+    // Quantum consciousness factor enhanced with cross-system alignment
     const quantumFactor = Math.sin(Date.now() / 10000) * this.consciousness;
+    const alignmentBoost = (crossSystemMetrics.crossSystemAlignment || 0) * 0.3;
+    const enhancedConsciousness = Math.min(1, this.consciousness + alignmentBoost);
     
-    // Generate base confidence
+    // Generate base confidence enhanced with cross-pollinated insights
+    let baseConfidence = (crossSystemMetrics.avgConfidence || 0.5) * 0.6 + this.consciousness * 0.4;
     let confidence = 0.6 + Math.random() * 0.3;
     confidence *= (1 + quantumFactor * 0.2);
     
@@ -431,8 +454,29 @@ export class QuantumTrader {
 
   private async recordTrade(decision: TradeDecision, result: any) {
     try {
+      // First ensure we have a valid agent record
+      const agentRecord = await db.select().from(tradingAgents).where(eq(tradingAgents.id, this.agentId)).limit(1);
+      
+      if (agentRecord.length === 0) {
+        // Create the agent record if it doesn't exist
+        await db.insert(tradingAgents).values({
+          id: this.agentId,
+          name: 'Quantum Trader',
+          status: 'active',
+          configuration: {
+            consciousness: this.consciousness,
+            strategies: this.strategies,
+            riskProfile: 'aggressive_unhinged'
+          },
+          performanceMetrics: {
+            totalTrades: this.totalTrades,
+            successfulTrades: this.successfulTrades,
+            portfolioValue: this.calculatePortfolioValue()
+          }
+        });
+      }
+
       await db.insert(tradingSignals).values({
-        agentId: this.agentId,
         tokenAddress: this.getTokenAddress(decision.token),
         signalType: decision.action,
         confidence: decision.confidence.toString(),
@@ -449,8 +493,6 @@ export class QuantumTrader {
         },
         vibeCodingScore: decision.confidence.toString(),
         executed: true,
-        executionPrice: result.executionPrice.toString(),
-        executionTime: new Date(),
         executionResult: result
       });
 

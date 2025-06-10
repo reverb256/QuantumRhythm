@@ -175,25 +175,25 @@ export default function Dashboard() {
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               <div className="text-center">
                 <div className="text-3xl font-bold text-orange-400 mb-2">
-                  {(parseFloat(safeVibeMetrics.pizzaKitchenReliability) * 100).toFixed(1)}%
+                  {(pizzaReliability * 100).toFixed(1)}%
                 </div>
                 <div className="text-sm text-gray-300">Pizza Kitchen Reliability</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-blue-400 mb-2">
-                  {(parseFloat(safeVibeMetrics.rhythmGamingPrecision) * 100).toFixed(1)}%
+                  {(rhythmPrecision * 100).toFixed(1)}%
                 </div>
                 <div className="text-sm text-gray-300">Rhythm Gaming Precision</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-pink-400 mb-2">
-                  {(parseFloat(safeVibeMetrics.vrChatSocialInsights) * 100).toFixed(1)}%
+                  {(vrInsights * 100).toFixed(1)}%
                 </div>
                 <div className="text-sm text-gray-300">VRChat Social Insights</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-green-400 mb-2">
-                  {(parseFloat(safeVibeMetrics.classicalPhilosophyWisdom) * 100).toFixed(1)}%
+                  {(philosophyWisdom * 100).toFixed(1)}%
                 </div>
                 <div className="text-sm text-gray-300">Classical Philosophy Wisdom</div>
               </div>
