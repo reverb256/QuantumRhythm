@@ -84,6 +84,24 @@ export class TradingPairDiscoveryService {
       enabled: true,
       reliability: 85,
       rateLimit: 30
+    },
+    {
+      name: 'CMC DEX',
+      endpoint: 'https://pro-api.coinmarketcap.com/v1',
+      pairEndpoint: '/cryptocurrency/quotes/latest',
+      tokenEndpoint: '/cryptocurrency/map',
+      enabled: true,
+      reliability: 92,
+      rateLimit: 333
+    },
+    {
+      name: 'Moralis',
+      endpoint: 'https://deep-index.moralis.io/api/v2',
+      pairEndpoint: '/erc20/prices',
+      tokenEndpoint: '/erc20/metadata',
+      enabled: true,
+      reliability: 88,
+      rateLimit: 25
     }
   ];
 
