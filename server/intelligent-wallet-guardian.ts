@@ -37,6 +37,7 @@ export class IntelligentWalletGuardian {
   constructor(connection: Connection, walletAddress: string) {
     this.connection = connection;
     this.walletAddress = walletAddress;
+    console.log(`🛡️ Wallet Guardian initialized for: ${walletAddress.slice(0, 8)}...${walletAddress.slice(-8)}`);
   }
 
   async startMonitoring() {
