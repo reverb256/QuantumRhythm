@@ -33,16 +33,16 @@ export class RealTimeProfitTracker {
     try {
       const publicKey = new PublicKey(this.walletAddress);
       
-      // Get current balance using endpoint manager
-      const balance = await solanaEndpointManager.makeRequest(
+      // Get current balance using Smart API Orchestrator
+      const balance = await smartAPIOrchestrator.makeRequest(
         async (connection) => {
           return await connection.getBalance(publicKey);
         }
       );
       const actualBalance = balance / 1_000_000_000; // Convert lamports to SOL
       
-      // Get transaction history using endpoint manager
-      const signatures = await solanaEndpointManager.makeRequest(
+      // Get transaction history using Smart API Orchestrator
+      const signatures = await smartAPIOrchestrator.makeRequest(
         async (connection) => {
           return await connection.getSignaturesForAddress(publicKey, { limit: 20 });
         }
