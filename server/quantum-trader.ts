@@ -85,6 +85,7 @@ export class QuantumTrader {
     this.tokenWhitelist = new IntelligentTokenWhitelistManager();
     this.newsIntelligence = new NewsIntelligenceAggregator();
     this.initializeAgent();
+    this.initializeOptimizedSystems();
     this.startQuantumTrading();
     this.startLearningEngine();
     this.initializeNewsIntelligence();
@@ -177,6 +178,21 @@ export class QuantumTrader {
     });
 
     console.log('🔍 Trading Monitor: Event handlers configured');
+  }
+
+  private async initializeOptimizedSystems() {
+    try {
+      // Apply comprehensive insight-driven optimizations
+      const optimizations = await insightInfusionOptimizer.infuseOptimizations();
+      console.log(`⚡ System optimized: ${optimizations.performanceGains}% performance gain, ${optimizations.memoryReduction}% memory reduction`);
+      
+      // Validate system health after optimization
+      const status = insightInfusionOptimizer.getOptimizationStatus();
+      console.log(`🟢 Optimization status: ${status.systemHealth ? 'HEALTHY' : 'REQUIRES ATTENTION'}`);
+      
+    } catch (error) {
+      console.log('⚠️ Optimization initialization failed, continuing with standard configuration');
+    }
   }
 
   private async executeQuantumTrade() {
