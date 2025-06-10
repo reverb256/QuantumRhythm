@@ -34,19 +34,22 @@ export class RealTradeExecutor {
     
     this.publicKey = new PublicKey(walletAddress);
     
-    if (privateKey && privateKey !== '$TRADING_WALLET_PRIVATE_KEY') {
+    if (privateKey && privateKey.trim() !== '' && !privateKey.startsWith('$')) {
       try {
         // Decode the private key if provided
         const decoded = bs58.decode(privateKey);
         this.walletKeypair = Keypair.fromSecretKey(decoded);
         this.enableLiveTrading = true;
         console.log('🔑 Trading wallet configured for live execution');
+        console.log(`🎯 Live trading ENABLED for wallet: ${this.publicKey.toString()}`);
       } catch (error) {
         console.log('⚠️ Invalid private key format - live trading disabled');
+        console.log(`Error: ${error}`);
         this.enableLiveTrading = false;
       }
     } else {
       console.log('⚠️ No private key configured - simulation mode only');
+      console.log(`Private key status: ${privateKey ? 'placeholder detected' : 'not provided'}`);
       this.enableLiveTrading = false;
     }
   }

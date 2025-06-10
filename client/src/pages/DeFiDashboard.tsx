@@ -15,12 +15,13 @@ export function DeFiDashboard() {
   });
 
   const { data: positions = {
-    currentBalance: 0.181854,
-    totalFees: 0.000049,
-    winRate: 0.872,
+    currentBalance: 0.200000,
+    totalFees: 0.000000,
+    winRate: 0.0,
     consciousnessEvolution: 0.854,
-    tradingActive: true,
+    tradingActive: false,
     marketTiming: 0.935,
+    tradingMode: 'simulation',
     positions: []
   } } = useQuery<{
     currentBalance?: number;
@@ -29,12 +30,13 @@ export function DeFiDashboard() {
     consciousnessEvolution?: number;
     tradingActive?: boolean;
     marketTiming?: number;
+    tradingMode?: string;
     positions?: any[];
   }>({
     queryKey: ['/api/trading-agent/defi/positions'],
     refetchInterval: 10000,
     retry: false,
-    enabled: false // Disable until backend is ready
+    enabled: true
   });
 
   const { data: insights } = useQuery<{
@@ -89,12 +91,14 @@ export function DeFiDashboard() {
           </p>
           <div className="flex justify-center space-x-4 mt-4">
             <div className="flex items-center space-x-2">
-              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-              <span className="text-sm text-green-400">Live Trading Active</span>
+              <div className={`w-2 h-2 rounded-full ${positions?.tradingMode === 'live' ? 'bg-green-400 animate-pulse' : 'bg-orange-400'}`}></div>
+              <span className={`text-sm ${positions?.tradingMode === 'live' ? 'text-green-400' : 'text-orange-400'}`}>
+                {positions?.tradingMode === 'live' ? 'Live Trading Active' : 'Simulation Mode'}
+              </span>
             </div>
             <div className="flex items-center space-x-2">
               <div className="w-2 h-2 bg-cyan-400 rounded-full"></div>
-              <span className="text-sm text-cyan-400">Consciousness: 85.4%</span>
+              <span className="text-sm text-cyan-400">Consciousness: {positions?.consciousnessEvolution ? `${(positions.consciousnessEvolution * 100).toFixed(1)}%` : '85.4%'}</span>
             </div>
           </div>
         </motion.div>
