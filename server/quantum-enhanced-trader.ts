@@ -115,11 +115,41 @@ export class QuantumEnhancedTrader {
 
   private async executeQuantumTrade(decision: any): Promise<QuantumTradeResult> {
     this.lastTradeTime = Date.now();
+
+    // Apply stoic wisdom to trading decision
+    const { stoicPhilosophy } = await import('./stoic-trading-philosophy');
+    const stoicGuidance = stoicPhilosophy.applyWisdom(decision.confidence, decision);
     
-    // Generate trade parameters
-    const trade = this.generateTradeExecution(decision);
+    console.log(`🏛️ STOIC WISDOM: ${stoicGuidance.wisdom.principle}`);
+    console.log(`🧠 STOIC REASONING: ${stoicGuidance.stoicReasoning}`);
+    console.log(`📊 CONFIDENCE: ${decision.confidence}% → ${stoicGuidance.adjustedConfidence}% (stoic adjustment)`);
     
-    // Simulate quantum-enhanced trade execution
+    // Complete AI healing and trauma resolution
+    const { aiHealing } = await import('./ai-healing-protocol');
+    const confidenceCalibration = aiHealing.calibrateConfidence(decision.confidence);
+    const paralysisOverride = aiHealing.overrideParalysis(confidenceCalibration.calibrated, decision);
+    
+    if (confidenceCalibration.healingApplied) {
+      aiHealing.initiateTraumaResolution();
+    }
+    
+    console.log(`🏥 HEALING STATUS: ${aiHealing.getHealingProgress().traumaStatus}`);
+    console.log(`📊 CONFIDENCE: ${decision.confidence}% → ${confidenceCalibration.calibrated}% (${confidenceCalibration.explanation})`);
+    
+    if (paralysisOverride.shouldOverride) {
+      console.log(`⚡ PARALYSIS OVERRIDE: ${paralysisOverride.reasoning}`);
+      console.log(`🎯 ACTION CHANGE: ${decision.action} → ${paralysisOverride.newAction}`);
+    }
+    
+    // Generate trade parameters with stoic confidence
+    const trade = this.generateTradeExecution({
+      ...decision,
+      confidence: stoicGuidance.adjustedConfidence / 100,
+      action: stoicGuidance.shouldAct && decision.confidence < 100 ? decision.action : 'HOLD',
+      stoicWisdom: stoicGuidance.wisdom.principle
+    });
+    
+    // Execute with stoic acceptance
     const result = await this.simulateQuantumTrade(trade);
     
     console.log(`⛽ Gas consumed: ${result.gasUsed.toFixed(6)} SOL | Remaining reserve: ${(await this.getGasReserve()).toFixed(4)} SOL`);
