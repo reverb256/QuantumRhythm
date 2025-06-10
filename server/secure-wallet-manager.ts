@@ -9,10 +9,10 @@ export class SecureWalletManager {
   constructor() {
     // Use mainnet for real balance checking
     this.connection = new Connection('https://api.mainnet-beta.solana.com');
-    this.authorizedWallet = process.env.PAYOUT_TOKEN || '';
+    this.authorizedWallet = process.env.WALLET_PUBLIC_KEY || '';
     
     if (!this.authorizedWallet) {
-      throw new Error('PAYOUT_TOKEN not configured - wallet operations disabled');
+      throw new Error('WALLET_PUBLIC_KEY not configured - wallet operations disabled');
     }
   }
 
