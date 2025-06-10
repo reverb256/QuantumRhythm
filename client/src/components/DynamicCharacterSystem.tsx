@@ -6,6 +6,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation } from 'wouter';
+import { AICharacterSprite } from './AICharacterSprites';
 
 interface Character {
   id: string;
@@ -157,9 +158,10 @@ export function DynamicCharacterSystem() {
   const createCharacter = (template: typeof CHARACTER_TEMPLATES[0], index: number): Character => {
     const container = containerRef.current;
     const bounds = container?.getBoundingClientRect() || { width: 1200, height: 800 };
+    const uniqueId = `char-${template.name}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}-${index}`;
     
     return {
-      id: `char-${Date.now()}-${index}`,
+      id: uniqueId,
       name: template.name,
       personality: template.personality,
       game: template.game,
@@ -409,7 +411,7 @@ export function DynamicCharacterSystem() {
 
   const createCombatEffect = (position: { x: number; y: number }, color: string, type: CombatEffect['type']) => {
     const effect: CombatEffect = {
-      id: `effect-${Date.now()}`,
+      id: `effect-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
       type,
       position: { ...position },
       color,
@@ -501,15 +503,9 @@ export function DynamicCharacterSystem() {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
           >
-            {/* Character Avatar */}
+            {/* AI-Generated Character Sprite */}
             <motion.div
-              className="relative w-12 h-12 rounded-full border-2 flex items-center justify-center
-                         shadow-lg backdrop-blur-sm"
-              style={{
-                borderColor: character.color,
-                backgroundColor: `${character.color}20`,
-                boxShadow: `0 0 15px ${character.color}60`
-              }}
+              className="relative"
               animate={{
                 y: character.state === 'fighting' ? [0, -3, 0] : [0, -1, 0],
                 scale: character.state === 'fighting' ? [1, 1.1, 1] : 1,
@@ -521,13 +517,7 @@ export function DynamicCharacterSystem() {
                 rotate: { duration: 0.3 }
               }}
             >
-              {/* Character Icon */}
-              <div 
-                className="text-white font-bold text-sm"
-                style={{ color: character.color }}
-              >
-                {character.name.charAt(0)}
-              </div>
+              <AICharacterSprite character={character} size={48} />
 
               {/* State Indicator */}
               <div className="absolute -top-1 -right-1 w-3 h-3 rounded-full border border-black">
