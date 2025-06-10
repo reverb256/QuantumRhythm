@@ -28,10 +28,40 @@ export class LegalComplianceAgent {
   private dynamicRules: Map<string, ComplianceRule> = new Map();
   private lastRuleUpdate: Date = new Date();
   private ruleUpdateInterval: number = 24 * 60 * 60 * 1000; // 24 hours
+  private walletClassifications: Map<string, {
+    type: 'self_custody' | 'exchange_deposit' | 'unknown';
+    address: string;
+    complianceRequirements: string[];
+  }> = new Map();
   
   constructor() {
+    this.initializeWalletClassifications();
     this.initializeComplianceRules();
     this.startDynamicRuleDiscovery();
+  }
+
+  private initializeWalletClassifications() {
+    // PAYOUT_TOKEN is a self-custody wallet
+    this.walletClassifications.set('PAYOUT_TOKEN', {
+      type: 'self_custody',
+      address: process.env.PAYOUT_TOKEN || '',
+      complianceRequirements: [
+        'KYC not required for self-custody',
+        'No reporting obligations',
+        'Full user control and responsibility'
+      ]
+    });
+
+    // PAYOUT_TOKEN_B is an exchange deposit address
+    this.walletClassifications.set('PAYOUT_TOKEN_B', {
+      type: 'exchange_deposit',
+      address: process.env.PAYOUT_TOKEN_B || '',
+      complianceRequirements: [
+        'Exchange KYC requirements apply',
+        'Transaction reporting to exchange',
+        'Exchange custody and compliance rules'
+      ]
+    });
   }
 
   private initializeComplianceRules() {

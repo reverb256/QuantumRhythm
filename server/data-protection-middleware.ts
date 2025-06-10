@@ -72,25 +72,26 @@ export class DataProtectionMiddleware {
 
   // Middleware function for Express
   public protectResponse() {
+    const middleware = this;
     return (req: Request, res: Response, next: NextFunction) => {
       const originalJson = res.json;
       const originalSend = res.send;
 
       // Override res.json to filter sensitive data
       res.json = function(body: any) {
-        const sanitizedBody = this.sanitizeData(body);
+        const sanitizedBody = middleware.sanitizeData(body);
         return originalJson.call(this, sanitizedBody);
-      }.bind(this);
+      };
 
       // Override res.send to filter sensitive data
       res.send = function(body: any) {
         if (typeof body === 'string') {
-          body = this.sanitizeString(body);
+          body = middleware.sanitizeString(body);
         } else if (typeof body === 'object') {
-          body = this.sanitizeData(body);
+          body = middleware.sanitizeData(body);
         }
         return originalSend.call(this, body);
-      }.bind(this);
+      };
 
       next();
     };

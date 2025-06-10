@@ -13,6 +13,13 @@ app.use(dataProtection.protectResponse());
 dataProtection.protectConsoleOutput();
 dataProtection.monitorDataExposure();
 
+// Initialize comprehensive optimization system
+import { comprehensiveOptimizer } from './comprehensive-optimizer';
+comprehensiveOptimizer.runFullSystemOptimization().then(results => {
+  console.log(`🚀 System fully optimized: Security ${comprehensiveOptimizer.getSystemStatus().securityScore}%, Performance +${results.efficiency.performanceGain.toFixed(1)}%`);
+  comprehensiveOptimizer.startContinuousMonitoring();
+});
+
 app.use((req, res, next) => {
   const start = Date.now();
   const path = req.path;

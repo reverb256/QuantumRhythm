@@ -181,8 +181,8 @@ export class IntelligentPayoutSystem {
         
         // Log both payouts for audit trail
         await Promise.all([
-          this.logPayout({ ...payoutEvent, amount: primaryAmount }, primaryPayout, 'primary'),
-          this.logPayout({ ...payoutEvent, amount: exchangeAmount }, exchangePayout, 'exchange')
+          this.logPayout({ ...payoutEvent, amount: primaryAmount }, primaryPayout),
+          this.logPayout({ ...payoutEvent, amount: exchangeAmount }, exchangePayout)
         ]);
         
         // Update portfolio tracking
