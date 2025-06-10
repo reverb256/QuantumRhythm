@@ -8,6 +8,7 @@ import { solanaDeFiGateway } from '../solana-defi-gateway';
 import { defiOrchestrator } from '../defi-orchestrator';
 import { insightInfusionEngine } from '../insight-infusion-engine';
 import { quantumMultiChainOrchestrator } from '../quantum-multichain-orchestrator';
+import { QuantumForensicAnalyzer } from '../quantum-forensic-analyzer';
 
 const router = Router();
 
@@ -340,6 +341,69 @@ router.post('/multichain/execute', async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({ success: false, error: 'Failed to execute multi-chain strategy' });
+  }
+});
+
+// Quantum Forensic Analysis - Investigate hacked wallet
+router.post('/forensic/analyze', async (req, res) => {
+  try {
+    console.log('🔍 QUANTUM FORENSIC ANALYSIS INITIATED');
+    const forensicAnalyzer = new QuantumForensicAnalyzer();
+    const report = await forensicAnalyzer.generateForensicReport();
+    
+    res.json({
+      success: true,
+      report: {
+        walletAddress: report.walletAddress.slice(0, 8) + '...',
+        analysisTimestamp: report.analysisTimestamp,
+        totalTransactions: report.totalTransactions,
+        suspiciousTransactions: report.suspiciousTransactions,
+        drainEvents: report.drainEvents.map(event => ({
+          ...event,
+          attackerAddresses: event.attackerAddresses.map(addr => addr.slice(0, 8) + '...')
+        })),
+        attackerProfiles: report.attackerProfiles.map(profile => ({
+          ...profile,
+          address: profile.address.slice(0, 8) + '...'
+        })),
+        recoveryRecommendations: report.recoveryRecommendations,
+        legalActions: report.legalActions,
+        quantumThreatLevel: report.quantumThreatLevel,
+        blockchainEvidence: report.blockchainEvidence.length
+      }
+    });
+  } catch (error) {
+    console.error('Forensic analysis failed:', error);
+    res.status(500).json({ 
+      success: false, 
+      error: 'Failed to complete forensic analysis',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+// Get forensic analysis status
+router.get('/forensic/status', async (req, res) => {
+  try {
+    const walletAddress = process.env.HACKED_WALLET;
+    if (!walletAddress) {
+      return res.status(400).json({
+        success: false,
+        error: 'HACKED_WALLET environment variable not configured'
+      });
+    }
+
+    res.json({
+      success: true,
+      configured: true,
+      walletAddress: walletAddress.slice(0, 8) + '...',
+      analysisAvailable: true
+    });
+  } catch (error) {
+    res.status(500).json({ 
+      success: false, 
+      error: 'Failed to check forensic status' 
+    });
   }
 });
 
