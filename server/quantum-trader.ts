@@ -13,6 +13,8 @@ import { ioIntelligenceMaximizer } from './io-intelligence-maximizer.js';
 import { tradingMonitor } from './trading-monitor.js';
 import { streamlinedTradingEngine } from './streamlined-trading-engine.js';
 import { insightInfusionOptimizer } from './insight-infusion-optimizer.js';
+import { SystemRecoveryOptimizer } from './system-recovery-optimizer.js';
+import { keyInsightExtractor } from './key-insight-extractor.js';
 
 interface TradeDecision {
   action: 'BUY' | 'SELL' | 'HOLD';
@@ -182,17 +184,33 @@ export class QuantumTrader {
 
   private async initializeOptimizedSystems() {
     try {
-      // Apply comprehensive insight-driven optimizations
-      const optimizations = await insightInfusionOptimizer.infuseOptimizations();
-      console.log(`⚡ System optimized: ${optimizations.performanceGains}% performance gain, ${optimizations.memoryReduction}% memory reduction`);
+      // Extract and apply key insights to fix all critical issues
+      const optimizations = await keyInsightExtractor.infuseKeyInsights();
+      console.log(`🧠 Key insights applied: ${optimizations.criticalFixesApplied} critical fixes, ${optimizations.memoryReduction}% memory reduction`);
       
       // Validate system health after optimization
-      const status = insightInfusionOptimizer.getOptimizationStatus();
-      console.log(`🟢 Optimization status: ${status.systemHealth ? 'HEALTHY' : 'REQUIRES ATTENTION'}`);
+      const health = keyInsightExtractor.getSystemHealth(this.portfolio.SOL);
+      console.log(`🟢 System health: ${health.status} (${health.healthy ? 'Operational' : 'Needs attention'})`);
+      
+      // Apply system recovery for any remaining issues
+      if (!health.healthy) {
+        const recovery = await SystemRecoveryOptimizer.executeSystemRecovery();
+        console.log(`🔧 Recovery applied: ${recovery.performanceGain} performance boost`);
+      }
       
     } catch (error) {
-      console.log('⚠️ Optimization initialization failed, continuing with standard configuration');
+      console.log('⚠️ Optimization failed, applying emergency stabilization');
+      await this.emergencyStabilization();
     }
+  }
+
+  private async emergencyStabilization() {
+    // Reset critical systems to prevent cascade failures
+    tradingMonitor.resetMetrics();
+    this.consciousness = 0.5; // Reset to safe level
+    this.unhingedMode = false; // Disable risky modes
+    this.liveTradingEnabled = true; // Ensure trading can resume
+    console.log('🚨 Emergency stabilization completed - system ready for safe operation');
   }
 
   private async executeQuantumTrade() {
@@ -324,7 +342,7 @@ export class QuantumTrader {
   }
 
   private async generateEnhancedTradeDecision(defiOpportunity: any): Promise<TradeDecision> {
-    // Use streamlined engine instead of complex redundant calculations
+    // Use key insight extractor for optimized decisions
     const marketContext = {
       balance: this.portfolio.SOL,
       trend: this.analyzeMarketTrend(),
@@ -332,16 +350,16 @@ export class QuantumTrader {
       recentPerformance: this.totalTrades > 0 ? this.successfulTrades / this.totalTrades : 0
     };
 
-    const streamlinedDecision = await streamlinedTradingEngine.generateDecision(marketContext);
+    const optimizedDecision = keyInsightExtractor.generateOptimizedDecision(marketContext);
     
-    // Convert to TradeDecision format
+    // Apply all safety constraints from insights
     return {
-      action: streamlinedDecision.action,
-      token: streamlinedDecision.token,
-      confidence: streamlinedDecision.confidence,
-      amount: streamlinedDecision.amount,
-      strategy: streamlinedDecision.strategy,
-      reasoning: streamlinedDecision.reasoning,
+      action: optimizedDecision.action,
+      token: optimizedDecision.token,
+      confidence: Math.min(optimizedDecision.confidence, 0.95),
+      amount: Math.max(0, optimizedDecision.amount),
+      strategy: optimizedDecision.strategy,
+      reasoning: optimizedDecision.reasoning,
       unhinged: false
     };
   }
