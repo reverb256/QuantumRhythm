@@ -3,8 +3,7 @@
  * Routes requests to optimal AI models based on content type and user intent
  */
 
-import Anthropic from '@anthropic-ai/sdk';
-import OpenAI from 'openai';
+// Removed redundant AI providers - IO Intelligence handles all capabilities
 
 interface RoutingRequest {
   content: string;

@@ -9,6 +9,7 @@ import { IntelligentTokenWhitelistManager } from './intelligent-token-whitelist-
 import { ragLearningEngine } from './rag-learning-engine.js';
 import { NewsIntelligenceAggregator } from './news-intelligence-aggregator.js';
 import { aiService } from './ai-service.js';
+import { ioIntelligenceMaximizer } from './io-intelligence-maximizer.js';
 
 interface TradeDecision {
   action: 'BUY' | 'SELL' | 'HOLD';
