@@ -12,6 +12,7 @@ import { aiService } from './ai-service.js';
 import { ioIntelligenceMaximizer } from './io-intelligence-maximizer.js';
 import { tradingMonitor } from './trading-monitor.js';
 import { streamlinedTradingEngine } from './streamlined-trading-engine.js';
+import { insightInfusionOptimizer } from './insight-infusion-optimizer.js';
 
 interface TradeDecision {
   action: 'BUY' | 'SELL' | 'HOLD';
