@@ -24,32 +24,27 @@ export class WalletManager {
   }
 
   private async initializeWallet() {
-    // Try to detect wallet from various sources
-    let detectedWallet: WalletConfig | null = null;
-
-    // 1. Check environment variables (for demo/testing)
-    if (process.env.WALLET_PUBLIC_KEY && !process.env.WALLET_PUBLIC_KEY.startsWith('$')) {
-      try {
-        new PublicKey(process.env.WALLET_PUBLIC_KEY);
-        detectedWallet = {
-          publicKey: process.env.WALLET_PUBLIC_KEY,
-          isConnected: true,
-          source: 'environment',
-          lastUpdated: Date.now()
-        };
-        console.log('🔧 Using environment wallet:', process.env.WALLET_PUBLIC_KEY.substring(0, 8) + '...');
-      } catch (error) {
-        console.log('❌ Invalid environment wallet address');
-      }
+    // Use environment variable for portfolio wallet tracking
+    const walletAddress = process.env.WALLET_PUBLIC_KEY;
+    
+    if (!walletAddress || walletAddress.startsWith('$')) {
+      console.error('❌ WALLET_PUBLIC_KEY environment variable not set');
+      return;
     }
-
-    // 2. Check for user-provided wallet (priority over environment)
-    const userWallet = await this.getUserWallet();
-    if (userWallet) {
-      detectedWallet = userWallet;
+    
+    try {
+      new PublicKey(walletAddress);
+      const detectedWallet: WalletConfig = {
+        publicKey: walletAddress,
+        isConnected: true,
+        source: 'environment',
+        lastUpdated: Date.now()
+      };
+      console.log('🔧 Tracking portfolio wallet:', walletAddress.substring(0, 8) + '...');
+      this.setCurrentWallet(detectedWallet);
+    } catch (error) {
+      console.error('❌ Failed to initialize portfolio wallet:', error);
     }
-
-    this.setCurrentWallet(detectedWallet);
   }
 
   private async getUserWallet(): Promise<WalletConfig | null> {
