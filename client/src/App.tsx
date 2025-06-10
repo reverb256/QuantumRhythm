@@ -6,7 +6,7 @@ import { Toaster } from "@/components/ui/toaster";
 // Tooltip system removed for DOM nesting compliance
 import SEOHead, { getSEOForPage } from "@/components/seo-head";
 import { ConsciousContainer } from "@/components/smart-elements";
-import { EnhancedConsole } from "@/components/enhanced-console";
+import EnhancedConsole from "@/components/enhanced-console";
 import { MetaTagManager, useAISEO } from "@/lib/ai-seo-engine";
 import { ErrorBoundaryFallback } from "@/components/error-state-manager";
 import { ErrorBoundary } from "react-error-boundary";
