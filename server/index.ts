@@ -30,6 +30,10 @@ import { profitTracker } from './real-time-profit-tracker';
 import { insightCrossPollinationEngine } from './insight-cross-pollination-engine';
 import { systemErrorRecovery } from './system-error-recovery';
 
+// Import HA and k3s components
+import { k3sSelfHealer } from '../k3s-self-healing-controller';
+import { hyperscaleOffloader } from '../hyperscale-static-offloader';
+
 // Start autonomous problem solving and optimization
 (async () => {
   try {
@@ -54,6 +58,17 @@ import { systemErrorRecovery } from './system-error-recovery';
       await comprehensiveOptimizer.runFullSystemOptimization();
     } catch (error) {
       console.log('System optimization skipped - continuing startup');
+    }
+
+    // Initialize K3s self-healing and hyperscale offloading
+    try {
+      console.log('🔧 Initializing K3s self-healing system...');
+      await k3sSelfHealer.startMonitoring();
+      
+      console.log('🚀 Starting hyperscale static offloading...');
+      await hyperscaleOffloader.startHyperscaleOffloading();
+    } catch (error) {
+      console.log('K3s/Hyperscale systems using fallback mode');
     }
 
     console.log('✅ Core systems initialized');

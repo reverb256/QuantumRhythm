@@ -1,0 +1,172 @@
+version: '3.8'
+
+services:
+  # K3s server node
+  k3s-server:
+    image: rancher/k3s:latest
+    command: server
+    tmpfs:
+    - /run
+    - /var/run
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 65535
+        hard: 65535
+    privileged: true
+    restart: always
+    environment:
+      - K3S_TOKEN=quantum-ai-cluster-token
+      - K3S_KUBECONFIG_OUTPUT=/output/kubeconfig.yaml
+      - K3S_KUBECONFIG_MODE=666
+    volumes:
+      - k3s-server:/var/lib/rancher/k3s
+      - ./kubeconfig:/output
+    ports:
+      - "6443:6443"  # Kubernetes API
+      - "80:80"      # HTTP
+      - "443:443"    # HTTPS
+    networks:
+      - k3s-network
+
+  # Quantum AI Frontend - Static with Edge Offloading
+  quantum-frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    restart: always
+    environment:
+      - NODE_ENV=production
+      - VITE_API_URL=http://quantum-backend:5000
+    volumes:
+      - ./dist:/usr/share/nginx/html:ro
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - quantum-backend
+    networks:
+      - k3s-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.frontend.rule=Host(`quantum-trading.ai`)"
+      - "traefik.http.routers.frontend.entrypoints=websecure"
+      - "traefik.http.routers.frontend.tls.certresolver=letsencrypt"
+
+  # Quantum AI Backend - Trading Engine
+  quantum-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    restart: always
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=${DATABASE_URL}
+      - SOLANA_RPC_URL=${SOLANA_RPC_URL}
+      - PRIVATE_KEY=${PRIVATE_KEY}
+    volumes:
+      - ./logs:/app/logs
+    networks:
+      - k3s-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.backend.rule=Host(`api.quantum-trading.ai`)"
+      - "traefik.http.routers.backend.entrypoints=websecure"
+      - "traefik.http.routers.backend.tls.certresolver=letsencrypt"
+
+  # Redis for caching and session management
+  redis:
+    image: redis:7-alpine
+    restart: always
+    command: redis-server --appendonly yes
+    volumes:
+      - redis-data:/data
+    networks:
+      - k3s-network
+
+  # PostgreSQL database
+  postgres:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      - POSTGRES_DB=quantum_trading
+      - POSTGRES_USER=quantum
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./database/init:/docker-entrypoint-initdb.d
+    networks:
+      - k3s-network
+
+  # Prometheus for monitoring
+  prometheus:
+    image: prom/prometheus:latest
+    restart: always
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    networks:
+      - k3s-network
+
+  # Grafana for visualization
+  grafana:
+    image: grafana/grafana:latest
+    restart: always
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
+      - GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource
+    volumes:
+      - grafana-data:/var/lib/grafana
+    networks:
+      - k3s-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.grafana.rule=Host(`grafana.quantum-trading.ai`)"
+      - "traefik.http.routers.grafana.entrypoints=websecure"
+      - "traefik.http.routers.grafana.tls.certresolver=letsencrypt"
+
+  # Traefik reverse proxy
+  traefik:
+    image: traefik:v3.0
+    restart: always
+    command:
+      - "--api.dashboard=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.letsencrypt.acme.httpchallenge=true"
+      - "--certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web"
+      - "--certificatesresolvers.letsencrypt.acme.email=admin@quantum-trading.ai"
+      - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - letsencrypt:/letsencrypt
+    networks:
+      - k3s-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dashboard.rule=Host(`traefik.quantum-trading.ai`)"
+      - "traefik.http.routers.dashboard.entrypoints=websecure"
+      - "traefik.http.routers.dashboard.tls.certresolver=letsencrypt"
+
+volumes:
+  k3s-server:
+  postgres-data:
+  redis-data:
+  prometheus-data:
+  grafana-data:
+  letsencrypt:
+
+networks:
+  k3s-network:
+    driver: bridge

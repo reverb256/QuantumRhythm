@@ -1,0 +1,243 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: quantum-trading-platform
+  labels:
+    name: quantum-trading-platform
+    tier: production
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quantum-ai-frontend
+  namespace: quantum-trading-platform
+  labels:
+    app: quantum-ai-frontend
+    tier: frontend
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 2
+  selector:
+    matchLabels:
+      app: quantum-ai-frontend
+  template:
+    metadata:
+      labels:
+        app: quantum-ai-frontend
+        tier: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: nginx:alpine
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: static-content
+          mountPath: /usr/share/nginx/html
+        - name: nginx-config
+          mountPath: /etc/nginx/conf.d
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "50m"
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 80
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 5
+      volumes:
+      - name: static-content
+        configMap:
+          name: static-site-content
+      - name: nginx-config
+        configMap:
+          name: nginx-config
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quantum-ai-backend
+  namespace: quantum-trading-platform
+  labels:
+    app: quantum-ai-backend
+    tier: backend
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: quantum-ai-backend
+  template:
+    metadata:
+      labels:
+        app: quantum-ai-backend
+        tier: backend
+    spec:
+      containers:
+      - name: backend
+        image: node:18-alpine
+        command: ["npm", "start"]
+        ports:
+        - containerPort: 5000
+        env:
+        - name: NODE_ENV
+          value: "production"
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: database-secret
+              key: url
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "200m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /api/health
+            port: 5000
+          initialDelaySeconds: 60
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /api/health
+            port: 5000
+          initialDelaySeconds: 10
+          periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: quantum-ai-frontend-service
+  namespace: quantum-trading-platform
+spec:
+  selector:
+    app: quantum-ai-frontend
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: quantum-ai-backend-service
+  namespace: quantum-trading-platform
+spec:
+  selector:
+    app: quantum-ai-backend
+  ports:
+  - protocol: TCP
+    port: 5000
+    targetPort: 5000
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: quantum-ai-ingress
+  namespace: quantum-trading-platform
+  annotations:
+    kubernetes.io/ingress.class: "traefik"
+    traefik.ingress.kubernetes.io/redirect-to-https: "true"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  tls:
+  - hosts:
+    - quantum-trading.ai
+    - api.quantum-trading.ai
+    secretName: quantum-ai-tls
+  rules:
+  - host: quantum-trading.ai
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: quantum-ai-frontend-service
+            port:
+              number: 80
+  - host: api.quantum-trading.ai
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: quantum-ai-backend-service
+            port:
+              number: 5000
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: quantum-ai-frontend-hpa
+  namespace: quantum-trading-platform
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: quantum-ai-frontend
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: quantum-ai-backend-hpa
+  namespace: quantum-trading-platform
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: quantum-ai-backend
+  minReplicas: 2
+  maxReplicas: 6
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 80
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 85
