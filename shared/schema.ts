@@ -47,6 +47,34 @@ export const tradingSignals = pgTable("trading_signals", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
+// Wallet Activity Tracking (Fixed UUID schema)
+export const walletActivity = pgTable("wallet_activity", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  walletAddress: text("wallet_address").notNull(),
+  activityType: varchar("activity_type", { length: 50 }).notNull(),
+  amount: decimal("amount", { precision: 18, scale: 9 }),
+  tokenAddress: text("token_address"),
+  transactionHash: text("transaction_hash"),
+  status: varchar("status", { length: 20 }).notNull().default("pending"),
+  metadata: json("metadata").default({}),
+  timestamp: timestamp("timestamp").defaultNow().notNull(),
+});
+
+// API Endpoint Health Tracking
+export const apiEndpoints = pgTable("api_endpoints", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  name: text("name").notNull(),
+  url: text("url").notNull(),
+  provider: text("provider").notNull(),
+  status: varchar("status", { length: 20 }).notNull().default("unknown"),
+  responseTime: integer("response_time"),
+  successCount: integer("success_count").notNull().default(0),
+  errorCount: integer("error_count").notNull().default(0),
+  rateLimit: integer("rate_limit"),
+  lastCheck: timestamp("last_check").defaultNow().notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
 // Legal Compliance Schema
 export const legalCompliance = pgTable("legal_compliance", {
   id: uuid("id").primaryKey().defaultRandom(),

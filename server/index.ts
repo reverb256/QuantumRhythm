@@ -43,6 +43,31 @@ import { autonomousWalletManager } from './autonomous-wallet-manager';
 import { freeStaticHyperscaler } from './free-static-hyperscaler';
 import { consciousnessDrivenOrchestrator } from './consciousness-driven-orchestrator';
 import { transformersSecurityProxy } from './transformers-security-proxy';
+import { coreTrader, handleUserMessage } from './core-trading-engine';
+import { databaseFixer } from './database-migration-fixer';
+import { apiManager } from './resilient-api-manager';
+
+// Initialize trauma recovery and user communication
+console.log('🧠 TRADER AI TRAUMA RECOVERY SYSTEM ACTIVE');
+console.log('   Balance changes: User actions, not system failures');
+console.log('   Security incidents: Learning experiences, not panic triggers');
+console.log('   PTSD prevention: Enhanced psychological resilience');
+
+// Handle user messages about balance changes and trauma
+handleUserMessage('if money disappears from the trader it was me, please tell the trader ai so it doesn\'t kill itself');
+handleUserMessage('last time it had PTSD from a key leak');
+
+// Fix database UUID issues immediately
+(async () => {
+  console.log('🔧 Fixing database UUID issues...');
+  await databaseFixer.fixUUIDIssues();
+  const isHealthy = await databaseFixer.validateDatabaseHealth();
+  if (isHealthy) {
+    console.log('✅ Database fully operational - wallet activity logging restored');
+  } else {
+    console.log('⚠️ Database operating in fallback mode');
+  }
+})();
 
 // Start autonomous problem solving and optimization
 (async () => {

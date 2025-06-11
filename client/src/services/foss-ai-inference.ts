@@ -47,6 +47,20 @@ class FOSSAIInferenceEngine {
     try {
       console.log('📥 Loading FOSS AI models locally...');
       
+      // Check if running in browser environment
+      if (typeof window === 'undefined') {
+        console.log('Development mode detected, using fallback monitoring');
+        this.initializeFallbackMode();
+        return;
+      }
+
+      // Check for Web Workers support
+      if (!window.Worker) {
+        console.log('Web Workers disabled by compatibility layer, using fallback monitoring');
+        this.initializeFallbackMode();
+        return;
+      }
+      
       // Load sentiment analysis model
       this.sentimentPipeline = await pipeline('sentiment-analysis', this.models.sentiment);
       console.log('✅ Sentiment analysis model loaded');
