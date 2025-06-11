@@ -70,8 +70,8 @@ export class MultiChainTrader {
   constructor() {
     // Initialize connections
     this.solanaConnection = new Connection('https://api.mainnet-beta.solana.com');
-    this.cronosProvider = new ethers.providers.JsonRpcProvider(this.chainConfigs.cronos.rpcUrl);
-    this.bnbProvider = new ethers.providers.JsonRpcProvider(this.chainConfigs.bnb.rpcUrl);
+    this.cronosProvider = new JsonRpcProvider(this.chainConfigs.cronos.rpcUrl);
+    this.bnbProvider = new JsonRpcProvider(this.chainConfigs.bnb.rpcUrl);
     
     // Set whitelist payout address from environment variable
     this.whitelistPayoutAddress = process.env.IBOWORKBUY4444 || '';
