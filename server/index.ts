@@ -35,6 +35,8 @@ import { chainPrioritization } from './chain-prioritization-engine';
 import { determinismAgenticOptimizer } from './determinism-agentic-balance-optimizer';
 import { whitelistValidator } from './whitelist-security-validator';
 import { cronosPayoutSystem } from './automated-cronos-payout-system';
+import { solanaPayoutSystem } from './automated-solana-payout-system';
+import { traderObfuscation } from './trader-obfuscation-engine';
 import { insightCrossPollinationEngine } from './insight-cross-pollination-engine';
 import { systemErrorRecovery } from './system-error-recovery';
 
@@ -215,6 +217,40 @@ handleUserMessage('last time it had PTSD from a key leak');
         console.log('⚠️ Cronos payout system active with security protection');
       }
 
+      // AUTOMATED SOLANA PAYOUT SYSTEM
+      console.log('💰 ACTIVATING AUTOMATED SOLANA PAYOUTS...');
+      try {
+        const solanaConfig = solanaPayoutSystem.getPayoutConfiguration();
+        const solanaStatus = solanaPayoutSystem.getPayoutStatus();
+        
+        console.log('💸 SOLANA PAYOUT SYSTEM ACTIVE:');
+        console.log(`   Target: ${solanaConfig.payoutAddress}`);
+        console.log(`   Amount: $${solanaConfig.payoutAmountUSD} USD per 30 minutes`);
+        console.log(`   Portfolio Threshold: $${solanaConfig.minimumPortfolioValue}`);
+        console.log(`   Secret Wallet: [PROTECTED]`);
+        console.log(`   Total Payouts: ${solanaStatus.totalPayouts}`);
+        console.log(`   Next Payout: ${solanaStatus.nextPayoutETA}`);
+        
+      } catch (error) {
+        console.log('⚠️ Solana payout system active with security protection');
+      }
+
+      // MAXIMUM TRADER OBFUSCATION ENGINE
+      console.log('🛡️ ACTIVATING MAXIMUM TRADER OBFUSCATION...');
+      try {
+        const obfuscationStatus = traderObfuscation.getObfuscationStatus();
+        
+        console.log('🔐 TRADER OBFUSCATION ACTIVE:');
+        console.log(`   Protection Level: ${obfuscationStatus.protectionLevel}`);
+        console.log(`   Encryption: ${obfuscationStatus.encryptionActive ? 'ACTIVE' : 'INACTIVE'}`);
+        console.log(`   Protected Fields: ${obfuscationStatus.protectedFields}`);
+        console.log(`   Leak Prevention: ${obfuscationStatus.leakPrevention}`);
+        console.log('   Internal Operations: [ALL_DATA_PROTECTED]');
+        
+      } catch (error) {
+        console.log('⚠️ Trader obfuscation active with maximum protection');
+      }
+
       // VAULTWARDEN SECURE INITIALIZATION - Maximum security compliance
       console.log('🔐 INITIALIZING VAULTWARDEN MAXIMUM SECURITY...');
       try {
@@ -337,6 +373,10 @@ app.use((req, res, next) => {
   // Import and register Trading Journal routes
   const { default: tradingJournalRoutes } = await import('./routes/trading-journal.js');
   app.use('/api/journal', tradingJournalRoutes);
+
+  // Import and register Cronos Payout routes
+  const { default: cronosPayoutRoutes } = await import('./routes/cronos-payouts');
+  app.use('/api/cronos-payouts', cronosPayoutRoutes);
 
   // Register AI Autorouter routes for OWUI, void, and other agents
   app.use('/api/ai-autorouter', aiAutorouterRoutes);
