@@ -112,6 +112,7 @@ function Router() {
         <Route path="/trading-visualization" component={TradingVisualization} />
         <Route path="/trading" component={TradingInterface} />
         <Route path="/defi" component={DeFiDashboard} />
+        <Route path="/portfolio" component={PortfolioDashboard} />
         <Route path="/cloudflare" component={CloudflareOptimization} />
         <Route path="/technical-deep-dive" component={TechnicalDeepDive} />
         <Route path="/ai-systems" component={AISystems} />
