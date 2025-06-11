@@ -4,7 +4,7 @@
  */
 
 import { RSSIntelligenceEngine } from './rss-intelligence-engine.js';
-import { aiService } from './ai-service.js';
+import { aiAutorouterFixed } from './ai-autorouter-fixed.js';
 import axios from 'axios';
 
 interface NewsAlert {

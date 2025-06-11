@@ -58,7 +58,7 @@ export class AIAutorouter {
   private anthropic?: Anthropic;
   private openai?: OpenAI;
   private xai?: OpenAI; // Using OpenAI client for xAI compatibility
-  private ioIntelligence?: OpenAI; // IO Intelligence with OpenAI compatibility
+
   private availableModels: ModelCapability[];
   private requestHistory: Map<string, RoutingResponse[]>;
   private performanceMetrics: Map<string, { latency: number; successRate: number; }>;
@@ -85,20 +85,14 @@ export class AIAutorouter {
       });
     }
 
-    if (process.env.IO_INTELLIGENCE_API_KEY) {
-      this.ioIntelligence = new OpenAI({
-        baseURL: "https://api.intelligence.io.solutions/api/v1",
-        apiKey: process.env.IO_INTELLIGENCE_API_KEY,
-      });
-    }
+
 
     this.requestHistory = new Map();
     this.performanceMetrics = new Map();
     this.dailyTokenTracking = new Map();
 
-    // Initialize token tracking and model discovery
+    // Initialize token tracking
     this.initializeTokenTracking();
-    this.discoverModels();
 
     // Define model capabilities
     this.availableModels = [
@@ -207,52 +201,10 @@ export class AIAutorouter {
   }
 
   /**
-   * Discover available models and agents from IO Intelligence
+   * Initialize available models (static configuration)
    */
   private async discoverModels(): Promise<void> {
-    try {
-      if (!process.env.IO_INTELLIGENCE_API_KEY) {
-        console.log('⚠️ IO Intelligence API key not available, skipping model discovery');
-        return;
-      }
-
-      // Discover available models
-      const modelsResponse = await this.ioIntelligence.models.list();
-      
-      // Add discovered IO Intelligence models
-      const ioModels = modelsResponse.data.map(model => ({
-        name: model.id,
-        provider: 'io_intelligence' as const,
-        strengths: this.inferModelStrengths(model.id),
-        contentTypes: ['text', 'code', 'analysis'] as const,
-        intents: ['generate', 'analyze', 'summarize'] as const,
-        maxTokens: model.max_model_len || 32000,
-        costPerToken: 0.000005, // Estimated cost
-        responseTime: 2000,
-        reliability: 92,
-        specializations: this.inferSpecializations(model.id),
-        dailyFreeTokens: this.getDailyFreeTokens(model.id),
-        tokensUsedToday: 0,
-        resetTime: new Date()
-      }));
-
-      // Add IO Intelligence models to available models
-      this.availableModels.push(...ioModels);
-
-      console.log(`🔍 Discovered ${ioModels.length} IO Intelligence models`);
-      
-      // Initialize token tracking for new models
-      ioModels.forEach(model => {
-        this.dailyTokenTracking.set(model.name, {
-          used: 0,
-          limit: model.dailyFreeTokens || 0,
-          resetTime: new Date()
-        });
-      });
-
-    } catch (error) {
-      console.log(`⚠️ Model discovery failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
-    }
+    console.log('🔍 AI models initialized from static configuration');
   }
 
   /**
