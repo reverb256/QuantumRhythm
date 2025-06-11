@@ -228,15 +228,10 @@ export default function Navigation() {
               
               return (
                 <Link key={item.path} href={item.path}>
-                  <div className={`nav-item ${isActive ? 'active' : ''} group relative`}>
+                  <div className={`nav-item ${isActive ? 'active' : ''} group relative`} 
+                       style={{ pointerEvents: 'auto', zIndex: 100 }}>
                     <Icon className="w-5 h-5 inline-block mr-2" />
                     <span className="hidden sm:inline">{item.label}</span>
-                    
-                    {/* Tooltip */}
-                    <div className="tooltip definition">
-                      <div className="font-semibold text-cyan-300">{item.label}</div>
-                      <div className="text-gray-300 mt-1">{item.description}</div>
-                    </div>
                   </div>
                 </Link>
               );
@@ -254,8 +249,10 @@ export default function Navigation() {
                   className="relative"
                   onMouseEnter={() => setOpenDropdown(dropdown.label)}
                   onMouseLeave={() => setOpenDropdown(null)}
+                  onClick={() => setOpenDropdown(isOpen ? null : dropdown.label)}
                 >
-                  <div className={`nav-item ${hasActiveItem ? 'active' : ''} group relative cursor-pointer`}>
+                  <div className={`nav-item ${hasActiveItem ? 'active' : ''} group relative cursor-pointer`} 
+                       style={{ pointerEvents: 'auto', zIndex: 100 }}>
                     <Icon className="w-5 h-5 inline-block mr-2" />
                     <span className="hidden lg:inline">{dropdown.label}</span>
                     <ChevronDown className="w-4 h-4 ml-1 transition-transform" style={{
