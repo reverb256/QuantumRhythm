@@ -169,3 +169,8 @@ export function ConsciousnessLevel({ level, evolution, type }: ConsciousnessLeve
     </div>
   );
 }
+
+export default Tooltip;
+
+// Move definitions to separate export to fix Fast Refresh
+export { definitions };

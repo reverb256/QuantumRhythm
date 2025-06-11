@@ -8,6 +8,7 @@ import LegalComplianceResolver from "./legal-compliance-resolver";
 import { dataProtection } from "./data-protection-middleware";
 import { systemConsolidation } from './system-consolidation';
 import { databaseOptimizer } from './database-optimizer';
+import { databaseSchemaFixer } from './database-schema-fixer';
 
 const app = express();
 app.use(express.json());
@@ -37,6 +38,11 @@ import { insightCrossPollinationEngine } from './insight-cross-pollination-engin
   console.log(`📊 Trading Mode: ${validation.tradeMode?.toUpperCase() || 'UNKNOWN'}`);
   console.log(`💰 Authentic Balance: ${validation.actualBalance?.toFixed(6) || '0.000000'} SOL`);
   console.log(`🌐 Network: ${validation.networkStatus}`);
+
+  // Fix database schema issues first
+  await databaseSchemaFixer.fixMissingColumns();
+  await databaseSchemaFixer.validateConstraints();
+  await databaseSchemaFixer.fixUUIDIssues();
 
   // Perform initial database health check and auto-repair
   await problemSolver.performDatabaseHealthCheck();

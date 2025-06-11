@@ -57,7 +57,7 @@ export class AutonomousProblemSolver {
     try {
       const sanitizedError = dataProtection.sanitizeQuery(String(error));
       const issue = this.identifyIssue(sanitizedError);
-      
+
       if (!issue) {
         console.log('🔍 Unknown issue detected, learning pattern...');
         await this.learnFromError(sanitizedError, context);
@@ -65,7 +65,7 @@ export class AutonomousProblemSolver {
       }
 
       console.log(`🛠️ Auto-fixing: ${issue.description}`);
-      
+
       if (issue.autoFixable) {
         const success = await this.applySolution(issue, context);
         this.recordSolutionAttempt(issue.description, issue.solution, success);
@@ -118,42 +118,39 @@ export class AutonomousProblemSolver {
 
   private async solveForeignKeyIssue(issue: SystemIssue, context?: any): Promise<boolean> {
     try {
-      // Check if the issue is trading_signals referencing non-existent agent
-      if (issue.description.includes('trading agent')) {
-        console.log('🔧 Creating missing trading agent...');
-        
-        const agentId = this.generateValidAgentId();
-        const defaultConfiguration = {
-          strategy: 'quantum_enhanced',
-          riskLevel: 'moderate',
-          maxPositionSize: 0.1,
-          stopLoss: 0.05,
-          takeProfit: 0.15,
-          quantumEnhanced: true
-        };
+      switch (issue.error) {
+        case 'trading_signals_agent_id_trading_agents_id_fk':
+          // Create missing trading agent with proper UUID handling
+          const agentId = crypto.randomUUID();
 
-        // Create the missing trading agent
-        await db.insert(tradingAgents).values({
-          name: 'Quantum Trading Agent',
-          configuration: defaultConfiguration,
-          status: 'active',
-          performanceMetrics: {
-            winRate: 0.75,
-            totalTrades: 0,
-            profitLoss: 0
-          },
-          lastActivity: new Date(),
-          createdAt: new Date(),
-          updatedAt: new Date()
-        });
+          // Validate UUID format before insertion
+          if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(agentId)) {
+            console.error('Invalid UUID format generated');
+            return false;
+          }
 
-        console.log('✅ Trading agent created successfully');
-        return true;
+          await db.insert(tradingAgents).values({
+            id: agentId,
+            name: 'Auto-Generated Agent',
+            configuration: {
+              strategy: 'default',
+              riskLevel: 'low',
+              quantumEnhanced: false
+            },
+            status: 'active',
+            performanceMetrics: {},
+            lastActivity: new Date(),
+            createdAt: new Date(),
+            updatedAt: new Date()
+          });
+
+          console.log(`✅ Created missing trading agent: ${agentId}`);
+          return true;
+        default:
+          return false;
       }
-      
-      return false;
     } catch (error) {
-      console.error('Foreign key solution failed:', dataProtection.sanitizeQuery(String(error)));
+      console.error('Foreign key fix failed:', dataProtection.sanitizeQuery(String(error)));
       return false;
     }
   }
@@ -162,12 +159,12 @@ export class AutonomousProblemSolver {
     try {
       if (issue.description.includes('configuration')) {
         console.log('🔧 Providing default configuration...');
-        
+
         // The solution is to ensure configuration is always provided
         // This will be handled by the calling code
         return true;
       }
-      
+
       return false;
     } catch (error) {
       console.error('Null violation solution failed:', dataProtection.sanitizeQuery(String(error)));
@@ -179,13 +176,13 @@ export class AutonomousProblemSolver {
     try {
       if (issue.description.includes('UUID')) {
         console.log('🔧 Generating valid UUID...');
-        
+
         // Generate a new valid UUID
         const validUuid = this.generateValidUuid();
         console.log('✅ Valid UUID generated');
         return true;
       }
-      
+
       return false;
     } catch (error) {
       console.error('Data type solution failed:', dataProtection.sanitizeQuery(String(error)));
@@ -204,10 +201,10 @@ export class AutonomousProblemSolver {
   private async learnFromError(error: string, context?: any): Promise<void> {
     // Learn patterns from new errors for future auto-resolution
     console.log('🧠 Learning from new error pattern...');
-    
+
     // Pattern detection logic would go here
     // For now, we log for manual analysis
-    
+
     this.solutionHistory.push({
       issue: error.substring(0, 100),
       solution: 'Learning pattern',
@@ -217,12 +214,12 @@ export class AutonomousProblemSolver {
 
   private recordSolutionAttempt(issue: string, solution: string, success: boolean): void {
     this.solutionHistory.push({ issue, solution, success });
-    
+
     // Keep only recent history
     if (this.solutionHistory.length > 100) {
       this.solutionHistory = this.solutionHistory.slice(-50);
     }
-    
+
     if (success) {
       console.log(`✅ Problem resolved: ${issue}`);
     } else {
@@ -237,7 +234,7 @@ export class AutonomousProblemSolver {
     autoFixed: number;
   }> {
     console.log('🏥 Performing database health check...');
-    
+
     const issues: string[] = [];
     let autoFixed = 0;
 
@@ -251,12 +248,12 @@ export class AutonomousProblemSolver {
 
       if (orphanedSignals[0]?.count > 0) {
         issues.push(`${orphanedSignals[0].count} orphaned trading signals found`);
-        
+
         // Auto-fix: Delete orphaned signals
         await db
           .delete(tradingSignals)
           .where(sql`${tradingSignals.agentId} NOT IN (SELECT id FROM ${tradingAgents})`);
-        
+
         autoFixed++;
         console.log('🔧 Cleaned up orphaned trading signals');
       }
@@ -269,7 +266,7 @@ export class AutonomousProblemSolver {
 
       if (agentsWithNullConfig[0]?.count > 0) {
         issues.push(`${agentsWithNullConfig[0].count} agents with null configuration`);
-        
+
         // Auto-fix: Provide default configuration
         const defaultConfig = {
           strategy: 'default',
@@ -284,7 +281,7 @@ export class AutonomousProblemSolver {
             updatedAt: new Date()
           })
           .where(sql`${tradingAgents.configuration} IS NULL`);
-        
+
         autoFixed++;
         console.log('🔧 Fixed agents with null configuration');
       }
@@ -294,7 +291,7 @@ export class AutonomousProblemSolver {
     }
 
     const healthy = issues.length === 0;
-    
+
     console.log(`🏥 Health check complete: ${healthy ? 'HEALTHY' : 'ISSUES FOUND'}`);
     if (autoFixed > 0) {
       console.log(`🔧 Auto-fixed ${autoFixed} issues`);
@@ -306,7 +303,7 @@ export class AutonomousProblemSolver {
   // Preventive maintenance
   async performPreventiveMaintenance(): Promise<void> {
     console.log('🛠️ Performing preventive maintenance...');
-    
+
     try {
       // Ensure at least one trading agent exists
       const agentCount = await db
@@ -315,7 +312,7 @@ export class AutonomousProblemSolver {
 
       if (agentCount[0]?.count === 0) {
         console.log('🔧 Creating default trading agent...');
-        
+
         await db.insert(tradingAgents).values({
           name: 'Default Quantum Agent',
           configuration: {
@@ -342,7 +339,7 @@ export class AutonomousProblemSolver {
       `);
 
       console.log('✅ Preventive maintenance completed');
-      
+
     } catch (error) {
       console.error('Preventive maintenance failed:', dataProtection.sanitizeQuery(String(error)));
     }

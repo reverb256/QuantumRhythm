@@ -227,14 +227,29 @@ export class APIEfficiencyManager {
   }
 
   private handleRateLimitError(endpoint: EndpointHealth) {
-    // Reduce rate limit estimate
-    endpoint.requestsPerMinute = Math.max(5, Math.floor(endpoint.requestsPerMinute * 0.7));
+    // More aggressive rate limit reduction
+    endpoint.requestsPerMinute = Math.max(3, Math.floor(endpoint.requestsPerMinute * 0.5));
     
-    // Increase delay multiplier
+    // Exponential backoff for severely rate-limited endpoints
     const currentMultiplier = this.delayMultiplier.get(endpoint.url) || 1;
-    this.delayMultiplier.set(endpoint.url, Math.min(5, currentMultiplier * 1.5));
+    this.delayMultiplier.set(endpoint.url, Math.min(10, currentMultiplier * 2));
     
-    console.log(`Rate limit updated for ${endpoint.provider}: ${endpoint.requestsPerMinute} RPM`);
+    // Temporarily disable endpoint if too many rate limit errors
+    endpoint.consecutiveErrors++;
+    if (endpoint.consecutiveErrors >= 5) {
+      endpoint.isHealthy = false;
+      console.log(`🚫 Endpoint ${endpoint.provider} temporarily disabled due to persistent rate limiting`);
+      
+      // Re-enable after extended cooldown
+      setTimeout(() => {
+        endpoint.isHealthy = true;
+        endpoint.consecutiveErrors = 0;
+        endpoint.requestsPerMinute = Math.max(1, endpoint.requestsPerMinute);
+        console.log(`✅ Endpoint ${endpoint.provider} re-enabled after cooldown`);
+      }, 900000); // 15 minutes
+    }
+    
+    console.log(`⚠️ Rate limit updated for ${endpoint.provider}: ${endpoint.requestsPerMinute} RPM (multiplier: ${currentMultiplier}x)`);
   }
 
   private handleServerError(endpoint: EndpointHealth) {
