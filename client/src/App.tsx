@@ -15,6 +15,7 @@ import { WalletProvider } from "@/hooks/useWallet";
 import Navigation from "@/components/navigation";
 import { BreathingPageWrapper } from "@/components/breathing-animation";
 import HoYoverseCharacterSystem from "@/components/HoYoverseCharacterSystem";
+import SpeechInterface from "@/components/SpeechInterface";
 import Home from "@/pages/home";
 import Projects from "@/pages/projects";
 import Philosophy from "@/pages/philosophy";
@@ -172,6 +173,7 @@ function App() {
             <main id="main-content" className="relative z-10 hdr-background text-wcag-aaa focus-enhanced">
               <Router />
               <HoYoverseCharacterSystem />
+              <SpeechInterface />
             </main>
             <EnhancedConsole />
           </ConsciousContainer>
