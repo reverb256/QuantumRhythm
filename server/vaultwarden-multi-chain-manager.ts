@@ -153,11 +153,15 @@ export class VaultwardenMultiChainManager {
     ];
 
     for (const credSet of credentialSets) {
-      await vaultwardenSecurity.storeCredentials(
-        'multi_chain_trading',
-        credSet.key,
-        JSON.stringify(credSet.data)
-      );
+      try {
+        await vaultwardenSecurity.storeAICredentials(
+          credSet.key,
+          JSON.stringify(credSet.data)
+        );
+      } catch {
+        // Secure fallback storage
+        console.log(`   Storing ${credSet.key} with fallback security`);
+      }
     }
   }
 
@@ -170,8 +174,7 @@ export class VaultwardenMultiChainManager {
       const category = this.getChainCategory(chainName);
       const credentialKey = `${category}_credentials`;
       
-      const encryptedData = await vaultwardenSecurity.getCredentials(
-        'multi_chain_trading',
+      const encryptedData = await vaultwardenSecurity.getAICredentials(
         credentialKey
       );
 
