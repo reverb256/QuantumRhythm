@@ -39,6 +39,7 @@ import WorkplaceJanitorial from "@/pages/workplace-janitorial";
 import TrovesCoves from "@/pages/troves-coves";
 import FrostbiteGazette from "@/pages/frostbite-gazette";
 import HealthMonitorDashboard from "@/components/HealthMonitorDashboard";
+import CompatibilityTestPage from "@/pages/CompatibilityTestPage";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -121,6 +122,7 @@ function Router() {
         <Route path="/ai-onboarding" component={AIOnboarding} />
         <Route path="/agent-insights" component={AgentInsights} />
         <Route path="/health-monitor" component={HealthMonitorDashboard} />
+        <Route path="/compatibility-test" component={CompatibilityTestPage} />
         <Route path="/compliance" component={Compliance} />
         <Route path="/legal" component={Legal} />
         <Route path="/workplace-janitorial" component={WorkplaceJanitorial} />
