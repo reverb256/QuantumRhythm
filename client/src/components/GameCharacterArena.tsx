@@ -320,7 +320,7 @@ export function GameCharacterArena() {
     
     const targetCount = pageCharacterCounts[location as keyof typeof pageCharacterCounts] || 3;
     if (characters.length < targetCount) {
-      const additionalCharacters = [];
+      const additionalCharacters: GameCharacter[] = [];
       for (let i = characters.length; i < targetCount; i++) {
         const archetype = CHARACTER_ARCHETYPES[i % CHARACTER_ARCHETYPES.length];
         additionalCharacters.push(createCharacter(archetype, i));
@@ -451,7 +451,8 @@ export function GameCharacterArena() {
   };
 
   const updateFighting = (character: GameCharacter, allCharacters: GameCharacter[]): GameCharacter => {
-    const target = character.target ? allCharacters.find(c => c.id === character.target) : null;
+    // For fighting, we need to find the target character by ID (stored in a separate field)
+    const targetCharacter = character.combatTarget ? allCharacters.find(c => c.id === character.combatTarget) : null;
     
     if (!target) {
       return { ...character, state: 'idle', target: undefined };
