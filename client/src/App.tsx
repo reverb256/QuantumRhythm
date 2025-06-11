@@ -11,6 +11,7 @@ import { MetaTagManager, useAISEO } from "@/lib/ai-seo-engine";
 import { ErrorBoundaryFallback } from "@/components/error-state-manager";
 import { ErrorBoundary, FallbackProps } from "react-error-boundary";
 import { WalletProvider } from "@/hooks/useWallet";
+import { Web3AuthProvider } from "@/components/Web3AuthProvider";
 
 import Navigation from "@/components/navigation";
 import { BreathingPageWrapper } from "@/components/breathing-animation";
@@ -180,7 +181,8 @@ function App() {
       )}>
       <QueryClientProvider client={queryClient}>
         <WalletProvider>
-          <ConsciousContainer learningRate={0.15}>
+          <Web3AuthProvider>
+            <ConsciousContainer learningRate={0.15}>
             <Toaster />
             <main id="main-content" className="relative z-10 hdr-background text-wcag-aaa focus-enhanced">
               <Navigation />

@@ -73,8 +73,8 @@ export class MultiChainTrader {
     this.cronosProvider = new JsonRpcProvider(this.chainConfigs.cronos.rpcUrl);
     this.bnbProvider = new JsonRpcProvider(this.chainConfigs.bnb.rpcUrl);
     
-    // Set whitelist payout address from environment variable
-    this.whitelistPayoutAddress = process.env.IBOWORKBUY4444 || '';
+    // Set Cronos whitelist payout address from environment variable
+    this.whitelistPayoutAddress = process.env.sKRTOGIUBNV || '';
     
     console.log('🌐 Multi-Chain Trader initialized');
     console.log(`   Cronos: ${this.chainConfigs.cronos.rpcUrl}`);

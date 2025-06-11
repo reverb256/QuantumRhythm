@@ -349,7 +349,7 @@ export function TradingCommunicationHub() {
                       {formatTime(message.timestamp)}
                     </span>
                     {message.chain && (
-                      <Badge size="sm" className={getChainColor(message.chain)}>
+                      <Badge className={getChainColor(message.chain)}>
                         {message.chain.toUpperCase()}
                       </Badge>
                     )}

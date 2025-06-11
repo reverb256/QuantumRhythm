@@ -2,6 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import path from "path";
 import tradingRouter from "./routes/trading";
+import tradingApiRouter from "./routes/trading-api";
 import legalComplianceRouter from "./routes/legal-compliance";
 import analyticsRouter from "./routes/analytics";
 import parameterInsightsRouter from "./routes/parameter-insights";
@@ -156,6 +157,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Add intelligence routes
   app.use('/api/intelligence', intelligenceRouter);
+
+  // Add multi-chain trading API routes
+  app.use('/api/trading', tradingApiRouter);
 
   // Donation tracking endpoint
   app.get('/api/donations/stats', async (req, res) => {
