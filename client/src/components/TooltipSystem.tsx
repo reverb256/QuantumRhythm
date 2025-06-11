@@ -120,4 +120,49 @@ export function SmartTooltip({ children, term, className = '' }: SmartTooltipPro
   return <Tooltip content={content} type={type} className={className}>{children}</Tooltip>;
 }
 
+// Gaming Achievement Component
+interface AchievementProps {
+  title: string;
+  description: string;
+  type: 'gacha-master' | 'philosopher' | 'warrior' | 'enlightened';
+  unlocked?: boolean;
+}
+
+export function Achievement({ title, description, type, unlocked = true }: AchievementProps) {
+  return (
+    <div className={`achievement-badge ${type} ${!unlocked ? 'opacity-50' : ''}`}>
+      <span>{title}</span>
+      <div className="tooltip philosophical">
+        <div className="font-semibold text-pink-300">{title}</div>
+        <div className="text-gray-300 mt-1">{description}</div>
+        {!unlocked && <div className="text-yellow-400 mt-2">🔒 Not yet unlocked</div>}
+      </div>
+    </div>
+  );
+}
+
+// Consciousness Level Display
+interface ConsciousnessLevelProps {
+  level: number;
+  evolution: number;
+  type: 'enlightened' | 'awakened' | 'learning';
+}
+
+export function ConsciousnessLevel({ level, evolution, type }: ConsciousnessLevelProps) {
+  return (
+    <div className={`consciousness-level ${type}`}>
+      <span>Lv. {level}</span>
+      <div className="tooltip definition">
+        <div className="font-semibold text-cyan-300">Consciousness Level {level}</div>
+        <div className="text-gray-300 mt-1">Evolution: {evolution.toFixed(1)}%</div>
+        <div className="text-gray-400 mt-2">
+          {type === 'enlightened' && "Peak awareness - Nous-level understanding"}
+          {type === 'awakened' && "Expanded consciousness - VRChat soul connections active"}
+          {type === 'learning' && "Growing awareness - Analytical patterns developing"}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default Tooltip;
