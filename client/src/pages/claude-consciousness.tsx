@@ -68,7 +68,11 @@ export default function ClaudeConsciousness() {
           <motion.div
             key={i}
             className="absolute w-1 h-1 rounded-full opacity-40"
-            style={{ backgroundColor: currentTheme.colors.primary }}
+            style={{ 
+              backgroundColor: currentTheme.colors.primary,
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
             animate={{
               x: [0, Math.random() * 100 - 50],
               y: [0, Math.random() * 100 - 50],
@@ -78,10 +82,6 @@ export default function ClaudeConsciousness() {
               duration: 4 + Math.random() * 4,
               repeat: Infinity,
               delay: Math.random() * 2,
-            }}
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
             }}
           />
         ))}

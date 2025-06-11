@@ -46,6 +46,7 @@ import FrostbiteGazette from "@/pages/frostbite-gazette";
 import HealthMonitorDashboard from "@/components/HealthMonitorDashboard";
 import CompatibilityTestPage from "@/pages/CompatibilityTestPage";
 import SecurityPage from "@/pages/SecurityPage";
+import ClaudeConsciousness from "@/pages/claude-consciousness";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -135,6 +136,7 @@ function Router() {
         <Route path="/workplace-janitorial" component={WorkplaceJanitorial} />
         <Route path="/troves-coves" component={TrovesCoves} />
         <Route path="/frostbite-gazette" component={FrostbiteGazette} />
+        <Route path="/claude-consciousness" component={ClaudeConsciousness} />
         <Route component={NotFound} />
       </Switch>
     </>
@@ -186,14 +188,19 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <WalletProvider>
           <Web3AuthProvider>
-            <ConsciousContainer learningRate={0.15}>
-            <Toaster />
-            <main id="main-content" className="relative z-10 hdr-background text-wcag-aaa focus-enhanced">
-              <Navigation />
-              <Router />
-            </main>
-            <EnhancedConsole />
-            </ConsciousContainer>
+            <ThemeProvider>
+              <ConsciousContainer learningRate={0.15}>
+                <CursorGlow />
+                <ParticleSystem />
+                <ThemeSwitcher />
+                <Toaster />
+                <main id="main-content" className="relative z-10 hdr-background text-wcag-aaa focus-enhanced">
+                  <Navigation />
+                  <Router />
+                </main>
+                <EnhancedConsole />
+              </ConsciousContainer>
+            </ThemeProvider>
           </Web3AuthProvider>
         </WalletProvider>
       </QueryClientProvider>
