@@ -3,8 +3,10 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { AlertCircle, CheckCircle, Activity, Zap, Shield, Eye } from 'lucide-react';
+import { AlertCircle, CheckCircle, Activity, Zap, Shield, Eye, Cpu, HardDrive } from 'lucide-react';
 import { pageMonitor } from '@/services/autonomous-page-monitor';
+import { compatibilityLayer } from '@/services/compatibility-layer';
+import '../styles/compatibility.css';
 
 interface HealthReport {
   status: 'healthy' | 'issues_detected';
@@ -33,6 +35,7 @@ export default function HealthMonitorDashboard() {
   const [recentIssues, setRecentIssues] = useState<PageIssue[]>([]);
   const [isMonitoring, setIsMonitoring] = useState(false);
   const [autoResolveCount, setAutoResolveCount] = useState(0);
+  const [compatibilityReport, setCompatibilityReport] = useState(compatibilityLayer.getPerformanceReport());
 
   useEffect(() => {
     // Initialize monitoring
@@ -295,44 +298,132 @@ export default function HealthMonitorDashboard() {
         </Card>
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Autonomous Resolution Capabilities</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid gap-4 md:grid-cols-3">
-            <div className="space-y-2">
-              <h4 className="font-semibold text-sm">Error Handling</h4>
-              <ul className="text-xs space-y-1 text-muted-foreground">
-                <li>• Script error isolation</li>
-                <li>• Promise rejection recovery</li>
-                <li>• Error boundary activation</li>
-                <li>• Graceful degradation</li>
-              </ul>
+      <div className="grid gap-4 md:grid-cols-2">
+        <Card>
+          <CardHeader>
+            <CardTitle>System Compatibility</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="grid gap-3 md:grid-cols-2">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium flex items-center gap-2">
+                    <HardDrive className="h-4 w-4" />
+                    Memory
+                  </span>
+                  <span className="text-sm text-muted-foreground">
+                    {compatibilityReport.capabilities.memoryGB}GB
+                  </span>
+                </div>
+                
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium flex items-center gap-2">
+                    <Cpu className="h-4 w-4" />
+                    Device Class
+                  </span>
+                  <Badge variant={compatibilityReport.capabilities.isLowEnd ? "secondary" : "default"}>
+                    {compatibilityReport.capabilities.isLowEnd ? "Low-End" : "Modern"}
+                  </Badge>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium">Web Workers</span>
+                  <Badge variant={compatibilityReport.capabilities.webWorkerSupport ? "default" : "secondary"}>
+                    {compatibilityReport.capabilities.webWorkerSupport ? "Supported" : "Disabled"}
+                  </Badge>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium">WebAssembly</span>
+                  <Badge variant={compatibilityReport.capabilities.webAssemblySupport ? "default" : "secondary"}>
+                    {compatibilityReport.capabilities.webAssemblySupport ? "Supported" : "Disabled"}
+                  </Badge>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium">Animation Level</span>
+                  <span className="text-sm text-muted-foreground capitalize">
+                    {compatibilityReport.settings.animationLevel}
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium">Cache Strategy</span>
+                  <span className="text-sm text-muted-foreground capitalize">
+                    {compatibilityReport.settings.cacheStrategy}
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium">Max Workers</span>
+                  <span className="text-sm text-muted-foreground">
+                    {compatibilityReport.allocatedResources.maxWorkers}
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium">Processing Mode</span>
+                  <span className="text-sm text-muted-foreground capitalize">
+                    {compatibilityReport.settings.dataProcessingMode}
+                  </span>
+                </div>
+              </div>
             </div>
-            
-            <div className="space-y-2">
-              <h4 className="font-semibold text-sm">Performance Optimization</h4>
-              <ul className="text-xs space-y-1 text-muted-foreground">
-                <li>• Memory leak detection</li>
-                <li>• Animation reduction</li>
-                <li>• Lazy loading activation</li>
-                <li>• Feature reduction</li>
-              </ul>
+
+            {compatibilityReport.recommendations.length > 0 && (
+              <div className="space-y-2">
+                <h4 className="font-semibold text-sm">Recommendations</h4>
+                <ul className="text-xs space-y-1">
+                  {compatibilityReport.recommendations.map((rec, index) => (
+                    <li key={index} className="text-muted-foreground">• {rec}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Autonomous Resolution Capabilities</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid gap-4 md:grid-cols-1">
+              <div className="space-y-2">
+                <h4 className="font-semibold text-sm">Error Handling</h4>
+                <ul className="text-xs space-y-1 text-muted-foreground">
+                  <li>• Script error isolation</li>
+                  <li>• Promise rejection recovery</li>
+                  <li>• Error boundary activation</li>
+                  <li>• Graceful degradation</li>
+                </ul>
+              </div>
+              
+              <div className="space-y-2">
+                <h4 className="font-semibold text-sm">Performance Optimization</h4>
+                <ul className="text-xs space-y-1 text-muted-foreground">
+                  <li>• Memory leak detection</li>
+                  <li>• Animation reduction</li>
+                  <li>• Lazy loading activation</li>
+                  <li>• Feature reduction</li>
+                </ul>
+              </div>
+              
+              <div className="space-y-2">
+                <h4 className="font-semibold text-sm">Network Resilience</h4>
+                <ul className="text-xs space-y-1 text-muted-foreground">
+                  <li>• Cache fallback</li>
+                  <li>• Offline mode</li>
+                  <li>• Retry with backoff</li>
+                  <li>• Connection monitoring</li>
+                </ul>
+              </div>
             </div>
-            
-            <div className="space-y-2">
-              <h4 className="font-semibold text-sm">Network Resilience</h4>
-              <ul className="text-xs space-y-1 text-muted-foreground">
-                <li>• Cache fallback</li>
-                <li>• Offline mode</li>
-                <li>• Retry with backoff</li>
-                <li>• Connection monitoring</li>
-              </ul>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }

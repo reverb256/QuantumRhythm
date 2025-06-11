@@ -1,0 +1,108 @@
+/**
+ * DDR2-Era Compatibility Styles
+ * Optimized for 4-8GB RAM systems and older browsers
+ */
+
+/* Base compatibility styles */
+.low-end-device {
+  --animation-duration: 0.1s;
+  --transition-duration: 0.1s;
+  --blur-amount: 0px;
+  --shadow-complexity: none;
+}
+
+.limited-memory {
+  --max-cache-size: 50;
+  --batch-size: 10;
+  --processing-delay: 100ms;
+}
+
+.no-web-workers {
+  --worker-fallback: true;
+  --async-processing: false;
+}
+
+.reduced-animations * {
+  animation-duration: 0.1s !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.1s !important;
+}
+
+.reduced-animations *::before,
+.reduced-animations *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* Memory-efficient layouts */
+.minimal-layout {
+  --grid-columns: 1;
+  --card-padding: 0.5rem;
+  --border-radius: 4px;
+  --box-shadow: none;
+}
+
+.minimal-layout .grid {
+  grid-template-columns: 1fr !important;
+  gap: 0.5rem !important;
+}
+
+.minimal-layout .card {
+  padding: 0.5rem !important;
+  box-shadow: none !important;
+  border: 1px solid var(--border) !important;
+}
+
+/* Graceful degradation for missing features */
+.no-backdrop-filter {
+  backdrop-filter: none !important;
+  background: rgba(0, 0, 0, 0.8) !important;
+}
+
+.no-css-grid .grid {
+  display: flex !important;
+  flex-wrap: wrap !important;
+}
+
+.no-css-grid .grid > * {
+  flex: 1 1 300px !important;
+  margin: 0.5rem !important;
+}
+
+/* Memory usage indicators */
+.memory-warning {
+  border-left: 4px solid #f59e0b !important;
+  background: rgba(245, 158, 11, 0.1) !important;
+  padding: 0.5rem !important;
+}
+
+.memory-critical {
+  border-left: 4px solid #ef4444 !important;
+  background: rgba(239, 68, 68, 0.1) !important;
+  padding: 0.5rem !important;
+}
+
+/* Compatibility status indicators */
+.compatibility-info {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  padding: 0.5rem;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  font-size: 0.75rem;
+  border-radius: 4px;
+  z-index: 9999;
+}
+
+.compatibility-good {
+  border-left: 4px solid #10b981;
+}
+
+.compatibility-warning {
+  border-left: 4px solid #f59e0b;
+}
+
+.compatibility-poor {
+  border-left: 4px solid #ef4444;
+}

@@ -3,6 +3,8 @@
  * Integrates with the Web Worker health monitor for real-time issue detection and resolution
  */
 
+import { compatibilityLayer } from './compatibility-layer';
+
 interface PageIssue {
   id: string;
   type: string;
@@ -39,9 +41,16 @@ export class AutonomousPageMonitor {
 
   private initializeWorker() {
     try {
-      // Check if Web Workers are supported
-      if (typeof Worker === 'undefined') {
-        console.warn('Web Workers not supported, using fallback monitoring');
+      // Check compatibility layer for Web Worker support
+      if (!compatibilityLayer.shouldUseWebWorker()) {
+        console.log('Web Workers disabled by compatibility layer, using fallback monitoring');
+        this.setupFallbackMonitoring();
+        return;
+      }
+
+      // In development, skip Web Workers due to CORS issues
+      if (import.meta.env.DEV) {
+        console.log('Development mode detected, using fallback monitoring');
         this.setupFallbackMonitoring();
         return;
       }
