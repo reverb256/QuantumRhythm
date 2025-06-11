@@ -262,9 +262,14 @@ export default function Navigation() {
                     }} />
                   </button>
                     
+                  {/* Invisible bridge area to prevent dropdown from disappearing */}
+                  {isOpen && (
+                    <div className="absolute top-full left-0 w-64 h-1 bg-transparent" style={{ zIndex: 1004 }}></div>
+                  )}
+                  
                   {/* Dropdown Menu */}
                   {isOpen && (
-                    <div className="absolute top-full left-0 mt-2 w-64 bg-black/95 backdrop-blur-md rounded-lg border border-cyan-400/30 shadow-lg py-2" style={{ zIndex: 1005 }}>
+                    <div className="absolute top-full left-0 mt-1 w-64 bg-black/95 backdrop-blur-md rounded-lg border border-cyan-400/30 shadow-lg py-2" style={{ zIndex: 1005 }}>
                       {dropdown.items.map((item) => {
                         const ItemIcon = item.icon;
                         const isItemActive = location === item.path;
