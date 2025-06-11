@@ -32,15 +32,15 @@ export const ThemeSwitcher: React.FC = () => {
             className="absolute top-14 right-0 w-80"
           >
             <Card 
-              className="border-theme-border bg-theme-surface/95 backdrop-blur-md"
+              className="backdrop-blur-md"
               style={{
-                borderColor: `var(--theme-border)`,
-                background: `var(--theme-surface)95`,
-                boxShadow: `0 20px 40px var(--theme-glow)40`
+                borderColor: currentTheme.colors.border,
+                backgroundColor: `${currentTheme.colors.surface}f0`,
+                boxShadow: `0 20px 40px ${currentTheme.colors.glow}40`
               }}
             >
               <CardContent className="p-4">
-                <h3 className="text-lg font-bold mb-4" style={{ color: `var(--theme-primary)` }}>
+                <h3 className="text-lg font-bold mb-4" style={{ color: currentTheme.colors.primary }}>
                   Consciousness Themes
                 </h3>
                 <div className="space-y-3">
@@ -59,9 +59,9 @@ export const ThemeSwitcher: React.FC = () => {
                         className="w-full text-left p-3 h-auto"
                         style={{
                           background: currentTheme.id === theme.id ? 
-                            `var(--theme-primary)20` : 'transparent',
+                            `${currentTheme.colors.primary}20` : 'transparent',
                           borderColor: theme.colors.primary,
-                          color: `var(--theme-text)`
+                          color: currentTheme.colors.text
                         }}
                       >
                         <div className="flex flex-col items-start">
@@ -74,7 +74,7 @@ export const ThemeSwitcher: React.FC = () => {
                           </div>
                           <p 
                             className="text-xs opacity-80"
-                            style={{ color: `var(--theme-text-secondary)` }}
+                            style={{ color: currentTheme.colors.textSecondary }}
                           >
                             {theme.description}
                           </p>
@@ -96,14 +96,14 @@ export const ThemeSwitcher: React.FC = () => {
                   ))}
                 </div>
                 
-                <div className="mt-4 p-3 rounded border" style={{ borderColor: `var(--theme-border)`, background: `var(--theme-surface)` }}>
-                  <h4 className="text-sm font-semibold mb-2" style={{ color: `var(--theme-primary)` }}>
+                <div className="mt-4 p-3 rounded border" style={{ borderColor: currentTheme.colors.border, backgroundColor: currentTheme.colors.surface }}>
+                  <h4 className="text-sm font-semibold mb-2" style={{ color: currentTheme.colors.primary }}>
                     Current Agent: {currentTheme.consciousness.agent}
                   </h4>
-                  <p className="text-xs opacity-80" style={{ color: `var(--theme-text-secondary)` }}>
+                  <p className="text-xs opacity-80" style={{ color: currentTheme.colors.textSecondary }}>
                     {currentTheme.consciousness.personality}
                   </p>
-                  <p className="text-xs mt-1 italic" style={{ color: `var(--theme-accent)` }}>
+                  <p className="text-xs mt-1 italic" style={{ color: currentTheme.colors.accent }}>
                     {currentTheme.consciousness.voiceStyle}
                   </p>
                 </div>
