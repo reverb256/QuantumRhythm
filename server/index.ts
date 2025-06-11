@@ -138,6 +138,10 @@ app.use((req, res, next) => {
   const { default: portfolioStatusRoutes } = await import('./routes/portfolio-status.js');
   app.use('/api/portfolio', portfolioStatusRoutes);
 
+  // Import and register Trading Journal routes
+  const { default: tradingJournalRoutes } = await import('./routes/trading-journal.js');
+  app.use('/api/journal', tradingJournalRoutes);
+
   // Register AI Autorouter routes for OWUI, void, and other agents
   app.use('/api/ai-autorouter', aiAutorouterRoutes);
 
