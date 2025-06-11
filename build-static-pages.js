@@ -5,8 +5,8 @@
  * Generates optimized static pages for deployment
  */
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 class StaticPageBuilder {
   constructor() {
@@ -229,14 +229,12 @@ GET /api/market-analysis - Get AI market analysis</code></pre>
 }
 
 // Execute if run directly
-if (require.main === module) {
-  const builder = new StaticPageBuilder();
-  builder.buildAllPages().then(() => {
-    process.exit(0);
-  }).catch(error => {
-    console.error('Build failed:', error);
-    process.exit(1);
-  });
-}
+const builder = new StaticPageBuilder();
+builder.buildAllPages().then(() => {
+  process.exit(0);
+}).catch(error => {
+  console.error('Build failed:', error);
+  process.exit(1);
+});
 
-module.exports = StaticPageBuilder;
+export default StaticPageBuilder;

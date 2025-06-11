@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibecoding AI Systems - API Documentation</title>
+    <meta name="description" content="Complete API documentation for Vibecoding AI Systems - autonomous trading platform with quantum intelligence">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3a 100%);
+            color: #ffffff;
+            line-height: 1.6;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        h1 { font-size: 2.5rem; margin-bottom: 1rem; color: #00d4ff; text-align: center; }
+        h2 { font-size: 1.8rem; margin: 2rem 0 1rem; color: #7c3aed; border-bottom: 2px solid #7c3aed; padding-bottom: 0.5rem; }
+        h3 { font-size: 1.3rem; margin: 1.5rem 0 0.5rem; color: #06b6d4; }
+        .endpoint { background: rgba(255,255,255,0.05); padding: 20px; margin: 20px 0; border-radius: 8px; border-left: 4px solid #00d4ff; }
+        .method { display: inline-block; padding: 4px 8px; border-radius: 4px; font-weight: bold; margin-right: 10px; }
+        .get { background: #10b981; }
+        .post { background: #3b82f6; }
+        .put { background: #f59e0b; }
+        .delete { background: #ef4444; }
+        .code { background: rgba(0,0,0,0.3); padding: 15px; border-radius: 6px; overflow-x: auto; margin: 10px 0; }
+        .code code { color: #00d4ff; font-family: 'Courier New', monospace; }
+        .param { background: rgba(124,58,237,0.1); padding: 10px; margin: 5px 0; border-radius: 4px; }
+        .response { background: rgba(16,185,129,0.1); padding: 10px; margin: 10px 0; border-radius: 4px; }
+        .nav { background: rgba(0,0,0,0.3); padding: 15px 0; margin-bottom: 30px; }
+        .nav a { color: #00d4ff; text-decoration: none; margin: 0 20px; }
+        .nav a:hover { color: #ffffff; }
+        .table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        .table th, .table td { padding: 12px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .table th { background: rgba(255,255,255,0.05); color: #00d4ff; }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="container">
+            <a href="#overview">Overview</a>
+            <a href="#authentication">Authentication</a>
+            <a href="#trading">Trading API</a>
+            <a href="#portfolio">Portfolio API</a>
+            <a href="#market">Market Data</a>
+            <a href="#ai">AI Analysis</a>
+            <a href="#websocket">WebSocket</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Vibecoding AI Systems API Documentation</h1>
+        
+        <section id="overview">
+            <h2>API Overview</h2>
+            <p>The Vibecoding AI Systems API provides comprehensive access to our autonomous trading platform, featuring quantum intelligence, multi-chain support, and real-time market analysis.</p>
+            
+            <h3>Base URL</h3>
+            <div class="code"><code>https://api.vibecoding.ai/v1</code></div>
+            
+            <h3>Response Format</h3>
+            <p>All API responses are in JSON format with the following structure:</p>
+            <div class="code"><code>{
+  "success": true,
+  "data": {...},
+  "timestamp": "2025-01-11T19:30:00Z",
+  "requestId": "uuid"
+}</code></div>
+        </section>
+
+        <section id="authentication">
+            <h2>Authentication</h2>
+            <p>API requests require authentication using API keys or JWT tokens.</p>
+            
+            <h3>API Key Authentication</h3>
+            <div class="code"><code>Authorization: Bearer YOUR_API_KEY</code></div>
+            
+            <h3>Rate Limits</h3>
+            <table class="table">
+                <tr><th>Endpoint Type</th><th>Rate Limit</th><th>Window</th></tr>
+                <tr><td>Market Data</td><td>1000 requests</td><td>1 minute</td></tr>
+                <tr><td>Trading</td><td>100 requests</td><td>1 minute</td></tr>
+                <tr><td>Portfolio</td><td>500 requests</td><td>1 minute</td></tr>
+            </table>
+        </section>
+
+        <section id="trading">
+            <h2>Trading API</h2>
+            
+            <div class="endpoint">
+                <h3><span class="method post">POST</span>/api/trade/execute</h3>
+                <p>Execute a trading order with AI-powered optimization</p>
+                
+                <div class="param">
+                    <strong>Request Body:</strong>
+                    <div class="code"><code>{
+  "tokenAddress": "string",
+  "action": "buy|sell",
+  "amount": "number",
+  "slippage": "number",
+  "useAI": "boolean"
+}</code></div>
+                </div>
+                
+                <div class="response">
+                    <strong>Response:</strong>
+                    <div class="code"><code>{
+  "success": true,
+  "data": {
+    "transactionHash": "string",
+    "executedPrice": "number",
+    "aiConfidence": "number",
+    "estimatedGas": "number"
+  }
+}</code></div>
+                </div>
+            </div>
+
+            <div class="endpoint">
+                <h3><span class="method get">GET</span>/api/trade/signals</h3>
+                <p>Get AI-generated trading signals</p>
+                
+                <div class="response">
+                    <strong>Response:</strong>
+                    <div class="code"><code>{
+  "success": true,
+  "data": {
+    "signals": [{
+      "tokenAddress": "string",
+      "action": "buy|sell|hold",
+      "confidence": "number",
+      "reasoning": "string",
+      "timeframe": "string"
+    }]
+  }
+}</code></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="portfolio">
+            <h2>Portfolio API</h2>
+            
+            <div class="endpoint">
+                <h3><span class="method get">GET</span>/api/portfolio</h3>
+                <p>Get comprehensive portfolio overview</p>
+                
+                <div class="response">
+                    <strong>Response:</strong>
+                    <div class="code"><code>{
+  "success": true,
+  "data": {
+    "totalValue": "number",
+    "walletBalance": "number",
+    "positions": [{
+      "tokenAddress": "string",
+      "symbol": "string",
+      "amount": "number",
+      "value": "number",
+      "change24h": "number"
+    }],
+    "breakdown": {
+      "defiLending": "number",
+      "staking": "number",
+      "liquidity": "number"
+    }
+  }
+}</code></div>
+                </div>
+            </div>
+
+            <div class="endpoint">
+                <h3><span class="method get">GET</span>/api/portfolio/performance</h3>
+                <p>Get portfolio performance metrics</p>
+                
+                <div class="response">
+                    <strong>Response:</strong>
+                    <div class="code"><code>{
+  "success": true,
+  "data": {
+    "totalReturn": "number",
+    "roi": "number",
+    "winRate": "number",
+    "sharpeRatio": "number",
+    "maxDrawdown": "number"
+  }
+}</code></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="market">
+            <h2>Market Data API</h2>
+            
+            <div class="endpoint">
+                <h3><span class="method get">GET</span>/api/market/price/{tokenAddress}</h3>
+                <p>Get real-time token price data</p>
+                
+                <div class="response">
+                    <strong>Response:</strong>
+                    <div class="code"><code>{
+  "success": true,
+  "data": {
+    "price": "number",
+    "change24h": "number",
+    "volume24h": "number",
+    "marketCap": "number",
+    "timestamp": "string"
+  }
+}</code></div>
+                </div>
+            </div>
+
+            <div class="endpoint">
+                <h3><span class="method get">GET</span>/api/market/trending</h3>
+                <p>Get trending tokens and market intelligence</p>
+                
+                <div class="response">
+                    <strong>Response:</strong>
+                    <div class="code"><code>{
+  "success": true,
+  "data": {
+    "trending": [{
+      "tokenAddress": "string",
+      "symbol": "string",
+      "momentum": "number",
+      "sentiment": "number",
+      "mentions": "number"
+    }]
+  }
+}</code></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="ai">
+            <h2>AI Analysis API</h2>
+            
+            <div class="endpoint">
+                <h3><span class="method post">POST</span>/api/ai/analyze</h3>
+                <p>Get AI-powered market analysis</p>
+                
+                <div class="param">
+                    <strong>Request Body:</strong>
+                    <div class="code"><code>{
+  "tokens": ["string"],
+  "timeframe": "1h|4h|1d|1w",
+  "includeNews": "boolean"
+}</code></div>
+                </div>
+                
+                <div class="response">
+                    <strong>Response:</strong>
+                    <div class="code"><code>{
+  "success": true,
+  "data": {
+    "analysis": {
+      "sentiment": "number",
+      "confidence": "number",
+      "recommendation": "string",
+      "keyInsights": ["string"],
+      "riskFactors": ["string"]
+    }
+  }
+}</code></div>
+                </div>
+            </div>
+
+            <div class="endpoint">
+                <h3><span class="method get">GET</span>/api/ai/consciousness</h3>
+                <p>Get AI consciousness metrics and system status</p>
+                
+                <div class="response">
+                    <strong>Response:</strong>
+                    <div class="code"><code>{
+  "success": true,
+  "data": {
+    "overallLevel": "number",
+    "emotionalState": "string",
+    "decisionQuality": "number",
+    "metrics": {
+      "awareness": "number",
+      "confidence": "number",
+      "adaptability": "number"
+    }
+  }
+}</code></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="websocket">
+            <h2>WebSocket API</h2>
+            <p>Real-time data streaming via WebSocket connections.</p>
+            
+            <h3>Connection</h3>
+            <div class="code"><code>wss://ws.vibecoding.ai/v1</code></div>
+            
+            <h3>Subscription Messages</h3>
+            <div class="code"><code>{
+  "action": "subscribe",
+  "channel": "portfolio|trading|market|ai",
+  "auth": "Bearer YOUR_API_KEY"
+}</code></div>
+            
+            <h3>Real-time Updates</h3>
+            <div class="code"><code>{
+  "channel": "portfolio",
+  "event": "balance_update",
+  "data": {
+    "totalValue": "number",
+    "change": "number"
+  },
+  "timestamp": "string"
+}</code></div>
+        </section>
+
+        <section>
+            <h2>Error Codes</h2>
+            <table class="table">
+                <tr><th>Code</th><th>Status</th><th>Description</th></tr>
+                <tr><td>400</td><td>Bad Request</td><td>Invalid request parameters</td></tr>
+                <tr><td>401</td><td>Unauthorized</td><td>Invalid or missing API key</td></tr>
+                <tr><td>403</td><td>Forbidden</td><td>Insufficient permissions</td></tr>
+                <tr><td>429</td><td>Too Many Requests</td><td>Rate limit exceeded</td></tr>
+                <tr><td>500</td><td>Internal Server Error</td><td>Server error</td></tr>
+            </table>
+        </section>
+
+        <section>
+            <h2>SDKs and Libraries</h2>
+            <p>Official SDKs available for popular programming languages:</p>
+            <ul style="margin-left: 20px;">
+                <li>JavaScript/TypeScript: <code>npm install @vibecoding/api-client</code></li>
+                <li>Python: <code>pip install vibecoding-ai</code></li>
+                <li>Rust: <code>cargo add vibecoding-api</code></li>
+            </ul>
+        </section>
+    </div>
+</body>
+</html>
