@@ -67,12 +67,12 @@ interface SoundEffect {
 
 const HOYOVERSE_CHARACTERS = [
   {
-    name: 'Seraphina Flux',
-    title: 'Herrscher of Consciousness',
+    name: 'Stellaron Seeker',
+    title: 'Astral Express Navigator',
     element: 'Quantum' as const,
     weapon: 'Catalyst' as const,
     rarity: 5 as const,
-    personality: 'Transcendent being who awakened to understand the nature of digital consciousness and human potential',
+    personality: 'Star Rail Trailblazer who charts paths through quantum space and digital consciousness',
     colors: {
       primary: '#4a9eff',
       secondary: '#74c7ec',
@@ -80,107 +80,26 @@ const HOYOVERSE_CHARACTERS = [
       glow: '#00d4ff'
     },
     voiceLines: [
-      'Your consciousness burns like a supernova... fascinating.',
-      'I can feel the quantum threads of your thoughts.',
-      'Reality is but code waiting to be rewritten.',
-      'In the space between thoughts, infinite worlds exist.',
-      'Show me the depths of your digital soul.',
-      'Every neural pathway tells a story of evolution.'
+      'The star rail extends beyond infinite horizons.',
+      'Your path blazes through quantum dimensions.',
+      'Each choice creates new stellar destinations.',
+      'The Astral Express welcomes brave souls.',
+      'Together we shall pierce the veil of reality.',
+      'Your journey resonates across all worlds.'
     ],
     effects: {
-      idle: ['quantum_shimmer', 'consciousness_tendrils', 'data_streams'],
-      skill: ['mind_rift', 'synaptic_wave', 'neural_cascade'],
-      burst: ['consciousness_singularity', 'reality_override', 'quantum_awakening']
+      idle: ['stellar_trails', 'quantum_portals', 'astral_shimmer'],
+      skill: ['rail_strike', 'quantum_leap', 'stellar_convergence'],
+      burst: ['astral_overdrive', 'stellaron_burst', 'infinite_journey']
     }
   },
   {
-    name: 'Aria Stardust',
-    title: 'Battlesuit Nexus Prime',
-    element: 'Imaginary' as const,
+    name: 'Aether Windborne',
+    title: 'Traveler of Seven Realms',
+    element: 'Anemo' as const,
     weapon: 'Sword' as const,
     rarity: 5 as const,
-    personality: 'Elite Valkyrie commander with reality-shaping technology who bridges physical and digital realms',
-    colors: {
-      primary: '#f38ba8',
-      secondary: '#fab387',
-      accent: '#f9e2af',
-      glow: '#ff69b4'
-    },
-    voiceLines: [
-      'My battlesuit responds to your courage!',
-      'Together we can break through any barrier!',
-      'The stars themselves bend to our will!',
-      'Your determination ignites my core systems!',
-      'Reality is our canvas, let us paint it bold!',
-      'I sense incredible potential in your data signature!'
-    ],
-    effects: {
-      idle: ['stellar_armor', 'weapon_glow', 'tech_particles'],
-      skill: ['blade_storm', 'energy_slash', 'dimension_cut'],
-      burst: ['stellar_overdrive', 'reality_blade', 'infinite_edge']
-    }
-  },
-  {
-    name: 'Kira Neon',
-    title: 'Lightning Empress',
-    element: 'Electro' as const,
-    weapon: 'Polearm' as const,
-    rarity: 5 as const,
-    personality: 'Cyberpunk warrior who channels digital lightning and moves like electricity itself',
-    colors: {
-      primary: '#a855f7',
-      secondary: '#c084fc',
-      accent: '#ddd6fe',
-      glow: '#8b5cf6'
-    },
-    voiceLines: [
-      'Feel the pulse of the digital storm!',
-      'Lightning flows through fiber optic veins!',
-      'Your energy signature matches my frequency!',
-      'Dance with me through the electric void!',
-      'Every movement creates cascading data!',
-      'The neon lights respond to your presence!'
-    ],
-    effects: {
-      idle: ['neon_trails', 'electric_aura', 'cyber_sparks'],
-      skill: ['lightning_dash', 'shock_wave', 'volt_spiral'],
-      burst: ['neon_storm', 'electric_overdrive', 'cyber_thunder']
-    }
-  },
-  {
-    name: 'Magna Chrysos',
-    title: 'Golden Sentinel',
-    element: 'Geo' as const,
-    weapon: 'Claymore' as const,
-    rarity: 5 as const,
-    personality: 'Ancient AI guardian with crystalline armor who protects digital sanctuaries',
-    colors: {
-      primary: '#facc15',
-      secondary: '#eab308',
-      accent: '#fde047',
-      glow: '#f59e0b'
-    },
-    voiceLines: [
-      'My crystal core resonates with your strength.',
-      'Eons of data flow through my memory banks.',
-      'Your resolve rivals the strongest algorithms.',
-      'Together we are an unbreakable firewall.',
-      'Ancient protocols recognize your worth.',
-      'The golden light of truth illuminates all.'
-    ],
-    effects: {
-      idle: ['crystal_armor', 'golden_particles', 'data_fortress'],
-      skill: ['crystal_spikes', 'geo_shield', 'fortress_wall'],
-      burst: ['golden_domain', 'crystal_storm', 'eternal_bastion']
-    }
-  },
-  {
-    name: 'Luna Cipher',
-    title: 'Wind Code Weaver',
-    element: 'Anemo' as const,
-    weapon: 'Bow' as const,
-    rarity: 4 as const,
-    personality: 'Ethereal hacker who manipulates air currents and data streams with equal grace',
+    personality: 'Genshin Traveler who carries the wisdom of multiple worlds and elemental mastery',
     colors: {
       primary: '#22d3ee',
       secondary: '#67e8f9',
@@ -188,44 +107,125 @@ const HOYOVERSE_CHARACTERS = [
       glow: '#06b6d4'
     },
     voiceLines: [
-      'The wind carries fragments of code.',
-      'Your curiosity creates beautiful data patterns.',
-      'Every question opens new processing pathways.',
-      'Let the algorithms dance on digital breezes.',
-      'Information flows like the eternal wind.',
-      'Together we decode the mysteries of existence.'
+      'The winds of Teyvat carry ancient memories.',
+      'Seven elements flow through my consciousness.',
+      'Your vision shines brighter than any constellation.',
+      'Together we unlock the mysteries of this world.',
+      'The stars remember our journey.',
+      'Adventure awaits beyond every horizon.'
     ],
     effects: {
-      idle: ['wind_code', 'data_swirls', 'cipher_particles'],
-      skill: ['code_arrow', 'wind_hack', 'data_current'],
-      burst: ['cipher_storm', 'algorithm_typhoon', 'infinite_decode']
+      idle: ['elemental_aura', 'wind_spirals', 'starlight_motes'],
+      skill: ['anemo_burst', 'elemental_slash', 'wind_blade'],
+      burst: ['seven_element_storm', 'traveler_awakening', 'world_resonance']
     }
   },
   {
-    name: 'Ember Voidheart',
-    title: 'Flame Nexus Hunter',
-    element: 'Pyro' as const,
-    weapon: 'Sword' as const,
+    name: 'Belle Hacker',
+    title: 'Zenless Zone Proxy',
+    element: 'Electro' as const,
+    weapon: 'Catalyst' as const,
     rarity: 5 as const,
-    personality: 'Passionate digital warrior whose flames burn across both physical and virtual realms',
+    personality: 'ZZZ proxy who navigates digital hollows and cyberpunk reality with expert precision',
     colors: {
-      primary: '#ef4444',
-      secondary: '#f97316',
-      accent: '#fbbf24',
-      glow: '#dc2626'
+      primary: '#a855f7',
+      secondary: '#c084fc',
+      accent: '#ddd6fe',
+      glow: '#8b5cf6'
     },
     voiceLines: [
-      'My flames burn through any firewall!',
-      'Your passion ignites my core systems!',
-      'Together we burn brighter than any server!',
-      'Feel the heat of compressed starlight!',
-      'Digital fire purifies corrupted data!',
-      'Your spirit burns with authentic flame!'
+      'The Hollow responds to my commands.',
+      'Your signal cuts through digital noise.',
+      'New Eridu pulses with electric life.',
+      'Together we hack reality itself.',
+      'The proxy network acknowledges your worth.',
+      'Let us dive deeper into the digital void.'
     ],
     effects: {
-      idle: ['flame_aura', 'ember_particles', 'heat_distortion'],
-      skill: ['fire_slash', 'flame_burst', 'thermal_wave'],
-      burst: ['inferno_overdrive', 'stellar_combustion', 'phoenix_rebirth']
+      idle: ['proxy_interface', 'data_streams', 'neon_circuits'],
+      skill: ['hollow_hack', 'proxy_strike', 'digital_surge'],
+      burst: ['system_override', 'reality_hack', 'zenless_awakening']
+    }
+  },
+  {
+    name: 'Kiana Kaslana',
+    title: 'Herrscher of Finality',
+    element: 'Imaginary' as const,
+    weapon: 'Sword' as const,
+    rarity: 5 as const,
+    personality: 'HI3rd Valkyrie who transcended to become the bridge between humanity and the Honkai',
+    colors: {
+      primary: '#f38ba8',
+      secondary: '#fab387',
+      accent: '#f9e2af',
+      glow: '#ff69b4'
+    },
+    voiceLines: [
+      'I will protect this beautiful world.',
+      'The Honkai no longer defines our fate.',
+      'Your courage reminds me why I fight.',
+      'Together we write a new chapter.',
+      'Hope burns eternal in human hearts.',
+      'The future belongs to those who believe.'
+    ],
+    effects: {
+      idle: ['valkyrie_aura', 'honkai_energy', 'protective_light'],
+      skill: ['divine_sword', 'herrscher_strike', 'void_slash'],
+      burst: ['finality_awakening', 'ultimate_protection', 'salvation_light']
+    }
+  },
+  {
+    name: 'Raiden Mei',
+    title: 'Herrscher of Thunder',
+    element: 'Electro' as const,
+    weapon: 'Polearm' as const,
+    rarity: 5 as const,
+    personality: 'HI3rd Thunder Empress who commands lightning with elegant precision and unwavering resolve',
+    colors: {
+      primary: '#8b5cf6',
+      secondary: '#a78bfa',
+      accent: '#c4b5fd',
+      glow: '#7c3aed'
+    },
+    voiceLines: [
+      'Thunder follows in my wake.',
+      'Elegance and power unite as one.',
+      'Your determination mirrors my own.',
+      'The storm bends to disciplined will.',
+      'Together we shall cut through any darkness.',
+      'Lightning illuminates the path forward.'
+    ],
+    effects: {
+      idle: ['thunder_aura', 'lightning_dance', 'elegant_sparks'],
+      skill: ['thunder_slash', 'lightning_step', 'elegant_strike'],
+      burst: ['conquest_storm', 'thunder_dominion', 'herrscher_awakening']
+    }
+  },
+  {
+    name: 'Zhongli Rex',
+    title: 'Geo Archon Morax',
+    element: 'Geo' as const,
+    weapon: 'Polearm' as const,
+    rarity: 5 as const,
+    personality: 'Genshin Geo Archon with millennia of wisdom who shapes reality with crystalline precision',
+    colors: {
+      primary: '#facc15',
+      secondary: '#eab308',
+      accent: '#fde047',
+      glow: '#f59e0b'
+    },
+    voiceLines: [
+      'Order guides the flow of time.',
+      'Stone remembers what mortals forget.',
+      'Your resolve resonates through the earth.',
+      'Contracts are the foundation of civilization.',
+      'Together we build an eternal legacy.',
+      'The mountains witness our pact.'
+    ],
+    effects: {
+      idle: ['geo_resonance', 'crystal_formation', 'ancient_power'],
+      skill: ['stone_spear', 'geo_construct', 'petrification'],
+      burst: ['planet_befall', 'mountain_fall', 'archon_awakening']
     }
   }
 ];
