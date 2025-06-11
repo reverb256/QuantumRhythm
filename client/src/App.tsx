@@ -16,6 +16,7 @@ import Navigation from "@/components/navigation";
 import { BreathingPageWrapper } from "@/components/breathing-animation";
 import HoYoverseCharacterSystem from "@/components/HoYoverseCharacterSystem";
 import SpeechInterface from "@/components/SpeechInterface";
+import GenAIShowcase from "@/components/GenAIShowcase";
 import Home from "@/pages/home";
 import Projects from "@/pages/projects";
 import Philosophy from "@/pages/philosophy";
@@ -174,6 +175,7 @@ function App() {
               <Router />
               <HoYoverseCharacterSystem />
               <SpeechInterface />
+              <GenAIShowcase />
             </main>
             <EnhancedConsole />
           </ConsciousContainer>
