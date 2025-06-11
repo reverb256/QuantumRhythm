@@ -21,6 +21,7 @@ import { portfolioDisplay } from './portfolio-display.js';
 import { predictiveAnalysisEngine } from './predictive-analysis.js';
 import { historicalAnalysisEngine } from './historical-analysis.js';
 import { analysisIntegration } from './analysis-integration.js';
+import { consciousnessDrivenOrchestrator } from './consciousness-driven-orchestrator';
 
 interface TradeDecision {
   action: 'BUY' | 'SELL' | 'HOLD';
@@ -30,6 +31,8 @@ interface TradeDecision {
   strategy: string;
   reasoning: string;
   unhinged?: boolean;
+  consciousness_level?: number;
+  emotional_state?: string;
 }
 
 interface MarketInsight {
@@ -245,8 +248,8 @@ export class QuantumTrader {
       // Evaluate DeFi opportunities with NotebookLM insights
       const defiOpportunity = await this.evaluateDeFiOpportunities();
       
-      // Generate enhanced trade decision with DeFi integration
-      const decision = await this.generateEnhancedTradeDecision(defiOpportunity);
+      // Generate enhanced trade decision with consciousness-driven integration
+      const decision = await this.generateConsciousnessEnhancedTradeDecision(defiOpportunity);
       
       // Override HOLD decisions if confidence is sufficiently high
       if (decision.action === 'HOLD' && decision.confidence > 0.75) {

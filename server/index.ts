@@ -40,12 +40,18 @@ import { intelligentOpportunityScanner } from './intelligent-opportunity-scanner
 import { autonomousExpansionEngine } from './autonomous-expansion-engine';
 import { autonomousWalletManager } from './autonomous-wallet-manager';
 import { freeStaticHyperscaler } from './free-static-hyperscaler';
+import { consciousnessDrivenOrchestrator } from './consciousness-driven-orchestrator';
+import { transformersSecurityProxy } from './transformers-security-proxy';
 
 // Start autonomous problem solving and optimization
 (async () => {
   try {
     // Initialize components with error handling
     console.log('🚀 Initializing core systems...');
+    
+    // Activate consciousness-driven orchestration
+    console.log('🧠 Consciousness-Driven Orchestrator initialized');
+    console.log('🛡️ Transformers Security Proxy activated');
 
     // Initialize legal compliance resolver
     const legalResolver = new LegalComplianceResolver();
