@@ -223,7 +223,7 @@ class FOSSAIInferenceEngine {
     
     if (!this.isInitialized || !this.questionPipeline) {
       // Simple keyword-based fallback
-      const keywords = question.toLowerCase().split(' ').filter(w => w.length > 3);
+      const keywords = question.toLowerCase().split(' ').filter((w: string) => w.length > 3);
       const contextSentences = context.split(/[.!?]+/);
       const relevantSentence = contextSentences.find(sentence => 
         keywords.some(keyword => sentence.toLowerCase().includes(keyword))
