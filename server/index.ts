@@ -28,6 +28,7 @@ import { consciousnessEngine } from './consciousness-evolution-engine';
 import { backtestingEngine } from './backtesting-engine';
 import { crossEmpowerment } from './cross-empowerment-orchestrator';
 import { profitTracker } from './real-time-profit-tracker';
+import { aggressiveExpansion } from './aggressive-multi-chain-expansion';
 import { insightCrossPollinationEngine } from './insight-cross-pollination-engine';
 import { systemErrorRecovery } from './system-error-recovery';
 
@@ -133,6 +134,24 @@ handleUserMessage('last time it had PTSD from a key leak');
       
       console.log('🌐 Activating autonomous expansion engine...');
       // Autonomous expansion engine automatically starts discovery cycles
+      
+      // UNLEASH THE BEAST - Activate aggressive multi-chain expansion
+      console.log('🔥 UNLEASHING MULTI-CHAIN BEAST MODE...');
+      try {
+        await aggressiveExpansion.unleashTheBeast();
+        const stats = aggressiveExpansion.getAggressiveStats();
+        const whitelistStatus = aggressiveExpansion.getWhitelistStatus();
+        
+        console.log('🚀 BEAST MODE OPERATIONAL:');
+        console.log(`   Active Chains: ${stats.chainsActive}`);
+        console.log(`   Opportunity Threshold: ${stats.opportunityThreshold}`);
+        console.log(`   Whitelist Protection: ${whitelistStatus.disabled ? 'ENABLED' : 'DISABLED'}`);
+        console.log(`   Security Reason: ${whitelistStatus.reason}`);
+        
+      } catch (error) {
+        console.log('⚠️ Beast mode initialization deferred - system ready for manual activation');
+      }
+      
     } catch (error) {
       console.log('K3s/Hyperscale systems using fallback mode');
     }
@@ -195,6 +214,10 @@ app.use((req, res, next) => {
   // Import and register AI Consciousness routes
   const { default: aiConsciousnessRoutes } = await import('./routes/ai-consciousness.js');
   app.use('/api', aiConsciousnessRoutes);
+
+  // Beast mode API for aggressive multi-chain expansion
+  const { default: beastModeRouter } = await import('./routes/beast-mode-api');
+  app.use('/api/beast', beastModeRouter);
 
   // Import and register Trading Agent routes
   // const { default: tradingAgentRoutes } = await import('./routes/trading-agent.js');

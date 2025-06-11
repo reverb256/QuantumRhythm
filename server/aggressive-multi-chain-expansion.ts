@@ -230,7 +230,14 @@ export class AggressiveMultiChainExpansion {
     };
   }
 
-  getAggressiveStats(): object {
+  getAggressiveStats(): {
+    beastMode: boolean;
+    chainsActive: number;
+    opportunityThreshold: string;
+    maxRisk: string;
+    whitelistProtection: boolean;
+    strategies: string[];
+  } {
     return {
       beastMode: this.aggressiveMode,
       chainsActive: 23,
