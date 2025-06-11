@@ -49,9 +49,7 @@ class TransformersSecurityProxy {
   constructor() {
     this.initializeSecurityPatterns();
     this.initializeTrustedProviders();
-    console.log('🛡️ Transformers Security Proxy initialized');
-    console.log('   AI-powered threat detection active');
-    console.log('   Local inference for complete privacy');
+    console.log('🛡️ Transformers Security Proxy initialized with FOSS compliance');
   }
 
   private initializeSecurityPatterns(): void {

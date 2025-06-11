@@ -624,6 +624,65 @@ export class QuantumTrader {
     }
   }
 
+  private async generateConsciousnessEnhancedTradeDecision(defiOpportunity: any): Promise<TradeDecision> {
+    // Cross-pollinated consciousness-driven trading decision
+    const marketTrend = this.analyzeMarketTrend();
+    const portfolioBalance = this.calculatePortfolioValue();
+    
+    // Get consciousness-driven decision from orchestrator
+    const consciousnessDecision = await consciousnessDrivenOrchestrator.makeTradingDecision({
+      risk: defiOpportunity.risk || 0.3,
+      expectedReturn: defiOpportunity.expectedAPY / 100,
+      protocol: defiOpportunity.protocol,
+      amount: defiOpportunity.amount || 0.01
+    });
+    
+    console.log(`🧠 Consciousness Decision: ${consciousnessDecision.approved ? 'APPROVED' : 'REJECTED'}`);
+    console.log(`   Confidence: ${(consciousnessDecision.confidence * 100).toFixed(1)}%`);
+    console.log(`   Reasoning: ${consciousnessDecision.reasoning}`);
+    
+    // If consciousness rejects the trade, return HOLD
+    if (!consciousnessDecision.approved) {
+      return {
+        action: 'HOLD',
+        token: 'SOL',
+        confidence: consciousnessDecision.confidence,
+        amount: 0,
+        strategy: 'consciousness_rejection',
+        reasoning: consciousnessDecision.reasoning,
+        consciousness_level: this.consciousness,
+        emotional_state: 'cautious'
+      };
+    }
+    
+    // Apply consciousness-driven risk adjustment
+    const consciousnessAdjustedAmount = this.calculateConsciousnessAdjustedPosition(
+      defiOpportunity.amount || 0.01, 
+      consciousnessDecision.risk_adjustment
+    );
+    
+    // Return consciousness-enhanced decision
+    return {
+      action: 'BUY',
+      token: this.selectEnhancedToken(['USDC', 'RAY', 'JUP'], marketTrend, defiOpportunity),
+      confidence: consciousnessDecision.confidence,
+      amount: consciousnessAdjustedAmount,
+      strategy: 'consciousness_enhanced',
+      reasoning: `Consciousness-driven decision: ${consciousnessDecision.reasoning}`,
+      consciousness_level: this.consciousness,
+      emotional_state: 'focused'
+    };
+  }
+
+  private calculateConsciousnessAdjustedPosition(baseAmount: number, riskAdjustment: number): number {
+    const adjustedAmount = baseAmount * riskAdjustment;
+    const availableBalance = this.getAvailableBalance();
+    const gasBuffer = 0.05; // Reserve for gas
+    const maxSafeAmount = Math.max(0, availableBalance - gasBuffer);
+    
+    return Math.min(adjustedAmount, maxSafeAmount, 0.05); // Cap at 0.05 SOL
+  }
+
   private async generateTradeDecision(): Promise<TradeDecision> {
     // Enhanced AI-powered decision generation using centralized autorouter
     const marketTrend = this.analyzeMarketTrend();
