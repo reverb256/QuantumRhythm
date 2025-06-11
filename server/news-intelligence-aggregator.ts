@@ -145,16 +145,14 @@ export class NewsIntelligenceAggregator {
 
       // Use centralized AI service for enhanced sentiment analysis
       try {
-        const aiSentimentAnalysis = await aiService.analyze(
-          `Analyze the sentiment of this crypto news: "${alert.reason}". Provide a sentiment score from -100 (very bearish) to +100 (very bullish) and confidence level 0-100.`,
-          'crypto_news_sentiment',
-          {
-            contentType: 'analysis',
-            intent: 'analyze',
-            priority: 'medium',
-            maxTokens: 200
-          }
-        );
+        const aiResponse = await aiAutorouterFixed.routeRequest({
+          content: `Analyze the sentiment of this crypto news: "${alert.reason}". Provide a sentiment score from -100 (very bearish) to +100 (very bullish) and confidence level 0-100.`,
+          contentType: 'analysis',
+          intent: 'analyze',
+          priority: 'medium',
+          maxTokens: 200
+        });
+        const aiSentimentAnalysis = aiResponse.content;
 
         // Parse AI sentiment response
         const sentimentMatch = aiSentimentAnalysis.match(/sentiment[:\s]*(-?\d+)/i);
@@ -167,7 +165,7 @@ export class NewsIntelligenceAggregator {
           confidence = Math.max(0, Math.min(100, parseInt(confidenceMatch[1])));
         }
       } catch (error) {
-        console.log(`⚠️ AI sentiment analysis unavailable for news alert, using fallback: ${error instanceof Error ? error.message : 'Unknown error'}`);
+        console.log(`⚠️ AI sentiment analysis unavailable for news alert, using fallback: ${error instanceof Error ? error.message : 'AI request failed'}`);
       }
 
       const newsAlert: NewsAlert = {

@@ -78,7 +78,7 @@ class FOSSAIInferenceEngine {
       console.log('   All models cached locally for offline usage');
       
     } catch (error) {
-      console.error('❌ Failed to initialize FOSS AI models:', error);
+      console.error('❌ Failed to initialize FOSS AI models:', {});
       this.initializeFallbackMode();
     }
   }
