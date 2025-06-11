@@ -37,6 +37,7 @@ import { whitelistValidator } from './whitelist-security-validator';
 import { cronosPayoutSystem } from './automated-cronos-payout-system';
 import { solanaPayoutSystem } from './automated-solana-payout-system';
 import { traderObfuscation } from './trader-obfuscation-engine';
+import { quantumSecurityScanner } from './quantum-security-scanner';
 import { insightCrossPollinationEngine } from './insight-cross-pollination-engine';
 import { systemErrorRecovery } from './system-error-recovery';
 
