@@ -4,6 +4,7 @@
  */
 
 import { Connection } from '@solana/web3.js';
+import { determinismAgenticOrchestrator } from './determinism-agentic-orchestrator';
 
 interface OpportunityMetrics {
   protocol: string;
@@ -195,14 +196,36 @@ class IntelligentOpportunityScanner {
     let confidence = 0;
     let shouldDeploy = false;
 
-    // APY Analysis
-    if (opp.apy >= this.minAPYThreshold) {
+    // Get behavioral guidance from orchestrator
+    const guidance = determinismAgenticOrchestrator.getDecisionGuidance({
+      scenario: 'trading',
+      urgency: 'medium',
+      stakes: 'moderate',
+      certainty: 0.7
+    });
+
+    // Adjust evaluation based on current behavioral balance
+    let apyThreshold = this.minAPYThreshold;
+    let riskTolerance = this.maxRiskTolerance;
+    
+    if (guidance.approach === 'deterministic') {
+      apyThreshold *= 1.2; // Higher bar for deterministic mode
+      riskTolerance *= 0.8; // Lower risk tolerance
+      reasoning.push('Deterministic evaluation mode active');
+    } else if (guidance.approach === 'agentic' && guidance.explorationAllowed) {
+      apyThreshold *= 0.9; // Lower bar for exploration
+      riskTolerance *= 1.1; // Slightly higher risk tolerance
+      reasoning.push('Agentic exploration mode active');
+    }
+
+    // APY Analysis with adaptive thresholds
+    if (opp.apy >= apyThreshold) {
       confidence += 25;
       reasoning.push(`Strong APY: ${opp.apy.toFixed(1)}%`);
     }
 
-    // Risk Assessment
-    if (opp.riskScore <= this.maxRiskTolerance) {
+    // Risk Assessment with adaptive tolerance
+    if (opp.riskScore <= riskTolerance) {
       confidence += 20;
       reasoning.push(`Acceptable risk: ${opp.riskScore}/10`);
     }

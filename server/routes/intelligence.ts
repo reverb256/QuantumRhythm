@@ -9,6 +9,8 @@ import { yieldActivationEngine } from '../yield-activation-engine';
 import { autonomousWalletManager } from '../autonomous-wallet-manager';
 import { freeStaticHyperscaler } from '../free-static-hyperscaler';
 import { vaultwardenManager } from '../vaultwarden-integration';
+import { fossMandateOrchestrator } from '../foss-mandate-orchestrator';
+import { determinismAgenticOrchestrator } from '../determinism-agentic-orchestrator';
 
 const router = Router();
 
@@ -296,6 +298,124 @@ router.post('/wallets/emergency', async (req, res) => {
     res.status(500).json({
       success: false,
       error: 'Failed to create emergency wallet'
+    });
+  }
+});
+
+// Get FOSS compliance status
+router.get('/foss', async (req, res) => {
+  try {
+    const fossStatus = fossMandateOrchestrator.getFOSSStatus();
+    const staticCompatible = fossMandateOrchestrator.getStaticCompatibleFOSS();
+    const hyperscaleReady = fossMandateOrchestrator.getHyperscaleReadyFOSS();
+    const mandatoryStack = fossMandateOrchestrator.getMandatoryFOSSStack();
+    
+    res.json({
+      success: true,
+      foss_compliance: {
+        compliance_rate: `${fossStatus.compliance}%`,
+        enforcement: 'Mandatory',
+        violations: fossStatus.violations,
+        alternatives_available: fossStatus.alternatives,
+        static_compatible: fossStatus.staticReady,
+        hyperscale_ready: fossStatus.hyperscaleReady,
+        mandatory_stack: mandatoryStack,
+        high_impact_additions: [
+          {
+            name: 'Transformers.js',
+            purpose: 'Client-side AI inference',
+            benefit: 'Zero API costs, complete privacy',
+            status: 'Ready for integration'
+          },
+          {
+            name: 'Plausible Analytics',
+            purpose: 'Privacy-first web analytics',
+            benefit: 'GDPR compliant, no tracking',
+            status: 'Self-hostable'
+          },
+          {
+            name: 'Matrix + Element',
+            purpose: 'Decentralized communication',
+            benefit: 'End-to-end encryption, no vendor lock-in',
+            status: 'Static embeddable'
+          },
+          {
+            name: 'MinIO Object Storage',
+            purpose: 'S3-compatible self-hosted storage',
+            benefit: 'Zero storage costs after setup',
+            status: 'Production ready'
+          }
+        ]
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to get FOSS compliance status'
+    });
+  }
+});
+
+// Get behavioral balance orchestration status
+router.get('/behavior', async (req, res) => {
+  try {
+    const orchestrationStatus = determinismAgenticOrchestrator.getOrchestrationStatus();
+    const currentBalance = determinismAgenticOrchestrator.getCurrentBalance();
+    
+    res.json({
+      success: true,
+      behavioral_orchestration: {
+        current_approach: orchestrationStatus.currentApproach,
+        determinism_level: `${(currentBalance.determinism * 100).toFixed(1)}%`,
+        agency_level: `${(currentBalance.agency * 100).toFixed(1)}%`,
+        confidence: `${(orchestrationStatus.confidence * 100).toFixed(1)}%`,
+        adaptability: `${(orchestrationStatus.adaptability * 100).toFixed(1)}%`,
+        recent_performance: orchestrationStatus.recentPerformance,
+        risk_tolerance: `${(currentBalance.riskTolerance * 100).toFixed(1)}%`,
+        exploration_ratio: `${(currentBalance.explorationRatio * 100).toFixed(1)}%`,
+        emergency_mode: currentBalance.contextualState.emergencyMode,
+        market_volatility: `${(currentBalance.contextualState.marketVolatility * 100).toFixed(1)}%`,
+        next_optimization: orchestrationStatus.nextOptimization,
+        balance_philosophy: 'Continuous adaptation between rule-following and creative autonomy'
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to get behavioral orchestration status'
+    });
+  }
+});
+
+// Validate FOSS compliance for a dependency
+router.post('/foss/validate', async (req, res) => {
+  try {
+    const { dependency } = req.body;
+    
+    if (!dependency) {
+      return res.status(400).json({
+        success: false,
+        error: 'Dependency name is required'
+      });
+    }
+
+    const validation = fossMandateOrchestrator.validateFOSSCompliance(dependency);
+    
+    res.json({
+      success: true,
+      validation: {
+        dependency,
+        compliant: validation.compliant,
+        action: validation.action,
+        alternative: validation.alternative,
+        reason: validation.reason,
+        timestamp: new Date().toISOString()
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to validate FOSS compliance'
     });
   }
 });
