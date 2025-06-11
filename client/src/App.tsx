@@ -12,6 +12,10 @@ import { ErrorBoundaryFallback } from "@/components/error-state-manager";
 import { ErrorBoundary, FallbackProps } from "react-error-boundary";
 import { WalletProvider } from "@/hooks/useWallet";
 import { Web3AuthProvider } from "@/components/Web3AuthProvider";
+import { ThemeProvider } from "@/contexts/ThemeContext";
+import { ThemeSwitcher } from "@/components/ThemeSwitcher";
+import { CursorGlow } from "@/components/CursorGlow";
+import { ParticleSystem } from "@/components/ParticleSystem";
 
 import Navigation from "@/components/navigation";
 import { BreathingPageWrapper } from "@/components/breathing-animation";
