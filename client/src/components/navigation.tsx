@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'wouter';
-import { Home, Code, Brain, Heart, Zap, TrendingUp, Shield, Bot, Gamepad2, Building, FileText, ChevronDown } from 'lucide-react';
+import { Home, Code, Brain, Heart, Zap, TrendingUp, Shield, Bot, Gamepad2, Building, FileText, ChevronDown, Cpu } from 'lucide-react';
 import { useState } from 'react';
 
 interface NavItem {
@@ -77,6 +77,12 @@ const tradingItems: NavItem[] = [
 
 const platformItems: NavItem[] = [
   {
+    path: '/platform',
+    label: 'Platform Overview',
+    icon: Building,
+    description: 'Quantum platform architecture and features'
+  },
+  {
     path: '/values',
     label: 'Values',
     icon: Heart,
@@ -104,6 +110,12 @@ const platformItems: NavItem[] = [
 
 const aiItems: NavItem[] = [
   {
+    path: '/ai-systems',
+    label: 'AI Systems Overview',
+    icon: Cpu,
+    description: 'Comprehensive AI architecture and capabilities'
+  },
+  {
     path: '/ai-onboarding',
     label: 'AI Onboarding',
     icon: Bot,
@@ -118,6 +130,12 @@ const aiItems: NavItem[] = [
 ];
 
 const complianceItems: NavItem[] = [
+  {
+    path: '/compliance',
+    label: 'Compliance Overview',
+    icon: Shield,
+    description: 'Comprehensive compliance framework and standards'
+  },
   {
     path: '/legal',
     label: 'Legal',

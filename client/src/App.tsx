@@ -26,11 +26,14 @@ import TradingInterface from "@/pages/TradingInterface";
 import TradingVisualization from "@/pages/TradingVisualization";
 import TraderDashboard from "@/pages/TraderDashboard";
 import { DeFiDashboard } from "@/pages/DeFiDashboard";
+import Platform from "@/pages/Platform";
 import CloudflareOptimization from "@/pages/CloudflareOptimization";
 import TechnicalDeepDive from "@/pages/technical-deep-dive";
 import Legal from "@/pages/Legal";
+import AISystems from "@/pages/AISystems";
 import AIOnboarding from "@/pages/AIOnboarding";
 import AgentInsights from "@/pages/AgentInsights";
+import Compliance from "@/pages/Compliance";
 import WorkplaceJanitorial from "@/pages/workplace-janitorial";
 import TrovesCoves from "@/pages/troves-coves";
 import FrostbiteGazette from "@/pages/frostbite-gazette";
@@ -102,6 +105,7 @@ function Router() {
         <Route path="/consciousness-map" component={ConsciousnessMapPage} />
         <Route path="/values" component={Values} />
         <Route path="/vrchat" component={VRChat} />
+        <Route path="/platform" component={Platform} />
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/trader-dashboard" component={TraderDashboard} />
         <Route path="/trading-visualization" component={TradingVisualization} />
