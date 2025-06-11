@@ -358,23 +358,44 @@ class ComprehensivePortfolioTracker {
       console.log(`   Leverage: $${portfolio.breakdown.leverage.toFixed(2)}`);
       console.log(`   Rewards: $${portfolio.breakdown.rewards.toFixed(2)}`);
       
-      // Save to database
-      await tradingJournalService.takeAutomatedSnapshot({
-        totalValueUSD: portfolio.totalValueUSD,
-        totalValueSOL: portfolio.walletBalance.SOL,
-        solPrice: 200, // Would get from price feed
-        holdings: {
+      // Save to database using direct SQL to avoid schema issues
+      await this.saveSnapshotToDatabase(portfolio);
+
+    } catch (error) {
+      console.error('Error taking comprehensive snapshot:', error);
+    }
+  }
+
+  private async saveSnapshotToDatabase(portfolio: ComprehensivePortfolio) {
+    try {
+      const { pool } = await import('./db');
+      
+      const query = `
+        INSERT INTO portfolio_snapshots (
+          total_value_usd, total_value_sol, cash_balance, holdings, 
+          sol_price, consciousness_level, confidence_score
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7)
+      `;
+      
+      const values = [
+        portfolio.totalValueUSD,
+        portfolio.walletBalance.SOL,
+        portfolio.walletBalance.SOL,
+        JSON.stringify({
           wallet: portfolio.breakdown.wallet,
           defi: portfolio.breakdown.lending + portfolio.breakdown.staking + portfolio.breakdown.liquidity,
           leverage: portfolio.breakdown.leverage,
           rewards: portfolio.breakdown.rewards,
           positions: portfolio.defiPositions
-        },
-        consciousnessLevel: 87.4
-      });
-
+        }),
+        200, // SOL price fallback
+        87.4, // Consciousness level
+        0.95  // Confidence score
+      ];
+      
+      await pool.query(query, values);
     } catch (error) {
-      console.error('Error taking comprehensive snapshot:', error);
+      console.error('Failed to record portfolio snapshot:', error);
     }
   }
 }

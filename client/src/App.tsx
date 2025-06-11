@@ -26,6 +26,7 @@ import TradingInterface from "@/pages/TradingInterface";
 import TradingVisualization from "@/pages/TradingVisualization";
 import TraderDashboard from "@/pages/TraderDashboard";
 import { DeFiDashboard } from "@/pages/DeFiDashboard";
+import PortfolioDashboard from "@/pages/PortfolioDashboard";
 import Platform from "@/pages/Platform";
 import CloudflareOptimization from "@/pages/CloudflareOptimization";
 import TechnicalDeepDive from "@/pages/technical-deep-dive";

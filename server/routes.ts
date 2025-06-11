@@ -150,6 +150,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Add portfolio routes
+  app.use('/api/portfolio', portfolioRouter);
+
   // Donation tracking endpoint
   app.get('/api/donations/stats', async (req, res) => {
     try {
