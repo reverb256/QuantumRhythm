@@ -147,6 +147,19 @@ export function GenAIShowcase() {
 
     } catch (error) {
       console.error('Generation failed:', error);
+      
+      // Add fallback result to show the error to user
+      const errorResult: GenerationResult = {
+        id: Date.now().toString(),
+        type: activeTab,
+        provider: 'Error',
+        result: `Generation failed: ${error instanceof Error ? error.message : 'Unknown error'}`,
+        timestamp: Date.now(),
+        prompt: inputPrompt,
+        duration: Date.now() - startTime
+      };
+      
+      setGenerationResults(prev => [errorResult, ...prev.slice(0, 9)]);
     } finally {
       setIsGenerating(false);
     }
