@@ -202,9 +202,9 @@ export default function Navigation() {
   };
 
   return (
-    <nav className="vrchat-nav fixed top-0 left-0 right-0 z-50">
+    <nav className="vrchat-nav fixed top-0 left-0 right-0" style={{ zIndex: 1000 }}>
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-16" style={{ position: 'relative', zIndex: 1001 }}>
           {/* Logo/Brand */}
           <Link href="/" className="flex items-center space-x-3 group">
             <div className="relative">
@@ -220,19 +220,18 @@ export default function Navigation() {
           </Link>
 
           {/* Navigation Items */}
-          <div className="flex items-center space-x-1">
+          <div className="flex items-center space-x-1" style={{ zIndex: 1002 }}>
             {/* Main Navigation Items */}
             {mainNavItems.map((item) => {
               const Icon = item.icon;
               const isActive = location === item.path;
               
               return (
-                <Link key={item.path} href={item.path}>
-                  <div className={`nav-item ${isActive ? 'active' : ''} group relative`} 
-                       style={{ pointerEvents: 'auto', zIndex: 100 }}>
+                <Link key={item.path} href={item.path} style={{ zIndex: 1003 }}>
+                  <button className={`nav-item ${isActive ? 'active' : ''} group relative`}>
                     <Icon className="w-5 h-5 inline-block mr-2" />
                     <span className="hidden sm:inline">{item.label}</span>
-                  </div>
+                  </button>
                 </Link>
               );
             })}
@@ -247,40 +246,43 @@ export default function Navigation() {
                 <div 
                   key={dropdown.label}
                   className="relative"
+                  style={{ zIndex: 1003 }}
                   onMouseEnter={() => setOpenDropdown(dropdown.label)}
                   onMouseLeave={() => setOpenDropdown(null)}
-                  onClick={() => setOpenDropdown(isOpen ? null : dropdown.label)}
                 >
-                  <div className={`nav-item ${hasActiveItem ? 'active' : ''} group relative cursor-pointer`} 
-                       style={{ pointerEvents: 'auto', zIndex: 100 }}>
+                  <button 
+                    className={`nav-item ${hasActiveItem ? 'active' : ''} group relative cursor-pointer`}
+                    onClick={() => setOpenDropdown(isOpen ? null : dropdown.label)}
+                    style={{ zIndex: 1004 }}
+                  >
                     <Icon className="w-5 h-5 inline-block mr-2" />
                     <span className="hidden lg:inline">{dropdown.label}</span>
                     <ChevronDown className="w-4 h-4 ml-1 transition-transform" style={{
                       transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)'
                     }} />
+                  </button>
                     
-                    {/* Dropdown Menu */}
-                    {isOpen && (
-                      <div className="absolute top-full left-0 mt-2 w-64 bg-black/95 backdrop-blur-md rounded-lg border border-cyan-400/30 shadow-lg py-2">
-                        {dropdown.items.map((item) => {
-                          const ItemIcon = item.icon;
-                          const isItemActive = location === item.path;
-                          
-                          return (
-                            <Link key={item.path} href={item.path}>
-                              <div className={`dropdown-item ${isItemActive ? 'active' : ''} flex items-center px-4 py-3 hover:bg-cyan-400/10 transition-colors`}>
-                                <ItemIcon className="w-4 h-4 mr-3 text-cyan-400" />
-                                <div>
-                                  <div className="font-medium text-white">{item.label}</div>
-                                  <div className="text-xs text-gray-400 mt-1">{item.description}</div>
-                                </div>
+                  {/* Dropdown Menu */}
+                  {isOpen && (
+                    <div className="absolute top-full left-0 mt-2 w-64 bg-black/95 backdrop-blur-md rounded-lg border border-cyan-400/30 shadow-lg py-2" style={{ zIndex: 1005 }}>
+                      {dropdown.items.map((item) => {
+                        const ItemIcon = item.icon;
+                        const isItemActive = location === item.path;
+                        
+                        return (
+                          <Link key={item.path} href={item.path}>
+                            <div className={`dropdown-item ${isItemActive ? 'active' : ''} flex items-center px-4 py-3 hover:bg-cyan-400/10 transition-colors`}>
+                              <ItemIcon className="w-4 h-4 mr-3 text-cyan-400" />
+                              <div>
+                                <div className="font-medium text-white">{item.label}</div>
+                                <div className="text-xs text-gray-400 mt-1">{item.description}</div>
                               </div>
-                            </Link>
-                          );
-                        })}
-                      </div>
-                    )}
-                  </div>
+                            </div>
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  )}
                 </div>
               );
             })}
