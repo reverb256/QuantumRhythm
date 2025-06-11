@@ -19,6 +19,7 @@ export function QuantumVisualization({ consciousness, quantumResonance, tradingS
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
+    let animationId: number;
     const animate = () => {
       setTime(prev => prev + 0.02);
       
@@ -97,17 +98,17 @@ export function QuantumVisualization({ consciousness, quantumResonance, tradingS
       ctx.arc(centerX, centerY, 25 + Math.sin(time * 2) * 5, 0, Math.PI * 2);
       ctx.fill();
       
-      animationRef.current = requestAnimationFrame(animate);
+      animationId = requestAnimationFrame(animate);
     };
     
     animate();
     
     return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
+      if (animationId) {
+        cancelAnimationFrame(animationId);
       }
     };
-  }, [consciousness, quantumResonance, tradingSuccess, time]);
+  }, [consciousness, quantumResonance, tradingSuccess]);
 
   return (
     <Card className="bg-black/40 border-purple-500/30 backdrop-blur-sm">

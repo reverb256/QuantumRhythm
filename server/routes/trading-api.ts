@@ -18,8 +18,8 @@ router.get('/status', async (req, res) => {
       success: true,
       data: {
         consciousness: 82.9,
-        tradingActive: status.active,
-        chains: status.chains,
+        tradingActive: status?.active || false,
+        chains: status?.chains || ['solana', 'cronos', 'bnb'],
         portfolioValue: 57.75,
         activeOpportunities: 3,
         lastUpdate: new Date().toISOString(),
