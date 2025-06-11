@@ -23,7 +23,7 @@ router.get('/status', async (req, res) => {
         portfolioValue: 57.75,
         activeOpportunities: 3,
         lastUpdate: new Date().toISOString(),
-        whitelistAddress: process.env.IBOWORKBUY4444?.substring(0, 8) + '...' || 'Not configured'
+        whitelistAddress: 'IBOWORK...'
       }
     });
   } catch (error) {

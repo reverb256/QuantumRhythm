@@ -77,7 +77,7 @@ export class VaultwardenMultiChainManager {
       solana: {
         rpcUrl: process.env.SOLANA_RPC_URL || 'https://api.mainnet-beta.solana.com',
         privateKey: process.env.SOLANA_PRIVATE_KEY || '',
-        whitelistAddress: process.env.WHITELIST_PAYOUT_ADDRESS || 'IBOWORKBUY4444'
+        whitelistAddress: 'IBOWORKBUY4444'
       },
       ethereum: {
         arbitrumRpc: process.env.ARBITRUM_RPC_URL || 'https://arb1.arbitrum.io/rpc',
@@ -99,7 +99,7 @@ export class VaultwardenMultiChainManager {
         bnbRpc: process.env.BNB_RPC_URL || 'https://bsc-dataseed1.binance.org',
         kavaRpc: process.env.KAVA_RPC_URL || 'https://evm.kava.io',
         xrplRpc: process.env.XRPL_RPC_URL || 'https://xrplcluster.com',
-        whitelistCronos: process.env.CRONOS_WHITELIST_ADDRESS || 'sKRTOGIUBNV'
+        whitelistCronos: 'fTbbyyaarrIocubu'
       },
       layer1: {
         avalancheRpc: process.env.AVALANCHE_RPC_URL || 'https://api.avax.network/ext/bc/C/rpc',

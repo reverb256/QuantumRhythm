@@ -431,7 +431,7 @@ export class MultiChainTrader {
   constructor() {
     // Initialize connections
     this.solanaConnection = new Connection('https://api.mainnet-beta.solana.com');
-    this.whitelistPayoutAddress = process.env.WHITELIST_PAYOUT_ADDRESS || 'sKRTOGIUBNV';
+    this.whitelistPayoutAddress = 'IBOWORKBUY4444';
     
     // Initialize providers for EVM chains
     this.initializeProviders();
