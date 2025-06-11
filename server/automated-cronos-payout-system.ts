@@ -28,7 +28,7 @@ interface PortfolioSnapshot {
 export class AutomatedCronosPayoutSystem {
   private cronosProvider: ethers.JsonRpcProvider;
   private payoutAddress: string = 'fTbbyyaarrIocubu';
-  private payoutAmount: number = 50; // $50 USDC
+  private payoutAmount: number = 20; // $20 USDC
   private minimumPortfolioValue: number = 100; // $100 USD
   private usdcContractAddress: string = '0xc21223249CA28397B4B6541dfFaEcC539BfF0c59'; // USDC on Cronos
   private payoutHistory: PayoutRecord[] = [];
