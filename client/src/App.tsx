@@ -124,6 +124,7 @@ function Router() {
         <Route path="/agent-insights" component={AgentInsights} />
         <Route path="/health-monitor" component={HealthMonitorDashboard} />
         <Route path="/compatibility-test" component={CompatibilityTestPage} />
+        <Route path="/security" component={SecurityPage} />
         <Route path="/compliance" component={Compliance} />
         <Route path="/legal" component={Legal} />
         <Route path="/workplace-janitorial" component={WorkplaceJanitorial} />

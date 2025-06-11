@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Shield, Lock, Key, Server, Database, FileShield } from 'lucide-react';
+import { Shield, Lock, Key, Server, Database, FileCheck } from 'lucide-react';
 import SecureAIDashboard from '@/components/SecureAIDashboard';
 
 export default function SecurityPage() {
@@ -62,7 +62,7 @@ export default function SecurityPage() {
           <Card className="bg-gray-800/50 border-gray-700">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-purple-400">
-                <FileShield className="h-5 w-5" />
+                <FileCheck className="h-5 w-5" />
                 Security Monitoring
               </CardTitle>
             </CardHeader>
