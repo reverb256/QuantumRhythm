@@ -134,6 +134,10 @@ app.use((req, res, next) => {
   const { default: walletRoutes } = await import('./routes/wallet.js');
   app.use('/api/wallet', walletRoutes);
 
+  // Import and register Portfolio Status routes
+  const { default: portfolioStatusRoutes } = await import('./routes/portfolio-status.js');
+  app.use('/api/portfolio', portfolioStatusRoutes);
+
   // Register AI Autorouter routes for OWUI, void, and other agents
   app.use('/api/ai-autorouter', aiAutorouterRoutes);
 
