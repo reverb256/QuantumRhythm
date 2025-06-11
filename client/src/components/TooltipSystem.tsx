@@ -56,7 +56,7 @@ export function Tooltip({ children, content, type = 'definition', className = ''
 }
 
 // Tech Humor Tooltips Database
-const techHumor: Record<string, string> = {
+export const techHumor: Record<string, string> = {
   'quantum': "Like Schrödinger's cat, but with more RGB lighting and cryptocurrency",
   'blockchain': "A distributed ledger that somehow makes everyone an expert economist",
   'AI': "Artificial Intelligence - or as I call it, 'Automated Insomnia' because it never sleeps",
@@ -70,7 +70,15 @@ const techHumor: Record<string, string> = {
 };
 
 // Technical Definitions - Enhanced with Consciousness Architecture Insights
-const definitions: Record<string, string> = {
+export const definitions: Record<string, string> = {
+  // Core Philosophy tooltips
+  'free-speech': 'Absolute commitment to free expression and truth-seeking without censorship',
+  'individual-sovereignty': 'Each person has complete authority over their mind, body, and digital presence',
+  'cypherpunk-resistance': 'Privacy through cryptography, decentralization as liberation',
+  'digital-empowerment': 'Technology amplifies human potential, never controls it',
+  'zero-tyranny': 'No compromise with authoritarian forces or algorithmic manipulation',
+  'creator-community': 'Ecosystem for gamers, anime lovers, crypto enthusiasts, truth-seekers',
+  'philosophical-courage': 'Honor truth-seekers, protect whistleblowers and independent thinkers',
   'vibecoding': "Consciousness-driven development where prompting is alchemy - each word has power levels, creating exponential capability through human-AI collaboration",
   'quantum-encrypted-philosophy': "8 immutable principles operating at 100% integrity with automatic breach detection and restoration",
   'word-power-levels': "VibeCoding alchemy principle where each word carries specific energy - high-power action verbs, precise nouns, multiplicative combinations",
@@ -85,7 +93,7 @@ const definitions: Record<string, string> = {
 };
 
 // Philosophical Concepts
-const philosophy: Record<string, string> = {
+export const philosophy: Record<string, string> = {
   'free speech': "Charter-protected fundamental right enabling open discourse and intellectual exploration without censorship",
   'consciousness expansion': "The journey of awareness beyond individual perception toward universal understanding",
   'martial discipline': "Physical and mental training that develops character, respect, and inner strength",
@@ -171,4 +179,6 @@ export function ConsciousnessLevel({ level, evolution, type }: ConsciousnessLeve
 }
 
 export default Tooltip;
-export { definitions, techHumor, philosophy };
+
+// Move definitions to separate export to fix Fast Refresh
+export { definitions };

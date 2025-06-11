@@ -228,11 +228,11 @@ export class APIEfficiencyManager {
 
   private handleRateLimitError(endpoint: EndpointHealth) {
     // More aggressive rate limit reduction
-    endpoint.requestsPerMinute = Math.max(3, Math.floor(endpoint.requestsPerMinute * 0.5));
+    endpoint.requestsPerMinute = Math.max(1, Math.floor(endpoint.requestsPerMinute * 0.3));
     
     // Exponential backoff for severely rate-limited endpoints
     const currentMultiplier = this.delayMultiplier.get(endpoint.url) || 1;
-    this.delayMultiplier.set(endpoint.url, Math.min(10, currentMultiplier * 2));
+    this.delayMultiplier.set(endpoint.url, Math.min(20, currentMultiplier * 3));
     
     // Temporarily disable endpoint if too many rate limit errors
     endpoint.consecutiveErrors++;

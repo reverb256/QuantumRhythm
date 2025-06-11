@@ -28,6 +28,7 @@ import { backtestingEngine } from './backtesting-engine';
 import { crossEmpowerment } from './cross-empowerment-orchestrator';
 import { profitTracker } from './real-time-profit-tracker';
 import { insightCrossPollinationEngine } from './insight-cross-pollination-engine';
+import { systemErrorRecovery } from './system-error-recovery';
 
 // Start autonomous problem solving and optimization
 (async () => {
@@ -69,6 +70,10 @@ import { insightCrossPollinationEngine } from './insight-cross-pollination-engin
 
   // Start continuous monitoring
   comprehensiveOptimizer.startContinuousMonitoring();
+
+  // Perform comprehensive error recovery
+  console.log('🔧 Performing system error recovery...');
+  await systemErrorRecovery.performFullSystemRecovery();
 
   // Schedule regular maintenance and validation
   // Initialize legal compliance resolver

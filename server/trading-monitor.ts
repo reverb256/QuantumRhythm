@@ -30,10 +30,11 @@ export class TradingMonitor extends EventEmitter {
   private thresholds: AlertThresholds;
   private interventionActive: boolean = false;
   private healthCheckInterval: NodeJS.Timeout | null = null;
+  private lastEmergencyStopTime: number | null = null;
 
   constructor() {
     super();
-    
+
     this.metrics = {
       consecutiveFailures: 0,
       zeroAmountTrades: 0,
@@ -68,11 +69,16 @@ export class TradingMonitor extends EventEmitter {
 
   private performHealthCheck() {
     this.metrics.lastHealthCheck = new Date();
-    
+
     // Check for emergency conditions
     if (this.shouldTriggerEmergencyStop()) {
       this.triggerEmergencyStop();
       return;
+    }
+
+    // Check if emergency stop can be reset
+    if (this.metrics.emergencyStopTriggered && this.lastEmergencyStopTime && Date.now() - this.lastEmergencyStopTime > 1800000) { // 30 minutes
+        this.resetEmergencyStop();
     }
 
     // Check for intervention needs
@@ -87,11 +93,11 @@ export class TradingMonitor extends EventEmitter {
   }
 
   private shouldTriggerEmergencyStop(): boolean {
-    // Critical conditions that require immediate stop
+    // Critical conditions that require immediate stop - more lenient thresholds
     return (
-      this.metrics.consecutiveFailures >= this.thresholds.maxConsecutiveFailures ||
-      this.metrics.portfolioBalance < this.thresholds.minPortfolioBalance ||
-      this.metrics.zeroAmountTrades >= this.thresholds.maxZeroAmountTrades
+      this.metrics.consecutiveFailures >= this.thresholds.maxConsecutiveFailures * 2 || // Increased threshold
+      this.metrics.portfolioBalance < this.thresholds.minPortfolioBalance / 2 || // Lowered balance threshold
+      this.metrics.zeroAmountTrades >= this.thresholds.maxZeroAmountTrades * 2 // Increased threshold
     );
   }
 
@@ -111,12 +117,20 @@ export class TradingMonitor extends EventEmitter {
     if (this.metrics.emergencyStopTriggered) return;
 
     this.metrics.emergencyStopTriggered = true;
+    this.lastEmergencyStopTime = Date.now();
     console.log('🚨 EMERGENCY STOP TRIGGERED');
     console.log(`📊 Consecutive failures: ${this.metrics.consecutiveFailures}`);
     console.log(`💰 Portfolio balance: ${this.metrics.portfolioBalance} SOL`);
     console.log(`⚠️ Zero amount trades: ${this.metrics.zeroAmountTrades}`);
-    
+
     this.emit('emergencyStop', this.metrics);
+  }
+
+  private resetEmergencyStop() {
+    console.log('🔄 EMERGENCY STOP RESET: Cooling period complete, resuming trading');
+    this.metrics.emergencyStopTriggered = false;
+    this.metrics.consecutiveFailures = 0;
+    this.lastEmergencyStopTime = null;
   }
 
   private performIntervention() {
@@ -124,7 +138,7 @@ export class TradingMonitor extends EventEmitter {
 
     this.interventionActive = true;
     console.log('🔧 TRADING INTERVENTION INITIATED');
-    
+
     // Reset dangerous metrics
     if (this.metrics.overconfidenceEvents >= this.thresholds.maxOverconfidenceEvents) {
       console.log('🧠 Resetting overconfidence syndrome');

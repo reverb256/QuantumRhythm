@@ -191,11 +191,23 @@ export class AutonomousProblemSolver {
   }
 
   private generateValidAgentId(): string {
-    return crypto.randomUUID();
+    const uuid = crypto.randomUUID();
+    // Validate UUID format before returning
+    if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(uuid)) {
+      console.error('Invalid UUID format generated, using fallback');
+      return '00000000-0000-4000-8000-000000000000'; // Valid fallback UUID
+    }
+    return uuid;
   }
 
   private generateValidUuid(): string {
-    return crypto.randomUUID();
+    const uuid = crypto.randomUUID();
+    // Validate UUID format before returning
+    if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(uuid)) {
+      console.error('Invalid UUID format generated, using fallback');
+      return '00000000-0000-4000-8000-000000000000'; // Valid fallback UUID
+    }
+    return uuid;
   }
 
   private async learnFromError(error: string, context?: any): Promise<void> {

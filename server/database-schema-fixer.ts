@@ -73,12 +73,27 @@ export class DatabaseSchemaFixer {
         CREATE OR REPLACE FUNCTION validate_uuid(uuid_text TEXT) 
         RETURNS UUID AS $$
         BEGIN
+          -- First validate the text format
+          IF uuid_text IS NULL OR LENGTH(uuid_text) != 36 THEN
+            RETURN gen_random_uuid();
+          END IF;
+          
+          -- Try to cast to UUID
           RETURN uuid_text::UUID;
         EXCEPTION 
           WHEN invalid_text_representation THEN
             RETURN gen_random_uuid();
+          WHEN OTHERS THEN
+            RETURN gen_random_uuid();
         END;
         $$ LANGUAGE plpgsql;
+      `);
+
+      -- Fix wallet_activities table UUID issues
+      await db.execute(sql`
+        UPDATE wallet_activities 
+        SET id = validate_uuid(id::TEXT) 
+        WHERE id::TEXT !~ '^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$'
       `);
       
       console.log('✅ UUID validation function created');
