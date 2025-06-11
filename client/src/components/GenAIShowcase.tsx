@@ -10,7 +10,7 @@ import { Mic, Image, MessageSquare, Volume2, Zap, Globe } from 'lucide-react';
 
 interface GenerationResult {
   id: string;
-  type: 'image' | 'text' | 'voice';
+  type: 'image' | 'text' | 'voice' | 'multimodal';
   provider: string;
   result: string;
   timestamp: number;
