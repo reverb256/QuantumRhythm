@@ -56,6 +56,12 @@ const tradingItems: NavItem[] = [
     description: 'Advanced trader analytics and controls'
   },
   {
+    path: '/trading-visualization',
+    label: 'Agent Visualization',
+    icon: Brain,
+    description: 'Deep visualization into trading agent behavior'
+  },
+  {
     path: '/trading',
     label: 'Trading Interface',
     icon: TrendingUp,
