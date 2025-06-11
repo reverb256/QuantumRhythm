@@ -38,6 +38,7 @@ import Compliance from "@/pages/Compliance";
 import WorkplaceJanitorial from "@/pages/workplace-janitorial";
 import TrovesCoves from "@/pages/troves-coves";
 import FrostbiteGazette from "@/pages/frostbite-gazette";
+import HealthMonitorDashboard from "@/components/HealthMonitorDashboard";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -85,6 +86,7 @@ function Router() {
     if (location === '/technical-deep-dive') return 'technical-deep-dive';
     if (location === '/ai-onboarding') return 'ai-onboarding';
     if (location === '/agent-insights') return 'agent-insights';
+    if (location === '/health-monitor') return 'health-monitor';
     if (location === '/legal') return 'legal';
     if (location === '/workplace-janitorial') return 'workplace-janitorial';
     if (location === '/troves-coves') return 'troves-coves';
@@ -118,6 +120,7 @@ function Router() {
         <Route path="/ai-systems" component={AISystems} />
         <Route path="/ai-onboarding" component={AIOnboarding} />
         <Route path="/agent-insights" component={AgentInsights} />
+        <Route path="/health-monitor" component={HealthMonitorDashboard} />
         <Route path="/compliance" component={Compliance} />
         <Route path="/legal" component={Legal} />
         <Route path="/workplace-janitorial" component={WorkplaceJanitorial} />
