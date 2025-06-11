@@ -7,7 +7,7 @@ import pg from 'pg';
 const { Pool } = pg;
 
 class DatabaseOptimizer {
-  private pool: Pool;
+  private pool: pg.Pool;
 
   constructor() {
     this.pool = new Pool({
@@ -90,7 +90,7 @@ class DatabaseOptimizer {
       client.release();
       
     } catch (error) {
-      console.error('Database logging error (handled safely):', error.message);
+      console.error('Database logging error (handled safely):', error instanceof Error ? error.message : String(error));
       // Don't throw - just log the error to prevent system crashes
     }
   }
@@ -122,7 +122,7 @@ class DatabaseOptimizer {
       client.release();
       
     } catch (error) {
-      console.error('Trading history logging error (handled safely):', error.message);
+      console.error('Trading history logging error (handled safely):', error instanceof Error ? error.message : String(error));
       // Don't throw - just log the error
     }
   }

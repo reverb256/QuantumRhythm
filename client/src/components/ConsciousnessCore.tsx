@@ -5,7 +5,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { createFreeAIOrchestrator, type FreeAIOrchestrator } from '../services/ai-orchestrator';
+// import { createFreeAIOrchestrator, type FreeAIOrchestrator } from '../services/ai-orchestrator';
 // import { type ConsciousnessState } from '../../shared/ai-validation';
 
 // Temporary type definition

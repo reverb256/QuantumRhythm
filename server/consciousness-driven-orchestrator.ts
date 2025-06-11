@@ -232,7 +232,7 @@ class ConsciousnessDrivenOrchestrator {
   }
 
   private calculatePersonalityMatch(personality: string): number {
-    const matches = {
+    const matches: Record<string, Record<string, number>> = {
       'calm': { 'conservative': 0.9, 'balanced': 0.8, 'aggressive': 0.3, 'experimental': 0.4 },
       'excited': { 'aggressive': 0.9, 'experimental': 0.8, 'balanced': 0.5, 'conservative': 0.2 },
       'cautious': { 'conservative': 0.95, 'balanced': 0.7, 'aggressive': 0.2, 'experimental': 0.1 },
