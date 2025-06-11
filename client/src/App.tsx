@@ -189,7 +189,8 @@ function App() {
               <Router />
             </main>
             <EnhancedConsole />
-          </ConsciousContainer>
+            </ConsciousContainer>
+          </Web3AuthProvider>
         </WalletProvider>
       </QueryClientProvider>
     </ErrorBoundary>
