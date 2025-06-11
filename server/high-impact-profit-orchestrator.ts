@@ -7,6 +7,9 @@ import { nftTradingEngine } from './nft-trading-engine';
 import { mevProtectionEngine } from './mev-protection-engine';
 import { flashLoanArbitrageEngine } from './flash-loan-arbitrage-engine';
 import { liquidityFarmingEngine } from './liquidity-farming-engine';
+import { socialSentimentTradingEngine } from './social-sentiment-trading-engine';
+import { whaleWalletCopyingEngine } from './whale-wallet-copying-engine';
+import { memeCoinEarlyDetectionEngine } from './meme-coin-early-detection-engine';
 import { traderObfuscation } from './trader-obfuscation-engine';
 
 interface ProfitMetrics {
@@ -14,6 +17,9 @@ interface ProfitMetrics {
   arbitrageProfit: number;
   farmingProfit: number;
   mevSavings: number;
+  sentimentProfit: number;
+  whaleProfit: number;
+  memeProfit: number;
   totalProfit: number;
   dailyProjected: number;
 }
@@ -28,6 +34,9 @@ export class HighImpactProfitOrchestrator {
       arbitrageProfit: 0,
       farmingProfit: 0,
       mevSavings: 0,
+      sentimentProfit: 0,
+      whaleProfit: 0,
+      memeProfit: 0,
       totalProfit: 0,
       dailyProjected: 0
     };
@@ -67,24 +76,36 @@ export class HighImpactProfitOrchestrator {
       const mevStats = mevProtectionEngine.getProtectionStats();
       const arbitrageStatus = flashLoanArbitrageEngine.getStatus();
       const farmingStatus = liquidityFarmingEngine.getStatus();
+      const sentimentStatus = socialSentimentTradingEngine.getStatus();
+      const whaleStatus = whaleWalletCopyingEngine.getStatus();
+      const memeStatus = memeCoinEarlyDetectionEngine.getStatus();
 
       // Update profit tracking
       this.profitMetrics.nftProfit += nftStatus.opportunities * 150; // Avg $150 per NFT flip
       this.profitMetrics.mevSavings += mevStats.totalSavings || 0;
       this.profitMetrics.arbitrageProfit += arbitrageStatus.totalPotentialProfit || 0;
       this.profitMetrics.farmingProfit += farmingStatus.dailyRewards || 0;
+      this.profitMetrics.sentimentProfit += sentimentStatus.activeSignals * 200; // Avg $200 per signal
+      this.profitMetrics.whaleProfit += whaleStatus.totalProfit || 0;
+      this.profitMetrics.memeProfit += memeStatus.activeSignals * 300; // Avg $300 per meme entry
       
       this.profitMetrics.totalProfit = 
         this.profitMetrics.nftProfit + 
         this.profitMetrics.arbitrageProfit + 
         this.profitMetrics.farmingProfit + 
-        this.profitMetrics.mevSavings;
+        this.profitMetrics.mevSavings +
+        this.profitMetrics.sentimentProfit +
+        this.profitMetrics.whaleProfit +
+        this.profitMetrics.memeProfit;
 
       // Project daily earnings
       this.profitMetrics.dailyProjected = 
         (farmingStatus.dailyRewards || 0) +
         (arbitrageStatus.avgProfitPerTrade || 0) * 10 + // 10 trades/day
-        (nftStatus.opportunities || 0) * 50; // Conservative NFT estimate
+        (nftStatus.opportunities || 0) * 50 + // Conservative NFT estimate
+        (sentimentStatus.activeSignals || 0) * 75 + // Sentiment trades
+        (whaleStatus.executedTrades || 0) * 25 + // Whale copy profits
+        (memeStatus.activeSignals || 0) * 150; // Meme coin profits
 
       // Emergency profit boosting if needed
       if (this.profitMetrics.dailyProjected < 500) {
