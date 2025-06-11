@@ -40,11 +40,98 @@ export default function TradingInterface() {
           </p>
         </div>
 
+        {/* Multi-Chain Status Dashboard */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center justify-between">
+                <span>Multi-Chain Coverage</span>
+                <Badge variant="outline">20+ Chains</Badge>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <span className="text-sm text-gray-600 dark:text-gray-400">Ethereum L2s</span>
+                  <span className="text-sm font-medium">8 chains</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-gray-600 dark:text-gray-400">Bitcoin Layers</span>
+                  <span className="text-sm font-medium">4 chains</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-gray-600 dark:text-gray-400">XRP & Alternative</span>
+                  <span className="text-sm font-medium">5 chains</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-gray-600 dark:text-gray-400">Layer 1s</span>
+                  <span className="text-sm font-medium">6 chains</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center justify-between">
+                <span>Static Pages Infrastructure</span>
+                <Badge variant="secondary">Free Hyperscale AI</Badge>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <span className="text-sm text-gray-600 dark:text-gray-400">Edge Deployment</span>
+                  <span className="text-sm font-medium text-green-600">Active</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-gray-600 dark:text-gray-400">AI Processing</span>
+                  <span className="text-sm font-medium text-green-600">Local FOSS</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-gray-600 dark:text-gray-400">Response Time</span>
+                  <span className="text-sm font-medium">{'< 100ms'}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-gray-600 dark:text-gray-400">Cost</span>
+                  <span className="text-sm font-medium text-green-600">$0</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Gas Fee Optimization</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <span className="text-sm text-gray-600 dark:text-gray-400">ETH Mainnet</span>
+                  <span className="text-sm font-medium text-red-600">Avoided</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-gray-600 dark:text-gray-400">L2 Average</span>
+                  <span className="text-sm font-medium text-green-600">$0.01</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-gray-600 dark:text-gray-400">Bitcoin Layers</span>
+                  <span className="text-sm font-medium text-green-600">$0.001</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-gray-600 dark:text-gray-400">XRP/Alt Chains</span>
+                  <span className="text-sm font-medium text-green-600">$0.005</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
         {/* Connection Status Alert */}
         {!isConnected && (
           <Alert className="mb-6">
             <AlertDescription>
-              Connect at least one wallet to start communicating with the trading AI and monitor cross-chain opportunities.
+              Connect wallets to access 20+ chain trading with hyperscale AI infrastructure and monitor cross-chain opportunities.
             </AlertDescription>
           </Alert>
         )}
