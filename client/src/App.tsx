@@ -113,8 +113,10 @@ function Router() {
         <Route path="/defi" component={DeFiDashboard} />
         <Route path="/cloudflare" component={CloudflareOptimization} />
         <Route path="/technical-deep-dive" component={TechnicalDeepDive} />
+        <Route path="/ai-systems" component={AISystems} />
         <Route path="/ai-onboarding" component={AIOnboarding} />
         <Route path="/agent-insights" component={AgentInsights} />
+        <Route path="/compliance" component={Compliance} />
         <Route path="/legal" component={Legal} />
         <Route path="/workplace-janitorial" component={WorkplaceJanitorial} />
         <Route path="/troves-coves" component={TrovesCoves} />
