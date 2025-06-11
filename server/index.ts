@@ -35,6 +35,7 @@ import { k3sSelfHealer } from '../k3s-self-healing-controller';
 import { hyperscaleOffloader } from '../hyperscale-static-offloader';
 import { tradingJournalService } from './trading-journal-service';
 import { comprehensivePortfolioTracker } from './comprehensive-portfolio-tracker';
+import { yieldActivationEngine } from './yield-activation-engine';
 
 // Start autonomous problem solving and optimization
 (async () => {
@@ -73,6 +74,23 @@ import { comprehensivePortfolioTracker } from './comprehensive-portfolio-tracker
       console.log('📊 Initializing comprehensive portfolio tracking...');
       // Start comprehensive portfolio tracking
       await comprehensivePortfolioTracker.startPortfolioTracking();
+      
+      console.log('💰 Activating yield generation strategies...');
+      // Disable emergency stop and activate yield generation
+      await yieldActivationEngine.disableEmergencyStop();
+      const yieldResults = await yieldActivationEngine.activateYieldGeneration();
+      
+      console.log(`💎 YIELD ACTIVATION COMPLETE:`);
+      console.log(`   Total Deployed: ${yieldResults.totalDeployed.toFixed(4)} SOL`);
+      console.log(`   Expected Daily: +$${(yieldResults.expectedReturns.daily * 200).toFixed(2)}`);
+      console.log(`   Expected Monthly: +$${(yieldResults.expectedReturns.monthly * 200).toFixed(2)}`);
+      console.log(`   Annual Projection: +$${(yieldResults.expectedReturns.annual * 200).toFixed(2)}`);
+      
+      // Set up yield tracking
+      setInterval(async () => {
+        const projection = await yieldActivationEngine.getProjectedPortfolioValue(1);
+        console.log(`📈 Daily Yield Update: Portfolio projected at $${projection.projectedValue.toFixed(2)} (+$${projection.totalGains.toFixed(2)})`);
+      }, 86400000); // Daily updates
     } catch (error) {
       console.log('K3s/Hyperscale systems using fallback mode');
     }
