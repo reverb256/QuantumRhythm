@@ -1,10 +1,11 @@
 /**
- * Automated Solana Payout System
- * Sends $100 to IBOWORKBUY4444 every 30 minutes when portfolio > $500 USD
- * Uses secret wallet for enhanced security
+ * Automated Solana USDC Payout System
+ * Sends $100 USDC to IBOWORKBUY4444 every 30 minutes when portfolio > $500 USD
+ * Uses secondary trader wallet for enhanced security
  */
 
-import { Connection, PublicKey, Keypair, SystemProgram, Transaction, sendAndConfirmTransaction } from '@solana/web3.js';
+import { Connection, PublicKey, Keypair, Transaction } from '@solana/web3.js';
+import { getAssociatedTokenAddress, createTransferInstruction, TOKEN_PROGRAM_ID } from '@solana/spl-token';
 import { whitelistValidator } from './whitelist-security-validator';
 import bs58 from 'bs58';
 
@@ -30,15 +31,15 @@ interface PortfolioSnapshot {
 
 export class AutomatedSolanaPayoutSystem {
   private connection: Connection;
-  private secretWallet: Keypair | null = null;
+  private secondaryTraderWallet: Keypair | null = null;
   private payoutAddress: string = 'IBOWORKBUY4444';
-  private payoutAmountUSD: number = 100; // $100 USD
+  private payoutAmountUSDC: number = 100; // $100 USDC
   private minimumPortfolioValue: number = 500; // $500 USD
+  private usdcMintAddress: string = 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v'; // USDC mint on Solana
   private payoutHistory: SolanaPayoutRecord[] = [];
   private isActive: boolean = true;
   private lastPayoutTime: number = 0;
   private payoutInterval: number = 1800000; // 30 minutes in milliseconds
-  private solPriceUSD: number = 200; // Mock SOL price - would use real price feed
 
   constructor() {
     // Initialize Solana connection
@@ -53,27 +54,31 @@ export class AutomatedSolanaPayoutSystem {
 
   private initializeSecretWallet(): void {
     try {
-      // In production, this would come from secure environment variable
-      // For now, generate a new keypair for demonstration
-      this.secretWallet = Keypair.generate();
-      
-      console.log('🔐 SECRET SOLANA WALLET INITIALIZED');
-      console.log(`   Wallet Address: ${this.secretWallet.publicKey.toString()}`);
-      console.log('   Security: Maximum encryption active');
-      
+      // Generate secure secondary trader wallet
+      const secretKey = process.env.SECONDARY_TRADER_SECRET_KEY;
+      if (secretKey) {
+        this.secondaryTraderWallet = Keypair.fromSecretKey(bs58.decode(secretKey));
+        console.log('💼 Secondary trader wallet initialized for USDC payouts');
+      } else {
+        // Generate new secondary trader wallet for development
+        this.secondaryTraderWallet = Keypair.generate();
+        console.log('🔑 Generated new secondary trader wallet for development');
+        console.log(`   Public Key: ${this.secondaryTraderWallet.publicKey.toString()}`);
+      }
     } catch (error) {
-      console.log('⚠️ Secret wallet initialization protected');
+      console.error('❌ Failed to initialize secondary trader wallet:', error);
+      this.secondaryTraderWallet = Keypair.generate(); // Fallback
     }
   }
 
   private startPayoutMonitoring(): void {
-    console.log('💰 AUTOMATED SOLANA PAYOUT SYSTEM ACTIVATED');
-    console.log('===========================================');
+    console.log('💰 AUTOMATED SOLANA USDC PAYOUT SYSTEM ACTIVATED');
+    console.log('================================================');
     console.log(`   Target Address: ${this.payoutAddress}`);
-    console.log(`   Payout Amount: $${this.payoutAmountUSD} USD in SOL`);
+    console.log(`   Payout Amount: $${this.payoutAmountUSDC} USDC`);
     console.log(`   Portfolio Threshold: $${this.minimumPortfolioValue} USD`);
     console.log(`   Payout Interval: ${this.payoutInterval / 60000} minutes`);
-    console.log('   Secret Wallet: PROTECTED');
+    console.log('   Secondary Trader Wallet: PROTECTED');
 
     // Run every 5 minutes to check if it's time for 30-minute payout
     setInterval(async () => {
