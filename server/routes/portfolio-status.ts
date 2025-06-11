@@ -56,8 +56,14 @@ router.get('/status', async (req, res) => {
       getCurrentSOLPrice()
     ]);
 
+    // Import comprehensive portfolio tracker
+    const { comprehensivePortfolioTracker } = await import('../comprehensive-portfolio-tracker');
+    
+    // Get comprehensive portfolio data including DeFi positions
+    const comprehensivePortfolio = await comprehensivePortfolioTracker.getComprehensivePortfolio();
+
     const portfolioStatus: PortfolioStatus = {
-      totalValueUSD: solBalance * solPrice,
+      totalValueUSD: comprehensivePortfolio.totalValueUSD, // Use comprehensive value, not just wallet
       solBalance,
       solPriceUSD: solPrice,
       tradingStatus: 'emergency_stop', // Based on logs showing emergency stop is active
@@ -71,10 +77,19 @@ router.get('/status', async (req, res) => {
     res.json({
       success: true,
       portfolio: portfolioStatus,
+      breakdown: comprehensivePortfolio.breakdown,
+      defiPositions: comprehensivePortfolio.defiPositions.length,
       analysis: {
         emergencyStopActive: true,
         reason: 'Trading halted - emergency stop triggered due to safety protocols',
-        recommendation: 'Portfolio is in safe mode, no active trading positions'
+        recommendation: 'Portfolio is in safe mode, monitoring DeFi positions',
+        portfolioComposition: {
+          wallet: `$${comprehensivePortfolio.breakdown.wallet.toFixed(2)}`,
+          defiLending: `$${comprehensivePortfolio.breakdown.lending.toFixed(2)}`,
+          staking: `$${comprehensivePortfolio.breakdown.staking.toFixed(2)}`,
+          liquidity: `$${comprehensivePortfolio.breakdown.liquidity.toFixed(2)}`,
+          leverage: `$${comprehensivePortfolio.breakdown.leverage.toFixed(2)}`
+        }
       }
     });
 
