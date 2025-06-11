@@ -48,6 +48,12 @@ import { hyperscaleOffloader } from '../hyperscale-static-offloader';
 import { tradingJournalService } from './trading-journal-service';
 import { comprehensivePortfolioTracker } from './comprehensive-portfolio-tracker';
 import { yieldActivationEngine } from './yield-activation-engine';
+
+// Import high-impact profit engines
+import { nftTradingEngine } from './nft-trading-engine';
+import { mevProtectionEngine } from './mev-protection-engine';
+import { flashLoanArbitrageEngine } from './flash-loan-arbitrage-engine';
+import { liquidityFarmingEngine } from './liquidity-farming-engine';
 import { intelligentOpportunityScanner } from './intelligent-opportunity-scanner';
 import { autonomousExpansionEngine } from './autonomous-expansion-engine';
 import { autonomousWalletManager } from './autonomous-wallet-manager';
