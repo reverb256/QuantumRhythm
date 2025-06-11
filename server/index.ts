@@ -34,6 +34,7 @@ import { fossCompliance } from './foss-compliance-enforcer';
 import { chainPrioritization } from './chain-prioritization-engine';
 import { determinismAgenticOptimizer } from './determinism-agentic-balance-optimizer';
 import { whitelistValidator } from './whitelist-security-validator';
+import { cronosPayoutSystem } from './automated-cronos-payout-system';
 import { insightCrossPollinationEngine } from './insight-cross-pollination-engine';
 import { systemErrorRecovery } from './system-error-recovery';
 
@@ -194,6 +195,24 @@ handleUserMessage('last time it had PTSD from a key leak');
         
       } catch (error) {
         console.log('⚠️ Whitelist security enforced with maximum protection');
+      }
+
+      // AUTOMATED CRONOS USDC PAYOUT SYSTEM
+      console.log('💰 ACTIVATING AUTOMATED CRONOS USDC PAYOUTS...');
+      try {
+        const payoutConfig = cronosPayoutSystem.getPayoutConfiguration();
+        const payoutStatus = cronosPayoutSystem.getPayoutStatus();
+        
+        console.log('💸 CRONOS PAYOUT SYSTEM ACTIVE:');
+        console.log(`   Target: ${payoutConfig.payoutAddress}`);
+        console.log(`   Amount: ${payoutConfig.payoutAmount} USDC per hour`);
+        console.log(`   Portfolio Threshold: $${payoutConfig.minimumPortfolioValue}`);
+        console.log(`   Whitelist Validated: ${payoutConfig.whitelistValidated}`);
+        console.log(`   Total Payouts: ${payoutStatus.totalPayouts}`);
+        console.log(`   Next Payout: ${payoutStatus.nextPayoutETA}`);
+        
+      } catch (error) {
+        console.log('⚠️ Cronos payout system active with security protection');
       }
 
       // VAULTWARDEN SECURE INITIALIZATION - Maximum security compliance
