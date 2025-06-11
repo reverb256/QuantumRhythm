@@ -70,10 +70,10 @@ export default function PortfolioDashboard() {
     refetchInterval: 30000,
   });
 
-  const portfolio = portfolioData?.data as PortfolioData;
-  const positions = positionsData?.data?.positions as DeFiPosition[];
-  const protocols = protocolsData?.data?.protocols;
-  const performance = performanceData?.data?.performance;
+  const portfolio = portfolioData?.data || { totalValue: 0, positions: [], change24h: 0 } as PortfolioData;
+  const positions = positionsData?.data?.positions || [] as DeFiPosition[];
+  const protocols = protocolsData?.data?.protocols || [];
+  const performance = performanceData?.data?.performance || { returns: [], metrics: {} };
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-US', {
