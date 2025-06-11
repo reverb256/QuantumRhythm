@@ -449,7 +449,13 @@ export class AgentOrchestrator {
       interests: [],
       behavioralPatterns: [],
       skillLevels: {},
-      agentAffinities: {},
+      agentAffinities: {
+        portal: 0.5,
+        analyst: 0.5,
+        creator: 0.5,
+        sage: 0.5,
+        navigator: 0.5
+      },
       conversationHistory: [],
       preferences: {
         communicationStyle: 'casual',

@@ -92,7 +92,7 @@ export class AISecurityEnvelope {
   async secureResponse(response: any): Promise<SecuredResponse> {
     try {
       // 1. Output validation and sanitization
-      const sanitizedResponse = await this.sanitizeOutput(response);
+      const sanitizedResponse = this.sanitizeOutputContent(response);
       
       // 2. Content filtering
       const filteredResponse = await this.filterContent(sanitizedResponse);
@@ -127,6 +127,26 @@ export class AISecurityEnvelope {
       });
       throw new SecurityProcessingError(`Response security failed: ${errorMessage}`);
     }
+  }
+
+  private sanitizeOutputContent(response: any): any {
+    if (typeof response === 'string') {
+      // Remove potential XSS vectors
+      return response
+        .replace(/<script[^>]*>.*?<\/script>/gi, '')
+        .replace(/javascript:/gi, '')
+        .replace(/on\w+=/gi, '');
+    }
+    
+    if (typeof response === 'object' && response !== null) {
+      const sanitized: any = {};
+      for (const [key, value] of Object.entries(response)) {
+        sanitized[key] = this.sanitizeOutputContent(value);
+      }
+      return sanitized;
+    }
+    
+    return response;
   }
 
   // Rate Limiting Implementation

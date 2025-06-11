@@ -122,7 +122,7 @@ export default function PhilosophyPage() {
                 key={index}
                 className={`p-8 rounded-lg border-2 backdrop-blur-sm transition-all duration-500 hover:scale-105 ${getColorScheme(pillar.color)}`}
                 style={{
-                  filter: consciousness.userPresence === 'meditating' ? 'brightness(1.3) saturate(1.2)' : 'brightness(1)',
+                  filter: consciousness.userPresence === 'focused' ? 'brightness(1.3) saturate(1.2)' : 'brightness(1)',
                   transition: 'all 0.7s ease-in-out'
                 }}
               >

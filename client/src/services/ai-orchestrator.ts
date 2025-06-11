@@ -208,7 +208,7 @@ export class FreeAIOrchestrator {
       try {
         return await this.executeHuggingFaceModel(input, model);
       } catch (error) {
-        console.warn(`[FREE_FALLBACK] Model ${model.id} failed:`, error.message);
+        console.warn(`[FREE_FALLBACK] Model ${model.id} failed:`, error instanceof Error ? error.message : String(error));
         continue;
       }
     }
