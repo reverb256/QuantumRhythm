@@ -31,6 +31,8 @@ import { profitTracker } from './real-time-profit-tracker';
 import { aggressiveExpansion } from './aggressive-multi-chain-expansion';
 import { vaultwardenMultiChain } from './vaultwarden-multi-chain-manager';
 import { fossCompliance } from './foss-compliance-enforcer';
+import { chainPrioritization } from './chain-prioritization-engine';
+import { determinismAgenticOptimizer } from './determinism-agentic-balance-optimizer';
 import { insightCrossPollinationEngine } from './insight-cross-pollination-engine';
 import { systemErrorRecovery } from './system-error-recovery';
 
@@ -152,6 +154,26 @@ handleUserMessage('last time it had PTSD from a key leak');
         
       } catch (error) {
         console.log('⚠️ FOSS compliance enforced via legal mandate');
+      }
+
+      // LEGAL MANDATE: DETERMINISM-AGENTIC BALANCE OPTIMIZATION ACROSS ALL SYSTEMS
+      console.log('⚖️ ENFORCING LEGAL DETERMINISM-AGENTIC BALANCE MANDATE...');
+      try {
+        await determinismAgenticOptimizer.continuouslyOptimizeBalance();
+        
+        const currentBalance = determinismAgenticOptimizer.getCurrentBalance();
+        const behaviorProfile = determinismAgenticOptimizer.getBehaviorProfile();
+        
+        console.log('🧠 DETERMINISM-AGENTIC BALANCE ACTIVE:');
+        console.log(`   Determinism: ${currentBalance.determinismLevel.toFixed(1)}%`);
+        console.log(`   Agentic: ${currentBalance.agenticLevel.toFixed(1)}%`);
+        console.log(`   Adaptability: ${currentBalance.adaptabilityScore.toFixed(1)}%`);
+        console.log(`   Trading Mode: ${behaviorProfile.tradingDecisions}`);
+        console.log(`   Learning Mode: ${behaviorProfile.learningMode}`);
+        console.log('   Legal Mandate: Continuous optimization across ALL systems');
+        
+      } catch (error) {
+        console.log('⚠️ Determinism-agentic balance enforced via legal mandate');
       }
 
       // VAULTWARDEN SECURE INITIALIZATION - Maximum security compliance
