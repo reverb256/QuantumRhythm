@@ -253,16 +253,18 @@ export class CompatibilityLayer {
 
   // Dynamic resource allocation
   public getAllocatedResources(): {
+    maxConcurrentOperations: number;
+    cacheSize: number;
     maxWorkers: number;
-    maxCacheSize: number;
-    maxConcurrentRequests: number;
+    batchSize: number;
   } {
     const baseMultiplier = Math.max(1, this.capabilities.memoryGB / 8);
     
     return {
+      maxConcurrentOperations: this.settings.maxConcurrentOperations,
+      cacheSize: Math.floor(this.capabilities.memoryGB * 0.1 * 1024 * 1024), // 10% of estimated memory in bytes
       maxWorkers: Math.min(4, Math.floor(baseMultiplier * 2)),
-      maxCacheSize: Math.floor(this.capabilities.memoryGB * 0.1 * 1024 * 1024), // 10% of estimated memory in bytes
-      maxConcurrentRequests: this.settings.maxConcurrentOperations
+      batchSize: this.getOptimalBatchSize()
     };
   }
 
@@ -270,7 +272,12 @@ export class CompatibilityLayer {
   public getPerformanceReport(): {
     capabilities: SystemCapabilities;
     settings: CompatibilitySettings;
-    allocatedResources: ReturnType<typeof this.getAllocatedResources>;
+    allocatedResources: {
+      maxConcurrentOperations: number;
+      cacheSize: number;
+      maxWorkers: number;
+      batchSize: number;
+    };
     recommendations: string[];
   } {
     const recommendations: string[] = [];
