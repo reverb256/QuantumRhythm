@@ -556,25 +556,8 @@ export class GenAIOrchestrator {
 
   // Character Voice Synthesis with Human-like Quality
   async generateCharacterVoice(request: VoiceRequest): Promise<string> {
-    // In development, external APIs are blocked, so use browser TTS immediately
-    try {
-      // Quick attempt at external services with immediate fallback
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 2000);
-      
-      const externalResult = await Promise.race([
-        this.generateWithPollinationsVoice(request),
-        new Promise<never>((_, reject) => 
-          setTimeout(() => reject(new Error('External service timeout')), 2000)
-        )
-      ]);
-      
-      clearTimeout(timeoutId);
-      return externalResult;
-    } catch (error) {
-      console.log('External voice services unavailable, using browser TTS');
-      return this.generateWithBrowserTTS(request);
-    }
+    // Use browser TTS which is always available and works reliably
+    return this.generateWithBrowserTTS(request);
   }
 
   private async generateWithHuggingFaceVoice(request: VoiceRequest): Promise<string> {
@@ -767,21 +750,28 @@ export class GenAIOrchestrator {
     const prompt = this.buildDialoguePrompt(character, context, userInput);
     
     try {
-      // Try local model first
-      if (this.textPipeline) {
-        const result = await this.textPipeline(prompt, {
-          max_length: 150,
-          temperature: 0.8,
-          do_sample: true
-        });
-        return result[0].generated_text.replace(prompt, '').trim();
+      // Use IO Intelligence system for text generation
+      const response = await fetch('/api/ai/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          prompt,
+          model: 'dialogue',
+          character,
+          max_tokens: 150
+        })
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        return data.content || this.getFallbackDialogue(character);
       }
       
-      // Fallback to Hugging Face
-      return await this.generateWithHuggingFaceText(prompt);
+      // If API not available, use character-specific responses
+      return this.getCharacterSpecificResponse(character, userInput, context);
     } catch (error) {
       console.error('Dialogue generation failed:', error);
-      return this.getFallbackDialogue(character);
+      return this.getCharacterSpecificResponse(character, userInput, context);
     }
   }
 
@@ -821,6 +811,51 @@ ${character} responds:`;
       kafka: "How fascinating... there's more to this than meets the eye."
     };
     return fallbacks[character as keyof typeof fallbacks] || "I'm listening...";
+  }
+
+  private getCharacterSpecificResponse(character: string, userInput: string, context: string): string {
+    const input = userInput.toLowerCase();
+    const responses = {
+      stelle: {
+        greeting: ["Ready for our next adventure through the stars?", "The Express is waiting - where shall we go?"],
+        compliment: ["Thanks! Being a Trailblazer has its perks.", "That means a lot coming from a fellow traveler."],
+        question: ["That's a great question! Let me think about it...", "Hmm, the universe is full of mysteries like that."],
+        default: ["The path ahead is uncertain, but that's what makes it exciting!", "Every star we visit teaches us something new."]
+      },
+      march7th: {
+        greeting: ["Hi there! Perfect timing - I was just about to take a photo!", "Hey! Want to join me for some sightseeing?"],
+        compliment: ["Aww, you're so sweet! *camera flash*", "Really? I should capture this moment!"],
+        question: ["Ooh, that's interesting! Let me document this conversation.", "Great question! I love learning new things!"],
+        default: ["Life's too short not to capture every amazing moment!", "Every day is a new adventure worth photographing!"]
+      },
+      himeko: {
+        greeting: ["Welcome aboard. Care for some coffee while we chat?", "It's good to see you. How has your journey been?"],
+        compliment: ["You're very kind. Experience has taught me much.", "Thank you. Wisdom comes from embracing every experience."],
+        question: ["That's a thoughtful question. Let me share what I've learned.", "An excellent inquiry. Experience is our greatest teacher."],
+        default: ["Remember, every challenge is an opportunity to grow stronger.", "The path may be difficult, but you're not walking it alone."]
+      },
+      kafka: {
+        greeting: ["How interesting... our paths cross again.", "The threads of fate have brought us together."],
+        compliment: ["Flattery? How... predictable.", "Your words are noted, though I wonder at your motives."],
+        question: ["The answer depends on which truth you're prepared to hear.", "Some questions reveal more about the asker than the asked."],
+        default: ["Everything unfolds according to the script... mostly.", "The future is already written, but reading it requires... finesse."]
+      }
+    };
+
+    const characterResponses = responses[character as keyof typeof responses];
+    if (!characterResponses) return this.getFallbackDialogue(character);
+
+    let responseType: keyof typeof characterResponses = 'default';
+    if (input.includes('hello') || input.includes('hi') || input.includes('hey')) {
+      responseType = 'greeting';
+    } else if (input.includes('beautiful') || input.includes('amazing') || input.includes('great')) {
+      responseType = 'compliment';
+    } else if (input.includes('?') || input.includes('what') || input.includes('how') || input.includes('why')) {
+      responseType = 'question';
+    }
+
+    const responses_array = characterResponses[responseType];
+    return responses_array[Math.floor(Math.random() * responses_array.length)];
   }
 
   // Provider Health Check

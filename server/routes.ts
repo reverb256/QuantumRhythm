@@ -120,6 +120,35 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // AI dialogue generation endpoint for character interactions
+  app.post('/api/ai/generate', async (req, res) => {
+    try {
+      const { prompt, model, character, max_tokens } = req.body;
+      
+      // Use IO Intelligence system or character-specific response generation
+      const { aiService } = await import('./ai-service');
+      const response = await aiService.generateDialogue({
+        prompt,
+        character,
+        maxTokens: max_tokens || 150
+      });
+      
+      res.json({ 
+        success: true, 
+        content: response,
+        character,
+        timestamp: new Date().toISOString()
+      });
+    } catch (error) {
+      console.error('AI generation error:', error);
+      res.status(500).json({ 
+        success: false, 
+        error: 'AI generation temporarily unavailable',
+        fallback: true
+      });
+    }
+  });
+
   // Donation tracking endpoint
   app.get('/api/donations/stats', async (req, res) => {
     try {
