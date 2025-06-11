@@ -7,6 +7,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation } from 'wouter';
+import { genAI } from '@/services/GenAIOrchestrator';
 
 interface HoYoCharacter {
   id: string;
@@ -781,6 +782,10 @@ export function HoYoverseCharacterSystem() {
   const [visualEffects, setVisualEffects] = useState<VisualEffect[]>([]);
   const [userPosition, setUserPosition] = useState({ x: 0, y: 0 });
   const [isInitialized, setIsInitialized] = useState(false);
+  const [aiGeneratedPortraits, setAiGeneratedPortraits] = useState<Record<string, string>>({});
+  const [isGeneratingPortrait, setIsGeneratingPortrait] = useState<string>('');
+  const [aiProviderHealth, setAiProviderHealth] = useState<Record<string, boolean>>({});
+  const [conversationHistory, setConversationHistory] = useState<Record<string, string[]>>({});
   
   const containerRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<number>();
@@ -788,10 +793,13 @@ export function HoYoverseCharacterSystem() {
   const voiceEngineRef = useRef<CharacterVoiceEngine>();
   const lastUpdateRef = useRef<number>(Date.now());
 
-  // Initialize audio engines
+  // Initialize audio engines and AI systems
   useEffect(() => {
     audioEngineRef.current = new HoYoAudioEngine();
     voiceEngineRef.current = new CharacterVoiceEngine();
+    
+    // Check AI provider health on initialization
+    genAI.checkProviderHealth().then(setAiProviderHealth);
   }, []);
 
   // Track user mouse position
