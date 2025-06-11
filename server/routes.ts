@@ -7,6 +7,7 @@ import analyticsRouter from "./routes/analytics";
 import parameterInsightsRouter from "./routes/parameter-insights";
 import aiAutorouterRouter from "./routes/ai-autorouter";
 import agentInsightsRouter from "./routes/agent-insights";
+import portfolioRouter from "./routes/portfolio";
 import { donationTracker } from "./donation-tracker";
 import { fileURLToPath } from "url";
 

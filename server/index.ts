@@ -34,6 +34,7 @@ import { systemErrorRecovery } from './system-error-recovery';
 import { k3sSelfHealer } from '../k3s-self-healing-controller';
 import { hyperscaleOffloader } from '../hyperscale-static-offloader';
 import { tradingJournalService } from './trading-journal-service';
+import { comprehensivePortfolioTracker } from './comprehensive-portfolio-tracker';
 
 // Start autonomous problem solving and optimization
 (async () => {
@@ -69,23 +70,9 @@ import { tradingJournalService } from './trading-journal-service';
       console.log('🚀 Starting hyperscale static offloading...');
       await hyperscaleOffloader.startHyperscaleOffloading();
       
-      console.log('📊 Initializing trading journal...');
-      // Start automated portfolio snapshots every 5 minutes
-      setInterval(async () => {
-        try {
-          const solPrice = await getCurrentSOLPrice();
-          const solBalance = 0.288736; // Current balance from logs
-          await tradingJournalService.takeAutomatedSnapshot({
-            totalValueUSD: solBalance * solPrice,
-            totalValueSOL: solBalance,
-            solPrice,
-            holdings: { SOL: solBalance },
-            consciousnessLevel: 87.4
-          });
-        } catch (error) {
-          // Silent fail for snapshots
-        }
-      }, 300000);
+      console.log('📊 Initializing comprehensive portfolio tracking...');
+      // Start comprehensive portfolio tracking
+      await comprehensivePortfolioTracker.startPortfolioTracking();
     } catch (error) {
       console.log('K3s/Hyperscale systems using fallback mode');
     }
