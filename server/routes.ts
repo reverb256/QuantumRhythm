@@ -8,6 +8,7 @@ import parameterInsightsRouter from "./routes/parameter-insights";
 import aiAutorouterRouter from "./routes/ai-autorouter";
 import agentInsightsRouter from "./routes/agent-insights";
 import portfolioRouter from "./routes/portfolio";
+import intelligenceRouter from "./routes/intelligence";
 import { donationTracker } from "./donation-tracker";
 import { fileURLToPath } from "url";
 
@@ -152,6 +153,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Add portfolio routes
   app.use('/api/portfolio', portfolioRouter);
+
+  // Add intelligence routes
+  app.use('/api/intelligence', intelligenceRouter);
 
   // Donation tracking endpoint
   app.get('/api/donations/stats', async (req, res) => {

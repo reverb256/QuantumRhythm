@@ -36,6 +36,8 @@ import { hyperscaleOffloader } from '../hyperscale-static-offloader';
 import { tradingJournalService } from './trading-journal-service';
 import { comprehensivePortfolioTracker } from './comprehensive-portfolio-tracker';
 import { yieldActivationEngine } from './yield-activation-engine';
+import { intelligentOpportunityScanner } from './intelligent-opportunity-scanner';
+import { autonomousExpansionEngine } from './autonomous-expansion-engine';
 
 // Start autonomous problem solving and optimization
 (async () => {
@@ -91,6 +93,12 @@ import { yieldActivationEngine } from './yield-activation-engine';
         const projection = await yieldActivationEngine.getProjectedPortfolioValue(1);
         console.log(`📈 Daily Yield Update: Portfolio projected at $${projection.projectedValue.toFixed(2)} (+$${projection.totalGains.toFixed(2)})`);
       }, 86400000); // Daily updates
+      
+      console.log('🤖 Starting intelligent opportunity scanning...');
+      // Intelligent opportunity scanner automatically starts its own cycles
+      
+      console.log('🌐 Activating autonomous expansion engine...');
+      // Autonomous expansion engine automatically starts discovery cycles
     } catch (error) {
       console.log('K3s/Hyperscale systems using fallback mode');
     }
