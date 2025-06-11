@@ -89,7 +89,7 @@ export class DatabaseSchemaFixer {
         $$ LANGUAGE plpgsql;
       `);
 
-      -- Fix wallet_activities table UUID issues
+      // Fix wallet_activities table UUID issues
       await db.execute(sql`
         UPDATE wallet_activities 
         SET id = validate_uuid(id::TEXT) 

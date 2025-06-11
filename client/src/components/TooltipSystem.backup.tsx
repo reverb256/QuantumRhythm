@@ -56,7 +56,7 @@ export function Tooltip({ children, content, type = 'definition', className = ''
 }
 
 // Tech Humor Tooltips Database
-export const techHumor: Record<string, string> = {
+const techHumor: Record<string, string> = {
   'quantum': "Like Schrödinger's cat, but with more RGB lighting and cryptocurrency",
   'blockchain': "A distributed ledger that somehow makes everyone an expert economist",
   'AI': "Artificial Intelligence - or as I call it, 'Automated Insomnia' because it never sleeps",
@@ -70,7 +70,7 @@ export const techHumor: Record<string, string> = {
 };
 
 // Technical Definitions - Enhanced with Consciousness Architecture Insights
-export const definitions: Record<string, string> = {
+const definitions: Record<string, string> = {
   // Core Philosophy tooltips
   'free-speech': 'Absolute commitment to free expression and truth-seeking without censorship',
   'individual-sovereignty': 'Each person has complete authority over their mind, body, and digital presence',
@@ -93,7 +93,7 @@ export const definitions: Record<string, string> = {
 };
 
 // Philosophical Concepts
-export const philosophy: Record<string, string> = {
+const philosophy: Record<string, string> = {
   'free speech': "Charter-protected fundamental right enabling open discourse and intellectual exploration without censorship",
   'consciousness expansion': "The journey of awareness beyond individual perception toward universal understanding",
   'martial discipline': "Physical and mental training that develops character, respect, and inner strength",
@@ -179,6 +179,4 @@ export function ConsciousnessLevel({ level, evolution, type }: ConsciousnessLeve
 }
 
 export default Tooltip;
-
-// Move definitions to separate export to fix Fast Refresh
-export { definitions };
+export { definitions, techHumor, philosophy };
