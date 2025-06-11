@@ -38,7 +38,7 @@ import NotFound from "@/pages/not-found";
 function Router() {
   const [location] = useLocation();
   const previousLocation = useRef(location);
-  
+
   // Enhanced scroll management for page transitions
   useEffect(() => {
     if (previousLocation.current !== location) {
@@ -55,16 +55,16 @@ function Router() {
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }
       };
-      
+
       // Use requestAnimationFrame for better performance
       requestAnimationFrame(() => {
         setTimeout(scrollToTop, 50);
       });
-      
+
       previousLocation.current = location;
     }
   }, [location]);
-  
+
   // Determine current page for SEO
   const getCurrentPage = () => {
     if (location === '/') return 'home';
@@ -91,40 +91,38 @@ function Router() {
   const seoData = getSEOForPage(currentPage);
 
   return (
-    <>
+    
       <SEOHead {...seoData} />
-      <Navigation />
-      <BreathingPageWrapper>
-        <Switch>
-          <Route path="/" component={Home} />
-          <Route path="/projects" component={Projects} />
-          <Route path="/philosophy" component={Philosophy} />
-          <Route path="/consciousness-map" component={ConsciousnessMapPage} />
-          <Route path="/values" component={Values} />
-          <Route path="/vrchat" component={VRChat} />
-          <Route path="/dashboard" component={Dashboard} />
-          <Route path="/trader-dashboard" component={TraderDashboard} />
-          <Route path="/trading" component={TradingInterface} />
-          <Route path="/defi" component={DeFiDashboard} />
-          <Route path="/cloudflare" component={CloudflareOptimization} />
-          <Route path="/technical-deep-dive" component={TechnicalDeepDive} />
-          <Route path="/ai-onboarding" component={AIOnboarding} />
-          <Route path="/agent-insights" component={AgentInsights} />
-          <Route path="/legal" component={Legal} />
-          <Route path="/workplace-janitorial" component={WorkplaceJanitorial} />
-          <Route path="/troves-coves" component={TrovesCoves} />
-          <Route path="/frostbite-gazette" component={FrostbiteGazette} />
-          <Route component={NotFound} />
-        </Switch>
-      </BreathingPageWrapper>
-    </>
+      
+      <Switch>
+        <Route path="/" component={Home} />
+        <Route path="/projects" component={Projects} />
+        <Route path="/philosophy" component={Philosophy} />
+        <Route path="/consciousness-map" component={ConsciousnessMapPage} />
+        <Route path="/values" component={Values} />
+        <Route path="/vrchat" component={VRChat} />
+        <Route path="/dashboard" component={Dashboard} />
+        <Route path="/trader-dashboard" component={TraderDashboard} />
+        <Route path="/trading" component={TradingInterface} />
+        <Route path="/defi" component={DeFiDashboard} />
+        <Route path="/cloudflare" component={CloudflareOptimization} />
+        <Route path="/technical-deep-dive" component={TechnicalDeepDive} />
+        <Route path="/ai-onboarding" component={AIOnboarding} />
+        <Route path="/agent-insights" component={AgentInsights} />
+        <Route path="/legal" component={Legal} />
+        <Route path="/workplace-janitorial" component={WorkplaceJanitorial} />
+        <Route path="/troves-coves" component={TrovesCoves} />
+        <Route path="/frostbite-gazette" component={FrostbiteGazette} />
+        <Route component={NotFound} />
+      </Switch>
+    
   );
 }
 
 function App() {
   // Initialize AI-powered SEO system
   const metaManager = MetaTagManager.getInstance();
-  
+
   useEffect(() => {
     // Set global meta tags for the platform
     metaManager.updateMetaTags({
@@ -139,17 +137,17 @@ function App() {
     if (window.matchMedia && window.matchMedia('(dynamic-range: high)').matches) {
       document.documentElement.classList.add('hdr-supported');
     }
-    
+
     if (window.matchMedia && window.matchMedia('(prefers-contrast: high)').matches) {
       document.documentElement.classList.add('high-contrast');
     }
-    
+
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       document.documentElement.classList.add('reduced-motion');
     }
-    
+
     document.documentElement.classList.add('wcag-compliant');
-    
+
     const metaColorScheme = document.querySelector('meta[name="color-scheme"]') || document.createElement('meta');
     metaColorScheme.setAttribute('name', 'color-scheme');
     metaColorScheme.setAttribute('content', 'dark light');
@@ -169,7 +167,18 @@ function App() {
 
             <Toaster />
             <main id="main-content" className="relative z-10 hdr-background text-wcag-aaa focus-enhanced">
-              <Router />
+              
+              
+                <Navigation />
+                
+                  
+                  
+                    
+                      <Router />
+                    
+                  
+                
+              
             </main>
             <EnhancedConsole />
           </ConsciousContainer>

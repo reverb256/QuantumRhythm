@@ -96,7 +96,7 @@ export default function ProjectsPage() {
         onCreativityEvolution={(creativity: any) => setProjectsCreativity(creativity)}
       />
       <Navigation />
-      
+
       <div className="pt-20 px-6 max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
