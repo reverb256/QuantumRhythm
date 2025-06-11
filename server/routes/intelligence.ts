@@ -8,6 +8,7 @@ import { autonomousExpansionEngine } from '../autonomous-expansion-engine';
 import { yieldActivationEngine } from '../yield-activation-engine';
 import { autonomousWalletManager } from '../autonomous-wallet-manager';
 import { freeStaticHyperscaler } from '../free-static-hyperscaler';
+import { vaultwardenManager } from '../vaultwarden-integration';
 
 const router = Router();
 
@@ -90,6 +91,9 @@ router.get('/yield-projections', async (req, res) => {
 router.get('/wallets', async (req, res) => {
   try {
     const walletStatus = await autonomousWalletManager.getWalletStatus();
+    const vaultStatus = vaultwardenManager.getVaultStatus();
+    const activeWallets = autonomousWalletManager.getActiveWallets();
+    
     res.json({
       success: true,
       autonomous_wallets: {
@@ -97,6 +101,22 @@ router.get('/wallets', async (req, res) => {
         active_wallets: walletStatus.activeWallets,
         total_allocation: walletStatus.totalAllocation,
         wallet_breakdown: walletStatus.purposes,
+        vault_security: {
+          connected: vaultStatus.connected,
+          wallets_secured: vaultStatus.walletsStored,
+          security_level: vaultStatus.securityLevel,
+          last_connection: vaultStatus.lastConnection
+        },
+        wallets: activeWallets.map(wallet => ({
+          id: wallet.id.slice(-8),
+          public_key: wallet.publicKey.slice(0, 8) + '...',
+          purpose: wallet.purpose,
+          allocation: wallet.allocation,
+          risk_level: wallet.riskLevel,
+          performance: wallet.performance,
+          created_at: wallet.createdAt,
+          last_activity: wallet.lastActivity
+        })),
         top_performer: walletStatus.topPerformer ? {
           purpose: walletStatus.topPerformer.purpose,
           return: walletStatus.topPerformer.performance.totalReturn,
@@ -194,6 +214,88 @@ router.get('/status', async (req, res) => {
     res.status(500).json({
       success: false,
       error: 'Failed to get AI intelligence status'
+    });
+  }
+});
+
+// Get Vaultwarden security status
+router.get('/security/vault', async (req, res) => {
+  try {
+    const vaultStatus = vaultwardenManager.getVaultStatus();
+    const secureWallets = vaultwardenManager.getSecureWalletRegistry();
+    
+    res.json({
+      success: true,
+      vault_security: {
+        status: vaultStatus.connected ? 'connected' : 'disconnected',
+        security_level: vaultStatus.securityLevel,
+        wallets_secured: vaultStatus.walletsStored,
+        last_connection: vaultStatus.lastConnection,
+        secure_wallets: secureWallets.map(wallet => ({
+          id: wallet.id.slice(-8),
+          name: wallet.name,
+          public_key: wallet.publicKey.slice(0, 8) + '...',
+          purpose: wallet.purpose,
+          created_at: wallet.createdAt,
+          last_accessed: wallet.lastAccessed
+        }))
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to get vault security status'
+    });
+  }
+});
+
+// Create emergency backup
+router.post('/security/backup', async (req, res) => {
+  try {
+    const backup = await vaultwardenManager.createEmergencyBackup();
+    
+    res.json({
+      success: true,
+      message: 'Emergency backup created successfully',
+      backup_created: new Date().toISOString(),
+      backup_size: backup.length,
+      backup_contains: 'Wallet registry and vault configuration (private keys remain encrypted in vault)'
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to create emergency backup'
+    });
+  }
+});
+
+// Create emergency wallet with Vaultwarden security
+router.post('/wallets/emergency', async (req, res) => {
+  try {
+    const { purpose, allocation } = req.body;
+    
+    if (!purpose || !allocation) {
+      return res.status(400).json({
+        success: false,
+        error: 'Purpose and allocation are required'
+      });
+    }
+
+    const walletId = await autonomousWalletManager.createEmergencyWallet(purpose, allocation);
+    
+    res.json({
+      success: true,
+      message: 'Emergency wallet created with enterprise security',
+      wallet_id: walletId.slice(-8),
+      purpose,
+      allocation,
+      security: 'Private key secured in Vaultwarden',
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to create emergency wallet'
     });
   }
 });

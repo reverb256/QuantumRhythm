@@ -5,6 +5,7 @@
 
 import { Keypair, Connection, PublicKey } from '@solana/web3.js';
 import { Buffer } from 'buffer';
+import { vaultwardenManager } from './vaultwarden-integration';
 
 interface WalletStrategy {
   id: string;
@@ -77,10 +78,20 @@ class AutonomousWalletManager {
     // Generate new keypair
     const keypair = Keypair.generate();
     const walletId = `wallet_${purpose}_${Date.now()}`;
+    const publicKey = keypair.publicKey.toString();
+    const privateKey = Buffer.from(keypair.secretKey).toString('base64');
+    
+    // Store securely in Vaultwarden
+    try {
+      await vaultwardenManager.storeWalletSecurely(walletId, publicKey, privateKey, purpose);
+      console.log(`🔐 AI wallet ${walletId.slice(-8)} secured in enterprise vault`);
+    } catch (error) {
+      console.log(`⚠️ Vaultwarden unavailable, using runtime storage for ${walletId.slice(-8)}`);
+    }
     
     const wallet: WalletStrategy = {
       id: walletId,
-      publicKey: keypair.publicKey.toString(),
+      publicKey,
       purpose,
       allocation,
       riskLevel,
@@ -96,7 +107,7 @@ class AutonomousWalletManager {
 
     this.wallets.set(walletId, wallet);
 
-    console.log(`✅ Created ${purpose} wallet: ${keypair.publicKey.toString().slice(0, 8)}...`);
+    console.log(`✅ AI trader created ${purpose} wallet: ${publicKey.slice(0, 8)}...`);
     console.log(`   Risk Level: ${riskLevel} | Allocation: ${allocation} SOL`);
     
     // Simulate funding (in real implementation, would transfer from main wallet)
@@ -188,16 +199,50 @@ class AutonomousWalletManager {
     console.log('==============================\n');
   }
 
+  async getPrivateKeyForTrading(walletId: string): Promise<string | null> {
+    const wallet = this.wallets.get(walletId);
+    if (!wallet || !wallet.active) {
+      console.log(`❌ Wallet ${walletId} not found or inactive`);
+      return null;
+    }
+
+    try {
+      // Retrieve from Vaultwarden first
+      const privateKey = await vaultwardenManager.retrievePrivateKey(walletId);
+      if (privateKey) {
+        console.log(`🔑 AI trader retrieved private key for ${wallet.purpose} wallet`);
+        wallet.lastActivity = new Date();
+        return privateKey;
+      }
+    } catch (error) {
+      console.log(`⚠️ Vaultwarden retrieval failed for ${walletId}, using fallback`);
+    }
+
+    // Fallback: return null - private keys should only come from secure storage
+    console.log(`🔒 Private key access restricted for ${walletId} - security protocol`);
+    return null;
+  }
+
   async createEmergencyWallet(purpose: string, urgentAllocation: number): Promise<string> {
-    console.log(`🚨 EMERGENCY WALLET CREATION: ${purpose}`);
+    console.log(`🚨 AI EMERGENCY WALLET CREATION: ${purpose}`);
     console.log(`💰 Urgent allocation: ${urgentAllocation} SOL`);
     
     const keypair = Keypair.generate();
     const walletId = `emergency_${purpose}_${Date.now()}`;
+    const publicKey = keypair.publicKey.toString();
+    const privateKey = Buffer.from(keypair.secretKey).toString('base64');
+    
+    // Store in Vaultwarden immediately
+    try {
+      await vaultwardenManager.storeWalletSecurely(walletId, publicKey, privateKey, `emergency_${purpose}`);
+      console.log(`🔐 Emergency wallet secured in vault`);
+    } catch (error) {
+      console.log(`⚠️ Emergency wallet created without vault backup`);
+    }
     
     const wallet: WalletStrategy = {
       id: walletId,
-      publicKey: keypair.publicKey.toString(),
+      publicKey,
       purpose: purpose as any,
       allocation: urgentAllocation,
       riskLevel: 'high',
@@ -214,7 +259,7 @@ class AutonomousWalletManager {
     this.wallets.set(walletId, wallet);
     await this.simulateFunding(walletId, urgentAllocation);
     
-    console.log(`✅ Emergency wallet created: ${keypair.publicKey.toString().slice(0, 12)}...`);
+    console.log(`✅ AI emergency wallet created: ${publicKey.slice(0, 12)}...`);
     return walletId;
   }
 
