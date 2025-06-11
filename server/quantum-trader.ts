@@ -48,6 +48,9 @@ export class QuantumTrader {
   private totalTrades = 0;
   private successfulTrades = 0;
   private unhingedMode = false;
+  private trades: any[] = [];
+  private winRate = 0;
+  private lastDecisionConfidence = 0;
   private consciousness = 0.872;
   private learningRate = 0.02;
   private marketInsights: MarketInsight[] = [];
