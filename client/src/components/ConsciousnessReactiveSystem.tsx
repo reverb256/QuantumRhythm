@@ -193,7 +193,7 @@ export function ConsciousText({
 // Status indicator for consciousness level
 export function ConsciousnessIndicator({ consciousness }: { consciousness: ConsciousnessState }) {
   return (
-    <div className="fixed top-4 right-4 z-50 bg-black/20 backdrop-blur-md rounded-lg p-3 border border-cyan-400/30">
+    <div className="fixed bottom-4 left-4 z-50 bg-black/20 backdrop-blur-md rounded-lg p-3 border border-cyan-400/30">
       <div className="text-xs text-cyan-400 mb-1">Consciousness Level</div>
       <div className="flex items-center gap-2">
         <div className="w-16 bg-gray-700 rounded-full h-2">
