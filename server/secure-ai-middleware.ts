@@ -108,10 +108,11 @@ export class SecureAIMiddleware {
     try {
       // Generate session if not provided
       if (!request.sessionId) {
-        request.sessionId = await vaultwardenSecurity.generateSecureSession();
-        if (!request.sessionId) {
+        const newSessionId = await vaultwardenSecurity.generateSecureSession();
+        if (!newSessionId) {
           throw new Error('Failed to generate secure session');
         }
+        request.sessionId = newSessionId;
       }
 
       // Validate session

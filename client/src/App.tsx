@@ -40,6 +40,7 @@ import TrovesCoves from "@/pages/troves-coves";
 import FrostbiteGazette from "@/pages/frostbite-gazette";
 import HealthMonitorDashboard from "@/components/HealthMonitorDashboard";
 import CompatibilityTestPage from "@/pages/CompatibilityTestPage";
+import SecurityPage from "@/pages/SecurityPage";
 import NotFound from "@/pages/not-found";
 
 function Router() {

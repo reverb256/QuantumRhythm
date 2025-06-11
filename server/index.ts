@@ -3,6 +3,7 @@ import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import liveStatsRouter from "./routes/live-stats";
 import aiAutorouterRoutes from "./routes/ai-autorouter";
+import secureAIRoutes from "./secure-ai-routes";
 import { legalComplianceAgent } from "./legal-compliance-agent";
 import LegalComplianceResolver from "./legal-compliance-resolver";
 import { dataProtection } from "./data-protection-middleware";
@@ -195,6 +196,9 @@ app.use((req, res, next) => {
 
   // Register AI Autorouter routes for OWUI, void, and other agents
   app.use('/api/ai-autorouter', aiAutorouterRoutes);
+  
+  // Register Secure AI routes with Vaultwarden integration
+  app.use('/api/secure-ai', secureAIRoutes);
 
   const server = await registerRoutes(app);
 

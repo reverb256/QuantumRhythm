@@ -4,6 +4,8 @@
  */
 
 import { aiAutorouter } from './ai-autorouter.js';
+import { secureAI } from './secure-ai-middleware';
+import { vaultwardenSecurity } from './vaultwarden-security';
 
 interface AIRequest {
   content: string;
