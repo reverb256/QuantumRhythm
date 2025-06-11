@@ -25,7 +25,10 @@
 - **[K3s Self-Healing Controller](k3s-self-healing-controller.ts)** - Optional Kubernetes orchestration
 - **[Cloudflare Optimization](CLOUDFLARE_DEPLOYMENT_READY.md)** - Edge computing deployment strategies
 
-#### **FOSS-Mandated Security**
+#### **Enterprise Security Architecture**
+- **[Full Spectrum Vaultwarden Security](FULL_SPECTRUM_VAULTWARDEN_SECURITY_COMPLETE.md)** - Complete enterprise credential management
+- **[Vaultwarden Security Implementation](server/vaultwarden-security.ts)** - AES-256-CBC encrypted AI communications
+- **[Secure AI Middleware](server/secure-ai-middleware.ts)** - Multi-provider AI protection with rate limiting
 - **[Transformers Security Proxy](server/transformers-security-proxy.ts)** - Local AI threat detection
 - **[FOSS Mandate Orchestrator](server/foss-mandate-orchestrator.ts)** - Open source compliance enforcement
 - **[Vaultwarden Integration](server/vaultwarden-integration.ts)** - Enterprise-grade secret management
