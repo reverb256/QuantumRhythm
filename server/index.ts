@@ -38,6 +38,8 @@ import { comprehensivePortfolioTracker } from './comprehensive-portfolio-tracker
 import { yieldActivationEngine } from './yield-activation-engine';
 import { intelligentOpportunityScanner } from './intelligent-opportunity-scanner';
 import { autonomousExpansionEngine } from './autonomous-expansion-engine';
+import { autonomousWalletManager } from './autonomous-wallet-manager';
+import { freeStaticHyperscaler } from './free-static-hyperscaler';
 
 // Start autonomous problem solving and optimization
 (async () => {

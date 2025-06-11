@@ -6,6 +6,8 @@ import { Router } from 'express';
 import { intelligentOpportunityScanner } from '../intelligent-opportunity-scanner';
 import { autonomousExpansionEngine } from '../autonomous-expansion-engine';
 import { yieldActivationEngine } from '../yield-activation-engine';
+import { autonomousWalletManager } from '../autonomous-wallet-manager';
+import { freeStaticHyperscaler } from '../free-static-hyperscaler';
 
 const router = Router();
 
@@ -84,12 +86,72 @@ router.get('/yield-projections', async (req, res) => {
   }
 });
 
+// Get autonomous wallet status
+router.get('/wallets', async (req, res) => {
+  try {
+    const walletStatus = await autonomousWalletManager.getWalletStatus();
+    res.json({
+      success: true,
+      autonomous_wallets: {
+        total_wallets: walletStatus.totalWallets,
+        active_wallets: walletStatus.activeWallets,
+        total_allocation: walletStatus.totalAllocation,
+        wallet_breakdown: walletStatus.purposes,
+        top_performer: walletStatus.topPerformer ? {
+          purpose: walletStatus.topPerformer.purpose,
+          return: walletStatus.topPerformer.performance.totalReturn,
+          win_rate: walletStatus.topPerformer.performance.winRate,
+          trades: walletStatus.topPerformer.performance.trades
+        } : null,
+        last_update: new Date().toISOString()
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to get wallet status'
+    });
+  }
+});
+
+// Get hyperscale deployment status
+router.get('/hyperscale', async (req, res) => {
+  try {
+    const hyperscaleStatus = freeStaticHyperscaler.getHyperscaleStatus();
+    res.json({
+      success: true,
+      hyperscale: {
+        builds_generated: hyperscaleStatus.builds,
+        cdn_providers: hyperscaleStatus.providers,
+        total_assets: hyperscaleStatus.totalAssets,
+        optimizations: hyperscaleStatus.optimizations,
+        deployment_ready: hyperscaleStatus.deploymentReady,
+        supported_platforms: [
+          'Vercel (Serverless Functions)',
+          'Netlify (Edge Functions)', 
+          'GitHub Pages (Static)',
+          'Cloudflare Pages (Workers)'
+        ],
+        cost_optimization: 'Free tier maximization across all providers',
+        last_update: new Date().toISOString()
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to get hyperscale status'
+    });
+  }
+});
+
 // Get comprehensive AI status
 router.get('/status', async (req, res) => {
   try {
-    const [opportunityStatus, expansionStatus] = await Promise.all([
+    const [opportunityStatus, expansionStatus, walletStatus, hyperscaleStatus] = await Promise.all([
       intelligentOpportunityScanner.getOpportunityStatus(),
-      autonomousExpansionEngine.getExpansionStatus()
+      autonomousExpansionEngine.getExpansionStatus(),
+      autonomousWalletManager.getWalletStatus(),
+      Promise.resolve(freeStaticHyperscaler.getHyperscaleStatus())
     ]);
 
     const projection30 = await yieldActivationEngine.getProjectedPortfolioValue(30);
@@ -98,21 +160,32 @@ router.get('/status', async (req, res) => {
     res.json({
       success: true,
       ai_intelligence: {
-        systems_active: 3,
+        systems_active: 5,
         opportunity_scanning: opportunityStatus.scanning,
         autonomous_expansion: expansionStatus.expansionActive,
         yield_generation: true,
+        wallet_management: true,
+        static_hyperscaling: true,
         intelligence_summary: {
           total_opportunities_tracked: opportunityStatus.totalOpportunities + expansionStatus.totalOpportunities,
           deployable_opportunities: opportunityStatus.deployableOpportunities,
           exploration_radius: expansionStatus.explorationRadius,
-          risk_allocation: expansionStatus.riskAllocation
+          risk_allocation: expansionStatus.riskAllocation,
+          autonomous_wallets: walletStatus.activeWallets,
+          hyperscale_builds: hyperscaleStatus.builds
         },
         performance_projections: {
           monthly_return: projection30.totalGains,
           annual_return: projection365.totalGains,
           roi_30_days: projection30.roi,
           roi_365_days: projection365.roi
+        },
+        autonomous_capabilities: {
+          wallet_creation: 'Active - Creates specialized wallets for different strategies',
+          opportunity_execution: 'Active - Automatically deploys capital at 75%+ confidence',
+          cross_chain_expansion: 'Active - Bridges to Ethereum, Arbitrum, Base, Polygon',
+          static_deployment: 'Ready - 4 CDN providers configured with free tiers',
+          risk_management: 'Active - Dynamic allocation based on market conditions'
         },
         last_update: new Date().toISOString()
       }
