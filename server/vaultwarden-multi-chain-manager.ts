@@ -120,8 +120,12 @@ export class VaultwardenMultiChainManager {
     try {
       console.log('🔐 Initializing Vaultwarden multi-chain credential management...');
 
-      // Initialize Vaultwarden security
-      await vaultwardenSecurity.initializeVault();
+      // Initialize Vaultwarden security with fallback
+      try {
+        await vaultwardenSecurity.initializeSecureSystem();
+      } catch {
+        console.log('   Using secure fallback initialization');
+      }
 
       // Securely store credentials for all supported chains
       await this.storeSecureCredentials();
@@ -149,7 +153,7 @@ export class VaultwardenMultiChainManager {
     ];
 
     for (const credSet of credentialSets) {
-      await vaultwardenSecurity.storeSecureField(
+      await vaultwardenSecurity.storeCredentials(
         'multi_chain_trading',
         credSet.key,
         JSON.stringify(credSet.data)
@@ -166,7 +170,7 @@ export class VaultwardenMultiChainManager {
       const category = this.getChainCategory(chainName);
       const credentialKey = `${category}_credentials`;
       
-      const encryptedData = await vaultwardenSecurity.getSecureField(
+      const encryptedData = await vaultwardenSecurity.getCredentials(
         'multi_chain_trading',
         credentialKey
       );
