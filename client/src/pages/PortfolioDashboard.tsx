@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { TrendingUp, TrendingDown, DollarSign, PieChart, Activity, Zap } from 'lucide-react';
+import { TransformersSecurityMonitor } from '@/components/TransformersSecurityMonitor';
 
 interface DeFiPosition {
   protocol: string;
@@ -294,6 +295,9 @@ export default function PortfolioDashboard() {
             <TabsTrigger value="performance" className="text-slate-400 data-[state=active]:text-white">
               Performance
             </TabsTrigger>
+            <TabsTrigger value="security" className="text-slate-400 data-[state=active]:text-white">
+              Security Monitor
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="positions" className="space-y-4">
@@ -389,6 +393,10 @@ export default function PortfolioDashboard() {
                 </div>
               </CardContent>
             </Card>
+          </TabsContent>
+
+          <TabsContent value="security">
+            <TransformersSecurityMonitor />
           </TabsContent>
         </Tabs>
       </div>

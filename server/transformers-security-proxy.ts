@@ -145,11 +145,11 @@ class TransformersSecurityProxy {
       let confidence = 0.7; // Base confidence
       
       // Enhance confidence based on reputation analysis
-      if (sentimentResult.confidence > 0.8) {
-        if (sentimentResult.reputation === 'trusted') {
+      if (reputationResult.confidence > 0.8) {
+        if (reputationResult.reputation === 'trusted') {
           confidence += 0.2;
           recommendations.push('Provider shows positive security indicators');
-        } else if (sentimentResult.reputation === 'suspicious') {
+        } else if (reputationResult.reputation === 'suspicious') {
           confidence -= 0.3;
           threats.push('Provider reputation analysis indicates potential concerns');
         }
