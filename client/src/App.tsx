@@ -91,7 +91,7 @@ function Router() {
   const seoData = getSEOForPage(currentPage);
 
   return (
-    
+    <>
       <SEOHead {...seoData} />
       
       <Switch>
@@ -115,7 +115,7 @@ function Router() {
         <Route path="/frostbite-gazette" component={FrostbiteGazette} />
         <Route component={NotFound} />
       </Switch>
-    
+    </>
   );
 }
 
@@ -164,21 +164,10 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <WalletProvider>
           <ConsciousContainer learningRate={0.15}>
-
             <Toaster />
             <main id="main-content" className="relative z-10 hdr-background text-wcag-aaa focus-enhanced">
-              
-              
-                <Navigation />
-                
-                  
-                  
-                    
-                      <Router />
-                    
-                  
-                
-              
+              <Navigation />
+              <Router />
             </main>
             <EnhancedConsole />
           </ConsciousContainer>
