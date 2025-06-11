@@ -19,7 +19,7 @@ interface RoutingRequest {
 
 interface ModelCapability {
   name: string;
-  provider: 'anthropic' | 'openai' | 'xai' | 'perplexity' | 'io_intelligence';
+  provider: 'anthropic' | 'openai' | 'xai' | 'perplexity';
   strengths: string[];
   contentTypes: string[];
   intents: string[];
@@ -504,8 +504,7 @@ export class AIAutorouter {
         return !!process.env.OPENAI_API_KEY && !!this.openai;
       case 'xai':
         return !!process.env.XAI_API_KEY && !!this.xai;
-      case 'io_intelligence':
-        return !!process.env.IO_INTELLIGENCE_API_KEY && !!this.ioIntelligence;
+
       case 'perplexity':
         return !!process.env.PERPLEXITY_API_KEY;
       default:
