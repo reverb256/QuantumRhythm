@@ -1,14 +1,13 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
-import Navigation from '@/components/Navigation';
+
 import { SmartTooltip } from '@/components/TooltipSystem';
 import { ExternalLink, Github, Sparkles, Shield } from 'lucide-react';
 
 export default function WorkplaceJanitorialPage() {
   return (
     <main className="min-h-screen relative overflow-hidden">
-      <Navigation />
       
       {/* Clean Background System */}
       <div className="fixed inset-0 z-0">

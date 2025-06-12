@@ -1,7 +1,7 @@
 
 exports.handler = async (event, context) => {
   const tradingData = {
-  "timestamp": "2025-06-12T00:56:55.930Z",
+  "timestamp": "2025-06-12T00:58:03.083Z",
   "walletBalance": 0.288736,
   "activeStrategies": [
     {

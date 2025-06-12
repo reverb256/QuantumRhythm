@@ -95,7 +95,7 @@ export default function ProjectsPage() {
         globalConsciousness={consciousness}
         onCreativityEvolution={(creativity: any) => setProjectsCreativity(creativity)}
       />
-      <Navigation />
+
 
       <div className="pt-20 px-6 max-w-7xl mx-auto">
         {/* Header */}

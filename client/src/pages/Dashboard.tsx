@@ -46,7 +46,7 @@ export default function Dashboard() {
         globalConsciousness={consciousness}
         onTradingEvolution={(trading) => setTradingConsciousness(trading)}
       />
-      <Navigation />
+
       
       <div className="pt-20 px-6 max-w-7xl mx-auto">
         {/* Header */}
