@@ -200,6 +200,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.sendFile(path.join(staticPath, "index.html"));
   });
 
+  app.get("/agents", (req, res) => {
+    res.sendFile(path.join(staticPath, "index.html"));
+  });
+
   app.get("/technical-deep-dive", (req, res) => {
     res.sendFile(path.join(staticPath, "index.html"));
   });
