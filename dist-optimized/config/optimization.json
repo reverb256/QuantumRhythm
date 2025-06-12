@@ -1,7 +1,0 @@
-{
-  "removeUnusedCode": true,
-  "minimizeAssets": true,
-  "compressImages": true,
-  "inlineCSS": true,
-  "prefetchResources": true
-}
