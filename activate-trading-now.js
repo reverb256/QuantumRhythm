@@ -3,7 +3,7 @@
  * Forces the AI trader to resume operations
  */
 
-const { emergencyStopDisabler } = require('./server/emergency-stop-disabler');
+import { emergencyStopDisabler } from './server/emergency-stop-disabler.ts';
 
 async function activateTrading() {
   console.log('🚀 USER COMMAND: ACTIVATE TRADING');

@@ -48,6 +48,7 @@ import { k3sSelfHealer } from '../k3s-self-healing-controller';
 import { hyperscaleOffloader } from '../hyperscale-static-offloader';
 import { tradingJournalService } from './trading-journal-service';
 import { comprehensivePortfolioTracker } from './comprehensive-portfolio-tracker';
+import '../force-activate-trading';
 import { emergencyStopDisabler } from './emergency-stop-disabler';
 import { yieldActivationEngine } from './yield-activation-engine';
 
