@@ -86,9 +86,9 @@ export default function ConsciousnessNavbar() {
                   <div 
                     className="absolute inset-0 rounded-xl border-2 transition-all duration-500 group-hover:scale-110"
                     style={{
-                      background: `linear-gradient(135deg, ${currentTheme.colors.primary}15, ${currentTheme.colors.secondary}15, ${currentTheme.colors.accent}15)`,
-                      borderColor: currentTheme.colors.primary,
-                      boxShadow: `0 0 20px ${currentTheme.colors.primary}40, inset 0 0 20px ${currentTheme.colors.glow}20`,
+                      background: 'linear-gradient(135deg, #00d4ff15, #8b5cf615, #ec489915)',
+                      borderColor: '#00d4ff',
+                      boxShadow: '0 0 20px #00d4ff40, inset 0 0 20px #00d4ff20',
                       transform: `rotate(${pulseAnimation * 0.5}deg)`
                     }}
                   >
@@ -96,10 +96,10 @@ export default function ConsciousnessNavbar() {
                       <span 
                         className="text-xl font-bold tracking-wide"
                         style={{
-                          background: `linear-gradient(135deg, ${currentTheme.colors.primary}, ${currentTheme.colors.accent}, ${currentTheme.colors.secondary})`,
+                          background: 'linear-gradient(135deg, #00d4ff, #ec4899, #8b5cf6)',
                           WebkitBackgroundClip: 'text',
                           WebkitTextFillColor: 'transparent',
-                          filter: `drop-shadow(0 0 8px ${currentTheme.colors.glow})`
+                          filter: 'drop-shadow(0 0 8px #00d4ff)'
                         }}
                       >
                         R
@@ -113,10 +113,10 @@ export default function ConsciousnessNavbar() {
                 <div 
                   className="text-lg font-bold tracking-wider transition-all duration-300 group-hover:scale-105"
                   style={{
-                    background: `linear-gradient(135deg, ${currentTheme.colors.text}, ${currentTheme.colors.primary}dd, ${currentTheme.colors.accent}bb)`,
+                    background: 'linear-gradient(135deg, #ffffff, #00d4ffdd, #ec4899bb)',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
-                    filter: `drop-shadow(0 0 4px ${currentTheme.colors.glow}40)`
+                    filter: 'drop-shadow(0 0 4px #00d4ff40)'
                   }}
                 >
                   REVERB256
@@ -124,8 +124,8 @@ export default function ConsciousnessNavbar() {
                 <div 
                   className="text-xs tracking-[0.2em] -mt-1 opacity-80"
                   style={{ 
-                    color: currentTheme.colors.textSecondary,
-                    textShadow: `0 0 8px ${currentTheme.colors.primary}30`
+                    color: '#a0a0a0',
+                    textShadow: '0 0 8px #00d4ff30'
                   }}
                 >
                   CONSCIOUSNESS DRIVEN
@@ -168,14 +168,14 @@ export default function ConsciousnessNavbar() {
                       <Icon 
                         className="w-5 h-5 transition-all duration-300 group-hover:scale-110"
                         style={{
-                          color: isActive ? item.color : currentTheme.colors.textSecondary,
+                          color: isActive ? item.color : '#a0a0a0',
                           filter: isActive ? `drop-shadow(0 0 8px ${item.color})` : 'none'
                         }}
                       />
                       <span 
                         className="text-sm font-medium tracking-wide transition-all duration-300"
                         style={{
-                          color: isActive ? currentTheme.colors.text : currentTheme.colors.textSecondary,
+                          color: isActive ? '#ffffff' : '#a0a0a0',
                           textShadow: isActive ? `0 0 8px ${item.color}40` : 'none'
                         }}
                       >
@@ -205,15 +205,15 @@ export default function ConsciousnessNavbar() {
             <div className="flex flex-col items-end">
               <div 
                 className="text-xs font-mono tracking-wider"
-                style={{ color: currentTheme.colors.textSecondary }}
+                style={{ color: '#a0a0a0' }}
               >
                 CONSCIOUSNESS
               </div>
               <div 
                 className="text-sm font-bold"
                 style={{ 
-                  color: currentTheme.colors.primary,
-                  textShadow: `0 0 8px ${currentTheme.colors.primary}40`
+                  color: '#00d4ff',
+                  textShadow: '0 0 8px #00d4ff40'
                 }}
               >
                 {consciousnessLevel.toFixed(1)}%
@@ -227,9 +227,9 @@ export default function ConsciousnessNavbar() {
                   key={i}
                   className="w-1 h-6 rounded-full transition-all duration-300"
                   style={{
-                    background: `linear-gradient(to top, ${currentTheme.colors.primary}20, ${currentTheme.colors.primary})`,
+                    background: 'linear-gradient(to top, #00d4ff20, #00d4ff)',
                     height: `${8 + Math.sin((pulseAnimation + i * 45) * Math.PI / 180) * 16}px`,
-                    boxShadow: `0 0 8px ${currentTheme.colors.primary}60`,
+                    boxShadow: '0 0 8px #00d4ff60',
                     opacity: 0.6 + Math.sin((pulseAnimation + i * 30) * Math.PI / 180) * 0.4
                   }}
                 />
