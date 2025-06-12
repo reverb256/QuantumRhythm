@@ -396,50 +396,122 @@ export default function CostOptimizationDashboard() {
           </CardContent>
         </Card>
 
-        {/* Optimization Recommendations */}
-        <Card className="bg-gray-800/50 border-gray-700">
-          <CardHeader>
-            <CardTitle className="text-white flex items-center justify-between">
-              <div className="flex items-center">
-                <TrendingDown className="w-5 h-5 mr-2 text-purple-400" />
-                Optimization Recommendations
-              </div>
-              <Badge className="bg-purple-600 text-white">
-                ${totalSavings}/month potential savings
-              </Badge>
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {recommendations.map((rec) => (
-                <div key={rec.id} className="border border-gray-700 rounded-lg p-4 hover:border-gray-600 transition-colors">
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center space-x-3 mb-2">
-                        <h3 className="font-semibold text-white">{rec.title}</h3>
-                        <Badge className={getImpactColor(rec.impact)}>
-                          {rec.impact} impact
-                        </Badge>
-                        <Badge variant="outline" className="text-gray-300 border-gray-600">
-                          {rec.effort} effort
-                        </Badge>
-                      </div>
-                      <p className="text-gray-400 mb-3">{rec.description}</p>
-                      <div className="flex items-center space-x-4 text-sm">
-                        <span className="text-green-400">
-                          💰 ${rec.savings}/month savings
-                        </span>
-                        <span className="text-blue-400">
-                          🏷️ {rec.category}
-                        </span>
-                      </div>
-                    </div>
-                    <Button size="sm" className="bg-gradient-to-r from-purple-500 to-purple-600 ml-4">
-                      Implement
-                    </Button>
+        {/* Bitcoin-Style Sovereignty Features */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <Card className="bg-gradient-to-br from-orange-900/20 to-yellow-900/20 border-orange-500/30">
+            <CardHeader>
+              <CardTitle className="text-white flex items-center">
+                <Shield className="w-5 h-5 mr-2 text-orange-400" />
+                Self-Custody Principles
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between p-3 bg-orange-500/10 rounded-lg border border-orange-500/20">
+                  <div className="flex items-center space-x-3">
+                    <CheckCircle className="w-5 h-5 text-green-400" />
+                    <span className="text-white">Direct API Control</span>
                   </div>
+                  <Badge className="bg-green-600 text-white">Active</Badge>
                 </div>
-              ))}
+                
+                <div className="flex items-center justify-between p-3 bg-orange-500/10 rounded-lg border border-orange-500/20">
+                  <div className="flex items-center space-x-3">
+                    <CheckCircle className="w-5 h-5 text-green-400" />
+                    <span className="text-white">Zero Vendor Lock-in</span>
+                  </div>
+                  <Badge className="bg-green-600 text-white">Verified</Badge>
+                </div>
+                
+                <div className="flex items-center justify-between p-3 bg-orange-500/10 rounded-lg border border-orange-500/20">
+                  <div className="flex items-center space-x-3">
+                    <CheckCircle className="w-5 h-5 text-green-400" />
+                    <span className="text-white">Transparent Costs</span>
+                  </div>
+                  <Badge className="bg-green-600 text-white">Real-time</Badge>
+                </div>
+                
+                <div className="flex items-center justify-between p-3 bg-orange-500/10 rounded-lg border border-orange-500/20">
+                  <div className="flex items-center space-x-3">
+                    <CheckCircle className="w-5 h-5 text-green-400" />
+                    <span className="text-white">Multi-Provider HA</span>
+                  </div>
+                  <Badge className="bg-green-600 text-white">99.99%</Badge>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-gray-800/50 border-gray-700">
+            <CardHeader>
+              <CardTitle className="text-white flex items-center justify-between">
+                <div className="flex items-center">
+                  <TrendingDown className="w-5 h-5 mr-2 text-purple-400" />
+                  Sovereign Optimizations
+                </div>
+                <Badge className="bg-orange-600 text-white">
+                  ${totalSavings}/month potential
+                </Badge>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {recommendations.map((rec) => (
+                  <div key={rec.id} className="border border-gray-700 rounded-lg p-4 hover:border-orange-500/30 transition-colors">
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <div className="flex items-center space-x-3 mb-2">
+                          <h3 className="font-semibold text-white">{rec.title}</h3>
+                          <Badge className={getImpactColor(rec.impact)}>
+                            {rec.impact}
+                          </Badge>
+                        </div>
+                        <p className="text-gray-400 mb-3 text-sm">{rec.description}</p>
+                        <div className="flex items-center space-x-4 text-sm">
+                          <span className="text-orange-400 font-mono">
+                            ${rec.savings}/mo
+                          </span>
+                          <span className="text-gray-500">
+                            {rec.category}
+                          </span>
+                        </div>
+                      </div>
+                      <Button size="sm" className="bg-gradient-to-r from-orange-500 to-orange-600 ml-4">
+                        Deploy
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Bitcoin Principles Footer */}
+        <Card className="bg-gradient-to-r from-orange-900/30 to-yellow-900/30 border-orange-500/50">
+          <CardContent className="pt-6">
+            <div className="text-center space-y-4">
+              <div className="text-2xl font-bold text-orange-400">
+                "Be your own bank. Control your own costs."
+              </div>
+              <div className="text-gray-300 max-w-2xl mx-auto">
+                Like Bitcoin's decentralized network, this platform gives you complete sovereignty over your infrastructure costs. 
+                No hidden fees, no intermediaries, no surprises—just transparent, verifiable, and optimized resource utilization.
+              </div>
+              <div className="flex justify-center space-x-8 pt-4">
+                <div className="text-center">
+                  <div className="text-lg font-bold text-orange-400">0</div>
+                  <div className="text-xs text-gray-400">Intermediaries</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-lg font-bold text-green-400">100%</div>
+                  <div className="text-xs text-gray-400">Transparent</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-lg font-bold text-blue-400">24/7</div>
+                  <div className="text-xs text-gray-400">Self-Sovereign</div>
+                </div>
+              </div>
             </div>
           </CardContent>
         </Card>
