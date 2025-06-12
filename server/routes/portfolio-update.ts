@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { liveTradingExecutor } from '../live-trading-executor';
 
 const router = Router();
 
@@ -39,23 +40,18 @@ router.post('/update', async (req, res) => {
 
 router.get('/status', async (req, res) => {
   try {
-    const fundingProgress = (portfolioState.value / 50) * 100;
+    // Get live trading data
+    const liveStatus = liveTradingExecutor.getPortfolioStatus();
     
     res.json({
       success: true,
-      data: {
-        ...portfolioState,
-        fundingTarget: 50,
-        progressPercent: fundingProgress,
-        remainingNeeded: Math.max(0, 50 - portfolioState.value),
-        readyForDevelopment: portfolioState.value >= 50
-      }
+      data: liveStatus
     });
     
   } catch (error) {
     res.status(500).json({
       success: false,
-      error: error.message
+      error: (error as Error).message
     });
   }
 });

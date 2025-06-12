@@ -413,6 +413,10 @@ app.use((req, res, next) => {
   const { default: traderThoughtsRoutes } = await import('./routes/trader-thoughts.js');
   app.use('/api/trader', traderThoughtsRoutes);
 
+  // Initialize live trading executor
+  const { liveTradingExecutor } = await import('./live-trading-executor.js');
+  await liveTradingExecutor.startLiveTrading();
+
   // Import and register Trading Journal routes
   const { default: tradingJournalRoutes } = await import('./routes/trading-journal.js');
   app.use('/api/journal', tradingJournalRoutes);
