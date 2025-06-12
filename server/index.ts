@@ -15,6 +15,10 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Add static file serving for public folder
+import path from 'path';
+app.use(express.static(path.resolve(import.meta.dirname, '..', 'public')));
+
 // Initialize data protection middleware to sanitize all responses
 app.use(dataProtection.protectResponse());
 dataProtection.protectConsoleOutput();
@@ -487,6 +491,8 @@ app.use((req, res, next) => {
   // setting up all the other routes so the catch-all route
   // doesn't interfere with the other routes
   if (app.get("env") === "development") {
+    // Add static file serving before Vite middleware for images
+    app.use('/images', express.static(path.resolve(import.meta.dirname, '..', 'public', 'images')));
     await setupVite(app, server);
   } else {
     serveStatic(app);
