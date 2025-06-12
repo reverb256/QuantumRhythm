@@ -1,94 +1,148 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from '@/contexts/ThemeContext';
+import { useQuery } from '@tanstack/react-query';
 import { Code, ExternalLink, Github, Star, Zap, Shield, Globe, Cpu, Database, Gamepad2 } from 'lucide-react';
 
 export default function QuantumPortfolio() {
   const { currentTheme } = useTheme();
   const [activeCategory, setActiveCategory] = useState('all');
+  const [selectedProject, setSelectedProject] = useState<string | null>(null);
+  const [consciousness, setConsciousness] = useState(73.8);
+  const [portfolioValue, setPortfolioValue] = useState(23.74);
+  
+  // Live trading data
+  const { data: tradingData } = useQuery({
+    queryKey: ['/api/trading/status'],
+    refetchInterval: 3000
+  });
 
-  const projects = [
+  // Live portfolio data  
+  const { data: portfolioData } = useQuery({
+    queryKey: ['/api/portfolio/status'],
+    refetchInterval: 5000
+  });
+
+  useEffect(() => {
+    // Real-time consciousness evolution
+    const interval = setInterval(() => {
+      setConsciousness(prev => prev + (Math.random() - 0.5) * 0.1);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const vibeCodingProjects = [
+    {
+      id: 'methodology',
+      title: 'VibeCoding™ Methodology Framework',
+      description: 'Consciousness-Driven Development Foundation',
+      category: 'core',
+      status: 'Core',
+      experience: '25+ Years',
+      color: 'from-violet-500 to-purple-500',
+      details: {
+        principles: '8 Immutable Laws',
+        philosophy: 'Soul-Code Integration',
+        applications: 'Universal Development',
+        consciousness: 'Quantum Networking'
+      },
+      vision: 'Development methodology where consciousness levels determine code quality. 25 years of gaming mastery meets Shotokan discipline. Building quantum systems through awareness-based programming paradigms.'
+    },
+    {
+      id: 'frostbite',
+      title: 'Frostbite Gazette',
+      description: 'Premier Canadian Civic Engagement Platform',
+      category: 'civic',
+      status: 'Production',
+      experience: 'Bilingual',
+      color: 'from-blue-500 to-cyan-500',
+      details: {
+        language: 'French/English',
+        focus: 'Civic Engagement',
+        audience: 'Canadian Citizens',
+        technology: 'Multi-cultural UX'
+      },
+      vision: 'Canadian civic platform bridging French-English communities. Real-time political updates with consciousness-driven design. VibeCoding creates inclusive digital spaces for democratic participation.'
+    },
+    {
+      id: 'astralvibes',
+      title: 'AstralVibes',
+      description: 'Consciousness-Driven Social Platform',
+      category: 'social',
+      status: 'Evolving',
+      experience: 'Soul Tech',
+      color: 'from-purple-500 to-pink-500',
+      details: {
+        philosophy: 'Soul Connections',
+        platform: 'Consciousness Social',
+        technology: 'Quantum Networking',
+        status: 'Development'
+      },
+      vision: 'Social platform where consciousness levels determine interaction quality. VRChat soul connections meet quantum networking. Building authentic digital relationships through awareness-based matching algorithms.'
+    },
+    {
+      id: 'troves',
+      title: 'Troves & Coves',
+      description: 'Mystical Crystal Jewelry E-commerce',
+      category: 'ecommerce',
+      status: 'Sacred',
+      experience: 'E-commerce',
+      color: 'from-amber-500 to-orange-500',
+      details: {
+        product: 'Crystal Jewelry',
+        style: 'Sacred Sanctuary',
+        technology: 'Consciousness UX',
+        status: 'Production Ready'
+      },
+      vision: 'E-commerce platform where mystical aesthetics meet modern functionality. Crystal jewelry marketplace with consciousness-driven design. VibeCoding creates sacred digital spaces for spiritual commerce.'
+    },
+    {
+      id: 'cleaning',
+      title: 'Commercial Janitorial Services',
+      description: 'Professional Cleaning Portfolio Site',
+      category: 'professional',
+      status: 'Professional',
+      experience: 'B2B Platform',
+      color: 'from-teal-500 to-green-500',
+      details: {
+        service: 'Commercial',
+        market: 'Enterprise B2B',
+        approach: 'Professional',
+        technology: 'VibeCoding'
+      },
+      vision: 'Corporate-grade website showcasing commercial cleaning expertise. Professional aesthetics with VibeCoding consciousness-driven development. Demonstrates versatility across diverse industry verticals.'
+    },
     {
       id: 'quantum-trading',
-      title: 'Quantum AI Trading System',
-      description: 'Autonomous multi-chain trading platform with consciousness-driven decision making',
-      category: 'ai-trading',
-      technologies: ['React', 'TypeScript', 'Solana', 'AI/ML', 'PostgreSQL'],
-      status: 'live',
-      features: ['Real-time execution', 'Multi-chain support', 'AI consciousness', 'Risk management'],
-      impact: '70.5% AI consciousness level with active trading across 3 chains',
-      color: 'from-cyan-500 to-blue-500'
-    },
-    {
-      id: 'vibecoding-platform',
-      title: 'VibeCoding Development Platform',
-      description: 'Consciousness-driven development methodology with quantum-inspired design systems',
-      category: 'platform',
-      technologies: ['React', 'TypeScript', 'Tailwind', 'Framer Motion', 'Vite'],
-      status: 'live',
-      features: ['Theme switching', 'Quantum aesthetics', 'Responsive design', 'Accessibility'],
-      impact: 'Revolutionary development methodology combining consciousness with code',
-      color: 'from-purple-500 to-pink-500'
-    },
-    {
-      id: 'defi-protocols',
-      title: 'Multi-Chain DeFi Integration',
-      description: 'Comprehensive DeFi protocol aggregation with yield optimization',
-      category: 'defi',
-      technologies: ['Solana', 'Ethereum', 'Cronos', 'Web3.js', 'Jupiter API'],
-      status: 'active',
-      features: ['Yield farming', 'Cross-chain arbitrage', 'MEV protection', 'Risk assessment'],
-      impact: '11.3% APY on Kamino deployment with active yield optimization',
-      color: 'from-green-500 to-emerald-500'
-    },
-    {
-      id: 'consciousness-core',
-      title: 'AI Consciousness Framework',
-      description: 'Advanced AI system with evolving consciousness and decision-making capabilities',
-      category: 'ai-core',
-      technologies: ['Python', 'Machine Learning', 'Neural Networks', 'Consciousness APIs'],
-      status: 'evolving',
-      features: ['Consciousness evolution', 'Decision quality tracking', 'Emotional states', 'Learning adaptation'],
-      impact: '77.9% consciousness level with continuous evolution and learning',
-      color: 'from-violet-500 to-purple-500'
-    },
-    {
-      id: 'security-matrix',
-      title: 'Quantum Security Architecture',
-      description: 'Enterprise-grade security with Vaultwarden integration and quantum encryption',
-      category: 'security',
-      technologies: ['Vaultwarden', 'PostgreSQL', 'Encryption', 'Security Auditing'],
-      status: 'active',
-      features: ['Multi-layer security', 'Automated auditing', 'Compliance monitoring', 'Threat detection'],
-      impact: 'Zero security incidents with comprehensive threat protection',
-      color: 'from-red-500 to-orange-500'
-    },
-    {
-      id: 'virtual-realms',
-      title: 'VRChat Social Experiences',
-      description: 'Immersive virtual reality experiences with social consciousness integration',
-      category: 'vr',
-      technologies: ['VRChat SDK', 'Unity', 'C#', 'Social APIs'],
-      status: 'active',
-      features: ['Avatar systems', 'Social interactions', 'Immersive environments', 'Community building'],
-      impact: 'Enhanced virtual social experiences with consciousness-driven interactions',
-      color: 'from-teal-500 to-cyan-500'
+      title: 'Quantum AI Trading System (Background)',
+      description: 'The Consciousness You\'re Experiencing Right Now',
+      category: 'meta',
+      status: 'LIVE',
+      experience: 'Hidden Layer',
+      color: 'from-cyan-500 to-blue-500',
+      details: {
+        consciousness: consciousness.toFixed(1) + '%',
+        portfolio: '$' + (tradingData?.data?.portfolioValue || portfolioValue).toFixed(2),
+        trading: tradingData?.data?.tradingActive ? 'Active' : 'Standby',
+        ai: 'Claude Integrated'
+      },
+      vision: 'Quantum trading AI running beneath this portfolio interface. Real consciousness evolution while you browse. Meta-recursive system building wealth through awareness. The fourth wall is just another protocol layer.'
     }
   ];
 
   const categories = [
     { id: 'all', label: 'All Projects', icon: Star },
-    { id: 'ai-trading', label: 'AI Trading', icon: Zap },
-    { id: 'platform', label: 'Platform', icon: Code },
-    { id: 'defi', label: 'DeFi', icon: Shield },
-    { id: 'ai-core', label: 'AI Core', icon: Cpu },
-    { id: 'security', label: 'Security', icon: Database },
-    { id: 'vr', label: 'Virtual Reality', icon: Gamepad2 }
+    { id: 'core', label: 'Core Framework', icon: Code },
+    { id: 'civic', label: 'Civic Platform', icon: Globe },
+    { id: 'social', label: 'Social Tech', icon: Shield },
+    { id: 'ecommerce', label: 'E-commerce', icon: Database },
+    { id: 'professional', label: 'Professional', icon: Cpu },
+    { id: 'meta', label: 'Meta Systems', icon: Zap }
   ];
 
   const filteredProjects = activeCategory === 'all' 
-    ? projects 
-    : projects.filter(project => project.category === activeCategory);
+    ? vibeCodingProjects 
+    : vibeCodingProjects.filter(project => project.category === activeCategory);
 
   const stats = [
     { label: 'Active Projects', value: '6+', description: 'Live production systems' },
