@@ -3,6 +3,8 @@ import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import liveStatsRouter from "./routes/live-stats";
 import aiAutorouterRoutes from "./routes/ai-autorouter";
+import voidProxyRoutes from "./routes/void-proxy";
+import aiParameterOptimizerRoutes from "./routes/ai-parameter-optimizer";
 import secureAIRoutes from "./secure-ai-routes";
 import { legalComplianceAgent } from "./legal-compliance-agent";
 import LegalComplianceResolver from "./legal-compliance-resolver";
@@ -371,6 +373,10 @@ app.use((req, res, next) => {
   // Import and register Void Proxy (OpenAI-compatible endpoint)
   const { default: voidProxyRoutes } = await import('./routes/void-proxy.js');
   app.use('/', voidProxyRoutes);
+
+  // Import and register AI Parameter Optimizer
+  const { default: aiParameterOptimizerRoutes } = await import('./routes/ai-parameter-optimizer.js');
+  app.use('/api/ai-optimizer', aiParameterOptimizerRoutes);
 
   // Beast mode API for aggressive multi-chain expansion
   const { default: beastModeRouter } = await import('./routes/beast-mode-api');
