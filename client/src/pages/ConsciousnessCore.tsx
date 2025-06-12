@@ -52,7 +52,7 @@ export default function ConsciousnessCore() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: currentTheme.colors.background }}>
       {/* Hero Section */}
-      <section className="relative pt-20 pb-20 px-6 overflow-hidden" style={{ marginTop: '4rem' }}>
+      <section className="relative pt-16 pb-20 px-6 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-transparent to-pink-900/20" />
         
         {/* Floating Particles */}
