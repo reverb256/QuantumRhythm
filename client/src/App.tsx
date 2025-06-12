@@ -28,6 +28,7 @@ import QuantumPortfolio from "@/pages/QuantumPortfolio";
 import TradingHub from "@/pages/TradingHub";
 import Contact from "@/pages/Contact";
 import Akasha from "@/pages/Akasha";
+import Showcase from "@/pages/Showcase";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -91,6 +92,7 @@ function Router() {
         <Route path="/portfolio" component={QuantumPortfolio} />
         <Route path="/trading-hub" component={TradingHub} />
         <Route path="/akasha" component={Akasha} />
+        <Route path="/showcase" component={Showcase} />
         <Route path="/contact" component={Contact} />
         
         {/* Redirect legacy routes to main sections */}
