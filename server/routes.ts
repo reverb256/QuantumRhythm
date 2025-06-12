@@ -14,6 +14,8 @@ import transformationRouter from "./routes/transformation";
 import githubRouter from "./routes/github.js";
 import agentsRouter from "./routes/agents";
 import { donationTracker } from "./donation-tracker";
+import { contextOrchestrator } from './context-orchestrator';
+import { webSearchOrchestrator } from './web-search-orchestrator';
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);

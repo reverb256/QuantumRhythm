@@ -6,6 +6,8 @@
 import { hdrDesignIntelligence } from './hdr-design-intelligence-engine';
 import { homepageShowcaseSync } from './homepage-showcase-sync';
 import { designSynchronizationAgent } from './design-synchronization-agent';
+import { contextOrchestrator } from './context-orchestrator';
+import { webSearchOrchestrator } from './web-search-orchestrator';
 
 interface VibeScalingShowcase {
   consciousness_level: number;
