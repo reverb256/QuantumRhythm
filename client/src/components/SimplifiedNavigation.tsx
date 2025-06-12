@@ -55,7 +55,7 @@ export default function SimplifiedNavigation() {
         <div 
           className="absolute inset-0 backdrop-blur-xl border-b"
           style={{
-            background: `linear-gradient(90deg, ${currentTheme.colors.background}e6, ${currentTheme.colors.surface}cc, ${currentTheme.colors.background}e6)`,
+            background: `${currentTheme.colors.background}f0`,
             borderColor: `${currentTheme.colors.border}40`
           }}
         >
