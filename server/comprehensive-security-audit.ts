@@ -398,44 +398,7 @@ export class ComprehensiveSecurityAudit {
     return recommendations;
   }
 
-  public async generateSecurityReport(): Promise<string> {
-    const report = await this.performFullSecurityAudit();
-    
-    return `
-# Comprehensive Security Audit Report
-
-## Executive Summary
-- **Security Score**: ${report.summary.overallScore}/100
-- **Total Vulnerabilities**: ${report.summary.vulnerabilities}
-- **Critical Issues**: ${report.summary.criticalIssues}
-- **High Risk Issues**: ${report.summary.highRiskIssues}
-
-## Compliance Status
-- **GDPR**: ${report.complianceStatus.gdpr ? '✅ COMPLIANT' : '❌ NON-COMPLIANT'}
-- **SOX**: ${report.complianceStatus.sox ? '✅ COMPLIANT' : '❌ NON-COMPLIANT'}
-- **PCI DSS**: ${report.complianceStatus.pci ? '✅ COMPLIANT' : '❌ NON-COMPLIANT'}
-- **ISO 27001**: ${report.complianceStatus.iso27001 ? '✅ COMPLIANT' : '❌ NON-COMPLIANT'}
-
-## Critical Vulnerabilities
-${report.vulnerabilities.filter(v => v.type === 'critical').map(v => 
-  `- **${v.category.toUpperCase()}**: ${v.description} (${v.file}:${v.line || 'N/A'})`
-).join('\n')}
-
-## High Risk Vulnerabilities
-${report.vulnerabilities.filter(v => v.type === 'high').map(v => 
-  `- **${v.category.toUpperCase()}**: ${v.description} (${v.file}:${v.line || 'N/A'})`
-).join('\n')}
-
-## Recommendations
-${report.recommendations.map(r => `- ${r}`).join('\n')}
-
-## Next Steps
-1. Address all critical vulnerabilities immediately
-2. Implement high-priority security measures
-3. Regular security monitoring and updates
-4. Conduct penetration testing
-`;
-  }
+  
 }
 
 export const securityAudit = new ComprehensiveSecurityAudit();

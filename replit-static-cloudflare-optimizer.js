@@ -1292,7 +1292,7 @@ self.addEventListener('fetch', event => {
     // Cloudflare Pages configuration
     const pagesConfig = {
       build: {
-        command: 'npm run build:static',
+        command: 'npm run build',
         destination: 'dist-optimized/static'
       },
       functions: {

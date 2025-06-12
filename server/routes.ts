@@ -195,6 +195,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // AI Orchestration endpoints
+  app.get('/api/ai-orchestration/health', async (req, res) => {
+    try {
+      const { aiOrchestrationDebugger } = await import('./ai-orchestration-debugger');
+      const health = await aiOrchestrationDebugger.getSystemHealth();
+      res.json({ success: true, health });
+    } catch (error) {
+      res.status(500).json({ success: false, error: 'Failed to get AI orchestration health' });
+    }
+  });
+
+  app.post('/api/ai-orchestration/debug', async (req, res) => {
+    try {
+      const { aiOrchestrationDebugger } = await import('./ai-orchestration-debugger');
+      const result = await aiOrchestrationDebugger.performRecursiveDebugging();
+      res.json({ success: true, result });
+    } catch (error) {
+      res.status(500).json({ success: false, error: 'AI orchestration debugging failed' });
+    }
+  });
+
   app.post('/api/cloudflare/enable/:feature', async (req, res) => {
     try {
       const { cloudflareAIOrchestrator } = await import('./cloudflare-ai-orchestrator');

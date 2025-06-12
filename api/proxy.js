@@ -2,7 +2,7 @@
 export default async function handler(req, res) {
   // Embedded trading data for static deployment
   const tradingData = {
-  "timestamp": "2025-06-12T21:09:21.590Z",
+  "timestamp": "2025-06-12T21:09:54.141Z",
   "walletBalance": 0.288736,
   "activeStrategies": [
     {
