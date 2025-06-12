@@ -9,7 +9,7 @@ export default function Values() {
   const [showConsole, setShowConsole] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[var(--space-black)] text-white pt-16">{/* Add padding top for fixed nav */}
+    <div className="min-h-screen bg-[var(--space-black)] text-white pt-20">{/* Add padding top for fixed nav */}
 
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">

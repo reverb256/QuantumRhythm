@@ -100,7 +100,7 @@ export default function HomePage() {
       />
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center px-6 z-20 pt-24">
+      <section className="relative min-h-screen flex items-center px-6 z-20 pt-20">
         <div className="max-w-7xl mx-auto w-full">
           <div className="flex flex-col items-center text-center space-y-12">
 
