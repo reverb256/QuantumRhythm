@@ -48,7 +48,7 @@ export default function Dashboard() {
       />
 
       
-      <div className="pt-20 px-6 max-w-7xl mx-auto">
+      <div className="pt-16 px-6 max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-green-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">

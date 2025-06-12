@@ -117,7 +117,7 @@ export default function Legal() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-[var(--space-black)] text-white pt-20">
+      <div className="min-h-screen bg-[var(--space-black)] text-white pt-16">
         <div className="container mx-auto px-6 py-8">
           <div className="flex items-center justify-center h-64">
             <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-cyan-400"></div>
