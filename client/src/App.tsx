@@ -23,6 +23,7 @@ import Home from "@/pages/home";
 import ConsciousnessCore from "@/pages/ConsciousnessCore";
 import QuantumPortfolio from "@/pages/QuantumPortfolio";
 import TradingHub from "@/pages/TradingHub";
+import CostOptimization from "@/pages/cost-optimization";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -61,6 +62,7 @@ function Router() {
     if (location === '/consciousness') return 'consciousness';
     if (location === '/portfolio') return 'portfolio';
     if (location === '/trading-hub') return 'trading-hub';
+    if (location === '/cost-optimization') return 'cost-optimization';
     if (location === '/ai-intelligence') return 'ai-intelligence';
     if (location === '/defi-protocols') return 'defi-protocols';
     if (location === '/quantum-platform') return 'quantum-platform';
@@ -81,6 +83,7 @@ function Router() {
         <Route path="/consciousness" component={ConsciousnessCore} />
         <Route path="/portfolio" component={QuantumPortfolio} />
         <Route path="/trading-hub" component={TradingHub} />
+        <Route path="/cost-optimization" component={CostOptimization} />
         <Route path="/ai-intelligence" component={TradingHub} />
         <Route path="/defi-protocols" component={TradingHub} />
         <Route path="/quantum-platform" component={QuantumPortfolio} />

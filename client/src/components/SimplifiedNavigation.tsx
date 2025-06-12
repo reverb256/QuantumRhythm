@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'wouter';
-import { Home, Brain, Code, TrendingUp, Zap } from 'lucide-react';
+import { Home, Brain, Code, TrendingUp, Zap, DollarSign } from 'lucide-react';
 import { useTheme } from '@/contexts/ThemeContext';
 
 export default function SimplifiedNavigation() {
@@ -26,6 +26,11 @@ export default function SimplifiedNavigation() {
       path: '/trading-hub',
       label: 'Trading',
       icon: TrendingUp,
+    },
+    {
+      path: '/cost-optimization',
+      label: 'Sovereign',
+      icon: DollarSign,
     }
   ];
 
