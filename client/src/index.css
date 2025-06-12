@@ -5,13 +5,11 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Targeted navbar blue elimination only */
+/* Clean navbar styling */
 nav {
-  background: var(--theme-background, #0f0f23) !important;
   border: none !important;
-  top: 0 !important;
-  margin-top: 0 !important;
-  padding-top: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 /* Remove all browser default outlines, selections, and focus states */

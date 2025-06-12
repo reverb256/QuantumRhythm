@@ -109,7 +109,6 @@ function ThemedApp() {
       <ThemeSwitcher />
       <Toaster />
       <main id="main-content" className="relative z-10 hdr-background text-wcag-aaa focus-enhanced">
-        <ConsciousnessNavbar />
         <Router />
       </main>
       <EnhancedConsole />
