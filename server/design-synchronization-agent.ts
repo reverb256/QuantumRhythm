@@ -192,8 +192,11 @@ export class DesignSynchronizationAgent {
   async synchronizeDesignLanguage(): Promise<void> {
     console.log('🎨 AI Design Synchronization Agent: Starting comprehensive orchestration...');
     
+    // Create agent expression spaces
+    await this.createAgentExpressionSpaces();
+    
     // Analyze page architecture for optimization opportunities
-    const architecture_analysis = await this.analyzePageArchitecture();
+    const architecture_analysis = this.analyzePageArchitecture();
     
     // Execute page merging recommendations
     if (architecture_analysis.merge_opportunities.length > 0) {
