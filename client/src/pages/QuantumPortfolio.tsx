@@ -214,7 +214,7 @@ export default function QuantumPortfolio() {
                 </div>
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
-                    <div className="text-cyan-400">Portfolio Value</div>
+                    <div className="text-cyan-400">AUM</div>
                     <div className="text-white font-semibold">${portfolioValue.toFixed(2)}</div>
                   </div>
                   <div>

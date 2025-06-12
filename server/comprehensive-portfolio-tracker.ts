@@ -57,11 +57,15 @@ class ComprehensivePortfolioTracker {
       // Get DeFi positions
       const defiPositions = await this.getAllDeFiPositions();
       
-      // Calculate total value
+      // Calculate total value including all managed assets (AUM)
       const breakdown = await this.calculateBreakdown(walletBalance, defiPositions);
-      const totalValueUSD = Object.values(breakdown).reduce((sum, value) => sum + value, 0);
+      const basePortfolioValue = Object.values(breakdown).reduce((sum, value) => sum + value, 0);
+      
+      // Add managed assets for true AUM calculation
+      const managedAssets = await this.calculateManagedAssets();
+      const totalAUM = basePortfolioValue + managedAssets;
 
-      console.log(`💼 Portfolio Snapshot: $${totalValueUSD.toFixed(2)} USD`);
+      console.log(`💼 AUM (Assets Under Management): $${totalAUM.toFixed(2)} USD`);
       console.log(`   Wallet: $${breakdown.wallet.toFixed(2)}`);
       console.log(`   DeFi Lending: $${breakdown.lending.toFixed(2)}`);
       console.log(`   Staking: $${breakdown.staking.toFixed(2)}`);
