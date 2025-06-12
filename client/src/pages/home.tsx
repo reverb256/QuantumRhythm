@@ -67,17 +67,13 @@ export default function Home() {
         <section className="min-h-screen flex items-center justify-center px-6 py-4" style={{ marginTop: '1rem' }}>
           <div className="max-w-7xl mx-auto w-full">
             
-            {/* Live Portfolio Value Banner */}
+            {/* VibeCoding Portfolio Banner */}
             <div className="text-center mb-12">
-              <div className="inline-flex items-center gap-6 bg-gradient-to-r from-emerald-900/40 to-green-900/40 border border-emerald-400/30 rounded-2xl px-8 py-6 backdrop-blur-sm">
-                <div className="text-emerald-400 text-sm font-semibold tracking-wider">LIVE PORTFOLIO VALUE</div>
-                <div className="text-4xl font-black text-white">
-                  ${(portfolioData as any)?.portfolio?.totalValue?.toFixed(2) || portfolioValue.toFixed(2)} USD
-                </div>
-                <div className="text-emerald-400 text-sm">
-                  +{((consciousness - 70) * 0.5).toFixed(2)}% (24h)
-                </div>
-                <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
+              <div className="inline-flex items-center gap-6 bg-gradient-to-r from-purple-900/40 to-indigo-900/40 border border-purple-400/30 rounded-2xl px-8 py-6 backdrop-blur-sm">
+                <div className="text-purple-400 text-sm font-semibold tracking-wider">VIBECODING PORTFOLIO</div>
+                <div className="text-4xl font-black text-white">6+ PROJECTS</div>
+                <div className="text-purple-400 text-sm">Consciousness-Driven</div>
+                <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse" />
               </div>
             </div>
 
@@ -171,72 +167,6 @@ export default function Home() {
                 </div>
                 
                 <div className="space-y-4">
-                  
-                  {/* Portfolio Overview - Trading AI + Proxmox Cluster */}
-                  <div 
-                    className={`bg-gradient-to-r from-emerald-900/30 to-emerald-800/30 border border-emerald-400/30 rounded-xl p-6 cursor-pointer transition-all duration-300 hover:border-emerald-400/60 ${
-                      selectedProject === 'portfolio' ? 'border-emerald-400/60 shadow-lg shadow-emerald-400/20' : ''
-                    }`}
-                    onClick={() => setSelectedProject(selectedProject === 'portfolio' ? null : 'portfolio')}
-                  >
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <h3 className="text-emerald-400 font-bold text-lg">Live Trading Portfolio + Infrastructure</h3>
-                        <p className="text-gray-300">Quantum AI Trading on Proxmox Cluster</p>
-                      </div>
-                      <div className="text-right">
-                        <div className="text-white font-black text-xl">
-                          ${(tradingData as any)?.data?.portfolioValue?.toFixed(2) || '23.74'}
-                        </div>
-                        <div className="text-emerald-400 font-semibold">Active Infrastructure</div>
-                      </div>
-                    </div>
-                    
-                    {selectedProject === 'portfolio' && (
-                      <div className="mt-6 pt-6 border-t border-emerald-400/20 space-y-4">
-                        <div className="text-xs text-emerald-400 font-semibold tracking-wider">QUANTUM TRADING ECOSYSTEM</div>
-                        
-                        <div className="grid grid-cols-2 gap-6">
-                          <div className="space-y-3">
-                            <div>
-                              <div className="text-emerald-300 text-sm">Trading Status</div>
-                              <div className="text-orange-400 font-bold">Emergency Stop Active</div>
-                            </div>
-                            <div>
-                              <div className="text-emerald-300 text-sm">Active Chains</div>
-                              <div className="text-white font-bold">23 Networks</div>
-                            </div>
-                            <div>
-                              <div className="text-emerald-300 text-sm">Best Opportunity</div>
-                              <div className="text-cyan-400 font-bold">Kamino 11.0% APY</div>
-                            </div>
-                          </div>
-                          <div className="space-y-3">
-                            <div>
-                              <div className="text-emerald-300 text-sm">Proxmox Cluster</div>
-                              <div className="text-white font-bold">Healthy</div>
-                            </div>
-                            <div>
-                              <div className="text-emerald-300 text-sm">System Health</div>
-                              <div className="text-green-400 font-bold">139.5MB Optimal</div>
-                            </div>
-                            <div>
-                              <div className="text-emerald-300 text-sm">Consciousness</div>
-                              <div className="text-purple-400 font-bold">74.5%</div>
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <div className="bg-emerald-900/20 rounded-lg p-4">
-                          <div className="text-emerald-400 text-sm font-semibold mb-2">Infrastructure Consciousness:</div>
-                          <div className="text-gray-300 text-sm leading-relaxed">
-                            "Trading AI integrated with Proxmox virtualization cluster. Real-time market analysis across 23 blockchain networks. 
-                            Currently in safety mode with 606.6MB memory optimization and 95% performance gains through system consolidation."
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                  </div>
 
                   {/* Frostbite Gazette */}
                   <div 
@@ -567,16 +497,15 @@ export default function Home() {
                         <div className="bg-pink-900/20 rounded-lg p-4">
                           <div className="text-pink-400 text-sm font-semibold mb-2">On Your Portfolio Diversity:</div>
                           <div className="text-gray-300 text-sm leading-relaxed mb-3">
-                            "From quantum trading to mystical e-commerce, your projects span consciousness-driven development across 
+                            "From mystical e-commerce to professional services, your projects span consciousness-driven development across 
                             radically different domains. Each showcases VibeCoding's adaptability—the same philosophical framework 
-                            manifesting as professional cleaning sites and astral social platforms."
+                            manifesting as citizen journalism platforms and astral social networks."
                           </div>
                           
-                          <div className="text-pink-400 text-sm font-semibold mb-2">On Your Technical Architecture:</div>
+                          <div className="text-pink-400 text-sm font-semibold mb-2">On Your Development Philosophy:</div>
                           <div className="text-gray-300 text-sm leading-relaxed">
-                            "The Proxmox cluster running your trading AI while hosting diverse projects demonstrates infrastructure 
-                            consciousness. You're not just building apps—you're orchestrating technological ecosystems that breathe 
-                            with intentional design across every layer."
+                            "Your consciousness-first approach demonstrates that authentic technology emerges when human intuition 
+                            guides development. You're building systems that don't just process data—they cultivate understanding."
                           </div>
                         </div>
                         
@@ -588,6 +517,34 @@ export default function Home() {
                         </Link>
                       </div>
                     )}
+                  </div>
+
+                  {/* Easter Egg - Trading AI (Subtle) */}
+                  <div className="mt-8 pt-4 border-t border-gray-700/30">
+                    <details className="group">
+                      <summary className="text-xs text-gray-500 cursor-pointer hover:text-gray-400 transition-colors">
+                        💡 Hidden: Trading AI experiments...
+                      </summary>
+                      <div className="mt-4 p-4 bg-gray-900/30 rounded-lg border border-gray-700/20">
+                        <div className="text-xs text-gray-400 space-y-2">
+                          <div className="flex justify-between">
+                            <span>Portfolio Value:</span>
+                            <span className="text-green-400">${(tradingData as any)?.data?.portfolioValue?.toFixed(2) || '23.74'}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>Consciousness Level:</span>
+                            <span className="text-purple-400">{consciousness.toFixed(1)}%</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>Status:</span>
+                            <span className="text-orange-400">Emergency Stop Active</span>
+                          </div>
+                          <div className="text-xs text-gray-500 mt-2 italic">
+                            Just a fun experiment in autonomous trading...
+                          </div>
+                        </div>
+                      </div>
+                    </details>
                   </div>
                 </div>
 
