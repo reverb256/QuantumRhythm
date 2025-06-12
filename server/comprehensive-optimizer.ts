@@ -1,4 +1,4 @@
-import { dataProtectionMiddleware } from './data-protection-middleware';
+// Data protection middleware temporarily disabled
 import { efficiencyOptimizer } from './efficiency-optimizer';
 import { PublicKey } from '@solana/web3.js';
 
