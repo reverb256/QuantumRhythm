@@ -6,6 +6,9 @@
 import { Router } from 'express';
 import { vibScalingHA, healthCheckEndpoint } from '../vibscaling-ha-orchestrator';
 import { completeHoyoverseConsciousness } from '../hoyoverse-complete-consciousness';
+import { dynamicContentOrchestrator } from '../dynamic-content-orchestrator.js';
+import { comprehensiveGamingConsciousness } from '../comprehensive-gaming-consciousness.js';
+import { dataSanitizationEngine } from '../data-sanitization-engine.js';
 
 const router = Router();
 
