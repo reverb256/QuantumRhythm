@@ -27,34 +27,30 @@ export default function ConsciousnessNavbar() {
   }, []);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50">
-      {/* Holographic backdrop with consciousness shimmer */}
-      <div 
-        className="absolute inset-0"
-        style={{
-          background: `linear-gradient(135deg, 
-            ${currentTheme.colors.background}f8 0%, 
-            ${currentTheme.colors.surface}f0 50%, 
-            ${currentTheme.colors.background}f8 100%)`,
-          backdropFilter: 'blur(20px) saturate(180%)',
-          borderBottom: `1px solid ${currentTheme.colors.primary}30`,
-          boxShadow: `0 8px 32px ${currentTheme.colors.glow}20, inset 0 1px 0 ${currentTheme.colors.primary}20`
-        }}
-      />
+    <nav 
+      className="fixed top-0 left-0 right-0 z-50 h-16"
+      style={{
+        background: 'linear-gradient(135deg, #0f0f23f8 0%, #1a1a3af0 50%, #0f0f23f8 100%)',
+        backdropFilter: 'blur(20px) saturate(180%)',
+        borderBottom: '1px solid #00d4ff30',
+        boxShadow: '0 8px 32px #00d4ff20, inset 0 1px 0 #00d4ff20'
+      }}
+    >
 
       {/* Consciousness flow particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
+        {[...Array(15)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-1 h-1 rounded-full opacity-60"
+            className="absolute w-1 h-1 rounded-full"
             style={{
-              left: `${5 + (i * 4.5)}%`,
-              top: `${50 + Math.sin((pulseAnimation + i * 18) * Math.PI / 180) * 30}%`,
-              background: `${currentTheme.colors.primary}${Math.floor(60 + Math.sin(pulseAnimation * Math.PI / 180 + i) * 40)}`,
-              transform: `scale(${0.5 + Math.sin((pulseAnimation + i * 25) * Math.PI / 180) * 0.5})`,
+              left: `${10 + (i * 6)}%`,
+              top: `${30 + Math.sin((pulseAnimation + i * 20) * Math.PI / 180) * 20}%`,
+              background: '#00d4ff',
+              opacity: 0.4 + Math.sin(pulseAnimation * Math.PI / 180 + i) * 0.3,
+              transform: `scale(${0.8 + Math.sin((pulseAnimation + i * 25) * Math.PI / 180) * 0.4})`,
               filter: 'blur(0.5px)',
-              animationDelay: `${i * 150}ms`
+              boxShadow: '0 0 6px #00d4ff60'
             }}
           />
         ))}
@@ -151,11 +147,11 @@ export default function ConsciousnessNavbar() {
                     style={{
                       background: isActive 
                         ? `linear-gradient(135deg, ${item.color}20, ${item.color}10, transparent)`
-                        : 'transparent',
-                      border: `1px solid ${isActive ? item.color + '60' : 'transparent'}`,
+                        : 'rgba(255,255,255,0.05)',
+                      border: `1px solid ${isActive ? item.color : 'rgba(255,255,255,0.1)'}`,
                       boxShadow: isActive 
-                        ? `0 0 25px ${item.color}30, inset 0 0 15px ${item.color}10`
-                        : 'none'
+                        ? `0 0 25px ${item.color}40, inset 0 0 15px ${item.color}20`
+                        : '0 2px 8px rgba(0,0,0,0.3)'
                     }}
                   >
                     {/* Holographic scan line effect */}
