@@ -34,9 +34,9 @@ export default function SimplifiedNavigation() {
     <nav 
       className="fixed top-0 left-0 right-0 z-50 outline-none focus:outline-none select-none"
       style={{
-        background: currentTheme.colors.background,
+        background: '#000000',
         backdropFilter: 'blur(16px)',
-        borderBottom: `1px solid ${currentTheme.colors.border}40`
+        borderBottom: 'none'
       }}
     >
       

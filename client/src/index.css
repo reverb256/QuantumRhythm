@@ -5,6 +5,64 @@
 @tailwind components;
 @tailwind utilities;
 
+/* NUCLEAR OPTION: Eliminate ALL blue backgrounds at every level */
+html, body, #root, main, header, nav, div, section, article {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+/* Target viewport and window elements */
+html {
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  outline: none !important;
+}
+
+body {
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  outline: none !important;
+  top: 0 !important;
+  left: 0 !important;
+}
+
+/* Override any browser chrome or system UI */
+*, *::before, *::after {
+  background-color: transparent !important;
+  background-image: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Target specific blue color patterns */
+[style*="blue"], 
+[style*="#00"], 
+[style*="#0f"], 
+[style*="rgb(0"], 
+[style*="hsl(2"], 
+[class*="blue"],
+[class*="bg-blue"],
+[id*="blue"] {
+  background: transparent !important;
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+
+/* Override browser developer tools and UI elements */
+iframe, embed, object {
+  display: none !important;
+}
+
+/* Force navbar to start at absolute top */
+nav {
+  top: 0 !important;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
 /* Remove all browser default outlines, selections, and focus states */
 * {
   outline: none !important;
