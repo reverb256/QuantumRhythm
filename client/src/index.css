@@ -5,6 +5,85 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Remove all browser default outlines, selections, and focus states */
+* {
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+  -webkit-touch-callout: none !important;
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+}
+
+/* Remove browser default selections and highlights */
+*::selection {
+  background: transparent !important;
+}
+
+*::-moz-selection {
+  background: transparent !important;
+}
+
+/* Remove any browser chrome or UI elements */
+*::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Specifically target navigation elements */
+nav, nav *, [role="navigation"], [role="navigation"] * {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+}
+
+/* Remove any focus states */
+*:focus, *:focus-visible, *:active {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* Remove any possible browser UI elements */
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  outline: none !important;
+}
+
+/* Force clean top area */
+body::before, html::before {
+  content: none !important;
+  display: none !important;
+}
+
+/* Target any potential browser chrome */
+#chrome-top, .chrome-top, [data-chrome], [class*="chrome"] {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  width: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Allow text selection only on specific content */
+p, span, div[contenteditable], input, textarea {
+  -webkit-user-select: text !important;
+  -moz-user-select: text !important;
+  -ms-user-select: text !important;
+  user-select: text !important;
+}
+
 /* Theme System CSS Variables */
 :root {
   /* Default theme variables will be set by the ThemeProvider */
