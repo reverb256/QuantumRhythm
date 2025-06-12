@@ -134,27 +134,4 @@
 
 /* Global layout artifact fixes - removed conflicting rules */
 
-/* Navigation positioning */
-nav,
-.vrchat-nav,
-header {
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  z-index: 1000 !important;
-}
-
-/* Content protection */
-main,
-.main-content,
-article {
-  margin-top: 0 !important;
-  padding-top: 5rem !important;
-}
-
-/* Override inline styles */
-div[style*="paddingTop: '4rem'"],
-div[style*="paddingTop: '5rem'"] {
-  padding-top: 5rem !important;
-}
+/* Removed navigation positioning and content padding */

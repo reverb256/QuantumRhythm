@@ -28,7 +28,7 @@ export default function Home() {
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 pt-20 px-6">
+      <div className="relative z-10 px-6">
         <div className="max-w-6xl mx-auto">
           
           {/* Hero Section */}

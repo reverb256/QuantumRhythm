@@ -5,34 +5,13 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Clean navbar styling */
-nav {
-  border: none !important;
-  margin: 0 !important;
-  padding: 0 !important;
+/* Clean reset */
+html, body {
+  margin: 0;
+  padding: 0;
 }
 
-/* Remove all browser default outlines, selections, and focus states */
-* {
-  outline: none !important;
-  -webkit-tap-highlight-color: transparent !important;
-  -webkit-touch-callout: none !important;
-  -webkit-user-select: none !important;
-  -moz-user-select: none !important;
-  -ms-user-select: none !important;
-  user-select: none !important;
-}
-
-/* Remove browser default selections and highlights */
-*::selection {
-  background: transparent !important;
-}
-
-*::-moz-selection {
-  background: transparent !important;
-}
-
-/* Remove any browser chrome or UI elements */
+/* Remove scrollbars */
 *::-webkit-scrollbar {
   display: none;
 }
@@ -42,125 +21,9 @@ nav {
   scrollbar-width: none;
 }
 
-/* Force navbar uniformity - eliminate ALL blue sections */
-nav, nav *, [role="navigation"], [role="navigation"] * {
-  outline: none !important;
-  border: none !important;
-  box-shadow: none !important;
-  -webkit-appearance: none !important;
-  -moz-appearance: none !important;
-  appearance: none !important;
-  background: transparent !important;
-}
-
-/* Specifically override any blue backgrounds in navbar */
-nav {
-  background: var(--background) !important;
-}
-
-nav > div, nav div {
-  background: transparent !important;
-}
-
-/* Override HDR blue backgrounds */
-nav .hdr-background,
-nav [class*="hdr"],
-nav [class*="blue"] {
-  background: transparent !important;
-}
-
-/* Force theme consistency */
-nav, nav * {
-  color: inherit !important;
-  border-color: transparent !important;
-}
-
-/* Remove any focus states */
-*:focus, *:focus-visible, *:active {
-  outline: none !important;
-  box-shadow: none !important;
-  border: none !important;
-}
-
-/* Remove any possible browser UI elements */
-html, body {
-  margin: 0 !important;
-  padding: 0 !important;
-  border: none !important;
-  outline: none !important;
-}
-
-/* Force clean top area */
-body::before, html::before {
-  content: none !important;
-  display: none !important;
-}
-
-/* Target any potential browser chrome */
-#chrome-top, .chrome-top, [data-chrome], [class*="chrome"] {
-  display: none !important;
-  visibility: hidden !important;
-  height: 0 !important;
-  width: 0 !important;
-  margin: 0 !important;
-  padding: 0 !important;
-}
-
-/* Aggressive browser UI removal */
-* {
-  border-top: none !important;
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-}
-
-/* Remove any top-level browser elements */
-body > *:first-child::before,
-html > body::before,
-#root::before {
-  display: none !important;
-  content: none !important;
-  height: 0 !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  border: none !important;
-}
-
-/* Force viewport to start at top */
-html {
-  position: relative !important;
-  top: 0 !important;
-}
-
-body {
-  position: relative !important;
-  top: 0 !important;
-}
-
-/* Aggressive blue bar elimination */
-body::before {
-  content: '' !important;
-  position: fixed !important;
-  top: -50px !important;
-  left: 0 !important;
-  right: 0 !important;
-  height: 50px !important;
-  background: #0f0f23 !important;
-  z-index: 10000 !important;
-  display: block !important;
-}
-
-/* Target Replit-specific elements */
-[data-replit], .replit-ui, #replit-ui, .replit-header, .replit-chrome {
-  display: none !important;
-  visibility: hidden !important;
-  height: 0 !important;
-  width: 0 !important;
-}
-
 /* Target common browser chrome selectors */
 .chrome-header, .browser-header, .webview-header, .frame-header {
   display: none !important;
-  visibility: hidden !important;
 }
 
 /* Nuclear option - hide any top-level blue elements */
