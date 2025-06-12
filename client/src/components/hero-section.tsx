@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
 import EnhancedConsole from './enhanced-console';
 import { ReactiveSection, AdaptiveText, SmartButton } from './smart-elements';
-import userPortraitUrl from '@/assets/image_1749536178696.png';
+const userPortraitUrl = '/images/profile-optimized.jpg';
 
 export default function HeroSection() {
   const [showConsole, setShowConsole] = useState(false);

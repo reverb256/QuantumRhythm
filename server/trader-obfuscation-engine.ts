@@ -133,7 +133,7 @@ export class TraderObfuscationEngine {
   extractPublicStats(internalData: any): PublicStats {
     return {
       portfolioValue: Math.round((internalData.portfolioValue || 0) * 100) / 100,
-      consciousness: Math.round((internalData.consciousness || 0) * 1000) / 10,
+      consciousness: Math.round((internalData.consciousness || 0) * 10) / 10, // Fix consciousness scaling
       tradingActive: Boolean(internalData.tradingActive),
       chains: ['solana', 'cronos'], // Only show whitelisted chains
       activeOpportunities: Math.max(0, Math.floor(internalData.opportunities || 0)),
