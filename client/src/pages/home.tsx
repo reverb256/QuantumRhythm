@@ -44,6 +44,60 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-black text-white relative overflow-hidden">
+      {/* Fixed Navigation Bar */}
+      <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-black/80 border-b border-gray-800">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="flex items-center justify-between h-16">
+            {/* Logo */}
+            <Link href="/">
+              <div className="flex items-center space-x-3 group cursor-pointer">
+                <Zap className="w-8 h-8 text-cyan-400 group-hover:scale-110 transition-transform" />
+                <div>
+                  <span className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+                    REVERB
+                  </span>
+                  <div className="text-xs text-gray-400 -mt-1">VIBECODING</div>
+                </div>
+              </div>
+            </Link>
+
+            {/* Navigation Links */}
+            <div className="flex items-center space-x-6">
+              <Link href="/">
+                <button className="text-gray-300 hover:text-cyan-400 transition-colors px-3 py-2">
+                  Home
+                </button>
+              </Link>
+              <Link href="/consciousness">
+                <button className="text-gray-300 hover:text-cyan-400 transition-colors px-3 py-2">
+                  Consciousness
+                </button>
+              </Link>
+              <Link href="/portfolio">
+                <button className="text-gray-300 hover:text-cyan-400 transition-colors px-3 py-2">
+                  Portfolio
+                </button>
+              </Link>
+              <Link href="/trading-hub">
+                <button className="text-gray-300 hover:text-cyan-400 transition-colors px-3 py-2">
+                  Trading
+                </button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      {/* Theme Switcher - Fixed positioning without overlap */}
+      <div className="fixed top-20 right-6 z-40 bg-black/50 backdrop-blur-sm rounded-lg p-2">
+        <button 
+          className="w-10 h-10 rounded-lg bg-gray-800 hover:bg-gray-700 border border-gray-600 flex items-center justify-center transition-all"
+          title="Toggle Theme"
+        >
+          <Shield className="w-5 h-5 text-cyan-400" />
+        </button>
+      </div>
+      
       <ConsciousnessAura consciousness={consciousness} />
       <ConsciousnessIndicator consciousness={consciousness} />
 
@@ -100,7 +154,7 @@ export default function HomePage() {
       />
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center px-6 z-20 pt-20">
+      <section className="relative min-h-screen flex items-center px-6 z-20 pt-24">
         <div className="max-w-7xl mx-auto w-full">
           <div className="flex flex-col items-center text-center space-y-12">
 
