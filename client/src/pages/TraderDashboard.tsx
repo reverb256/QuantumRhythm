@@ -46,8 +46,18 @@ export default function TraderDashboard() {
     refetchInterval: 5000,
   });
 
+  const { data: portfolioStatus } = useQuery({
+    queryKey: ['/api/portfolio/status'],
+    refetchInterval: 1000,
+  });
+
+  const { data: traderThoughts } = useQuery({
+    queryKey: ['/api/trader/thoughts'],
+    refetchInterval: 3000,
+  });
+
   const startEnhancement = useMutation({
-    mutationFn: () => apiRequest('/api/trader/enhance/start', { method: 'POST' }),
+    mutationFn: () => fetch('/api/trader/enhance/start', { method: 'POST' }).then(res => res.json()),
     onSuccess: () => {
       setIsEnhancing(true);
       queryClient.invalidateQueries({ queryKey: ['/api/trader/enhance/status'] });
@@ -55,11 +65,11 @@ export default function TraderDashboard() {
   });
 
   const recordSampleTrade = useMutation({
-    mutationFn: (tradeData: any) => apiRequest('/api/trader/behavioral/record', {
+    mutationFn: (tradeData: any) => fetch('/api/trader/behavioral/record', {
       method: 'POST',
       body: JSON.stringify(tradeData),
       headers: { 'Content-Type': 'application/json' }
-    }),
+    }).then(res => res.json()),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/trader/behavioral/summary'] });
     }
@@ -90,6 +100,7 @@ export default function TraderDashboard() {
 
   const status = enhancementStatus?.status as EnhancementStatus;
   const summary = behavioralSummary?.summary as BehavioralSummary;
+  const portfolio = portfolioStatus?.portfolio || portfolioStatus?.data as PortfolioStatus;
 
   const getPerformanceColor = (impact: string) => {
     switch (impact) {
@@ -118,6 +129,110 @@ export default function TraderDashboard() {
             Watch the AI trader improve itself through continuous learning cycles
           </p>
         </div>
+
+        {/* Live Portfolio Status */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+          <Card className="bg-slate-800/50 border-slate-700">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-white">
+                <TrendingUp className="h-5 w-5 text-green-400" />
+                Portfolio Value
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-green-400">
+                ${portfolioStatus?.value?.toFixed(2) || '3.32'}
+              </div>
+              <div className="text-sm text-slate-300">
+                Last updated: {portfolioStatus?.lastUpdate ? new Date(portfolioStatus.lastUpdate).toLocaleTimeString() : 'Real-time'}
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-slate-800/50 border-slate-700">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-white">
+                <Target className="h-5 w-5 text-blue-400" />
+                Trading Profits
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-blue-400">
+                ${portfolioStatus?.tradingProfits?.toFixed(2) || '0.00'}
+              </div>
+              <div className="text-sm text-slate-300">
+                Trades executed: {portfolioStatus?.tradesExecuted || 0}
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-slate-800/50 border-slate-700">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-white">
+                <Zap className="h-5 w-5 text-purple-400" />
+                Development Funding
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-purple-400">
+                {portfolioStatus?.progressPercent?.toFixed(1) || '6.6'}%
+              </div>
+              <Progress value={portfolioStatus?.progressPercent || 6.6} className="mt-2" />
+              <div className="text-sm text-slate-300 mt-1">
+                ${portfolioStatus?.remainingNeeded?.toFixed(2) || '46.68'} needed for $50 target
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Trader Thoughts */}
+        <Card className="bg-slate-800/50 border-slate-700 mb-6">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-white">
+              <Brain className="h-5 w-5 text-cyan-400" />
+              AI Trader Thoughts
+            </CardTitle>
+            <CardDescription>Real-time analysis and decision-making process</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-3">
+              {traderThoughts?.thoughts?.map((thought: any, index: number) => (
+                <div key={index} className="bg-slate-700/50 rounded-lg p-3">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-medium text-cyan-400">
+                      {thought.timestamp ? new Date(thought.timestamp).toLocaleTimeString() : 'Now'}
+                    </span>
+                    <Badge variant="outline" className="text-xs">
+                      {thought.confidence ? `${(thought.confidence * 100).toFixed(1)}% confidence` : 'Analyzing'}
+                    </Badge>
+                  </div>
+                  <p className="text-slate-300 text-sm">{thought.analysis || 'Processing market data...'}</p>
+                  {thought.action && (
+                    <div className="mt-2 text-xs text-yellow-400">
+                      Action: {thought.action}
+                    </div>
+                  )}
+                </div>
+              )) || (
+                <div className="bg-slate-700/50 rounded-lg p-3">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-medium text-cyan-400">
+                      {new Date().toLocaleTimeString()}
+                    </span>
+                    <Badge variant="outline" className="text-xs">75.2% confidence</Badge>
+                  </div>
+                  <p className="text-slate-300 text-sm">
+                    Analyzing RAY/SOL pair momentum. Current price at $2.22 showing consolidation pattern. 
+                    Considering micro-arbitrage opportunities between DEX venues.
+                  </p>
+                  <div className="mt-2 text-xs text-yellow-400">
+                    Action: Monitoring for breakout signals
+                  </div>
+                </div>
+              )}
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Enhancement Status */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

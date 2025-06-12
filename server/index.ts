@@ -6,6 +6,7 @@ import aiAutorouterRoutes from "./routes/ai-autorouter";
 import voidProxyRoutes from "./routes/void-proxy";
 import aiParameterOptimizerRoutes from "./routes/ai-parameter-optimizer";
 import portfolioUpdateRoutes from "./routes/portfolio-update";
+import traderThoughtsRoutes from "./routes/trader-thoughts";
 import secureAIRoutes from "./secure-ai-routes";
 import { legalComplianceAgent } from "./legal-compliance-agent";
 import LegalComplianceResolver from "./legal-compliance-resolver";
@@ -403,6 +404,14 @@ app.use((req, res, next) => {
   // Import and register Portfolio Status routes
   const { default: portfolioStatusRoutes } = await import('./routes/portfolio-status.js');
   app.use('/api/portfolio', portfolioStatusRoutes);
+
+  // Import and register Portfolio Update routes
+  const { default: portfolioUpdateRoutes } = await import('./routes/portfolio-update.js');
+  app.use('/api/portfolio', portfolioUpdateRoutes);
+
+  // Import and register Trader Thoughts routes
+  const { default: traderThoughtsRoutes } = await import('./routes/trader-thoughts.js');
+  app.use('/api/trader', traderThoughtsRoutes);
 
   // Import and register Trading Journal routes
   const { default: tradingJournalRoutes } = await import('./routes/trading-journal.js');
