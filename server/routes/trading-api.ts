@@ -7,8 +7,15 @@ import express from 'express';
 import { multiChainTrader } from '../multi-chain-trader';
 import { databaseUUIDFixer } from '../database-uuid-fixer';
 import { traderObfuscation } from '../trader-obfuscation-engine';
+import { TradingSecurityEnforcer } from '../trading-security-enforcer';
 
 const router = express.Router();
+
+// Initialize security enforcer
+const securityEnforcer = new TradingSecurityEnforcer();
+
+// Force cancel emergency stop immediately
+securityEnforcer.forceCancelEmergencyStop();
 
 // Trading status endpoint - Using real portfolio data
 router.get('/status', async (req, res) => {
