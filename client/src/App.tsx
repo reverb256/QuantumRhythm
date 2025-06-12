@@ -159,7 +159,7 @@ function App() {
               <ConsciousContainer learningRate={0.15}>
                 <ThemeSwitcher />
                 <Toaster />
-                <main id="main-content" className="relative z-10 hdr-background text-wcag-aaa focus-enhanced">
+                <main id="main-content" className="relative z-10 text-wcag-aaa focus-enhanced">
                   <SimplifiedNavigation />
                   <Router />
                 </main>

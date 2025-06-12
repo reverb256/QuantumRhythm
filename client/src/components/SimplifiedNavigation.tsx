@@ -31,15 +31,14 @@ export default function SimplifiedNavigation() {
   }, []);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 outline-none focus:outline-none select-none">
-      {/* Single uniform background */}
-      <div 
-        className="absolute inset-0 backdrop-blur-xl border-b"
-        style={{
-          background: currentTheme.colors.background,
-          borderColor: `${currentTheme.colors.border}40`
-        }}
-      />
+    <nav 
+      className="fixed top-0 left-0 right-0 z-50 outline-none focus:outline-none select-none"
+      style={{
+        background: currentTheme.colors.background,
+        backdropFilter: 'blur(16px)',
+        borderBottom: `1px solid ${currentTheme.colors.border}40`
+      }}
+    >
       
       {/* Animated constellation pattern */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">

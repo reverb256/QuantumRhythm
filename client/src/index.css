@@ -35,7 +35,7 @@
   scrollbar-width: none;
 }
 
-/* Specifically target navigation elements */
+/* Force navbar uniformity - eliminate ALL blue sections */
 nav, nav *, [role="navigation"], [role="navigation"] * {
   outline: none !important;
   border: none !important;
@@ -43,6 +43,29 @@ nav, nav *, [role="navigation"], [role="navigation"] * {
   -webkit-appearance: none !important;
   -moz-appearance: none !important;
   appearance: none !important;
+  background: transparent !important;
+}
+
+/* Specifically override any blue backgrounds in navbar */
+nav {
+  background: var(--background) !important;
+}
+
+nav > div, nav div {
+  background: transparent !important;
+}
+
+/* Override HDR blue backgrounds */
+nav .hdr-background,
+nav [class*="hdr"],
+nav [class*="blue"] {
+  background: transparent !important;
+}
+
+/* Force theme consistency */
+nav, nav * {
+  color: inherit !important;
+  border-color: transparent !important;
 }
 
 /* Remove any focus states */
