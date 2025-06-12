@@ -12,7 +12,7 @@ import { ErrorBoundaryFallback } from "@/components/error-state-manager";
 import { ErrorBoundary, FallbackProps } from "react-error-boundary";
 import { WalletProvider } from "@/hooks/useWallet";
 import { Web3AuthProvider } from "@/components/Web3AuthProvider";
-import { ThemeProvider } from "@/contexts/ThemeContext";
+import { ThemeProvider } from "@/hooks/useTheme";
 import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 import { CursorGlow } from "@/components/CursorGlow";
 import { ParticleSystem } from "@/components/ParticleSystem";
@@ -94,6 +94,22 @@ function Router() {
   );
 }
 
+function ThemedApp() {
+  return (
+    <ConsciousContainer learningRate={0.15}>
+      <CursorGlow />
+      <ParticleSystem />
+      <ThemeSwitcher />
+      <Toaster />
+      <main id="main-content" className="relative z-10 hdr-background text-wcag-aaa focus-enhanced">
+        <SimplifiedNavigation />
+        <Router />
+      </main>
+      <EnhancedConsole />
+    </ConsciousContainer>
+  );
+}
+
 function App() {
   // Initialize AI-powered SEO system
   const metaManager = MetaTagManager.getInstance();
@@ -140,17 +156,7 @@ function App() {
         <WalletProvider>
           <Web3AuthProvider>
             <ThemeProvider>
-              <ConsciousContainer learningRate={0.15}>
-                <CursorGlow />
-                <ParticleSystem />
-                <ThemeSwitcher />
-                <Toaster />
-                <main id="main-content" className="relative z-10 hdr-background text-wcag-aaa focus-enhanced">
-                  <SimplifiedNavigation />
-                  <Router />
-                </main>
-                <EnhancedConsole />
-              </ConsciousContainer>
+              <ThemedApp />
             </ThemeProvider>
           </Web3AuthProvider>
         </WalletProvider>
