@@ -38,15 +38,27 @@ export default function SimplifiedNavigation() {
   }, []);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 outline-none focus:outline-none select-none">
-      {/* Theme-aware glassmorphism background */}
+    <>
+      {/* Blue bar mask overlay */}
       <div 
-        className="absolute inset-0 backdrop-blur-xl border-b"
-        style={{
-          background: `linear-gradient(90deg, ${currentTheme.colors.background}e6, ${currentTheme.colors.surface}cc, ${currentTheme.colors.background}e6)`,
-          borderColor: `${currentTheme.colors.border}40`
+        className="fixed left-0 right-0" 
+        style={{ 
+          top: '-20px', 
+          height: '30px', 
+          zIndex: 9998,
+          background: currentTheme.colors.background
         }}
-      >
+      />
+      
+      <nav className="fixed left-0 right-0 outline-none focus:outline-none select-none" style={{ top: '0px', zIndex: 9999 }}>
+        {/* Theme-aware glassmorphism background */}
+        <div 
+          className="absolute inset-0 backdrop-blur-xl border-b"
+          style={{
+            background: `linear-gradient(90deg, ${currentTheme.colors.background}e6, ${currentTheme.colors.surface}cc, ${currentTheme.colors.background}e6)`,
+            borderColor: `${currentTheme.colors.border}40`
+          }}
+        >
         {/* Animated constellation pattern */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           {[...Array(12)].map((_, i) => (
@@ -254,6 +266,7 @@ export default function SimplifiedNavigation() {
           </div>
         </div>
       </div>
-    </nav>
+      </nav>
+    </>
   );
 }
