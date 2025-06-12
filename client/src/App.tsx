@@ -20,6 +20,10 @@ import { ParticleSystem } from "@/components/ParticleSystem";
 import ConsciousnessNavbar from "./components/ConsciousnessNavbar";
 import { BreathingPageWrapper } from "@/components/breathing-animation";
 import Home from "@/pages/home";
+import Archive from "@/pages/archive";
+import Nexus from "@/pages/nexus";
+import Consciousness from "@/pages/consciousness";
+import Evolution from "@/pages/evolution";
 import QuantumPortfolio from "@/pages/QuantumPortfolio";
 import TradingHub from "@/pages/TradingHub";
 import Contact from "@/pages/Contact";
@@ -79,13 +83,16 @@ function Router() {
       
       <Switch>
         <Route path="/" component={Home} />
+        <Route path="/archive" component={Archive} />
+        <Route path="/nexus" component={Nexus} />
+        <Route path="/consciousness" component={Consciousness} />
+        <Route path="/evolution" component={Evolution} />
         <Route path="/portfolio" component={QuantumPortfolio} />
         <Route path="/trading-hub" component={TradingHub} />
         <Route path="/contact" component={Contact} />
         
         {/* Redirect legacy routes to main sections */}
         <Route path="/trading" component={TradingHub} />
-        <Route path="/consciousness" component={Home} />
         <Route path="/cost-optimization" component={TradingHub} />
         
         <Route component={NotFound} />

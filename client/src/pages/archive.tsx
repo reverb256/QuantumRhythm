@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTheme } from '../hooks/useTheme';
-import { Archive, Calendar, Code, Star, ExternalLink } from 'lucide-react';
+import { Archive as ArchiveIcon, Calendar, Code, Star, ExternalLink } from 'lucide-react';
 
 const projects = [
   {
@@ -55,7 +55,7 @@ export default function Archive() {
         {/* Header */}
         <div className="text-center mb-16">
           <div className="flex items-center justify-center space-x-3 mb-6">
-            <Archive 
+            <ArchiveIcon 
               className="w-8 h-8" 
               style={{ color: currentTheme.colors.primary }}
             />
