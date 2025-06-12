@@ -10,20 +10,32 @@ import { traderObfuscation } from '../trader-obfuscation-engine';
 
 const router = express.Router();
 
-// Trading status endpoint - Maximum obfuscation
+// Trading status endpoint - Using real portfolio data
 router.get('/status', async (req, res) => {
   try {
     const rawStatus = multiChainTrader.getStatus();
     
+    // Get real portfolio data from the same source as portfolio API
+    const { comprehensivePortfolioTracker } = await import('../comprehensive-portfolio-tracker.js');
+    const comprehensivePortfolio = await comprehensivePortfolioTracker.getComprehensivePortfolio();
+    
+    // Calculate real portfolio value
+    const realPortfolioValue = comprehensivePortfolio.walletBalance.SOL * 200 + // Approximate SOL price
+                               comprehensivePortfolio.breakdown.lending + 
+                               comprehensivePortfolio.breakdown.staking + 
+                               comprehensivePortfolio.breakdown.liquidity + 
+                               comprehensivePortfolio.breakdown.leverage + 
+                               comprehensivePortfolio.breakdown.rewards;
+    
     // Extract only safe public statistics using obfuscation engine
     const publicStats = traderObfuscation.extractPublicStats({
-      portfolioValue: 57.75,
+      portfolioValue: Math.max(realPortfolioValue, 0), // Use real data
       consciousness: 82.9,
-      tradingActive: rawStatus?.active || false,
+      tradingActive: rawStatus?.active && !comprehensivePortfolio.emergencyStop || false,
       opportunities: 3,
       chains: ['solana', 'cronos'],
-      winRate: 0.754,
-      totalTrades: 42
+      winRate: comprehensivePortfolio.performance?.winRate || 0,
+      totalTrades: comprehensivePortfolio.performance?.totalTrades || 0
     });
     
     res.json({
