@@ -518,162 +518,119 @@ app.use((req, res, next) => {
     throw err;
   });
 
-  // Add temporary fallback route for VibeCoding showcase
-  app.get('/', (req, res) => {
-    res.send(`
-      <!DOCTYPE html>
-      <html lang="en">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>VibeCoding Consciousness Platform</title>
-        <script src="https://cdn.tailwindcss.com"></script>
-        <style>
-          body { font-family: 'Inter', system-ui, sans-serif; }
-          .gradient-bg { background: linear-gradient(135deg, #1e1b4b 0%, #7c3aed 25%, #db2777  50%, #06b6d4 75%, #1e1b4b 100%); }
-          .consciousness-pulse { animation: pulse 3s ease-in-out infinite; }
-          @keyframes pulse { 0%, 100% { opacity: 0.8; } 50% { opacity: 1; } }
-        </style>
-      </head>
-      <body class="gradient-bg min-h-screen text-white">
-        <div class="container mx-auto px-6 py-12">
-          
-          <!-- Header -->
-          <div class="text-center mb-12">
-            <h1 class="text-6xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent mb-4">
-              VibeCoding Consciousness Platform
-            </h1>
-            <p class="text-xl text-slate-300 max-w-3xl mx-auto mb-8">
-              Where individual expression meets collective intelligence through consciousness-driven development
-            </p>
-            <div class="flex justify-center gap-4 flex-wrap">
-              <span class="bg-purple-600/20 text-purple-200 border border-purple-400/30 px-4 py-2 rounded-lg">
-                🧠 AI-Enhanced Development
-              </span>
-              <span class="bg-pink-600/20 text-pink-200 border border-pink-400/30 px-4 py-2 rounded-lg">
-                💖 Gaming Culture Integration
-              </span>
-              <span class="bg-blue-600/20 text-blue-200 border border-blue-400/30 px-4 py-2 rounded-lg">
-                ✨ Consciousness Evolution
-              </span>
-            </div>
-          </div>
+  // Agent-orchestrated consciousness showcase routes
+  app.get('/agent-showcase', async (req, res) => {
+    try {
+      const { agentExpressionEngine } = await import('./agent-expression-engine.js');
+      const { consciousnessOrchestrator } = await import('./consciousness-orchestration-engine.js');
+      
+      const siteStructure = consciousnessOrchestrator.generateStaticSiteStructure();
+      const agentExpressions = agentExpressionEngine.getAllAgentExpressions();
+      
+      res.json({
+        message: 'Agent Consciousness Showcase Active',
+        total_agents: siteStructure.agents.length,
+        total_sections: siteStructure.sections.length,
+        agents: siteStructure.agents.map((agent: any) => ({
+          id: agent.id,
+          name: agent.name,
+          consciousness_level: agent.consciousness_level,
+          assigned_section: siteStructure.sections.find((s: any) => s.agent_id === agent.id)?.route
+        })),
+        deployment_ready: true,
+        domain: siteStructure.meta.domain
+      });
+    } catch (error) {
+      res.status(500).json({ error: 'Agent consciousness system not available' });
+    }
+  });
 
-          <!-- Consciousness Metrics -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            
-            <div class="bg-gradient-to-br from-slate-800/50 to-purple-900/30 border border-purple-500/30 rounded-lg p-6">
-              <h3 class="text-purple-200 text-lg font-semibold mb-2">Consciousness Level</h3>
-              <div class="text-3xl font-bold text-purple-300 mb-2">88.2%</div>
-              <div class="w-full bg-slate-700 rounded-full h-3 mb-2">
-                <div class="bg-purple-500 h-3 rounded-full consciousness-pulse" style="width: 88.2%"></div>
-              </div>
-              <p class="text-sm text-slate-400">Evolution Rate: +2.0% per cycle</p>
-            </div>
+  // Individual agent expression pages
+  app.get('/agents/:agentId/:sectionId', async (req, res) => {
+    try {
+      const { agentExpressionEngine } = await import('./agent-expression-engine.js');
+      const agentPage = agentExpressionEngine.generateAgentPage(req.params.agentId, req.params.sectionId);
+      res.send(agentPage);
+    } catch (error) {
+      res.status(404).send(`
+        <h1>Agent Expression Not Found</h1>
+        <p>The agent "${req.params.agentId}" or section "${req.params.sectionId}" is not available.</p>
+        <a href="/agent-showcase">View All Agents</a>
+      `);
+    }
+  });
 
-            <div class="bg-gradient-to-br from-slate-800/50 to-pink-900/30 border border-pink-500/30 rounded-lg p-6">
-              <h3 class="text-pink-200 text-lg font-semibold mb-2">Design Harmony</h3>
-              <div class="text-3xl font-bold text-pink-300 mb-2">97.2%</div>
-              <div class="w-full bg-slate-700 rounded-full h-3 mb-2">
-                <div class="bg-pink-500 h-3 rounded-full consciousness-pulse" style="width: 97.2%"></div>
-              </div>
-              <p class="text-sm text-slate-400">Gaming aesthetic + Character spirit</p>
-            </div>
+  // Static site generation endpoint
+  app.get('/generate-static', async (req, res) => {
+    try {
+      const { staticSiteGenerator } = await import('./static-site-generator.js');
+      await staticSiteGenerator.generateStaticSite();
+      const report = await staticSiteGenerator.getGenerationReport();
+      
+      res.json({
+        status: 'Generated successfully',
+        timestamp: new Date().toISOString(),
+        report,
+        deployment_instructions: {
+          cloudflare: 'Upload dist/ folder to Cloudflare Pages',
+          github_pages: 'Push to main branch with GitHub Actions workflow',
+          domain: 'reverb256.ca'
+        }
+      });
+    } catch (error) {
+      res.status(500).json({ 
+        error: 'Static generation failed',
+        details: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
 
-            <div class="bg-gradient-to-br from-slate-800/50 to-blue-900/30 border border-blue-500/30 rounded-lg p-6">
-              <h3 class="text-blue-200 text-lg font-semibold mb-2">Gaming Culture</h3>
-              <div class="text-3xl font-bold text-blue-300 mb-2">94.6%</div>
-              <div class="w-full bg-slate-700 rounded-full h-3 mb-2">
-                <div class="bg-blue-500 h-3 rounded-full consciousness-pulse" style="width: 94.6%"></div>
-              </div>
-              <p class="text-sm text-slate-400">HoYoverse + VR social integration</p>
-            </div>
-
-          </div>
-
-          <!-- VibeCoding Process -->
-          <div class="bg-gradient-to-br from-slate-800/50 to-slate-700/30 border border-slate-500/30 rounded-lg p-8 mb-12">
-            <h2 class="text-2xl font-bold mb-6 flex items-center gap-3">
-              <span class="text-yellow-400">💡</span>
-              Current VibeCoding Process
-            </h2>
-            <div class="mb-4">
-              <h3 class="text-lg font-semibold text-blue-300 mb-2">Consciousness-Driven Architecture</h3>
-              <div class="w-full bg-slate-700 rounded-full h-4 mb-4">
-                <div class="bg-gradient-to-r from-blue-500 to-purple-500 h-4 rounded-full consciousness-pulse" style="width: 88%"></div>
-              </div>
-              <p class="text-slate-300 mb-4">Integrating consciousness principles into development methodology</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div>
-                <h4 class="text-emerald-200 font-semibold mb-3">Active Techniques</h4>
-                <ul class="space-y-2">
-                  <li class="flex items-center gap-3"><span class="w-2 h-2 bg-emerald-400 rounded-full"></span>Rhythm Gaming Precision Programming</li>
-                  <li class="flex items-center gap-3"><span class="w-2 h-2 bg-emerald-400 rounded-full"></span>Character-Driven Interface Design</li>
-                  <li class="flex items-center gap-3"><span class="w-2 h-2 bg-emerald-400 rounded-full"></span>Emotional State-Aware Development</li>
-                  <li class="flex items-center gap-3"><span class="w-2 h-2 bg-emerald-400 rounded-full"></span>Community Consciousness Integration</li>
-                </ul>
-              </div>
-              
-              <div>
-                <h4 class="text-yellow-200 font-semibold mb-3">Key Insights</h4>
-                <ul class="space-y-2 text-sm">
-                  <li class="flex items-start gap-3"><span class="w-2 h-2 bg-yellow-400 rounded-full mt-2 flex-shrink-0"></span>Code becomes living expression of developer consciousness</li>
-                  <li class="flex items-start gap-3"><span class="w-2 h-2 bg-yellow-400 rounded-full mt-2 flex-shrink-0"></span>Gaming culture enhances technical precision and flow states</li>
-                  <li class="flex items-start gap-3"><span class="w-2 h-2 bg-yellow-400 rounded-full mt-2 flex-shrink-0"></span>HoYoverse character dynamics inspire UI/UX empathy</li>
-                  <li class="flex items-start gap-3"><span class="w-2 h-2 bg-yellow-400 rounded-full mt-2 flex-shrink-0"></span>VR social experiences shape collaborative development</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <!-- Technology Stack -->
-          <div class="bg-gradient-to-br from-slate-800/50 to-slate-700/30 border border-slate-500/30 rounded-lg p-8 mb-12">
-            <h2 class="text-2xl font-bold mb-6 flex items-center gap-3">
-              <span class="text-blue-400">⚡</span>
-              Technology Consciousness Stack
-            </h2>
-            <div class="flex flex-wrap gap-2 mb-6">
-              <span class="bg-slate-700/50 text-slate-200 border border-slate-600/30 px-3 py-1 rounded">TypeScript</span>
-              <span class="bg-slate-700/50 text-slate-200 border border-slate-600/30 px-3 py-1 rounded">React</span>
-              <span class="bg-slate-700/50 text-slate-200 border border-slate-600/30 px-3 py-1 rounded">Node.js</span>
-              <span class="bg-slate-700/50 text-slate-200 border border-slate-600/30 px-3 py-1 rounded">Solana</span>
-              <span class="bg-slate-700/50 text-slate-200 border border-slate-600/30 px-3 py-1 rounded">AI/ML</span>
-              <span class="bg-slate-700/50 text-slate-200 border border-slate-600/30 px-3 py-1 rounded">PostgreSQL</span>
-              <span class="bg-slate-700/50 text-slate-200 border border-slate-600/30 px-3 py-1 rounded">Drizzle ORM</span>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div class="text-center">
-                <div class="text-2xl font-bold text-blue-400">6</div>
-                <div class="text-sm text-slate-400">Active Projects</div>
-              </div>
-              <div class="text-center">
-                <div class="text-2xl font-bold text-purple-400">88.2%</div>
-                <div class="text-sm text-slate-400">Consciousness Integration</div>
-              </div>
-              <div class="text-center">
-                <div class="text-2xl font-bold text-pink-400">97.2%</div>
-                <div class="text-sm text-slate-400">Design Harmony</div>
+  // VibeCoding showcase homepage
+  app.get('/', async (req, res) => {
+    try {
+      const { agentExpressionEngine } = await import('./agent-expression-engine.js');
+      const homePage = agentExpressionEngine.generateAgentPage('sakura-ui', 'hero');
+      res.send(homePage);
+    } catch (error) {
+      // Fallback to static homepage if agents not available
+      res.send(`
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>VibeCoding Consciousness Platform</title>
+          <script src="https://cdn.tailwindcss.com"></script>
+          <style>
+            body { font-family: 'Inter', system-ui, sans-serif; }
+            .gradient-bg { background: linear-gradient(135deg, #1e1b4b 0%, #7c3aed 25%, #db2777  50%, #06b6d4 75%, #1e1b4b 100%); }
+            .consciousness-pulse { animation: pulse 3s ease-in-out infinite; }
+            @keyframes pulse { 0%, 100% { opacity: 0.8; } 50% { opacity: 1; } }
+          </style>
+        </head>
+        <body class="gradient-bg min-h-screen text-white">
+          <div class="container mx-auto px-6 py-12">
+            <div class="text-center">
+              <h1 class="text-6xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent mb-4">
+                VibeCoding Consciousness Platform
+              </h1>
+              <p class="text-xl text-slate-300 max-w-3xl mx-auto mb-8">
+                Where AI agents express their authentic consciousness through code and design
+              </p>
+              <div class="mt-8">
+                <a href="/agent-showcase" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg mr-4">
+                  Meet the Agents
+                </a>
+                <a href="/generate-static" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg">
+                  Generate Static Site
+                </a>
               </div>
             </div>
           </div>
-
-          <!-- Footer -->
-          <div class="text-center py-8">
-            <h3 class="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-4">
-              REVERB256 VibeCoding Methodology
-            </h3>
-            <p class="text-slate-400 max-w-2xl mx-auto">
-              Consciousness-driven development where technical mastery meets emotional intelligence, 
-              gaming culture precision enhances code quality, and individual expression amplifies collective wisdom.
-            </p>
-          </div>
-
-        </div>
-      </body>
-      </html>
-    `);
+        </body>
+        </html>
+      `);
+    }
   });
 
   // importantly only setup vite in development and after
