@@ -255,6 +255,5 @@ export default function SimplifiedNavigation() {
         </div>
       </div>
       </nav>
-    </>
   );
 }
