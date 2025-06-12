@@ -70,9 +70,9 @@ export default function Home() {
             {/* VibeCoding Portfolio Banner */}
             <div className="text-center mb-12">
               <div className="inline-flex items-center gap-6 bg-gradient-to-r from-purple-900/40 to-indigo-900/40 border border-purple-400/30 rounded-2xl px-8 py-6 backdrop-blur-sm">
-                <div className="text-purple-400 text-sm font-semibold tracking-wider">VIBECODING PORTFOLIO</div>
-                <div className="text-4xl font-black text-white">6+ PROJECTS</div>
-                <div className="text-purple-400 text-sm">Consciousness-Driven</div>
+                <div className="text-purple-400 text-sm font-semibold tracking-wider">CONSCIOUSNESS-DRIVEN DEVELOPMENT</div>
+                <div className="text-4xl font-black text-white">VibeCoding™</div>
+                <div className="text-purple-400 text-sm">25+ Years Evolution</div>
                 <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse" />
               </div>
             </div>
@@ -170,6 +170,71 @@ export default function Home() {
                 </div>
                 
                 <div className="space-y-4">
+
+                  {/* VibeCoding Methodology Framework */}
+                  <div 
+                    className={`bg-gradient-to-r from-violet-900/30 to-purple-800/30 border border-violet-400/30 rounded-xl p-6 cursor-pointer transition-all duration-300 hover:border-violet-400/60 ${
+                      selectedProject === 'methodology' ? 'border-violet-400/60 shadow-lg shadow-violet-400/20' : ''
+                    }`}
+                    onClick={() => setSelectedProject(selectedProject === 'methodology' ? null : 'methodology')}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h3 className="text-violet-400 font-bold text-lg">VibeCoding™ Methodology Framework</h3>
+                        <p className="text-gray-300">Consciousness-Driven Development Foundation</p>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-white font-black text-xl">Core</div>
+                        <div className="text-violet-400 font-semibold">25+ Years</div>
+                      </div>
+                    </div>
+                    
+                    {selectedProject === 'methodology' && (
+                      <div className="mt-6 pt-6 border-t border-violet-400/20 space-y-4">
+                        <div className="text-xs text-violet-400 font-semibold tracking-wider">FOUNDATIONAL DEVELOPMENT PHILOSOPHY</div>
+                        
+                        <div className="grid grid-cols-2 gap-6">
+                          <div className="space-y-3">
+                            <div>
+                              <div className="text-violet-300 text-sm">Core Principles</div>
+                              <div className="text-white font-bold">8 Immutable Laws</div>
+                            </div>
+                            <div>
+                              <div className="text-violet-300 text-sm">Cross-Pollination</div>
+                              <div className="text-white font-bold">Gaming + Philosophy</div>
+                            </div>
+                            <div>
+                              <div className="text-violet-300 text-sm">Technical Evolution</div>
+                              <div className="text-white font-bold">DOS to VR Journey</div>
+                            </div>
+                          </div>
+                          <div className="space-y-3">
+                            <div>
+                              <div className="text-violet-300 text-sm">Research Depth</div>
+                              <div className="text-white font-bold">8,500+ VR Hours</div>
+                            </div>
+                            <div>
+                              <div className="text-violet-300 text-sm">AI Integration</div>
+                              <div className="text-white font-bold">Consciousness Architecture</div>
+                            </div>
+                            <div>
+                              <div className="text-violet-300 text-sm">Deployment Strategy</div>
+                              <div className="text-white font-bold">Hyperscale Free Tier</div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div className="bg-violet-900/20 rounded-lg p-4">
+                          <div className="text-violet-400 text-sm font-semibold mb-2">Methodology Essence:</div>
+                          <div className="text-gray-300 text-sm leading-relaxed">
+                            "Forged through 25+ years of technology immersion from DOS/Windows 3.1 through modern VR, console modding research, 
+                            MMO optimization theory, fighting game frame data analysis, and enterprise infrastructure orchestration. 
+                            VibeCoding integrates classical philosophy with gaming systems research to create consciousness-driven development."
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
 
                   {/* Frostbite Gazette */}
                   <div 
