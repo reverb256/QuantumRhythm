@@ -61,9 +61,8 @@ class ComprehensivePortfolioTracker {
       const breakdown = await this.calculateBreakdown(walletBalance, defiPositions);
       const basePortfolioValue = Object.values(breakdown).reduce((sum, value) => sum + value, 0);
       
-      // Add managed assets for true AUM calculation
-      const managedAssets = await this.calculateManagedAssets();
-      const totalAUM = basePortfolioValue + managedAssets;
+      // Use only real blockchain data - no simulated managed assets
+      const totalAUM = basePortfolioValue;
 
       console.log(`💼 Portfolio Snapshot: $${totalAUM.toFixed(2)} USD`);
       console.log(`   Wallet: $${breakdown.wallet.toFixed(2)}`);
@@ -153,14 +152,7 @@ class ComprehensivePortfolioTracker {
         
         strategiesValue = allocatedCapital;
         
-        // Add strategy-specific allocations
-        if (activeStrategies > 0) {
-          strategiesValue += activeStrategies * 25.00; // $25 per active strategy
-        }
-        
-        if (pendingTrades > 0) {
-          strategiesValue += pendingTrades * 15.00; // $15 per pending trade
-        }
+        // Only use real allocated capital - no simulated multipliers
       }
       
       return strategiesValue;
@@ -183,17 +175,15 @@ class ComprehensivePortfolioTracker {
   }
 
   private async getPendingOrdersValue(): Promise<number> {
+    // Only return real pending orders from blockchain APIs - no hardcoded values
     try {
-      // Sum up all pending limit orders, stop losses, etc.
-      let pendingValue = 0;
-      
-      // Limit orders waiting for execution
-      pendingValue += 30.00; // Example: $30 in pending limit orders
-      
-      // Stop loss orders
-      pendingValue += 20.00; // Example: $20 in stop loss positions
-      
-      return pendingValue;
+      // Query Jupiter API for pending DCA/limit orders
+      const response = await fetch(`https://api.jup.ag/v1/dca/${this.walletPublicKey.toString()}`);
+      if (response.ok) {
+        const data = await response.json();
+        return data.orders?.reduce((sum: number, order: any) => sum + (order.valueUSD || 0), 0) || 0;
+      }
+      return 0;
     } catch (error) {
       return 0;
     }
@@ -480,8 +470,22 @@ class ComprehensivePortfolioTracker {
   private async calculateBreakdown(walletBalance: any, defiPositions: DeFiPosition[]) {
     const solPrice = await this.getCurrentSOLPrice();
     
+    let walletValue = walletBalance.SOL * solPrice;
+    
+    // Add value of all SPL tokens using real prices
+    if (walletBalance.tokens) {
+      for (const [tokenSymbol, amount] of Object.entries(walletBalance.tokens)) {
+        const tokenPrice = await this.getTokenPrice(tokenSymbol);
+        if (tokenPrice && amount) {
+          const tokenValue = (amount as number) * tokenPrice;
+          walletValue += tokenValue;
+          console.log(`💰 ${tokenSymbol}: ${amount} × $${tokenPrice.toFixed(4)} = $${tokenValue.toFixed(2)}`);
+        }
+      }
+    }
+    
     const breakdown = {
-      wallet: walletBalance.SOL * solPrice,
+      wallet: walletValue,
       lending: 0,
       staking: 0,
       liquidity: 0,
