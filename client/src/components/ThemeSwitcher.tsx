@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useTheme } from '@/contexts/ThemeContext';
+import { useTheme } from '@/hooks/useTheme';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { motion, AnimatePresence } from 'framer-motion';

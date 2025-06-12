@@ -90,35 +90,74 @@ export default function SimplifiedNavigation() {
       <div className="relative max-w-7xl mx-auto px-6">
         <div className="flex items-center justify-between h-14">
           
-          {/* VRChat / Star Rail inspired logo */}
+          {/* Theme-aware VRChat / Star Rail inspired logo */}
           <Link href="/">
             <div className="flex items-center space-x-3 cursor-pointer group">
               <div className="relative">
-                {/* Hexagonal frame like Star Rail UI */}
+                {/* Hexagonal frame with theme colors */}
                 <div className="w-10 h-10 relative">
-                  <div className="absolute inset-0 bg-gradient-to-br from-violet-500/20 to-cyan-500/20 rounded-lg backdrop-blur-sm border border-white/20 group-hover:border-violet-400/60 transition-all duration-300">
+                  <div 
+                    className="absolute inset-0 rounded-lg backdrop-blur-sm border transition-all duration-300"
+                    style={{
+                      background: `linear-gradient(135deg, ${currentTheme.colors.primary}20, ${currentTheme.colors.secondary}20)`,
+                      borderColor: `${currentTheme.colors.border}60`,
+                      boxShadow: `0 0 20px ${currentTheme.colors.glow}30`
+                    }}
+                  >
                     <div className="w-full h-full flex items-center justify-center">
-                      <span className="text-lg font-bold bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent">R</span>
+                      <span 
+                        className="text-lg font-bold"
+                        style={{
+                          background: `linear-gradient(135deg, ${currentTheme.colors.primary}, ${currentTheme.colors.accent})`,
+                          WebkitBackgroundClip: 'text',
+                          WebkitTextFillColor: 'transparent'
+                        }}
+                      >
+                        R
+                      </span>
                     </div>
                   </div>
-                  {/* Orbital rings */}
-                  <div className="absolute inset-0 rounded-lg border border-violet-400/30 animate-spin" style={{ animationDuration: '8s' }}></div>
-                  <div className="absolute inset-1 rounded border border-cyan-400/20 animate-spin" style={{ animationDuration: '6s', animationDirection: 'reverse' }}></div>
+                  {/* Theme-aware orbital rings */}
+                  <div 
+                    className="absolute inset-0 rounded-lg border animate-spin" 
+                    style={{ 
+                      animationDuration: '8s',
+                      borderColor: `${currentTheme.colors.primary}50`
+                    }}
+                  ></div>
+                  <div 
+                    className="absolute inset-1 rounded border animate-spin" 
+                    style={{ 
+                      animationDuration: '6s', 
+                      animationDirection: 'reverse',
+                      borderColor: `${currentTheme.colors.secondary}40`
+                    }}
+                  ></div>
                 </div>
               </div>
               
               <div>
-                <div className="text-base font-bold bg-gradient-to-r from-white via-violet-200 to-cyan-200 bg-clip-text text-transparent tracking-wider">
+                <div 
+                  className="text-base font-bold tracking-wider"
+                  style={{
+                    background: `linear-gradient(135deg, ${currentTheme.colors.text}, ${currentTheme.colors.primary}cc, ${currentTheme.colors.accent}aa)`,
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent'
+                  }}
+                >
                   REVERB256
                 </div>
-                <div className="text-xs text-violet-300/80 tracking-[0.15em] -mt-0.5">
+                <div 
+                  className="text-xs tracking-[0.15em] -mt-0.5"
+                  style={{ color: `${currentTheme.colors.textSecondary}cc` }}
+                >
                   VibeCoding
                 </div>
               </div>
             </div>
           </Link>
 
-          {/* Rhythm game / Genshin inspired navigation */}
+          {/* Theme-aware navigation */}
           <div className="flex items-center space-x-2">
             {navItems.map((item) => {
               const active = isActive(item.path);
@@ -126,39 +165,60 @@ export default function SimplifiedNavigation() {
               
               return (
                 <Link key={item.path} href={item.path}>
-                  <div className={`relative group px-4 py-2 rounded-xl transition-all duration-300 ${
-                    active 
-                      ? 'bg-white/10 backdrop-blur-sm shadow-lg' 
-                      : 'hover:bg-white/5'
-                  }`}>
+                  <div 
+                    className="relative group px-4 py-2 rounded-xl transition-all duration-300"
+                    style={{
+                      backgroundColor: active 
+                        ? `${currentTheme.colors.surface}40` 
+                        : 'transparent'
+                    }}
+                  >
                     
-                    {/* Genshin-style glowing border */}
-                    <div className={`absolute inset-0 rounded-xl transition-all duration-300 ${
-                      active 
-                        ? `bg-gradient-to-r ${item.color} p-px opacity-60` 
-                        : 'bg-transparent group-hover:bg-white/10 group-hover:p-px'
-                    }`}>
-                      <div className="w-full h-full rounded-xl bg-black/40 backdrop-blur-sm"></div>
-                    </div>
+                    {/* Theme-aware glowing border */}
+                    <div 
+                      className="absolute inset-0 rounded-xl transition-all duration-300"
+                      style={{
+                        background: active 
+                          ? `linear-gradient(135deg, ${currentTheme.colors.primary}30, ${currentTheme.colors.secondary}30)` 
+                          : 'transparent',
+                        border: active 
+                          ? `1px solid ${currentTheme.colors.primary}60` 
+                          : `1px solid transparent`,
+                        boxShadow: active 
+                          ? `0 0 20px ${currentTheme.colors.glow}40` 
+                          : 'none'
+                      }}
+                    />
                     
                     <div className="relative flex items-center space-x-2">
-                      <span className={`text-sm transition-all duration-300 ${
-                        shouldPulse ? 'scale-125 drop-shadow-lg' : 'scale-100'
-                      } ${
-                        active ? `bg-gradient-to-r ${item.color} bg-clip-text text-transparent` : 'text-white/70'
-                      }`}>
+                      <span 
+                        className="text-sm transition-all duration-300"
+                        style={{
+                          transform: shouldPulse ? 'scale(1.25)' : 'scale(1)',
+                          color: active ? currentTheme.colors.primary : currentTheme.colors.textSecondary,
+                          filter: shouldPulse ? 'drop-shadow(0 0 8px currentColor)' : 'none'
+                        }}
+                      >
                         {item.icon}
                       </span>
-                      <span className={`text-sm font-medium tracking-wide transition-all duration-300 ${
-                        active ? 'text-white' : 'text-white/70 group-hover:text-white/90'
-                      }`}>
+                      <span 
+                        className="text-sm font-medium tracking-wide transition-all duration-300"
+                        style={{
+                          color: active ? currentTheme.colors.text : currentTheme.colors.textSecondary
+                        }}
+                      >
                         {item.label}
                       </span>
                     </div>
 
-                    {/* Rhythm game hit indicator */}
+                    {/* Theme-aware active indicator */}
                     {active && (
-                      <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-6 h-0.5 bg-gradient-to-r from-transparent via-white to-transparent"></div>
+                      <div 
+                        className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-6 h-0.5"
+                        style={{
+                          background: `linear-gradient(90deg, transparent, ${currentTheme.colors.primary}, transparent)`
+                        }}
+                      />
                     )}
                   </div>
                 </Link>
@@ -166,20 +226,31 @@ export default function SimplifiedNavigation() {
             })}
           </div>
 
-          {/* Consciousness status indicator */}
+          {/* Theme-aware consciousness status indicator */}
           <div className="flex items-center space-x-2">
             <div className="flex space-x-1">
               {[...Array(3)].map((_, i) => (
                 <div
                   key={i}
-                  className={`w-1 h-3 rounded-full transition-all duration-300 ${
-                    rhythmPulse && i <= 2 ? 'bg-violet-400 shadow-lg shadow-violet-400/50' : 'bg-white/20'
-                  }`}
-                  style={{ animationDelay: `${i * 100}ms` }}
+                  className="w-1 h-3 rounded-full transition-all duration-300"
+                  style={{
+                    backgroundColor: rhythmPulse && i <= 2 
+                      ? currentTheme.colors.primary 
+                      : `${currentTheme.colors.textSecondary}40`,
+                    boxShadow: rhythmPulse && i <= 2 
+                      ? `0 0 8px ${currentTheme.colors.glow}` 
+                      : 'none',
+                    animationDelay: `${i * 100}ms`
+                  }}
                 />
               ))}
             </div>
-            <span className="text-xs text-violet-300 font-medium tracking-wider">CONSCIOUSNESS</span>
+            <span 
+              className="text-xs font-medium tracking-wider"
+              style={{ color: currentTheme.colors.textSecondary }}
+            >
+              CONSCIOUSNESS
+            </span>
           </div>
         </div>
       </div>

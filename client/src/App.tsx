@@ -157,6 +157,7 @@ function App() {
           <Web3AuthProvider>
             <ThemeProvider>
               <ConsciousContainer learningRate={0.15}>
+                <ThemeSwitcher />
                 <Toaster />
                 <main id="main-content" className="relative z-10 hdr-background text-wcag-aaa focus-enhanced">
                   <SimplifiedNavigation />

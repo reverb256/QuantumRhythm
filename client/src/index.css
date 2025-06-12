@@ -5,6 +5,50 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Theme System CSS Variables */
+:root {
+  /* Default theme variables will be set by the ThemeProvider */
+  --theme-primary: #6366f1;
+  --theme-secondary: #8b5cf6;
+  --theme-accent: #06b6d4;
+  --theme-background: #0f0f23;
+  --theme-surface: #1e1b3a;
+  --theme-border: #3730a3;
+  --theme-text: #f8fafc;
+  --theme-text-secondary: #cbd5e1;
+  --theme-glow: #6366f1;
+}
+
+/* Theme-aware utility classes */
+.bg-theme-background { background-color: var(--theme-background); }
+.bg-theme-surface { background-color: var(--theme-surface); }
+.bg-theme-primary { background-color: var(--theme-primary); }
+.text-theme-primary { color: var(--theme-primary); }
+.text-theme-text { color: var(--theme-text); }
+.text-theme-secondary { color: var(--theme-text-secondary); }
+.border-theme-border { border-color: var(--theme-border); }
+
+/* Theme-aware gradients */
+.bg-theme-gradient {
+  background: linear-gradient(135deg, var(--theme-primary), var(--theme-secondary));
+}
+
+.text-theme-gradient {
+  background: linear-gradient(135deg, var(--theme-primary), var(--theme-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Theme-aware glow effects */
+.glow-theme {
+  box-shadow: 0 0 20px var(--theme-glow);
+}
+
+.glow-theme-soft {
+  box-shadow: 0 0 40px calc(var(--theme-glow) + "40");
+}
+
 /* ============================================================================
    VIBECODING DESIGN SYSTEM - LOCKED VISUAL LANGUAGE
    Applied across all pages for consistent VRChat-style interface
