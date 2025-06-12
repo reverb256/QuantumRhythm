@@ -13,11 +13,6 @@ export default function SimplifiedNavigation() {
       icon: Home,
     },
     {
-      path: '/consciousness',
-      label: 'Consciousness',
-      icon: Brain,
-    },
-    {
       path: '/portfolio',
       label: 'Portfolio',
       icon: Code,
@@ -28,9 +23,9 @@ export default function SimplifiedNavigation() {
       icon: TrendingUp,
     },
     {
-      path: '/cost-optimization',
-      label: 'Sovereign',
-      icon: DollarSign,
+      path: '/contact',
+      label: 'Contact',
+      icon: Brain,
     }
   ];
 
