@@ -11,6 +11,7 @@ import agentInsightsRouter from "./routes/agent-insights";
 import portfolioRouter from "./routes/portfolio";
 import intelligenceRouter from "./routes/intelligence";
 import transformationRouter from "./routes/transformation";
+import githubRouter from "./routes/github.js";
 import { donationTracker } from "./donation-tracker";
 import { fileURLToPath } from "url";
 
@@ -159,6 +160,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Add intelligence routes
   app.use('/api/intelligence', intelligenceRouter);
   app.use('/api/transformation', transformationRouter);
+  app.use('/api/github', githubRouter);
 
   // Add multi-chain trading API routes
   app.use('/api/trading', tradingApiRouter);
