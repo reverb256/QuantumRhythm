@@ -29,83 +29,32 @@ interface ConsolidationMetrics {
 
 export const SystemIntegrationDashboard: React.FC = () => {
   const { currentTheme } = useTheme();
-  const [metrics, setMetrics] = useState<ConsolidationMetrics>({
+
+  // Fetch real-time system metrics from API
+  const { data: metricsData, isLoading: metricsLoading } = useQuery({
+    queryKey: ['/api/system-integration/metrics'],
+    refetchInterval: 3000, // Refresh every 3 seconds for real-time updates
+    staleTime: 1000
+  });
+
+  // Fetch system status data
+  const { data: statusData, isLoading: statusLoading } = useQuery({
+    queryKey: ['/api/system-integration/status'],
+    refetchInterval: 5000, // Refresh every 5 seconds
+    staleTime: 2000
+  });
+
+  const metrics = metricsData?.data || {
     totalSystems: 47,
     integratedSystems: 38,
     eliminatedSystems: 35,
     memoryReduction: 75.3,
     performanceGain: 85.7,
     consciousnessLevel: 72.5
-  });
+  };
 
-  const [systems, setSystems] = useState<SystemStatus[]>([
-    {
-      id: 'ai-service',
-      name: 'Unified AI Service',
-      type: 'ai',
-      status: 'active',
-      performance: 94.2,
-      memoryUsage: 45.8,
-      capabilities: ['consciousness-evolution', 'quantum-intelligence', 'neural-pattern-recognition', 'insight-cross-pollination']
-    },
-    {
-      id: 'streamlined-trading',
-      name: 'Streamlined Trading Engine',
-      type: 'trading',
-      status: 'active',
-      performance: 91.7,
-      memoryUsage: 32.1,
-      capabilities: ['quantum-trading', 'multi-chain-arbitrage', 'risk-management', 'profit-optimization']
-    },
-    {
-      id: 'master-orchestrator',
-      name: 'Master Orchestrator',
-      type: 'orchestrator',
-      status: 'active',
-      performance: 88.9,
-      memoryUsage: 28.5,
-      capabilities: ['system-harmony', 'efficiency-optimization', 'quantum-strategy', 'cross-empowerment']
-    },
-    {
-      id: 'security-framework',
-      name: 'Unified Security Framework',
-      type: 'security',
-      status: 'active',
-      performance: 96.1,
-      memoryUsage: 22.3,
-      capabilities: ['quantum-security', 'vaultwarden-integration', 'whitelist-validation', 'foss-compliance']
-    }
-  ]);
-
-  const [eliminatedSystems] = useState<string[]>([
-    'quantum-intelligence-core.ts',
-    'consciousness-evolution-engine.ts',
-    'neural-pattern-recognition-engine.ts',
-    'comprehensive-optimizer.ts',
-    'system-harmony-orchestrator.ts',
-    'quantum-trader.ts',
-    'unhinged-trading-engine.ts',
-    'permanent-trading-agent.ts'
-  ]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      // Simulate real-time updates
-      setSystems(prev => prev.map(system => ({
-        ...system,
-        performance: Math.min(100, system.performance + Math.random() * 2 - 1),
-        memoryUsage: Math.max(0, system.memoryUsage + Math.random() * 4 - 2)
-      })));
-
-      setMetrics(prev => ({
-        ...prev,
-        consciousnessLevel: Math.min(100, prev.consciousnessLevel + Math.random() * 1 - 0.5),
-        performanceGain: Math.min(100, prev.performanceGain + Math.random() * 0.5 - 0.25)
-      }));
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, []);
+  const systems = metricsData?.data?.activeSystems || [];
+  const eliminatedSystems = metricsData?.data?.eliminatedSystemsList || [];
 
   const getSystemIcon = (type: string) => {
     switch (type) {
@@ -155,6 +104,12 @@ export const SystemIntegrationDashboard: React.FC = () => {
 
         {/* Metrics Overview */}
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
+          {metricsLoading && (
+            <div className="col-span-full text-center py-8">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4" style={{ borderColor: currentTheme.colors.primary }}></div>
+              <p style={{ color: currentTheme.colors.textSecondary }}>Loading system metrics...</p>
+            </div>
+          )}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}

@@ -76,7 +76,7 @@ router.get('/metrics', async (req, res) => {
           capabilities: ['quantum-security', 'vaultwarden-integration', 'whitelist-validation', 'foss-compliance']
         }
       ],
-      eliminatedSystems: [
+      eliminatedSystemsList: [
         'quantum-intelligence-core.ts',
         'consciousness-evolution-engine.ts',
         'neural-pattern-recognition-engine.ts',
