@@ -36,7 +36,8 @@ export default function QuantumPortfolio() {
       const totalValue = portfolioData?.portfolio?.totalValueUSD || 
                         portfolioData?.data?.totalValue || 
                         portfolioData?.totalValueUSD ||
-                        portfolioData?.data?.portfolioValue;
+                        portfolioData?.data?.portfolioValue ||
+                        portfolioData?.data?.totalValueUSD;
       
       if (totalValue !== undefined && totalValue > 0) {
         console.log('Updating portfolio value from blockchain:', totalValue);
@@ -44,6 +45,17 @@ export default function QuantumPortfolio() {
       }
     }
   }, [portfolioData]);
+
+  // Update portfolio value from trading data if available
+  useEffect(() => {
+    if (tradingData?.success && tradingData?.data?.portfolioValue) {
+      const tradingValue = tradingData.data.portfolioValue;
+      if (tradingValue > 0) {
+        console.log('Updating portfolio value from trading data:', tradingValue);
+        setPortfolioValue(Number(tradingValue.toFixed(2)));
+      }
+    }
+  }, [tradingData]);
 
   const vibeCodingProjects = [
     {

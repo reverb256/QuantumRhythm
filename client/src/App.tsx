@@ -30,6 +30,7 @@ import Contact from "@/pages/Contact";
 import Akasha from "@/pages/Akasha";
 import Showcase from "@/pages/Showcase";
 import AgentGallery from "@/pages/AgentGallery";
+import SecurityDashboard from "@/pages/SecurityDashboard";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -95,6 +96,7 @@ function Router() {
         <Route path="/akasha" component={Akasha} />
         <Route path="/showcase" component={Showcase} />
         <Route path="/agents" component={AgentGallery} />
+        <Route path="/security" component={SecurityDashboard} />
         <Route path="/contact" component={Contact} />
         
         {/* Redirect legacy routes to main sections */}
