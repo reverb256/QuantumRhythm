@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'wouter';
 import { useQuery } from '@tanstack/react-query';
-import profileImage from '/images/profile-optimized.jpg';
 
 // Consciousness-driven home page that showcases VibeCoding potential
 export default function Home() {
@@ -94,7 +93,7 @@ export default function Home() {
                     {/* Core avatar */}
                     <div className="absolute inset-6 rounded-full overflow-hidden border-4 border-gradient-to-r from-cyan-400 via-purple-400 to-pink-400">
                       <img 
-                        src={profileImage} 
+                        src="/images/profile-optimized.jpg" 
                         alt="VibeCoding Developer" 
                         className="w-full h-full object-cover"
                         loading="lazy"
