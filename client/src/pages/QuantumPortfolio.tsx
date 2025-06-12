@@ -166,7 +166,7 @@ export default function QuantumPortfolio() {
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 pt-24 px-6">
+      <div className="relative z-10 pt-16 px-6">
         <div className="max-w-7xl mx-auto">
           
           {/* Hero Section */}

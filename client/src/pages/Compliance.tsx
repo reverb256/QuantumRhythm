@@ -128,7 +128,7 @@ export default function Compliance() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-purple-950/20 to-cyan-950/20 pt-20">
+    <div className="min-h-screen bg-gradient-to-br from-black via-purple-950/20 to-cyan-950/20 pt-16">
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Header */}
         <div className="text-center mb-12">
