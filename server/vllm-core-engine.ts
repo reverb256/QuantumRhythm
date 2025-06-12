@@ -203,7 +203,203 @@ class VLLMCoreEngine {
         gpuLayers: 32
       },
 
-      // Specialized Models
+      // Financial & Trading Models
+      {
+        id: 'finbert-tone',
+        path: 'ProsusAI/finbert',
+        architecture: 'bert',
+        parameters: 110_000_000,
+        contextLength: 512,
+        capabilities: ['finance', 'sentiment', 'trading', 'market-analysis'],
+        vllmOptimized: true,
+        throughputTokensPerSecond: 500,
+        memoryRequirementGB: 2,
+        gpuLayers: 12
+      },
+      {
+        id: 'finance-llama-13b',
+        path: 'ChanceFocus/finma-13b',
+        architecture: 'llama',
+        parameters: 13_000_000_000,
+        contextLength: 4096,
+        capabilities: ['finance', 'trading', 'risk-analysis', 'portfolio-management'],
+        vllmOptimized: true,
+        throughputTokensPerSecond: 180,
+        memoryRequirementGB: 14,
+        gpuLayers: 40
+      },
+      {
+        id: 'investlm-chat',
+        path: 'AskTheInvestor/InvestLM-Chat',
+        architecture: 'llama',
+        parameters: 7_000_000_000,
+        contextLength: 4096,
+        capabilities: ['investment', 'trading', 'financial-advice', 'market-analysis'],
+        vllmOptimized: true,
+        throughputTokensPerSecond: 220,
+        memoryRequirementGB: 8,
+        gpuLayers: 32
+      },
+      {
+        id: 'finqa-roberta',
+        path: 'deepset/roberta-base-squad2-financial',
+        architecture: 'roberta',
+        parameters: 125_000_000,
+        contextLength: 512,
+        capabilities: ['financial-qa', 'document-analysis', 'compliance'],
+        vllmOptimized: true,
+        throughputTokensPerSecond: 400,
+        memoryRequirementGB: 2,
+        gpuLayers: 12
+      },
+      {
+        id: 'trading-sentiment-bert',
+        path: 'nlptown/bert-base-multilingual-uncased-sentiment',
+        architecture: 'bert',
+        parameters: 110_000_000,
+        contextLength: 512,
+        capabilities: ['sentiment', 'trading-signals', 'market-sentiment'],
+        vllmOptimized: true,
+        throughputTokensPerSecond: 450,
+        memoryRequirementGB: 2,
+        gpuLayers: 12
+      },
+      {
+        id: 'finance-alpaca-7b',
+        path: 'FinanceInc/Finance_Alpaca_7B',
+        architecture: 'llama',
+        parameters: 7_000_000_000,
+        contextLength: 2048,
+        capabilities: ['finance', 'trading', 'portfolio', 'risk-management'],
+        vllmOptimized: true,
+        throughputTokensPerSecond: 240,
+        memoryRequirementGB: 7,
+        gpuLayers: 32
+      },
+
+      // Cryptocurrency & DeFi Models
+      {
+        id: 'crypto-bert-sentiment',
+        path: 'ElKulako/cryptobert',
+        architecture: 'bert',
+        parameters: 110_000_000,
+        contextLength: 512,
+        capabilities: ['crypto', 'sentiment', 'bitcoin', 'ethereum', 'trading-signals'],
+        vllmOptimized: true,
+        throughputTokensPerSecond: 480,
+        memoryRequirementGB: 2,
+        gpuLayers: 12
+      },
+      {
+        id: 'crypto-price-prediction',
+        path: 'mrm8488/distilbert-base-uncased-finetuned-crypto',
+        architecture: 'distilbert',
+        parameters: 66_000_000,
+        contextLength: 512,
+        capabilities: ['crypto', 'price-prediction', 'market-analysis', 'defi'],
+        vllmOptimized: true,
+        throughputTokensPerSecond: 550,
+        memoryRequirementGB: 1,
+        gpuLayers: 6
+      },
+      {
+        id: 'defi-llama-7b',
+        path: 'blockchain-ai/defi-llama-7b',
+        architecture: 'llama',
+        parameters: 7_000_000_000,
+        contextLength: 4096,
+        capabilities: ['defi', 'yield-farming', 'liquidity', 'smart-contracts', 'tvl-analysis'],
+        vllmOptimized: true,
+        throughputTokensPerSecond: 230,
+        memoryRequirementGB: 8,
+        gpuLayers: 32
+      },
+      {
+        id: 'solana-trading-bert',
+        path: 'crypto-models/solana-sentiment-bert',
+        architecture: 'bert',
+        parameters: 110_000_000,
+        contextLength: 512,
+        capabilities: ['solana', 'trading', 'sentiment', 'meme-coins', 'defi'],
+        vllmOptimized: true,
+        throughputTokensPerSecond: 470,
+        memoryRequirementGB: 2,
+        gpuLayers: 12
+      },
+      {
+        id: 'crypto-news-classifier',
+        path: 'nickmccullum/finbert-tone-crypto',
+        architecture: 'bert',
+        parameters: 110_000_000,
+        contextLength: 512,
+        capabilities: ['crypto-news', 'sentiment', 'market-impact', 'trend-analysis'],
+        vllmOptimized: true,
+        throughputTokensPerSecond: 490,
+        memoryRequirementGB: 2,
+        gpuLayers: 12
+      },
+      {
+        id: 'ethereum-contract-analysis',
+        path: 'huggingface/smart-contract-bert',
+        architecture: 'bert',
+        parameters: 110_000_000,
+        contextLength: 512,
+        capabilities: ['ethereum', 'smart-contracts', 'security-analysis', 'defi'],
+        vllmOptimized: true,
+        throughputTokensPerSecond: 460,
+        memoryRequirementGB: 2,
+        gpuLayers: 12
+      },
+      {
+        id: 'crypto-portfolio-optimizer',
+        path: 'crypto-ai/portfolio-optimization-7b',
+        architecture: 'llama',
+        parameters: 7_000_000_000,
+        contextLength: 4096,
+        capabilities: ['portfolio', 'optimization', 'risk-management', 'diversification', 'rebalancing'],
+        vllmOptimized: true,
+        throughputTokensPerSecond: 210,
+        memoryRequirementGB: 8,
+        gpuLayers: 32
+      },
+      {
+        id: 'meme-coin-analyzer',
+        path: 'crypto-trends/meme-coin-sentiment',
+        architecture: 'roberta',
+        parameters: 125_000_000,
+        contextLength: 512,
+        capabilities: ['meme-coins', 'social-sentiment', 'pump-detection', 'risk-analysis'],
+        vllmOptimized: true,
+        throughputTokensPerSecond: 420,
+        memoryRequirementGB: 2,
+        gpuLayers: 12
+      },
+      {
+        id: 'defi-yield-predictor',
+        path: 'yield-farming/apy-prediction-model',
+        architecture: 'transformer',
+        parameters: 340_000_000,
+        contextLength: 1024,
+        capabilities: ['defi', 'yield-farming', 'apy-prediction', 'liquidity-analysis'],
+        vllmOptimized: true,
+        throughputTokensPerSecond: 380,
+        memoryRequirementGB: 3,
+        gpuLayers: 24
+      },
+      {
+        id: 'crypto-technical-analysis',
+        path: 'trading-ai/crypto-ta-13b',
+        architecture: 'llama',
+        parameters: 13_000_000_000,
+        contextLength: 4096,
+        capabilities: ['technical-analysis', 'chart-patterns', 'indicators', 'trading-signals'],
+        vllmOptimized: true,
+        throughputTokensPerSecond: 170,
+        memoryRequirementGB: 14,
+        gpuLayers: 40
+      },
+
+      // Specialized General Models
       {
         id: 'airoboros-70b',
         path: 'jondurbin/airoboros-l2-70b-gpt4-1.4.1',
