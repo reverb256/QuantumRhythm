@@ -346,7 +346,7 @@ jobs:
         
         <div style="margin-top: 40px;">
             <h2>🎯 Active Strategies</h2>
-            ${this.walletData.activeStrategies.map(strategy => `
+            ${this.walletData.activeStrategies.map((strategy: any) => `
                 <div class="stat-card">
                     <strong>${strategy.protocol}</strong> - ${strategy.apy}% APY
                     <br>Allocated: ${strategy.allocation} SOL

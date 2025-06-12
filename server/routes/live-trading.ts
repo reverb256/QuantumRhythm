@@ -26,7 +26,7 @@ router.post('/activate', async (req, res) => {
     console.error('Live trading activation failed:', error);
     res.status(500).json({
       success: false,
-      error: error.message
+      error: error instanceof Error ? error.message : String(error)
     });
   }
 });
@@ -44,7 +44,7 @@ router.get('/status', async (req, res) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      error: error.message
+      error: error instanceof Error ? error.message : String(error)
     });
   }
 });

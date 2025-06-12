@@ -133,7 +133,7 @@ export class RealProfitTrader {
       if (orcaPrice) prices.push(orcaPrice);
       
     } catch (error) {
-      console.log(`Price fetch error for ${pair}:`, error.message);
+      console.log(`Price fetch error for ${pair}:`, error instanceof Error ? error.message : String(error));
     }
     
     return prices.length > 0 ? prices : [220]; // Fallback to approximate SOL price
