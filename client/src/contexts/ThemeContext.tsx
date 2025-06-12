@@ -6,6 +6,7 @@ interface ThemeColors {
   accent: string;
   background: string;
   surface: string;
+  cardBackground: string;
   text: string;
   textSecondary: string;
   border: string;

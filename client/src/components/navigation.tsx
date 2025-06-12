@@ -18,85 +18,61 @@ interface NavDropdown {
 const mainNavItems: NavItem[] = [
   {
     path: '/',
-    label: 'Home',
+    label: 'Quantum Nexus',
     icon: Home,
-    description: 'The nexus of consciousness and code'
+    description: 'Consciousness-driven development hub'
   },
   {
-    path: '/philosophy',
-    label: 'Philosophy',
-    icon: Heart,
-    description: 'Soul connections and distant healing'
-  },
-  {
-    path: '/projects',
-    label: 'Projects',
-    icon: Code,
-    description: 'VibeCoding creations and quantum systems'
-  },
-  {
-    path: '/consciousness-map',
-    label: 'Consciousness',
+    path: '/consciousness',
+    label: 'Consciousness Core',
     icon: Brain,
-    description: 'Agent network topology and influence mapping'
+    description: 'Philosophy, values, and agent consciousness mapping'
+  },
+  {
+    path: '/portfolio',
+    label: 'Quantum Portfolio',
+    icon: Code,
+    description: 'Showcase of VibeCoding projects and achievements'
   }
 ];
 
 const tradingItems: NavItem[] = [
   {
-    path: '/dashboard',
-    label: 'Trading Dashboard',
+    path: '/trading-hub',
+    label: 'Trading Nexus',
     icon: TrendingUp,
-    description: 'Main trading interface and analytics'
+    description: 'Unified trading dashboard with live execution'
   },
   {
-    path: '/trader-dashboard',
-    label: 'Trader Dashboard',
+    path: '/ai-intelligence',
+    label: 'AI Intelligence',
     icon: Bot,
-    description: 'Advanced trader analytics and controls'
+    description: 'AI systems, consciousness evolution, and insights'
   },
   {
-    path: '/trading-visualization',
-    label: 'Agent Visualization',
-    icon: Brain,
-    description: 'Deep visualization into trading agent behavior'
-  },
-  {
-    path: '/trading',
-    label: 'Trading Interface',
-    icon: TrendingUp,
-    description: 'Live trading execution interface'
-  },
-  {
-    path: '/defi',
-    label: 'DeFi Dashboard',
+    path: '/defi-protocols',
+    label: 'DeFi Protocols',
     icon: Shield,
-    description: 'Decentralized finance protocols'
+    description: 'Multi-chain yield optimization and security'
   }
 ];
 
 const platformItems: NavItem[] = [
   {
-    path: '/platform',
-    label: 'Platform Overview',
+    path: '/quantum-platform',
+    label: 'Quantum Platform',
     icon: Building,
-    description: 'Quantum platform architecture and features'
+    description: 'Technical architecture and deployment systems'
   },
   {
-    path: '/values',
-    label: 'Values',
-    icon: Heart,
-    description: 'Core principles and ethics'
-  },
-  {
-    path: '/vrchat',
-    label: 'VRChat',
+    path: '/virtual-realms',
+    label: 'Virtual Realms',
     icon: Gamepad2,
-    description: 'Virtual reality experiences'
+    description: 'VRChat experiences and immersive environments'
   },
   {
-    path: '/cloudflare',
-    label: 'Cloudflare',
+    path: '/security-compliance',
+    label: 'Security Matrix',
     icon: Shield,
     description: 'Infrastructure optimization'
   },
