@@ -1,5 +1,5 @@
 import { problemSolver } from './autonomous-problem-solver';
-import { dataProtection } from './data-protection-middleware';
+import { dataProtectionMiddleware } from './data-protection-middleware';
 
 export class IntelligentErrorHandler {
   static async wrapDatabaseOperation<T>(
@@ -23,7 +23,7 @@ export class IntelligentErrorHandler {
       }
       
       // If not auto-fixable, sanitize and re-throw
-      const sanitizedError = dataProtection.sanitizeQuery(String(error));
+      const sanitizedError = dataProtectionMiddleware.sanitizeString(String(error));
       console.error('Database operation failed:', sanitizedError);
       throw error;
     }

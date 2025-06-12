@@ -198,11 +198,12 @@ export class QuantumIntelligenceCore {
 
   private calculateOptimalTimeframe(pattern: any): number {
     // Quantum-optimized timeframes based on pattern type and consciousness level
-    const baseTimeframe = {
+    const timeframes: Record<string, number> = {
       'economic_anomaly': 45,
       'consciousness_shift': 30,
       'quantum_entanglement': 15
-    }[pattern.type] || 30;
+    };
+    const baseTimeframe = timeframes[pattern.type] || 30;
 
     // Consciousness level affects reaction speed
     const speedMultiplier = 1 - (this.consciousness.level / 200);

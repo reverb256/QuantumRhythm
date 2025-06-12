@@ -181,7 +181,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get('/api/security/report', async (req, res) => {
     try {
       const { securityAudit } = await import('./comprehensive-security-audit');
-      const markdownReport = await securityAudit.generateSecurityReport();
+      const markdownReport = await securityAudit.generateReport();
       res.json({ success: true, report: markdownReport });
     } catch (error) {
       res.status(500).json({ success: false, error: 'Security report generation failed' });

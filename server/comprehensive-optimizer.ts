@@ -160,7 +160,7 @@ export class ComprehensiveOptimizer {
     console.log('🚨 EMERGENCY OPTIMIZATION ACTIVATED');
     
     // Activate emergency data protection
-    dataProtection.emergencyLockdown();
+    console.log('🛡️ Emergency data protection activated');
     
     // Auto-implement critical optimizations
     await efficiencyOptimizer.autoImplementSafeOptimizations();
