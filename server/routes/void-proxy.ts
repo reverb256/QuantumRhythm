@@ -480,7 +480,7 @@ router.post('/v1/chat/completions', async (req, res) => {
     aiParameterOptimizer.recordRequest({
       responseTime,
       quality: estimateResponseQuality(responseData, content),
-      success: response.ok && responseData.success !== false,
+      success: routingSuccess,
       parameters: {
         temperature: finalTemperature,
         max_tokens: finalMaxTokens,
@@ -496,13 +496,12 @@ router.post('/v1/chat/completions', async (req, res) => {
     aiOptimizer.updateModelPerformance(
       optimalModel.id, 
       responseTime, 
-      response.ok && responseData.success !== false,
+      routingSuccess,
       estimateResponseQuality(responseData, content)
     );
 
-    // Response is already handled above, no need for error checking here
-
-    const data = await response.json();
+    // Use the responseData we already have
+    const data = responseData;
 
     if (!data.success) {
       throw new Error(`Routing failed: ${data.error}`);
