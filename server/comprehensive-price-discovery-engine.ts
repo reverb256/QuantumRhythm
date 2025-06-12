@@ -535,17 +535,8 @@ export class ComprehensivePriceDiscoveryEngine {
     }
 
     if (prices.length === 0) {
-      // Enhanced fallback for critical tokens like RAY
-      if (tokenSymbol === 'RAY') {
-        const fallbackPrice = await this.getRAYFallbackPrice();
-        if (fallbackPrice > 0) {
-          console.log(`🔄 Using RAY fallback price: $${fallbackPrice.toFixed(4)}`);
-          return fallbackPrice;
-        }
-      }
-      
-      console.log(`❌ No price data found for ${tokenSymbol}`);
-      return 0;
+      console.log(`❌ No authentic price data available for ${tokenSymbol}`);
+      throw new Error(`Authentic price data required for ${tokenSymbol} - no fallbacks allowed`);
     }
 
     // Cache the results
