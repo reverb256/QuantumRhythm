@@ -49,7 +49,7 @@ export const tradingSignals = pgTable("trading_signals", {
 
 // Wallet Activity Tracking (Fixed UUID schema)
 export const walletActivity = pgTable("wallet_activity", {
-  id: uuid("id").primaryKey().defaultRandom(),
+  id: uuid("id").primaryKey().default(sql`gen_random_uuid()`),
   walletAddress: text("wallet_address").notNull(),
   activityType: varchar("activity_type", { length: 50 }).notNull(),
   amount: decimal("amount", { precision: 18, scale: 9 }),
