@@ -18,16 +18,56 @@ class AIModelOptimizer {
   }
 
   private initializeModelTracking() {
-    // Track performance metrics for each model
+    // Track performance metrics for each model - comprehensive list
     const baseModels = [
+      // Massive Scale Models (200B+ parameters)
       'qwen3-235b-a22b-fp8',
-      'deepseek-r1', 
+      'qwen/qwen2.5-72b-instruct',
+      'meta-llama/llama-3.1-70b-instruct',
+      'meta-llama/llama-3.3-70b-instruct',
+      
+      // Advanced Reasoning Models
+      'deepseek-r1',
+      'deepseek-ai/deepseek-r1-distill-llama-70b',
       'qwq-32b-preview',
+      'claude-sonnet-4-20250514',
+      'claude-3-7-sonnet-20250219',
+      'gpt-4o',
+      'gpt-4o-mini',
+      'grok-2-1212',
+      
+      // Code Specialists
       'qwen2.5-coder-32b-instruct',
+      'microsoft/DialoGPT-large',
+      'huggingface/CodeBERTa-small-v1',
+      'bigcode/starcoder2-15b',
+      'codellama/CodeLlama-34b-Instruct-hf',
+      
+      // Vision-Language Models
       'llama-3.2-90b-vision-instruct',
       'qwen2-vl-72b-instruct',
+      'microsoft/kosmos-2-patch14-224',
+      
+      // Math & Logic Specialists
       'acemath-7b',
-      'meta-llama/llama-3.3-70b-instruct'
+      'microsoft/WizardMath-70B-V1.0',
+      'google/flan-t5-xxl',
+      
+      // Conversational Models
+      'mistralai/Mixtral-8x7B-Instruct-v0.1',
+      'microsoft/GODEL-v1_1-large-seq2seq',
+      'anthropic/claude-3-haiku-20240307',
+      
+      // Emerging and Specialized
+      'bigscience/bloom-7b1',
+      'EleutherAI/gpt-j-6b',
+      'facebook/opt-6.7b',
+      'together-ai/RedPajama-INCITE-7B-Chat',
+      
+      // Research Models
+      'allenai/longformer-large-4096',
+      'microsoft/deberta-v3-large',
+      'sentence-transformers/all-MiniLM-L6-v2'
     ];
 
     baseModels.forEach(model => {
