@@ -106,7 +106,7 @@ body {
   top: 0 !important;
 }
 
-/* Cover any browser UI at the top */
+/* Aggressive blue bar elimination */
 body::before {
   content: '' !important;
   position: fixed !important;
@@ -117,6 +117,30 @@ body::before {
   background: #0f0f23 !important;
   z-index: 10000 !important;
   display: block !important;
+}
+
+/* Target Replit-specific elements */
+[data-replit], .replit-ui, #replit-ui, .replit-header, .replit-chrome {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  width: 0 !important;
+}
+
+/* Target common browser chrome selectors */
+.chrome-header, .browser-header, .webview-header, .frame-header {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Nuclear option - hide any top-level blue elements */
+div[style*="background"][style*="blue"], 
+div[style*="background-color"][style*="blue"],
+div[class*="blue"], 
+[style*="rgb(0, 100, 200)"],
+[style*="#0064c8"],
+[style*="#4285f4"] {
+  display: none !important;
 }
 
 /* Allow text selection only on specific content */
