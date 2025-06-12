@@ -43,68 +43,70 @@ export default function SimplifiedNavigation() {
       }}
     >
       <div className="max-w-6xl mx-auto px-6">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link href="/">
-            <div className="flex items-center space-x-3 group cursor-pointer">
-              <div className="relative">
-                <Zap 
-                  className="w-8 h-8 group-hover:scale-110 transition-transform duration-300" 
-                  style={{ color: currentTheme.colors.primary }}
-                />
-                <div 
-                  className="absolute inset-0 w-8 h-8 rounded-full opacity-20 group-hover:opacity-40 blur-sm transition-opacity duration-300"
-                  style={{ backgroundColor: currentTheme.colors.primary }}
-                />
-              </div>
-              <div>
-                <span 
-                  className="text-xl font-bold bg-gradient-to-r bg-clip-text text-transparent"
-                  style={{ 
-                    backgroundImage: `linear-gradient(135deg, ${currentTheme.colors.primary}, ${currentTheme.colors.secondary})`
-                  }}
-                >
-                  REVERB
-                </span>
-                <div className="text-xs -mt-1" style={{ color: currentTheme.colors.textSecondary }}>
-                  VIBECODING
+        <div className="flex items-center justify-center h-16">
+          <div className="flex items-center space-x-8">
+            {/* Logo */}
+            <Link href="/">
+              <div className="flex items-center space-x-3 group cursor-pointer">
+                <div className="relative">
+                  <Zap 
+                    className="w-8 h-8 group-hover:scale-110 transition-transform duration-300" 
+                    style={{ color: currentTheme.colors.primary }}
+                  />
+                  <div 
+                    className="absolute inset-0 w-8 h-8 rounded-full opacity-20 group-hover:opacity-40 blur-sm transition-opacity duration-300"
+                    style={{ backgroundColor: currentTheme.colors.primary }}
+                  />
                 </div>
-              </div>
-            </div>
-          </Link>
-
-          {/* Navigation Items */}
-          <div className="flex items-center space-x-2">
-            {navItems.map((item) => {
-              const Icon = item.icon;
-              const active = isActive(item.path);
-              
-              return (
-                <Link key={item.path} href={item.path}>
-                  <button 
-                    className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 ${
-                      active 
-                        ? 'scale-105 shadow-lg' 
-                        : 'hover:scale-105 hover:shadow-md'
-                    }`}
-                    style={{
-                      backgroundColor: active 
-                        ? `${currentTheme.colors.primary}30`
-                        : 'transparent',
-                      color: active 
-                        ? currentTheme.colors.primary
-                        : currentTheme.colors.text,
-                      border: active 
-                        ? `1px solid ${currentTheme.colors.primary}50`
-                        : `1px solid transparent`
+                <div>
+                  <span 
+                    className="text-xl font-bold bg-gradient-to-r bg-clip-text text-transparent"
+                    style={{ 
+                      backgroundImage: `linear-gradient(135deg, ${currentTheme.colors.primary}, ${currentTheme.colors.secondary})`
                     }}
                   >
-                    <Icon className="w-5 h-5" />
-                    <span className="hidden sm:block font-medium">{item.label}</span>
-                  </button>
-                </Link>
-              );
-            })}
+                    REVERB
+                  </span>
+                  <div className="text-xs -mt-1" style={{ color: currentTheme.colors.textSecondary }}>
+                    VIBECODING
+                  </div>
+                </div>
+              </div>
+            </Link>
+
+            {/* Navigation Items */}
+            <div className="flex items-center space-x-2">
+              {navItems.map((item) => {
+                const Icon = item.icon;
+                const active = isActive(item.path);
+                
+                return (
+                  <Link key={item.path} href={item.path}>
+                    <button 
+                      className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 ${
+                        active 
+                          ? 'scale-105 shadow-lg' 
+                          : 'hover:scale-105 hover:shadow-md'
+                      }`}
+                      style={{
+                        backgroundColor: active 
+                          ? `${currentTheme.colors.primary}30`
+                          : 'transparent',
+                        color: active 
+                          ? currentTheme.colors.primary
+                          : currentTheme.colors.text,
+                        border: active 
+                          ? `1px solid ${currentTheme.colors.primary}50`
+                          : `1px solid transparent`
+                      }}
+                    >
+                      <Icon className="w-5 h-5" />
+                      <span className="hidden sm:block font-medium">{item.label}</span>
+                    </button>
+                  </Link>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
