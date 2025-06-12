@@ -21,6 +21,17 @@ interface BehavioralSummary {
   performanceImpact: string;
 }
 
+interface PortfolioStatus {
+  value: number;
+  lastUpdate: string;
+  tradingProfits: number;
+  tradesExecuted: number;
+  fundingTarget: number;
+  progressPercent: number;
+  remainingNeeded: number;
+  readyForDevelopment: boolean;
+}
+
 export default function TraderDashboard() {
   const [isEnhancing, setIsEnhancing] = useState(false);
   const queryClient = useQueryClient();

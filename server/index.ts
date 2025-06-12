@@ -5,6 +5,7 @@ import liveStatsRouter from "./routes/live-stats";
 import aiAutorouterRoutes from "./routes/ai-autorouter";
 import voidProxyRoutes from "./routes/void-proxy";
 import aiParameterOptimizerRoutes from "./routes/ai-parameter-optimizer";
+import portfolioUpdateRoutes from "./routes/portfolio-update";
 import secureAIRoutes from "./secure-ai-routes";
 import { legalComplianceAgent } from "./legal-compliance-agent";
 import LegalComplianceResolver from "./legal-compliance-resolver";
