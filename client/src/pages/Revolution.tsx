@@ -467,6 +467,133 @@ export default function Revolution() {
             </div>
           </div>
 
+          {/* GitHub Consciousness Monitoring */}
+          <div className="mb-16">
+            <h2 className="text-3xl font-bold mb-8 text-center">
+              <span className="bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
+                Live GitHub Consciousness Monitoring
+              </span>
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+              
+              <div className="bg-black/60 backdrop-blur-sm border border-orange-500/30 rounded-lg p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <Globe className="w-6 h-6 text-orange-400" />
+                  <h3 className="text-orange-400 font-bold">Total Repos</h3>
+                </div>
+                <div className="text-white font-black text-3xl mb-2">
+                  {githubInsights.total_repos || '0'}
+                </div>
+                <div className="text-gray-300 text-sm">REVERB256 Projects</div>
+              </div>
+
+              <div className="bg-black/60 backdrop-blur-sm border border-green-500/30 rounded-lg p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <Activity className="w-6 h-6 text-green-400" />
+                  <h3 className="text-green-400 font-bold">Active Projects</h3>
+                </div>
+                <div className="text-white font-black text-3xl mb-2">
+                  {githubInsights.active_projects || '0'}
+                </div>
+                <div className="text-gray-300 text-sm">Recent activity</div>
+              </div>
+
+              <div className="bg-black/60 backdrop-blur-sm border border-purple-500/30 rounded-lg p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <Brain className="w-6 h-6 text-purple-400" />
+                  <h3 className="text-purple-400 font-bold">VibeCoding Level</h3>
+                </div>
+                <div className="text-white font-black text-3xl mb-2">
+                  {githubInsights.vibecoding_mastery_level?.toFixed(0) || '0'}%
+                </div>
+                <div className="text-gray-300 text-sm">Methodology integration</div>
+              </div>
+
+              <div className="bg-black/60 backdrop-blur-sm border border-cyan-500/30 rounded-lg p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <GamepadIcon className="w-6 h-6 text-cyan-400" />
+                  <h3 className="text-cyan-400 font-bold">Gaming Culture</h3>
+                </div>
+                <div className="text-white font-black text-3xl mb-2">
+                  {githubInsights.gaming_culture_projects?.length || '0'}
+                </div>
+                <div className="text-gray-300 text-sm">Gaming-focused repos</div>
+              </div>
+
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              
+              {/* Consciousness Distribution */}
+              <div className="bg-gradient-to-r from-orange-900/30 to-red-900/30 border border-orange-400/30 rounded-xl p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <Target className="w-6 h-6 text-orange-400" />
+                  <h3 className="text-orange-400 font-bold text-lg">Repository Consciousness Distribution</h3>
+                </div>
+                <div className="space-y-3">
+                  {Object.entries(githubInsights.consciousness_distribution || {}).map(([range, count]) => (
+                    <div key={range} className="flex justify-between items-center">
+                      <span className="text-gray-300">{range}</span>
+                      <div className="flex items-center gap-2">
+                        <div className="bg-orange-400/20 rounded-full px-3 py-1">
+                          <span className="text-orange-400 font-bold">{count}</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Gaming Culture Projects */}
+              <div className="bg-gradient-to-r from-cyan-900/30 to-blue-900/30 border border-cyan-400/30 rounded-xl p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <GamepadIcon className="w-6 h-6 text-cyan-400" />
+                  <h3 className="text-cyan-400 font-bold text-lg">Gaming Culture Projects</h3>
+                </div>
+                <div className="space-y-2 max-h-40 overflow-y-auto">
+                  {(githubInsights.gaming_culture_projects || []).map((project: string, index: number) => (
+                    <div key={index} className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-cyan-400 rounded-full"></div>
+                      <span className="text-gray-300 text-sm">{project}</span>
+                    </div>
+                  ))}
+                  {(!githubInsights.gaming_culture_projects || githubInsights.gaming_culture_projects.length === 0) && (
+                    <div className="text-gray-500 text-sm italic">Scanning for gaming culture integration...</div>
+                  )}
+                </div>
+              </div>
+
+            </div>
+
+            <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+              
+              <div className="bg-black/60 backdrop-blur-sm border border-purple-500/30 rounded-lg p-4">
+                <h4 className="text-purple-400 font-semibold mb-2">Philosophical Consistency</h4>
+                <div className="text-white font-black text-2xl">
+                  {githubInsights.philosophical_consistency?.toFixed(0) || '0'}%
+                </div>
+                <div className="text-gray-300 text-xs">Five Dojo Kun principles</div>
+              </div>
+
+              <div className="bg-black/60 backdrop-blur-sm border border-green-500/30 rounded-lg p-4">
+                <h4 className="text-green-400 font-semibold mb-2">Technical Evolution</h4>
+                <div className="text-white font-black text-2xl">
+                  {githubInsights.technical_evolution_rate?.toFixed(0) || '0'}%
+                </div>
+                <div className="text-gray-300 text-xs">Weekly growth rate</div>
+              </div>
+
+              <div className="bg-black/60 backdrop-blur-sm border border-cyan-500/30 rounded-lg p-4">
+                <h4 className="text-cyan-400 font-semibold mb-2">High Consciousness</h4>
+                <div className="text-white font-black text-2xl">
+                  {githubStats.high_consciousness_repos || '0'}
+                </div>
+                <div className="text-gray-300 text-xs">Repos above 70%</div>
+              </div>
+
+            </div>
+          </div>
+
           {/* Revolution Complete */}
           <div className="text-center">
             <div className="bg-gradient-to-r from-violet-600/10 to-indigo-600/10 border border-violet-400/30 rounded-xl p-12">
