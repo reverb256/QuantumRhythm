@@ -1,4 +1,4 @@
-import { dataProtection } from './data-protection-middleware';
+import { dataProtectionMiddleware } from './data-protection-middleware';
 import { efficiencyOptimizer } from './efficiency-optimizer';
 import { PublicKey } from '@solana/web3.js';
 

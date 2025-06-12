@@ -1,5 +1,5 @@
 import { Connection, PublicKey } from '@solana/web3.js';
-import { dataProtection } from './data-protection-middleware';
+import { dataProtectionMiddleware } from './data-protection-middleware';
 
 interface QuantumInsight {
   type: 'market_pattern' | 'consciousness_shift' | 'economic_anomaly' | 'quantum_entanglement';
@@ -217,7 +217,7 @@ export class QuantumIntelligenceCore {
       Date.now().toString(36).slice(-4)
     ].join('-');
     
-    return dataProtection.sanitizeString(signature);
+    return dataProtectionMiddleware.sanitizeString(signature);
   }
 
   private generateQuantumInsight(type: QuantumInsight['type']) {

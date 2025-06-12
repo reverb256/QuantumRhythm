@@ -17,7 +17,7 @@ export class IntelligentErrorHandler {
         try {
           return await operation();
         } catch (retryError) {
-          console.error('Operation failed after auto-fix:', dataProtection.sanitizeQuery(String(retryError)));
+          console.error('Operation failed after auto-fix:', dataProtectionMiddleware.sanitizeString(String(retryError)));
           throw retryError;
         }
       }

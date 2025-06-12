@@ -8,7 +8,7 @@ import aiParameterOptimizerRoutes from "./routes/ai-parameter-optimizer";
 import secureAIRoutes from "./secure-ai-routes";
 import { legalComplianceAgent } from "./legal-compliance-agent";
 import LegalComplianceResolver from "./legal-compliance-resolver";
-import { dataProtection } from "./data-protection-middleware";
+import { dataProtectionMiddleware } from "./data-protection-middleware";
 import { systemConsolidation } from './system-consolidation';
 import { databaseOptimizer } from './database-optimizer';
 import { databaseSchemaFixer } from './database-schema-fixer';
@@ -22,7 +22,7 @@ import path from 'path';
 app.use(express.static(path.resolve(import.meta.dirname, '..', 'public')));
 
 // Initialize data protection middleware to sanitize all responses
-app.use(dataProtection.protect());
+app.use(dataProtectionMiddleware.protect);
 
 // Initialize comprehensive optimization system
 import { comprehensiveOptimizer } from './comprehensive-optimizer';
