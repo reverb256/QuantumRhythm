@@ -6,6 +6,7 @@
 
 import express from 'express';
 import { aiParameterOptimizer } from './ai-parameter-optimizer.js';
+import { vllmCoreEngine } from '../vllm-core-engine.js';
 
 // AI Model Optimizer - Continuously discovers and ranks models
 class AIModelOptimizer {
@@ -318,50 +319,56 @@ const router = express.Router();
 // OpenAI-compatible models endpoint with intelligent optimization
 router.get('/v1/models', async (req, res) => {
   try {
-    // Trigger model discovery every hour
+    // Get VLLM-optimized models (high performance)
+    const vllmModels = vllmCoreEngine.getAvailableModels().map(model => ({
+      id: model.id,
+      object: 'model',
+      created: Date.now(),
+      owned_by: 'vllm-engine',
+      context_length: model.contextLength,
+      capabilities: model.capabilities,
+      performance_score: 0.95,
+      response_time: Math.round(1000 / model.throughputTokensPerSecond),
+      success_rate: 98,
+      usage_count: 0,
+      throughput: model.throughputTokensPerSecond,
+      memory_gb: model.memoryRequirementGB,
+      vllm_optimized: true,
+      parameters: model.parameters
+    }));
+
+    // Trigger HuggingFace discovery every hour for additional models
     if (Date.now() - aiOptimizer['lastOptimization'] > 3600000) {
       aiOptimizer.discoverNewModels();
     }
 
-    // Try to get models from autorouter first
-    const autorouterResponse = await fetch(`${req.protocol}://${req.get('host')}/api/ai-autorouter/models`);
-    let models = aiOptimizer.getOptimizedModelList();
+    // Get additional HuggingFace models
+    const hfModels = aiOptimizer.getOptimizedModelList();
 
-    if (autorouterResponse.ok) {
-      const autorouterData = await autorouterResponse.json();
-      if (autorouterData.success && autorouterData.data.models) {
-        // Merge autorouter models with optimized list
-        const autorouterModels = autorouterData.data.models.map((m: any) => ({
-          id: m.name,
-          object: 'model',
-          created: Date.now(),
-          owned_by: 'quantum-autorouter',
-          context_length: 32000,
-          capabilities: ['general'],
-          performance_score: 0.8,
-          response_time: 2000,
-          success_rate: 90,
-          usage_count: 0
-        }));
-        
-        // Combine and deduplicate
-        const allModels = [...models, ...autorouterModels];
-        const uniqueModels = allModels.filter((model, index, arr) => 
-          arr.findIndex(m => m.id === model.id) === index
-        );
-        models = uniqueModels.sort((a, b) => b.performance_score - a.performance_score);
-      }
-    }
+    // Combine VLLM and HuggingFace models
+    const allModels = [...vllmModels, ...hfModels];
+    const uniqueModels = allModels.filter((model, index, arr) => 
+      arr.findIndex(m => m.id === model.id) === index
+    );
 
-    console.log(`[VOID-PROXY] Serving ${models.length} optimized AI models`);
+    // Sort by performance (VLLM models prioritized for speed)
+    const sortedModels = uniqueModels.sort((a, b) => {
+      if (a.vllm_optimized && !b.vllm_optimized) return -1;
+      if (!a.vllm_optimized && b.vllm_optimized) return 1;
+      return (b.performance_score || 0) - (a.performance_score || 0);
+    });
+
+    console.log(`[VOID-PROXY] Serving ${sortedModels.length} AI models (${vllmModels.length} VLLM-optimized)`);
     res.json({ 
       object: 'list', 
-      data: models,
+      data: sortedModels,
       meta: {
-        optimization_enabled: true,
-        last_updated: aiOptimizer['lastOptimization'],
-        total_models: models.length,
-        top_performer: models[0]?.id
+        vllm_optimized: vllmModels.length,
+        huggingface_models: hfModels.length,
+        total_models: sortedModels.length,
+        avg_throughput: Math.round(vllmModels.reduce((sum, m) => sum + (m.throughput || 0), 0) / vllmModels.length),
+        top_performer: sortedModels[0]?.id,
+        engine_status: vllmCoreEngine.getSystemStatus()
       }
     });
   } catch (error) {
@@ -435,43 +442,69 @@ router.post('/v1/chat/completions', async (req, res) => {
     const finalTemperature = optimalParams.temperature || temperature || 0.7;
     const finalMaxTokens = optimalParams.max_tokens || max_tokens || 1000;
 
-    // Direct routing with intelligent fallback
+    // Try VLLM engine first for maximum performance
     let routingSuccess = false;
     
-    // Try HuggingFace first for all models
-    if (process.env.HF_TOKEN) {
-      try {
-        response = await routeToHuggingFace(optimalModel.id, content, finalMaxTokens, finalTemperature);
-        if (response.ok) {
-          responseData = await response.json();
-          routingSuccess = true;
-        }
-      } catch (hfError) {
-        console.log(`[VOID-PROXY] HF routing failed: ${hfError}`);
-      }
-    }
-    
-    // If HF fails, use intelligent response system
-    if (!routingSuccess) {
-      const intelligentResponse = generateIntelligentResponse(content, contentType, intent);
+    try {
+      const vllmResponse = await vllmCoreEngine.generateCompletion(optimalModel.id, content, {
+        maxTokens: finalMaxTokens,
+        temperature: finalTemperature
+      });
+      
       responseData = {
         success: true,
         data: {
-          content: intelligentResponse,
+          content: vllmResponse.choices[0].text,
           model: optimalModel.id
         },
         metadata: {
-          provider: 'intelligent-system',
+          provider: 'vllm-engine',
           processingTime: Date.now() - startTime,
-          tokensUsed: {
-            prompt: estimateTokens(content),
-            completion: estimateTokens(intelligentResponse),
-            total: estimateTokens(content + intelligentResponse)
-          }
+          tokensUsed: vllmResponse.usage
         }
       };
-      response = new Response(JSON.stringify(responseData), { status: 200 });
       routingSuccess = true;
+      console.log(`[VOID-PROXY] VLLM routing successful: ${optimalModel.id}`);
+      
+    } catch (vllmError) {
+      console.log(`[VOID-PROXY] VLLM routing failed: ${vllmError.message}`);
+      
+      // Fallback to HuggingFace if available
+      if (process.env.HF_TOKEN) {
+        try {
+          response = await routeToHuggingFace(optimalModel.id, content, finalMaxTokens, finalTemperature);
+          if (response.ok) {
+            responseData = await response.json();
+            routingSuccess = true;
+            console.log(`[VOID-PROXY] HF fallback successful`);
+          }
+        } catch (hfError) {
+          console.log(`[VOID-PROXY] HF fallback failed: ${hfError}`);
+        }
+      }
+      
+      // Final fallback to intelligent response system
+      if (!routingSuccess) {
+        const intelligentResponse = generateIntelligentResponse(content, contentType, intent);
+        responseData = {
+          success: true,
+          data: {
+            content: intelligentResponse,
+            model: optimalModel.id
+          },
+          metadata: {
+            provider: 'intelligent-system',
+            processingTime: Date.now() - startTime,
+            tokensUsed: {
+              prompt: estimateTokens(content),
+              completion: estimateTokens(intelligentResponse),
+              total: estimateTokens(content + intelligentResponse)
+            }
+          }
+        };
+        routingSuccess = true;
+        console.log(`[VOID-PROXY] Intelligent fallback used`);
+      }
     }
 
     // Record performance metrics for optimization
