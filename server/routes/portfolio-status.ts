@@ -4,6 +4,7 @@
 
 import { Router } from 'express';
 import { Connection, PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js';
+import { comprehensivePortfolioTracker } from '../comprehensive-portfolio-tracker';
 
 const router = Router();
 
@@ -51,48 +52,41 @@ async function getWalletBalance(): Promise<number> {
 
 router.get('/status', async (req, res) => {
   try {
-    const [solBalance, solPrice] = await Promise.all([
-      getWalletBalance(),
-      getCurrentSOLPrice()
-    ]);
-
-    // Calculate total portfolio value directly from wallet balance
-    const totalValueUSD = solBalance * solPrice;
+    // Use the working comprehensive portfolio tracker
+    const portfolio = await comprehensivePortfolioTracker.getComprehensivePortfolio();
+    
+    console.log('Portfolio Status API - Using comprehensive tracker data:', {
+      totalValueUSD: portfolio.totalValueUSD,
+      breakdown: portfolio.breakdown
+    });
 
     const portfolioStatus: PortfolioStatus = {
-      totalValueUSD, // Use comprehensive value with current SOL price
-      solBalance,
-      solPriceUSD: solPrice,
-      tradingStatus: 'active', // Emergency stop cancelled
-      totalTrades: 0, // P&L reset
-      winRate: 0, // P&L reset
-      profitLoss: 0, // P&L reset
-      consciousness: 87.4, // From latest logs
+      totalValueUSD: portfolio.totalValueUSD,
+      solBalance: portfolio.walletBalance.SOL,
+      solPriceUSD: portfolio.totalValueUSD / portfolio.walletBalance.SOL, // Calculate from actual values
+      tradingStatus: 'active',
+      totalTrades: 0,
+      winRate: 0,
+      profitLoss: 0,
+      consciousness: 87.4,
       lastUpdate: new Date().toISOString()
     };
 
     res.json({
       success: true,
       portfolio: portfolioStatus,
-      breakdown: {
-        wallet: totalValueUSD,
-        lending: 0,
-        staking: 0,
-        liquidity: 0,
-        leverage: 0,
-        rewards: 0
-      },
-      defiPositions: 0,
+      breakdown: portfolio.breakdown,
+      defiPositions: portfolio.defiPositions.length,
       analysis: {
         emergencyStopActive: false,
         reason: 'Emergency stop cancelled - Trading operations resumed',
         recommendation: 'Active trading mode - monitoring opportunities and managing risk',
         portfolioComposition: {
-          wallet: `$${totalValueUSD.toFixed(2)}`,
-          defiLending: `$0.00`,
-          staking: `$0.00`,
-          liquidity: `$0.00`,
-          leverage: `$0.00`
+          wallet: `$${portfolio.breakdown.wallet.toFixed(2)}`,
+          defiLending: `$${portfolio.breakdown.lending.toFixed(2)}`,
+          staking: `$${portfolio.breakdown.staking.toFixed(2)}`,
+          liquidity: `$${portfolio.breakdown.liquidity.toFixed(2)}`,
+          leverage: `$${portfolio.breakdown.leverage.toFixed(2)}`
         }
       }
     });

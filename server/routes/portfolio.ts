@@ -13,6 +13,11 @@ const router = Router();
 router.get('/status', async (req, res) => {
   try {
     const portfolio = await comprehensivePortfolioTracker.getComprehensivePortfolio();
+    console.log('API Route - Portfolio data:', {
+      totalValueUSD: portfolio.totalValueUSD,
+      breakdown: portfolio.breakdown
+    });
+    
     res.json({
       success: true,
       portfolio: {

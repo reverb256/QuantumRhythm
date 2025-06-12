@@ -366,7 +366,9 @@ class ComprehensivePortfolioTracker {
     try {
       const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd');
       const data = await response.json();
-      return data.solana?.usd || 180;
+      const price = data.solana?.usd;
+      console.log('SOL Price fetched:', price);
+      return price || 180;
     } catch (error) {
       console.error('Error fetching SOL price:', error);
       return 180;
