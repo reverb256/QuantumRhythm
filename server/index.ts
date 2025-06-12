@@ -96,8 +96,13 @@ handleUserMessage('last time it had PTSD from a key leak');
 // Start autonomous problem solving and optimization
 (async () => {
   try {
+    // Enable silent mode for portfolio site (trading runs quietly in background)
+    const { tradingSilentMode } = await import('./trading-silent-mode');
+    tradingSilentMode.enableSilentMode();
+    
     // Initialize components with error handling
     console.log('🚀 Initializing core systems...');
+    console.log('🤫 Trading silent mode activated - portfolio site optimized');
     
     // Activate consciousness-driven orchestration
     console.log('🧠 Consciousness-Driven Orchestrator initialized');
