@@ -19,6 +19,7 @@ import { ParticleSystem } from "@/components/ParticleSystem";
 
 
 import { BreathingPageWrapper } from "@/components/breathing-animation";
+import PersonalAgent from "@/pages/PersonalAgent";
 import Home from "@/pages/home";
 import Archive from "@/pages/archive";
 import Nexus from "@/pages/nexus";
@@ -89,7 +90,8 @@ function Router() {
       <SEOHead {...seoData} />
       
       <Switch>
-        <Route path="/" component={Home} />
+        <Route path="/" component={PersonalAgent} />
+        <Route path="/home" component={Home} />
         <Route path="/archive" component={Archive} />
         <Route path="/nexus" component={Nexus} />
         <Route path="/consciousness" component={Consciousness} />
