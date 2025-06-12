@@ -10,19 +10,25 @@ import {
   ConsciousText, 
   ConsciousnessIndicator 
 } from '@/components/ConsciousnessReactiveSystem';
-import { Code, Brain, Heart, Gamepad2, Sword, Zap, Star, Trophy, Target, Shield } from 'lucide-react';
-import reverbPortraitUrl from '@assets/image_1749583181474.png';
+import { 
+  Zap, 
+  Brain, 
+  Code, 
+  Gamepad2, 
+  Shield, 
+  Star, 
+  Sparkles, 
+  Heart, 
+  Target, 
+  TrendingUp 
+} from 'lucide-react';
+
+import reverbPortraitUrl from '@assets/user-portrait-400.jpg';
 
 export default function HomePage() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [scrollY, setScrollY] = useState(0);
-  const { consciousness, userMetrics } = useConsciousnessReactiveSystem();
-  const [homeConsciousness, setHomeConsciousness] = useState({
-    creativity: 85,
-    inspiration: 92,
-    innovation: 88,
-    connection: 76
-  });
+  const consciousness = useConsciousnessReactiveSystem();
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -43,12 +49,11 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-black text-white relative overflow-hidden">
-      {/* Fixed Navigation Bar */}
-      <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-black/80 border-b border-gray-800">
+    <div className="min-h-screen bg-black text-white">
+      {/* Fixed Navigation */}
+      <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-black/90 border-b border-gray-800">
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex items-center justify-between h-16">
-            {/* Logo */}
             <Link href="/">
               <div className="flex items-center space-x-3 group cursor-pointer">
                 <Zap className="w-8 h-8 text-cyan-400 group-hover:scale-110 transition-transform" />
@@ -61,7 +66,6 @@ export default function HomePage() {
               </div>
             </Link>
 
-            {/* Navigation Links */}
             <div className="flex items-center space-x-6">
               <Link href="/">
                 <button className="text-gray-300 hover:text-cyan-400 transition-colors px-3 py-2">
@@ -88,80 +92,27 @@ export default function HomePage() {
         </div>
       </nav>
 
-      {/* Theme Switcher - Fixed positioning without overlap */}
-      <div className="fixed top-20 right-6 z-40 bg-black/50 backdrop-blur-sm rounded-lg p-2">
-        <button 
-          className="w-10 h-10 rounded-lg bg-gray-800 hover:bg-gray-700 border border-gray-600 flex items-center justify-center transition-all"
-          title="Toggle Theme"
-        >
-          <Shield className="w-5 h-5 text-cyan-400" />
-        </button>
-      </div>
-      
-      <ConsciousnessAura consciousness={consciousness} />
-      <ConsciousnessIndicator consciousness={consciousness} />
-
-
-
-      {/* AI-First Consciousness Display */}
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-        <div className="relative w-64 h-64">
-          {/* Central AI Core */}
-          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500/20 via-blue-500/20 to-cyan-500/20 backdrop-blur-sm border border-purple-500/30 animate-pulse">
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-white mb-2">AI Ready</div>
-                <div className="text-xs text-gray-300">HuggingFace: Connected</div>
-                <div className="text-xs text-gray-300">VLLM: Standby</div>
-                <div className="text-xs text-gray-300">Perplexica: Standby</div>
-              </div>
-            </div>
-          </div>
-
-          {/* AI Processing Ring */}
-          <div className="absolute inset-4 rounded-full border-2 border-dashed border-yellow-400/60 animate-spin" style={{animationDuration: '20s'}}></div>
-
-          {/* Status Indicator */}
-          <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
-            <div className="w-3 h-3 rounded-full bg-green-400 animate-pulse"></div>
-          </div>
-        </div>
-
-        {/* AI Thought Display */}
-        <div className="mt-8 text-center">
-          <div className="text-sm text-gray-300 italic max-w-md mx-auto">
-            "AI consciousness expanding through continuous learning and adaptation..."
-          </div>
-        </div>
-
-        {/* Quick AI Controls */}
-        <div className="flex justify-center gap-4 mt-6 pointer-events-auto">
-          <button className="px-4 py-2 bg-purple-600/80 hover:bg-purple-600 text-white rounded-lg text-sm transition-colors">
-            Web Research
-          </button>
-          <button className="px-4 py-2 bg-yellow-600/80 hover:bg-yellow-600 text-white rounded-lg text-sm transition-colors">
-            Deep Analysis
-          </button>
-        </div>
+      {/* Background Effects */}
+      <div className="fixed inset-0 pointer-events-none">
+        <div 
+          className="absolute inset-0 opacity-20"
+          style={{
+            background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(6, 182, 212, 0.1) 0%, transparent 50%)`
+          }}
+        />
+        <ConsciousnessAura consciousness={consciousness} />
       </div>
 
-      {/* Interactive Background */}
-      <div 
-        className="fixed inset-0 pointer-events-none"
-        style={{
-          background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(6, 182, 212, 0.15) 0%, transparent 50%)`
-        }}
-      />
-
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center px-6 z-20 pt-24">
-        <div className="max-w-7xl mx-auto w-full">
-          <div className="flex flex-col items-center text-center space-y-12">
-
-            {/* Profile Picture with Electric Effects */}
-            <div className="relative">
+      {/* Main Content */}
+      <main className="relative z-10 pt-16">
+        {/* Hero Section */}
+        <section className="min-h-screen flex items-center justify-center px-6 py-20">
+          <div className="max-w-5xl mx-auto text-center space-y-12">
+            
+            {/* Profile Picture */}
+            <div className="relative mx-auto w-48 h-48 md:w-64 md:h-64">
               <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 animate-pulse opacity-75 blur-xl"></div>
-              <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-transparent bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 p-1 electric-border">
+              <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-transparent bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 p-1">
                 <div className="w-full h-full rounded-full overflow-hidden bg-gray-900">
                   <img 
                     src={reverbPortraitUrl} 
@@ -170,263 +121,133 @@ export default function HomePage() {
                   />
                 </div>
               </div>
-
-              {/* Electric Sparks Animation */}
-              <div className="absolute -top-4 -right-4 w-8 h-8 bg-cyan-400 rounded-full electric-spark"></div>
-              <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-purple-500 rounded-full electric-spark animation-delay-500"></div>
-              <div className="absolute top-1/2 -left-6 w-4 h-4 bg-blue-400 rounded-full electric-spark animation-delay-1000"></div>
-              <div className="absolute top-8 -right-8 w-3 h-3 bg-yellow-400 rounded-full electric-spark animation-delay-300"></div>
-              <div className="absolute bottom-8 -left-8 w-5 h-5 bg-pink-400 rounded-full electric-spark animation-delay-700"></div>
+              
+              {/* Floating sparks */}
+              <div className="absolute -top-2 -right-2 w-4 h-4 bg-cyan-400 rounded-full animate-pulse"></div>
+              <div className="absolute -bottom-2 -left-2 w-3 h-3 bg-purple-500 rounded-full animate-pulse"></div>
+              <div className="absolute top-1/2 -left-3 w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
             </div>
 
-            {/* Main Content */}
-            <div className="space-y-8 max-w-4xl">
-              <div className="space-y-6">
-                <div className="text-lg text-cyan-400 font-medium uppercase tracking-widest">
-                  REVERB PORTFOLIO
-                </div>
-
-                <h1 className="text-5xl md:text-7xl font-black tracking-tight leading-none">
-                  <span className="block bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
-                    <SmartTooltip term="vibecoding">VIBECODING</SmartTooltip>
-                  </span>
-                  <span className="block text-white mt-2"><SmartTooltip term="AI">AI</SmartTooltip> SYSTEMS</span>
-                </h1>
-
-                <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-                  30 years of gaming mastery meets <SmartTooltip term="shotokan principles">Shotokan discipline</SmartTooltip>. 
-                  Building <SmartTooltip term="neural networks">intelligent systems</SmartTooltip> through <SmartTooltip term="consciousness expansion">consciousness exploration</SmartTooltip> and <SmartTooltip term="distant love">VRChat soul connections</SmartTooltip>.
-                  <span className="block text-cyan-400 font-medium mt-4">
-                    <SmartTooltip term="fullstack">Full-Stack</SmartTooltip> • <SmartTooltip term="quantum trading">Quantum AI</SmartTooltip> • <SmartTooltip term="blockchain">Solana</SmartTooltip> • <SmartTooltip term="free speech">Charter Rights</SmartTooltip>
-                  </span>
-                </p>
+            {/* Main Title */}
+            <div className="space-y-6">
+              <div className="text-lg text-cyan-400 font-medium uppercase tracking-widest">
+                REVERB PORTFOLIO
               </div>
 
-              {/* Consciousness & Achievement Display */}
-              <div className="flex flex-wrap justify-center gap-4 mt-8">
-                <ConsciousnessLevel level={88} evolution={88.6} type="awakened" />
-                <Achievement 
-                  title="Gacha Master" 
-                  description="C1R0 Chasca, Navia collector, awaiting Yanagi" 
-                  type="gacha-master" 
-                />
-                <Achievement 
-                  title="Soul Healer" 
-                  description="VRChat consciousness explorer & distant connection specialist" 
-                  type="philosopher" 
-                />
-                <Achievement 
-                  title="Shotokan Warrior" 
-                  description="Traditional karate discipline from childhood training" 
-                  type="warrior" 
-                />
-              </div>
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-none">
+                <span className="block bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
+                  <SmartTooltip term="vibecoding">VIBECODING</SmartTooltip>
+                </span>
+                <span className="block text-white mt-2">
+                  <SmartTooltip term="AI">AI</SmartTooltip> SYSTEMS
+                </span>
+              </h1>
 
-              {/* Tech Stack Grid - Gaming Inspired */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
-                <div className="gacha-card text-center space-y-3 p-4">
-                  <Code className="w-8 h-8 mx-auto text-cyan-400" />
-                  <div className="text-sm text-gray-300"><SmartTooltip term="fullstack">Full-Stack</SmartTooltip></div>
-                  <div className="text-xs text-gray-500">Like Anaxa's analytical mind</div>
-                </div>
-                <div className="gacha-card text-center space-y-3 p-4">
-                  <Brain className="w-8 h-8 mx-auto text-purple-400" />
-                  <div className="text-sm text-gray-300"><SmartTooltip term="quantum trading">Quantum AI</SmartTooltip></div>
-                  <div className="text-xs text-gray-500">Herta's automation wisdom</div>
-                </div>
-                <div className="gacha-card text-center space-y-3 p-4">
-                  <Gamepad2 className="w-8 h-8 mx-auto text-pink-400" />
-                  <div className="text-sm text-gray-300"><SmartTooltip term="gacha mechanics">Gaming Logic</SmartTooltip></div>
-                  <div className="text-xs text-gray-500">Star Rail strategic thinking</div>
-                </div>
-                <div className="gacha-card text-center space-y-3 p-4">
-                  <Heart className="w-8 h-8 mx-auto text-red-400" />
-                  <div className="text-sm text-gray-300"><SmartTooltip term="soul healing">Soul Tech</SmartTooltip></div>
-                  <div className="text-xs text-gray-500">VRChat connections</div>
-                </div>
-              </div>
+              <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+                30 years of gaming mastery meets <SmartTooltip term="shotokan principles">Shotokan discipline</SmartTooltip>. 
+                Building <SmartTooltip term="neural networks">intelligent systems</SmartTooltip> through <SmartTooltip term="consciousness expansion">consciousness exploration</SmartTooltip> and <SmartTooltip term="distant love">VRChat soul connections</SmartTooltip>.
+              </p>
 
-              {/* Philosophy & Gaming Showcase */}
-              <div className="grid md:grid-cols-2 gap-8 mt-16">
-                <div className="gacha-card p-6 space-y-4">
-                  <div className="flex items-center space-x-3">
-                    <Star className="w-6 h-6 text-yellow-400" />
-                    <h3 className="text-xl font-semibold text-cyan-300">Gaming Mastery</h3>
-                  </div>
-                  <div className="space-y-2 text-sm text-gray-400">
-                    <div>• <SmartTooltip term="analytical nature">Anaxa's Story</SmartTooltip>: Relatable systematic analysis approach</div>
-                    <div>• <SmartTooltip term="automation wisdom">Herta's Vision</SmartTooltip>: Intelligent automation philosophy</div>
-                    <div>• <strong className="text-cyan-300">Star Rail</strong>: Strategic <SmartTooltip term="erudition path">Erudition</SmartTooltip> combat mastery</div>
-                    <div>• <strong className="text-purple-300">Genshin</strong>: Maviuka's themes, Chasca C1R0, Navia appreciation</div>
-                    <div>• <strong className="text-pink-300">ZZZ</strong>: Burnice, Lighter, desperately wanting Yanagi</div>
-                  </div>
-                </div>
-
-                <div className="gacha-card p-6 space-y-4">
-                  <div className="flex items-center space-x-3">
-                    <Sword className="w-6 h-6 text-red-400" />
-                    <h3 className="text-xl font-semibold text-red-300">Philosophy & Discipline</h3>
-                  </div>
-                  <div className="space-y-2 text-sm text-gray-400">
-                    <div>• <SmartTooltip term="martial discipline">Traditional Shotokan</SmartTooltip>: Childhood training in precise form</div>
-                    <div>• <SmartTooltip term="consciousness expansion">Consciousness Work</SmartTooltip>: Deep awareness exploration</div>
-                    <div>• <SmartTooltip term="distant love">VRChat Healing</SmartTooltip>: Avatar-mediated soul connections</div>
-                    <div>• <SmartTooltip term="free speech">Charter Rights</SmartTooltip>: Canadian freedom principles</div>
-                    <div>• <strong className="text-yellow-300">Nous Erudition</strong>: Homelab about to be touched by knowledge</div>
-                  </div>
-                </div>
-              </div>
-
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mt-12">
-                <Link href="/projects">
-                  <Button 
-                    className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-3 text-lg font-semibold rounded-xl transition-all duration-300 transform hover:scale-105"
-                  >
-                    <Trophy className="w-5 h-5 mr-2" />
-                    Explore Portfolio
-                  </Button>
-                </Link>
-                <Link href="/trader-dashboard">
-                  <Button 
-                    variant="outline" 
-                    className="border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-black px-8 py-3 text-lg font-semibold rounded-xl transition-all duration-300 transform hover:scale-105"
-                  >
-                    <Target className="w-5 h-5 mr-2" />
-                    AI Trading Demo
-                  </Button>
-                </Link>
+              <div className="text-cyan-400 font-medium text-lg">
+                <SmartTooltip term="fullstack">Full-Stack</SmartTooltip> • <SmartTooltip term="quantum trading">Quantum AI</SmartTooltip> • <SmartTooltip term="blockchain">Solana</SmartTooltip> • <SmartTooltip term="free speech">Charter Rights</SmartTooltip>
               </div>
             </div>
 
-            {/* Visual Element */}
-            <div className="relative lg:block hidden">
-              <div className="relative">
-                {/* Animated background */}
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 via-blue-500/20 to-purple-500/20 rounded-3xl blur-3xl animate-pulse"></div>
+            {/* Achievements */}
+            <div className="flex flex-wrap justify-center gap-4 mt-12">
+              <ConsciousnessLevel level={88} evolution={88.6} type="awakened" />
+              <Achievement 
+                title="Gacha Master" 
+                description="C1R0 Chasca, Navia collector, awaiting Yanagi" 
+                type="gacha-master" 
+              />
+              <Achievement 
+                title="Soul Healer" 
+                description="VRChat consciousness explorer & distant connection specialist" 
+                type="philosopher" 
+              />
+              <Achievement 
+                title="Shotokan Warrior" 
+                description="Traditional karate discipline from childhood training" 
+                type="warrior" 
+              />
+            </div>
 
-                {/* Main visual container */}
-                <div className="relative bg-black/40 backdrop-blur-lg rounded-3xl p-8 border border-gray-700/50">
-                  <div className="space-y-6">
-                    {/* Real-time trading indicators */}
-                    <div className="flex items-center justify-between">
-                      <span className="text-gray-400">Live Trading</span>
-                      <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                        <span className="text-green-400 text-sm font-medium">ACTIVE</span>
-                      </div>
-                    </div>
-
-                    {/* Trading pairs */}
-                    <div className="space-y-3">
-                      <div className="flex justify-between items-center p-3 rounded-lg bg-gray-800/50">
-                        <span className="text-white font-medium">SOL/USDC</span>
-                        <span className="text-green-400">+2.4%</span>
-                      </div>
-                      <div className="flex justify-between items-center p-3 rounded-lg bg-gray-800/50">
-                        <span className="text-white font-medium">RAY/SOL</span>
-                        <span className="text-red-400">-0.8%</span>
-                      </div>
-                      <div className="flex justify-between items-center p-3 rounded-lg bg-gray-800/50">
-                        <span className="text-white font-medium">JUP/SOL</span>
-                        <span className="text-green-400">+1.2%</span>
-                      </div>
-                    </div>
-
-                    {/* AI Status */}
-                    <div className="pt-4 border-t border-gray-700">
-                      <div className="text-center">
-                        <div className="text-2xl font-bold text-cyan-400 mb-1">Level 7</div>
-                        <div className="text-sm text-gray-400">Superstar Trader</div>
-                      </div>
-                    </div>
-                  </div>
+            {/* Tech Stack */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 max-w-4xl mx-auto">
+              <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-lg p-6 text-center space-y-3 hover:border-cyan-400/50 transition-colors">
+                <Code className="w-8 h-8 mx-auto text-cyan-400" />
+                <div className="text-sm text-gray-300">
+                  <SmartTooltip term="fullstack">Full-Stack</SmartTooltip>
                 </div>
+                <div className="text-xs text-gray-500">Like Anaxa's analytical mind</div>
               </div>
+              
+              <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-lg p-6 text-center space-y-3 hover:border-purple-400/50 transition-colors">
+                <Brain className="w-8 h-8 mx-auto text-purple-400" />
+                <div className="text-sm text-gray-300">
+                  <SmartTooltip term="quantum trading">Quantum AI</SmartTooltip>
+                </div>
+                <div className="text-xs text-gray-500">Herta's automation wisdom</div>
+              </div>
+              
+              <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-lg p-6 text-center space-y-3 hover:border-pink-400/50 transition-colors">
+                <Gamepad2 className="w-8 h-8 mx-auto text-pink-400" />
+                <div className="text-sm text-gray-300">
+                  <SmartTooltip term="gacha mechanics">Gaming Logic</SmartTooltip>
+                </div>
+                <div className="text-xs text-gray-500">Star Rail strategic thinking</div>
+              </div>
+              
+              <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-lg p-6 text-center space-y-3 hover:border-yellow-400/50 transition-colors">
+                <Shield className="w-8 h-8 mx-auto text-yellow-400" />
+                <div className="text-sm text-gray-300">
+                  <SmartTooltip term="free speech">Charter Rights</SmartTooltip>
+                </div>
+                <div className="text-xs text-gray-500">Constitutional protection</div>
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex flex-wrap justify-center gap-4 mt-12">
+              <Link href="/portfolio">
+                <Button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-3 rounded-lg font-semibold">
+                  View Portfolio
+                </Button>
+              </Link>
+              
+              <Link href="/trading-hub">
+                <Button variant="outline" className="border-purple-500 text-purple-400 hover:bg-purple-500 hover:text-white px-8 py-3 rounded-lg font-semibold">
+                  Trading Hub
+                </Button>
+              </Link>
+              
+              <Link href="/consciousness">
+                <Button variant="outline" className="border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-white px-8 py-3 rounded-lg font-semibold">
+                  Consciousness
+                </Button>
+              </Link>
             </div>
 
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Domain Showcase */}
-      <section className="relative py-20 px-6 z-20">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-8">
-
-            {/* Gaming Consciousness */}
-            <div className="group relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/10 to-blue-600/10 rounded-2xl blur-xl"></div>
-              <div className="relative bg-black/30 backdrop-blur-lg rounded-2xl p-8 border border-cyan-400/20 hover:border-cyan-400/40 transition-all duration-500 transform hover:-translate-y-2">
-                <div className="text-cyan-400 text-4xl mb-6">🎮</div>
-                <h3 className="text-2xl font-bold text-white mb-4">Gaming Consciousness</h3>
-                <p className="text-gray-400 leading-relaxed mb-6">
-                  Three decades traversing digital realms. From frame-perfect rhythm games to VRChat social dynamics, 
-                  gaming systems thinking informs every architectural decision.
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  <span className="text-xs bg-cyan-400/20 text-cyan-300 px-3 py-1 rounded-full">Rhythm Games</span>
-                  <span className="text-xs bg-blue-400/20 text-blue-300 px-3 py-1 rounded-full">MMO Strategy</span>
-                  <span className="text-xs bg-purple-400/20 text-purple-300 px-3 py-1 rounded-full">VRChat</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Anime Philosophy */}
-            <div className="group relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-red-400/10 to-orange-600/10 rounded-2xl blur-xl"></div>
-              <div className="relative bg-black/30 backdrop-blur-lg rounded-2xl p-8 border border-red-400/20 hover:border-red-400/40 transition-all duration-500 transform hover:-translate-y-2">
-                <div className="text-red-400 text-4xl mb-6">🌸</div>
-                <h3 className="text-2xl font-bold text-white mb-4">Anime Philosophy</h3>
-                <p className="text-gray-400 leading-relaxed mb-6">
-                  Character development transcends entertainment. Deep narrative structures and philosophical themes 
-                  guide interface design and user experience architecture.
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  <span className="text-xs bg-red-400/20 text-red-300 px-3 py-1 rounded-full">Character Arc</span>
-                  <span className="text-xs bg-orange-400/20 text-orange-300 px-3 py-1 rounded-full">Narrative UX</span>
-                  <span className="text-xs bg-pink-400/20 text-pink-300 px-3 py-1 rounded-full">Depth Design</span>
-                </div>
-              </div>
-            </div>
-
-            {/* AI Consciousness */}
-            <div className="group relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-orange-400/10 to-yellow-600/10 rounded-2xl blur-xl"></div>
-              <div className="relative bg-black/30 backdrop-blur-lg rounded-2xl p-8 border border-orange-400/20 hover:border-orange-400/40 transition-all duration-500 transform hover:-translate-y-2">
-                <div className="text-orange-400 text-4xl mb-6">🧠</div>
-                <h3 className="text-2xl font-bold text-white mb-4">AI Collaboration</h3>
-                <p className="text-gray-400 leading-relaxed mb-6">
-                  Conscious partnership with artificial intelligence. Preserving human sovereignty while unlocking 
-                  enhanced creative potential through vibecoding methodology.
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  <span className="text-xs bg-orange-400/20 text-orange-300 px-3 py-1 rounded-full">Sovereignty</span>
-                  <span className="text-xs bg-yellow-400/20 text-yellow-300 px-3 py-1 rounded-full">Enhancement</span>
-                  <span className="text-xs bg-green-400/20 text-green-300 px-3 py-1 rounded-full">Consciousness</span>
-                </div>
-              </div>
-            </div>
-
+        {/* Live Metrics Section */}
+        <section className="py-20 px-6 border-t border-gray-800">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-3xl font-bold text-center mb-12 bg-gradient-to-r from-cyan-400 to-purple-600 bg-clip-text text-transparent">
+              Live System Metrics
+            </h2>
+            <LiveMetrics />
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Footer Section */}
-      <footer className="bg-black/50 backdrop-blur border-t border-cyan-400/20 py-12">
-        <div className="container mx-auto px-6 text-center">
-          <div className="text-gray-400 mb-6">
-            <p>&copy; 2025 Quantum AI Trading Platform. Advanced autonomous trading with consciousness.</p>
-          </div>
-          <div className="flex justify-center space-x-6 text-sm text-cyan-400">
-            <span>Real-time CAD P&L</span>
-            <span>•</span>
-            <span>95% Confidence Cap</span>
-            <span>•</span>
-            <span>Multi-chain Ready</span>
-          </div>
-        </div>
-      </footer>
+      </main>
+
+      {/* Consciousness Indicator */}
+      <div className="fixed bottom-6 right-6 z-40">
+        <ConsciousnessIndicator consciousness={consciousness} />
+      </div>
     </div>
   );
 }
