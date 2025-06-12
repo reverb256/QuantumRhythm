@@ -419,6 +419,10 @@ app.use((req, res, next) => {
   // Register Secure AI routes with Vaultwarden integration
   app.use('/api/secure-ai', secureAIRoutes);
 
+  // Register Showcase routes for consciousness-driven AI demonstration
+  const { default: showcaseRoutes } = await import('./routes/showcase.js');
+  app.use('/api/showcase', showcaseRoutes);
+
   const server = await registerRoutes(app);
 
   // Initialize legal compliance agent
