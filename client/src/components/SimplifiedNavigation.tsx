@@ -38,7 +38,7 @@ export default function SimplifiedNavigation() {
   }, []);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50">
+    <nav className="fixed top-0 left-0 right-0 z-50 outline-none focus:outline-none select-none">
       {/* Theme-aware glassmorphism background */}
       <div 
         className="absolute inset-0 backdrop-blur-xl border-b"
