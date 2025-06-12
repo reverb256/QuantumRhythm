@@ -78,8 +78,8 @@ export default function ConsciousnessNavbar() {
         </svg>
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-6 h-16">
-        <div className="flex items-center justify-between h-full">
+      <div className="relative h-16 px-6">
+        <div className="flex items-center justify-between h-full max-w-7xl mx-auto">
           
           {/* VibeCoding Consciousness Logo */}
           <Link href="/">
