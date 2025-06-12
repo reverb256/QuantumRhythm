@@ -8,33 +8,46 @@ export default function TradingHub() {
   const { currentTheme } = useTheme();
   const [activeTab, setActiveTab] = useState('overview');
 
-  // Fetch real-time trading data
-  const { data: tradingData } = useQuery({
+  // Fetch real-time trading data with graceful degradation
+  const { data: tradingData, error: tradingError } = useQuery({
     queryKey: ['/api/trading/status'],
     refetchInterval: 3000,
-    staleTime: 1000
+    staleTime: 1000,
+    retry: 3,
+    retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 30000)
   });
 
-  const { data: portfolioData } = useQuery({
+  const { data: portfolioData, error: portfolioError } = useQuery({
     queryKey: ['/api/portfolio/status'],
     refetchInterval: 5000,
-    staleTime: 2000
+    staleTime: 2000,
+    retry: 3,
+    retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 30000)
   });
 
-  const tradingStatus = tradingData?.data || {
-    consciousness: 70.5,
-    tradingActive: true,
-    chains: ['Solana', 'Ethereum', 'Cronos'],
-    portfolioValue: 57.75,
-    activeOpportunities: 4
-  };
+  // Safe data extraction with fallbacks
+  const tradingStatus = React.useMemo(() => {
+    if (tradingData?.data) return tradingData.data;
+    if (tradingError) console.warn('Trading data temporarily unavailable, using safe defaults');
+    return {
+      consciousness: 70.5,
+      tradingActive: true,
+      chains: ['Solana', 'Ethereum', 'Cronos'],
+      portfolioValue: 57.75,
+      activeOpportunities: 4
+    };
+  }, [tradingData, tradingError]);
 
-  const portfolioStats = portfolioData?.data || {
-    totalValue: 57.75,
-    change24h: 2.34,
-    positions: 3,
-    yields: 11.3
-  };
+  const portfolioStats = React.useMemo(() => {
+    if (portfolioData?.data) return portfolioData.data;
+    if (portfolioError) console.warn('Portfolio data temporarily unavailable, using safe defaults');
+    return {
+      totalValue: 57.75,
+      change24h: 2.34,
+      positions: 3,
+      yields: 11.3
+    };
+  }, [portfolioData, portfolioError]);
 
   const tabs = [
     { id: 'overview', label: 'Trading Overview', icon: TrendingUp },

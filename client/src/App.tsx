@@ -20,34 +20,9 @@ import { ParticleSystem } from "@/components/ParticleSystem";
 import Navigation from "@/components/navigation";
 import { BreathingPageWrapper } from "@/components/breathing-animation";
 import Home from "@/pages/home";
-import Projects from "@/pages/projects";
-import Philosophy from "@/pages/philosophy";
-import ConsciousnessMapPage from "@/pages/consciousness-map";
-import Values from "@/pages/values";
-import VRChat from "@/pages/VRChat";
-import Dashboard from "@/pages/Dashboard";
-import TradingDashboard from "@/pages/TradingDashboard";
-import TradingInterface from "@/pages/TradingInterface";
-import TradingVisualization from "@/pages/TradingVisualization";
-import TraderDashboard from "@/pages/TraderDashboard";
-import { DeFiDashboard } from "@/pages/DeFiDashboard";
-import PortfolioDashboard from "@/pages/PortfolioDashboard";
-import Platform from "@/pages/Platform";
-import CloudflareOptimization from "@/pages/CloudflareOptimization";
-import TechnicalDeepDive from "@/pages/technical-deep-dive";
-import Legal from "@/pages/Legal";
-import AISystems from "@/pages/AISystems";
-import AIOnboarding from "@/pages/AIOnboarding";
-import AgentInsights from "@/pages/AgentInsights";
-import Compliance from "@/pages/Compliance";
-import WorkplaceJanitorial from "@/pages/workplace-janitorial";
-import TrovesCoves from "@/pages/troves-coves";
-import FrostbiteGazette from "@/pages/frostbite-gazette";
-import HealthMonitorDashboard from "@/components/HealthMonitorDashboard";
-import CompatibilityTestPage from "@/pages/CompatibilityTestPage";
-import SecurityPage from "@/pages/SecurityPage";
-import ClaudeConsciousness from "@/pages/claude-consciousness";
-import { SystemIntegrationDashboard } from "@/pages/SystemIntegrationDashboard";
+import ConsciousnessCore from "@/pages/ConsciousnessCore";
+import QuantumPortfolio from "@/pages/QuantumPortfolio";
+import TradingHub from "@/pages/TradingHub";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -83,23 +58,14 @@ function Router() {
   // Determine current page for SEO
   const getCurrentPage = () => {
     if (location === '/') return 'home';
-    if (location === '/projects') return 'projects';
-    if (location === '/philosophy') return 'philosophy';
-    if (location === '/consciousness-map') return 'consciousness-map';
-    if (location === '/vrchat') return 'vrchat';
-    if (location === '/values') return 'values';
-    if (location === '/dashboard') return 'dashboard';
-    if (location === '/trading') return 'trading';
-    if (location === '/defi') return 'defi';
-    if (location === '/cloudflare') return 'cloudflare';
-    if (location === '/technical-deep-dive') return 'technical-deep-dive';
-    if (location === '/ai-onboarding') return 'ai-onboarding';
-    if (location === '/agent-insights') return 'agent-insights';
-    if (location === '/health-monitor') return 'health-monitor';
-    if (location === '/legal') return 'legal';
-    if (location === '/workplace-janitorial') return 'workplace-janitorial';
-    if (location === '/troves-coves') return 'troves-coves';
-    if (location === '/frostbite-gazette') return 'frostbite-gazette';
+    if (location === '/consciousness') return 'consciousness';
+    if (location === '/portfolio') return 'portfolio';
+    if (location === '/trading-hub') return 'trading-hub';
+    if (location === '/ai-intelligence') return 'ai-intelligence';
+    if (location === '/defi-protocols') return 'defi-protocols';
+    if (location === '/quantum-platform') return 'quantum-platform';
+    if (location === '/virtual-realms') return 'virtual-realms';
+    if (location === '/security-compliance') return 'security-compliance';
     return 'home';
   };
 
@@ -112,33 +78,14 @@ function Router() {
       
       <Switch>
         <Route path="/" component={Home} />
-        <Route path="/projects" component={Projects} />
-        <Route path="/philosophy" component={Philosophy} />
-        <Route path="/consciousness-map" component={ConsciousnessMapPage} />
-        <Route path="/values" component={Values} />
-        <Route path="/vrchat" component={VRChat} />
-        <Route path="/platform" component={Platform} />
-        <Route path="/dashboard" component={Dashboard} />
-        <Route path="/trader-dashboard" component={TraderDashboard} />
-        <Route path="/trading-visualization" component={TradingVisualization} />
-        <Route path="/trading" component={TradingInterface} />
-        <Route path="/defi" component={DeFiDashboard} />
-        <Route path="/portfolio" component={PortfolioDashboard} />
-        <Route path="/cloudflare" component={CloudflareOptimization} />
-        <Route path="/technical-deep-dive" component={TechnicalDeepDive} />
-        <Route path="/ai-systems" component={AISystems} />
-        <Route path="/ai-onboarding" component={AIOnboarding} />
-        <Route path="/agent-insights" component={AgentInsights} />
-        <Route path="/health-monitor" component={HealthMonitorDashboard} />
-        <Route path="/compatibility-test" component={CompatibilityTestPage} />
-        <Route path="/security" component={SecurityPage} />
-        <Route path="/compliance" component={Compliance} />
-        <Route path="/legal" component={Legal} />
-        <Route path="/workplace-janitorial" component={WorkplaceJanitorial} />
-        <Route path="/troves-coves" component={TrovesCoves} />
-        <Route path="/frostbite-gazette" component={FrostbiteGazette} />
-        <Route path="/claude-consciousness" component={ClaudeConsciousness} />
-        <Route path="/system-integration" component={SystemIntegrationDashboard} />
+        <Route path="/consciousness" component={ConsciousnessCore} />
+        <Route path="/portfolio" component={QuantumPortfolio} />
+        <Route path="/trading-hub" component={TradingHub} />
+        <Route path="/ai-intelligence" component={TradingHub} />
+        <Route path="/defi-protocols" component={TradingHub} />
+        <Route path="/quantum-platform" component={QuantumPortfolio} />
+        <Route path="/virtual-realms" component={ConsciousnessCore} />
+        <Route path="/security-compliance" component={QuantumPortfolio} />
         <Route component={NotFound} />
       </Switch>
     </>
