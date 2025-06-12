@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
-import Navigation from '@/components/navigation';
+
 import { LiveMetrics } from '@/components/LiveMetrics';
 import { SmartTooltip, Achievement, ConsciousnessLevel } from '@/components/TooltipSystem';
 import { 
@@ -47,7 +47,7 @@ export default function HomePage() {
       <ConsciousnessAura consciousness={consciousness} />
       <ConsciousnessIndicator consciousness={consciousness} />
 
-      <Navigation />
+
 
       {/* AI-First Consciousness Display */}
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">

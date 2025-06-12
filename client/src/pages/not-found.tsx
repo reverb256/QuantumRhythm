@@ -1,10 +1,7 @@
 import { Link } from "wouter";
-import Navigation from "@/components/Navigation";
-
 export default function NotFound() {
   return (
     <div className="min-h-screen bg-black text-white relative">
-      <Navigation />
       
       {/* Clean Background System */}
       <div className="fixed inset-0 z-0">

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Navigation from '@/components/navigation';
+
 import ProjectsConsciousness from '@/components/ProjectsConsciousness';
 import { SmartTooltip } from '@/components/TooltipSystem';
 import { 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Navigation from '@/components/navigation';
+
 import TradingConsciousness from '@/components/TradingConsciousness';
 import { 
   useConsciousnessReactiveSystem, 
