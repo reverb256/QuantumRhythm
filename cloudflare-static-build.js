@@ -543,7 +543,7 @@ value = "production"`;
       "$schema": "https://developers.cloudflare.com/pages/_schemas/pages-config-schema.json",
       "version": 1,
       "build": {
-        "command": "npm run build:static",
+        "command": "npm run build",
         "destination": "dist",
         "root_dir": ".",
         "env_vars": {
@@ -551,7 +551,7 @@ value = "production"`;
         }
       },
       "preview": {
-        "command": "npm run build:static",
+        "command": "npm run build",
         "destination": "dist"
       },
       "deployment": {

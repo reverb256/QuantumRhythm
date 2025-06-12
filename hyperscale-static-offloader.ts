@@ -107,7 +107,8 @@ export class HyperscaleStaticOffloader {
   private async buildStaticPage(route: string, priority: 'critical' | 'high' | 'medium' | 'low'): Promise<void> {
     try {
       // Build static version of the page
-      const { stdout } = await execAsync(`npm run build:static -- --route=${route}`);
+      // Use standard build process instead of missing build:static
+      const { stdout } = await execAsync('npm run build');
       
       // Read generated content
       const contentPath = `dist${route === '/' ? '/index' : route}.html`;
