@@ -24,6 +24,7 @@ import ConsciousnessCore from "@/pages/ConsciousnessCore";
 import QuantumPortfolio from "@/pages/QuantumPortfolio";
 import TradingHub from "@/pages/TradingHub";
 import CostOptimization from "@/pages/cost-optimization";
+import AIConsciousness from "@/pages/ai-consciousness";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -82,8 +83,10 @@ function Router() {
         <Route path="/" component={Home} />
         <Route path="/consciousness" component={ConsciousnessCore} />
         <Route path="/portfolio" component={QuantumPortfolio} />
+        <Route path="/trading" component={TradingHub} />
         <Route path="/trading-hub" component={TradingHub} />
         <Route path="/cost-optimization" component={CostOptimization} />
+        <Route path="/ai-consciousness" component={AIConsciousness} />
         <Route path="/ai-intelligence" component={TradingHub} />
         <Route path="/defi-protocols" component={TradingHub} />
         <Route path="/quantum-platform" component={QuantumPortfolio} />
