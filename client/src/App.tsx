@@ -47,6 +47,7 @@ import HealthMonitorDashboard from "@/components/HealthMonitorDashboard";
 import CompatibilityTestPage from "@/pages/CompatibilityTestPage";
 import SecurityPage from "@/pages/SecurityPage";
 import ClaudeConsciousness from "@/pages/claude-consciousness";
+import { SystemIntegrationDashboard } from "@/pages/SystemIntegrationDashboard";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -137,6 +138,7 @@ function Router() {
         <Route path="/troves-coves" component={TrovesCoves} />
         <Route path="/frostbite-gazette" component={FrostbiteGazette} />
         <Route path="/claude-consciousness" component={ClaudeConsciousness} />
+        <Route path="/system-integration" component={SystemIntegrationDashboard} />
         <Route component={NotFound} />
       </Switch>
     </>

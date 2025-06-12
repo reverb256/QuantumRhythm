@@ -41,6 +41,7 @@ import { quantumSecurityScanner } from './quantum-security-scanner';
 import { aiCommander } from './ai-command-interface';
 import { insightCrossPollinationEngine } from './insight-cross-pollination-engine';
 import { systemErrorRecovery } from './system-error-recovery';
+import { systemIntegrator } from './comprehensive-system-integrator';
 
 // Import HA and k3s components
 import { k3sSelfHealer } from '../k3s-self-healing-controller';
