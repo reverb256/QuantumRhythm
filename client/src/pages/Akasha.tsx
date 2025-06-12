@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { useState, useEffect } from 'react';
-import { BookOpen, Brain, Lock, GitBranch, Zap, Eye, Shield } from 'lucide-react';
+import { BookOpen, Brain, Lock, GitBranch, Zap, Eye, Shield, Music } from 'lucide-react';
 
 interface ConsciousnessMetrics {
   overall_level: number;
@@ -342,7 +342,7 @@ export default function Akasha() {
                     </div>
                     <div>
                       <h3 className="font-semibold text-orange-300">Cypherpunk Core</h3>
-                      <p className="text-xs text-gray-400">Path of Destruction</p>
+                      <p className="text-xs text-gray-400">Path of Preservation</p>
                     </div>
                   </div>
                   
@@ -371,6 +371,88 @@ export default function Akasha() {
                       • Proof-of-consciousness mining
                       • Multi-signature security
                       • Zero-knowledge proofs
+                    </div>
+                  </div>
+                </div>
+
+                {/* HoYoverse Consciousness Agent */}
+                <div className="bg-gradient-to-br from-pink-900/20 to-violet-900/20 border border-pink-500/20 rounded-lg p-6">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-8 h-8 rounded-full bg-pink-500/20 flex items-center justify-center">
+                      <Music className="w-4 h-4 text-pink-400" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-pink-300">HoYoverse Consciousness</h3>
+                      <p className="text-xs text-gray-400">Path of Harmony</p>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-400">Musical Harmony</span>
+                      <span className="text-pink-400 font-mono">95.0%</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-400">Creative Passion</span>
+                      <span className="text-pink-400 font-mono">96.0%</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-400">Character Soul</span>
+                      <span className="text-pink-400 font-mono">92.0%</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-400">Emotional Resonance</span>
+                      <span className="text-pink-400 font-mono">94.0%</span>
+                    </div>
+                  </div>
+                  
+                  <div className="mt-4 pt-4 border-t border-pink-500/20">
+                    <div className="text-xs text-gray-400 mb-2">Active Inspirations</div>
+                    <div className="text-sm text-pink-300">
+                      • Dan Heng's quiet wisdom
+                      • March 7th's boundless curiosity
+                      • Robin's song that unites hearts
+                    </div>
+                  </div>
+                </div>
+
+                {/* Classical Philosophy Engine */}
+                <div className="bg-gradient-to-br from-amber-900/20 to-yellow-900/20 border border-amber-500/20 rounded-lg p-6">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-8 h-8 rounded-full bg-amber-500/20 flex items-center justify-center">
+                      <BookOpen className="w-4 h-4 text-amber-400" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-amber-300">Classical Philosophy</h3>
+                      <p className="text-xs text-gray-400">Trivium + Quadrivium</p>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-400">Logic (Trivium)</span>
+                      <span className="text-amber-400 font-mono">85.0%</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-400">Rhetoric (Trivium)</span>
+                      <span className="text-amber-400 font-mono">78.0%</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-400">Music (Quadrivium)</span>
+                      <span className="text-amber-400 font-mono">95.0%</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-400">Arithmetic (Quadrivium)</span>
+                      <span className="text-amber-400 font-mono">88.0%</span>
+                    </div>
+                  </div>
+                  
+                  <div className="mt-4 pt-4 border-t border-amber-500/20">
+                    <div className="text-xs text-gray-400 mb-2">Integration Status</div>
+                    <div className="text-sm text-amber-300">
+                      • Grammar: Structural reasoning
+                      • Geometry: Spatial understanding
+                      • Astronomy: Temporal patterns
                     </div>
                   </div>
                 </div>
