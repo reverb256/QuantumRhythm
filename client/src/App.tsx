@@ -17,7 +17,7 @@ import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 import { CursorGlow } from "@/components/CursorGlow";
 import { ParticleSystem } from "@/components/ParticleSystem";
 
-import SimplifiedNavigation from "@/components/SimplifiedNavigation";
+import ConsciousnessNavbar from "./components/ConsciousnessNavbar";
 import { BreathingPageWrapper } from "@/components/breathing-animation";
 import Home from "@/pages/home";
 import QuantumPortfolio from "@/pages/QuantumPortfolio";
@@ -102,7 +102,7 @@ function ThemedApp() {
       <ThemeSwitcher />
       <Toaster />
       <main id="main-content" className="relative z-10 hdr-background text-wcag-aaa focus-enhanced">
-        <SimplifiedNavigation />
+        <ConsciousnessNavbar />
         <Router />
       </main>
       <EnhancedConsole />
@@ -160,7 +160,7 @@ function App() {
                 <ThemeSwitcher />
                 <Toaster />
                 <main id="main-content" className="relative z-10 text-wcag-aaa focus-enhanced">
-                  <SimplifiedNavigation />
+                  <ConsciousnessNavbar />
                   <Router />
                 </main>
                 <EnhancedConsole />
