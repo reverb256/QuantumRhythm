@@ -148,9 +148,7 @@ function App() {
                 <Toaster />
                 <main id="main-content" className="relative z-10 hdr-background text-wcag-aaa focus-enhanced">
                   <SimplifiedNavigation />
-                  <div className="pt-16">
-                    <Router />
-                  </div>
+                  <Router />
                 </main>
                 <EnhancedConsole />
               </ConsciousContainer>

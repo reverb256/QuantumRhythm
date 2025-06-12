@@ -49,7 +49,7 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen pt-16 bg-black text-white">
 
       {/* Background Effects */}
       <div className="fixed inset-0 pointer-events-none">
@@ -65,7 +65,7 @@ export default function HomePage() {
       {/* Main Content */}
       <main className="relative z-10">
         {/* Hero Section */}
-        <section className="min-h-screen flex items-center justify-center px-6 pt-24 pb-20">
+        <section className="min-h-screen flex items-center justify-center px-6 py-20">
           <div className="max-w-5xl mx-auto text-center space-y-12">
             
             {/* Profile Picture */}
