@@ -32,6 +32,7 @@ import Showcase from "@/pages/Showcase";
 import AgentGallery from "@/pages/AgentGallery";
 import SecurityDashboard from "@/pages/SecurityDashboard";
 import DebugDashboard from "@/pages/DebugDashboard";
+import InsightsDashboard from "@/pages/InsightsDashboard";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -99,6 +100,7 @@ function Router() {
         <Route path="/agents" component={AgentGallery} />
         <Route path="/security" component={SecurityDashboard} />
         <Route path="/debug" component={DebugDashboard} />
+        <Route path="/insights" component={InsightsDashboard} />
         <Route path="/contact" component={Contact} />
         
         {/* Redirect legacy routes to main sections */}

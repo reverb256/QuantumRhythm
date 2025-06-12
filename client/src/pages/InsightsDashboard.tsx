@@ -78,7 +78,7 @@ export default function InsightsDashboard() {
     refetchInterval: 30000 // Refresh every 30 seconds
   });
 
-  const summary = insightsSummary?.insights as InsightsSummary;
+  const summary = (insightsSummary as any)?.insights as InsightsSummary | undefined;
 
   const handleProcessTestData = async () => {
     setIsProcessing(true);
@@ -216,7 +216,7 @@ export default function InsightsDashboard() {
           </TabsList>
 
           <TabsContent value="overview" className="space-y-6">
-            {summary?.criticalInsights > 0 && (
+            {summary && summary.criticalInsights > 0 && (
               <Alert className="border-red-500 bg-red-500/10">
                 <AlertTriangle className="h-4 w-4 text-red-400" />
                 <AlertTitle className="text-red-400">Critical Issues Detected</AlertTitle>
@@ -364,7 +364,7 @@ export default function InsightsDashboard() {
               <CardContent>
                 <ScrollArea className="h-96">
                   <pre className="text-gray-300 text-sm whitespace-pre-wrap">
-                    {insightsReport?.report || 'No report available yet. Process some data to generate insights.'}
+                    {(insightsReport as any)?.report || 'No report available yet. Process some data to generate insights.'}
                   </pre>
                 </ScrollArea>
               </CardContent>

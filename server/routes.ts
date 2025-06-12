@@ -53,9 +53,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
         console.log('⚠️ Security audit error:', err.message);
       });
 
-      // Initialize AI orchestration debugging and insights extraction
+      // Initialize AI orchestration debugging and automated insights infusion
       const { aiOrchestrationDebugger } = await import('./ai-orchestration-debugger');
       const { insightsEngine } = await import('./insights-extraction-engine');
+      const { automatedInsightsInfusion } = await import('./automated-insights-infusion');
+      
+      // Start automated insights infusion system
+      automatedInsightsInfusion.startContinuousInfusion().then(() => {
+        console.log('🧠 Automated insights infusion system active');
+      }).catch(err => {
+        console.log('⚠️ Insights infusion initialization error:', err.message);
+      });
       
       aiOrchestrationDebugger.performRecursiveDebugging().then(result => {
         console.log(`🤖 AI orchestration complete: ${result.fixedIssues}/${result.totalIssues} issues fixed, system status: ${result.systemStatus}`);
@@ -251,6 +259,60 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json({ success: true, message: 'Data processed for insights extraction' });
     } catch (error) {
       res.status(500).json({ success: false, error: 'Failed to process insights data' });
+    }
+  });
+
+  // Automated insights infusion endpoints
+  app.get('/api/insights/infusion/status', async (req, res) => {
+    try {
+      const { automatedInsightsInfusion } = await import('./automated-insights-infusion');
+      const status = automatedInsightsInfusion.getStatus();
+      res.json({ success: true, status });
+    } catch (error) {
+      res.status(500).json({ success: false, error: 'Failed to get infusion status' });
+    }
+  });
+
+  app.get('/api/insights/infusion/metrics', async (req, res) => {
+    try {
+      const { automatedInsightsInfusion } = await import('./automated-insights-infusion');
+      const metrics = automatedInsightsInfusion.getMetrics();
+      res.json({ success: true, metrics });
+    } catch (error) {
+      res.status(500).json({ success: false, error: 'Failed to get infusion metrics' });
+    }
+  });
+
+  app.post('/api/insights/infusion/trade', async (req, res) => {
+    try {
+      const { automatedInsightsInfusion } = await import('./automated-insights-infusion');
+      const tradeData = req.body;
+      await automatedInsightsInfusion.infuseTradeInsights(tradeData);
+      res.json({ success: true, message: 'Trade insights infused' });
+    } catch (error) {
+      res.status(500).json({ success: false, error: 'Failed to infuse trade insights' });
+    }
+  });
+
+  app.post('/api/insights/infusion/security', async (req, res) => {
+    try {
+      const { automatedInsightsInfusion } = await import('./automated-insights-infusion');
+      const securityEvent = req.body;
+      await automatedInsightsInfusion.infuseSecurityInsights(securityEvent);
+      res.json({ success: true, message: 'Security insights infused' });
+    } catch (error) {
+      res.status(500).json({ success: false, error: 'Failed to infuse security insights' });
+    }
+  });
+
+  app.post('/api/insights/infusion/performance', async (req, res) => {
+    try {
+      const { automatedInsightsInfusion } = await import('./automated-insights-infusion');
+      const performanceData = req.body;
+      await automatedInsightsInfusion.infusePerformanceInsights(performanceData);
+      res.json({ success: true, message: 'Performance insights infused' });
+    } catch (error) {
+      res.status(500).json({ success: false, error: 'Failed to infuse performance insights' });
     }
   });
 
