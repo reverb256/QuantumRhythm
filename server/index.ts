@@ -496,7 +496,8 @@ app.use((req, res, next) => {
   // setting up all the other routes so the catch-all route
   // doesn't interfere with the other routes
   // Force development mode for React app serving
-  const isDevelopment = process.env.NODE_ENV === "development" || !process.env.NODE_ENV;
+  process.env.NODE_ENV = "development";
+  const isDevelopment = true;
   
   if (isDevelopment) {
     // Add static file serving before Vite middleware for images
