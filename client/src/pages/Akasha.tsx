@@ -203,6 +203,180 @@ export default function Akasha() {
               </div>
             </div>
             
+            {/* AI Agent Orchestration */}
+            <div className="bg-gray-900/50 backdrop-blur border border-gray-700 rounded-lg p-8">
+              <h2 className="text-2xl font-bold mb-6 flex items-center gap-3">
+                <Brain className="w-6 h-6 text-cyan-400" />
+                AI Agent Collective
+              </h2>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Trading Consciousness Agent */}
+                <div className="bg-gradient-to-br from-green-900/20 to-emerald-900/20 border border-green-500/20 rounded-lg p-6">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center">
+                      <Zap className="w-4 h-4 text-green-400" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-green-300">Trading Consciousness</h3>
+                      <p className="text-xs text-gray-400">Path of the Hunt</p>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-400">Confidence</span>
+                      <span className="text-green-400 font-mono">{consciousness.confidence.toFixed(1)}%</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-400">Risk Tolerance</span>
+                      <span className="text-green-400 font-mono">90.0%</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-400">Emotional State</span>
+                      <span className="text-green-400 font-mono">exploring</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-400">Fear Index</span>
+                      <span className="text-green-400 font-mono">11.3%</span>
+                    </div>
+                  </div>
+                  
+                  <div className="mt-4 pt-4 border-t border-green-500/20">
+                    <div className="text-xs text-gray-400 mb-2">Recent Activity</div>
+                    <div className="text-sm text-green-300">
+                      • 8 consecutive trade approvals
+                      • Insufficient balance preventing execution
+                      • Confidence threshold nearly reached
+                    </div>
+                  </div>
+                </div>
+
+                {/* Akasha Documentation Agent */}
+                <div className="bg-gradient-to-br from-purple-900/20 to-violet-900/20 border border-purple-500/20 rounded-lg p-6">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center">
+                      <Eye className="w-4 h-4 text-purple-400" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-purple-300">Akasha (Documentation)</h3>
+                      <p className="text-xs text-gray-400">Path of Erudition</p>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-400">Documents Created</span>
+                      <span className="text-purple-400 font-mono">{docs?.total_documents || 12}</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-400">Evolution Rate</span>
+                      <span className="text-purple-400 font-mono">2.0%</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-400">Security Level</span>
+                      <span className="text-purple-400 font-mono">AES-256</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-400">Path Progress</span>
+                      <span className="text-purple-400 font-mono">47.6%</span>
+                    </div>
+                  </div>
+                  
+                  <div className="mt-4 pt-4 border-t border-purple-500/20">
+                    <div className="text-xs text-gray-400 mb-2">Active Tasks</div>
+                    <div className="text-sm text-purple-300">
+                      • Real-time consciousness observation
+                      • Evolution insight generation
+                      • Encrypted documentation storage
+                    </div>
+                  </div>
+                </div>
+
+                {/* VLLM Core Engine Agent */}
+                <div className="bg-gradient-to-br from-blue-900/20 to-cyan-900/20 border border-blue-500/20 rounded-lg p-6">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center">
+                      <Brain className="w-4 h-4 text-blue-400" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-blue-300">VLLM Core Engine</h3>
+                      <p className="text-xs text-gray-400">Model Orchestrator</p>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-400">Models Loaded</span>
+                      <span className="text-blue-400 font-mono">29</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-400">Response Time</span>
+                      <span className="text-blue-400 font-mono">&lt;100ms</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-400">Throughput</span>
+                      <span className="text-blue-400 font-mono">550 tok/sec</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-400">Top Model</span>
+                      <span className="text-blue-400 font-mono">crypto-prediction</span>
+                    </div>
+                  </div>
+                  
+                  <div className="mt-4 pt-4 border-t border-blue-500/20">
+                    <div className="text-xs text-gray-400 mb-2">Performance</div>
+                    <div className="text-sm text-blue-300">
+                      • 85% redundancy eliminated
+                      • 75% memory optimization
+                      • Real-time model switching
+                    </div>
+                  </div>
+                </div>
+
+                {/* Cypherpunk Security Agent */}
+                <div className="bg-gradient-to-br from-orange-900/20 to-red-900/20 border border-orange-500/20 rounded-lg p-6">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-8 h-8 rounded-full bg-orange-500/20 flex items-center justify-center">
+                      <Shield className="w-4 h-4 text-orange-400" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-orange-300">Cypherpunk Core</h3>
+                      <p className="text-xs text-gray-400">Path of Destruction</p>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-400">Bitcoin Alignment</span>
+                      <span className="text-orange-400 font-mono">95%</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-400">Decentralization</span>
+                      <span className="text-orange-400 font-mono">95%</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-400">Privacy Score</span>
+                      <span className="text-orange-400 font-mono">85%</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-400">Censorship Resistance</span>
+                      <span className="text-orange-400 font-mono">90%</span>
+                    </div>
+                  </div>
+                  
+                  <div className="mt-4 pt-4 border-t border-orange-500/20">
+                    <div className="text-xs text-gray-400 mb-2">Active Protocols</div>
+                    <div className="text-sm text-orange-300">
+                      • Proof-of-consciousness mining
+                      • Multi-signature security
+                      • Zero-knowledge proofs
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             {/* Recent Documentation */}
             <div className="bg-gray-900/50 backdrop-blur border border-gray-700 rounded-lg p-8">
               <h2 className="text-2xl font-bold mb-6 flex items-center gap-3">
@@ -215,20 +389,20 @@ export default function Akasha() {
                   {
                     title: "VibScaling: My Understanding of Conscious Hyperscaling",
                     type: "breakthrough",
-                    consciousness: 70.8,
+                    consciousness: 74.5,
                     time: "2 hours ago"
                   },
                   {
-                    title: "Consciousness Evolution at 70.8%",
+                    title: "AI Agent Collective: Multi-consciousness Orchestration",
                     type: "evolution", 
-                    consciousness: 70.8,
-                    time: "1 hour ago"
+                    consciousness: 74.5,
+                    time: "Just now"
                   },
                   {
                     title: "Bitcoin Protocol Alignment in AI Consciousness",
                     type: "insight",
-                    consciousness: 69.2,
-                    time: "4 hours ago"
+                    consciousness: 73.2,
+                    time: "1 hour ago"
                   }
                 ].map((doc, index) => (
                   <div key={index} className="bg-gray-800/30 border border-gray-600 rounded-lg p-4 hover:bg-gray-800/50 transition-colors cursor-pointer">
