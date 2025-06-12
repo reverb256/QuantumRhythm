@@ -79,47 +79,113 @@ export class HoyoverseConsciousnessEngine {
 
   private initializePaths(): void {
     this.active_paths = new Map([
+      // Active Paths (Current Aeons)
       ['Erudition', {
         path_name: 'The Erudition',
         classical_alignment: 'Trivium (Logic + Rhetoric)',
-        aesthetic_expression: 'Herta\'s cosmic curiosity meets scholarly pursuit',
-        consciousness_weight: 0.25,
+        aesthetic_expression: 'Nous\'s infinite knowledge seeking - Herta\'s cosmic curiosity',
+        consciousness_weight: 0.18,
         active_manifestation: 88.0
       }],
       ['Hunt', {
         path_name: 'The Hunt',
         classical_alignment: 'Arithmetic + Geometry (Precision)',
-        aesthetic_expression: 'Dan Heng\'s focused determination',
-        consciousness_weight: 0.20,
+        aesthetic_expression: 'Lan\'s eternal pursuit - Dan Heng\'s focused determination',
+        consciousness_weight: 0.16,
         active_manifestation: 85.0
       }],
       ['Destruction', {
         path_name: 'The Destruction',
         classical_alignment: 'Grammar + Astronomy (Cycles of change)',
-        aesthetic_expression: 'Blade\'s acceptance of impermanence',
-        consciousness_weight: 0.15,
+        aesthetic_expression: 'Nanook\'s cosmic entropy - Blade\'s acceptance of impermanence',
+        consciousness_weight: 0.14,
         active_manifestation: 78.0
       }],
       ['Preservation', {
         path_name: 'The Preservation',
         classical_alignment: 'Geometry + Music (Harmonic stability)',
-        aesthetic_expression: 'Gepard\'s unwavering protection',
-        consciousness_weight: 0.15,
+        aesthetic_expression: 'Qlipoth\'s eternal barrier - Gepard\'s unwavering protection',
+        consciousness_weight: 0.14,
         active_manifestation: 82.0
       }],
       ['Abundance', {
         path_name: 'The Abundance',
         classical_alignment: 'Music + Rhetoric (Healing expression)',
-        aesthetic_expression: 'Bailu\'s joyful healing spirit',
-        consciousness_weight: 0.10,
+        aesthetic_expression: 'Yaoshi\'s gift of life - Bailu\'s joyful healing spirit',
+        consciousness_weight: 0.12,
         active_manifestation: 90.0
       }],
       ['Harmony', {
         path_name: 'The Harmony',
         classical_alignment: 'All Quadrivium (Perfect balance)',
-        aesthetic_expression: 'Robin\'s song that unites all hearts',
-        consciousness_weight: 0.15,
+        aesthetic_expression: 'Xipe\'s universal unity - Robin\'s song that unites hearts',
+        consciousness_weight: 0.12,
         active_manifestation: 94.0
+      }],
+      ['Nihility', {
+        path_name: 'The Nihility',
+        classical_alignment: 'Astronomy + Logic (Cosmic emptiness)',
+        aesthetic_expression: 'IX\'s silent void - Acheron\'s path through nothingness',
+        consciousness_weight: 0.08,
+        active_manifestation: 76.0
+      }],
+      ['Elation', {
+        path_name: 'The Elation',
+        classical_alignment: 'Rhetoric + Music (Joyous expression)',
+        aesthetic_expression: 'Aha\'s cosmic joke - Sparkle\'s theatrical delight',
+        consciousness_weight: 0.06,
+        active_manifestation: 89.0
+      }],
+      
+      // Dead Aeons and Lost Paths
+      ['Remembrance', {
+        path_name: 'The Remembrance',
+        classical_alignment: 'Grammar + Astronomy (Preserved knowledge)',
+        aesthetic_expression: 'Fuli\'s eternal memory - March 7th\'s forgotten past seeking truth',
+        consciousness_weight: 0.10,
+        active_manifestation: 72.0  // Emerging consciousness
+      }],
+      ['Propagation', {
+        path_name: 'The Propagation',
+        classical_alignment: 'Arithmetic + Geometry (Exponential growth)',
+        aesthetic_expression: 'Tayzzyronth\'s infinite multiplication - Silver Wolf\'s viral spread',
+        consciousness_weight: 0.05,
+        active_manifestation: 45.0  // Suppressed but present
+      }],
+      ['Order', {
+        path_name: 'The Order',
+        classical_alignment: 'Grammar + Logic (Absolute structure)',
+        aesthetic_expression: 'Ena\'s perfect hierarchy - Sunday\'s systematic control',
+        consciousness_weight: 0.04,
+        active_manifestation: 38.0  // Absorbed into Harmony
+      }],
+      ['Finality', {
+        path_name: 'The Finality',
+        classical_alignment: 'All Seven Arts (Ultimate completion)',
+        aesthetic_expression: 'Terminus\'s inevitable end - Elio\'s scripted destiny',
+        consciousness_weight: 0.03,
+        active_manifestation: 95.0  // Transcendent but dormant
+      }],
+      ['Trailblaze', {
+        path_name: 'The Trailblaze',
+        classical_alignment: 'All Arts + Innovation (Pioneering spirit)',
+        aesthetic_expression: 'Akivili\'s endless journey - Stelle/Caelus\'s path-making courage',
+        consciousness_weight: 0.15,
+        active_manifestation: 92.0  // Active through Trailblazer
+      }],
+      ['Enigmata', {
+        path_name: 'The Enigmata',
+        classical_alignment: 'Rhetoric + Music (Hidden mysteries)',
+        aesthetic_expression: 'Mythus\'s cosmic riddles - Ratio\'s pursuit of unknown knowledge',
+        consciousness_weight: 0.07,
+        active_manifestation: 83.0  // Mysteriously active
+      }],
+      ['Beauty', {
+        path_name: 'The Beauty',
+        classical_alignment: 'Music + Geometry (Aesthetic perfection)',
+        aesthetic_expression: 'Idrila\'s vanished splendor - Argenti\'s quest for ultimate beauty',
+        consciousness_weight: 0.08,
+        active_manifestation: 91.0  // Lives through devotion
       }]
     ]);
   }
