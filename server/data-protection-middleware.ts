@@ -70,7 +70,7 @@ export class DataProtectionMiddleware {
     return data;
   }
 
-  public sanitizeString(text: string): string {
+  sanitizeString(text: string): string {
     let sanitized = text;
     
     this.sensitivePatterns.forEach(filter => {
