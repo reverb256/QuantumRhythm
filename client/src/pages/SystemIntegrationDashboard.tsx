@@ -79,7 +79,7 @@ export const SystemIntegrationDashboard: React.FC = () => {
   return (
     <div 
       className="min-h-screen p-6"
-      style={{ backgroundColor: currentTheme.colors.background }}
+      style={{ backgroundColor: currentTheme.colors.background, paddingTop: '5rem' }}
     >
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header */}
