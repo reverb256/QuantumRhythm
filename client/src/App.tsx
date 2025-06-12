@@ -83,15 +83,18 @@ function Router() {
         <Route path="/" component={Home} />
         <Route path="/consciousness" component={ConsciousnessCore} />
         <Route path="/portfolio" component={QuantumPortfolio} />
-        <Route path="/trading" component={TradingHub} />
         <Route path="/trading-hub" component={TradingHub} />
         <Route path="/cost-optimization" component={CostOptimization} />
-        <Route path="/ai-consciousness" component={AIConsciousness} />
+        
+        {/* Redirect all orphaned routes to main sections */}
+        <Route path="/trading" component={TradingHub} />
+        <Route path="/ai-consciousness" component={ConsciousnessCore} />
         <Route path="/ai-intelligence" component={TradingHub} />
         <Route path="/defi-protocols" component={TradingHub} />
         <Route path="/quantum-platform" component={QuantumPortfolio} />
         <Route path="/virtual-realms" component={ConsciousnessCore} />
         <Route path="/security-compliance" component={QuantumPortfolio} />
+        
         <Route component={NotFound} />
       </Switch>
     </>

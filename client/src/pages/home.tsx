@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'wouter';
 import { useQuery } from '@tanstack/react-query';
+import { ExternalLink, Github, Code, Globe, Shield, Database, Cpu, Zap } from 'lucide-react';
 
 // Consciousness-driven home page that showcases VibeCoding potential
 export default function Home() {
@@ -616,25 +617,39 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* Quick Navigation */}
-                <div className="flex flex-wrap gap-3 pt-6">
-                  <Link 
-                    href="/trading" 
-                    className="bg-gradient-to-r from-cyan-600 to-cyan-800 hover:from-cyan-500 hover:to-cyan-700 px-6 py-3 rounded-lg font-semibold transition-all duration-300"
-                  >
-                    Trading Dashboard
-                  </Link>
+                {/* Quick Navigation to Main Sections */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-8">
                   <Link 
                     href="/portfolio" 
-                    className="bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-500 hover:to-purple-700 px-6 py-3 rounded-lg font-semibold transition-all duration-300"
+                    className="group bg-gradient-to-r from-violet-600/20 to-purple-600/20 border border-violet-400/30 hover:border-violet-400/60 px-6 py-4 rounded-xl font-semibold transition-all duration-300 text-center"
                   >
-                    Full Portfolio
+                    <Code className="w-6 h-6 mx-auto mb-2 text-violet-400" />
+                    <div className="text-white">Portfolio</div>
+                    <div className="text-xs text-gray-400">VibeCoding Projects</div>
                   </Link>
                   <Link 
                     href="/consciousness" 
-                    className="bg-gradient-to-r from-indigo-600 to-indigo-800 hover:from-indigo-500 hover:to-indigo-700 px-6 py-3 rounded-lg font-semibold transition-all duration-300"
+                    className="group bg-gradient-to-r from-purple-600/20 to-pink-600/20 border border-purple-400/30 hover:border-purple-400/60 px-6 py-4 rounded-xl font-semibold transition-all duration-300 text-center"
                   >
-                    Consciousness Map
+                    <Shield className="w-6 h-6 mx-auto mb-2 text-purple-400" />
+                    <div className="text-white">Consciousness</div>
+                    <div className="text-xs text-gray-400">AI Evolution</div>
+                  </Link>
+                  <Link 
+                    href="/trading-hub" 
+                    className="group bg-gradient-to-r from-cyan-600/20 to-blue-600/20 border border-cyan-400/30 hover:border-cyan-400/60 px-6 py-4 rounded-xl font-semibold transition-all duration-300 text-center"
+                  >
+                    <Zap className="w-6 h-6 mx-auto mb-2 text-cyan-400" />
+                    <div className="text-white">Trading</div>
+                    <div className="text-xs text-gray-400">Quantum AI</div>
+                  </Link>
+                  <Link 
+                    href="/cost-optimization" 
+                    className="group bg-gradient-to-r from-teal-600/20 to-green-600/20 border border-teal-400/30 hover:border-teal-400/60 px-6 py-4 rounded-xl font-semibold transition-all duration-300 text-center"
+                  >
+                    <Database className="w-6 h-6 mx-auto mb-2 text-teal-400" />
+                    <div className="text-white">Sovereign</div>
+                    <div className="text-xs text-gray-400">Self-Hosting</div>
                   </Link>
                 </div>
               </div>
