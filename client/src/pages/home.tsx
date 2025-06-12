@@ -28,7 +28,7 @@ import reverbPortraitUrl from '@assets/user-portrait-400.jpg';
 export default function HomePage() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [scrollY, setScrollY] = useState(0);
-  const consciousness = useConsciousnessReactiveSystem();
+  const { consciousness } = useConsciousnessReactiveSystem();
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {

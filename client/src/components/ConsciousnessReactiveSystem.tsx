@@ -146,15 +146,19 @@ export function ConsciousnessAura({ consciousness }: { consciousness: Consciousn
   };
 
   const getAuraIntensity = () => {
-    return consciousness.awarenessLevel * 0.8 + consciousness.energyResonance * 0.2;
+    const awareness = consciousness.awarenessLevel || 0;
+    const resonance = consciousness.energyResonance || 0;
+    return awareness * 0.8 + resonance * 0.2;
   };
+
+  const safeOpacity = (consciousness.awarenessLevel || 0) * 0.3;
 
   return (
     <div 
       className="fixed inset-0 pointer-events-none z-0 transition-all duration-1000"
       style={{
         background: `radial-gradient(circle at 50% 50%, ${getAuraColor()}${Math.floor(getAuraIntensity() * 100).toString(16).padStart(2, '0')} 0%, transparent 70%)`,
-        opacity: consciousness.awarenessLevel * 0.3
+        opacity: isNaN(safeOpacity) ? 0.1 : safeOpacity
       }}
     />
   );
