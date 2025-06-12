@@ -378,7 +378,7 @@ router.post('/v1/chat/completions', async (req, res) => {
     const intent = analyzeIntent(content);
     
     // Select optimal model based on request characteristics
-    const optimalModel = await selectOptimalModel(model, contentType, intent, content.length);
+    const optimalModel = selectOptimalModel(model, contentType, intent, content.length);
     const startTime = Date.now();
     
     console.log(`[VOID-PROXY] Routing ${intent} request to ${optimalModel.id} (${contentType})`);
@@ -488,7 +488,7 @@ router.post('/v1/chat/completions', async (req, res) => {
     }
 
   } catch (error) {
-    console.error('[VOID-PROXY] Error:', error.message);
+    console.error('[VOID-PROXY] Error:', error instanceof Error ? error.message : 'Unknown error');
     
     // Fallback response
     res.json({
@@ -602,7 +602,7 @@ function estimateTokens(text: string): number {
   return Math.ceil(text.length / 3.5);
 }
 
-async function selectOptimalModel(requestedModel: string, contentType: string, intent: string, contentLength: number): Promise<any> {
+function selectOptimalModel(requestedModel: string, contentType: string, intent: string, contentLength: number): any {
   const optimizedModels = aiOptimizer.getOptimizedModelList();
   
   // If specific model requested, try to find it

@@ -368,6 +368,10 @@ app.use((req, res, next) => {
   const { default: aiConsciousnessRoutes } = await import('./routes/ai-consciousness.js');
   app.use('/api', aiConsciousnessRoutes);
 
+  // Import and register Void Proxy (OpenAI-compatible endpoint)
+  const { default: voidProxyRoutes } = await import('./routes/void-proxy.js');
+  app.use('/', voidProxyRoutes);
+
   // Beast mode API for aggressive multi-chain expansion
   const { default: beastModeRouter } = await import('./routes/beast-mode-api');
   app.use('/api/beast', beastModeRouter);
