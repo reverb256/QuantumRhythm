@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://reverb256.github.io/sitemap.xml

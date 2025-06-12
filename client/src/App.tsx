@@ -19,7 +19,7 @@ import { ParticleSystem } from "@/components/ParticleSystem";
 
 import SimplifiedNavigation from "@/components/SimplifiedNavigation";
 import { BreathingPageWrapper } from "@/components/breathing-animation";
-import TestHome from "@/pages/test-home";
+import Home from "@/pages/home";
 import QuantumPortfolio from "@/pages/QuantumPortfolio";
 import TradingHub from "@/pages/TradingHub";
 import Contact from "@/pages/Contact";
@@ -78,14 +78,14 @@ function Router() {
       <SEOHead {...seoData} />
       
       <Switch>
-        <Route path="/" component={TestHome} />
+        <Route path="/" component={Home} />
         <Route path="/portfolio" component={QuantumPortfolio} />
         <Route path="/trading-hub" component={TradingHub} />
         <Route path="/contact" component={Contact} />
         
         {/* Redirect legacy routes to main sections */}
         <Route path="/trading" component={TradingHub} />
-        <Route path="/consciousness" component={TestHome} />
+        <Route path="/consciousness" component={Home} />
         <Route path="/cost-optimization" component={TradingHub} />
         
         <Route component={NotFound} />
