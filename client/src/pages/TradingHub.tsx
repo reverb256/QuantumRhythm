@@ -91,9 +91,9 @@ export default function TradingHub() {
   ];
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: currentTheme.colors.background }}>
+    <div className="page-container" style={{ backgroundColor: currentTheme.colors.background }}>
       {/* Hero Section */}
-      <section className="relative py-20 px-6 overflow-hidden">
+      <section className="relative py-12 px-6 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-cyan-900/20 via-transparent to-purple-900/20" />
         
         {/* Animated Background Elements */}

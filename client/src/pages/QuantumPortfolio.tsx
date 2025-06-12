@@ -98,7 +98,7 @@ export default function QuantumPortfolio() {
   ];
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: currentTheme.colors.background }}>
+    <div className="page-container" style={{ backgroundColor: currentTheme.colors.background }}>
       {/* Hero Section */}
       <section className="relative py-32 px-6 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-transparent to-cyan-900/20" />

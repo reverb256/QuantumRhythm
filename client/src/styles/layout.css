@@ -1,0 +1,133 @@
+/* Layout fixes for consistent spacing and no overlapping */
+
+/* Main page container */
+.page-container {
+  min-height: 100vh;
+  padding-top: 4rem; /* Space for fixed navigation */
+}
+
+/* Section spacing */
+.section-spacing {
+  padding: 3rem 1.5rem;
+}
+
+.section-spacing-sm {
+  padding: 2rem 1.5rem;
+}
+
+/* Content containers */
+.content-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.content-container-wide {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Grid layouts */
+.grid-responsive {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .grid-responsive {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-responsive {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Card spacing */
+.card-container {
+  padding: 1.5rem;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Hero sections */
+.hero-section {
+  padding: 4rem 1.5rem 3rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Tab content */
+.tab-content {
+  padding: 2rem 0;
+}
+
+/* Navigation spacing */
+.nav-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  height: 4rem;
+}
+
+/* Prevent content overflow */
+.overflow-safe {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+/* Responsive text */
+.text-responsive {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+@media (min-width: 640px) {
+  .text-responsive {
+    font-size: 1.125rem;
+    line-height: 1.6;
+  }
+}
+
+/* Spacing utilities */
+.space-y-4 > * + * {
+  margin-top: 1rem;
+}
+
+.space-y-6 > * + * {
+  margin-top: 1.5rem;
+}
+
+.space-y-8 > * + * {
+  margin-top: 2rem;
+}
+
+/* Component spacing fixes */
+.component-spacing {
+  margin-bottom: 2rem;
+}
+
+.component-spacing:last-child {
+  margin-bottom: 0;
+}
+
+/* Prevent layout shifts */
+.layout-stable {
+  contain: layout style;
+}
+
+/* Safe area insets for mobile */
+@supports (padding: max(0px)) {
+  .safe-area-top {
+    padding-top: max(4rem, env(safe-area-inset-top));
+  }
+  
+  .safe-area-bottom {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+}
