@@ -46,10 +46,10 @@ export default function UnifiedPageLayout({
         ))}
       </div>
 
-      {/* Navigation Bar */}
+      {/* Back Button (if needed) */}
       {showBackButton && (
-        <nav className="fixed top-0 left-0 right-0 z-40 bg-[var(--space-black)]/80 backdrop-blur-xl border-b border-cyan-400/20">
-          <div className="max-w-7xl mx-auto px-6 py-4">
+        <div className="relative z-40 pt-20 pb-4">
+          <div className="max-w-7xl mx-auto px-6">
             <Link href="/">
               <Button variant="ghost" className="text-cyan-300 hover:text-cyan-200 hover:bg-cyan-400/10">
                 <ArrowLeft className="w-4 h-4 mr-2" />
@@ -57,7 +57,7 @@ export default function UnifiedPageLayout({
               </Button>
             </Link>
           </div>
-        </nav>
+        </div>
       )}
 
       {/* Main Content Container */}

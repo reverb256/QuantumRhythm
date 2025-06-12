@@ -50,47 +50,6 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      {/* Fixed Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-black/90 border-b border-gray-800">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="flex items-center justify-between h-16">
-            <Link href="/">
-              <div className="flex items-center space-x-3 group cursor-pointer">
-                <Zap className="w-8 h-8 text-cyan-400 group-hover:scale-110 transition-transform" />
-                <div>
-                  <span className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-                    REVERB
-                  </span>
-                  <div className="text-xs text-gray-400 -mt-1">VIBECODING</div>
-                </div>
-              </div>
-            </Link>
-
-            <div className="flex items-center space-x-6">
-              <Link href="/">
-                <button className="text-gray-300 hover:text-cyan-400 transition-colors px-3 py-2">
-                  Home
-                </button>
-              </Link>
-              <Link href="/consciousness">
-                <button className="text-gray-300 hover:text-cyan-400 transition-colors px-3 py-2">
-                  Consciousness
-                </button>
-              </Link>
-              <Link href="/portfolio">
-                <button className="text-gray-300 hover:text-cyan-400 transition-colors px-3 py-2">
-                  Portfolio
-                </button>
-              </Link>
-              <Link href="/trading-hub">
-                <button className="text-gray-300 hover:text-cyan-400 transition-colors px-3 py-2">
-                  Trading
-                </button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
 
       {/* Background Effects */}
       <div className="fixed inset-0 pointer-events-none">
@@ -104,7 +63,7 @@ export default function HomePage() {
       </div>
 
       {/* Main Content */}
-      <main className="relative z-10 pt-16">
+      <main className="relative z-10">
         {/* Hero Section */}
         <section className="min-h-screen flex items-center justify-center px-6 py-20">
           <div className="max-w-5xl mx-auto text-center space-y-12">
