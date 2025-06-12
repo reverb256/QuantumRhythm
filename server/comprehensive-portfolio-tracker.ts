@@ -96,75 +96,42 @@ class ComprehensivePortfolioTracker {
   }
 
   private async getSimulatedDefiPositions(): Promise<DeFiPosition[]> {
-    // Based on actual trading activity and wallet balance transitions
-    const solPrice = await this.getCurrentSOLPrice();
-    
-    return [
-      {
-        protocol: 'Kamino',
-        type: 'lending',
-        tokenSymbol: 'SOL',
-        amount: 0.25,
-        valueUSD: 0.25 * solPrice,
-        apy: 11.0
-      },
-      {
-        protocol: 'Marinade',
-        type: 'staking',
-        tokenSymbol: 'mSOL',
-        amount: 0.35,
-        valueUSD: 0.35 * solPrice,
-        apy: 7.2
-      },
-      {
-        protocol: 'Jupiter',
-        type: 'liquidity',
-        tokenSymbol: 'SOL-USDC',
-        amount: 0.40,
-        valueUSD: 0.40 * solPrice,
-        apy: 15.3
-      },
-      {
-        protocol: 'Drift',
-        type: 'leverage',
-        tokenSymbol: 'SOL',
-        amount: 0.20,
-        valueUSD: 0.20 * solPrice,
-        apy: 22.1
-      },
-      {
-        protocol: 'Solend',
-        type: 'lending',
-        tokenSymbol: 'USDC',
-        amount: 450.0,
-        valueUSD: 450.0,
-        apy: 8.5
-      }
-    ];
+    // This function should not be called - we only use real blockchain data
+    console.warn('❌ Attempted to use simulated data - portfolio should only show real positions');
+    return [];
   }
 
   private async getWalletBalance() {
     try {
+      console.log('🔗 Connecting to Solana blockchain for real wallet data...');
       const balance = await this.connection.getBalance(this.walletPublicKey);
-      const solBalance = balance / 1e9; // Convert lamports to SOL
+      const solBalance = balance / 1e9;
       
-      // Get token accounts
-      const tokenAccounts = await this.connection.getTokenAccountsByOwner(
+      // Get all SPL token accounts
+      const tokenAccounts = await this.connection.getParsedTokenAccountsByOwner(
         this.walletPublicKey,
         { programId: new PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA') }
       );
 
       const tokens: Record<string, number> = {};
-      // Process token accounts would go here
       
-      return {
-        SOL: solBalance,
-        tokens
-      };
+      for (const account of tokenAccounts.value) {
+        const accountInfo = account.account.data.parsed?.info;
+        if (accountInfo?.tokenAmount?.uiAmount && parseFloat(accountInfo.tokenAmount.uiAmount) > 0) {
+          const tokenSymbol = await this.getTokenSymbol(accountInfo.mint);
+          tokens[tokenSymbol] = parseFloat(accountInfo.tokenAmount.uiAmount);
+        }
+      }
+
+      console.log(`💰 Real SOL balance: ${solBalance.toFixed(6)}`);
+      if (Object.keys(tokens).length > 0) {
+        console.log(`🪙 Real token holdings:`, tokens);
+      }
+      
+      return { SOL: solBalance, tokens };
     } catch (error) {
-      console.error('Error getting wallet balance:', error);
-      // Get the real balance from the current wallet balance check
-      return { SOL: 0.093850222, tokens: {} }; // Use actual balance from logs
+      console.error('Blockchain RPC error:', error);
+      throw new Error('Unable to fetch real wallet data from blockchain');
     }
   }
 
