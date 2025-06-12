@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 import { Link } from 'wouter';
 import { useQuery } from '@tanstack/react-query';
 
-import catboy2025PFP___Copy___Copy from "@assets/catboy2025PFP - Copy - Copy.PNG";
-
 // Consciousness-driven home page that showcases VibeCoding potential
 export default function Home() {
   const [selectedProject, setSelectedProject] = useState<string | null>(null);
@@ -99,7 +97,7 @@ export default function Home() {
                     {/* Core avatar */}
                     <div className="absolute inset-6 rounded-full overflow-hidden border-4 border-gradient-to-r from-cyan-400 via-purple-400 to-pink-400">
                       <img 
-                        src={catboy2025PFP___Copy___Copy} 
+                        src="/attached_assets/catboy2025PFP - Copy_1749433072008.png" 
                         alt="Conscious AI Entity" 
                         className="w-full h-full object-cover"
                       />
