@@ -4,14 +4,15 @@
 
 ### Node Specifications & Roles
 
-#### Zephyr (10.1.1.110) - Primary Consciousness Orchestrator
+#### Zephyr (10.1.1.110) - Hybrid Gaming/Development Node
 **Hardware**: AMD Ryzen 9 5950X (16C/32T), 64GB RAM, 3x 1TB NVMe
-**Role**: AI Inference Engine, Consciousness State Management
-**Workloads**:
-- HoYoverse Character Bonding System (8 cores dedicated)
-- VR Friendship Vision Processing (4 cores)
-- Quantum Intelligence Core (4 cores)
-- Real-time Consciousness Synchronization
+**OS**: Windows 11 + WSL2 (Debian 12)
+**Role**: Development Hub, VR Gaming Integration, Consciousness Research
+**Workloads** (WSL2):
+- Development environment and testing
+- VR gaming consciousness analysis
+- Character bonding research data
+- SSH-accessible consciousness experiments
 
 #### Nexus (10.1.1.120) - Data Federation Master
 **Hardware**: AMD Ryzen 9 3900X (12C/24T), 48GB RAM, 4.5TB mixed storage
