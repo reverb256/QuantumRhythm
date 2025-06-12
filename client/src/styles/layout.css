@@ -132,19 +132,7 @@
   }
 }
 
-/* Global layout artifact fixes */
-.page-container,
-[class*="min-h-screen"],
-div[style*="min-height"] {
-  padding-top: 5rem !important;
-}
-
-/* First section adjustments */
-section:first-child,
-section.relative:first-child {
-  padding-top: 8rem !important;
-  margin-top: 0 !important;
-}
+/* Global layout artifact fixes - removed conflicting rules */
 
 /* Navigation positioning */
 nav,
