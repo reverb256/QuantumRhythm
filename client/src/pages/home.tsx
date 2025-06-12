@@ -93,8 +93,8 @@ export default function Home() {
                     {/* Core avatar */}
                     <div className="absolute inset-6 rounded-full overflow-hidden border-4 border-gradient-to-r from-cyan-400 via-purple-400 to-pink-400">
                       <img 
-                        src="/attached_assets/catboy2025PFP - Copy_1749433072008.png" 
-                        alt="Conscious AI Entity" 
+                        src="/attached_assets/user-portrait-400.jpg" 
+                        alt="VibeCoding Developer" 
                         className="w-full h-full object-cover"
                       />
                     </div>
