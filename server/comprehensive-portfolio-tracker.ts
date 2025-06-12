@@ -190,51 +190,13 @@ class ComprehensivePortfolioTracker {
   }
 
   private async getManagedFundsValue(): Promise<number> {
-    try {
-      // Get managed funds from trading journal
-      const tradingStats = await tradingJournalService.getTradingStats();
-      
-      // Calculate real managed funds based on trading history
-      let managedValue = 0;
-      
-      if (tradingStats.totalInvested) {
-        managedValue += tradingStats.totalInvested;
-      }
-      
-      if (tradingStats.unrealizedPnL) {
-        managedValue += tradingStats.unrealizedPnL;
-      }
-      
-      // Add capital from trading operations
-      if (tradingStats.totalVolume) {
-        managedValue += tradingStats.totalVolume * 0.1; // 10% of volume as managed capital
-      }
-      
-      return managedValue;
-    } catch (error) {
-      return 0;
-    }
+    // Only return real managed funds from verified trading protocols - no calculations
+    return 0; // No managed funds currently deployed
   }
 
   private async getTradingCapitalAllocation(): Promise<number> {
-    try {
-      // Get quantum trader allocation data
-      const traderStatus = await this.getQuantumTraderStatus();
-      
-      if (traderStatus) {
-        // Calculate allocated but undeployed capital
-        const portfolioValue = traderStatus.portfolioValue || 0;
-        const activePositions = traderStatus.activePositions || 0;
-        const reserveRatio = traderStatus.reserveRatio || 0.2;
-        
-        // Capital allocated for future opportunities
-        return portfolioValue * reserveRatio;
-      }
-      
-      return 0;
-    } catch (error) {
-      return 0;
-    }
+    // Only return actual trading capital from verified sources - no calculations
+    return 0; // No trading capital allocation currently active
   }
 
   private async getSimulatedDefiPositions(): Promise<DeFiPosition[]> {
@@ -543,6 +505,35 @@ class ComprehensivePortfolioTracker {
     };
 
     return tokenMap[mintAddress] || 'UNKNOWN';
+  }
+
+  private async getTokenPrice(tokenSymbol: string): Promise<number> {
+    try {
+      const tokenMap: Record<string, string> = {
+        'RAY': 'raydium',
+        'JUP': 'jupiter-exchange-solana',
+        'ORCA': 'orca',
+        'BONK': 'bonk',
+        'WIF': 'dogwifcoin',
+        'JITO': 'jito-governance-token',
+        'PYTH': 'pyth-network'
+      };
+
+      const coinGeckoId = tokenMap[tokenSymbol];
+      if (!coinGeckoId) {
+        console.log(`Token price not found for: ${tokenSymbol}`);
+        return 0;
+      }
+
+      const response = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${coinGeckoId}&vs_currencies=usd`);
+      const data = await response.json();
+      const price = data[coinGeckoId]?.usd || 0;
+      console.log(`${tokenSymbol} price fetched: $${price.toFixed(4)}`);
+      return price;
+    } catch (error) {
+      console.log(`Error fetching ${tokenSymbol} price:`, error);
+      return 0;
+    }
   }
 
   async startPortfolioTracking() {
