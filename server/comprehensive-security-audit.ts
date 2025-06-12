@@ -350,7 +350,7 @@ export class ComprehensiveSecurityAudit {
     });
   }
 
-  private generateSecurityReport(): SecurityAuditReport {
+  private generateAuditReport(): SecurityAuditReport {
     const criticalIssues = this.vulnerabilities.filter(v => v.type === 'critical').length;
     const highRiskIssues = this.vulnerabilities.filter(v => v.type === 'high').length;
     
@@ -398,7 +398,7 @@ export class ComprehensiveSecurityAudit {
     return recommendations;
   }
 
-  async generateSecurityReport(): Promise<string> {
+  public async generateSecurityReport(): Promise<string> {
     const report = await this.performFullSecurityAudit();
     
     return `

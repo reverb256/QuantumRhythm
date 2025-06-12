@@ -43,12 +43,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
         console.log('⚠️ Consolidation partial success:', err.message);
       });
 
-      // Initialize security audit
+      // Initialize security audit and debug health monitor
       const { securityAudit } = await import('./comprehensive-security-audit');
+      const { debugHealthMonitor } = await import('./debug-health-monitor');
+      
       securityAudit.performFullSecurityAudit().then(result => {
         console.log(`🔒 Security audit complete: ${result.summary.overallScore}/100 security score`);
       }).catch(err => {
         console.log('⚠️ Security audit error:', err.message);
+      });
+
+      // Fix critical debugging issues
+      debugHealthMonitor.performComprehensiveDebug().then(result => {
+        console.log(`🔧 Debug analysis complete: ${result.status} status, ${result.fixes.length} fixes applied`);
+      }).catch(err => {
+        console.log('⚠️ Debug health monitor error:', err.message);
       });
       
     } catch (error) {
@@ -160,6 +169,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json({ success: true, report: markdownReport });
     } catch (error) {
       res.status(500).json({ success: false, error: 'Security report generation failed' });
+    }
+  });
+
+  // Debug health monitoring endpoints
+  app.get('/api/debug/health', async (req, res) => {
+    try {
+      const { debugHealthMonitor } = await import('./debug-health-monitor');
+      const healthStatus = await debugHealthMonitor.performComprehensiveDebug();
+      res.json({ success: true, health: healthStatus });
+    } catch (error) {
+      res.status(500).json({ success: false, error: 'Health monitoring failed' });
+    }
+  });
+
+  app.post('/api/debug/fix-build-scripts', async (req, res) => {
+    try {
+      const { debugHealthMonitor } = await import('./debug-health-monitor');
+      await debugHealthMonitor.fixBuildScriptIssues();
+      res.json({ success: true, message: 'Build script issues fixed' });
+    } catch (error) {
+      res.status(500).json({ success: false, error: 'Failed to fix build scripts' });
     }
   });
 
