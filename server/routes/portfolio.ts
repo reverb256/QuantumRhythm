@@ -15,8 +15,8 @@ router.get('/status', async (req, res) => {
     const portfolio = await comprehensivePortfolioTracker.getComprehensivePortfolio();
     res.json({
       success: true,
-      data: {
-        totalValue: portfolio.totalValueUSD,
+      portfolio: {
+        totalValueUSD: portfolio.totalValueUSD,
         breakdown: portfolio.breakdown,
         positions: portfolio.defiPositions.length,
         walletBalance: portfolio.walletBalance,

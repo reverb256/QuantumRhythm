@@ -7,7 +7,7 @@ export default function QuantumPortfolio() {
   const [activeCategory, setActiveCategory] = useState('all');
   const [selectedProject, setSelectedProject] = useState<string | null>(null);
   const [consciousness, setConsciousness] = useState(73.8);
-  const [portfolioValue, setPortfolioValue] = useState(23.74);
+  const [portfolioValue, setPortfolioValue] = useState(2.08);
   
   // Live trading data
   const { data: tradingData } = useQuery({
@@ -31,8 +31,16 @@ export default function QuantumPortfolio() {
 
   // Update portfolio value from real blockchain data
   useEffect(() => {
-    if (portfolioData?.success && portfolioData?.portfolio?.totalValueUSD) {
-      setPortfolioValue(portfolioData.portfolio.totalValueUSD);
+    if (portfolioData?.success) {
+      // Handle different API response structures
+      const totalValue = portfolioData?.portfolio?.totalValueUSD || 
+                        portfolioData?.data?.totalValue || 
+                        portfolioData?.totalValueUSD;
+      
+      if (totalValue !== undefined && totalValue > 0) {
+        console.log('Updating portfolio value from blockchain:', totalValue);
+        setPortfolioValue(totalValue);
+      }
     }
   }, [portfolioData]);
 
