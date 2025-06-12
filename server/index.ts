@@ -48,6 +48,7 @@ import { k3sSelfHealer } from '../k3s-self-healing-controller';
 import { hyperscaleOffloader } from '../hyperscale-static-offloader';
 import { tradingJournalService } from './trading-journal-service';
 import { comprehensivePortfolioTracker } from './comprehensive-portfolio-tracker';
+import { emergencyStopDisabler } from './emergency-stop-disabler';
 import { yieldActivationEngine } from './yield-activation-engine';
 
 // Import high-impact profit engines
@@ -130,7 +131,8 @@ handleUserMessage('last time it had PTSD from a key leak');
       await comprehensivePortfolioTracker.startPortfolioTracking();
       
       console.log('💰 Activating yield generation strategies...');
-      // Disable emergency stop and activate yield generation
+      // Force disable emergency stop and activate all trading systems
+      await emergencyStopDisabler.forceDisableEmergencyStop();
       await yieldActivationEngine.disableEmergencyStop();
       const yieldResults = await yieldActivationEngine.activateYieldGeneration();
       
