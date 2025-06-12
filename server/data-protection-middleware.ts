@@ -26,51 +26,30 @@ export class DataProtectionMiddleware {
       ],
       replacementText: '[REDACTED_API_KEY]',
       severity: 'critical'
-    },
-    {
-      patterns: [
-        /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g,
-        /\b\d{3}-?\d{2}-?\d{4}\b/g,
-        /\b\d{4}[\s-]?\d{4}[\s-]?\d{4}[\s-]?\d{4}\b/g,
-      ],
-      replacementText: '[REDACTED_PII]',
-      severity: 'high'
     }
   ];
 
   constructor() {
-    console.log('🛡️ Data protection middleware initialized');
+    console.log('🛡️ Data Protection Middleware initialized');
   }
 
-  protect() {
-    return (req: Request, res: Response, next: NextFunction) => {
-      if (req.body) {
-        req.body = this.sanitizeData(req.body);
+  protect = (req: Request, res: Response, next: NextFunction) => {
+    const originalSend = res.send.bind(res);
+    
+    res.send = (body: any): Response => {
+      if (typeof body === 'string') {
+        body = this.sanitizeData(body);
+      } else if (typeof body === 'object') {
+        body = this.sanitizeData(body);
       }
-      
-      if (req.query) {
-        req.query = this.sanitizeData(req.query);
-      }
-      
-      const originalSend = res.send;
-      const self = this;
-      res.send = function(data: any) {
-        if (typeof data === 'string') {
-          data = self.sanitizeString(data);
-        } else if (typeof data === 'object') {
-          data = self.sanitizeData(data);
-        }
-        return originalSend.call(this, data);
-      };
-      
-      next();
+      return originalSend(body);
     };
-  }
+    
+    next();
+  };
 
   private sanitizeData(data: any, depth = 0): any {
-    if (depth > 5) {
-      return '[DEEP_OBJECT_TRUNCATED]';
-    }
+    if (depth > 10) return data;
     
     if (typeof data === 'string') {
       return this.sanitizeString(data);
@@ -80,24 +59,11 @@ export class DataProtectionMiddleware {
       return data.map(item => this.sanitizeData(item, depth + 1));
     }
     
-    if (typeof data === 'object' && data !== null) {
-      if (data.__sanitizing) {
-        return '[CIRCULAR_REFERENCE]';
-      }
-      
+    if (data && typeof data === 'object') {
       const sanitized: any = {};
-      Object.defineProperty(data, '__sanitizing', { value: true, configurable: true });
-      
-      try {
-        for (const [key, value] of Object.entries(data)) {
-          if (key === '__sanitizing') continue;
-          const sanitizedKey = this.sanitizeString(key);
-          sanitized[sanitizedKey] = this.sanitizeData(value, depth + 1);
-        }
-      } finally {
-        delete data.__sanitizing;
-      }
-      
+      Object.keys(data).forEach(key => {
+        sanitized[key] = this.sanitizeData(data[key], depth + 1);
+      });
       return sanitized;
     }
     
@@ -107,11 +73,11 @@ export class DataProtectionMiddleware {
   private sanitizeString(text: string): string {
     let sanitized = text;
     
-    for (const filter of this.sensitivePatterns) {
-      for (const pattern of filter.patterns) {
+    this.sensitivePatterns.forEach(filter => {
+      filter.patterns.forEach(pattern => {
         sanitized = sanitized.replace(pattern, filter.replacementText);
-      }
-    }
+      });
+    });
     
     return sanitized;
   }
@@ -119,22 +85,10 @@ export class DataProtectionMiddleware {
   getProtectionStatus() {
     return {
       active: true,
-      patternsLoaded: this.sensitivePatterns.length,
-      lastAudit: new Date().toISOString(),
-      protectionLevel: 'enterprise'
+      patterns: this.sensitivePatterns.length,
+      timestamp: new Date().toISOString()
     };
   }
 }
 
-export const dataProtection = new DataProtectionMiddleware();
-export class DataProtectionMiddleware {
-  constructor() {}
-  
-  protect() {
-    return (req: any, res: any, next: any) => {
-      // Safe mode - minimal protection
-      console.log('🛡️ Data protection: Safe mode active');
-      next();
-    };
-  }
-}
+export const dataProtectionMiddleware = new DataProtectionMiddleware();
