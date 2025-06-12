@@ -17,7 +17,7 @@ import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 import { CursorGlow } from "@/components/CursorGlow";
 import { ParticleSystem } from "@/components/ParticleSystem";
 
-import ConsciousnessNavbar from "./components/ConsciousnessNavbar";
+
 import { BreathingPageWrapper } from "@/components/breathing-animation";
 import Home from "@/pages/home";
 import Archive from "@/pages/archive";
@@ -163,10 +163,9 @@ function App() {
           <Web3AuthProvider>
             <ThemeProvider>
               <ConsciousContainer learningRate={0.15}>
-                <ThemeSwitcher />
+
                 <Toaster />
                 <main id="main-content" className="relative z-10 text-wcag-aaa focus-enhanced">
-                  <ConsciousnessNavbar />
                   <Router />
                 </main>
                 <EnhancedConsole />
