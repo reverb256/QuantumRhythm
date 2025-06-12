@@ -3,7 +3,6 @@
  * Consolidates all orphaned systems into unified architecture
  */
 
-import { consciousness } from './consciousness-evolution-engine';
 import { comprehensiveOptimizer } from './comprehensive-optimizer';
 
 interface IntegratedSystem {

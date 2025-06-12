@@ -360,6 +360,10 @@ app.use((req, res, next) => {
   const { default: beastModeRouter } = await import('./routes/beast-mode-api');
   app.use('/api/beast', beastModeRouter);
 
+  // System Integration API for consolidated architecture monitoring
+  const { default: systemIntegrationRoutes } = await import('./routes/system-integration');
+  app.use('/api/system-integration', systemIntegrationRoutes);
+
   // Import and register Trading Agent routes
   // const { default: tradingAgentRoutes } = await import('./routes/trading-agent.js');
   // app.use('/api/trading-agent', tradingAgentRoutes);

@@ -126,6 +126,12 @@ const aiItems: NavItem[] = [
     label: 'Agent Insights',
     icon: Brain,
     description: 'AI agent performance analytics'
+  },
+  {
+    path: '/system-integration',
+    label: 'System Integration',
+    icon: Cpu,
+    description: 'Consolidated system architecture monitoring'
   }
 ];
 

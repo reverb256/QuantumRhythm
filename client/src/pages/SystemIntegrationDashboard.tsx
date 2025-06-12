@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { useTheme } from '@/contexts/ThemeContext';
+import { useQuery } from '@tanstack/react-query';
 import { Activity, Cpu, Database, Zap, Brain, Shield, TrendingUp, CheckCircle } from 'lucide-react';
 
 interface SystemStatus {
