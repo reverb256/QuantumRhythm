@@ -7,6 +7,8 @@ export default function SimplifiedNavigation() {
 
   const navItems = [
     { path: '/', label: 'Home', icon: '🏠' },
+    { path: '/portfolio', label: 'Portfolio', icon: '📁' },
+    { path: '/trading-hub', label: 'Trading', icon: '⚡' },
     { path: '/contact', label: 'Contact', icon: '💬' }
   ];
 
