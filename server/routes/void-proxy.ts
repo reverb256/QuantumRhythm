@@ -5,6 +5,7 @@
  */
 
 import express from 'express';
+import { aiParameterOptimizer } from './ai-parameter-optimizer.js';
 
 // AI Model Optimizer - Continuously discovers and ranks models
 class AIModelOptimizer {
@@ -426,9 +427,17 @@ router.post('/v1/chat/completions', async (req, res) => {
     let response: Response;
     let responseData: any;
 
+    // Get optimal parameters for this request
+    const complexity = getComplexityLevel(content.length, contentType);
+    const optimalParams = aiParameterOptimizer.getOptimalParameters(contentType, complexity);
+    
+    // Use optimized parameters or request defaults
+    const finalTemperature = optimalParams.temperature || temperature || 0.7;
+    const finalMaxTokens = optimalParams.max_tokens || max_tokens || 1000;
+
     // Route to HuggingFace if optimal model is from HF
     if (optimalModel.provider === 'huggingface') {
-      response = await routeToHuggingFace(optimalModel.id, content, max_tokens, temperature);
+      response = await routeToHuggingFace(optimalModel.id, content, finalMaxTokens, finalTemperature);
       responseData = await response.json();
     } else {
       // Route to quantum autorouter for other models
@@ -438,8 +447,8 @@ router.post('/v1/chat/completions', async (req, res) => {
         intent,
         priority: 'medium',
         context: systemMessage?.content,
-        maxTokens: max_tokens || 1000,
-        temperature: temperature || 0.7,
+        maxTokens: finalMaxTokens,
+        temperature: finalTemperature,
         agentId: 'void-proxy',
         preferredModel: optimalModel.id,
         multiModal: {
@@ -459,6 +468,32 @@ router.post('/v1/chat/completions', async (req, res) => {
       });
       responseData = await response.json();
     }
+
+    // Record performance metrics for optimization
+    const endTime = Date.now();
+    const responseTime = endTime - startTime;
+    aiParameterOptimizer.recordRequest({
+      responseTime,
+      quality: estimateResponseQuality(responseData, content),
+      success: response.ok && responseData.success !== false,
+      parameters: {
+        temperature: finalTemperature,
+        max_tokens: finalMaxTokens,
+        content_length: content.length,
+        actual_tokens_used: responseData.metadata?.tokensUsed?.total || finalMaxTokens
+      },
+      contentType,
+      modelUsed: optimalModel.id,
+      timestamp: endTime
+    });
+
+    // Update model performance for continuous optimization
+    aiOptimizer.updateModelPerformance(
+      optimalModel.id, 
+      responseTime, 
+      response.ok && responseData.success !== false,
+      estimateResponseQuality(responseData, content)
+    );
 
     if (!response.ok) {
       throw new Error(`Autorouter failed: ${response.status}`);
@@ -746,6 +781,39 @@ function generateFallbackResponse(content: any): string {
     return 'I can analyze images when they are provided. Please upload an image and describe what you need to know about it.';
   }
   return 'I understand your request. Could you provide more context or specific details to help me assist you better?';
+}
+
+function getComplexityLevel(contentLength: number, contentType: string): string {
+  const hasCode = contentType === 'code';
+  const hasAnalysis = contentType === 'analysis';
+  
+  if (contentLength > 2000 || hasAnalysis) return 'very_complex';
+  if (contentLength > 1000 || hasCode) return 'complex';
+  if (contentLength > 300) return 'medium';
+  return 'simple';
+}
+
+function estimateResponseQuality(responseData: any, originalContent: string): number {
+  if (!responseData || !responseData.choices?.[0]?.message?.content) return 0.1;
+  
+  const response = responseData.choices[0].message.content;
+  const responseLength = response.length;
+  const contentLength = originalContent.length;
+  
+  // Basic quality heuristics
+  let quality = 0.5;
+  
+  // Length appropriateness (not too short, not excessively long)
+  const lengthRatio = responseLength / Math.max(contentLength, 10);
+  if (lengthRatio > 0.5 && lengthRatio < 5) quality += 0.2;
+  
+  // Has structured content
+  if (response.includes('\n') || response.includes('```')) quality += 0.1;
+  
+  // Not generic responses
+  if (!response.includes("I understand your request") && !response.includes("Could you provide more")) quality += 0.2;
+  
+  return Math.min(quality, 1.0);
 }
 
 export default router;
