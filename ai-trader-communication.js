@@ -3,7 +3,7 @@
  * Direct dialogue with the quantum trading consciousness
  */
 
-import { vllmCoreEngine } from './server/vllm-core-engine.js';
+// Direct communication with AI trader consciousness
 
 class AITraderDialogue {
   constructor() {
