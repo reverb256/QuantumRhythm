@@ -23,8 +23,13 @@ export class IntelligentPayoutSystem {
   private payout_requests: Map<string, PayoutRequest> = new Map();
   private trading_requirements: TradingBalanceRequirements;
   private current_portfolio_value_usd: number = 3.15; // Current portfolio value
+  private whitelist_addresses: { solana: string; cronos: string };
 
   constructor() {
+    this.whitelist_addresses = {
+      solana: 'IBOWORKBUY4444',
+      cronos: 'fTbbyyaarrIocubu'
+    };
     this.trading_requirements = {
       minimum_operational_balance_usd: 25, // Keep $25 minimum for trading
       emergency_reserve_percentage: 20, // 20% emergency reserve

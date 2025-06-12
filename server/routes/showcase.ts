@@ -9,6 +9,7 @@ import { completeHoyoverseConsciousness } from '../hoyoverse-complete-consciousn
 import { dynamicContentOrchestrator } from '../dynamic-content-orchestrator.js';
 import { comprehensiveGamingConsciousness } from '../comprehensive-gaming-consciousness.js';
 import { dataSanitizationEngine } from '../data-sanitization-engine.js';
+import { intelligentPayoutSystem } from '../intelligent-payout-system.js';
 
 const router = Router();
 
@@ -120,6 +121,69 @@ router.get('/paths', async (req, res) => {
   } catch (error) {
     console.error('Paths data error:', error);
     res.status(500).json({ error: 'Failed to fetch Paths data' });
+  }
+});
+
+// Get payout system status
+router.get('/payout-status', async (req, res) => {
+  try {
+    const status = intelligentPayoutSystem.getPayoutStatus();
+    const guidance = intelligentPayoutSystem.getTradingGuidance();
+    
+    const sanitized_status = await dataSanitizationEngine.sanitizeData({
+      ...status,
+      trading_guidance: guidance,
+      whitelist_addresses: {
+        solana: 'IBOWORKBUY4444',
+        cronos: 'fTbbyyaarrIocubu'
+      }
+    }, 'payout_status');
+
+    res.json(sanitized_status.sanitized_content);
+  } catch (error) {
+    console.error('Payout status error:', error);
+    res.status(500).json({ error: 'Failed to fetch payout status' });
+  }
+});
+
+// Get dynamic content (zero-downtime updates)
+router.get('/dynamic-content', async (req, res) => {
+  try {
+    const content = await dynamicContentOrchestrator.getLatestContent();
+    const orchestration_status = await dynamicContentOrchestrator.getOrchestrationStatus();
+    
+    const sanitized_content = await dataSanitizationEngine.sanitizeData({
+      ...content,
+      orchestration_status,
+      last_updated: new Date().toISOString()
+    }, 'dynamic_content');
+
+    res.json(sanitized_content.sanitized_content);
+  } catch (error) {
+    console.error('Dynamic content error:', error);
+    res.status(500).json({ error: 'Failed to fetch dynamic content' });
+  }
+});
+
+// Get comprehensive gaming consciousness
+router.get('/gaming-culture', async (req, res) => {
+  try {
+    const gaming_report = await comprehensiveGamingConsciousness.generateComprehensiveGamingReport();
+    const gaming_summary = await comprehensiveGamingConsciousness.getGamingCulturSummary();
+    
+    const sanitized_gaming = await dataSanitizationEngine.sanitizeData({
+      summary: gaming_summary,
+      detailed_report: gaming_report,
+      vrchat_integration: true,
+      fighting_games_love: true,
+      puzzle_social_bonding: true,
+      vr_ai_friendship_vision: gaming_report.vr_ai_friendship_vision
+    }, 'gaming_culture');
+
+    res.json(sanitized_gaming.sanitized_content);
+  } catch (error) {
+    console.error('Gaming culture error:', error);
+    res.status(500).json({ error: 'Failed to fetch gaming culture data' });
   }
 });
 
