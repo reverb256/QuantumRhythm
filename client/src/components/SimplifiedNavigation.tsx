@@ -38,19 +38,7 @@ export default function SimplifiedNavigation() {
   }, []);
 
   return (
-    <>
-      {/* Blue bar mask overlay */}
-      <div 
-        className="fixed left-0 right-0" 
-        style={{ 
-          top: '-20px', 
-          height: '30px', 
-          zIndex: 9998,
-          background: currentTheme.colors.background
-        }}
-      />
-      
-      <nav className="fixed left-0 right-0 outline-none focus:outline-none select-none" style={{ top: '0px', zIndex: 9999 }}>
+      <nav className="fixed top-0 left-0 right-0 z-50 outline-none focus:outline-none select-none">
         {/* Theme-aware glassmorphism background */}
         <div 
           className="absolute inset-0 backdrop-blur-xl border-b"
