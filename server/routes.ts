@@ -53,13 +53,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
         console.log('⚠️ Security audit error:', err.message);
       });
 
-      // Initialize AI orchestration debugging
+      // Initialize AI orchestration debugging and insights extraction
       const { aiOrchestrationDebugger } = await import('./ai-orchestration-debugger');
+      const { insightsEngine } = await import('./insights-extraction-engine');
       
       aiOrchestrationDebugger.performRecursiveDebugging().then(result => {
         console.log(`🤖 AI orchestration complete: ${result.fixedIssues}/${result.totalIssues} issues fixed, system status: ${result.systemStatus}`);
+        
+        // Extract insights from debugging results
+        const debugData = `AI orchestration complete: ${result.fixedIssues}/${result.totalIssues} issues fixed, system status: ${result.systemStatus}`;
+        insightsEngine.processRealTimeData(debugData);
       }).catch(err => {
         console.log('⚠️ AI orchestration error:', err.message);
+        insightsEngine.processRealTimeData(`AI orchestration error: ${err.message}`);
       });
       
     } catch (error) {
@@ -213,6 +219,38 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json({ success: true, result });
     } catch (error) {
       res.status(500).json({ success: false, error: 'AI orchestration debugging failed' });
+    }
+  });
+
+  // Insights extraction endpoints
+  app.get('/api/insights/summary', async (req, res) => {
+    try {
+      const { insightsEngine } = await import('./insights-extraction-engine');
+      const summary = insightsEngine.getInsightsSummary();
+      res.json({ success: true, insights: summary });
+    } catch (error) {
+      res.status(500).json({ success: false, error: 'Failed to get insights summary' });
+    }
+  });
+
+  app.get('/api/insights/report', async (req, res) => {
+    try {
+      const { insightsEngine } = await import('./insights-extraction-engine');
+      const report = await insightsEngine.generateInsightsReport();
+      res.json({ success: true, report });
+    } catch (error) {
+      res.status(500).json({ success: false, error: 'Failed to generate insights report' });
+    }
+  });
+
+  app.post('/api/insights/process', async (req, res) => {
+    try {
+      const { insightsEngine } = await import('./insights-extraction-engine');
+      const { data } = req.body;
+      await insightsEngine.processRealTimeData(data);
+      res.json({ success: true, message: 'Data processed for insights extraction' });
+    } catch (error) {
+      res.status(500).json({ success: false, error: 'Failed to process insights data' });
     }
   });
 

@@ -22,9 +22,7 @@ import path from 'path';
 app.use(express.static(path.resolve(import.meta.dirname, '..', 'public')));
 
 // Initialize data protection middleware to sanitize all responses
-app.use(dataProtection.protectResponse());
-dataProtection.protectConsoleOutput();
-dataProtection.monitorDataExposure();
+app.use(dataProtection.protect());
 
 // Initialize comprehensive optimization system
 import { comprehensiveOptimizer } from './comprehensive-optimizer';
