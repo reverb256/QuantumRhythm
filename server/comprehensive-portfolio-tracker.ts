@@ -433,18 +433,25 @@ class ComprehensivePortfolioTracker {
     const solPrice = await this.getCurrentSOLPrice();
     
     let walletValue = walletBalance.SOL * solPrice;
+    console.log(`💰 SOL: ${walletBalance.SOL.toFixed(6)} × $${solPrice.toFixed(2)} = $${walletValue.toFixed(2)}`);
     
     // Add value of all SPL tokens using real prices
     if (walletBalance.tokens) {
       for (const [tokenSymbol, amount] of Object.entries(walletBalance.tokens)) {
-        const tokenPrice = await this.getTokenPrice(tokenSymbol);
-        if (tokenPrice && amount) {
-          const tokenValue = (amount as number) * tokenPrice;
-          walletValue += tokenValue;
-          console.log(`💰 ${tokenSymbol}: ${amount} × $${tokenPrice.toFixed(4)} = $${tokenValue.toFixed(2)}`);
+        if (tokenSymbol !== 'UNKNOWN' && amount && (amount as number) > 0) {
+          const tokenPrice = await this.getTokenPrice(tokenSymbol);
+          if (tokenPrice > 0) {
+            const tokenValue = (amount as number) * tokenPrice;
+            walletValue += tokenValue;
+            console.log(`💰 ${tokenSymbol}: ${amount} × $${tokenPrice.toFixed(4)} = $${tokenValue.toFixed(2)}`);
+          } else {
+            console.log(`⚠️ Could not get price for ${tokenSymbol}: ${amount} tokens`);
+          }
         }
       }
     }
+    
+    console.log(`💰 Total wallet value: $${walletValue.toFixed(2)}`);
     
     const breakdown = {
       wallet: walletValue,
@@ -521,17 +528,30 @@ class ComprehensivePortfolioTracker {
 
       const coinGeckoId = tokenMap[tokenSymbol];
       if (!coinGeckoId) {
-        console.log(`Token price not found for: ${tokenSymbol}`);
+        console.log(`⚠️ Token mapping not found for: ${tokenSymbol}`);
         return 0;
       }
 
+      console.log(`🔄 Fetching ${tokenSymbol} price from CoinGecko...`);
       const response = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${coinGeckoId}&vs_currencies=usd`);
+      
+      if (!response.ok) {
+        console.log(`⚠️ CoinGecko API error for ${tokenSymbol}: ${response.status}`);
+        return 0;
+      }
+
       const data = await response.json();
       const price = data[coinGeckoId]?.usd || 0;
-      console.log(`${tokenSymbol} price fetched: $${price.toFixed(4)}`);
+      
+      if (price > 0) {
+        console.log(`✅ ${tokenSymbol} price fetched: $${price.toFixed(4)}`);
+      } else {
+        console.log(`⚠️ No price data for ${tokenSymbol} from CoinGecko`);
+      }
+      
       return price;
     } catch (error) {
-      console.log(`Error fetching ${tokenSymbol} price:`, error);
+      console.log(`❌ Error fetching ${tokenSymbol} price:`, error);
       return 0;
     }
   }
