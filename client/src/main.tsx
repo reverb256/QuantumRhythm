@@ -35,7 +35,7 @@ if (!rootElement) {
     console.error("Failed to render app:", error);
     rootElement.innerHTML = `
       <div style="padding: 20px; text-align: center; font-family: Arial, sans-serif;">
-        <h1>Quantum AI Trading Platform</h1>
+        <h1>VibeCoding Portfolio</h1>
         <p>Loading error: ${(error as Error)?.message || 'Unknown error'}</p>
         <button onclick="window.location.reload()" style="margin-top: 10px; padding: 10px; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
           Reload App
