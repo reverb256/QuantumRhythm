@@ -76,6 +76,36 @@ body::before, html::before {
   padding: 0 !important;
 }
 
+/* Aggressive browser UI removal */
+* {
+  border-top: none !important;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* Remove any top-level browser elements */
+body > *:first-child::before,
+html > body::before,
+#root::before {
+  display: none !important;
+  content: none !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+}
+
+/* Force viewport to start at top */
+html {
+  position: relative !important;
+  top: 0 !important;
+}
+
+body {
+  position: relative !important;
+  top: 0 !important;
+}
+
 /* Allow text selection only on specific content */
 p, span, div[contenteditable], input, textarea {
   -webkit-user-select: text !important;
