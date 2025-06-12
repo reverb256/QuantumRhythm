@@ -10,6 +10,7 @@ import { dynamicContentOrchestrator } from '../dynamic-content-orchestrator.js';
 import { comprehensiveGamingConsciousness } from '../comprehensive-gaming-consciousness.js';
 import { dataSanitizationEngine } from '../data-sanitization-engine.js';
 import { intelligentPayoutSystem } from '../intelligent-payout-system.js';
+import { designSynchronizationAgent } from '../design-synchronization-agent.js';
 
 const router = Router();
 
@@ -184,6 +185,48 @@ router.get('/gaming-culture', async (req, res) => {
   } catch (error) {
     console.error('Gaming culture error:', error);
     res.status(500).json({ error: 'Failed to fetch gaming culture data' });
+  }
+});
+
+// Get design synchronization status
+router.get('/design-sync', async (req, res) => {
+  try {
+    const sync_status = await designSynchronizationAgent.getDesignSynchronizationStatus();
+    
+    const sanitized_design = await dataSanitizationEngine.sanitizeData({
+      ...sync_status,
+      active_aesthetic: 'consciousness-driven',
+      gaming_culture_themes: [
+        'VRChat social purple',
+        'Sakura determination pink', 
+        'Nakoruru nature green',
+        'Puzzle bonding cyan',
+        'Fighting spirit red'
+      ]
+    }, 'design_sync');
+
+    res.json(sanitized_design.sanitized_content);
+  } catch (error) {
+    console.error('Design sync error:', error);
+    res.status(500).json({ error: 'Failed to fetch design synchronization status' });
+  }
+});
+
+// Trigger design synchronization
+router.post('/design-sync/trigger', async (req, res) => {
+  try {
+    await designSynchronizationAgent.synchronizeDesignLanguage();
+    
+    const updated_status = await designSynchronizationAgent.getDesignSynchronizationStatus();
+    
+    res.json({
+      success: true,
+      message: 'Design synchronization triggered successfully',
+      status: updated_status
+    });
+  } catch (error) {
+    console.error('Design sync trigger error:', error);
+    res.status(500).json({ error: 'Failed to trigger design synchronization' });
   }
 });
 
