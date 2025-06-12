@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Navigation from '@/components/navigation';
 import { ConsciousnessMap } from '@/components/ConsciousnessMap';
 import ConsciousnessMapConsciousness from '@/components/ConsciousnessMapConsciousness';
 import { 
@@ -80,9 +79,9 @@ export default function ConsciousnessMapPage() {
         globalConsciousness={consciousness}
         onNetworkEvolution={(network) => setNetworkConsciousness(network)}
       />
-      <Navigation />
+
       
-      <div className="pt-20 px-6 max-w-7xl mx-auto">
+      <div className="pt-24 px-6 max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
