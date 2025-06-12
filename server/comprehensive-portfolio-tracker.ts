@@ -65,7 +65,7 @@ class ComprehensivePortfolioTracker {
       const managedAssets = await this.calculateManagedAssets();
       const totalAUM = basePortfolioValue + managedAssets;
 
-      console.log(`💼 AUM (Assets Under Management): $${totalAUM.toFixed(2)} USD`);
+      console.log(`💼 Portfolio Snapshot: $${totalAUM.toFixed(2)} USD`);
       console.log(`   Wallet: $${breakdown.wallet.toFixed(2)}`);
       console.log(`   DeFi Lending: $${breakdown.lending.toFixed(2)}`);
       console.log(`   Staking: $${breakdown.staking.toFixed(2)}`);
@@ -129,6 +129,7 @@ class ComprehensivePortfolioTracker {
       console.log(`   Managed Funds: $${managedFunds.toFixed(2)}`);
       console.log(`   Trading Capital: $${tradingCapital.toFixed(2)}`);
       console.log(`   Total Managed: $${managedAssets.toFixed(2)}`);
+      console.log(`   AUM Enhancement: +$${managedAssets.toFixed(2)} managed assets`);
       
       return managedAssets;
     } catch (error) {
