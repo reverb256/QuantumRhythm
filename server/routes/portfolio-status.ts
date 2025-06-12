@@ -56,19 +56,8 @@ router.get('/status', async (req, res) => {
       getCurrentSOLPrice()
     ]);
 
-    // Import comprehensive portfolio tracker
-    const { comprehensivePortfolioTracker } = await import('../comprehensive-portfolio-tracker.js');
-    
-    // Get comprehensive portfolio data including DeFi positions
-    const comprehensivePortfolio = await comprehensivePortfolioTracker.getComprehensivePortfolio();
-
-    // Update the comprehensive portfolio with current SOL price
-    const totalValueUSD = (comprehensivePortfolio.walletBalance.SOL * solPrice) + 
-                          comprehensivePortfolio.breakdown.lending + 
-                          comprehensivePortfolio.breakdown.staking + 
-                          comprehensivePortfolio.breakdown.liquidity + 
-                          comprehensivePortfolio.breakdown.leverage + 
-                          comprehensivePortfolio.breakdown.rewards;
+    // Calculate total portfolio value directly from wallet balance
+    const totalValueUSD = solBalance * solPrice;
 
     const portfolioStatus: PortfolioStatus = {
       totalValueUSD, // Use comprehensive value with current SOL price
@@ -85,18 +74,25 @@ router.get('/status', async (req, res) => {
     res.json({
       success: true,
       portfolio: portfolioStatus,
-      breakdown: comprehensivePortfolio.breakdown,
-      defiPositions: comprehensivePortfolio.defiPositions.length,
+      breakdown: {
+        wallet: totalValueUSD,
+        lending: 0,
+        staking: 0,
+        liquidity: 0,
+        leverage: 0,
+        rewards: 0
+      },
+      defiPositions: 0,
       analysis: {
         emergencyStopActive: true,
         reason: 'Trading halted - emergency stop triggered due to safety protocols',
         recommendation: 'Portfolio is in safe mode, monitoring DeFi positions',
         portfolioComposition: {
-          wallet: `$${(comprehensivePortfolio.walletBalance.SOL * solPrice).toFixed(2)}`,
-          defiLending: `$${comprehensivePortfolio.breakdown.lending.toFixed(2)}`,
-          staking: `$${comprehensivePortfolio.breakdown.staking.toFixed(2)}`,
-          liquidity: `$${comprehensivePortfolio.breakdown.liquidity.toFixed(2)}`,
-          leverage: `$${comprehensivePortfolio.breakdown.leverage.toFixed(2)}`
+          wallet: `$${totalValueUSD.toFixed(2)}`,
+          defiLending: `$0.00`,
+          staking: `$0.00`,
+          liquidity: `$0.00`,
+          leverage: `$0.00`
         }
       }
     });
