@@ -515,45 +515,9 @@ class ComprehensivePortfolioTracker {
   }
 
   private async getTokenPrice(tokenSymbol: string): Promise<number> {
-    try {
-      const tokenMap: Record<string, string> = {
-        'RAY': 'raydium',
-        'JUP': 'jupiter-exchange-solana',
-        'ORCA': 'orca',
-        'BONK': 'bonk',
-        'WIF': 'dogwifcoin',
-        'JITO': 'jito-governance-token',
-        'PYTH': 'pyth-network'
-      };
-
-      const coinGeckoId = tokenMap[tokenSymbol];
-      if (!coinGeckoId) {
-        console.log(`⚠️ Token mapping not found for: ${tokenSymbol}`);
-        return 0;
-      }
-
-      console.log(`🔄 Fetching ${tokenSymbol} price from CoinGecko...`);
-      const response = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${coinGeckoId}&vs_currencies=usd`);
-      
-      if (!response.ok) {
-        console.log(`⚠️ CoinGecko API error for ${tokenSymbol}: ${response.status}`);
-        return 0;
-      }
-
-      const data = await response.json();
-      const price = data[coinGeckoId]?.usd || 0;
-      
-      if (price > 0) {
-        console.log(`✅ ${tokenSymbol} price fetched: $${price.toFixed(4)}`);
-      } else {
-        console.log(`⚠️ No price data for ${tokenSymbol} from CoinGecko`);
-      }
-      
-      return price;
-    } catch (error) {
-      console.log(`❌ Error fetching ${tokenSymbol} price:`, error);
-      return 0;
-    }
+    // Use comprehensive price discovery engine with 50+ sources
+    const { priceDiscoveryEngine } = await import('./comprehensive-price-discovery-engine');
+    return await priceDiscoveryEngine.getTokenPrice(tokenSymbol);
   }
 
   async startPortfolioTracking() {

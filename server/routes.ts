@@ -26,12 +26,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Core API routes
   // All routes prefixed with /api for clear API boundaries
 
-  // Initialize comprehensive portfolio tracking
+  // Initialize comprehensive portfolio tracking with 50+ price sources
   (async () => {
     try {
       const { comprehensivePortfolioTracker } = await import('./comprehensive-portfolio-tracker');
+      const { priceDiscoveryEngine } = await import('./comprehensive-price-discovery-engine');
+      const { systemOrchestrator } = await import('./system-consolidation-orchestrator');
+      
       await comprehensivePortfolioTracker.startPortfolioTracking();
-      console.log('📊 Comprehensive portfolio tracking activated');
+      console.log('📊 Comprehensive portfolio tracking activated with 50+ price sources');
+      
+      // Execute consolidation in background
+      systemOrchestrator.executeFullConsolidation().then(result => {
+        console.log('✅ System consolidation complete:', result.optimizations);
+      }).catch(err => {
+        console.log('⚠️ Consolidation partial success:', err.message);
+      });
+      
     } catch (error) {
       console.error('Failed to start portfolio tracking:', error);
     }
