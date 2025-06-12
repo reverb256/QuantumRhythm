@@ -26,6 +26,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Core API routes
   // All routes prefixed with /api for clear API boundaries
 
+  // Initialize comprehensive portfolio tracking
+  (async () => {
+    try {
+      const { comprehensivePortfolioTracker } = await import('./comprehensive-portfolio-tracker');
+      await comprehensivePortfolioTracker.startPortfolioTracking();
+      console.log('📊 Comprehensive portfolio tracking activated');
+    } catch (error) {
+      console.error('Failed to start portfolio tracking:', error);
+    }
+  })();
+
   // Health check endpoint
   app.get('/api/health', (req, res) => {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
