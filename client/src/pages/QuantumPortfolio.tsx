@@ -212,14 +212,36 @@ export default function QuantumPortfolio() {
                     style={{ width: `${consciousness}%` }}
                   />
                 </div>
-                <div className="grid grid-cols-2 gap-4 text-sm">
-                  <div>
-                    <div className="text-cyan-400">AUM</div>
-                    <div className="text-white font-semibold">${portfolioValue.toFixed(2)}</div>
+                {/* AUM Breakdown */}
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="text-cyan-400 text-sm font-semibold">TOTAL AUM</div>
+                    <div className="text-white font-bold text-lg">${portfolioValue.toFixed(2)}</div>
                   </div>
-                  <div>
-                    <div className="text-purple-400">Trading</div>
-                    <div className="text-white font-semibold">{(tradingData as any)?.data?.tradingActive ? 'Active' : 'Standby'}</div>
+                  
+                  {portfolioData?.portfolio?.breakdown && (
+                    <div className="space-y-2 text-xs">
+                      {Object.entries(portfolioData.portfolio.breakdown).map(([key, value]) => {
+                        if (value === 0) return null;
+                        return (
+                          <div key={key} className="flex justify-between">
+                            <span className="text-gray-400 capitalize">{key.replace(/([A-Z])/g, ' $1')}</span>
+                            <span className="text-gray-300">${(value as number).toFixed(2)}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+                  
+                  <div className="grid grid-cols-2 gap-4 text-sm pt-2 border-t border-gray-700/30">
+                    <div>
+                      <div className="text-purple-400">Trading</div>
+                      <div className="text-white font-semibold">{(tradingData as any)?.data?.tradingActive ? 'Active' : 'Standby'}</div>
+                    </div>
+                    <div>
+                      <div className="text-green-400">P&L</div>
+                      <div className="text-white font-semibold">{(tradingData as any)?.data?.totalProfit ? '$' + (tradingData as any).data.totalProfit.toFixed(2) : '$0.00'}</div>
+                    </div>
                   </div>
                 </div>
               </div>
