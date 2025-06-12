@@ -316,6 +316,48 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Recursive trader enhancement endpoints
+  app.post('/api/trader/enhance/start', async (req, res) => {
+    try {
+      const { recursiveTraderEnhancement } = await import('./recursive-trader-enhancement');
+      recursiveTraderEnhancement.startRecursiveEnhancement();
+      res.json({ success: true, message: 'Recursive enhancement started' });
+    } catch (error) {
+      res.status(500).json({ success: false, error: 'Failed to start enhancement' });
+    }
+  });
+
+  app.get('/api/trader/enhance/status', async (req, res) => {
+    try {
+      const { recursiveTraderEnhancement } = await import('./recursive-trader-enhancement');
+      const status = recursiveTraderEnhancement.getEnhancementStatus();
+      res.json({ success: true, status });
+    } catch (error) {
+      res.status(500).json({ success: false, error: 'Failed to get enhancement status' });
+    }
+  });
+
+  app.get('/api/trader/behavioral/summary', async (req, res) => {
+    try {
+      const { behavioralLearning } = await import('./behavioral-learning-module');
+      const summary = behavioralLearning.getBehavioralSummary();
+      res.json({ success: true, summary });
+    } catch (error) {
+      res.status(500).json({ success: false, error: 'Failed to get behavioral summary' });
+    }
+  });
+
+  app.post('/api/trader/behavioral/record', async (req, res) => {
+    try {
+      const { behavioralLearning } = await import('./behavioral-learning-module');
+      const tradeData = req.body;
+      await behavioralLearning.recordTrade(tradeData);
+      res.json({ success: true, message: 'Trade pattern recorded' });
+    } catch (error) {
+      res.status(500).json({ success: false, error: 'Failed to record trade' });
+    }
+  });
+
   app.post('/api/cloudflare/enable/:feature', async (req, res) => {
     try {
       const { cloudflareAIOrchestrator } = await import('./cloudflare-ai-orchestrator');
