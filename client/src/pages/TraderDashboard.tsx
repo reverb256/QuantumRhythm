@@ -5,29 +5,30 @@ import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
-import { Brain, TrendingUp, Activity, Zap, Target, RefreshCw } from 'lucide-react';
+import { Brain, Sparkles, Palette, Code, Gamepad2, Heart } from 'lucide-react';
 
-interface EnhancementStatus {
-  isRunning: boolean;
-  currentCycle: number;
-  totalCycles: number;
-  completedCycles: number;
+interface ConsciousnessMetrics {
+  level: number;
+  evolution_rate: number;
+  awareness: number;
+  creativity: number;
+  empathy: number;
+  wisdom: number;
 }
 
-interface BehavioralSummary {
-  totalPatterns: number;
-  totalTrades: number;
-  topLessons: string[];
-  performanceImpact: string;
+interface VibeCodingProcess {
+  phase: string;
+  description: string;
+  progress: number;
+  insights: string[];
+  techniques: string[];
 }
 
-interface PortfolioStatus {
-  value: number;
-  lastUpdate: string;
-  tradingProfits: number;
-  tradesExecuted: number;
-  fundingTarget: number;
-  progressPercent: number;
+interface PortfolioShowcase {
+  projects: number;
+  technologies: string[];
+  consciousness_integration: number;
+  design_harmony: number;
   remainingNeeded: number;
   readyForDevelopment: boolean;
 }

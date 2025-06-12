@@ -26,6 +26,7 @@ import Consciousness from "@/pages/consciousness";
 import Evolution from "@/pages/evolution";
 import QuantumPortfolio from "@/pages/QuantumPortfolio";
 import TradingHub from "@/pages/TradingHub";
+import VibeCodingShowcase from "@/pages/VibeCodingShowcase";
 import Contact from "@/pages/Contact";
 import Akasha from "@/pages/Akasha";
 import Showcase from "@/pages/Showcase";
@@ -94,7 +95,7 @@ function Router() {
         <Route path="/consciousness" component={Consciousness} />
         <Route path="/evolution" component={Evolution} />
         <Route path="/portfolio" component={QuantumPortfolio} />
-        <Route path="/trading-hub" component={TradingHub} />
+        <Route path="/trading-hub" component={VibeCodingShowcase} />
         <Route path="/akasha" component={Akasha} />
         <Route path="/showcase" component={Showcase} />
         <Route path="/agents" component={AgentGallery} />
