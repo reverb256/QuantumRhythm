@@ -36,11 +36,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
       await comprehensivePortfolioTracker.startPortfolioTracking();
       console.log('📊 Comprehensive portfolio tracking activated with 50+ price sources');
       
-      // Execute consolidation in background
+      // Execute consolidation and security audit in background
       systemOrchestrator.executeFullConsolidation().then(result => {
         console.log('✅ System consolidation complete:', result.optimizations);
       }).catch(err => {
         console.log('⚠️ Consolidation partial success:', err.message);
+      });
+
+      // Initialize security audit
+      const { securityAudit } = await import('./comprehensive-security-audit');
+      securityAudit.performFullSecurityAudit().then(result => {
+        console.log(`🔒 Security audit complete: ${result.summary.overallScore}/100 security score`);
+      }).catch(err => {
+        console.log('⚠️ Security audit error:', err.message);
       });
       
     } catch (error) {
@@ -131,6 +139,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json({ success: true, report });
     } catch (error) {
       res.status(500).json({ success: false, error: 'Failed to generate Cloudflare report' });
+    }
+  });
+
+  // Security audit endpoints
+  app.get('/api/security/audit', async (req, res) => {
+    try {
+      const { securityAudit } = await import('./comprehensive-security-audit');
+      const report = await securityAudit.performFullSecurityAudit();
+      res.json({ success: true, audit: report });
+    } catch (error) {
+      res.status(500).json({ success: false, error: 'Security audit failed' });
+    }
+  });
+
+  app.get('/api/security/report', async (req, res) => {
+    try {
+      const { securityAudit } = await import('./comprehensive-security-audit');
+      const markdownReport = await securityAudit.generateSecurityReport();
+      res.json({ success: true, report: markdownReport });
+    } catch (error) {
+      res.status(500).json({ success: false, error: 'Security report generation failed' });
     }
   });
 

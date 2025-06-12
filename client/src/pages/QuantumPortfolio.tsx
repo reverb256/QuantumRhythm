@@ -35,11 +35,12 @@ export default function QuantumPortfolio() {
       // Handle different API response structures
       const totalValue = portfolioData?.portfolio?.totalValueUSD || 
                         portfolioData?.data?.totalValue || 
-                        portfolioData?.totalValueUSD;
+                        portfolioData?.totalValueUSD ||
+                        portfolioData?.data?.portfolioValue;
       
       if (totalValue !== undefined && totalValue > 0) {
         console.log('Updating portfolio value from blockchain:', totalValue);
-        setPortfolioValue(totalValue);
+        setPortfolioValue(Number(totalValue.toFixed(2)));
       }
     }
   }, [portfolioData]);
