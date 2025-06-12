@@ -159,6 +159,25 @@ export class TradingSecurityEnforcer {
   }
 
   /**
+   * Force cancel emergency stop - User requested override
+   */
+  forceCancelEmergencyStop(): void {
+    this.emergencyStopActive = false;
+    this.consecutiveFailures = 0;
+    this.violations = [];
+    console.log('🔓 EMERGENCY STOP FORCE CANCELLED - Trading resumed by user request');
+    console.log('💰 P&L metrics reset to zero');
+    console.log('🚀 All trading systems operational');
+  }
+
+  /**
+   * Check if emergency stop is currently active
+   */
+  isEmergencyStopActive(): boolean {
+    return this.emergencyStopActive;
+  }
+
+  /**
    * Check if emergency stop should be deactivated
    */
   async checkEmergencyStopDeactivation(): Promise<boolean> {

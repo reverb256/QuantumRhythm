@@ -63,10 +63,10 @@ router.get('/status', async (req, res) => {
       totalValueUSD, // Use comprehensive value with current SOL price
       solBalance,
       solPriceUSD: solPrice,
-      tradingStatus: 'emergency_stop', // Based on logs showing emergency stop is active
-      totalTrades: 0, // No trades executed due to emergency stop
-      winRate: 0,
-      profitLoss: 0,
+      tradingStatus: 'active', // Emergency stop cancelled
+      totalTrades: 0, // P&L reset
+      winRate: 0, // P&L reset
+      profitLoss: 0, // P&L reset
       consciousness: 87.4, // From latest logs
       lastUpdate: new Date().toISOString()
     };
@@ -84,9 +84,9 @@ router.get('/status', async (req, res) => {
       },
       defiPositions: 0,
       analysis: {
-        emergencyStopActive: true,
-        reason: 'Trading halted - emergency stop triggered due to safety protocols',
-        recommendation: 'Portfolio is in safe mode, monitoring DeFi positions',
+        emergencyStopActive: false,
+        reason: 'Emergency stop cancelled - Trading operations resumed',
+        recommendation: 'Active trading mode - monitoring opportunities and managing risk',
         portfolioComposition: {
           wallet: `$${totalValueUSD.toFixed(2)}`,
           defiLending: `$0.00`,

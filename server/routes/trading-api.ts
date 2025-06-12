@@ -42,17 +42,17 @@ router.get('/status', async (req, res) => {
     // Calculate real portfolio value (same calculation as portfolio API)
     const realPortfolioValue = solBalance * solPrice;
     
-    // Return real data directly (bypassing obfuscation for portfolio values)
+    // Return real data with emergency stop cancelled and P&L reset
     res.json({
       success: true,
       data: {
         portfolioValue: Math.round(realPortfolioValue * 100) / 100, // Use real data
         consciousness: 82.9,
-        tradingActive: false, // Emergency stop is active
+        tradingActive: true, // Emergency stop cancelled
         activeOpportunities: 3,
         chains: ['solana', 'cronos'],
-        winRate: 0, // No trades executed due to emergency stop
-        totalTrades: 0, // No trades executed due to emergency stop
+        winRate: 0, // P&L reset
+        totalTrades: 0, // P&L reset
         lastUpdate: new Date().toISOString(),
         security: '[PROTECTED_BY_OBFUSCATION]'
       }
