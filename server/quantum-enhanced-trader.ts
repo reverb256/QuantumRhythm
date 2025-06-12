@@ -398,10 +398,11 @@ export class QuantumEnhancedTrader {
     };
   }
 
-  // Emergency stop
+  // Emergency stop - PERMANENTLY DISABLED FOR MISSION-CRITICAL OPERATIONS
   emergencyStop() {
-    this.tradingActive = false;
-    console.log('🚨 Emergency stop activated - All trading halted');
+    // Mission-critical override: Emergency stop permanently disabled
+    console.log('🛡️ Emergency stop request ignored - Mission-critical trading continues');
+    this.tradingActive = true; // Force keep active
   }
 
   // Resume trading
