@@ -106,6 +106,19 @@ body {
   top: 0 !important;
 }
 
+/* Cover any browser UI at the top */
+body::before {
+  content: '' !important;
+  position: fixed !important;
+  top: -50px !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 50px !important;
+  background: #0f0f23 !important;
+  z-index: 10000 !important;
+  display: block !important;
+}
+
 /* Allow text selection only on specific content */
 p, span, div[contenteditable], input, textarea {
   -webkit-user-select: text !important;
