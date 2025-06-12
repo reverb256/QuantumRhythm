@@ -22,14 +22,17 @@ interface TradingBalanceRequirements {
 export class IntelligentPayoutSystem {
   private payout_requests: Map<string, PayoutRequest> = new Map();
   private trading_requirements: TradingBalanceRequirements;
-  private current_portfolio_value_usd: number = 3.15; // Current portfolio value
+  private current_portfolio_value_usd: number = 0; // Will be updated from real wallet balance
   private whitelist_addresses: { solana: string; cronos: string };
+  private main_wallet_address: string;
 
   constructor() {
+    this.main_wallet_address = process.env.WALLET_PUBLIC_KEY || '4jTtAYiHP3tHqXcmi5T1riS1AcGmxNNhLZTw65vrKpkA';
     this.whitelist_addresses = {
       solana: 'IBOWORKBUY4444',
       cronos: 'fTbbyyaarrIocubu'
     };
+    this.updatePortfolioValueFromWallet().catch(console.error);
     this.trading_requirements = {
       minimum_operational_balance_usd: 25, // Keep $25 minimum for trading
       emergency_reserve_percentage: 20, // 20% emergency reserve
@@ -38,6 +41,60 @@ export class IntelligentPayoutSystem {
     };
 
     this.initializeUserPayoutRequest();
+  }
+
+  private async updatePortfolioValueFromWallet(): Promise<void> {
+    try {
+      // Use fetch to get balance from multiple Solana RPC endpoints
+      const endpoints = [
+        'https://api.mainnet-beta.solana.com',
+        'https://solana-api.projectserum.com',
+        'https://rpc.ankr.com/solana'
+      ];
+
+      for (const endpoint of endpoints) {
+        try {
+          const response = await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              jsonrpc: '2.0',
+              id: 1,
+              method: 'getBalance',
+              params: [this.main_wallet_address]
+            })
+          });
+
+          const data = await response.json();
+          if (data.result && data.result.value !== undefined) {
+            const balanceSOL = data.result.value / 1e9; // Convert lamports to SOL
+            
+            // Approximate SOL to USD conversion (dynamic pricing would require external API)
+            const solPriceUSD = 180; // Approximate current SOL price
+            this.current_portfolio_value_usd = balanceSOL * solPriceUSD;
+            
+            console.log(`💰 Real Portfolio Update:`);
+            console.log(`   Wallet: ${this.main_wallet_address.substring(0, 8)}...`);
+            console.log(`   Balance: ${balanceSOL.toFixed(4)} SOL`);
+            console.log(`   USD Value: $${this.current_portfolio_value_usd.toFixed(2)}`);
+            
+            // Re-evaluate payout requests with real balance
+            for (const [request_id, request] of this.payout_requests) {
+              if (request.status === 'pending') {
+                await this.evaluatePayoutRequest(request_id);
+              }
+            }
+            return;
+          }
+        } catch (error) {
+          console.log(`⚠️ RPC endpoint ${endpoint} failed, trying next...`);
+        }
+      }
+      
+      console.error('❌ Failed to fetch wallet balance from all RPC endpoints');
+    } catch (error) {
+      console.error('❌ Error updating portfolio value:', error);
+    }
   }
 
   private initializeUserPayoutRequest(): void {
