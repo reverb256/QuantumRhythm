@@ -39,39 +39,48 @@ export default function SimplifiedNavigation() {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50">
-      {/* Anime-style glassmorphism background */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-indigo-900/80 to-black/90 backdrop-blur-xl border-b border-white/10">
+      {/* Theme-aware glassmorphism background */}
+      <div 
+        className="absolute inset-0 backdrop-blur-xl border-b"
+        style={{
+          background: `linear-gradient(90deg, ${currentTheme.colors.background}e6, ${currentTheme.colors.surface}cc, ${currentTheme.colors.background}e6)`,
+          borderColor: `${currentTheme.colors.border}40`
+        }}
+      >
         {/* Animated constellation pattern */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           {[...Array(12)].map((_, i) => (
             <div
               key={i}
-              className="absolute w-1 h-1 bg-white/30 rounded-full animate-pulse"
+              className="absolute w-1 h-1 rounded-full animate-pulse"
               style={{
                 left: `${(i * 8.33) + 5}%`,
                 top: `${30 + Math.sin((starAnimation + i * 30) * Math.PI / 180) * 20}%`,
                 animationDelay: `${i * 100}ms`,
-                filter: 'blur(0.5px)'
+                filter: 'blur(0.5px)',
+                backgroundColor: `${currentTheme.colors.primary}60`
               }}
             />
           ))}
           
-          {/* Flowing energy lines */}
+          {/* Theme-aware flowing energy lines */}
           <div className="absolute inset-0">
             <div 
-              className="h-px bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent"
+              className="h-px"
               style={{
                 top: '40%',
                 transform: `translateX(${Math.sin(starAnimation * Math.PI / 180) * 20}px)`,
-                filter: 'blur(1px)'
+                filter: 'blur(1px)',
+                background: `linear-gradient(90deg, transparent, ${currentTheme.colors.primary}60, transparent)`
               }}
             />
             <div 
-              className="h-px bg-gradient-to-r from-transparent via-violet-400/20 to-transparent"
+              className="h-px"
               style={{
                 top: '60%',
                 transform: `translateX(${Math.cos(starAnimation * Math.PI / 180) * 15}px)`,
-                filter: 'blur(1px)'
+                filter: 'blur(1px)',
+                background: `linear-gradient(90deg, transparent, ${currentTheme.colors.secondary}40, transparent)`
               }}
             />
           </div>

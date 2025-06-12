@@ -156,7 +156,14 @@ function App() {
         <WalletProvider>
           <Web3AuthProvider>
             <ThemeProvider>
-              <ThemedApp />
+              <ConsciousContainer learningRate={0.15}>
+                <Toaster />
+                <main id="main-content" className="relative z-10 hdr-background text-wcag-aaa focus-enhanced">
+                  <SimplifiedNavigation />
+                  <Router />
+                </main>
+                <EnhancedConsole />
+              </ConsciousContainer>
             </ThemeProvider>
           </Web3AuthProvider>
         </WalletProvider>
