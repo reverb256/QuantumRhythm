@@ -53,11 +53,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
         console.log('⚠️ Security audit error:', err.message);
       });
 
-      // Fix critical debugging issues
-      debugHealthMonitor.performComprehensiveDebug().then(result => {
-        console.log(`🔧 Debug analysis complete: ${result.status} status, ${result.fixes.length} fixes applied`);
+      // Initialize AI orchestration debugging
+      const { aiOrchestrationDebugger } = await import('./ai-orchestration-debugger');
+      
+      aiOrchestrationDebugger.performRecursiveDebugging().then(result => {
+        console.log(`🤖 AI orchestration complete: ${result.fixedIssues}/${result.totalIssues} issues fixed, system status: ${result.systemStatus}`);
       }).catch(err => {
-        console.log('⚠️ Debug health monitor error:', err.message);
+        console.log('⚠️ AI orchestration error:', err.message);
       });
       
     } catch (error) {

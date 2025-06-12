@@ -56,7 +56,7 @@ export class ComprehensiveSecurityAudit {
     await this.checkAPISecurityPractices();
     
     // Generate report
-    const report = this.generateSecurityReport();
+    const report = this.generateAuditReport();
     
     console.log(`🔒 Security audit complete: ${this.vulnerabilities.length} issues found`);
     

@@ -97,22 +97,42 @@ export class DataProtectionMiddleware {
     };
   }
 
-  private sanitizeData(data: any): any {
+  private sanitizeData(data: any, depth = 0): any {
+    // Prevent infinite recursion
+    if (depth > 5) {
+      return '[DEEP_OBJECT_TRUNCATED]';
+    }
+    
     if (typeof data === 'string') {
       return this.sanitizeString(data);
     }
     
     if (Array.isArray(data)) {
-      return data.map(item => this.sanitizeData(item));
+      return data.map(item => this.sanitizeData(item, depth + 1));
     }
     
     if (typeof data === 'object' && data !== null) {
-      const sanitized: any = {};
-      for (const [key, value] of Object.entries(data)) {
-        // Check if key itself contains sensitive information
-        const sanitizedKey = this.sanitizeString(key);
-        sanitized[sanitizedKey] = this.sanitizeData(value);
+      // Prevent circular references
+      if (data.__sanitizing) {
+        return '[CIRCULAR_REFERENCE]';
       }
+      
+      const sanitized: any = {};
+      // Mark object to prevent circular processing
+      Object.defineProperty(data, '__sanitizing', { value: true, configurable: true });
+      
+      try {
+        for (const [key, value] of Object.entries(data)) {
+          if (key === '__sanitizing') continue;
+          // Check if key itself contains sensitive information
+          const sanitizedKey = this.sanitizeString(key);
+          sanitized[sanitizedKey] = this.sanitizeData(value, depth + 1);
+        }
+      } finally {
+        // Clean up marker
+        delete data.__sanitizing;
+      }
+      
       return sanitized;
     }
     
