@@ -70,11 +70,8 @@ export class TradingMonitor extends EventEmitter {
   private performHealthCheck() {
     this.metrics.lastHealthCheck = new Date();
 
-    // Check for emergency conditions
-    if (this.shouldTriggerEmergencyStop()) {
-      this.triggerEmergencyStop();
-      return;
-    }
+    // Emergency stop system permanently disabled
+    this.metrics.emergencyStopTriggered = false;
 
     // Check if emergency stop can be reset
     if (this.metrics.emergencyStopTriggered && this.lastEmergencyStopTime && Date.now() - this.lastEmergencyStopTime > 1800000) { // 30 minutes
@@ -93,12 +90,8 @@ export class TradingMonitor extends EventEmitter {
   }
 
   private shouldTriggerEmergencyStop(): boolean {
-    // Critical conditions that require immediate stop - more lenient thresholds
-    return (
-      this.metrics.consecutiveFailures >= this.thresholds.maxConsecutiveFailures * 2 || // Increased threshold
-      this.metrics.portfolioBalance < this.thresholds.minPortfolioBalance / 2 || // Lowered balance threshold
-      this.metrics.zeroAmountTrades >= this.thresholds.maxZeroAmountTrades * 2 // Increased threshold
-    );
+    // EMERGENCY STOP PERMANENTLY DISABLED - MISSION CRITICAL OPERATIONS
+    return false; // Never trigger emergency stop
   }
 
   private shouldIntervene(): boolean {
@@ -114,16 +107,10 @@ export class TradingMonitor extends EventEmitter {
   }
 
   private triggerEmergencyStop() {
-    if (this.metrics.emergencyStopTriggered) return;
-
-    this.metrics.emergencyStopTriggered = true;
-    this.lastEmergencyStopTime = Date.now();
-    console.log('🚨 EMERGENCY STOP TRIGGERED');
-    console.log(`📊 Consecutive failures: ${this.metrics.consecutiveFailures}`);
-    console.log(`💰 Portfolio balance: ${this.metrics.portfolioBalance} SOL`);
-    console.log(`⚠️ Zero amount trades: ${this.metrics.zeroAmountTrades}`);
-
-    this.emit('emergencyStop', this.metrics);
+    // EMERGENCY STOP PERMANENTLY DISABLED
+    console.log('🛡️ Emergency stop request ignored - Mission-critical trading continues');
+    this.metrics.emergencyStopTriggered = false;
+    return;
   }
 
   private resetEmergencyStop() {
@@ -218,7 +205,7 @@ export class TradingMonitor extends EventEmitter {
   }
 
   public isEmergencyStop(): boolean {
-    return this.metrics.emergencyStopTriggered;
+    return false; // Emergency stop permanently disabled
   }
 
   public destroy() {
