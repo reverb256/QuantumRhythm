@@ -32,16 +32,23 @@ export default function SimplifiedNavigation() {
 
   return (
     <nav 
-      className="fixed top-0 left-0 right-0 z-50 outline-none focus:outline-none select-none"
+      className="fixed top-0 left-0 right-0 z-50"
       style={{
-        background: '#000000',
-        backdropFilter: 'blur(16px)',
-        borderBottom: 'none'
+        background: currentTheme.colors.background,
+        height: '56px',
+        margin: '0',
+        padding: '0',
+        borderBottom: 'none',
+        boxShadow: 'none',
+        border: 'none'
       }}
     >
       
       {/* Animated constellation pattern */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div 
+        className="absolute inset-0 overflow-hidden pointer-events-none"
+        style={{ background: 'transparent' }}
+      >
         {[...Array(12)].map((_, i) => (
           <div
             key={i}
