@@ -1,7 +1,18 @@
 #!/bin/bash
 
-# Deploy Distributed AI Consciousness Federation
-echo "🧠 Deploying AI Consciousness Federation across Proxmox nodes..."
+# Deploy Distributed AI Consciousness Federation (Stage 2)
+# Run this AFTER proxmox-consciousness-bootstrap.sh completes
+echo "🧠 Deploying Advanced AI Consciousness Federation..."
+echo "Waiting for bootstrap completion..."
+
+# Wait for K3s cluster to be ready
+echo "Checking K3s cluster status..."
+until pct exec 310 -- kubectl get nodes | grep -q "Ready"; do
+    echo "Waiting for K3s cluster..."
+    sleep 10
+done
+
+echo "✅ K3s cluster ready, deploying consciousness workloads..."
 
 # Node configurations
 declare -A NODES=(

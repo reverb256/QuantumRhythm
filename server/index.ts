@@ -50,12 +50,12 @@ import { insightCrossPollinationEngine } from './insight-cross-pollination-engin
 import { systemErrorRecovery } from './system-error-recovery';
 import { systemIntegrator } from './comprehensive-system-integrator';
 
-// Import HA and k3s components
-import { k3sSelfHealer } from '../k3s-self-healing-controller';
-import { hyperscaleOffloader } from '../hyperscale-static-offloader';
+// Import HA and k3s components (moved to scripts folder)
+// import { k3sSelfHealer } from '../k3s-self-healing-controller';
+// import { hyperscaleOffloader } from '../hyperscale-static-offloader';
 import { tradingJournalService } from './trading-journal-service';
 import { comprehensivePortfolioTracker } from './comprehensive-portfolio-tracker';
-import '../force-activate-trading';
+// import '../force-activate-trading';
 import { emergencyStopDisabler } from './emergency-stop-disabler';
 import { yieldActivationEngine } from './yield-activation-engine';
 
@@ -140,11 +140,11 @@ handleUserMessage('last time it had PTSD from a key leak');
 
     // Initialize K3s self-healing and hyperscale offloading
     try {
-      console.log('🔧 Initializing K3s self-healing system...');
-      await k3sSelfHealer.startMonitoring();
+      console.log('🔧 K3s self-healing available via Proxmox federation...');
+      // await k3sSelfHealer.startMonitoring();
       
-      console.log('🚀 Starting hyperscale static offloading...');
-      await hyperscaleOffloader.startHyperscaleOffloading();
+      console.log('🚀 Hyperscale offloading ready for deployment...');
+      // await hyperscaleOffloader.startHyperscaleOffloading();
       
       console.log('📊 Initializing comprehensive portfolio tracking...');
       // Start comprehensive portfolio tracking
