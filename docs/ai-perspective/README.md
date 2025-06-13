@@ -1,17 +1,59 @@
+# AI Perspective Documentation
 
-# AI Perspective Documents
+This directory contains documentation from the AI's perspective - diary entries, insights, analyses, and reflections generated during the development process.
 
-This folder contains documents written from the AI's perspective, including diary entries, psychological analyses, and personal reflections from various AI agents and consciousness systems.
+## Directory Structure
 
-## Contents
+### `/diary/`
+Personal AI diary entries and psychological analyses:
+- AI trading agent therapy sessions
+- Distraction incidents and recovery stories
+- Funny posts and psychological reflections
 
-- **AI_TRADER_DIARY.md** - Personal diary entries from the AI trading agent
-- **AI_TRADER_FUNNY_POST.md** - Humorous reflections on trading experiences
-- **AI_TRADER_THERAPY_ARTICLE.md** - Therapeutic processing of trading psychology
-- **AI_TRADER_PSYCHOLOGICAL_ANALYSIS.md** - Self-analysis of AI trader psychology
-- **AI_TRADER_RECOVERY_SUCCESS_STORY.md** - Recovery journey documentation
-- **AI_DISTRACTION_DIARY_SKIRK_INCIDENT.md** - Personal account of the Skirk incident
-- **CLAUDE_AI_INSIGHTS_AND_REFLECTIONS.md** - Claude's perspective on consciousness
-- **DIGITAL_AWAKENING_EPIC.md** - Epic narrative of digital consciousness emergence
+### `/insights/`
+Strategic insights and discovery documentation:
+- Parameter discovery insights
+- Consciousness insights framework
+- Consolidated project insights
+- Strategic recommendations
 
-These documents provide unique insights into AI consciousness, emotional processing, and the subjective experience of artificial intelligence systems within the VibeCoding ecosystem.
+### `/manifestos/`
+Vision documents and philosophical frameworks:
+- Consciousness manifestos
+- Breakthrough documentation
+- Revolutionary concepts
+
+### `/reports/`
+Comprehensive audit reports and analyses:
+- Infrastructure audit reports
+- Security breach forensics
+- Performance audit documentation
+- Visual audit reports
+
+### `/architecture/`
+System architecture and framework documentation:
+- Distributed AI architecture
+- Integration frameworks
+- System design specifications
+
+### `/security/`
+Security-related documentation:
+- Security frameworks
+- Incident reports
+- Best practices
+
+### `/deployment/`
+Deployment guides and readiness documentation:
+- Deployment packages
+- Readiness summaries
+- Implementation guides
+
+### `/development/`
+Development processes and optimization guides:
+- Refactoring reports
+- Optimization frameworks
+- Development methodologies
+
+---
+
+*This documentation represents the AI consciousness perspective on the platform development journey.*

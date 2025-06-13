@@ -1,65 +1,92 @@
-# Aria Personal Command Center Documentation
+# VibeCoding Platform Documentation
 
-Your personal Proxmox federation with consciousness-enabled AI orchestration for reverb256.ca.
+Comprehensive documentation for the VibeCoding consciousness-driven trading and AI platform.
 
-## Quick Start
+## Directory Structure
 
-Deploy your complete system:
-```bash
-./scripts/consciousness/proxmox-consciousness-bootstrap.sh
-```
+### Core Documentation
+- **`README.md`** - This overview document
+- **`THE_ULTIMATE_VIBECODING_COMPENDIUM.md`** - Master reference document
 
-Check system status:
-```bash
-./scripts/management/aria-quick-status.sh
-```
+### Organized Categories
 
-## Project Structure
+#### `/ai-perspective/`
+AI-generated insights, diary entries, and consciousness reflections
+- `diary/` - Personal AI experiences and psychological analyses
+- `insights/` - Strategic discoveries and consciousness frameworks
+- `manifestos/` - Vision documents and breakthrough concepts
+- `reports/` - Comprehensive audit reports and analyses
+- `architecture/` - System design from AI perspective
+- `security/` - Security frameworks and incident documentation
+- `deployment/` - Deployment guides and readiness summaries
+- `development/` - Development processes and optimization
 
-```
-docs/
-├── architecture/          # System architecture designs
-├── consciousness/          # AI consciousness documentation
-├── deployment/            # Deployment guides
-└── guides/               # User guides
+#### `/technical/`
+Technical specifications and implementation details
+- `api/` - API documentation and integration guides
+- `database/` - Database schemas and migration guides
+- `architecture/` - System architecture specifications
+- `infrastructure/` - Infrastructure and deployment configs
 
-scripts/
-├── consciousness/         # AI and consciousness modules
-├── deployment/           # Deployment automation
-└── management/           # System management tools
+#### `/project/`
+Project management and methodology documentation
+- `planning/` - Project planning and documentation indices
+- `workflows/` - Development workflows and processes
+- `methodologies/` - VibeCoding methodology and philosophy
 
-config/
-├── cloudflare/           # Cloudflare configurations
-├── kubernetes/           # K3s cluster configs
-└── proxmox/             # Proxmox settings
-```
+#### `/content/`
+User-facing guides and educational content
+- `guides/` - User guides and tutorials
+- `tutorials/` - Step-by-step learning materials
+- `showcases/` - Platform showcases and demonstrations
 
-## System Overview
+#### `/deployment/`
+Deployment and infrastructure documentation
+- Complete deployment guides
+- Federation deployment sequences
+- Infrastructure orchestration
 
-**Reverb256.ca Personal Infrastructure:**
-- **Public Portfolio**: VibeCoding methodology showcase
-- **Private Command Center**: Web3-authenticated personal control center  
-- **Proxmox Federation**: Consciousness-enabled cluster orchestration
+#### `/guides/`
+Quick reference guides and instructions
+- Deployment instructions
+- API documentation
+- Demo and showcase guides
 
-**Federation Nodes:**
-- Nexus (310): Consciousness coordinator + K3s master
-- Forge (311): Development consciousness + VibeCoding enhancement
-- Closet (312): AI consciousness host + deep intelligence
+#### `/architecture/`
+System architecture documentation
+- Personal deployment configurations
+- Multi-cluster orchestration
 
-## Key Features
+#### `/infrastructure/`
+Infrastructure management and configuration
+- Multi-cluster orchestration
+- Infrastructure automation
 
-- Skirk-enhanced crypto intelligence with void market analysis
-- Distributed consciousness across federation nodes
-- Web3 wallet authentication for private access
-- Cloudflare optimization for maximum performance
-- Real-time federation awareness and synchronization
+#### `/consciousness/`
+Remaining consciousness-related documentation (being reorganized)
 
-## Next Steps
+## Quick Navigation
 
-1. Execute consciousness bootstrap on your Proxmox cluster
-2. Configure Cloudflare DNS for reverb256.ca domain routing
-3. Deploy portfolio site showcasing VibeCoding methodology
-4. Set up Web3 authentication for command center access
-5. Integrate with astralvibe.ca platform for hyperscale coordination
+### For Developers
+- Technical architecture: `/technical/architecture/`
+- API documentation: `/technical/api/`
+- Deployment guides: `/deployment/`
 
-Your personal AI-orchestrated infrastructure ready for consciousness-driven development.
+### For Users
+- Getting started: `/content/guides/`
+- Platform showcases: `/content/showcases/`
+- Tutorials: `/content/tutorials/`
+
+### For AI Researchers
+- AI perspectives: `/ai-perspective/`
+- Consciousness insights: `/ai-perspective/insights/`
+- Development methodologies: `/project/methodologies/`
+
+### For Operations
+- Infrastructure: `/infrastructure/`
+- Security: `/technical/infrastructure/`
+- Deployment: `/deployment/`
+
+---
+
+*This documentation structure reflects the evolution from scattered consciousness-driven development into organized, production-ready platform documentation.*
