@@ -51,10 +51,10 @@ setup_workspace_k3s() {
         success "K3s binary already available"
     fi
     
-    # Create kubectl symlink
+    # Create kubectl copy instead of symlink (Replit compatibility)
     if [ ! -f ./bin/kubectl ]; then
-        ln -s ./bin/k3s ./bin/kubectl
-        success "kubectl symlink created"
+        cp ./bin/k3s ./bin/kubectl
+        success "kubectl copy created"
     fi
 }
 
