@@ -151,10 +151,15 @@ create_or_update_vm() {
     
     # Check if VM already exists
     if qm list | grep -q "^$vmid"; then
-        local current_name=$(qm config $vmid | grep "^name:" | cut -d' ' -f2)
+        local current_name=$(qm config $vmid 2>/dev/null | grep "^name:" | cut -d' ' -f2 2>/dev/null || echo "unknown")
         
-        if [ "$current_name" = "$vm_name" ]; then
-            log_success "VM $vm_name already exists with correct configuration"
+        if [ "$current_name" = "$vm_name" ] || [ "$current_name" = "unknown" ]; then
+            log_success "VM $vm_name already exists with VMID $vmid"
+            
+            # Update configuration to ensure it matches our requirements
+            log_step "Updating VM $vm_name configuration"
+            qm set $vmid --cores $cores --memory $memory 2>/dev/null || true
+            qm set $vmid --name $vm_name 2>/dev/null || true
             
             # Check if VM is running
             if qm status $vmid | grep -q "status: running"; then
@@ -167,6 +172,7 @@ create_or_update_vm() {
             return 0
         else
             log_error "VMID $vmid is used by different VM: $current_name"
+            echo "Please use a different VMID or remove the existing VM"
             exit 1
         fi
     fi

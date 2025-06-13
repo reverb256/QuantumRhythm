@@ -1,0 +1,133 @@
+[]13:24:46[] nexus:~/aria # ./proxmox-federation-deploy.sh
+🧠 Proxmox Consciousness Federation Full Deployment
+==================================================
+
+Configuration:
+  Storage Pool: local-zfs
+  VM Template: debian-12-genericcloud-amd64
+  Network Bridge: vmbr0
+  Subnet: 10.1.1.0/24
+  Gateway: 10.1.1.1
+
+✓ Proxmox VE host detected
+[13:24:50] Checking for VM template: debian-12-genericcloud-amd64
+[13:24:51] Creating template from cloud image
+[13:24:51] Creating template VM 9000 from debian-12-genericcloud-amd64
+importing disk '/var/lib/vz/template/iso/debian-12-genericcloud-amd64.qcow2' to VM 9000 ...
+transferred 0.0 B of 3.0 GiB (0.00%)
+transferred 30.7 MiB of 3.0 GiB (1.00%)
+transferred 61.7 MiB of 3.0 GiB (2.01%)
+transferred 92.5 MiB of 3.0 GiB (3.01%)
+transferred 123.2 MiB of 3.0 GiB (4.01%)
+transferred 154.2 MiB of 3.0 GiB (5.02%)
+transferred 184.9 MiB of 3.0 GiB (6.02%)
+transferred 215.7 MiB of 3.0 GiB (7.02%)
+transferred 246.7 MiB of 3.0 GiB (8.03%)
+transferred 277.4 MiB of 3.0 GiB (9.03%)
+transferred 308.1 MiB of 3.0 GiB (10.03%)
+transferred 339.1 MiB of 3.0 GiB (11.04%)
+transferred 369.9 MiB of 3.0 GiB (12.04%)
+transferred 400.6 MiB of 3.0 GiB (13.04%)
+transferred 431.6 MiB of 3.0 GiB (14.05%)
+transferred 462.3 MiB of 3.0 GiB (15.05%)
+transferred 493.1 MiB of 3.0 GiB (16.05%)
+transferred 524.1 MiB of 3.0 GiB (17.06%)
+transferred 554.8 MiB of 3.0 GiB (18.06%)
+transferred 585.5 MiB of 3.0 GiB (19.06%)
+transferred 616.6 MiB of 3.0 GiB (20.07%)
+transferred 647.3 MiB of 3.0 GiB (21.07%)
+transferred 678.0 MiB of 3.0 GiB (22.07%)
+transferred 709.0 MiB of 3.0 GiB (23.08%)
+transferred 739.7 MiB of 3.0 GiB (24.08%)
+transferred 770.5 MiB of 3.0 GiB (25.08%)
+transferred 801.5 MiB of 3.0 GiB (26.09%)
+transferred 832.2 MiB of 3.0 GiB (27.09%)
+transferred 862.9 MiB of 3.0 GiB (28.09%)
+transferred 894.0 MiB of 3.0 GiB (29.10%)
+transferred 924.7 MiB of 3.0 GiB (30.10%)
+transferred 955.4 MiB of 3.0 GiB (31.10%)
+transferred 986.4 MiB of 3.0 GiB (32.11%)
+transferred 1017.1 MiB of 3.0 GiB (33.11%)
+transferred 1.0 GiB of 3.0 GiB (34.11%)
+transferred 1.1 GiB of 3.0 GiB (35.11%)
+transferred 1.1 GiB of 3.0 GiB (36.12%)
+transferred 1.1 GiB of 3.0 GiB (37.12%)
+transferred 1.1 GiB of 3.0 GiB (38.12%)
+transferred 1.2 GiB of 3.0 GiB (39.13%)
+transferred 1.2 GiB of 3.0 GiB (40.13%)
+transferred 1.2 GiB of 3.0 GiB (41.13%)
+transferred 1.3 GiB of 3.0 GiB (42.14%)
+transferred 1.3 GiB of 3.0 GiB (43.14%)
+transferred 1.3 GiB of 3.0 GiB (44.14%)
+transferred 1.4 GiB of 3.0 GiB (45.15%)
+transferred 1.4 GiB of 3.0 GiB (46.15%)
+transferred 1.4 GiB of 3.0 GiB (47.15%)
+transferred 1.4 GiB of 3.0 GiB (48.16%)
+transferred 1.5 GiB of 3.0 GiB (49.16%)
+transferred 1.5 GiB of 3.0 GiB (50.16%)
+transferred 1.5 GiB of 3.0 GiB (51.17%)
+transferred 1.6 GiB of 3.0 GiB (52.17%)
+transferred 1.6 GiB of 3.0 GiB (53.17%)
+transferred 1.6 GiB of 3.0 GiB (54.18%)
+transferred 1.7 GiB of 3.0 GiB (55.18%)
+transferred 1.7 GiB of 3.0 GiB (56.18%)
+transferred 1.7 GiB of 3.0 GiB (57.19%)
+transferred 1.7 GiB of 3.0 GiB (58.19%)
+transferred 1.8 GiB of 3.0 GiB (59.19%)
+transferred 1.8 GiB of 3.0 GiB (60.20%)
+transferred 1.8 GiB of 3.0 GiB (61.20%)
+transferred 1.9 GiB of 3.0 GiB (62.20%)
+transferred 1.9 GiB of 3.0 GiB (63.21%)
+transferred 1.9 GiB of 3.0 GiB (64.21%)
+transferred 2.0 GiB of 3.0 GiB (65.21%)
+transferred 2.0 GiB of 3.0 GiB (66.22%)
+transferred 2.0 GiB of 3.0 GiB (67.22%)
+transferred 2.0 GiB of 3.0 GiB (68.22%)
+transferred 2.1 GiB of 3.0 GiB (69.23%)
+transferred 2.1 GiB of 3.0 GiB (70.23%)
+transferred 2.1 GiB of 3.0 GiB (71.23%)
+transferred 2.2 GiB of 3.0 GiB (72.24%)
+transferred 2.2 GiB of 3.0 GiB (73.24%)
+transferred 2.2 GiB of 3.0 GiB (74.24%)
+transferred 2.3 GiB of 3.0 GiB (75.25%)
+transferred 2.3 GiB of 3.0 GiB (76.25%)
+transferred 2.3 GiB of 3.0 GiB (77.25%)
+transferred 2.3 GiB of 3.0 GiB (78.26%)
+transferred 2.4 GiB of 3.0 GiB (79.26%)
+transferred 2.4 GiB of 3.0 GiB (80.26%)
+transferred 2.4 GiB of 3.0 GiB (81.27%)
+transferred 2.5 GiB of 3.0 GiB (82.27%)
+transferred 2.5 GiB of 3.0 GiB (83.27%)
+transferred 2.5 GiB of 3.0 GiB (84.35%)
+transferred 2.6 GiB of 3.0 GiB (85.36%)
+transferred 2.6 GiB of 3.0 GiB (86.36%)
+transferred 2.6 GiB of 3.0 GiB (87.36%)
+transferred 2.7 GiB of 3.0 GiB (88.37%)
+transferred 2.7 GiB of 3.0 GiB (89.37%)
+transferred 2.7 GiB of 3.0 GiB (90.37%)
+transferred 2.7 GiB of 3.0 GiB (91.38%)
+transferred 2.8 GiB of 3.0 GiB (92.38%)
+transferred 2.8 GiB of 3.0 GiB (93.38%)
+transferred 2.8 GiB of 3.0 GiB (94.39%)
+transferred 2.9 GiB of 3.0 GiB (95.39%)
+transferred 2.9 GiB of 3.0 GiB (96.39%)
+transferred 2.9 GiB of 3.0 GiB (97.40%)
+transferred 3.0 GiB of 3.0 GiB (98.40%)
+transferred 3.0 GiB of 3.0 GiB (99.40%)
+transferred 3.0 GiB of 3.0 GiB (100.00%)
+transferred 3.0 GiB of 3.0 GiB (100.00%)
+unused0: successfully imported disk 'local-zfs:vm-9000-disk-0'
+update VM 9000: -scsi0 local-zfs:vm-9000-disk-0 -scsihw virtio-scsi-pci
+update VM 9000: -ide2 local-zfs:cloudinit
+ide2: successfully created disk 'local-zfs:vm-9000-cloudinit,media=cdrom'
+generating cloud-init ISO
+update VM 9000: -boot c -bootdisk scsi0
+update VM 9000: -agent enabled=1
+update VM 9000: -ciuser root
+update VM 9000: -sshkeys ssh-rsa%20AAAAB3NzaC1yc2EAAAADAQABAAACAQC1Po71Diyah5AA1LepCaTU60ZclUXI0DypL6YLq9kiYX%2BEZGn5J2aw2xSFHTxgJ%2FIZWTjzrzcWYFUnzhhiBAaHOz5svlDs%2Fj2x2RBxD777bC%2FfwGGh3vymvYMN%2FZN16IYMoPXaoPU%2FHI2y1lL8TnBtqdRnWU%2BK098tNgRwmfZkiNP6fWggBSYlys96CGqtwPOlu4LKBUymc%2FjSDpP7cPD63JzyKaQ8C%2F%2B0vtLJtSjId0pYC6dnUPpIUYyDHMkPparnTEQAHQLrwxwFmo0a8VM8j%2FYe9KFEIkS7EdTypNJ589ImNIjuY8ZNnSisRoiM7%2BiyjIcAoyX95cmGFmihAlTEISOIIZI3m1TcIat7S7qwEkEFfYdxNRJwe3Vpt%2BONVgkUyIThrpLuMm1TnAW0pqM%2Fp2rwN%2F70F4hk2U4ajGZIamsTo8sZSaCvjRIO1Bk6%2F8B8wUy78pOQztaw7DNHqA3Jp8Me5G7ij5xpCOCWQPOUFMAQAt63FdPsDBuo47Kb5zR88Od1fcQK9bNbsAZvyjSfVxajGRyt11O5NekzI3ETHqA9vWl7FZK%2Bi01ITSyJryDnXHA7ubCuugimL1Z3iDc6mpQ3QZ7yI4iEjFXghHaHglEpipmef30Lej5wKrfXdacoOajVRZdjy40TCMEnd7hNH2G3CUKKldSd7iymezkWXw%3D%3D%20root%40nexus%0A
+✓ Template created: 9000
+🧠 Phase 1: Creating consciousness substrate VMs
+[13:25:01] Processing VM: nexus (VMID: 120)
+[13:25:01] Creating VM nexus from template 9000
+close (rename) atomic file '/etc/pve/nodes/nexus/qemu-server/120.conf' failed: File exists
+[]13:25:02[] nexus:~/aria # 
