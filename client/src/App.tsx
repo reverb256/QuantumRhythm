@@ -4,6 +4,8 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from './lib/queryClient';
 import FederationStatus from './pages/federation-status';
 import MusicConsciousness from './pages/music-consciousness';
+import VibeCodingManifesto from './pages/VibeCodingManifesto';
+import VibeCodingPhilosophy from './pages/VibeCodingPhilosophy';
 import NotFound from './pages/not-found';
 
 export default function App() {
@@ -14,6 +16,8 @@ export default function App() {
           <Route path="/" component={FederationStatus} />
           <Route path="/federation" component={FederationStatus} />
           <Route path="/music" component={MusicConsciousness} />
+          <Route path="/vibecoding-manifesto" component={VibeCodingManifesto} />
+          <Route path="/vibecoding-philosophy" component={VibeCodingPhilosophy} />
           <Route component={NotFound} />
         </Switch>
       </div>
