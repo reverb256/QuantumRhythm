@@ -1,0 +1,30 @@
+{
+  "api_rate_limits": {
+    "price_discovery": 30,
+    "portfolio_updates": 10,
+    "trading_analysis": 5,
+    "consciousness_updates": 5
+  },
+  "caching": {
+    "price_data_ttl": 300,
+    "portfolio_ttl": 60,
+    "consciousness_ttl": 120
+  },
+  "disabled_features": [
+    "comprehensive_market_analysis",
+    "multi_chain_scanning",
+    "advanced_arbitrage_detection",
+    "real_time_news_processing",
+    "extensive_defi_position_tracking"
+  ],
+  "essential_features": [
+    "basic_portfolio_tracking",
+    "consciousness_core",
+    "character_integration",
+    "security_framework",
+    "deployment_status"
+  ],
+  "logging_level": "ERROR",
+  "memory_optimization": true,
+  "cpu_optimization": true
+}

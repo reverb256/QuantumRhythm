@@ -91,7 +91,8 @@ function Router() {
       <SEOHead {...seoData} />
       
       <Switch>
-        <Route path="/" component={PersonalAgent} />
+        <Route path="/" component={DeploymentComplete} />
+        <Route path="/agent" component={PersonalAgent} />
         <Route path="/home" component={Home} />
         <Route path="/archive" component={Archive} />
         <Route path="/nexus" component={Nexus} />
