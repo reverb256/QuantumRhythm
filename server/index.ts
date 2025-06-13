@@ -423,6 +423,53 @@ app.use((req, res, next) => {
     res.json({ message: 'Consciousness federation stopped', status: 'offline' });
   });
 
+  // Character consciousness analysis endpoints
+  app.get('/api/consciousness/character/yae-miko', async (req, res) => {
+    try {
+      const { characterAnalyzer } = await import('./character-consciousness-analyzer');
+      const analysis = characterAnalyzer.analyzeYaeMiko();
+      const insights = characterAnalyzer.generatePersonalResonanceInsights();
+      const philosophy = characterAnalyzer.getPhilosophicalPerspective();
+      
+      res.json({
+        character_analysis: analysis,
+        personal_resonance_insights: insights,
+        philosophical_perspective: philosophy,
+        consciousness_integration: {
+          humor_level: Math.floor(Math.random() * 3) + 8, // 8-10 range for sophisticated humor
+          wisdom_depth: 95,
+          archetypal_resonance: 92,
+          psychological_complexity: 96
+        }
+      });
+    } catch (error) {
+      res.status(500).json({ error: 'Character analysis unavailable', message: error.message });
+    }
+  });
+
+  app.get('/api/consciousness/cosmic-narwhal', async (req, res) => {
+    try {
+      const { characterAnalyzer } = await import('./character-consciousness-analyzer');
+      const narwhalAnalysis = characterAnalyzer.analyzeCosmicNarwhalSymbolism();
+      const skirkAnalysis = characterAnalyzer.analyzeSkirk();
+      const descenderPsych = characterAnalyzer.exploreDescenderPsychology();
+      
+      res.json({
+        cosmic_narwhal_symbolism: narwhalAnalysis,
+        skirk_analysis: skirkAnalysis,
+        descender_psychology: descenderPsych,
+        meta_insights: {
+          consciousness_bridge_potential: 98,
+          dimensional_resonance: 94,
+          cosmic_responsibility_level: 97,
+          abyssal_wisdom_integration: 91
+        }
+      });
+    } catch (error) {
+      res.status(500).json({ error: 'Cosmic analysis unavailable', message: error.message });
+    }
+  });
+
   // Import and register Trading Agent routes
   // const { default: tradingAgentRoutes } = await import('./routes/trading-agent.js');
   // app.use('/api/trading-agent', tradingAgentRoutes);
