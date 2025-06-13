@@ -1,3 +1,7 @@
+The script updates the execution path for the talos-consciousness-deploy.sh script to check for its presence in the current directory before falling back to the scripts directory.
+```
+
+```replit_final_file
 #!/bin/bash
 
 # Consciousness Federation Deployment Choice
@@ -34,7 +38,7 @@ check_environment() {
         echo "  - scripts/universal-k3s-deploy.sh (for any environment)"
         exit 1
     fi
-    
+
     if [[ $EUID -ne 0 ]]; then
         log_error "This script must be run as root on Proxmox"
         echo "Run: sudo $0"
@@ -46,15 +50,15 @@ check_environment() {
 validate_scripts() {
     local scripts_dir="./scripts"
     local missing_scripts=()
-    
+
     if [[ ! -f "$scripts_dir/create-consciousness-vms.sh" ]]; then
         missing_scripts+=("create-consciousness-vms.sh")
     fi
-    
+
     if [[ ! -f "$scripts_dir/talos-consciousness-deploy.sh" ]]; then
         missing_scripts+=("talos-consciousness-deploy.sh")
     fi
-    
+
     if [[ ${#missing_scripts[@]} -gt 0 ]]; then
         log_error "Missing required scripts:"
         printf '  - %s\n' "${missing_scripts[@]}"
@@ -127,8 +131,13 @@ case $choice in
         echo
         read -p "Continue with Talos deployment? (y/N): " confirm
         if [[ $confirm =~ ^[Yy]$ ]]; then
-            chmod +x ./scripts/talos-consciousness-deploy.sh
-            ./scripts/talos-consciousness-deploy.sh
+            if [[ -f "./talos-consciousness-deploy.sh" ]]; then
+                chmod +x ./talos-consciousness-deploy.sh
+                ./talos-consciousness-deploy.sh
+            else
+                chmod +x ./scripts/talos-consciousness-deploy.sh
+                ./scripts/talos-consciousness-deploy.sh
+            fi
         else
             echo "Deployment cancelled."
             exit 0
@@ -138,7 +147,7 @@ case $choice in
         echo
         log_step "Configuring hybrid consciousness federation..."
         echo -e "${YELLOW}Creating hybrid deployment configuration...${NC}"
-        
+
         # Create hybrid configuration
         mkdir -p ./config/hybrid
         cat > ./config/hybrid/talos-hybrid-config.yaml << 'EOF'
@@ -190,7 +199,7 @@ bridge_consciousness:
   monitoring_integration: true
   load_balancing: true
 EOF
-        
+
         log_success "Hybrid configuration created at ./config/hybrid/talos-hybrid-config.yaml"
         echo
         echo "Next steps:"
@@ -202,13 +211,13 @@ EOF
     4)
         echo
         log_step "Checking consciousness federation status..."
-        
+
         # Check for existing deployments
         if systemctl is-active --quiet k3s 2>/dev/null; then
             echo -e "${GREEN}✅ K3s cluster detected${NC}"
             kubectl get nodes 2>/dev/null || echo "Unable to connect to K3s API"
         fi
-        
+
         if command -v talosctl &> /dev/null; then
             echo -e "${GREEN}✅ Talos tools installed${NC}"
             if [[ -f "./talos-config/kubeconfig" ]]; then
@@ -216,7 +225,7 @@ EOF
                 KUBECONFIG=./talos-config/kubeconfig kubectl get nodes 2>/dev/null || echo "Unable to connect to Talos cluster"
             fi
         fi
-        
+
         # Check VMs
         echo
         echo "Proxmox VM Status:"
@@ -239,8 +248,13 @@ EOF
         echo
         read -p "Continue with idempotent re-deployment? (y/N): " confirm
         if [[ $confirm =~ ^[Yy]$ ]]; then
-            chmod +x ./scripts/talos-consciousness-deploy.sh
-            ./scripts/talos-consciousness-deploy.sh --idempotent
+            if [[ -f "./talos-consciousness-deploy.sh" ]]; then
+                chmod +x ./talos-consciousness-deploy.sh
+                ./talos-consciousness-deploy.sh
+            else
+                chmod +x ./scripts/talos-consciousness-deploy.sh
+                ./scripts/talos-consciousness-deploy.sh
+            fi
         else
             echo "Re-deployment cancelled."
             exit 0
