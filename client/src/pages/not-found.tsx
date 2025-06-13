@@ -1,44 +1,34 @@
-import { Link } from "wouter";
+import React from 'react';
+import { Link } from 'wouter';
+import { Home, ArrowLeft } from 'lucide-react';
+
 export default function NotFound() {
   return (
-    <div className="min-h-screen bg-black text-white relative">
-      
-      {/* Clean Background System */}
-      <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-black via-slate-950 to-gray-900" />
-      </div>
-      
-      <div className="flex items-center justify-center min-h-screen relative z-10">
-        <div className="text-center max-w-2xl mx-auto px-6">
-          <div className="bg-black/30 backdrop-blur-lg rounded-2xl border border-cyan-400/20 p-12">
-            <div className="mb-8">
-              <div className="text-6xl text-cyan-400 mb-4">🤖</div>
-              <h1 className="text-6xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent mb-4">404</h1>
-              <h2 className="text-2xl font-semibold text-purple-400 mb-6">
-                Neural Network Disconnected
-              </h2>
-            </div>
-            
-            <p className="text-lg text-gray-300 mb-8 leading-relaxed">
-              The requested data pathway could not be established. The cybernetic matrix 
-              has no record of this digital location in the neural networks.
-            </p>
-            
-            <div className="space-y-4">
-              <Link 
-                href="/"
-                className="inline-flex items-center px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300"
-              >
-                <span className="mr-2">🏠</span>
-                Return to Consciousness
-              </Link>
-              
-              <div className="text-sm text-gray-400 mt-6">
-                <p>Error Code: NEURAL_PATH_NOT_FOUND</p>
-                <p>Timestamp: {new Date().toISOString()}</p>
-              </div>
-            </div>
-          </div>
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-violet-900 flex items-center justify-center p-4">
+      <div className="text-center space-y-8 max-w-md">
+        <div className="space-y-4">
+          <h1 className="text-8xl font-bold text-white opacity-20">404</h1>
+          <h2 className="text-3xl font-bold text-white">Page Not Found</h2>
+          <p className="text-gray-300 text-lg">
+            The page you're looking for doesn't exist or has been moved.
+          </p>
+        </div>
+        
+        <div className="space-y-4">
+          <Link href="/">
+            <button className="inline-flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-medium transition-colors">
+              <Home className="w-4 h-4" />
+              Return Home
+            </button>
+          </Link>
+          
+          <button 
+            onClick={() => window.history.back()}
+            className="inline-flex items-center gap-2 border border-gray-600 hover:border-gray-500 text-gray-300 hover:text-white px-6 py-3 rounded-lg font-medium transition-colors ml-4"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Go Back
+          </button>
         </div>
       </div>
     </div>
