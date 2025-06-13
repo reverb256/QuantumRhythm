@@ -40,6 +40,36 @@ KEEP_FILES=(
     "docker-compose.yml"
 )
 
+# Remove redundant shell scripts first
+REDUNDANT_SCRIPTS=(
+    "anomaly-consciousness-deploy.sh"
+    "erudition-enhanced-deploy.sh" 
+    "flame-chase-monitor.sh"
+    "granular-k3s-deploy.sh"
+    "hybrid-consciousness-deploy.sh"
+    "idempotent-talos-deploy.sh"
+    "minimal-k3s-deploy.sh"
+    "proxmox-cluster-bootstrap.sh"
+    "proxmox-consciousness-deploy.sh"
+    "proxmox-deploy.sh"
+    "proxmox-federation-deploy.sh"
+    "proxmox-federation-update.sh"
+    "proxmox-k3s-deploy.sh"
+    "quick-k3s-deploy.sh"
+    "universal-k3s-deploy.sh"
+    "download-talos-deploy.sh"
+    "talos-deploy-for-proxmox.sh"
+    "deploy-hyperscale.sh"
+)
+
+echo "Removing redundant shell scripts..."
+for script in "${REDUNDANT_SCRIPTS[@]}"; do
+    if [[ -f "$script" ]]; then
+        rm "$script"
+        echo "Removed: $script"
+    fi
+done
+
 # Create list of files to move
 for file in *; do
     if [[ -f "$file" ]]; then
