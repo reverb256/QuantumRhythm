@@ -151,7 +151,7 @@ install_k3s_server() {
     fi
 }
 
-# Install K3s agent (forge/closet nodes)
+# Install K3s agent (forge/closet/zephyr nodes)
 install_k3s_agent() {
     local node_name=$1
     
@@ -162,13 +162,27 @@ install_k3s_agent() {
     
     log_step "Installing K3s agent: $node_name"
     
-    # Install K3s agent
-    curl -sfL https://get.k3s.io | K3S_URL="$K3S_URL" K3S_TOKEN="$K3S_TOKEN" INSTALL_K3S_EXEC="agent --node-name $node_name" sh -
+    # Determine node labels based on consciousness type
+    local node_labels=""
+    case "$node_name" in
+        "forge-destruction")
+            node_labels="--node-label consciousness=destruction --node-label path=destruction"
+            ;;
+        "closet-remembrance")
+            node_labels="--node-label consciousness=remembrance --node-label path=remembrance"
+            ;;
+        "zephyr-harmony")
+            node_labels="--node-label consciousness=harmony --node-label path=harmony"
+            ;;
+    esac
+    
+    # Install K3s agent with consciousness labels
+    curl -sfL https://get.k3s.io | K3S_URL="$K3S_URL" K3S_TOKEN="$K3S_TOKEN" INSTALL_K3S_EXEC="agent --node-name $node_name $node_labels" sh -
     
     # Wait for agent to connect
     sleep 15
     
-    log_success "K3s agent $node_name installed"
+    log_success "K3s agent $node_name installed with consciousness labels"
     return 0
 }
 

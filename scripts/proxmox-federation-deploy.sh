@@ -23,9 +23,10 @@ SUBNET=${SUBNET:-"10.1.1"}
 
 # VM Configuration
 declare -A VM_CONFIG=(
-    ["nexus"]="vmid=120 cores=4 memory=8192 disk=50 ip=${SUBNET}.120"
-    ["forge"]="vmid=121 cores=2 memory=4096 disk=30 ip=${SUBNET}.121" 
-    ["closet"]="vmid=122 cores=2 memory=4096 disk=30 ip=${SUBNET}.122"
+    ["nexus"]="vmid=120 cores=4 memory=8192 disk=50 ip=${SUBNET}.120 hostname=nexus.lan"
+    ["forge"]="vmid=121 cores=2 memory=4096 disk=30 ip=${SUBNET}.121 hostname=forge.lan" 
+    ["closet"]="vmid=122 cores=2 memory=4096 disk=30 ip=${SUBNET}.122 hostname=closet.lan"
+    ["zephyr"]="vmid=123 cores=3 memory=6144 disk=40 ip=${SUBNET}.123 hostname=zephyr.lan"
 )
 
 log_step() {
@@ -122,8 +123,13 @@ create_vm_template() {
     # Enable cloud-init and agent
     qm set $template_id --agent enabled=1
     qm set $template_id --ciuser root
-    qm set $template_id --cipassword $(openssl rand -base64 32)
-    qm set $template_id --sshkeys ~/.ssh/authorized_keys 2>/dev/null || true
+    
+    # Set up SSH keys for template
+    if [ -f ~/.ssh/id_rsa.pub ]; then
+        qm set $template_id --sshkeys ~/.ssh/id_rsa.pub
+    elif [ -f ~/.ssh/authorized_keys ]; then
+        qm set $template_id --sshkeys ~/.ssh/authorized_keys
+    fi
     
     # Convert to template
     qm template $template_id
@@ -138,7 +144,7 @@ create_or_update_vm() {
     local config_str=${VM_CONFIG[$vm_name]}
     
     # Parse configuration
-    local vmid cores memory disk ip
+    local vmid cores memory disk ip hostname
     eval $config_str
     
     log_step "Processing VM: $vm_name (VMID: $vmid)"
@@ -179,13 +185,26 @@ create_or_update_vm() {
     qm set $vmid --nameserver "$DNS_SERVERS"
     qm set $vmid --searchdomain lan
     
-    # Set hostname
+    # Set hostname and user
     qm set $vmid --ciuser root
-    qm set $vmid --cipassword $(openssl rand -base64 32)
+    echo "$hostname" | qm set $vmid --cicustom "user=local:snippets/hostname-${vmid}.yml"
     
-    # Add SSH keys if available
-    if [ -f ~/.ssh/authorized_keys ]; then
+    # Create hostname cloud-init snippet
+    mkdir -p /var/lib/vz/snippets
+    cat > "/var/lib/vz/snippets/hostname-${vmid}.yml" << EOF
+#cloud-config
+hostname: ${hostname}
+fqdn: ${hostname}
+manage_etc_hosts: true
+EOF
+    
+    # Copy SSH keys from host for passwordless access
+    if [ -f ~/.ssh/id_rsa.pub ]; then
+        qm set $vmid --sshkeys ~/.ssh/id_rsa.pub
+    elif [ -f ~/.ssh/authorized_keys ]; then
         qm set $vmid --sshkeys ~/.ssh/authorized_keys
+    else
+        log_warning "No SSH keys found - VMs will require password authentication"
     fi
     
     # Start VM
@@ -240,17 +259,17 @@ deploy_k3s_to_vm() {
     local config_str=${VM_CONFIG[$vm_name]}
     
     # Parse configuration
-    local vmid cores memory disk ip
+    local vmid cores memory disk ip hostname
     eval $config_str
     
     log_step "Deploying K3s consciousness to $vm_name ($ip)"
     
-    # Copy deployment script to VM
+    # Copy deployment script to VM using hostname
     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
-        scripts/proxmox-k3s-deploy.sh root@$ip:/tmp/k3s-deploy.sh
+        scripts/proxmox-k3s-deploy.sh root@${hostname}:/tmp/k3s-deploy.sh
     
     # Make script executable and run it
-    ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@$ip \
+    ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@${hostname} \
         "chmod +x /tmp/k3s-deploy.sh && /tmp/k3s-deploy.sh $vm_name"
     
     log_success "K3s deployed to $vm_name"
@@ -258,13 +277,11 @@ deploy_k3s_to_vm() {
 
 # Deploy agent nodes
 deploy_k3s_agents() {
-    local nexus_ip=${SUBNET}.120
-    
     log_step "Retrieving federation credentials from nexus"
     
-    # Get federation token and URL from nexus
-    local k3s_url=$(ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@$nexus_ip "cat /tmp/k3s-url 2>/dev/null || echo ''")
-    local k3s_token=$(ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@$nexus_ip "cat /tmp/k3s-token 2>/dev/null || echo ''")
+    # Get federation token and URL from nexus using hostname
+    local k3s_url=$(ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@nexus.lan "cat /tmp/k3s-url 2>/dev/null || echo ''")
+    local k3s_token=$(ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@nexus.lan "cat /tmp/k3s-token 2>/dev/null || echo ''")
     
     if [ -z "$k3s_url" ] || [ -z "$k3s_token" ]; then
         log_error "Failed to retrieve federation credentials from nexus"
@@ -275,18 +292,16 @@ deploy_k3s_agents() {
     
     # Deploy to forge
     log_step "Deploying to forge node"
-    local forge_ip=${SUBNET}.121
     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
-        scripts/proxmox-k3s-deploy.sh root@$forge_ip:/tmp/k3s-deploy.sh
-    ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@$forge_ip \
+        scripts/proxmox-k3s-deploy.sh root@forge.lan:/tmp/k3s-deploy.sh
+    ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@forge.lan \
         "export K3S_URL='$k3s_url' && export K3S_TOKEN='$k3s_token' && chmod +x /tmp/k3s-deploy.sh && /tmp/k3s-deploy.sh forge"
     
     # Deploy to closet
     log_step "Deploying to closet node"
-    local closet_ip=${SUBNET}.122
     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
-        scripts/proxmox-k3s-deploy.sh root@$closet_ip:/tmp/k3s-deploy.sh
-    ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@$closet_ip \
+        scripts/proxmox-k3s-deploy.sh root@closet.lan:/tmp/k3s-deploy.sh
+    ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@closet.lan \
         "export K3S_URL='$k3s_url' && export K3S_TOKEN='$k3s_token' && chmod +x /tmp/k3s-deploy.sh && /tmp/k3s-deploy.sh closet"
     
     log_success "Agent nodes deployed"
