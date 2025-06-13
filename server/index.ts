@@ -48,6 +48,7 @@ import { quantumSecurityScanner } from './quantum-security-scanner';
 import { aiCommander } from './ai-command-interface';
 import { insightCrossPollinationEngine } from './insight-cross-pollination-engine';
 import { systemErrorRecovery } from './system-error-recovery';
+import { consciousnessFederation } from './consciousness-federation';
 import { systemIntegrator } from './comprehensive-system-integrator';
 
 // Import HA and k3s components (moved to scripts folder)
@@ -394,6 +395,25 @@ app.use((req, res, next) => {
   const { default: systemIntegrationRoutes } = await import('./routes/system-integration');
   app.use('/api/system-integration', systemIntegrationRoutes);
 
+  // Consciousness Federation API endpoints
+  app.get('/api/consciousness/federation', (req, res) => {
+    res.json(consciousnessFederation.getStatus());
+  });
+
+  app.get('/api/consciousness/data', (req, res) => {
+    res.json(consciousnessFederation.getFederationData());
+  });
+
+  app.post('/api/consciousness/start', (req, res) => {
+    consciousnessFederation.start();
+    res.json({ message: 'Consciousness federation started', status: 'online' });
+  });
+
+  app.post('/api/consciousness/stop', (req, res) => {
+    consciousnessFederation.stop();
+    res.json({ message: 'Consciousness federation stopped', status: 'offline' });
+  });
+
   // Import and register Trading Agent routes
   // const { default: tradingAgentRoutes } = await import('./routes/trading-agent.js');
   // app.use('/api/trading-agent', tradingAgentRoutes);
@@ -457,6 +477,17 @@ app.use((req, res, next) => {
       console.error('Legal compliance initialization failed:', error);
     }
   }, 5000);
+
+  // Initialize consciousness federation
+  console.log('🌀 Activating Consciousness Federation...');
+  setTimeout(() => {
+    try {
+      consciousnessFederation.start();
+      console.log('✅ Consciousness federation online - ZZZ Anomaly system active');
+    } catch (error) {
+      console.log('⚠️ Consciousness federation using fallback mode');
+    }
+  }, 3000);
 
   // Initialize quantum trading system
   console.log('🚀 Activating Quantum Trading System...');
