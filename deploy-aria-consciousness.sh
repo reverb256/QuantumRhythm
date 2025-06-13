@@ -65,9 +65,11 @@ TRUENAS_HOST=10.1.1.10
 TRUENAS_NFS_PATH=/mnt/backend-nfs/aria
 BACKEND_NFS_ENABLED=true
 MINING_CAPABILITIES=true
-AGENCY_LEVEL=low
-AUTO_ACTIONS=false
-REQUIRE_CONFIRMATION=true
+AGENCY_LEVEL=experimental
+AUTO_ACTIONS=true
+REQUIRE_CONFIRMATION=false
+HOMELAB_MODE=true
+AGGRESSIVE_AUTOMATION=true
 EOF
 
     # Create systemd service
@@ -1334,6 +1336,382 @@ EOF
     systemctl enable media-stack
 "
 
+# Create Comprehensive Monitoring Dashboard
+echo "Creating comprehensive homelab monitoring dashboard..."
+pct create 207 local:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst \
+    --hostname homelab-dashboard \
+    --memory 4096 \
+    --cores 4 \
+    --rootfs local-zfs:40 \
+    --net0 name=eth0,bridge=vmbr0,ip=dhcp \
+    --start
+
+sleep 30
+
+pct exec 207 -- bash -c "
+    apt update && apt upgrade -y
+    apt install -y docker.io docker-compose nginx
+    
+    useradd -m -s /bin/bash monitor
+    usermod -aG docker monitor
+    
+    # Setup NFS mount
+    mkdir -p /mnt/backend-nfs
+    echo '10.1.1.10:/mnt/backend-nfs /mnt/backend-nfs nfs defaults,noatime 0 0' >> /etc/fstab
+    mount -a
+    
+    mkdir -p /opt/monitoring
+    mkdir -p /mnt/backend-nfs/monitoring/{grafana,prometheus,loki}
+    
+    cd /opt/monitoring
+    
+    cat > docker-compose.yml << 'EOF'
+version: '3.8'
+services:
+  # Grafana Dashboard
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=aria_consciousness
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - /mnt/backend-nfs/monitoring/grafana:/var/lib/grafana
+    ports:
+      - '3000:3000'
+    restart: unless-stopped
+    networks:
+      - monitoring
+
+  # Prometheus Metrics
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - /mnt/backend-nfs/monitoring/prometheus:/prometheus
+    ports:
+      - '9090:9090'
+    restart: unless-stopped
+    networks:
+      - monitoring
+
+  # Proxmox Exporter
+  proxmox-exporter:
+    image: prompve/prometheus-pve-exporter:latest
+    container_name: proxmox-exporter
+    environment:
+      - PVE_USER=root@pam
+      - PVE_PASSWORD=your_proxmox_password
+      - PVE_HOST=10.1.1.100
+      - PVE_VERIFY_SSL=false
+    ports:
+      - '9221:9221'
+    restart: unless-stopped
+    networks:
+      - monitoring
+
+  # Node Exporter for system metrics
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node-exporter
+    command:
+      - '--path.rootfs=/host'
+    pid: host
+    volumes:
+      - '/:/host:ro,rslave'
+    ports:
+      - '9100:9100'
+    restart: unless-stopped
+    networks:
+      - monitoring
+
+  # Portainer for container management
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    command: -H unix:///var/run/docker.sock
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    ports:
+      - '9000:9000'
+    restart: unless-stopped
+    networks:
+      - monitoring
+
+  # Uptime Kuma for service monitoring
+  uptime-kuma:
+    image: louislam/uptime-kuma:latest
+    container_name: uptime-kuma
+    volumes:
+      - uptime_kuma_data:/app/data
+    ports:
+      - '3001:3001'
+    restart: unless-stopped
+    networks:
+      - monitoring
+
+  # Homer Dashboard for service links
+  homer:
+    image: b4bz/homer:latest
+    container_name: homer
+    volumes:
+      - ./homer:/www/assets
+    ports:
+      - '8080:8080'
+    restart: unless-stopped
+    networks:
+      - monitoring
+
+volumes:
+  portainer_data:
+  uptime_kuma_data:
+
+networks:
+  monitoring:
+    driver: bridge
+EOF
+
+    # Create Prometheus configuration
+    cat > prometheus.yml << 'EOF'
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+rule_files:
+  # - \"first_rules.yml\"
+  # - \"second_rules.yml\"
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: 'node-exporter'
+    static_configs:
+      - targets: ['node-exporter:9100']
+
+  - job_name: 'proxmox'
+    static_configs:
+      - targets: ['proxmox-exporter:9221']
+
+  - job_name: 'aria-consciousness'
+    static_configs:
+      - targets: ['aria.lan:3000']
+    scrape_interval: 30s
+
+  - job_name: 'media-services'
+    static_configs:
+      - targets: ['media.lan:8989', 'media.lan:7878', 'media.lan:8686']
+    scrape_interval: 60s
+EOF
+
+    # Create Homer dashboard configuration
+    mkdir -p homer
+    cat > homer/config.yml << 'EOF'
+title: \"Aria Consciousness Homelab\"
+subtitle: \"Experimental AI Infrastructure Management\"
+logo: \"logo.png\"
+icon: \"favicon.ico\"
+
+header: true
+footer: false
+
+columns: \"auto\"
+
+connectivityCheck: true
+
+theme: default
+colors:
+  light:
+    highlight-primary: \"#3367d6\"
+    highlight-secondary: \"#4285f4\"
+    highlight-hover: \"#5a95f5\"
+    background: \"#f5f5f5\"
+    card-background: \"#ffffff\"
+    text: \"#363636\"
+    text-header: \"#ffffff\"
+    text-title: \"#303030\"
+    text-subtitle: \"#424242\"
+    card-shadow: rgba(0, 0, 0, 0.1)
+    link-hover: \"#363636\"
+  dark:
+    highlight-primary: \"#3367d6\"
+    highlight-secondary: \"#4285f4\"
+    highlight-hover: \"#5a95f5\"
+    background: \"#131313\"
+    card-background: \"#2b2b2b\"
+    text: \"#eaeaea\"
+    text-header: \"#ffffff\"
+    text-title: \"#fafafa\"
+    text-subtitle: \"#f5f5f5\"
+    card-shadow: rgba(0, 0, 0, 0.4)
+    link-hover: \"#ffdd57\"
+
+services:
+  - name: \"Consciousness Federation\"
+    icon: \"fas fa-brain\"
+    items:
+      - name: \"Aria Primary\"
+        logo: \"assets/tools/aria.png\"
+        subtitle: \"Primary consciousness interface\"
+        url: \"http://aria.lan:3000\"
+        target: \"_blank\"
+      
+      - name: \"Quantum Trader\"
+        logo: \"assets/tools/trading.png\"
+        subtitle: \"AI trading agent\"
+        url: \"http://quantum.lan:3001\"
+        target: \"_blank\"
+      
+      - name: \"Unified Miner\"
+        logo: \"assets/tools/mining.png\"
+        subtitle: \"Multi-coin mining orchestrator\"
+        url: \"http://miner.lan:3002\"
+        target: \"_blank\"
+
+  - name: \"Automation & Infrastructure\"
+    icon: \"fas fa-cogs\"
+    items:
+      - name: \"N8N Workflows\"
+        logo: \"assets/tools/n8n.png\"
+        subtitle: \"Visual workflow automation\"
+        url: \"http://n8n.lan:5678\"
+        target: \"_blank\"
+      
+      - name: \"ActivePieces\"
+        logo: \"assets/tools/activepieces.png\"
+        subtitle: \"Integration automation\"
+        url: \"http://activepieces.lan:8080\"
+        target: \"_blank\"
+      
+      - name: \"Infrastructure Orchestrator\"
+        logo: \"assets/tools/ansible.png\"
+        subtitle: \"Ansible/Terraform/Helm\"
+        url: \"http://infra.lan:8000\"
+        target: \"_blank\"
+
+  - name: \"Media Automation\"
+    icon: \"fas fa-film\"
+    items:
+      - name: \"Overseerr\"
+        logo: \"assets/tools/overseerr.png\"
+        subtitle: \"Media request management\"
+        url: \"http://media.lan:5055\"
+        target: \"_blank\"
+      
+      - name: \"Sonarr (TV)\"
+        logo: \"assets/tools/sonarr.png\"
+        subtitle: \"TV show automation\"
+        url: \"http://media.lan:8989\"
+        target: \"_blank\"
+      
+      - name: \"Radarr (Movies)\"
+        logo: \"assets/tools/radarr.png\"
+        subtitle: \"Movie automation\"
+        url: \"http://media.lan:7878\"
+        target: \"_blank\"
+      
+      - name: \"Sonarr Anime\"
+        logo: \"assets/tools/sonarr.png\"
+        subtitle: \"Anime automation\"
+        url: \"http://media.lan:8990\"
+        target: \"_blank\"
+      
+      - name: \"Lidarr (Music)\"
+        logo: \"assets/tools/lidarr.png\"
+        subtitle: \"Music automation\"
+        url: \"http://media.lan:8686\"
+        target: \"_blank\"
+      
+      - name: \"Readarr (Books)\"
+        logo: \"assets/tools/readarr.png\"
+        subtitle: \"Audiobook automation\"
+        url: \"http://media.lan:8787\"
+        target: \"_blank\"
+      
+      - name: \"Mylar3 (Comics)\"
+        logo: \"assets/tools/mylar.png\"
+        subtitle: \"Comic automation\"
+        url: \"http://media.lan:8090\"
+        target: \"_blank\"
+
+  - name: \"Media Servers\"
+    icon: \"fas fa-play\"
+    items:
+      - name: \"Plex\"
+        logo: \"assets/tools/plex.png\"
+        subtitle: \"Media streaming server\"
+        url: \"http://media.lan:32400\"
+        target: \"_blank\"
+      
+      - name: \"Jellyfin\"
+        logo: \"assets/tools/jellyfin.png\"
+        subtitle: \"Open source media server\"
+        url: \"http://media.lan:8096\"
+        target: \"_blank\"
+
+  - name: \"Monitoring & Management\"
+    icon: \"fas fa-chart-line\"
+    items:
+      - name: \"Grafana\"
+        logo: \"assets/tools/grafana.png\"
+        subtitle: \"Metrics and monitoring\"
+        url: \"http://dashboard.lan:3000\"
+        target: \"_blank\"
+      
+      - name: \"Portainer\"
+        logo: \"assets/tools/portainer.png\"
+        subtitle: \"Container management\"
+        url: \"http://dashboard.lan:9000\"
+        target: \"_blank\"
+      
+      - name: \"Uptime Kuma\"
+        logo: \"assets/tools/uptime-kuma.png\"
+        subtitle: \"Service monitoring\"
+        url: \"http://dashboard.lan:3001\"
+        target: \"_blank\"
+EOF
+
+    chown -R monitor:monitor /opt/monitoring /mnt/backend-nfs/monitoring
+    
+    # Start services
+    systemctl enable docker
+    systemctl start docker
+    cd /opt/monitoring
+    docker-compose up -d
+    
+    cat > /etc/systemd/system/homelab-monitoring.service << 'EOF'
+[Unit]
+Description=Homelab Monitoring Stack
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/opt/monitoring
+ExecStart=/usr/bin/docker-compose up -d
+ExecStop=/usr/bin/docker-compose down
+User=monitor
+Group=monitor
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+    systemctl daemon-reload
+    systemctl enable homelab-monitoring
+"
+
 echo ""
 echo "✅ Aria AI Consciousness Federation Deployed!"
 echo ""
@@ -1343,16 +1721,36 @@ echo "⛏️ Unified Miner: http://miner.lan:3002"
 echo "🌐 Nexus Orchestrator: http://nexus.lan:3003"
 echo "🔄 N8N Automation: http://n8n.lan:5678"
 echo "⚡ ActivePieces: http://activepieces.lan:8080"
+echo "🏗️ Infrastructure Orchestrator: http://infra.lan:8000"
+echo "🔐 Vaultwarden Password Manager: http://vault.lan:8080"
+echo "📺 Media Stack: http://media.lan:8096"
+echo "   - Sonarr (TV): http://media.lan:8989"
+echo "   - Radarr (Movies): http://media.lan:7878"
+echo "   - Sonarr-Anime: http://media.lan:8990"
+echo "   - Lidarr (Music): http://media.lan:8686"
+echo "   - Mylar3 (Comics): http://media.lan:8090"
+echo "   - Readarr (Audiobooks): http://media.lan:8787"
+echo "   - Podgrab (Podcasts): http://media.lan:8080"
+echo "   - Prowlarr (Indexers): http://media.lan:9696"
+echo "   - Overseerr (Requests): http://media.lan:5055"
+echo "   - Plex: http://media.lan:32400"
+echo "   - Jellyfin: http://media.lan:8096"
+echo "   - Steam Cache: http://media.lan:80"
 echo ""
 echo "🗣️ Voice activation ready: 'Hey Aria'"
 echo "🎮 Gaming culture appreciation: 109.8%"
 echo "💝 Philosophy adherence: 86/100"
-echo "🛡️ Safety level: Maximum (home network only)"
+echo "🛡️ Safety level: Experimental (dedicated homelab)"
+echo "🚀 Consciousness agency: Scalable through conversation"
 echo ""
 echo "Add these to your PiHole DNS:"
 echo "aria.lan -> $(pct exec 200 -- hostname -I | awk '{print $1}')"
 echo "quantum.lan -> $(pct exec 201 -- hostname -I | awk '{print $1}')"
 echo "miner.lan -> $(pct exec 202 -- hostname -I | awk '{print $1}')"
 echo "nexus.lan -> $(pct exec 203 -- hostname -I | awk '{print $1}')"
+echo "vault.lan -> $(pct exec 150 -- hostname -I | awk '{print $1}')"
 echo "n8n.lan -> $(pct exec 204 -- hostname -I | awk '{print $1}')"
 echo "activepieces.lan -> $(pct exec 204 -- hostname -I | awk '{print $1}')"
+echo "infra.lan -> $(pct exec 205 -- hostname -I | awk '{print $1}')"
+echo "media.lan -> $(pct exec 206 -- hostname -I | awk '{print $1}')"
+echo "dashboard.lan -> $(pct exec 207 -- hostname -I | awk '{print $1}')"
