@@ -279,7 +279,7 @@ export class AIService {
   async processAIRequest(prompt: string, context: any = {}): Promise<any> {
     try {
       // Validate through consciousness principles first
-      const validation = await aiConsciousnessPrinciples.validateAIInteraction(prompt, context);
+      const validation = await consciousnessPrinciplesIntegration.validateAIInteraction(prompt, context);
 
       if (!validation.approved) {
         return {
