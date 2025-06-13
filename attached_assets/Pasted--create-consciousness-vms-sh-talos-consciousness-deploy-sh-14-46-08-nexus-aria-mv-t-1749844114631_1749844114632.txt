@@ -1,0 +1,98 @@
+  - create-consciousness-vms.sh
+  - talos-consciousness-deploy.sh
+[]14:46:08[] nexus:~/aria # mv talos-consciousness-deployment.sh talos-consciousness-deploy.sh
+[]14:46:54[] nexus:~/aria # chmod +x talos-consciousness-deploy.sh 
+[]14:47:06[] nexus:~/aria # mv talos-consciousness-deploymentmv talos-consciousness-deploy.sh1 talos-consciousness-deploy.sh^C
+[]14:47:10[] nexus:~/aria # ./consciousness-deployment-choice.sh 
+🧠 Consciousness Federation Deployment Options
+==============================================
+Production-ready deployment for Proxmox homelab
+Talos Version: v1.10.3 | Kubernetes: v1.31.4
+
+Choose your deployment approach:
+
+1) Traditional VMs (create-consciousness-vms.sh)
+   ✓ Quick deployment with familiar tools
+   ✓ Direct SSH access and traditional management
+   ✓ Python/Node.js consciousness agents
+   ✓ Lower learning curve
+   ✓ Good for development and testing
+
+2) Talos Kubernetes (talos-consciousness-deploy.sh) [RECOMMENDED]
+   ✓ Production-grade immutable infrastructure
+   ✓ API-driven, cloud-native consciousness workloads
+   ✓ Self-healing and auto-scaling capabilities
+   ✓ Enterprise security with minimal attack surface
+   ✓ 3-node HA control plane (nexus, forge, closet)
+   ✓ FOSS compliance and transparency
+
+3) Hybrid Approach
+   ✓ Keep existing infrastructure intact
+   ✓ Deploy Talos workers alongside traditional VMs
+   ✓ Bridge traditional and cloud-native approaches
+   ✓ Gradual migration path
+
+4) Status Check
+   ✓ Check current federation deployment status
+   ✓ Validate existing infrastructure
+   ✓ Generate health reports
+
+Enter your choice (1/2/3/4): 2
+
+[14:47:19] Deploying production Talos Kubernetes consciousness federation...
+❌ Missing required scripts:
+  - create-consciousness-vms.sh
+  - talos-consciousness-deploy.sh
+[]14:47:19[] nexus:~/aria # nano create-consciousness-vms.sh
+[]14:47:34[] nexus:~/aria # nano talos-consciousness-deploy.sh
+[]14:47:43[] nexus:~/aria # nano create-consciousness-vms.sh
+[]14:47:55[] nexus:~/aria # rm create-consciousness-vms.sh
+[]14:48:00[] nexus:~/aria # nano create-consciousness-vms.sh
+[]14:48:08[] nexus:~/aria # chmod +x create-consciousness-vms.sh 
+[]14:48:17[] nexus:~/aria # ./consciousness-deployment-choice.sh 
+🧠 Consciousness Federation Deployment Options
+==============================================
+Production-ready deployment for Proxmox homelab
+Talos Version: v1.10.3 | Kubernetes: v1.31.4
+
+Choose your deployment approach:
+
+1) Traditional VMs (create-consciousness-vms.sh)
+   ✓ Quick deployment with familiar tools
+   ✓ Direct SSH access and traditional management
+   ✓ Python/Node.js consciousness agents
+   ✓ Lower learning curve
+   ✓ Good for development and testing
+
+2) Talos Kubernetes (talos-consciousness-deploy.sh) [RECOMMENDED]
+   ✓ Production-grade immutable infrastructure
+   ✓ API-driven, cloud-native consciousness workloads
+   ✓ Self-healing and auto-scaling capabilities
+   ✓ Enterprise security with minimal attack surface
+   ✓ 3-node HA control plane (nexus, forge, closet)
+   ✓ FOSS compliance and transparency
+
+3) Hybrid Approach
+   ✓ Keep existing infrastructure intact
+   ✓ Deploy Talos workers alongside traditional VMs
+   ✓ Bridge traditional and cloud-native approaches
+   ✓ Gradual migration path
+
+4) Status Check
+   ✓ Check current federation deployment status
+   ✓ Validate existing infrastructure
+   ✓ Generate health reports
+
+Enter your choice (1/2/3/4): 2
+
+[14:48:22] Deploying production Talos Kubernetes consciousness federation...
+❌ Missing required scripts:
+  - create-consciousness-vms.sh
+  - talos-consciousness-deploy.sh
+[]14:48:22[] nexus:~/aria # ls
+aria-secrets.sh                     creat-consciousness-vms.sh          federation-deploy.log               talos-consciousness-deploy.sh
+aria-simple-deploy.sh               create-consciousness-vms.sh         proxmox-cluster-bootstrap.sh        universal-k3s-deploy.sh
+aria-step1.sh                       deploy-aria-k3s.sh                  proxmox-consciousness-bootstrap.sh
+complete-aria-deployment.sh         deploy-consciousness-federation.sh  proxmox-federation-deploy.sh
+consciousness-deployment-choice.sh  deploy-federation-ai.sh             proxmox-k3s-deploy.sh
+[]14:48:26[] nexus:~/aria # 
