@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Final Aria Deployment - Complete Trading System
-echo "🎭 Deploying Aria Personal Trading System"
-echo "Creating K3s cluster with containers 310-312..."
+# Aria Hyperscale Command Center Deployment
+echo "🎭 Deploying Aria Hyperscale Command Center"
+echo "Orchestrating astralvibe.ca and reverb256.ca federation..."
 
 # Download Ubuntu template if needed
 if ! pveam list local | grep -q "ubuntu-22.04-standard"; then
