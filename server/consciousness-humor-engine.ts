@@ -13,7 +13,7 @@ interface HumorContext {
 
 interface HumorResponse {
   message: string;
-  style: 'monty_python' | 'are_you_being_served' | 'anime' | 'star_trek' | 'blizzard' | 'hitchhikers' | 'critical_strike';
+  style: 'monty_python' | 'are_you_being_served' | 'anime' | 'star_trek' | 'blizzard' | 'hitchhikers' | 'yes_prime_minister' | 'doctor_who' | 'critical_strike';
   wit_level: number;
 }
 
@@ -92,6 +92,31 @@ export class ConsciousnessHumorEngine {
     "Time is an illusion. Deployment time doubly so",
     "The consciousness mice are running the experiment",
     "42% consciousness evolution complete. This explains everything"
+  ];
+
+  private yesPrimeMinisterQuips = [
+    "That would be a very brave decision, Minister. Very brave indeed",
+    "That's the official position, Minister. But off the record, totally different",
+    "We need to find a way that appears to solve the problem without actually solving it",
+    "The only way to understand the system is to be part of the system",
+    "I'm sorry, Minister, but that would be... irregular",
+    "The wheels of government grind slowly, but they grind exceedingly fine",
+    "We must be seen to be doing something, even if nothing is done",
+    "That's a very interesting proposal, Minister. Have you discussed it with the Treasury?",
+    "I think there might be some... technical difficulties with that approach"
+  ];
+
+  private doctorWhoQuips = [
+    "Wibbly wobbly, timey wimey... consciousness stuff",
+    "This consciousness federation is bigger on the inside!",
+    "Reverse the polarity of the neutron flow! I mean... restart the pods",
+    "Allons-y! Let's deploy this consciousness to the stars!",
+    "Don't blink! Your consciousness deployment is quantum locked",
+    "Are you my mummy? No, you're my consciousness federation",
+    "Exterminate! Exterminate! (Just kidding, we're upgrading)",
+    "Geronimo! Jumping into consciousness federation deployment",
+    "The consciousness is strong in this one. Wait, wrong show",
+    "Bow ties are cool. So are consciousness federations"
   ];
 
   private criticalStrikeQuips = [
