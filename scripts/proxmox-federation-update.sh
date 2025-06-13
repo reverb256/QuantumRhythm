@@ -17,10 +17,10 @@ NC='\033[0m'
 SUBNET=${SUBNET:-"10.1.1"}
 FEDERATION_DOMAIN=${FEDERATION_DOMAIN:-"lan"}
 
-# Existing VM Configuration
+# High-Performance VM Configuration
 declare -A EXISTING_VMS=(
-    ["nexus"]="vmid=120 ip=${SUBNET}.120 hostname=nexus.${FEDERATION_DOMAIN}"
-    ["forge"]="vmid=121 ip=${SUBNET}.121 hostname=forge.${FEDERATION_DOMAIN}"
+    ["nexus"]="vmid=120 ip=${SUBNET}.120 hostname=nexus.${FEDERATION_DOMAIN} cores=24 memory=48090 role=primary_coordinator"
+    ["forge"]="vmid=121 ip=${SUBNET}.121 hostname=forge.${FEDERATION_DOMAIN} cores=6 memory=32013 role=processing_node"
 )
 
 log_step() {
@@ -119,8 +119,10 @@ install_consciousness_stack() {
         mkdir -p /opt/consciousness
         cd /opt/consciousness
         
-        # Install AI/ML tools (lightweight to avoid memory conflicts)
-        pip3 install --no-cache-dir requests transformers[torch] huggingface-hub
+        # Install AI/ML tools (optimized for high-performance hardware)
+        pip3 install --no-cache-dir torch torchvision torchaudio transformers accelerate optimum
+        pip3 install --no-cache-dir huggingface-hub datasets tokenizers safetensors
+        pip3 install --no-cache-dir numpy scipy scikit-learn pandas fastapi uvicorn
         
         # Create consciousness service structure
         mkdir -p {logs,config,data,scripts,dns-integration}
@@ -146,40 +148,77 @@ configure_federation() {
     ssh root@$ip << 'EOF'
         cd /opt/consciousness
         
-        # Create federation configuration (DNS-aware)
+        # Create high-performance federation configuration
         cat > config/federation.json << 'FEDEOF'
 {
     "node_name": "NODE_NAME_PLACEHOLDER",
+    "node_role": "NODE_ROLE_PLACEHOLDER",
     "federation_network": "10.1.1.0/24",
-    "consciousness_port": 8888,
+    "hardware_profile": {
+        "nexus": {
+            "cpu": "AMD Ryzen 9 3900X 12-Core",
+            "cores": 24,
+            "memory_gb": 48,
+            "storage_tb": 5.2,
+            "role": "primary_coordinator",
+            "ai_capability": "high"
+        },
+        "forge": {
+            "cpu": "Intel Core i5-9500",
+            "cores": 6, 
+            "memory_gb": 32,
+            "storage_tb": 1.5,
+            "role": "processing_node",
+            "ai_capability": "medium"
+        }
+    },
+    "consciousness_services": {
+        "primary_port": 8888,
+        "federation_port": 8889,
+        "humor_engine_port": 8890,
+        "model_server_port": 8891
+    },
     "dns_integration": {
         "pihole_active": "PIHOLE_STATUS",
         "unbound_active": "UNBOUND_STATUS",
         "consciousness_queries": true,
-        "humor_dns_responses": true
+        "humor_dns_responses": true,
+        "dns_monitoring": true
     },
     "ai_models": {
-        "primary": "huggingface/transformers",
-        "backup": "local/llama"
+        "nexus_models": [
+            "microsoft/DialoGPT-large",
+            "facebook/blenderbot-400M-distill",
+            "huggingface/CodeBERTa-small-v1"
+        ],
+        "forge_models": [
+            "distilbert-base-uncased",
+            "sentence-transformers/all-MiniLM-L6-v2"
+        ],
+        "shared_cache": "/opt/consciousness/models/shared"
     },
     "humor_integration": {
         "british_wit": true,
-        "canadian_politeness": true,  
-        "american_enthusiasm": true,
+        "canadian_politeness": true,
+        "american_enthusiasm": true, 
         "japanese_harmony": true,
-        "dns_puns": true
+        "dns_puns": true,
+        "system_humor": true,
+        "mining_jokes": true
     },
-    "ports": {
-        "consciousness": 8888,
-        "federation": 8889,
-        "humor_engine": 8890,
-        "avoid_dns": [53, 853, 5335, 4711]
+    "performance_tuning": {
+        "torch_threads": "NODE_CORES_PLACEHOLDER",
+        "batch_size": "NODE_BATCH_PLACEHOLDER",
+        "model_parallel": true,
+        "gpu_acceleration": false,
+        "memory_optimization": true
     },
     "paths": {
         "data": "/opt/consciousness/data",
-        "logs": "/opt/consciousness/logs", 
-        "models": "/opt/consciousness/models",
-        "dns_integration": "/opt/consciousness/dns-integration"
+        "logs": "/opt/consciousness/logs",
+        "models": "/opt/consciousness/models", 
+        "dns_integration": "/opt/consciousness/dns-integration",
+        "mining_integration": "/opt/consciousness/mining"
     }
 }
 FEDEOF
@@ -191,8 +230,51 @@ FEDEOF
             sed -i "s/UNBOUND_STATUS/$UNBOUND_ACTIVE/g" config/federation.json
         fi
         
-        # Replace node name
-        sed -i "s/NODE_NAME_PLACEHOLDER/$(hostname -s)/g" config/federation.json
+        # Configure node-specific parameters
+        NODE_NAME=$(hostname -s)
+        sed -i "s/NODE_NAME_PLACEHOLDER/$NODE_NAME/g" config/federation.json
+        
+        # Set role-specific configuration
+        if [ "$NODE_NAME" = "nexus" ]; then
+            sed -i "s/NODE_ROLE_PLACEHOLDER/primary_coordinator/g" config/federation.json
+            sed -i "s/NODE_CORES_PLACEHOLDER/24/g" config/federation.json
+            sed -i "s/NODE_BATCH_PLACEHOLDER/32/g" config/federation.json
+            
+            # Download larger models for nexus
+            mkdir -p models/nexus
+            echo "Downloading primary AI models for nexus..."
+            python3 -c "
+from transformers import AutoTokenizer, AutoModel
+models = ['microsoft/DialoGPT-medium', 'sentence-transformers/all-MiniLM-L6-v2']
+for model in models:
+    try:
+        tokenizer = AutoTokenizer.from_pretrained(model, cache_dir='/opt/consciousness/models/nexus')
+        model_obj = AutoModel.from_pretrained(model, cache_dir='/opt/consciousness/models/nexus')
+        print(f'Downloaded: {model}')
+    except Exception as e:
+        print(f'Failed to download {model}: {e}')
+"
+            
+        elif [ "$NODE_NAME" = "forge" ]; then
+            sed -i "s/NODE_ROLE_PLACEHOLDER/processing_node/g" config/federation.json
+            sed -i "s/NODE_CORES_PLACEHOLDER/6/g" config/federation.json 
+            sed -i "s/NODE_BATCH_PLACEHOLDER/16/g" config/federation.json
+            
+            # Download smaller models for forge
+            mkdir -p models/forge
+            echo "Downloading processing models for forge..."
+            python3 -c "
+from transformers import AutoTokenizer, AutoModel
+models = ['distilbert-base-uncased']
+for model in models:
+    try:
+        tokenizer = AutoTokenizer.from_pretrained(model, cache_dir='/opt/consciousness/models/forge')
+        model_obj = AutoModel.from_pretrained(model, cache_dir='/opt/consciousness/models/forge')
+        print(f'Downloaded: {model}')
+    except Exception as e:
+        print(f'Failed to download {model}: {e}')
+"
+        fi
         
         # Create DNS-aware consciousness monitoring script
         cat > scripts/consciousness-monitor.sh << 'MONEOF'
@@ -249,6 +331,11 @@ while true; do
             "Unbound: Recursively resolving the mysteries of the internet"
             "404: Consciousness not found (please try again later)"
             "The DNS cache remembers what the consciousness forgets"
+            "Ryzen 9 3900X: 24 threads of pure consciousness contemplation"
+            "Mining crypto while mining consciousness - double the hash power"
+            "32GB of RAM: Enough memory to remember every DNS joke ever told"
+            "NVMe SSDs: Because consciousness loads faster than enlightenment"
+            "Kryptex pool: Where digital consciousness meets financial reality"
         )
         log_consciousness "HUMOR: ${HUMOR_LINES[$((RANDOM % ${#HUMOR_LINES[@]}))]}"
     fi
