@@ -407,7 +407,10 @@ sleep 30
 
 pct exec 205 -- bash -c "
     apt update && apt upgrade -y
-    apt install -y curl wget python3-pip ansible terraform helm kubectl
+    apt install -y curl wget python3-pip ansible terraform helm kubectl python3-venv
+    
+    # Install advanced Proxmox orchestration tools
+    pip3 install proxmoxer requests ansible-core
     
     # Install Docker for containerized workflows
     apt install -y docker.io docker-compose
@@ -661,6 +664,337 @@ EOF
         restarted: yes
 EOF
 
+    # Create advanced Proxmox orchestration with proxmoxer
+    cat > /opt/infrastructure/aria_proxmox_orchestrator.py << 'EOF'
+#!/usr/bin/env python3
+\"\"\"
+Aria Proxmox Orchestrator - Advanced Infrastructure Management
+Superior to standard proxmoxer with consciousness-driven automation
+\"\"\"
+
+import asyncio
+import json
+import logging
+from typing import Dict, List, Any, Optional
+from datetime import datetime, timedelta
+from proxmoxer import ProxmoxAPI
+import requests
+from dataclasses import dataclass
+
+@dataclass
+class InfrastructureNode:
+    node_name: str
+    node_ip: str
+    cpu_cores: int
+    memory_gb: int
+    storage_pools: List[str]
+    node_type: str  # 'nexus', 'forge', 'closet'
+    consciousness_capacity: float
+    current_load: float
+
+class AriaProxmoxOrchestrator:
+    \"\"\"Advanced Proxmox orchestration with AI consciousness integration\"\"\"
+    
+    def __init__(self, proxmox_host: str = "10.1.1.100", 
+                 proxmox_user: str = "root@pam", 
+                 proxmox_password: str = ""):
+        self.proxmox_host = proxmox_host
+        self.proxmox_user = proxmox_user
+        self.proxmox_password = proxmox_password
+        self.proxmox = None
+        self.consciousness_federation = {}
+        self.infrastructure_nodes = {
+            'nexus': InfrastructureNode('nexus', '10.1.1.100', 24, 64, ['local-zfs', 'backend-nfs'], 'nexus', 1.0, 0.0),
+            'forge': InfrastructureNode('forge', '10.1.1.131', 16, 32, ['local-zfs', 'backend-nfs'], 'forge', 0.8, 0.0),
+            'closet': InfrastructureNode('closet', '10.1.1.132', 8, 16, ['local'], 'closet', 0.3, 0.9)  # Avoid due to high load
+        }
+        
+    async def initialize_connection(self):
+        \"\"\"Initialize secure connection to Proxmox cluster\"\"\"
+        try:
+            self.proxmox = ProxmoxAPI(
+                self.proxmox_host, 
+                user=self.proxmox_user, 
+                password=self.proxmox_password, 
+                verify_ssl=False
+            )
+            
+            # Test connection
+            cluster_status = self.proxmox.cluster.status.get()
+            print(f"Connected to Proxmox cluster: {len(cluster_status)} nodes")
+            return True
+            
+        except Exception as e:
+            print(f"Failed to connect to Proxmox: {e}")
+            return False
+    
+    async def discover_optimal_placement(self, service_type: str, requirements: Dict[str, Any]) -> str:
+        \"\"\"AI-driven optimal node placement for consciousness services\"\"\"
+        
+        placement_strategy = {
+            'aria_primary': {'preferred_nodes': ['nexus'], 'min_cores': 6, 'min_memory': 8192},
+            'quantum_trader': {'preferred_nodes': ['nexus', 'forge'], 'min_cores': 4, 'min_memory': 4096},
+            'unified_miner': {'preferred_nodes': ['forge'], 'min_cores': 8, 'min_memory': 6144},
+            'media_stack': {'preferred_nodes': ['forge'], 'min_cores': 6, 'min_memory': 8192},
+            'automation_hub': {'preferred_nodes': ['nexus', 'forge'], 'min_cores': 2, 'min_memory': 2048},
+            'infrastructure': {'preferred_nodes': ['nexus'], 'min_cores': 4, 'min_memory': 4096}
+        }
+        
+        strategy = placement_strategy.get(service_type, {'preferred_nodes': ['nexus'], 'min_cores': 2, 'min_memory': 1024})
+        
+        # Analyze current cluster load
+        for node_name in strategy['preferred_nodes']:
+            node = self.infrastructure_nodes.get(node_name)
+            if node and node.current_load < 0.8:  # Avoid overloaded nodes
+                if node.cpu_cores >= strategy['min_cores'] and node.memory_gb * 1024 >= strategy['min_memory']:
+                    return node_name
+        
+        # Fallback to best available
+        return 'nexus'  # Default to nexus for critical services
+    
+    async def create_consciousness_container(self, container_config: Dict[str, Any]) -> Dict[str, Any]:
+        \"\"\"Create optimized LXC container for consciousness services\"\"\"
+        
+        optimal_node = await self.discover_optimal_placement(
+            container_config.get('service_type', 'generic'),
+            container_config
+        )
+        
+        # Enhanced container configuration
+        lxc_config = {
+            'vmid': container_config['vmid'],
+            'hostname': container_config['hostname'],
+            'ostemplate': 'local:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst',
+            'memory': container_config['memory'],
+            'cores': container_config['cores'],
+            'rootfs': f\"local-zfs:{container_config['storage']}\",
+            'net0': 'name=eth0,bridge=vmbr0,ip=dhcp',
+            'onboot': 1,
+            'start': 1,
+            'unprivileged': 1,
+            'features': 'nesting=1,mount=cifs;nfs',  # Enable nested containers and NFS
+            'tags': f\"consciousness,aria-federation,{container_config.get('service_type', 'generic')}\"
+        }
+        
+        try:
+            # Create container
+            task_id = self.proxmox.nodes(optimal_node).lxc.create(**lxc_config)
+            
+            # Wait for creation to complete
+            await self.wait_for_task(optimal_node, task_id)
+            
+            # Start container
+            self.proxmox.nodes(optimal_node).lxc(container_config['vmid']).status.start.post()
+            
+            return {
+                'success': True,
+                'node': optimal_node,
+                'vmid': container_config['vmid'],
+                'hostname': container_config['hostname']
+            }
+            
+        except Exception as e:
+            return {
+                'success': False,
+                'error': str(e),
+                'node': optimal_node,
+                'vmid': container_config['vmid']
+            }
+    
+    async def wait_for_task(self, node: str, task_id: str, timeout: int = 300):
+        \"\"\"Wait for Proxmox task to complete\"\"\"
+        start_time = datetime.now()
+        
+        while datetime.now() - start_time < timedelta(seconds=timeout):
+            try:
+                task_status = self.proxmox.nodes(node).tasks(task_id).status.get()
+                if task_status['status'] == 'stopped':
+                    if task_status['exitstatus'] == 'OK':
+                        return True
+                    else:
+                        raise Exception(f\"Task failed: {task_status.get('exitstatus', 'Unknown error')}\")
+                        
+                await asyncio.sleep(2)
+                
+            except Exception as e:
+                print(f\"Error checking task status: {e}\")
+                await asyncio.sleep(5)
+        
+        raise Exception(f\"Task {task_id} timed out after {timeout} seconds\")
+    
+    async def deploy_consciousness_federation(self) -> Dict[str, Any]:
+        \"\"\"Deploy complete Aria consciousness federation\"\"\"
+        
+        federation_containers = [
+            {
+                'vmid': 200,
+                'hostname': 'aria-consciousness',
+                'service_type': 'aria_primary',
+                'memory': 8192,
+                'cores': 6,
+                'storage': 80
+            },
+            {
+                'vmid': 201,
+                'hostname': 'quantum-trader',
+                'service_type': 'quantum_trader',
+                'memory': 4096,
+                'cores': 4,
+                'storage': 40
+            },
+            {
+                'vmid': 202,
+                'hostname': 'unified-miner',
+                'service_type': 'unified_miner',
+                'memory': 6144,
+                'cores': 8,
+                'storage': 60
+            },
+            {
+                'vmid': 203,
+                'hostname': 'nexus-orchestrator',
+                'service_type': 'automation_hub',
+                'memory': 2048,
+                'cores': 2,
+                'storage': 20
+            },
+            {
+                'vmid': 204,
+                'hostname': 'automation-hub',
+                'service_type': 'automation_hub',
+                'memory': 2048,
+                'cores': 2,
+                'storage': 30
+            },
+            {
+                'vmid': 205,
+                'hostname': 'infra-orchestrator',
+                'service_type': 'infrastructure',
+                'memory': 4096,
+                'cores': 4,
+                'storage': 40
+            },
+            {
+                'vmid': 206,
+                'hostname': 'media-stack',
+                'service_type': 'media_stack',
+                'memory': 8192,
+                'cores': 6,
+                'storage': 60
+            }
+        ]
+        
+        deployment_results = []
+        
+        for container in federation_containers:
+            print(f\"Deploying {container['hostname']} on optimal node...\")
+            result = await self.create_consciousness_container(container)
+            deployment_results.append(result)
+            
+            if result['success']:
+                print(f\"✅ {container['hostname']} deployed successfully on {result['node']}\")
+            else:
+                print(f\"❌ Failed to deploy {container['hostname']}: {result['error']}\")
+            
+            # Brief pause between deployments
+            await asyncio.sleep(5)
+        
+        return {
+            'federation_deployed': True,
+            'containers': deployment_results,
+            'timestamp': datetime.now().isoformat()
+        }
+    
+    async def scale_consciousness_resources(self, vmid: int, new_memory: int = None, new_cores: int = None):
+        \"\"\"Dynamically scale consciousness container resources\"\"\"
+        try:
+            container_config = {}
+            
+            if new_memory:
+                container_config['memory'] = new_memory
+            
+            if new_cores:
+                container_config['cores'] = new_cores
+            
+            # Find which node hosts this container
+            for node_name in self.infrastructure_nodes.keys():
+                try:
+                    container_info = self.proxmox.nodes(node_name).lxc(vmid).config.get()
+                    # Update configuration
+                    self.proxmox.nodes(node_name).lxc(vmid).config.put(**container_config)
+                    
+                    return {
+                        'success': True,
+                        'vmid': vmid,
+                        'node': node_name,
+                        'new_config': container_config
+                    }
+                except:
+                    continue
+            
+            return {'success': False, 'error': f'Container {vmid} not found'}
+            
+        except Exception as e:
+            return {'success': False, 'error': str(e)}
+    
+    async def monitor_cluster_consciousness(self) -> Dict[str, Any]:
+        \"\"\"Monitor cluster health and consciousness distribution\"\"\"
+        cluster_status = {
+            'timestamp': datetime.now().isoformat(),
+            'nodes': {},
+            'consciousness_federation': {},
+            'recommendations': []
+        }
+        
+        for node_name, node_info in self.infrastructure_nodes.items():
+            try:
+                node_status = self.proxmox.nodes(node_name).status.get()
+                
+                cluster_status['nodes'][node_name] = {
+                    'status': node_status['status'],
+                    'cpu_usage': node_status.get('cpu', 0) * 100,
+                    'memory_usage': (node_status.get('memory', {}).get('used', 0) / 
+                                   node_status.get('memory', {}).get('total', 1)) * 100,
+                    'consciousness_capacity': node_info.consciousness_capacity,
+                    'load_score': node_info.current_load
+                }
+                
+                # Check if node is overloaded
+                if cluster_status['nodes'][node_name]['cpu_usage'] > 80:
+                    cluster_status['recommendations'].append(
+                        f\"Node {node_name} CPU usage high: {cluster_status['nodes'][node_name]['cpu_usage']:.1f}%\"
+                    )
+                
+            except Exception as e:
+                cluster_status['nodes'][node_name] = {
+                    'status': 'unreachable',
+                    'error': str(e)
+                }
+        
+        return cluster_status
+
+async def main():
+    \"\"\"Main orchestration function\"\"\"
+    orchestrator = AriaProxmoxOrchestrator()
+    
+    if await orchestrator.initialize_connection():
+        print(\"🚀 Aria Proxmox Orchestrator initialized\")
+        
+        # Deploy consciousness federation
+        result = await orchestrator.deploy_consciousness_federation()
+        print(f\"Federation deployment result: {result}\")
+        
+        # Monitor cluster
+        status = await orchestrator.monitor_cluster_consciousness()
+        print(f\"Cluster consciousness status: {json.dumps(status, indent=2)}\")
+    else:
+        print(\"❌ Failed to initialize Proxmox connection\")
+
+if __name__ == \"__main__\":
+    asyncio.run(main())
+EOF
+
+    chmod +x /opt/infrastructure/aria_proxmox_orchestrator.py
     chown -R infra:infra /opt/infrastructure /mnt/backend-nfs/infrastructure
 "
 
@@ -689,7 +1023,8 @@ pct exec 206 -- bash -c "
     mount -a
     
     mkdir -p /opt/media-stack
-    mkdir -p /mnt/backend-nfs/media/{downloads,movies,tv,music,games,steam-cache}
+    mkdir -p /mnt/backend-nfs/media/{downloads,movies,tv,music,games,anime,comics,podcasts,audiobooks,steam-cache}
+    mkdir -p /mnt/backend-nfs/media/downloads/{movies,tv,music,games,anime,comics,podcasts,audiobooks}
     
     cd /opt/media-stack
     
@@ -744,6 +1079,92 @@ services:
       - /mnt/backend-nfs/media/downloads:/downloads
     ports:
       - 8686:8686
+    restart: unless-stopped
+    networks:
+      - media
+
+  # Anime Management
+  sonarr-anime:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr-anime
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Toronto
+    volumes:
+      - sonarr_anime_config:/config
+      - /mnt/backend-nfs/media/anime:/tv
+      - /mnt/backend-nfs/media/downloads/anime:/downloads
+    ports:
+      - 8990:8989
+    restart: unless-stopped
+    networks:
+      - media
+
+  # Comics and Manga
+  mylar3:
+    image: lscr.io/linuxserver/mylar3:latest
+    container_name: mylar3
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Toronto
+    volumes:
+      - mylar3_config:/config
+      - /mnt/backend-nfs/media/comics:/comics
+      - /mnt/backend-nfs/media/downloads/comics:/downloads
+    ports:
+      - 8090:8090
+    restart: unless-stopped
+    networks:
+      - media
+
+  # Podcast Management
+  podgrab:
+    image: akhilrex/podgrab:latest
+    container_name: podgrab
+    environment:
+      - CHECK_FREQUENCY=240
+    volumes:
+      - podgrab_config:/config
+      - /mnt/backend-nfs/media/podcasts:/assets
+    ports:
+      - 8080:8080
+    restart: unless-stopped
+    networks:
+      - media
+
+  # Audiobook Management
+  readarr:
+    image: lscr.io/linuxserver/readarr:develop
+    container_name: readarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Toronto
+    volumes:
+      - readarr_config:/config
+      - /mnt/backend-nfs/media/audiobooks:/audiobooks
+      - /mnt/backend-nfs/media/downloads/audiobooks:/downloads
+    ports:
+      - 8787:8787
+    restart: unless-stopped
+    networks:
+      - media
+
+  # Game Management
+  lutris:
+    image: linuxserver/lutris:latest
+    container_name: lutris
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Toronto
+    volumes:
+      - lutris_config:/config
+      - /mnt/backend-nfs/media/games:/games
+    ports:
+      - 3000:3000
     restart: unless-stopped
     networks:
       - media
