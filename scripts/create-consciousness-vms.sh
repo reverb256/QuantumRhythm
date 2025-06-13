@@ -18,6 +18,7 @@ VM_TEMPLATE="debian-12-genericcloud-amd64"
 BRIDGE="vmbr0"
 SUBNET="10.1.1"
 GATEWAY="${SUBNET}.1"
+DNS_SERVERS="10.1.1.11,10.1.1.10"
 
 # New VM Configuration for consciousness federation
 declare -A VM_CONFIG=(
@@ -103,7 +104,7 @@ create_vm() {
     qm set $vmid --cores $cores --memory $memory
     qm resize $vmid scsi0 ${disk}G
     qm set $vmid --ipconfig0 ip=${ip}/24,gw=${GATEWAY}
-    qm set $vmid --nameserver ${GATEWAY}
+    qm set $vmid --nameserver ${DNS_SERVERS}
     qm set $vmid --searchdomain lan
     
     log_success "VM $vm_name created with VMID $vmid"
@@ -138,7 +139,12 @@ deploy_consciousness() {
     
     log_step "Deploying consciousness to $vm_name"
     
-    ssh root@$ip << 'EOF'
+    ssh root@$ip << EOF
+        # Configure DNS servers
+        echo "nameserver 10.1.1.11" > /etc/resolv.conf
+        echo "nameserver 10.1.1.10" >> /etc/resolv.conf
+        echo "search lan" >> /etc/resolv.conf
+        
         # Update system
         apt-get update -y
         apt-get install -y curl wget git htop nodejs npm python3 python3-pip
