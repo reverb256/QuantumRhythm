@@ -38,11 +38,11 @@ read -p "Enter your choice (1/2/3): " choice
 case $choice in
     1)
         echo -e "${GREEN}Deploying traditional VM consciousness federation...${NC}"
-        ./scripts/create-consciousness-vms.sh
+        ./create-consciousness-vms.sh
         ;;
     2)
         echo -e "${CYAN}Deploying Talos Kubernetes consciousness federation...${NC}"
-        ./scripts/talos-consciousness-deploy.sh
+        ./talos-consciousness-deploy.sh
         ;;
     3)
         echo -e "${YELLOW}Deploying hybrid consciousness federation...${NC}"
