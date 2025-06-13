@@ -74,6 +74,33 @@ check_proxmox_environment() {
     else
         log_warning "Single Proxmox node detected"
     fi
+    
+    # Discover existing VMs and templates
+    discover_existing_resources
+}
+
+# Discover existing VMs and templates
+discover_existing_resources() {
+    log_step "Discovering existing Proxmox resources"
+    
+    echo "=== Existing VMs and Templates ==="
+    qm list | head -20
+    echo ""
+    
+    # Check for existing templates
+    local template_count=$(qm list | grep -c "template" || echo "0")
+    log_success "Found $template_count existing templates"
+    
+    # Check for VM ID conflicts
+    for vm_name in "${!VM_CONFIG[@]}"; do
+        local config_str=${VM_CONFIG[$vm_name]}
+        local vmid
+        eval $config_str
+        
+        if qm list | grep -q "^$vmid"; then
+            log_warning "VM ID $vmid already exists"
+        fi
+    done
 }
 
 # Create VM on appropriate node
@@ -103,14 +130,31 @@ create_vm_on_node() {
     # Create VM with Ubuntu 22.04 template
     log_step "Cloning VM from template on $node"
     
-    # Assume template 9000 exists (create if needed)
+    # Check if template 9000 exists and create if needed
+    log_step "Checking for Ubuntu template 9000"
     if ! qm list | grep -q "^9000"; then
+        log_warning "Template 9000 not found, creating Ubuntu template"
         create_ubuntu_template
+        
+        # Verify template was created successfully
+        if ! qm list | grep -q "^9000"; then
+            log_error "Failed to create Ubuntu template 9000"
+            return 1
+        fi
+        log_success "Ubuntu template 9000 created successfully"
+    else
+        log_success "Ubuntu template 9000 already exists"
     fi
     
-    # Clone VM
-    qm clone 9000 $vmid --name $vm_name --full --target $node 2>/dev/null || \
-    qm clone 9000 $vmid --name $vm_name --full
+    # Clone VM from template
+    log_step "Cloning VM $vmid from template 9000"
+    if [ "$node" != "$(hostname -I | awk '{print $1}')" ]; then
+        # Clone to remote node
+        qm clone 9000 $vmid --name $vm_name --full --target $node
+    else
+        # Clone on local node
+        qm clone 9000 $vmid --name $vm_name --full
+    fi
     
     # Configure VM resources
     qm set $vmid --cores $cores --memory $memory
@@ -143,25 +187,49 @@ create_ubuntu_template() {
     
     log_step "Creating Ubuntu 22.04 template"
     
+    # Check if template already exists (double-check)
+    if qm list | grep -q "^$template_id"; then
+        log_warning "Template $template_id already exists, skipping creation"
+        return 0
+    fi
+    
     # Download cloud image if not exists
     local image_path="/var/lib/vz/template/iso/ubuntu-22.04-server-cloudimg-amd64.img"
     if [ ! -f "$image_path" ]; then
         log_step "Downloading Ubuntu 22.04 cloud image"
-        wget -O "$image_path" \
-            "https://cloud-images.ubuntu.com/releases/22.04/release/ubuntu-22.04-server-cloudimg-amd64.img"
+        if ! wget -O "$image_path" \
+            "https://cloud-images.ubuntu.com/releases/22.04/release/ubuntu-22.04-server-cloudimg-amd64.img"; then
+            log_error "Failed to download Ubuntu cloud image"
+            return 1
+        fi
+        log_success "Ubuntu cloud image downloaded"
+    else
+        log_success "Ubuntu cloud image already exists"
     fi
     
     # Create template VM
-    qm create $template_id \
+    log_step "Creating template VM $template_id"
+    if ! qm create $template_id \
         --name "ubuntu-22.04-template" \
         --memory 2048 \
         --cores 2 \
         --net0 virtio,bridge=vmbr0 \
         --serial0 socket \
-        --vga serial0
+        --vga serial0; then
+        log_error "Failed to create template VM"
+        return 1
+    fi
     
     # Import and attach disk
-    qm importdisk $template_id "$image_path" local-lvm
+    log_step "Importing disk image"
+    if ! qm importdisk $template_id "$image_path" local-lvm; then
+        log_error "Failed to import disk image"
+        qm destroy $template_id
+        return 1
+    fi
+    
+    # Configure VM
+    log_step "Configuring template VM"
     qm set $template_id --scsihw virtio-scsi-pci --scsi0 local-lvm:vm-${template_id}-disk-0
     qm set $template_id --ide2 local-lvm:cloudinit
     qm set $template_id --boot c --bootdisk scsi0
@@ -170,8 +238,18 @@ create_ubuntu_template() {
     qm set $template_id --agent enabled=1
     qm set $template_id --ciuser ubuntu
     
+    # Add SSH key if available
+    if [ -f ~/.ssh/id_rsa.pub ]; then
+        qm set $template_id --sshkeys ~/.ssh/id_rsa.pub
+        log_success "SSH key added to template"
+    fi
+    
     # Convert to template
-    qm template $template_id
+    log_step "Converting VM to template"
+    if ! qm template $template_id; then
+        log_error "Failed to convert VM to template"
+        return 1
+    fi
     
     log_success "Ubuntu template created: $template_id"
 }
