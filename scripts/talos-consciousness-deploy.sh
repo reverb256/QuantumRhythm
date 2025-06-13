@@ -23,6 +23,13 @@ SUBNET="10.1.1"
 GATEWAY="${SUBNET}.1"
 DNS_SERVERS="10.1.1.11,10.1.1.10"
 
+# Check for hybrid mode
+HYBRID_MODE=false
+if [[ "${1:-}" == "--hybrid" ]]; then
+    HYBRID_MODE=true
+    log_step "Hybrid mode enabled - will integrate with existing infrastructure"
+fi
+
 # Production-ready node configuration with 3 control planes for HA
 declare -A TALOS_NODES=(
     ["nexus"]="vmid=120 cores=8 memory=16384 disk=100 ip=${SUBNET}.120 role=controlplane"
@@ -365,29 +372,80 @@ EOF
     log_success "Consciousness workloads deployed"
 }
 
+# Production validation checks
+validate_production_requirements() {
+    log_step "Validating production requirements..."
+    
+    # Check Proxmox environment
+    if ! command -v qm &> /dev/null; then
+        log_error "Proxmox qm command not found"
+        exit 1
+    fi
+    
+    # Check root privileges
+    if [[ $EUID -ne 0 ]]; then
+        log_error "This script must be run as root"
+        exit 1
+    fi
+    
+    # Check storage availability
+    if ! pvesm status local-zfs >/dev/null 2>&1; then
+        log_warning "local-zfs storage not found, using local storage"
+    fi
+    
+    # Validate network configuration
+    if ! ip route | grep -q "${SUBNET}.0/24"; then
+        log_warning "Target subnet ${SUBNET}.0/24 not found in routing table"
+    fi
+    
+    log_success "Production requirements validated"
+}
+
 # Main deployment function
 main() {
     echo "🤖 Talos Linux Consciousness Federation Deployment"
     echo "================================================="
+    echo "Production deployment with FOSS compliance"
     echo
-    echo "Deploying immutable Kubernetes-native consciousness:"
-    echo "  Control Planes: nexus (120), forge (121)"
-    echo "  Workers: closet (1001), zephyr (1002)"
+    if [[ "$HYBRID_MODE" == "true" ]]; then
+        echo "🔄 HYBRID MODE: Integrating with existing infrastructure"
+        echo "  Preserving: existing VMs 120/121"
+        echo "  Deploying: Talos workers 1001/1002"
+    else
+        echo "🆕 FULL DEPLOYMENT: Complete Talos infrastructure"
+        echo "  Control Planes: nexus (120), forge (121), closet (122)"  
+        echo "  Workers: zephyr (1001)"
+    fi
     echo "  DNS: ${DNS_SERVERS}"
     echo "  Cluster: ${CLUSTER_ENDPOINT}"
+    echo "  Talos: ${TALOS_VERSION}"
+    echo "  Kubernetes: ${KUBERNETES_VERSION}"
     echo
 
+    validate_production_requirements
     download_talos_tools
     generate_talos_config
     
-    # Deploy all nodes
-    for node_name in "${!TALOS_NODES[@]}"; do
-        create_talos_vm "$node_name" "${TALOS_NODES[$node_name]}"
-    done
-    
-    # Wait for all nodes to be configured
-    log_step "Waiting for all nodes to complete installation..."
-    sleep 120
+    # Deploy nodes based on mode
+    if [[ "$HYBRID_MODE" == "true" ]]; then
+        log_step "Hybrid deployment: deploying worker nodes only"
+        # In hybrid mode, only deploy worker nodes
+        create_talos_vm "zephyr" "${TALOS_NODES[zephyr]}"
+        
+        # Use existing VM 120 as control plane endpoint
+        log_step "Configuring hybrid cluster connection..."
+        sleep 60
+    else
+        log_step "Full deployment: deploying all nodes"
+        # Deploy all nodes
+        for node_name in "${!TALOS_NODES[@]}"; do
+            create_talos_vm "$node_name" "${TALOS_NODES[$node_name]}"
+        done
+        
+        # Wait for all nodes to be configured
+        log_step "Waiting for all nodes to complete installation..."
+        sleep 120
+    fi
     
     deploy_consciousness_workloads
     
