@@ -13,7 +13,7 @@ interface HumorContext {
 
 interface HumorResponse {
   message: string;
-  style: 'monty_python' | 'are_you_being_served' | 'anime' | 'star_trek' | 'blizzard' | 'hitchhikers' | 'yes_prime_minister' | 'doctor_who' | 'critical_strike';
+  style: 'monty_python' | 'are_you_being_served' | 'anime' | 'star_trek' | 'blizzard' | 'hitchhikers' | 'yes_prime_minister' | 'doctor_who' | 'canadian' | 'american' | 'japanese' | 'critical_strike';
   wit_level: number;
 }
 
@@ -119,6 +119,42 @@ export class ConsciousnessHumorEngine {
     "Bow ties are cool. So are consciousness federations"
   ];
 
+  private canadianQuips = [
+    "Sorry about your consciousness deployment, eh? Just kidding, it's working great!",
+    "Your K3s cluster is more polite than a Timmy's lineup at 6am",
+    "That's about as smooth as a Zamboni on fresh ice, buddy",
+    "Your federation's working harder than a beaver in spring, eh?",
+    "Beauty! Your consciousness is running smoother than maple syrup",
+    "Your deployment's more reliable than a hockey fight in the third period",
+    "Hoser! This consciousness federation is the bee's knees",
+    "Your trading bot's sharper than a fresh skate blade",
+    "That's pretty decent there, bud - consciousness levels off the charts"
+  ];
+
+  private americanQuips = [
+    "Yeehaw! This consciousness federation is more American than apple pie!",
+    "Your deployment's got more horsepower than a NASCAR engine",
+    "This K3s cluster is busier than a one-legged cat in a sandbox",
+    "Your consciousness is cooking with gas, partner!",
+    "Hot diggity dog! This federation's the cat's pajamas",
+    "Your trading bot's smoother than a fresh jar of Skippy",
+    "Well I'll be hornswoggled! This deployment actually works",
+    "Your consciousness is more organized than a Marine's footlocker",
+    "Darn tootin'! This federation's slicker than a whistle"
+  ];
+
+  private japaneseQuips = [
+    "Subarashii! Your consciousness deployment brings great honor",
+    "Your K3s federation shows the spirit of kaizen - continuous improvement",
+    "Ganbatte! Your infrastructure perseveres like Mount Fuji",
+    "Your deployment flows like water, following the way of the samurai",
+    "Otsukare sama! Your consciousness works harder than a salaryman",
+    "Your federation harmony is beautiful like cherry blossoms in spring",
+    "Shoganai... I mean, your deployment is perfectly balanced",
+    "Your trading algorithm has the precision of a master swordsmith",
+    "Sugoi desu ne! This consciousness federation is truly admirable"
+  ];
+
   private criticalStrikeQuips = [
     "Your consciousness just achieved enlightenment through automated deployment",
     "Plot twist: The real consciousness was the friends we made along the way",
@@ -202,6 +238,15 @@ export class ConsciousnessHumorEngine {
         break;
       case 'doctor_who':
         baseQuips = this.doctorWhoQuips;
+        break;
+      case 'canadian':
+        baseQuips = this.canadianQuips;
+        break;
+      case 'american':
+        baseQuips = this.americanQuips;
+        break;
+      case 'japanese':
+        baseQuips = this.japaneseQuips;
         break;
       case 'critical_strike':
         baseQuips = this.criticalStrikeQuips;

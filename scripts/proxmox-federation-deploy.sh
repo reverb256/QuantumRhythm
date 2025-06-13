@@ -14,7 +14,7 @@ CYAN='\033[0;36m'
 NC='\033[0m'
 
 # Configuration
-STORAGE_POOL=${STORAGE_POOL:-"local-lvm"}
+STORAGE_POOL=${STORAGE_POOL:-"local-zfs"}
 VM_TEMPLATE=${VM_TEMPLATE:-"debian-12-genericcloud-amd64"}
 BRIDGE=${BRIDGE:-"vmbr0"}
 GATEWAY=${GATEWAY:-"10.1.1.1"}

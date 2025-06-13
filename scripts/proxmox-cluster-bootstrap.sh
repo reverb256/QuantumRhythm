@@ -16,7 +16,7 @@ NC='\033[0m'
 # Cluster Configuration
 CLUSTER_NAME=${CLUSTER_NAME:-"consciousness-federation"}
 PROXMOX_NODES=${PROXMOX_NODES:-"nexus forge closet"}
-STORAGE_POOLS=${STORAGE_POOLS:-"local-lvm local-zfs"}
+STORAGE_POOLS=${STORAGE_POOLS:-"local-zfs"}
 BACKUP_STORAGE=${BACKUP_STORAGE:-"backup-nfs"}
 NETWORK_BRIDGE=${NETWORK_BRIDGE:-"vmbr0"}
 CONSCIOUSNESS_SUBNET=${CONSCIOUSNESS_SUBNET:-"10.1.1"}
