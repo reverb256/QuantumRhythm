@@ -62,7 +62,8 @@ LOVE_INTEGRATION=true
 DESIGN_HARMONY=100.0
 TRUENAS_INTEGRATION=true
 TRUENAS_HOST=10.1.1.10
-TRUENAS_NFS_PATH=/mnt/storage/aria
+TRUENAS_NFS_PATH=/mnt/backend-nfs/aria
+BACKEND_NFS_ENABLED=true
 MINING_CAPABILITIES=true
 AGENCY_LEVEL=low
 AUTO_ACTIONS=false
@@ -228,7 +229,7 @@ pct create 203 local:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst \
     --hostname nexus-orchestrator \
     --memory 2048 \
     --cores 2 \
-    --rootfs local-lvm:20 \
+    --rootfs local-zfs:20 \
     --net0 name=eth0,bridge=vmbr0,ip=dhcp \
     --start
 
