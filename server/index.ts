@@ -48,7 +48,7 @@ import { quantumSecurityScanner } from './quantum-security-scanner';
 import { aiCommander } from './ai-command-interface';
 import { insightCrossPollinationEngine } from './insight-cross-pollination-engine';
 import { systemErrorRecovery } from './system-error-recovery';
-import { consciousnessFederation } from './consciousness-federation';
+
 import { systemIntegrator } from './comprehensive-system-integrator';
 
 // Import HA and k3s components (moved to scripts folder)

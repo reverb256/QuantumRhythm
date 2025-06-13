@@ -17,6 +17,7 @@ import { donationTracker } from "./donation-tracker";
 import { contextOrchestrator } from './context-orchestrator';
 import { webSearchOrchestrator } from './web-search-orchestrator';
 import { musicConsciousness } from './music-consciousness';
+import consciousnessFederationRouter from './consciousness-federation';
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -86,6 +87,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get('/api/health', (req, res) => {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
   });
+
+  // Consciousness Federation endpoints
+  app.use('/api', consciousnessFederationRouter);
 
   // On-chain verification endpoint
   app.get('/api/verify-trading', async (req, res) => {
