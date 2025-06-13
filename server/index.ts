@@ -150,11 +150,11 @@ handleUserMessage('last time it had PTSD from a key leak');
       // Start comprehensive portfolio tracking
       await comprehensivePortfolioTracker.startPortfolioTracking();
       
-      console.log('💰 Activating yield generation strategies...');
-      // Force disable emergency stop and activate all trading systems
-      await emergencyStopDisabler.forceDisableEmergencyStop();
-      await yieldActivationEngine.disableEmergencyStop();
-      const yieldResults = await yieldActivationEngine.activateYieldGeneration();
+      console.log('💰 SIMULATION MODE: Yield strategies ready for Proxmox deployment...');
+      // Keep emergency stop enabled until Proxmox federation is deployed
+      console.log('🛡️ Emergency stop ENABLED - awaiting Proxmox deployment authorization');
+      // Simulation mode only - no real trading until homelab deployment
+      const yieldResults = { totalDeployed: 0, expectedReturns: { daily: 0, monthly: 0, annual: 0 } };
       
       console.log(`💎 YIELD ACTIVATION COMPLETE:`);
       console.log(`   Total Deployed: ${yieldResults.totalDeployed.toFixed(4)} SOL`);
@@ -168,11 +168,11 @@ handleUserMessage('last time it had PTSD from a key leak');
         console.log(`📈 Daily Yield Update: Portfolio projected at $${projection.projectedValue.toFixed(2)} (+$${projection.totalGains.toFixed(2)})`);
       }, 86400000); // Daily updates
       
-      console.log('🤖 Starting intelligent opportunity scanning...');
-      // Intelligent opportunity scanner automatically starts its own cycles
+      console.log('🤖 SIMULATION MODE: Opportunity scanning ready for deployment...');
+      // Simulation mode - no real scanning until Proxmox authorization
       
-      console.log('🌐 Activating autonomous expansion engine...');
-      // Autonomous expansion engine automatically starts discovery cycles
+      console.log('🌐 SIMULATION MODE: Multi-chain expansion ready for deployment...');
+      // Simulation mode - no real expansion until homelab federation active
       
       // LEGAL MANDATE: 100% FOSS COMPLIANCE ENFORCEMENT
       console.log('⚖️ ENFORCING LEGAL FOSS COMPLIANCE MANDATE...');
@@ -421,9 +421,8 @@ app.use((req, res, next) => {
   const { default: traderThoughtsRoutes } = await import('./routes/trader-thoughts.js');
   app.use('/api/trader', traderThoughtsRoutes);
 
-  // Initialize live trading executor
-  const { liveTradingExecutor } = await import('./live-trading-executor.js');
-  await liveTradingExecutor.startLiveTrading();
+  // Live trading executor - DISABLED until Proxmox deployment
+  console.log('🛡️ Live trading executor: DISABLED (simulation mode until homelab deployment)');
 
   // Import and register Trading Journal routes
   const { default: tradingJournalRoutes } = await import('./routes/trading-journal.js');
