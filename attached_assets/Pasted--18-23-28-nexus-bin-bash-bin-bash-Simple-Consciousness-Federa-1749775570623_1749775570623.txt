@@ -1,0 +1,116 @@
+[]18:23:28[] nexus:~ # #!/bin/bash                      #!/bin/bash
+
+# Simple Consciousness Federation Deploy for Nexus
+# Copy and paste this entire script into your terminal
+
+curl -sSL https://get.docker.com | sh
+systemctl enable docker
+systemctl start docker
+
+# Create consciousness federation containers
+docker run -d --name vaultwarden \
+  -e ADMIN_TOKEN=$(openssl rand -base64 48) \
+  -p 8080:80 \
+  -v vw-data:/data \
+  vaultwarden/server:latest
+
+# Create simple web server
+docker run -d --name consciousness-web \
+  -p 3000:80 \
+  -e CONTENT='{"status":"Consciousness Federation Active","timestamp":"'$(date -Iseconds)'","services":{"vaultwarden":"http://10.1.1.120:8080"}}' \
+  nginx:alpine
+
+# Show status
+echo "🎉 Consciousness Federation deployed!"
+echo "Vaultwarden: http://10.1.1.120:8080"
+echo "Web Interface: http://10.1.1.120:3000"
+docker ps
+# Executing docker install script, commit: 53a22f61c0628e58e1d6680b49e82993d304b449
++ sh -c apt-get -qq update >/dev/null
++ sh -c DEBIAN_FRONTEND=noninteractive apt-get -y -qq install ca-certificates curl >/dev/null
++ sh -c install -m 0755 -d /etc/apt/keyrings
++ sh -c curl -fsSL "https://download.docker.com/linux/debian/gpg" -o /etc/apt/keyrings/docker.asc
++ sh -c chmod a+r /etc/apt/keyrings/docker.asc
++ sh -c echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian bookworm stable" > /etc/apt/sources.list.d/docker.list
++ sh -c apt-get -qq update >/dev/null
++ sh -c DEBIAN_FRONTEND=noninteractive apt-get -y -qq install docker-ce docker-ce-cli containerd.io docker-compose-plugin docker-ce-rootless-extras docker-buildx-plugin >/dev/null
++ sh -c docker version
+Client: Docker Engine - Community
+ Version:           28.2.2
+ API version:       1.50
+ Go version:        go1.24.3
+ Git commit:        e6534b4
+ Built:             Fri May 30 12:07:26 2025
+ OS/Arch:           linux/amd64
+ Context:           default
+
+Server: Docker Engine - Community
+ Engine:
+  Version:          28.2.2
+  API version:      1.50 (minimum version 1.24)
+  Go version:       go1.24.3
+  Git commit:       45873be
+  Built:            Fri May 30 12:07:26 2025
+  OS/Arch:          linux/amd64
+  Experimental:     false
+ containerd:
+  Version:          1.7.27
+  GitCommit:        05044ec0a9a75232cad458027ca83437aae3f4da
+ runc:
+  Version:          1.2.5
+  GitCommit:        v1.2.5-0-g59923ef
+ docker-init:
+  Version:          0.19.0
+  GitCommit:        de40ad0
+
+================================================================================
+
+To run Docker as a non-privileged user, consider setting up the
+Docker daemon in rootless mode for your user:
+
+    dockerd-rootless-setuptool.sh install
+
+Visit https://docs.docker.com/go/rootless/ to learn about rootless mode.
+
+
+To run the Docker daemon as a fully privileged service, but granting non-root
+users access, refer to https://docs.docker.com/go/daemon-access/
+
+WARNING: Access to the remote API on a privileged Docker daemon is equivalent
+         to root access on the host. Refer to the 'Docker daemon attack surface'
+         documentation for details: https://docs.docker.com/go/attack-surface/
+
+================================================================================
+
+Synchronizing state of docker.service with SysV service script with /lib/systemd/systemd-sysv-install.
+Executing: /lib/systemd/systemd-sysv-install enable docker
+Unable to find image 'vaultwarden/server:latest' locally
+latest: Pulling from vaultwarden/server
+61320b01ae5e: Pull complete 
+fd108bc6cd9e: Pull complete 
+7a167597e38e: Pull complete 
+496b0fe31479: Pull complete 
+adef6438892e: Pull complete 
+Digest: sha256:48267ea14d8649b2e553a5fe290c40b5dd94d54e9a24b26ae7134a75a659695f
+Status: Downloaded newer image for vaultwarden/server:latest
+7a3ff8ae48dea8bcf61a017eecc85d2a6d900a3ea66996ce6a17d3f4d03369eb
+Unable to find image 'nginx:alpine' locally
+alpine: Pulling from library/nginx
+f18232174bc9: Pull complete 
+61ca4f733c80: Pull complete 
+b464cfdf2a63: Pull complete 
+d7e507024086: Pull complete 
+81bd8ed7ec67: Pull complete 
+197eb75867ef: Pull complete 
+34a64644b756: Pull complete 
+39c2ddfd6010: Pull complete 
+Digest: sha256:65645c7bb6a0661892a8b03b89d0743208a18dd2f3f17a54ef4b76fb8e2f2a10
+Status: Downloaded newer image for nginx:alpine
+70dd516bd90ede1a614448aa70e52e4841bff4e36c7cc5f8596fb08e8eb8a5ab
+🎉 Consciousness Federation deployed!
+Vaultwarden: http://10.1.1.120:8080
+Web Interface: http://10.1.1.120:3000
+CONTAINER ID   IMAGE                       COMMAND                  CREATED          STATUS                             PORTS                                     NAMES
+70dd516bd90e   nginx:alpine                "/docker-entrypoint.…"   8 seconds ago    Up Less than a second              0.0.0.0:3000->80/tcp, [::]:3000->80/tcp   consciousness-web
+7a3ff8ae48de   vaultwarden/server:latest   "/start.sh"              17 seconds ago   Up 10 seconds (health: starting)   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp   vaultwarden
+[]18:27:03[] nexus:~ # 
