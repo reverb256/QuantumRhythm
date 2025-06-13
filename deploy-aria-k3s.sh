@@ -16,16 +16,16 @@ CLOSET_NODE="10.1.1.120"
 
 # Check if K3s Master Node exists and handle accordingly
 echo "Preparing K3s master node..."
-if pct status 300 >/dev/null 2>&1; then
-    echo "Container 300 exists, stopping and removing..."
-    pct stop 300 2>/dev/null || true
+if pct status 310 >/dev/null 2>&1; then
+    echo "Container 310 exists, stopping and removing..."
+    pct stop 310 2>/dev/null || true
     sleep 5
-    pct destroy 300 --purge 2>/dev/null || true
+    pct destroy 310 --purge 2>/dev/null || true
     sleep 5
 fi
 
 echo "Creating fresh K3s master node..."
-pct create 300 local:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst \
+pct create 310 local:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst \
     --hostname k3s-master \
     --memory 8192 \
     --cores 4 \
@@ -59,25 +59,25 @@ sleep 60
 echo "Preparing K3s worker nodes..."
 
 # Clean up worker 1 if exists
-if pct status 301 >/dev/null 2>&1; then
-    echo "Container 301 exists, stopping and removing..."
-    pct stop 301 2>/dev/null || true
+if pct status 311 >/dev/null 2>&1; then
+    echo "Container 311 exists, stopping and removing..."
+    pct stop 311 2>/dev/null || true
     sleep 3
-    pct destroy 301 --purge 2>/dev/null || true
+    pct destroy 311 --purge 2>/dev/null || true
     sleep 3
 fi
 
 # Clean up worker 2 if exists  
-if pct status 302 >/dev/null 2>&1; then
-    echo "Container 302 exists, stopping and removing..."
-    pct stop 302 2>/dev/null || true
+if pct status 312 >/dev/null 2>&1; then
+    echo "Container 312 exists, stopping and removing..."
+    pct stop 312 2>/dev/null || true
     sleep 3
-    pct destroy 302 --purge 2>/dev/null || true
+    pct destroy 312 --purge 2>/dev/null || true
     sleep 3
 fi
 
 echo "Creating K3s worker node 1 (Forge)..."
-pct create 301 local:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst \
+pct create 311 local:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst \
     --hostname k3s-worker-1 \
     --memory 6144 \
     --cores 3 \
@@ -87,7 +87,7 @@ pct create 301 local:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst \
     --start
 
 echo "Creating K3s worker node 2 (Closet)..."
-pct create 302 local:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst \
+pct create 312 local:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst \
     --hostname k3s-worker-2 \
     --memory 6144 \
     --cores 3 \
