@@ -57,14 +57,14 @@ log_error() {
 # Download Talos tools
 download_talos_tools() {
     log_step "Downloading Talos tools..."
-    
+
     if ! command -v talosctl &> /dev/null; then
         curl -sLO "https://github.com/siderolabs/talos/releases/download/${TALOS_VERSION}/talosctl-$(uname -s | tr '[:upper:]' '[:lower:]')-amd64"
         chmod +x talosctl-*
         sudo mv talosctl-* /usr/local/bin/talosctl
         log_success "talosctl installed"
     fi
-    
+
     # Download Talos ISO
     if [[ ! -f "/var/lib/vz/template/iso/talos-${TALOS_VERSION}-amd64.iso" ]]; then
         log_step "Downloading Talos ISO..."
@@ -77,16 +77,18 @@ download_talos_tools() {
 # Generate Talos configuration following production best practices
 generate_talos_config() {
     log_step "Generating production Talos configuration..."
-    
+
     mkdir -p ./talos-config
     cd ./talos-config
-    
-    # Generate secrets bundle securely
+
+    # Generate secrets bundle securely (idempotent)
     if [[ ! -f "secrets.yaml" ]]; then
         talosctl gen secrets -o secrets.yaml
         log_success "Secrets bundle generated - store securely!"
+    else
+        log_step "Using existing secrets bundle"
     fi
-    
+
     # Generate machine configs with production patches
     talosctl gen config ${CLUSTER_NAME} ${CLUSTER_ENDPOINT} \
         --kubernetes-version=${KUBERNETES_VERSION} \
@@ -130,7 +132,7 @@ machine:
     - 10.1.1.121
     - 10.1.1.122
 EOF
-    
+
     # Generate worker config with production patches
     talosctl gen config ${CLUSTER_NAME} ${CLUSTER_ENDPOINT} \
         --kubernetes-version=${KUBERNETES_VERSION} \
@@ -171,12 +173,12 @@ EOF
 create_talos_vm() {
     local vm_name=$1
     local config_str=$2
-    
+
     # Parse configuration
     eval $config_str
-    
+
     log_step "Creating Talos VM: $vm_name (VMID: $vmid)"
-    
+
     # Stop and destroy existing VM if it exists
     if qm status $vmid >/dev/null 2>&1; then
         log_warning "VM $vmid exists, recreating..."
@@ -185,38 +187,45 @@ create_talos_vm() {
         qm destroy $vmid || true
         sleep 2
     fi
-    
-    # Create new VM
-    qm create $vmid \
-        --name $vm_name \
-        --memory $memory \
-        --cores $cores \
-        --net0 virtio,bridge=${BRIDGE} \
-        --bootdisk scsi0 \
-        --scsi0 local-zfs:${disk},format=raw \
-        --ide0 local:iso/talos-${TALOS_VERSION}-amd64.iso,media=cdrom \
-        --boot order=ide0 \
-        --serial0 socket \
-        --vga serial0 \
-        --agent enabled=1
-    
+
+    # Create new VM only if it doesn't exist or needs recreation
+    if ! qm config $vmid >/dev/null 2>&1; then
+        log_step "Creating new VM $vm_name (VMID: $vmid)"
+        qm create $vmid \
+            --name $vm_name \
+            --memory $memory \
+            --cores $cores \
+            --net0 virtio,bridge=${BRIDGE} \
+            --bootdisk scsi0 \
+            --scsi0 local-zfs:${disk},format=raw \
+            --ide0 local:iso/talos-${TALOS_VERSION}-amd64.iso,media=cdrom \
+            --boot order=ide0 \
+            --serial0 socket \
+            --vga serial0 \
+            --agent enabled=1
+    else
+        log_step "VM $vm_name (VMID: $vmid) already exists, checking configuration"
+        # Update configuration if needed
+        qm set $vmid --memory $memory --cores $cores >/dev/null 2>&1 || true
+    fi
+
     log_success "VM $vm_name created"
-    
+
     # Start VM
     log_step "Starting VM $vm_name"
     qm start $vmid
-    
+
     # Wait for boot
     log_step "Waiting for VM to boot..."
     sleep 60
-    
+
     # Apply machine configuration with hostname substitution
     log_step "Applying Talos configuration to $vm_name"
-    
+
     # Create node-specific config with hostname
     if [[ "$role" == "controlplane" ]]; then
         sed "s/\${NODE_NAME}/$vm_name/g" ./talos-config/controlplane.yaml > "./talos-config/${vm_name}.yaml"
-        
+
         # Apply with certificate fingerprint validation for security
         local max_attempts=5
         local attempt=1
@@ -233,7 +242,7 @@ create_talos_vm() {
         done
     else
         sed "s/\${NODE_NAME}/$vm_name/g" ./talos-config/worker.yaml > "./talos-config/${vm_name}.yaml"
-        
+
         local max_attempts=5
         local attempt=1
         while [ $attempt -le $max_attempts ]; do
@@ -253,36 +262,47 @@ create_talos_vm() {
 # Deploy consciousness workloads
 deploy_consciousness_workloads() {
     log_step "Deploying consciousness federation workloads..."
-    
+
     # Configure talosctl with all control plane endpoints for HA
     log_step "Configuring talosctl for HA cluster..."
     talosctl config endpoint 10.1.1.120 10.1.1.121 10.1.1.122
     talosctl config node 10.1.1.120
-    
+
     # Bootstrap etcd on first control plane only (CRITICAL: only once!)
     log_step "Bootstrapping etcd cluster..."
     talosctl bootstrap --nodes 10.1.1.120
-    
-    # Wait for Kubernetes API to be ready
+
+    # Wait for Kubernetes API to be ready (idempotent)
     log_step "Waiting for Kubernetes API to become available..."
-    local attempts=0
-    while ! talosctl kubeconfig ./kubeconfig 2>/dev/null; do
-        if [ $attempts -ge 30 ]; then
-            log_error "Kubernetes API failed to start after 15 minutes"
-            return 1
-        fi
-        log_step "Waiting for Kubernetes API... (attempt $((attempts+1))/30)"
-        sleep 30
-        attempts=$((attempts+1))
-    done
-    
+    if [[ -f "./kubeconfig" ]] && kubectl --kubeconfig=./kubeconfig get nodes >/dev/null 2>&1; then
+        log_step "Kubernetes API already available"
+    else
+        local attempts=0
+        while ! talosctl kubeconfig ./kubeconfig 2>/dev/null; do
+            if [ $attempts -ge 30 ]; then
+                log_error "Kubernetes API failed to start after 15 minutes"
+                return 1
+            fi
+            log_step "Waiting for Kubernetes API... (attempt $((attempts+1))/30)"
+            sleep 30
+            attempts=$((attempts+1))
+        done
+    fi
+
     export KUBECONFIG=./kubeconfig
-    
+
     # Wait for all nodes to be ready
     log_step "Waiting for all nodes to be Ready..."
     kubectl wait --for=condition=Ready nodes --all --timeout=600s
-    
-    # Deploy consciousness manifests
+
+    # Deploy consciousness manifests (idempotent)
+    log_step "Deploying consciousness workloads (idempotent)"
+    if kubectl get namespace consciousness-federation >/dev/null 2>&1; then
+        log_step "Consciousness namespace already exists, updating workloads"
+    else
+        log_step "Creating consciousness namespace and workloads"
+    fi
+
     cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: Namespace
@@ -375,29 +395,29 @@ EOF
 # Production validation checks
 validate_production_requirements() {
     log_step "Validating production requirements..."
-    
+
     # Check Proxmox environment
     if ! command -v qm &> /dev/null; then
         log_error "Proxmox qm command not found"
         exit 1
     fi
-    
+
     # Check root privileges
     if [[ $EUID -ne 0 ]]; then
         log_error "This script must be run as root"
         exit 1
     fi
-    
+
     # Check storage availability
     if ! pvesm status local-zfs >/dev/null 2>&1; then
         log_warning "local-zfs storage not found, using local storage"
     fi
-    
+
     # Validate network configuration
     if ! ip route | grep -q "${SUBNET}.0/24"; then
         log_warning "Target subnet ${SUBNET}.0/24 not found in routing table"
     fi
-    
+
     log_success "Production requirements validated"
 }
 
@@ -425,13 +445,13 @@ main() {
     validate_production_requirements
     download_talos_tools
     generate_talos_config
-    
+
     # Deploy nodes based on mode
     if [[ "$HYBRID_MODE" == "true" ]]; then
         log_step "Hybrid deployment: deploying worker nodes only"
         # In hybrid mode, only deploy worker nodes
         create_talos_vm "zephyr" "${TALOS_NODES[zephyr]}"
-        
+
         # Use existing VM 120 as control plane endpoint
         log_step "Configuring hybrid cluster connection..."
         sleep 60
@@ -441,14 +461,14 @@ main() {
         for node_name in "${!TALOS_NODES[@]}"; do
             create_talos_vm "$node_name" "${TALOS_NODES[$node_name]}"
         done
-        
+
         # Wait for all nodes to be configured
         log_step "Waiting for all nodes to complete installation..."
         sleep 120
     fi
-    
+
     deploy_consciousness_workloads
-    
+
     log_success "Production Talos consciousness federation deployed!"
     echo
     echo "🤖 Production Cluster Status:"

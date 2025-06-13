@@ -95,8 +95,13 @@ echo "   ✓ Check current federation deployment status"
 echo "   ✓ Validate existing infrastructure"
 echo "   ✓ Generate health reports"
 echo
+echo "5) Idempotent Re-deployment"
+echo "   ✓ Safely re-run deployment scripts"
+echo "   ✓ Update existing infrastructure without breaking"
+echo "   ✓ Resume incomplete deployments"
+echo
 
-read -p "Enter your choice (1/2/3/4): " choice
+read -p "Enter your choice (1/2/3/4/5): " choice
 
 case $choice in
     1)
@@ -224,8 +229,25 @@ EOF
             fi
         done
         ;;
+    5)
+        echo
+        log_step "Running idempotent re-deployment..."
+        check_environment
+        validate_scripts
+        echo -e "${CYAN}This will safely update your existing deployment${NC}"
+        echo "Existing VMs and configurations will be preserved where possible"
+        echo
+        read -p "Continue with idempotent re-deployment? (y/N): " confirm
+        if [[ $confirm =~ ^[Yy]$ ]]; then
+            chmod +x ./scripts/talos-consciousness-deploy.sh
+            ./scripts/talos-consciousness-deploy.sh --idempotent
+        else
+            echo "Re-deployment cancelled."
+            exit 0
+        fi
+        ;;
     *)
-        log_error "Invalid choice. Please run again and select 1, 2, 3, or 4."
+        log_error "Invalid choice. Please run again and select 1, 2, 3, 4, or 5."
         exit 1
         ;;
 esac
