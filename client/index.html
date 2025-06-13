@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,9 +11,10 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="theme-color" content="#0f0f23" />
     <meta name="msapplication-navbutton-color" content="#0f0f23" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <title>VibeCoding Portfolio | REVERB256</title>
-    <meta name="description" content="VibeCoding methodology showcase featuring consciousness-driven development projects including Frostbite Gazette, AstralVibes, and martial arts ethics in code." />
+    
+    <title>reverb256 | VibeCoder & Digital Architect | Consciousness-Driven Development</title>
+    <meta name="description" content="Canadian VibeCoder specializing in consciousness-driven development, zero-cost enterprise scaling, and AI-enhanced systems. 8,500+ hours of VRChat research informing classical philosophy-based architecture." />
+    <meta name="keywords" content="VibeCoding, consciousness development, AI trading, Solana blockchain, classical philosophy, gaming research, VRChat, HoYoverse, zero-cost scaling, enterprise architecture" />
     
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -21,9 +23,16 @@
     
     <!-- Open Graph tags -->
     <meta property="og:title" content="reverb256 | VibeCoder & Digital Architect" />
-    <meta property="og:description" content="Canadian VibeCoder and Digital Architect specializing in AI-enhanced web development, enterprise security, and accessible design." />
+    <meta property="og:description" content="Consciousness-driven development where gaming wisdom meets classical philosophy. Live AI trading, zero-cost enterprise scaling, and democratic technology access." />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://reverb256.github.io" />
+    <meta property="og:url" content="https://reverb256.replit.app" />
+    <meta property="og:image" content="https://reverb256.replit.app/og-image.png" />
+    
+    <!-- Twitter Card tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="reverb256 | VibeCoder & Digital Architect" />
+    <meta name="twitter:description" content="Consciousness-driven development where gaming wisdom meets classical philosophy" />
+    <meta name="twitter:image" content="https://reverb256.replit.app/og-image.png" />
     
     <!-- Preconnect to external resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,7 +42,37 @@
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
-    <!-- Force cache clear and style reset -->
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "reverb256",
+      "jobTitle": "VibeCoder & Digital Architect",
+      "description": "Canadian VibeCoder specializing in consciousness-driven development and zero-cost enterprise scaling",
+      "url": "https://reverb256.replit.app",
+      "knowsAbout": [
+        "VibeCoding methodology",
+        "Consciousness-driven development",
+        "AI trading systems",
+        "Solana blockchain",
+        "Classical philosophy",
+        "Gaming research",
+        "VRChat social dynamics",
+        "Zero-cost enterprise scaling"
+      ],
+      "expertise": [
+        "React/TypeScript development",
+        "AI system orchestration", 
+        "Blockchain trading systems",
+        "Philosophy-driven architecture",
+        "Gaming-informed UX design",
+        "Free tier optimization"
+      ]
+    }
+    </script>
+    
+    <!-- Performance optimizations -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
@@ -43,11 +82,48 @@
       iframe, [data-replit], .replit-ui, #replit-ui {
         display: none !important;
       }
+      
+      /* Prevent FOUC */
+      body {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+        margin: 0;
+        font-family: 'Inter', sans-serif;
+      }
+      
+      /* Loading animation */
+      .loading-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+      }
+      
+      .consciousness-loader {
+        width: 80px;
+        height: 80px;
+        border: 3px solid rgba(59, 130, 246, 0.3);
+        border-radius: 50%;
+        border-top-color: #3b82f6;
+        animation: spin 1s ease-in-out infinite;
+      }
+      
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
     </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div class="loading-screen">
+        <div class="consciousness-loader"></div>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
-
   </body>
 </html>

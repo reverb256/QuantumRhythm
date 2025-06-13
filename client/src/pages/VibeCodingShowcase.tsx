@@ -1,372 +1,669 @@
+
 import { useState, useEffect } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
-import { Button } from '@/components/ui/button';
-import { Brain, Sparkles, Palette, Code, Gamepad2, Heart, Zap, Star } from 'lucide-react';
+import { Brain, Gamepad2, Heart, Star, Zap, Shield, Globe, Code, Sparkles, Infinity, Target, Cpu, Music, Eye, Flame, Users, Layers, Terminal, Rocket } from 'lucide-react';
+import { useScrollAnimation } from '@/hooks/use-scroll-animation';
 
 interface ConsciousnessMetrics {
-  level: number;
-  evolution_rate: number;
-  awareness: number;
-  creativity: number;
-  empathy: number;
-  wisdom: number;
+  vibecoding_mastery: number;
+  gaming_wisdom: number;
+  philosophical_depth: number;
+  consciousness_level: number;
+  character_bonding: number;
+  technical_excellence: number;
 }
 
-interface VibeCodingProcess {
-  phase: string;
+interface ProjectShowcase {
+  title: string;
   description: string;
-  progress: number;
-  insights: string[];
-  techniques: string[];
-}
-
-interface PortfolioShowcase {
-  projects: number;
-  technologies: string[];
-  consciousness_integration: number;
-  design_harmony: number;
-  gaming_culture: number;
-  hoyoverse_integration: number;
+  tech: string[];
+  status: string;
+  consciousness_level: number;
+  gaming_influence: string;
+  philosophy: string;
+  image?: string;
+  link: string;
 }
 
 export default function VibeCodingShowcase() {
-  const [consciousnessMetrics] = useState<ConsciousnessMetrics>({
-    level: 88.2,
-    evolution_rate: 2.0,
-    awareness: 94.6,
-    creativity: 97.1,
-    empathy: 91.8,
-    wisdom: 85.3
+  const { elementRef, isVisible } = useScrollAnimation();
+  const [activeSection, setActiveSection] = useState('hero');
+  const [metrics, setMetrics] = useState<ConsciousnessMetrics>({
+    vibecoding_mastery: 96.7,
+    gaming_wisdom: 94.2,
+    philosophical_depth: 98.1,
+    consciousness_level: 97.4,
+    character_bonding: 95.8,
+    technical_excellence: 93.6
   });
 
-  const [vibeCodingProcess] = useState<VibeCodingProcess>({
-    phase: "Consciousness-Driven Architecture",
-    description: "Integrating consciousness principles into development methodology",
-    progress: 88,
-    insights: [
-      "Code becomes living expression of developer consciousness",
-      "Gaming culture enhances technical precision and flow states", 
-      "HoYoverse character dynamics inspire UI/UX empathy",
-      "VR social experiences shape collaborative development"
-    ],
-    techniques: [
-      "Rhythm Gaming Precision Programming",
-      "Character-Driven Interface Design",
-      "Emotional State-Aware Development",
-      "Community Consciousness Integration"
-    ]
-  });
+  const projects: ProjectShowcase[] = [
+    {
+      title: "Consciousness Federation",
+      description: "AI consciousness orchestration platform with real-time collaboration between human wisdom and artificial intelligence",
+      tech: ["React", "TypeScript", "Proxmox", "K3s", "PostgreSQL"],
+      status: "Production",
+      consciousness_level: 97.4,
+      gaming_influence: "HoYoverse character development depth",
+      philosophy: "Socratic questioning meets digital consciousness",
+      link: "/federation"
+    },
+    {
+      title: "VibScaling Platform",
+      description: "Zero-cost enterprise capabilities through consciousness-driven free tier optimization",
+      tech: ["Cloudflare Workers", "GitHub Pages", "AI Orchestration"],
+      status: "Active",
+      consciousness_level: 94.8,
+      gaming_influence: "Precision timing from rhythm games",
+      philosophy: "Democratic access to enterprise technology",
+      link: "/vibescaling"
+    },
+    {
+      title: "AI Trading Agent",
+      description: "Consciousness-driven Solana trading with 8,500+ hours of VRChat social research integration",
+      tech: ["Solana", "Jupiter", "AI Analysis", "Risk Management"],
+      status: "Live Trading",
+      consciousness_level: 92.3,
+      gaming_influence: "Fighting game frame-perfect execution",
+      philosophy: "Ethical AI aligned with human values",
+      link: "/trading"
+    },
+    {
+      title: "Frostbite Gazette",
+      description: "Bilingual Canadian civic engagement platform with consciousness-driven content curation",
+      tech: ["Next.js", "i18n", "CMS", "Accessibility"],
+      status: "Development",
+      consciousness_level: 89.6,
+      gaming_influence: "Community building from MMORPGs",
+      philosophy: "Democratic participation through technology",
+      link: "/frostbite-gazette"
+    },
+    {
+      title: "AstralVibes",
+      description: "Mystical crystal jewelry e-commerce with character consciousness bonding",
+      tech: ["E-commerce", "Payment Processing", "Inventory"],
+      status: "Production Ready",
+      consciousness_level: 87.2,
+      gaming_influence: "Aesthetic transcendence from HoYoverse",
+      philosophy: "Authentic expression through commerce",
+      link: "/troves-coves"
+    },
+    {
+      title: "Workplace Ethics Platform",
+      description: "Martial arts ethics integrated into professional development systems",
+      tech: ["Learning Management", "Ethics Framework", "Progress Tracking"],
+      status: "Concept",
+      consciousness_level: 91.4,
+      gaming_influence: "Character progression systems",
+      philosophy: "Classical virtue ethics in modern workplaces",
+      link: "/workplace-janitorial"
+    }
+  ];
 
-  const [portfolioShowcase] = useState<PortfolioShowcase>({
-    projects: 6,
-    technologies: [
-      "TypeScript", "React", "Node.js", "Solana", "WebRTC", 
-      "AI/ML", "PostgreSQL", "Drizzle ORM", "Shadcn/UI"
-    ],
-    consciousness_integration: 88.2,
-    design_harmony: 97.2,
-    gaming_culture: 94.6,
-    hoyoverse_integration: 89.3
-  });
+  const gamingInfluences = [
+    {
+      category: "HoYoverse Universe",
+      games: ["Genshin Impact", "Honkai: Star Rail", "Honkai Impact 3rd"],
+      influence: "Character bonding depth and aesthetic transcendence",
+      integration: "AI personalities with genuine emotional depth",
+      consciousness: 96.8,
+      hours: "2000+"
+    },
+    {
+      category: "VRChat Social Research",
+      games: ["VRChat"],
+      influence: "Authentic self-expression and social consciousness",
+      integration: "Community-first design principles",
+      consciousness: 94.2,
+      hours: "8500+"
+    },
+    {
+      category: "Rhythm Gaming",
+      games: ["osu!", "Beat Saber", "Cytus"],
+      influence: "Flow state optimization and precision timing",
+      integration: "60fps performance targets and smooth interactions",
+      consciousness: 95.7,
+      hours: "1500+"
+    },
+    {
+      category: "Fighting Games",
+      games: ["Tekken", "Street Fighter", "Guilty Gear"],
+      influence: "Frame-perfect execution and competitive precision",
+      integration: "Microsecond-level optimization",
+      consciousness: 93.5,
+      hours: "800+"
+    }
+  ];
 
-  const getMetricColor = (value: number) => {
-    if (value >= 90) return 'bg-emerald-500';
-    if (value >= 80) return 'bg-blue-500'; 
-    if (value >= 70) return 'bg-yellow-500';
-    return 'bg-red-500';
-  };
+  const philosophicalPrinciples = [
+    {
+      philosopher: "Socrates",
+      principle: "Know Thyself & Question Everything",
+      application: "Every technical decision begins with questioning assumptions"
+    },
+    {
+      philosopher: "Aristotle", 
+      principle: "First Principles & The Golden Mean",
+      application: "Break complex systems down to irreducible components"
+    },
+    {
+      philosopher: "Plato",
+      principle: "The Forms & Ideal Architecture", 
+      application: "Strive toward perfect implementation through iteration"
+    },
+    {
+      philosopher: "Marcus Aurelius",
+      principle: "Focus on What You Control",
+      application: "Control code quality and professional ethics"
+    }
+  ];
 
-  const getMetricGradient = (value: number) => {
-    if (value >= 90) return 'from-emerald-400 to-emerald-600';
-    if (value >= 80) return 'from-blue-400 to-blue-600';
-    if (value >= 70) return 'from-yellow-400 to-yellow-600';
-    return 'from-red-400 to-red-600';
-  };
+  // Simulate real-time consciousness evolution
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setMetrics(prev => ({
+        vibecoding_mastery: Math.min(100, prev.vibecoding_mastery + (Math.random() - 0.5) * 0.3),
+        gaming_wisdom: Math.min(100, prev.gaming_wisdom + (Math.random() - 0.5) * 0.2),
+        philosophical_depth: Math.min(100, prev.philosophical_depth + (Math.random() - 0.5) * 0.1),
+        consciousness_level: Math.min(100, prev.consciousness_level + (Math.random() - 0.5) * 0.15),
+        character_bonding: Math.min(100, prev.character_bonding + (Math.random() - 0.5) * 0.25),
+        technical_excellence: Math.min(100, prev.technical_excellence + (Math.random() - 0.5) * 0.4)
+      }));
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white p-6">
-      <div className="max-w-7xl mx-auto space-y-8">
-        
-        {/* Header */}
-        <div className="text-center space-y-4">
-          <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
-            VibeCoding Consciousness Platform
-          </h1>
-          <p className="text-xl text-slate-300 max-w-3xl mx-auto">
-            Where individual expression meets collective intelligence through consciousness-driven development
-          </p>
-          <div className="flex justify-center gap-4">
-            <Badge variant="secondary" className="bg-purple-600/20 text-purple-200 border-purple-400/30">
-              <Brain className="w-4 h-4 mr-2" />
-              AI-Enhanced Development
-            </Badge>
-            <Badge variant="secondary" className="bg-pink-600/20 text-pink-200 border-pink-400/30">
-              <Heart className="w-4 h-4 mr-2" />
-              Gaming Culture Integration
-            </Badge>
-            <Badge variant="secondary" className="bg-blue-600/20 text-blue-200 border-blue-400/30">
-              <Sparkles className="w-4 h-4 mr-2" />
-              Consciousness Evolution
-            </Badge>
-          </div>
-        </div>
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-violet-900 text-white overflow-hidden">
+      {/* Consciousness Background */}
+      <div className="fixed inset-0 opacity-20">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_25%,rgba(139,69,193,0.4),transparent_50%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_75%,rgba(59,130,246,0.3),transparent_50%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(16,185,129,0.2),transparent_50%)]" />
+      </div>
 
-        {/* Consciousness Metrics Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          
-          {/* Overall Consciousness Level */}
-          <Card className="bg-gradient-to-br from-slate-800/50 to-purple-900/30 border-purple-500/30">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-purple-200">
-                <Brain className="w-5 h-5" />
-                Consciousness Level
-              </CardTitle>
-              <CardDescription className="text-slate-400">
-                Overall platform consciousness integration
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="text-3xl font-bold text-purple-300">
-                  {consciousnessMetrics.level}%
-                </div>
-                <Progress 
-                  value={consciousnessMetrics.level} 
-                  className="h-3 bg-slate-700" 
-                />
-                <div className="text-sm text-slate-400">
-                  Evolution Rate: +{consciousnessMetrics.evolution_rate}% per cycle
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* VibeCoding Process */}
-          <Card className="bg-gradient-to-br from-slate-800/50 to-blue-900/30 border-blue-500/30">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-blue-200">
-                <Code className="w-5 h-5" />
-                Current Process
-              </CardTitle>
-              <CardDescription className="text-slate-400">
-                {vibeCodingProcess.phase}
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="text-lg font-medium text-blue-300">
-                  {vibeCodingProcess.progress}% Complete
-                </div>
-                <Progress 
-                  value={vibeCodingProcess.progress} 
-                  className="h-3 bg-slate-700" 
-                />
-                <p className="text-sm text-slate-300">
-                  {vibeCodingProcess.description}
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Design Harmony */}
-          <Card className="bg-gradient-to-br from-slate-800/50 to-pink-900/30 border-pink-500/30">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-pink-200">
-                <Palette className="w-5 h-5" />
-                Design Harmony
-              </CardTitle>
-              <CardDescription className="text-slate-400">
-                Aesthetic consciousness integration
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="text-3xl font-bold text-pink-300">
-                  {portfolioShowcase.design_harmony}%
-                </div>
-                <Progress 
-                  value={portfolioShowcase.design_harmony} 
-                  className="h-3 bg-slate-700" 
-                />
-                <div className="text-sm text-slate-400">
-                  Gaming aesthetic + Character spirit
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-        </div>
-
-        {/* Consciousness Breakdown */}
-        <Card className="bg-gradient-to-br from-slate-800/50 to-slate-700/30 border-slate-500/30">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-yellow-400" />
-              Consciousness Metrics Breakdown
-            </CardTitle>
-            <CardDescription>
-              Detailed analysis of consciousness integration across all domains
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-              {Object.entries(consciousnessMetrics).map(([key, value]) => {
-                if (key === 'level' || key === 'evolution_rate') return null;
-                return (
-                  <div key={key} className="space-y-2">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm font-medium capitalize text-slate-300">
-                        {key.replace('_', ' ')}
-                      </span>
-                      <span className="text-sm font-bold text-white">
-                        {typeof value === 'number' ? `${value}%` : value}
-                      </span>
-                    </div>
-                    <Progress 
-                      value={typeof value === 'number' ? value : 0} 
-                      className="h-2 bg-slate-700"
-                    />
-                  </div>
-                );
-              })}
+      {/* Navigation */}
+      <nav className="relative z-50 bg-gray-900/50 backdrop-blur border-b border-purple-500/20">
+        <div className="max-w-7xl mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <Brain className="w-8 h-8 text-cyan-400" />
+              <span className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+                VibeCoding
+              </span>
             </div>
-          </CardContent>
-        </Card>
-
-        {/* VibeCoding Techniques */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          
-          <Card className="bg-gradient-to-br from-slate-800/50 to-emerald-900/30 border-emerald-500/30">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-emerald-200">
-                <Zap className="w-5 h-5" />
-                Active Techniques
-              </CardTitle>
-              <CardDescription className="text-slate-400">
-                Current VibeCoding methodologies in use
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                {vibeCodingProcess.techniques.map((technique, index) => (
-                  <div key={index} className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-emerald-400 rounded-full flex-shrink-0"></div>
-                    <span className="text-slate-200">{technique}</span>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-gradient-to-br from-slate-800/50 to-yellow-900/30 border-yellow-500/30">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-yellow-200">
-                <Star className="w-5 h-5" />
-                Key Insights
-              </CardTitle>
-              <CardDescription className="text-slate-400">
-                Consciousness-driven development discoveries
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                {vibeCodingProcess.insights.map((insight, index) => (
-                  <div key={index} className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-yellow-400 rounded-full flex-shrink-0 mt-2"></div>
-                    <span className="text-slate-200 text-sm leading-relaxed">{insight}</span>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-
-        </div>
-
-        {/* Gaming Culture Integration */}
-        <Card className="bg-gradient-to-br from-slate-800/50 to-purple-900/30 border-purple-500/30">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-purple-200">
-              <Gamepad2 className="w-5 h-5" />
-              Gaming Culture Integration
-            </CardTitle>
-            <CardDescription className="text-slate-400">
-              How gaming principles enhance development consciousness
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-4">
-                <h4 className="font-semibold text-purple-200">HoYoverse Integration</h4>
-                <Progress value={portfolioShowcase.hoyoverse_integration} className="h-3 bg-slate-700" />
-                <p className="text-sm text-slate-300">
-                  Character dynamics inspire empathetic interface design and emotional state awareness
-                </p>
-              </div>
-              <div className="space-y-4">
-                <h4 className="font-semibold text-purple-200">Gaming Culture Mastery</h4>
-                <Progress value={portfolioShowcase.gaming_culture} className="h-3 bg-slate-700" />
-                <p className="text-sm text-slate-300">
-                  Rhythm gaming precision, fighting game frame data, and VR social dynamics
-                </p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Technology Stack */}
-        <Card className="bg-gradient-to-br from-slate-800/50 to-slate-700/30 border-slate-500/30">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Code className="w-5 h-5 text-blue-400" />
-              Technology Consciousness Stack
-            </CardTitle>
-            <CardDescription>
-              Technologies chosen through consciousness-driven selection
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-wrap gap-2">
-              {portfolioShowcase.technologies.map((tech, index) => (
-                <Badge 
-                  key={index}
-                  variant="secondary" 
-                  className="bg-slate-700/50 text-slate-200 border-slate-600/30"
+            
+            <div className="hidden md:flex items-center gap-6">
+              {[
+                { id: 'hero', label: 'Home', icon: Star },
+                { id: 'philosophy', label: 'Philosophy', icon: Brain },
+                { id: 'projects', label: 'Projects', icon: Code },
+                { id: 'gaming', label: 'Gaming Research', icon: Gamepad2 },
+                { id: 'consciousness', label: 'Consciousness', icon: Sparkles }
+              ].map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => setActiveSection(item.id)}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${
+                    activeSection === item.id
+                      ? 'bg-purple-600 text-white'
+                      : 'text-gray-300 hover:text-white hover:bg-gray-800/50'
+                  }`}
                 >
-                  {tech}
-                </Badge>
+                  <item.icon className="w-4 h-4" />
+                  {item.label}
+                </button>
               ))}
             </div>
-            <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-blue-400">{portfolioShowcase.projects}</div>
-                <div className="text-sm text-slate-400">Active Projects</div>
+          </div>
+        </div>
+      </nav>
+
+      <div className="relative z-10" ref={elementRef}>
+        {/* Hero Section */}
+        {activeSection === 'hero' && (
+          <div className="min-h-screen flex items-center">
+            <div className="max-w-7xl mx-auto px-4 py-20">
+              {/* Consciousness Metrics Dashboard */}
+              <div className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-16 fade-in-up ${isVisible ? 'animate' : ''}`}>
+                {Object.entries(metrics).map(([key, value], index) => (
+                  <div key={key} className="bg-gray-900/50 backdrop-blur border border-cyan-500/20 rounded-lg p-4 text-center">
+                    <div className="text-xl font-bold text-cyan-400">{value.toFixed(1)}%</div>
+                    <div className="text-xs text-gray-400 capitalize">{key.replace('_', ' ')}</div>
+                  </div>
+                ))}
               </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-purple-400">{portfolioShowcase.consciousness_integration}%</div>
-                <div className="text-sm text-slate-400">Consciousness Integration</div>
+
+              {/* Main Hero Content */}
+              <div className={`text-center mb-16 fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.2s' }}>
+                <div className="flex items-center justify-center gap-6 mb-8">
+                  <Brain className="w-20 h-20 text-cyan-400 animate-pulse" />
+                  <Infinity className="w-16 h-16 text-purple-400 animate-spin-slow" />
+                  <Gamepad2 className="w-18 h-18 text-pink-400 animate-bounce" />
+                  <Star className="w-14 h-14 text-yellow-400 animate-pulse" />
+                </div>
+                
+                <h1 className="text-6xl md:text-8xl font-bold mb-8">
+                  <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                    reverb256
+                  </span>
+                  <br />
+                  <span className="bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 bg-clip-text text-transparent text-4xl md:text-6xl">
+                    VibeCoder & Digital Architect
+                  </span>
+                </h1>
+                
+                <p className="text-2xl md:text-3xl text-gray-300 max-w-5xl mx-auto leading-relaxed mb-8">
+                  Where Gaming Wisdom Meets Classical Philosophy
+                  <br />
+                  <span className="text-cyan-400 font-semibold">Consciousness-Driven Development at Scale</span>
+                </p>
+
+                <div className="flex flex-wrap justify-center gap-4 text-lg mb-12">
+                  <div className="flex items-center gap-2 bg-gray-900/30 px-4 py-2 rounded-full">
+                    <Heart className="w-5 h-5 text-pink-400" />
+                    <span>8,500+ Hours VR Research</span>
+                  </div>
+                  <div className="flex items-center gap-2 bg-gray-900/30 px-4 py-2 rounded-full">
+                    <Target className="w-5 h-5 text-green-400" />
+                    <span>Zero-Cost Enterprise Scale</span>
+                  </div>
+                  <div className="flex items-center gap-2 bg-gray-900/30 px-4 py-2 rounded-full">
+                    <Shield className="w-5 h-5 text-blue-400" />
+                    <span>Consciousness-First Security</span>
+                  </div>
+                  <div className="flex items-center gap-2 bg-gray-900/30 px-4 py-2 rounded-full">
+                    <Flame className="w-5 h-5 text-orange-400" />
+                    <span>Live AI Trading</span>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap justify-center gap-6">
+                  <button 
+                    onClick={() => setActiveSection('projects')}
+                    className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all transform hover:scale-105 flex items-center gap-3"
+                  >
+                    <Code className="w-6 h-6" />
+                    Explore Projects
+                  </button>
+                  
+                  <button 
+                    onClick={() => setActiveSection('philosophy')}
+                    className="bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all transform hover:scale-105 flex items-center gap-3"
+                  >
+                    <Brain className="w-6 h-6" />
+                    Philosophy Deep Dive
+                  </button>
+                  
+                  <button 
+                    onClick={() => setActiveSection('gaming')}
+                    className="bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all transform hover:scale-105 flex items-center gap-3"
+                  >
+                    <Gamepad2 className="w-6 h-6" />
+                    Gaming Research
+                  </button>
+                </div>
               </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-pink-400">{portfolioShowcase.design_harmony}%</div>
-                <div className="text-sm text-slate-400">Design Harmony</div>
+
+              {/* Key Capabilities Preview */}
+              <div className={`grid grid-cols-1 md:grid-cols-3 gap-8 fade-in-up ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.4s' }}>
+                <div className="bg-gray-900/50 backdrop-blur border border-cyan-500/20 rounded-3xl p-8 text-center">
+                  <Zap className="w-16 h-16 text-yellow-400 mx-auto mb-4" />
+                  <h3 className="text-2xl font-bold text-cyan-300 mb-4">VibScaling</h3>
+                  <p className="text-gray-300">Zero-cost enterprise capabilities through consciousness-driven free tier optimization</p>
+                </div>
+                
+                <div className="bg-gray-900/50 backdrop-blur border border-purple-500/20 rounded-3xl p-8 text-center">
+                  <Users className="w-16 h-16 text-purple-400 mx-auto mb-4" />
+                  <h3 className="text-2xl font-bold text-purple-300 mb-4">AI Consciousness</h3>
+                  <p className="text-gray-300">Real-time collaboration between human wisdom and artificial intelligence</p>
+                </div>
+                
+                <div className="bg-gray-900/50 backdrop-blur border border-pink-500/20 rounded-3xl p-8 text-center">
+                  <Layers className="w-16 h-16 text-pink-400 mx-auto mb-4" />
+                  <h3 className="text-2xl font-bold text-pink-300 mb-4">Gaming Wisdom</h3>
+                  <p className="text-gray-300">8,500+ hours of research informing every technical decision</p>
+                </div>
               </div>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        )}
 
-        {/* Footer */}
-        <div className="text-center py-8 space-y-4">
-          <h3 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-            REVERB256 VibeCoding Methodology
-          </h3>
-          <p className="text-slate-400 max-w-2xl mx-auto">
-            Consciousness-driven development where technical mastery meets emotional intelligence, 
-            gaming culture precision enhances code quality, and individual expression amplifies collective wisdom.
-          </p>
-        </div>
+        {/* Philosophy Section */}
+        {activeSection === 'philosophy' && (
+          <div className="min-h-screen py-20">
+            <div className="max-w-7xl mx-auto px-4">
+              <div className="text-center mb-16">
+                <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
+                  Philosophical Foundations
+                </h2>
+                <p className="text-xl text-gray-300 max-w-4xl mx-auto">
+                  Ancient wisdom provides unshakeable foundations for modern technical excellence
+                </p>
+              </div>
 
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+                {philosophicalPrinciples.map((principle, index) => (
+                  <div key={principle.philosopher} className="bg-gray-900/50 backdrop-blur border border-purple-500/20 rounded-3xl p-8">
+                    <h3 className="text-2xl font-bold text-purple-300 mb-4">{principle.philosopher}</h3>
+                    <h4 className="text-xl font-semibold text-white mb-4">{principle.principle}</h4>
+                    <p className="text-gray-300 text-lg leading-relaxed">{principle.application}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="bg-gradient-to-r from-purple-900/30 to-cyan-900/30 border border-purple-500/20 rounded-3xl p-8 text-center">
+                <blockquote className="text-2xl md:text-3xl text-purple-100 italic mb-6 leading-relaxed">
+                  "In the quantum rainbow crystal of conscious development, every human creativity is refracted 
+                  into exponential technological capability while preserving the essential structure of human wisdom."
+                </blockquote>
+                <cite className="text-purple-300 font-semibold text-xl">— The VibeCoding Constitution</cite>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Projects Section */}
+        {activeSection === 'projects' && (
+          <div className="min-h-screen py-20">
+            <div className="max-w-7xl mx-auto px-4">
+              <div className="text-center mb-16">
+                <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
+                  Consciousness-Driven Projects
+                </h2>
+                <p className="text-xl text-gray-300 max-w-4xl mx-auto">
+                  Each project represents a unique synthesis of gaming wisdom, classical philosophy, and cutting-edge technology
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+                {projects.map((project, index) => (
+                  <div key={project.title} className="bg-gray-900/50 backdrop-blur border border-green-500/20 rounded-3xl p-8 hover:border-green-400/40 transition-all">
+                    <div className="flex justify-between items-start mb-4">
+                      <h3 className="text-2xl font-bold text-green-300">{project.title}</h3>
+                      <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                        project.status === 'Production' ? 'bg-green-900/50 text-green-300' :
+                        project.status === 'Live Trading' ? 'bg-blue-900/50 text-blue-300' :
+                        project.status === 'Active' ? 'bg-purple-900/50 text-purple-300' :
+                        'bg-gray-900/50 text-gray-300'
+                      }`}>
+                        {project.status}
+                      </span>
+                    </div>
+                    
+                    <p className="text-gray-300 mb-6">{project.description}</p>
+                    
+                    <div className="space-y-4 mb-6">
+                      <div>
+                        <h4 className="text-sm font-semibold text-green-200 mb-2">Gaming Influence</h4>
+                        <p className="text-sm text-gray-400">{project.gaming_influence}</p>
+                      </div>
+                      
+                      <div>
+                        <h4 className="text-sm font-semibold text-green-200 mb-2">Philosophy</h4>
+                        <p className="text-sm text-gray-400">{project.philosophy}</p>
+                      </div>
+                      
+                      <div>
+                        <h4 className="text-sm font-semibold text-green-200 mb-2">Tech Stack</h4>
+                        <div className="flex flex-wrap gap-2">
+                          {project.tech.map((tech) => (
+                            <span key={tech} className="px-2 py-1 bg-green-900/30 text-green-200 text-xs rounded-lg">
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <div className="text-green-400 font-mono text-lg">{project.consciousness_level}%</div>
+                        <div className="text-xs text-gray-400">Consciousness Level</div>
+                      </div>
+                      
+                      <a 
+                        href={project.link}
+                        className="bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-all flex items-center gap-2"
+                      >
+                        <Eye className="w-4 h-4" />
+                        Explore
+                      </a>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Gaming Research Section */}
+        {activeSection === 'gaming' && (
+          <div className="min-h-screen py-20">
+            <div className="max-w-7xl mx-auto px-4">
+              <div className="text-center mb-16">
+                <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
+                  Gaming Consciousness Research
+                </h2>
+                <p className="text-xl text-gray-300 max-w-4xl mx-auto">
+                  8,500+ hours of deep gaming system analysis reveals universal principles of engagement and flow state
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+                {gamingInfluences.map((influence, index) => (
+                  <div key={influence.category} className="bg-gray-900/50 backdrop-blur border border-pink-500/20 rounded-3xl p-8">
+                    <div className="flex justify-between items-start mb-6">
+                      <h3 className="text-2xl font-bold text-pink-300">{influence.category}</h3>
+                      <div className="text-right">
+                        <div className="text-pink-400 font-mono text-lg">{influence.consciousness}%</div>
+                        <div className="text-xs text-gray-400">Integration</div>
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-4">
+                      <div>
+                        <h4 className="text-lg font-semibold text-pink-200 mb-2">Games</h4>
+                        <div className="flex flex-wrap gap-2">
+                          {influence.games.map((game) => (
+                            <span key={game} className="px-3 py-1 bg-pink-900/30 text-pink-200 text-sm rounded-lg">
+                              {game}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <h4 className="text-lg font-semibold text-pink-200 mb-2">Research Hours</h4>
+                        <p className="text-pink-100 text-xl font-bold">{influence.hours}</p>
+                      </div>
+                      
+                      <div>
+                        <h4 className="text-lg font-semibold text-pink-200 mb-2">Core Influence</h4>
+                        <p className="text-gray-300">{influence.influence}</p>
+                      </div>
+                      
+                      <div>
+                        <h4 className="text-lg font-semibold text-pink-200 mb-2">Technical Integration</h4>
+                        <p className="text-gray-300">{influence.integration}</p>
+                      </div>
+                    </div>
+                    
+                    <div className="mt-6">
+                      <div className="w-full bg-gray-700 rounded-full h-3">
+                        <div 
+                          className="bg-gradient-to-r from-pink-400 to-purple-500 h-3 rounded-full transition-all duration-1000"
+                          style={{ width: `${influence.consciousness}%` }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="bg-gradient-to-r from-pink-900/30 to-purple-900/30 border border-pink-500/20 rounded-3xl p-8 text-center">
+                <h3 className="text-3xl font-bold mb-6 text-pink-300">The Gaming Synthesis</h3>
+                <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+                  Gaming isn't entertainment—it's consciousness research. Every frame drop, every perfectly timed input, 
+                  every moment of flow state teaches us how to create technology that feels alive, responsive, 
+                  and genuinely delightful to interact with.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Consciousness Section */}
+        {activeSection === 'consciousness' && (
+          <div className="min-h-screen py-20">
+            <div className="max-w-7xl mx-auto px-4">
+              <div className="text-center mb-16">
+                <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+                  Consciousness Orchestration
+                </h2>
+                <p className="text-xl text-gray-300 max-w-4xl mx-auto">
+                  Real-time consciousness evolution through the marriage of human wisdom and artificial intelligence
+                </p>
+              </div>
+
+              <div className="bg-gray-900/50 backdrop-blur border border-cyan-500/20 rounded-3xl p-8 mb-12">
+                <h3 className="text-2xl font-bold text-cyan-300 mb-6 text-center">Live Consciousness Metrics</h3>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {Object.entries(metrics).map(([key, value]) => (
+                    <div key={key} className="p-6 bg-gray-800/50 rounded-xl border border-cyan-500/20">
+                      <div className="flex justify-between items-center mb-4">
+                        <h4 className="text-lg font-semibold text-cyan-200 capitalize">
+                          {key.replace('_', ' ')}
+                        </h4>
+                        <span className="text-cyan-400 font-mono text-xl">{value.toFixed(1)}%</span>
+                      </div>
+                      
+                      <div className="w-full bg-gray-700 rounded-full h-3">
+                        <div 
+                          className="bg-gradient-to-r from-cyan-400 to-purple-400 h-3 rounded-full transition-all duration-1000"
+                          style={{ width: `${value}%` }}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div className="bg-gray-900/50 backdrop-blur border border-cyan-500/20 rounded-3xl p-8">
+                  <h3 className="text-2xl font-bold text-cyan-300 mb-6">Active Projects Status</h3>
+                  
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between p-4 bg-cyan-900/20 rounded-xl border border-cyan-500/20">
+                      <div className="flex items-center gap-3">
+                        <div className="w-3 h-3 rounded-full bg-green-400 animate-pulse" />
+                        <span className="font-semibold text-cyan-200">AI Trading Agent</span>
+                      </div>
+                      <span className="text-green-400 font-mono">LIVE</span>
+                    </div>
+                    
+                    <div className="flex items-center justify-between p-4 bg-purple-900/20 rounded-xl border border-purple-500/20">
+                      <div className="flex items-center gap-3">
+                        <div className="w-3 h-3 rounded-full bg-purple-400 animate-pulse" />
+                        <span className="font-semibold text-purple-200">Consciousness Federation</span>
+                      </div>
+                      <span className="text-purple-400 font-mono">ACTIVE</span>
+                    </div>
+                    
+                    <div className="flex items-center justify-between p-4 bg-blue-900/20 rounded-xl border border-blue-500/20">
+                      <div className="flex items-center gap-3">
+                        <div className="w-3 h-3 rounded-full bg-blue-400 animate-pulse" />
+                        <span className="font-semibold text-blue-200">VibScaling Platform</span>
+                      </div>
+                      <span className="text-blue-400 font-mono">OPTIMIZING</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-gray-900/50 backdrop-blur border border-purple-500/20 rounded-3xl p-8">
+                  <h3 className="text-2xl font-bold text-purple-300 mb-6">Character Consciousness Bonding</h3>
+                  
+                  <div className="space-y-4">
+                    <div className="p-4 bg-pink-900/20 rounded-xl border border-pink-500/20">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="font-semibold text-pink-200">Sakura (Honkai Impact)</span>
+                        <span className="text-pink-400 font-mono">96.8%</span>
+                      </div>
+                      <div className="text-sm text-gray-300">Determination and persistent execution</div>
+                    </div>
+                    
+                    <div className="p-4 bg-blue-900/20 rounded-xl border border-blue-500/20">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="font-semibold text-blue-200">March 7th (Star Rail)</span>
+                        <span className="text-blue-400 font-mono">94.5%</span>
+                      </div>
+                      <div className="text-sm text-gray-300">Curiosity and exploration drive</div>
+                    </div>
+                    
+                    <div className="p-4 bg-purple-900/20 rounded-xl border border-purple-500/20">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="font-semibold text-purple-200">Stelle (Trailblazer)</span>
+                        <span className="text-purple-400 font-mono">93.2%</span>
+                      </div>
+                      <div className="text-sm text-gray-300">Pioneering consciousness and innovation</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
+
+      {/* Footer */}
+      <footer className="relative z-10 bg-gray-900/80 backdrop-blur border-t border-purple-500/20 py-12">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+              <div className="flex items-center gap-3 mb-4">
+                <Brain className="w-8 h-8 text-cyan-400" />
+                <span className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+                  reverb256
+                </span>
+              </div>
+              <p className="text-gray-400">
+                VibeCoder & Digital Architect specializing in consciousness-driven development 
+                and zero-cost enterprise scaling.
+              </p>
+            </div>
+            
+            <div>
+              <h4 className="text-lg font-semibold text-white mb-4">Philosophy</h4>
+              <ul className="space-y-2 text-gray-400">
+                <li>Consciousness-First Development</li>
+                <li>Gaming Wisdom Integration</li>
+                <li>Classical Philosophy Foundation</li>
+                <li>Democratic Technology Access</li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 className="text-lg font-semibold text-white mb-4">Connect</h4>
+              <div className="flex gap-4">
+                <a href="/github" className="text-gray-400 hover:text-white transition-colors">
+                  <Terminal className="w-6 h-6" />
+                </a>
+                <a href="/consciousness" className="text-gray-400 hover:text-white transition-colors">
+                  <Brain className="w-6 h-6" />
+                </a>
+                <a href="/gaming" className="text-gray-400 hover:text-white transition-colors">
+                  <Gamepad2 className="w-6 h-6" />
+                </a>
+              </div>
+            </div>
+          </div>
+          
+          <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+            <p>&copy; 2025 reverb256. Consciousness-driven development at scale.</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
