@@ -227,11 +227,15 @@ chmod +x /usr/local/bin/aria-secrets
 
 # Create Proxmox user for Aria
 echo "Creating aria@pve user..."
-pveum user add aria@pve --comment "Aria Trading System User"
+pveum user add aria@pve --comment "Aria Trading System User" 2>/dev/null || echo "User aria@pve already exists"
 pveum aclmod / -user aria@pve -role PVEVMAdmin
 
-# Generate API token for aria user
-echo "Generating API token for aria@pve..."
+# Remove existing token if it exists
+echo "Cleaning up existing API tokens..."
+pveum user token remove aria@pve aria-token 2>/dev/null || echo "No existing token to remove"
+
+# Generate new API token for aria user
+echo "Generating new API token for aria@pve..."
 TOKEN_INFO=$(pveum user token add aria@pve aria-token --privsep=0)
 echo "$TOKEN_INFO" > /etc/aria/proxmox-token.txt
 chmod 600 /etc/aria/proxmox-token.txt
