@@ -4,7 +4,7 @@ addEventListener('fetch', event => {
 })
 
 const tradingData = {
-  "timestamp": "2025-06-13T02:59:55.675Z",
+  "timestamp": "2025-06-13T03:50:34.802Z",
   "walletBalance": 0.288736,
   "activeStrategies": [
     {
