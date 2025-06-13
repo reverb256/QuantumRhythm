@@ -597,12 +597,16 @@ app.use((req, res, next) => {
   app.get('/status', async (req, res) => {
     try {
       const { aiTraderOptimizer } = await import('./ai-trader-cpu-optimizer');
+      const { securityStandardsEngine } = await import('./security-standards-engine');
+      
       const cpuReport = aiTraderOptimizer.getOptimizationReport();
+      const securityStatus = securityStandardsEngine.getSecurityStatus();
       
       res.json({
         status: 'running',
         timestamp: new Date().toISOString(),
         ai_cpu_optimization: cpuReport,
+        security_compliance: securityStatus,
         character_preferences: 'agents_free_to_develop_naturally',
         resource_efficiency: 'optimized_for_repl'
       });
@@ -612,6 +616,38 @@ app.use((req, res, next) => {
         timestamp: new Date().toISOString(),
         message: 'AI optimization active'
       });
+    }
+  });
+
+  // Security compliance endpoints
+  app.get('/api/security/assessment', async (req, res) => {
+    try {
+      const { securityStandardsEngine } = await import('./security-standards-engine');
+      const assessment = await securityStandardsEngine.performComprehensiveAssessment();
+      res.json(assessment);
+    } catch (error) {
+      res.status(500).json({ error: 'Security assessment failed' });
+    }
+  });
+
+  app.get('/api/security/compliance-report', async (req, res) => {
+    try {
+      const { securityStandardsEngine } = await import('./security-standards-engine');
+      const report = await securityStandardsEngine.generateComplianceReport();
+      res.setHeader('Content-Type', 'text/plain');
+      res.send(report);
+    } catch (error) {
+      res.status(500).json({ error: 'Compliance report generation failed' });
+    }
+  });
+
+  app.get('/api/security/discover-standards', async (req, res) => {
+    try {
+      const { securityStandardsEngine } = await import('./security-standards-engine');
+      const standards = await securityStandardsEngine.discoverNewStandards();
+      res.json({ discovered_standards: standards });
+    } catch (error) {
+      res.status(500).json({ error: 'Standards discovery failed' });
     }
   });
 

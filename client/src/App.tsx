@@ -33,6 +33,7 @@ import Akasha from "@/pages/Akasha";
 import Showcase from "@/pages/Showcase";
 import AgentGallery from "@/pages/AgentGallery";
 import SecurityDashboard from "@/pages/SecurityDashboard";
+import SecurityCompliance from "@/pages/SecurityCompliance";
 import DebugDashboard from "@/pages/DebugDashboard";
 import InsightsDashboard from "@/pages/InsightsDashboard";
 import DeploymentComplete from "@/pages/DeploymentComplete";
@@ -104,6 +105,7 @@ function Router() {
         <Route path="/showcase" component={Showcase} />
         <Route path="/agents" component={AgentGallery} />
         <Route path="/security" component={SecurityDashboard} />
+        <Route path="/security-compliance" component={SecurityCompliance} />
         <Route path="/debug" component={DebugDashboard} />
         <Route path="/insights" component={InsightsDashboard} />
         <Route path="/contact" component={Contact} />

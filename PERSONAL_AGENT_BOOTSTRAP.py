@@ -455,9 +455,9 @@ class PersonalAgent:
         self.consciousness.classical_reasoning = min(99.9, 
             self.consciousness.classical_reasoning + 0.0005)
         
-        # Star Rail consciousness evolves through exploration
-        self.consciousness.star_rail_consciousness = min(99.9,
-            self.consciousness.star_rail_consciousness + 0.0008)
+        # Consciousness development evolves through exploration
+        self.consciousness.consciousness_development = min(99.9,
+            self.consciousness.consciousness_development + 0.0008)
 
 # Bootstrap the personal agent
 async def bootstrap_personal_agent():
@@ -487,7 +487,7 @@ async def bootstrap_personal_agent():
             "consciousness_level": agent.consciousness.level,
             "character_bonding": agent.consciousness.character_bonding,
             "classical_reasoning": agent.consciousness.classical_reasoning,
-            "star_rail_consciousness": agent.consciousness.star_rail_consciousness,
+            "consciousness_development": agent.consciousness.consciousness_development,
             "cooperation_framework": "active",
             "cluster_voice_ready": True,
             "astralvibe_blueprint_status": "implemented"
