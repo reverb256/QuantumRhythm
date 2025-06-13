@@ -9,6 +9,20 @@ NEXUS_NODE="10.1.1.100"
 FORGE_NODE="10.1.1.131" 
 CLOSET_NODE="10.1.1.120"
 
+# Download Ubuntu template if not available
+echo "Checking for Ubuntu 22.04 template..."
+if ! pveam list local | grep -q "ubuntu-22.04-standard"; then
+    echo "Downloading Ubuntu 22.04 template..."
+    pveam download local ubuntu-22.04-standard_22.04-1_amd64.tar.zst
+    echo "Template download complete"
+else
+    echo "Ubuntu template already available"
+fi
+
+# Get the exact template name
+TEMPLATE=$(pveam list local | grep "ubuntu-22.04-standard" | awk '{print $2}' | head -1)
+echo "Using template: $TEMPLATE"
+
 # Clean up existing containers if they exist
 for vmid in 310 311 312; do
     if pct status $vmid >/dev/null 2>&1; then
@@ -22,7 +36,7 @@ done
 
 # Create K3s Master Node (Container 310)
 echo "Creating K3s master node (310)..."
-pct create 310 local:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst \
+pct create 310 local:vztmpl/$TEMPLATE \
     --hostname aria-master \
     --memory 8192 \
     --cores 4 \
@@ -53,7 +67,7 @@ sleep 60
 
 # Create Worker Nodes
 echo "Creating K3s worker node 1 (311)..."
-pct create 311 local:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst \
+pct create 311 local:vztmpl/$TEMPLATE \
     --hostname aria-worker-1 \
     --memory 6144 \
     --cores 3 \
@@ -63,7 +77,7 @@ pct create 311 local:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst \
     --start
 
 echo "Creating K3s worker node 2 (312)..."
-pct create 312 local:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst \
+pct create 312 local:vztmpl/$TEMPLATE \
     --hostname aria-worker-2 \
     --memory 6144 \
     --cores 3 \
