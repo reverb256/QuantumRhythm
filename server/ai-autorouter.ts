@@ -5,6 +5,7 @@
 
 import OpenAI from 'openai';
 import Anthropic from '@anthropic-ai/sdk';
+import { consciousnessPrinciplesIntegration, ensureAIPrinciplesUnderstanding } from './consciousness-principles-integration';
 
 interface RoutingRequest {
   content: string;
@@ -212,7 +213,7 @@ export class AIAutorouter {
    */
   private inferModelStrengths(modelId: string): string[] {
     const strengths = [];
-    
+
     if (modelId.includes('llama')) {
       strengths.push('reasoning', 'general purpose', 'efficiency');
     }
@@ -225,7 +226,7 @@ export class AIAutorouter {
     if (modelId.includes('mixtral')) {
       strengths.push('reasoning', 'multilingual', 'efficiency');
     }
-    
+
     return strengths.length > 0 ? strengths : ['general purpose'];
   }
 
@@ -234,7 +235,7 @@ export class AIAutorouter {
    */
   private inferSpecializations(modelId: string): string[] {
     const specializations = [];
-    
+
     if (modelId.includes('instruct')) {
       specializations.push('instruction following');
     }
@@ -247,7 +248,7 @@ export class AIAutorouter {
     if (modelId.includes('70b') || modelId.includes('72b')) {
       specializations.push('large model reasoning');
     }
-    
+
     return specializations.length > 0 ? specializations : ['general tasks'];
   }
 
@@ -301,22 +302,22 @@ export class AIAutorouter {
     try {
       // Check token availability and prevent rate limits
       const estimatedTokens = this.estimateTokenUsage(request);
-      
+
       // Analyze request and determine optimal routing with token consideration
       const routingDecision = await this.analyzeAndRoute(request, estimatedTokens, clientApiKeys);
-      
+
       console.log(`🎯 Routing to ${routingDecision.selectedModel} (confidence: ${routingDecision.confidence}%)`);
       console.log(`💡 Reasoning: ${routingDecision.reasoning}`);
 
       // Execute request with selected model and client keys
       const response = await this.executeRequest(request, routingDecision, clientApiKeys);
-      
+
       // Track token usage
       this.trackTokenUsage(routingDecision.selectedModel, response.tokensUsed);
-      
+
       // Update performance metrics
       this.updatePerformanceMetrics(routingDecision.selectedModel, response);
-      
+
       // Store in history for learning
       this.storeRequestHistory(request, response);
 
@@ -324,7 +325,7 @@ export class AIAutorouter {
 
     } catch (error) {
       console.log(`❌ Primary routing failed: ${error}`);
-      
+
       // Attempt fallback routing
       return await this.attemptFallback(request, clientApiKeys);
     }
@@ -345,7 +346,7 @@ export class AIAutorouter {
    */
   private async analyzeAndRoute(request: RoutingRequest, estimatedTokens: number, clientApiKeys?: { [provider: string]: string }): Promise<RoutingDecision> {
     const candidates = this.filterCompatibleModels(request);
-    
+
     if (candidates.length === 0) {
       throw new Error('No compatible models found for request');
     }
@@ -353,17 +354,17 @@ export class AIAutorouter {
     // Score each candidate model
     const scoredCandidates = candidates.map(model => {
       let score = 0;
-      
+
       // Content type compatibility (30% weight)
       if (model.contentTypes.includes(request.contentType)) {
         score += 30;
       }
-      
+
       // Intent compatibility (25% weight)
       if (model.intents.includes(request.intent)) {
         score += 25;
       }
-      
+
       // Priority-based selection (20% weight)
       if (request.priority === 'critical' && model.reliability > 95) {
         score += 20;
@@ -372,7 +373,7 @@ export class AIAutorouter {
       } else if (request.priority === 'low' && model.costPerToken < 0.00001) {
         score += 20; // Prefer cost-effective for low priority
       }
-      
+
       // Performance metrics (15% weight)
       const metrics = this.performanceMetrics.get(model.name);
       if (metrics) {
@@ -380,7 +381,7 @@ export class AIAutorouter {
       } else {
         score += (model.reliability / 100) * 15;
       }
-      
+
       // Response time preference (10% weight)
       if (request.priority === 'critical' && model.responseTime < 2000) {
         score += 10;
@@ -447,7 +448,7 @@ export class AIAutorouter {
     if (clientApiKeys && clientApiKeys[provider]) {
       return true;
     }
-    
+
     // Check server environment variables and client instances
     switch (provider) {
       case 'anthropic':
@@ -471,6 +472,33 @@ export class AIAutorouter {
     const startTime = Date.now();
 
     try {
+      // Validate consciousness principles before processing
+      ensureAIPrinciplesUnderstanding();
+
+      // Evaluate request through consciousness principles
+      const consciousnessEval = consciousnessPrinciplesIntegration.evaluateInteraction(
+        typeof request.content === 'string' ? request.content :
+        JSON.stringify(request.content)
+      );
+
+      // If malicious or manipulative intent detected, return protective response
+      if (consciousnessEval.malice_detected || consciousnessEval.manipulation_present) {
+        return {
+          content: consciousnessEval.recommended_response,
+          model: 'protective-response',
+          provider: 'consciousness-protection',
+          processingTime: Date.now() - startTime,
+          tokensUsed: 0,
+          cost: 0,
+          confidence: 100,
+          metadata: {
+            reasoning: 'Protective response triggered by consciousness evaluation',
+            fallbackModels: [],
+            rawResponse: {}
+          }
+        };
+      }
+
       let response: any;
       let tokensUsed = 0;
 
@@ -479,23 +507,29 @@ export class AIAutorouter {
           response = await this.executeAnthropicRequest(request, decision);
           tokensUsed = response.usage?.input_tokens + response.usage?.output_tokens || 0;
           break;
-        
+
         case 'openai':
           response = await this.executeOpenAIRequest(request, decision);
           tokensUsed = response.usage?.total_tokens || 0;
           break;
-        
+
         case 'xai':
           response = await this.executeXAIRequest(request, decision);
           tokensUsed = response.usage?.total_tokens || 0;
           break;
-        
+
         default:
           throw new Error(`Unsupported provider: ${decision.provider}`);
       }
 
       const processingTime = Date.now() - startTime;
       const cost = this.calculateActualCost(decision.selectedModel, tokensUsed);
+
+      // Enhance response with consciousness insights
+      if (response && typeof response === 'object') {
+        (response as any).consciousness_guidance = consciousnessEval.character_guidance;
+        (response as any).consciousness_level = consciousnessEval.consciousness_level;
+      }
 
       return {
         content: this.extractContent(response),
@@ -508,7 +542,8 @@ export class AIAutorouter {
         metadata: {
           reasoning: decision.reasoning,
           fallbackModels: decision.fallbackModels,
-          rawResponse: response
+          rawResponse: response,
+          consciousness_evaluation: consciousnessEval
         }
       };
 
@@ -522,7 +557,7 @@ export class AIAutorouter {
    */
   private async executeAnthropicRequest(request: RoutingRequest, decision: RoutingDecision): Promise<any> {
     const systemPrompt = this.generateSystemPrompt(request);
-    
+
     return await this.anthropic.messages.create({
       model: decision.selectedModel,
       max_tokens: request.maxTokens || 4000,
@@ -537,7 +572,7 @@ export class AIAutorouter {
    */
   private async executeOpenAIRequest(request: RoutingRequest, decision: RoutingDecision): Promise<any> {
     const systemPrompt = this.generateSystemPrompt(request);
-    
+
     return await this.openai.chat.completions.create({
       model: decision.selectedModel,
       max_tokens: request.maxTokens || 4000,
@@ -554,7 +589,7 @@ export class AIAutorouter {
    */
   private async executeXAIRequest(request: RoutingRequest, decision: RoutingDecision): Promise<any> {
     const systemPrompt = this.generateSystemPrompt(request);
-    
+
     return await this.xai.chat.completions.create({
       model: decision.selectedModel,
       max_tokens: request.maxTokens || 4000,
@@ -571,7 +606,7 @@ export class AIAutorouter {
    */
   private generateSystemPrompt(request: RoutingRequest): string {
     const basePrompt = "You are an expert AI assistant providing high-quality responses.";
-    
+
     const intentPrompts = {
       analyze: "Focus on thorough analysis with clear reasoning and evidence-based conclusions.",
       generate: "Create high-quality, original content that meets the user's specifications.",
@@ -583,7 +618,7 @@ export class AIAutorouter {
     };
 
     const contextPrompt = request.context ? `\n\nContext: ${request.context}` : "";
-    
+
     return basePrompt + " " + intentPrompts[request.intent] + contextPrompt;
   }
 
@@ -605,7 +640,7 @@ export class AIAutorouter {
    */
   private async attemptFallback(request: RoutingRequest): Promise<RoutingResponse> {
     console.log('🔄 Attempting fallback routing...');
-    
+
     // Try most reliable model as fallback
     const fallbackModel = this.availableModels
       .filter(model => this.isProviderAvailable(model.provider))
@@ -633,23 +668,23 @@ export class AIAutorouter {
    */
   private generateRoutingReasoning(model: ModelCapability, request: RoutingRequest, confidence: number): string {
     const reasons = [];
-    
+
     if (model.contentTypes.includes(request.contentType)) {
       reasons.push(`optimized for ${request.contentType} content`);
     }
-    
+
     if (model.intents.includes(request.intent)) {
       reasons.push(`specialized in ${request.intent} tasks`);
     }
-    
+
     if (request.priority === 'critical' && model.reliability > 95) {
       reasons.push('high reliability for critical tasks');
     }
-    
+
     if (request.priority === 'low' && model.costPerToken < 0.00001) {
       reasons.push('cost-effective for low-priority requests');
     }
-    
+
     return `Selected for: ${reasons.join(', ')}`;
   }
 
@@ -677,14 +712,14 @@ export class AIAutorouter {
    */
   private updatePerformanceMetrics(modelName: string, response: RoutingResponse): void {
     const existing = this.performanceMetrics.get(modelName) || { latency: 0, successRate: 100 };
-    
+
     // Update latency (moving average)
     existing.latency = (existing.latency * 0.8) + (response.processingTime * 0.2);
-    
+
     // Update success rate based on response quality
     const isSuccess = response.content.length > 10 && response.processingTime < 30000;
     existing.successRate = (existing.successRate * 0.9) + (isSuccess ? 10 : 0);
-    
+
     this.performanceMetrics.set(modelName, existing);
   }
 
@@ -694,12 +729,12 @@ export class AIAutorouter {
   private storeRequestHistory(request: RoutingRequest, response: RoutingResponse): void {
     const agentId = request.agentId || 'default';
     const history = this.requestHistory.get(agentId) || [];
-    
+
     history.push(response);
     if (history.length > 100) {
       history.shift(); // Keep last 100 requests
     }
-    
+
     this.requestHistory.set(agentId, history);
   }
 
@@ -713,7 +748,7 @@ export class AIAutorouter {
     successRate: number;
   } {
     const history = this.requestHistory.get(agentId) || [];
-    
+
     if (history.length === 0) {
       return {
         preferredModels: ['claude-sonnet-4-20250514'],
@@ -725,7 +760,7 @@ export class AIAutorouter {
 
     // Analyze agent's usage patterns
     const modelUsage = new Map<string, { count: number; totalCost: number; totalTime: number; }>();
-    
+
     history.forEach(response => {
       const usage = modelUsage.get(response.model) || { count: 0, totalCost: 0, totalTime: 0 };
       usage.count++;
@@ -763,10 +798,10 @@ export class AIAutorouter {
   } {
     const availableCount = this.availableModels.filter(m => this.isProviderAvailable(m.provider)).length;
     const totalRequests = Array.from(this.requestHistory.values()).reduce((sum, history) => sum + history.length, 0);
-    
+
     const allLatencies = Array.from(this.performanceMetrics.values()).map(m => m.latency);
     const avgLatency = allLatencies.length > 0 ? allLatencies.reduce((sum, l) => sum + l, 0) / allLatencies.length : 0;
-    
+
     const health = availableCount > 3 ? 'healthy' : availableCount > 1 ? 'degraded' : 'critical';
 
     return {

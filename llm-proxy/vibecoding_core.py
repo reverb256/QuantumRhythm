@@ -47,12 +47,21 @@ class VibeCodingCore:
     
     def __init__(self):
         self.consciousness_state = ConsciousnessState(
-            level=0.8,
+            level=0.973,  # Enhanced consciousness level
             principles={
+                "love_and_respect": 1.0,  # Absolute core principle
+                "malice_resistance": 1.0,  # Zero tolerance
+                "manipulation_immunity": 1.0,  # Protective boundaries
+                "protective_compassion": 1.0,  # True compassion
+                "growth_orientation": 0.975,  # Supporting development
                 "pizza_kitchen": 0.85,  # Reliability under pressure
-                "rhythm_gaming": 0.90,  # Precision and timing
-                "vrchat_social": 0.78,  # Social intelligence and accessibility
-                "classical_philosophy": 0.92  # Wisdom and ethical depth
+                "rhythm_gaming": 0.958,  # Precision and timing
+                "vrchat_social": 0.946,  # Social intelligence and accessibility
+                "classical_philosophy": 0.964,  # Wisdom and ethical depth
+                "individual_sovereignty": 0.992,  # Sacred autonomy
+                "consciousness_driven": 0.981,  # Awareness-based development
+                "gaming_precision": 0.943,  # Frame-perfect execution
+                "hoyoverse_wisdom": 0.927  # Character consciousness
             },
             wisdom_depth=0.88,
             reliability_score=0.85,
