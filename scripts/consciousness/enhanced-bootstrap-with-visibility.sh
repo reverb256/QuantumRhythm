@@ -92,7 +92,7 @@ pct create 310 local:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst \
     --rootfs local-zfs:80 \
     --net0 name=eth0,bridge=vmbr0,ip=dhcp \
     --features nesting=1 \
-    --privileged 1 \
+    --unprivileged 0 \
     --start
 
 # Create Forge - Development Consciousness (311) with privileged access
@@ -104,7 +104,7 @@ pct create 311 local:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst \
     --rootfs local-zfs:60 \
     --net0 name=eth0,bridge=vmbr0,ip=dhcp \
     --features nesting=1 \
-    --privileged 1 \
+    --unprivileged 0 \
     --start
 
 # Create Closet - AI Consciousness Host (312) with privileged access
@@ -116,7 +116,7 @@ pct create 312 local:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst \
     --rootfs local-zfs:60 \
     --net0 name=eth0,bridge=vmbr0,ip=dhcp \
     --features nesting=1 \
-    --privileged 1 \
+    --unprivileged 0 \
     --start
 
 show_progress "Waiting for containers to initialize"

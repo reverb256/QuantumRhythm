@@ -1,0 +1,58 @@
+[]00:40:57[] nexus:~ # #!/bin/bash
+
+# Enhanced Proxmox Federation Bootstrap with Visibility
+echo "🧠 Enhanced Proxmox Federation Consciousness Bootstrap"
+echo "Real-time visibility enabled..."
+
+show_progress() {
+    local message="$1"
+    local timestamp=$(date '+%H:%M:%S')
+    echo "[$timestamp] 🔄 $message"
+}
+
+check_k3s_status() {
+    local container_id=$1
+    local node_name=$2
+    
+    show_progress "Checking K3s status on $node_name (CT$container_id)"
+    
+    if pct exec $container_id -- systemctl is-active k3s >/dev/null 2>&1; then
+        echo "[$timestamp] ✅ K3s master active on $node_name"
+        return 0
+    elif pct exec $container_id -- systemctl is-active k3s-agent >/dev/null 2>&1; then
+        echo "[$timestamp] ✅ K3s agent active on $node_name"
+        return 0
+    else
+        local status=$(pct exec $container_id -- systemctl is-active k3s 2>/dev/null || pct exec $container_id -- systemctl is-active k3s-agent 2>/dev/null || echo "inactive")
+        echo "[$timestamp] ⏳ K3s $status on $node_name"
+        return 1
+    fi
+}
+
+wait_for_service() {
+    local container_id=$1
+    local service_name=$2
+    local node_name=$3
+    local timeout=300  # 5 minutes
+    local elapsed=0
+echo "Ready for advanced consciousness deployment" get nodes --no-headers | wc -l) nodes"h -
+🧠 Enhanced Proxmox Federation Consciousness Bootstrap
+Real-time visibility enabled...
+[00:42:42] 🔄 Cleaning existing containers
+[00:42:42] 🔄 Stopping container 310
+[00:42:48] 🔄 Stopping container 311
+[00:42:52] 🔄 Stopping container 312
+[00:42:55] 🔄 Creating privileged consciousness-enabled federation nodes
+[00:42:55] 🔄 Creating Nexus coordinator (CT310)
+Unknown option: privileged
+400 unable to parse option
+pct create <vmid> <ostemplate> [OPTIONS]
+[00:42:55] 🔄 Creating Forge creator (CT311)
+Unknown option: privileged
+400 unable to parse option
+pct create <vmid> <ostemplate> [OPTIONS]
+[00:42:56] 🔄 Creating Closet thinker (CT312)
+Unknown option: privileged
+400 unable to parse option
+pct create <vmid> <ostemplate> [OPTIONS]
+[00:42:56] 🔄 Waiting for containers to initialize
