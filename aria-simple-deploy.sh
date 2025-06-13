@@ -19,8 +19,8 @@ else
     echo "Ubuntu template already available"
 fi
 
-# Get the exact template name
-TEMPLATE=$(pveam list local | grep "ubuntu-22.04-standard" | awk '{print $2}' | head -1)
+# Use the exact template filename
+TEMPLATE="ubuntu-22.04-standard_22.04-1_amd64.tar.zst"
 echo "Using template: $TEMPLATE"
 
 # Clean up existing containers if they exist
