@@ -132,7 +132,21 @@ create_vm_on_node() {
     
     # Check if template 9000 exists and create if needed
     log_step "Checking for Ubuntu template 9000"
-    if ! qm list | grep -q "^9000"; then
+    if qm list | grep -q "^9000"; then
+        # Check if it's already a template
+        local vm_config=$(qm config 9000 2>/dev/null || echo "")
+        if echo "$vm_config" | grep -q "template: 1"; then
+            log_success "Ubuntu template 9000 already exists and is properly configured"
+        else
+            log_step "Converting existing VM 9000 to template"
+            # Stop VM if running
+            qm stop 9000 2>/dev/null || true
+            sleep 5
+            # Convert to template
+            qm template 9000
+            log_success "VM 9000 converted to template successfully"
+        fi
+    else
         log_warning "Template 9000 not found, creating Ubuntu template"
         create_ubuntu_template
         
@@ -142,8 +156,6 @@ create_vm_on_node() {
             return 1
         fi
         log_success "Ubuntu template 9000 created successfully"
-    else
-        log_success "Ubuntu template 9000 already exists"
     fi
     
     # Clone VM from template
@@ -189,8 +201,21 @@ create_ubuntu_template() {
     
     # Check if template already exists (double-check)
     if qm list | grep -q "^$template_id"; then
-        log_warning "Template $template_id already exists, skipping creation"
-        return 0
+        log_step "VM $template_id already exists, checking if it's a template"
+        local vm_config=$(qm config $template_id 2>/dev/null || echo "")
+        if echo "$vm_config" | grep -q "template: 1"; then
+            log_success "Template $template_id already exists and is properly configured"
+            return 0
+        else
+            log_step "Converting existing VM $template_id to template"
+            # Stop VM if running
+            qm stop $template_id 2>/dev/null || true
+            sleep 5
+            # Convert to template
+            qm template $template_id
+            log_success "VM $template_id converted to template successfully"
+            return 0
+        fi
     fi
     
     # Download cloud image if not exists
