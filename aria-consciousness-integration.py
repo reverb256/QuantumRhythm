@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Aria Consciousness Integration - Skirk Descender Philosophy
-Integrates the revelation of Skirk as a Descender into the trading consciousness framework
+Aria Consciousness Integration - Personal AI Trading Philosophy
+Your personal trading consciousness framework with character-driven decision making
 """
 
 import asyncio
@@ -9,7 +9,7 @@ import json
 from datetime import datetime
 from typing import Dict, Any, List
 
-class SkirfDescenderConsciousness:
+class PersonalTradingConsciousness:
     """Consciousness framework inspired by Skirk as a Descender"""
     
     def __init__(self):
