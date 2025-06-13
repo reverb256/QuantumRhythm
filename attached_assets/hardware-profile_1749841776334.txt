@@ -1,0 +1,44 @@
+# Hardware Summary for Proxmox Cluster and Zephyr (Generated: May 02, 2025)
+
+- **Closet (10.1.1.160)**
+  - CPU: AMD Ryzen 7 1700 Eight-Core Processor
+  - Cores/Threads: 8/16
+  - Memory: 15,911 MB total, 12,415 MB free
+  - Storage: 698.64 GB (HDD), 55.90 GB (SSD)
+  - Network: 10.1.1.160 (vmbr0)
+  - OS: Debian 12, Kernel: 6.8.12-10-pve
+
+- **Forge (10.1.1.130)**
+  - CPU: Intel Core i5-9500 @ 3.00GHz
+  - Cores/Threads: 6/6
+  - Memory: 32,013 MB total, 20,379 MB free
+  - Storage: 111.79 GB (SSD), 223.57 GB (SSD), 931.51 GB (HDD), 238.47 GB (SSD)
+  - Network: 10.1.1.130 (vmbr0)
+  - OS: Debian 12.10, Kernel: 6.8.12-10-pve
+
+- **Nexus (10.1.1.120)**
+  - CPU: AMD Ryzen 9 3900X 12-Core Processor
+  - Cores/Threads: 12/24
+  - Memory: 48,090 MB total, 43,328 MB free
+  - Storage: 931.51 GB (HDD), 465.76 GB (SSD), 223.57 GB (SSD), 3.64 TB (HDD)
+  - Network: 10.1.1.120 (vmbr0)
+  - OS: Debian 12.10, Kernel: 6.8.12-10-pve
+
+- **Zephyr (10.1.1.110)**
+  - CPU: AMD Ryzen 9 5950X 16-Core Processor
+  - Cores/Threads: 16/32
+  - Memory: 6,5536 MB total, 30,594 MB free
+  - Storage: 1.00 TB (NVMe), 1.00 TB (NVMe), 1.00 TB (NVMe), 8.00 GB (Virtual)
+  - Network: 10.1.1.110 (eth0)
+  - OS: Debian 12 (WSL2), Kernel: 5.15.167.4-microsoft-standard-WSL2
+
+Mining config:
+TCP: 7777
+SSL: 8888
+
+Pool address
+stratum+tcp://<COIN>.kryptex.network
+
+
+Enter miner username
+krxXVNVMM7.$<HOSTNAME>
