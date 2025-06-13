@@ -99,22 +99,22 @@ pct create 312 local:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst \
 sleep 30
 
 # Get master IP and token
-MASTER_IP=$(pct exec 300 -- hostname -I | awk '{print $1}')
-K3S_TOKEN=$(pct exec 300 -- cat /root/k3s-token)
+MASTER_IP=$(pct exec 310 -- hostname -I | awk '{print $1}')
+K3S_TOKEN=$(pct exec 310 -- cat /root/k3s-token)
 
 # Join worker nodes
-pct exec 301 -- bash -c "
+pct exec 311 -- bash -c "
     apt update && apt upgrade -y
     curl -sfL https://get.k3s.io | K3S_URL=https://$MASTER_IP:6443 K3S_TOKEN=$K3S_TOKEN sh -
 "
 
-pct exec 302 -- bash -c "
+pct exec 312 -- bash -c "
     apt update && apt upgrade -y
     curl -sfL https://get.k3s.io | K3S_URL=https://$MASTER_IP:6443 K3S_TOKEN=$K3S_TOKEN sh -
 "
 
 echo "Creating NFS storage for persistent volumes..."
-pct exec 300 -- bash -c "
+pct exec 310 -- bash -c "
     # Create NFS storage class
     cat > /tmp/nfs-storage.yaml << 'EOF'
 apiVersion: storage.k8s.io/v1
