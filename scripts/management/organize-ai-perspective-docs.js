@@ -34,35 +34,60 @@ function moveAIPerspectiveFiles() {
   
   console.log('🤖 Moving AI diary and perspective documents...');
   
-  // Check both docs/consciousness and root for these files
-  const searchDirs = ['docs/consciousness', '.'];
+  // Search more thoroughly for the files
+  const searchDirs = ['docs/consciousness', '.', 'docs', 'attached_assets'];
   
   aiPerspectiveFiles.forEach(file => {
     let moved = false;
     
-    for (const searchDir of searchDirs) {
-      const sourcePath = path.join(searchDir, file);
+    // First, try to find the file anywhere in the project
+    const findResult = findFileRecursively('.', file);
+    if (findResult) {
+      const sourcePath = findResult;
       const targetPath = path.join(targetDir, file);
       
-      if (fs.existsSync(sourcePath) && !fs.existsSync(targetPath)) {
+      if (!fs.existsSync(targetPath)) {
         try {
           fs.renameSync(sourcePath, targetPath);
           console.log(`✅ Moved: ${file} → ai-perspective/`);
           movedCount++;
           moved = true;
-          break;
         } catch (error) {
           console.log(`⚠️  Could not move ${file}: ${error.message}`);
         }
+      } else {
+        console.log(`ℹ️  ${file} already exists in ai-perspective/`);
       }
     }
     
-    if (!moved && !fs.existsSync(path.join(targetDir, file))) {
+    if (!moved) {
       console.log(`ℹ️  File not found: ${file}`);
     }
   });
   
   console.log(`\n📊 Successfully moved ${movedCount} AI perspective files`);
+}
+
+function findFileRecursively(dir, fileName) {
+  try {
+    const files = fs.readdirSync(dir);
+    
+    for (const file of files) {
+      const fullPath = path.join(dir, file);
+      const stat = fs.statSync(fullPath);
+      
+      if (stat.isDirectory() && !file.startsWith('.') && file !== 'node_modules') {
+        const found = findFileRecursively(fullPath, fileName);
+        if (found) return found;
+      } else if (file === fileName) {
+        return fullPath;
+      }
+    }
+  } catch (error) {
+    // Ignore permission errors
+  }
+  
+  return null;
 }
 
 function createAIPerspectiveIndex() {
