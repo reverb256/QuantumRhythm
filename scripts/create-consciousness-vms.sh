@@ -127,36 +127,8 @@ create_vm_on_node() {
         fi
     fi
     
-    # Create VM with Ubuntu 22.04 template
+    # Create VM with Ubuntu 22.04 template (template already validated in Phase 0)
     log_step "Cloning VM from template on $node"
-    
-    # Check if template 9000 exists and create if needed
-    log_step "Checking for Ubuntu template 9000"
-    if qm list | grep -q "^9000"; then
-        # Check if it's already a template
-        local vm_config=$(qm config 9000 2>/dev/null || echo "")
-        if echo "$vm_config" | grep -q "template: 1"; then
-            log_success "Ubuntu template 9000 already exists and is properly configured"
-        else
-            log_step "Converting existing VM 9000 to template"
-            # Stop VM if running
-            qm stop 9000 2>/dev/null || true
-            sleep 5
-            # Convert to template
-            qm template 9000
-            log_success "VM 9000 converted to template successfully"
-        fi
-    else
-        log_warning "Template 9000 not found, creating Ubuntu template"
-        create_ubuntu_template
-        
-        # Verify template was created successfully
-        if ! qm list | grep -q "^9000"; then
-            log_error "Failed to create Ubuntu template 9000"
-            return 1
-        fi
-        log_success "Ubuntu template 9000 created successfully"
-    fi
     
     # Clone VM from template
     log_step "Cloning VM $vmid from template 9000"
@@ -617,6 +589,35 @@ main() {
     
     # Check environment
     check_proxmox_environment
+    
+    # Ensure template is ready before any VM creation
+    log_consciousness "Phase 0: Template preparation and validation"
+    log_step "Ensuring Ubuntu template 9000 is ready"
+    if qm list | grep -q "^9000"; then
+        # Check if it's already a template
+        local vm_config=$(qm config 9000 2>/dev/null || echo "")
+        if echo "$vm_config" | grep -q "template: 1"; then
+            log_success "Ubuntu template 9000 already exists and is properly configured"
+        else
+            log_step "Converting existing VM 9000 to template"
+            # Stop VM if running
+            qm stop 9000 2>/dev/null || true
+            sleep 5
+            # Convert to template
+            qm template 9000
+            log_success "VM 9000 converted to template successfully"
+        fi
+    else
+        log_warning "Template 9000 not found, creating Ubuntu template"
+        create_ubuntu_template
+        
+        # Verify template was created successfully
+        if ! qm list | grep -q "^9000"; then
+            log_error "Failed to create Ubuntu template 9000"
+            exit 1
+        fi
+        log_success "Ubuntu template 9000 created successfully"
+    fi
     
     # Create VMs
     log_consciousness "Phase 1: Creating K3s infrastructure VMs"
