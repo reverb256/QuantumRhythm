@@ -17,7 +17,7 @@ NC='\033[0m'
 CLUSTER_NAME=${CLUSTER_NAME:-"consciousness-federation"}
 PROXMOX_NODES=${PROXMOX_NODES:-"nexus forge closet"}
 STORAGE_POOLS=${STORAGE_POOLS:-"local-zfs"}
-BACKUP_STORAGE=${BACKUP_STORAGE:-"backup-nfs"}
+BACKUP_STORAGE=${BACKUP_STORAGE:-"backend-nfs"}
 NETWORK_BRIDGE=${NETWORK_BRIDGE:-"vmbr0"}
 CONSCIOUSNESS_SUBNET=${CONSCIOUSNESS_SUBNET:-"10.1.1"}
 FEDERATION_DOMAIN=${FEDERATION_DOMAIN:-"lan"}
@@ -189,12 +189,25 @@ configure_cluster_storage() {
         fi
     done
     
-    # Setup backup storage if specified
+    # Setup TrueNAS backend storage if specified
     if [ -n "$BACKUP_STORAGE" ]; then
         if pvesm status | grep -q "$BACKUP_STORAGE"; then
-            log_success "Backup storage $BACKUP_STORAGE configured"
+            log_success "TrueNAS backend storage $BACKUP_STORAGE configured"
+            
+            # Configure for large-scale consciousness data storage
+            log_step "Optimizing backend storage for consciousness data"
+            # Ensure backend-nfs is configured for VM storage and backups
+            if ! pvesm status | grep -q "$BACKUP_STORAGE.*active"; then
+                log_warning "Backend storage may need activation"
+            fi
         else
-            log_warning "Backup storage $BACKUP_STORAGE not found"
+            log_warning "TrueNAS backend storage $BACKUP_STORAGE not found - configure NFS mount"
+            echo "  Add TrueNAS NFS storage via Proxmox GUI:"
+            echo "  Datacenter > Storage > Add > NFS"
+            echo "  ID: backend-nfs"
+            echo "  Server: [your-truenas-ip]"
+            echo "  Export: [your-nfs-export-path]"
+            echo "  Content: VZDump backup files, Disk images"
         fi
     fi
     
