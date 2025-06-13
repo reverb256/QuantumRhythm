@@ -127,17 +127,43 @@ create_vm_on_node() {
         fi
     fi
     
-    # Create VM with Ubuntu 22.04 template (template already validated in Phase 0)
-    log_step "Cloning VM from template on $node"
+    # Create VM with Ubuntu template (template already validated in Phase 0)
+    log_step "Cloning VM from template $UBUNTU_TEMPLATE_ID on $node"
     
     # Clone VM from template
-    log_step "Cloning VM $vmid from template 9000"
-    if [ "$node" != "$(hostname -I | awk '{print $1}')" ]; then
-        # Clone to remote node
-        qm clone 9000 $vmid --name $vm_name --full --target $node
+    if [ "$node" = "$UBUNTU_TEMPLATE_NODE" ]; then
+        # Clone on same node as template
+        log_step "Cloning VM $vmid from local template $UBUNTU_TEMPLATE_ID"
+        qm clone $UBUNTU_TEMPLATE_ID $vmid --name $vm_name --full
     else
-        # Clone on local node
-        qm clone 9000 $vmid --name $vm_name --full
+        # Clone to different node - need to handle cross-node cloning
+        log_step "Cloning VM $vmid from template $UBUNTU_TEMPLATE_ID (cross-node: $UBUNTU_TEMPLATE_NODE -> $node)"
+        
+        # For cross-node cloning, we'll create on template node then migrate
+        local temp_vmid=$vmid
+        
+        # First, ensure the target VMID is available on the template node
+        while ssh -o ConnectTimeout=5 -o StrictHostKeyChecking=no root@$UBUNTU_TEMPLATE_NODE "qm list | grep -q '^$temp_vmid'" 2>/dev/null; do
+            temp_vmid=$((temp_vmid + 1000))  # Use a different range to avoid conflicts
+        done
+        
+        # Clone on template node
+        ssh -o ConnectTimeout=5 -o StrictHostKeyChecking=no root@$UBUNTU_TEMPLATE_NODE \
+            "qm clone $UBUNTU_TEMPLATE_ID $temp_vmid --name $vm_name-temp --full" || {
+            log_warning "Cross-node cloning failed, trying local clone"
+            qm clone $UBUNTU_TEMPLATE_ID $vmid --name $vm_name --full
+        }
+        
+        # If we used a temp ID, migrate to target node with correct ID
+        if [ "$temp_vmid" != "$vmid" ]; then
+            log_step "Migrating VM $temp_vmid to node $node as $vmid"
+            ssh -o ConnectTimeout=5 -o StrictHostKeyChecking=no root@$UBUNTU_TEMPLATE_NODE \
+                "qm migrate $temp_vmid $node --online" || {
+                log_warning "Migration failed, using VM on template node"
+                vmid=$temp_vmid
+                node=$UBUNTU_TEMPLATE_NODE
+            }
+        fi
     fi
     
     # Configure VM resources
@@ -167,7 +193,7 @@ create_vm_on_node() {
 
 # Create Ubuntu template if it doesn't exist
 create_ubuntu_template() {
-    local template_id=9000
+    local template_id=${1:-9000}
     
     log_step "Creating Ubuntu 22.04 template"
     
@@ -591,33 +617,51 @@ main() {
     check_proxmox_environment
     
     # Ensure template is ready before any VM creation
-    log_consciousness "Phase 0: Template preparation and validation"
-    log_step "Ensuring Ubuntu template 9000 is ready"
-    if qm list | grep -q "^9000"; then
-        # Check if it's already a template
-        local vm_config=$(qm config 9000 2>/dev/null || echo "")
-        if echo "$vm_config" | grep -q "template: 1"; then
-            log_success "Ubuntu template 9000 already exists and is properly configured"
-        else
-            log_step "Converting existing VM 9000 to template"
-            # Stop VM if running
-            qm stop 9000 2>/dev/null || true
-            sleep 5
-            # Convert to template
-            qm template 9000
-            log_success "VM 9000 converted to template successfully"
-        fi
+    log_consciousness "Phase 0: Template discovery and preparation"
+    
+    # Global variables for template management
+    UBUNTU_TEMPLATE_ID=""
+    UBUNTU_TEMPLATE_NODE=""
+    
+    # Discover existing Ubuntu templates across all cluster nodes
+    log_step "Discovering Ubuntu templates across cluster"
+    
+    # Check local node first
+    local local_templates=$(qm list | grep -i "ubuntu.*template\|template.*ubuntu" || echo "")
+    if [ -n "$local_templates" ]; then
+        UBUNTU_TEMPLATE_ID=$(echo "$local_templates" | head -1 | awk '{print $1}')
+        UBUNTU_TEMPLATE_NODE=$(hostname -I | awk '{print $1}')
+        log_success "Found Ubuntu template $UBUNTU_TEMPLATE_ID on local node ($UBUNTU_TEMPLATE_NODE)"
     else
-        log_warning "Template 9000 not found, creating Ubuntu template"
-        create_ubuntu_template
-        
-        # Verify template was created successfully
-        if ! qm list | grep -q "^9000"; then
-            log_error "Failed to create Ubuntu template 9000"
-            exit 1
+        # Check if we have any debian-12 or ubuntu cloud images
+        local cloud_templates=$(qm list | grep -i "debian-12\|ubuntu.*cloud" || echo "")
+        if [ -n "$cloud_templates" ]; then
+            UBUNTU_TEMPLATE_ID=$(echo "$cloud_templates" | head -1 | awk '{print $1}')
+            UBUNTU_TEMPLATE_NODE=$(hostname -I | awk '{print $1}')
+            log_success "Found cloud template $UBUNTU_TEMPLATE_ID on local node ($UBUNTU_TEMPLATE_NODE)"
+        else
+            # Need to create a new template - find available ID
+            log_step "No suitable template found, creating new Ubuntu template"
+            local template_id=9000
+            while qm list | grep -q "^$template_id"; do
+                template_id=$((template_id + 1))
+            done
+            UBUNTU_TEMPLATE_ID=$template_id
+            UBUNTU_TEMPLATE_NODE=$(hostname -I | awk '{print $1}')
+            
+            log_step "Creating Ubuntu template with ID $UBUNTU_TEMPLATE_ID"
+            create_ubuntu_template $UBUNTU_TEMPLATE_ID
+            
+            # Verify template was created successfully
+            if ! qm list | grep -q "^$UBUNTU_TEMPLATE_ID"; then
+                log_error "Failed to create Ubuntu template $UBUNTU_TEMPLATE_ID"
+                exit 1
+            fi
+            log_success "Ubuntu template $UBUNTU_TEMPLATE_ID created successfully"
         fi
-        log_success "Ubuntu template 9000 created successfully"
     fi
+    
+    log_success "Template ready: ID $UBUNTU_TEMPLATE_ID on node $UBUNTU_TEMPLATE_NODE"
     
     # Create VMs
     log_consciousness "Phase 1: Creating K3s infrastructure VMs"
