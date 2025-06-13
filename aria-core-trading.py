@@ -215,8 +215,14 @@ class AriaTrader:
             consensus_signal = "hold"
             consensus_confidence = 0.0
         else:
-            consensus_signal = max(weighted_signals, key=weighted_signals.get)
-            consensus_confidence = weighted_signals[consensus_signal] / total_weight
+            # Find signal with highest weight
+            max_weight = 0
+            consensus_signal = "hold"
+            for signal, weight in weighted_signals.items():
+                if weight > max_weight:
+                    max_weight = weight
+                    consensus_signal = signal
+            consensus_confidence = max_weight / total_weight
         
         # Aggregate reasoning
         reasoning_parts = [f"{r['strategy']}: {r['reasoning']}" for r in strategy_results]
