@@ -18,7 +18,7 @@ pct create 200 local:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst \
     --hostname aria-primary \
     --memory 8192 \
     --cores 4 \
-    --rootfs local-lvm:80 \
+    --rootfs local-zfs:80 \
     --net0 name=eth0,bridge=vmbr0,ip=dhcp \
     --start
 
@@ -104,7 +104,7 @@ pct create 201 local:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst \
     --hostname quantum-trader \
     --memory 4096 \
     --cores 2 \
-    --rootfs local-lvm:40 \
+    --rootfs local-zfs:40 \
     --net0 name=eth0,bridge=vmbr0,ip=dhcp \
     --start
 
@@ -165,7 +165,7 @@ pct create 202 local:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst \
     --hostname unified-miner \
     --memory 6144 \
     --cores 4 \
-    --rootfs local-lvm:60 \
+    --rootfs local-zfs:60 \
     --net0 name=eth0,bridge=vmbr0,ip=dhcp \
     --start
 
