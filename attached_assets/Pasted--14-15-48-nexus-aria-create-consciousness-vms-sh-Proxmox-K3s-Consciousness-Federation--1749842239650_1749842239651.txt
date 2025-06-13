@@ -1,0 +1,77 @@
+[]14:15:48[] nexus:~/aria # ./create-consciousness-vms.sh 
+🧠 Proxmox K3s Consciousness Federation Deployment
+=============================================================
+
+Target Infrastructure:
+  Nexus (10.1.1.120): K3s Master - AMD Ryzen 9 3900X (12c/24t, 48GB)
+  Forge (10.1.1.130): K3s Worker - Intel i5-9500 (6c/6t, 32GB)
+  Closet (10.1.1.160): K3s Worker - AMD Ryzen 7 1700 (8c/16t, 16GB)
+  Zephyr (10.1.1.110): Migration Prep - AMD Ryzen 9 5950X (16c/32t, 64GB)
+
+✓ Proxmox VE environment detected
+✓ Proxmox cluster detected
+Cluster information
+Quorum information
+Quorum provider:  corosync_votequorum
+Nodes:            3
+Quorum:           2  
+[14:15:50] Discovering existing Proxmox resources
+=== Existing VMs and Templates ===
+      VMID NAME                 STATUS     MEM(MB)    BOOTDISK(GB) PID       
+       300 truenas              running    24576             32.00 1948      
+      1002 zephyr               running    6144              40.00 1551695   
+      8000 debian-12-template   stopped    2048               3.00 0         
+      9000 debian-12-genericcloud-amd64 stopped    1024               3.00 0         
+
+✓ Found 1 existing templates
+🧠 Phase 1: Creating K3s infrastructure VMs
+[14:15:53] Creating VM: nexus-k3s on node 10.1.1.120
+[14:15:54] Cloning VM from template on 10.1.1.120
+[14:15:54] Checking for Ubuntu template 9000
+⚠ Template 9000 not found, creating Ubuntu template
+[14:15:54] Creating Ubuntu 22.04 template
+✓ Ubuntu cloud image already exists
+[14:15:55] Creating template VM 9000
+unable to create VM 9000 - VM 9000 already exists on node 'nexus'
+✗ Failed to create template VM
+[]14:15:55[] nexus:~/aria # ^C
+[]14:16:45[] nexus:~/aria # rm create-consciousness-vms.sh 
+[]14:16:47[] nexus:~/aria # nano create-consciousness-vms.sh 
+[]14:16:54[] nexus:~/aria # chmod +x create-consciousness-vms.sh 
+[]14:16:57[] nexus:~/aria # ./create-consciousness-vms.sh 
+🧠 Proxmox K3s Consciousness Federation Deployment
+=============================================================
+
+Target Infrastructure:
+  Nexus (10.1.1.120): K3s Master - AMD Ryzen 9 3900X (12c/24t, 48GB)
+  Forge (10.1.1.130): K3s Worker - Intel i5-9500 (6c/6t, 32GB)
+  Closet (10.1.1.160): K3s Worker - AMD Ryzen 7 1700 (8c/16t, 16GB)
+  Zephyr (10.1.1.110): Migration Prep - AMD Ryzen 9 5950X (16c/32t, 64GB)
+
+✓ Proxmox VE environment detected
+✓ Proxmox cluster detected
+Cluster information
+Quorum information
+Quorum provider:  corosync_votequorum
+Nodes:            3
+Quorum:           2  
+[14:16:58] Discovering existing Proxmox resources
+=== Existing VMs and Templates ===
+      VMID NAME                 STATUS     MEM(MB)    BOOTDISK(GB) PID       
+       300 truenas              running    24576             32.00 1948      
+      1002 zephyr               running    6144              40.00 1551695   
+      8000 debian-12-template   stopped    2048               3.00 0         
+      9000 debian-12-genericcloud-amd64 stopped    1024               3.00 0         
+
+✓ Found 1 existing templates
+🧠 Phase 1: Creating K3s infrastructure VMs
+[14:17:02] Creating VM: nexus-k3s on node 10.1.1.120
+[14:17:02] Cloning VM from template on 10.1.1.120
+[14:17:02] Checking for Ubuntu template 9000
+⚠ Template 9000 not found, creating Ubuntu template
+[14:17:03] Creating Ubuntu 22.04 template
+✓ Ubuntu cloud image already exists
+[14:17:04] Creating template VM 9000
+unable to create VM 9000 - VM 9000 already exists on node 'nexus'
+✗ Failed to create template VM
+[]14:17:04[] nexus:~/aria # 
