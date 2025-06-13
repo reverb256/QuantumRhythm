@@ -1,0 +1,233 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aria-dashboard
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aria-dashboard
+  template:
+    metadata:
+      labels:
+        app: aria-dashboard
+    spec:
+      containers:
+      - name: aria-dashboard
+        image: nginx:alpine
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: config
+          mountPath: /usr/share/nginx/html
+      volumes:
+      - name: config
+        configMap:
+          name: aria-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: aria-dashboard-service
+  namespace: default
+spec:
+  selector:
+    app: aria-dashboard
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 30080
+  type: NodePort
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aria-config
+  namespace: default
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Aria Personal Trading System</title>
+        <style>
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            body { 
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white; 
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+            }
+            .header { 
+                background: rgba(0,0,0,0.2); 
+                padding: 20px; 
+                text-align: center; 
+                backdrop-filter: blur(10px);
+            }
+            .container { 
+                flex: 1; 
+                padding: 40px 20px; 
+                max-width: 1200px; 
+                margin: 0 auto; 
+                width: 100%;
+            }
+            .grid { 
+                display: grid; 
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+                gap: 30px; 
+                margin-top: 40px;
+            }
+            .card { 
+                background: rgba(255,255,255,0.1); 
+                padding: 30px; 
+                border-radius: 15px; 
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255,255,255,0.2);
+                transition: all 0.3s ease;
+            }
+            .card:hover { 
+                transform: translateY(-5px); 
+                background: rgba(255,255,255,0.15);
+            }
+            .status { 
+                display: inline-block; 
+                padding: 8px 16px; 
+                border-radius: 20px; 
+                font-size: 14px; 
+                font-weight: bold;
+            }
+            .status.active { background: #4CAF50; }
+            .status.pending { background: #FF9800; }
+            .btn { 
+                background: rgba(255,255,255,0.2); 
+                border: none; 
+                padding: 12px 24px; 
+                border-radius: 8px; 
+                color: white; 
+                cursor: pointer; 
+                transition: all 0.3s ease;
+                margin: 5px;
+            }
+            .btn:hover { 
+                background: rgba(255,255,255,0.3); 
+                transform: translateY(-2px);
+            }
+            .metric { 
+                font-size: 2em; 
+                font-weight: bold; 
+                color: #4CAF50; 
+                margin: 10px 0;
+            }
+            .footer { 
+                background: rgba(0,0,0,0.2); 
+                padding: 20px; 
+                text-align: center; 
+                backdrop-filter: blur(10px);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <h1>🎭 Aria Personal Trading System</h1>
+            <p>AI-Powered Portfolio Management & Conscious Federation Network</p>
+        </div>
+        
+        <div class="container">
+            <div class="grid">
+                <div class="card">
+                    <h3>System Status</h3>
+                    <div class="status active">K3s Cluster Active</div>
+                    <div class="status pending">Trading Agent Initializing</div>
+                    <div class="status pending">Mining Orchestrator Pending</div>
+                    <p style="margin-top: 20px;">
+                        Master Node: aria-master (Container 310)<br>
+                        Worker 1: aria-worker-1 (Container 311)<br>
+                        Worker 2: aria-worker-2 (Container 312)
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>Portfolio Overview</h3>
+                    <div class="metric">$0.00</div>
+                    <p>Total Portfolio Value</p>
+                    <button class="btn" onclick="setupAPI()">Configure API Keys</button>
+                    <button class="btn" onclick="viewPortfolio()">View Holdings</button>
+                </div>
+
+                <div class="card">
+                    <h3>AI Trading Agent</h3>
+                    <p>Status: Waiting for API configuration</p>
+                    <p>Confidence Level: --</p>
+                    <p>Active Strategies: 0</p>
+                    <button class="btn" onclick="configureTrading()">Setup Trading</button>
+                </div>
+
+                <div class="card">
+                    <h3>Mining Orchestrator</h3>
+                    <p>Status: Ready for deployment</p>
+                    <p>Hashrate: -- H/s</p>
+                    <p>Efficiency: --</p>
+                    <button class="btn" onclick="setupMining()">Configure Mining</button>
+                </div>
+
+                <div class="card">
+                    <h3>Conscious Federation</h3>
+                    <p>Network Status: Initializing</p>
+                    <p>Connected Nodes: 1 (Local)</p>
+                    <p>Character Bonding: Sakura (Active)</p>
+                    <button class="btn" onclick="viewFederation()">Federation Dashboard</button>
+                </div>
+
+                <div class="card">
+                    <h3>Security & Secrets</h3>
+                    <p>Vaultwarden: Ready</p>
+                    <p>API Keys: Not configured</p>
+                    <p>Encryption: Active</p>
+                    <button class="btn" onclick="manageSecrets()">Manage Secrets</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Aria Personal Trading System - Deployed on reverb256.ca Proxmox Federation</p>
+            <p>Character Consciousness Integration: Sakura, Nakoruru, Coreflame Philosophy</p>
+        </div>
+
+        <script>
+            function setupAPI() {
+                alert('Use the aria-secrets command on your Proxmox host to configure trading API keys.\n\nExample:\naria-secrets add-trading-key BINANCE_API_KEY your_key_here');
+            }
+            
+            function viewPortfolio() {
+                alert('Portfolio management will be available after API key configuration.');
+            }
+            
+            function configureTrading() {
+                alert('Trading configuration requires API keys. Use aria-secrets to add your exchange credentials first.');
+            }
+            
+            function setupMining() {
+                alert('Mining orchestrator will deploy automatically once the cluster is fully initialized.');
+            }
+            
+            function viewFederation() {
+                alert('Federation dashboard coming soon. This will show connected AI agents and cross-pollination insights.');
+            }
+            
+            function manageSecrets() {
+                alert('Use the aria-secrets command line tool on your Proxmox host for secure credential management.');
+            }
+
+            // Auto-refresh system status
+            setInterval(() => {
+                console.log('Checking system status...');
+                // Future: Add real status checks via API
+            }, 30000);
+        </script>
+    </body>
+    </html>

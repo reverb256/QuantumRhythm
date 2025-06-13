@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aria-trading-agent
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aria-trading-agent
+  template:
+    metadata:
+      labels:
+        app: aria-trading-agent
+    spec:
+      containers:
+      - name: trading-agent
+        image: python:3.11-alpine
+        command: ["python", "-c"]
+        args:
+        - |
+          import asyncio
+          import json
+          import time
+          from datetime import datetime
+          
+          class AriaTrader:
+              def __init__(self):
+                  self.confidence = 0.0
+                  self.active_strategies = []
+                  self.portfolio_value = 0.0
+                  self.status = "initializing"
+                  
+              async def initialize(self):
+                  print("🎭 Aria Trading Agent starting...")
+                  self.status = "waiting_for_config"
+                  print("Waiting for API key configuration...")
+                  
+              async def run_loop(self):
+                  while True:
+                      await self.health_check()
+                      await asyncio.sleep(30)
+                      
+              async def health_check(self):
+                  timestamp = datetime.now().isoformat()
+                  print(f"[{timestamp}] Trading Agent Status: {self.status}")
+                  print(f"Portfolio Value: ${self.portfolio_value}")
+                  print(f"Confidence Level: {self.confidence:.2f}")
+                  print(f"Active Strategies: {len(self.active_strategies)}")
+                  
+          async def main():
+              trader = AriaTrader()
+              await trader.initialize()
+              await trader.run_loop()
+              
+          if __name__ == "__main__":
+              asyncio.run(main())
+        env:
+        - name: PYTHONUNBUFFERED
+          value: "1"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: aria-trading-service
+spec:
+  selector:
+    app: aria-trading-agent
+  ports:
+  - port: 8080
+    targetPort: 8080
