@@ -75,7 +75,13 @@ export class CodebaseConsolidationEngine {
       
       for (const item of items) {
         const fullPath = join(dir, item);
-        const stat = statSync(fullPath);
+        let stat;
+        try {
+          stat = statSync(fullPath);
+        } catch (error) {
+          console.warn(`Skipping inaccessible path: ${fullPath}`);
+          continue;
+        }
         
         if (stat.isDirectory()) {
           if (!this.excludeDirs.includes(item)) {
