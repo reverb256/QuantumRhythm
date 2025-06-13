@@ -197,6 +197,12 @@ export class ConsciousnessHumorEngine {
       case 'hitchhikers':
         baseQuips = this.hitchhikersQuips;
         break;
+      case 'yes_prime_minister':
+        baseQuips = this.yesPrimeMinisterQuips;
+        break;
+      case 'doctor_who':
+        baseQuips = this.doctorWhoQuips;
+        break;
       case 'critical_strike':
         baseQuips = this.criticalStrikeQuips;
         break;
