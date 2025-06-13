@@ -1,30 +1,17 @@
-[build]
-  publish = "dist-static"
-  command = "npm run build && cp -r dist/public/* dist-static/"
 
-[build.environment]
-  NODE_VERSION = "18"
+[build]
+  publish = "client/dist"
+  command = "npm run build"
+
+[functions]
+  directory = "netlify/functions"
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api"
+  status = 200
 
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
-
-[[headers]]
-  for = "/*"
-  [headers.values]
-    X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"
-    X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin"
-
-[[headers]]
-  for = "/assets/*"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[dev]
-  command = "npm run dev"
-  port = 3000
-  targetPort = 3000
-  publish = "dist-static"
