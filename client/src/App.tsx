@@ -38,6 +38,7 @@ import DebugDashboard from "@/pages/DebugDashboard";
 import InsightsDashboard from "@/pages/InsightsDashboard";
 import DeploymentComplete from "@/pages/DeploymentComplete";
 import CoreflameVerifier from "@/pages/CoreflameVerifier";
+import MusicConsciousness from "@/pages/music-consciousness";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -109,6 +110,7 @@ function Router() {
         <Route path="/security-compliance" component={SecurityCompliance} />
         <Route path="/debug" component={DebugDashboard} />
         <Route path="/insights" component={InsightsDashboard} />
+        <Route path="/music" component={MusicConsciousness} />
         <Route path="/coreflame" component={CoreflameVerifier} />
         <Route path="/contact" component={Contact} />
         

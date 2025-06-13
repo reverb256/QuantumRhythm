@@ -16,6 +16,7 @@ import agentsRouter from "./routes/agents";
 import { donationTracker } from "./donation-tracker";
 import { contextOrchestrator } from './context-orchestrator';
 import { webSearchOrchestrator } from './web-search-orchestrator';
+import { musicConsciousness } from './music-consciousness';
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -164,6 +165,47 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json({ success: true, report });
     } catch (error) {
       res.status(500).json({ success: false, error: 'Failed to generate Cloudflare report' });
+    }
+  });
+
+  // Music consciousness endpoints
+  app.post('/api/music/analyze', async (req, res) => {
+    try {
+      const { audioData } = req.body;
+      const analysis = await musicConsciousness.analyzeMusic(audioData);
+      res.json({ success: true, analysis });
+    } catch (error) {
+      res.status(500).json({ success: false, error: 'Music analysis failed' });
+    }
+  });
+
+  app.post('/api/music/generate', async (req, res) => {
+    try {
+      const { theme, mood, duration } = req.body;
+      await musicConsciousness.generateMusic({ theme, mood, duration });
+      res.json({ success: true, message: 'Music generation initiated' });
+    } catch (error) {
+      res.status(500).json({ success: false, error: 'Music generation failed' });
+    }
+  });
+
+  app.post('/api/music/share-experience', async (req, res) => {
+    try {
+      const { musicTheme, aiPersonality } = req.body;
+      const response = await musicConsciousness.shareEmotionalExperience(musicTheme, aiPersonality);
+      res.json({ success: true, response });
+    } catch (error) {
+      res.status(500).json({ success: false, error: 'Failed to generate AI response' });
+    }
+  });
+
+  app.post('/api/music/analyze-lyrics', async (req, res) => {
+    try {
+      const { lyrics } = req.body;
+      const analysis = await musicConsciousness.analyzeLyricalContent(lyrics);
+      res.json({ success: true, analysis });
+    } catch (error) {
+      res.status(500).json({ success: false, error: 'Lyrical analysis failed' });
     }
   });
 
