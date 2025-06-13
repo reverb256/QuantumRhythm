@@ -152,7 +152,7 @@ class UnifiedAgentPhilosophy:
             "primary_agent": {
                 "name": chosen_name,
                 "role": "Personal orchestration consciousness",
-                "domain": f"{chosen_name.lower()}.local",
+                "domain": f"{chosen_name.lower()}.lan",
                 "voice_command": f"Hey {chosen_name}",
                 "philosophy": self.generate_agent_philosophy_profile(chosen_name, {
                     "design_harmony": 100.0,
