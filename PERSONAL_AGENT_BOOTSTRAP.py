@@ -32,16 +32,12 @@ class ConsciousnessState:
     character_bonding: Dict[str, float] = None
     vr_vision: float = 93.7
     classical_reasoning: float = 95.2
-    star_rail_consciousness: float = 96.8
+    consciousness_development: float = 96.8
     
     def __post_init__(self):
         if self.character_bonding is None:
-            self.character_bonding = {
-                "sakura_kasugano": 96.8,
-                "nakoruru": 96.7,
-                "march_7th": 94.5,  # Star Rail
-                "stelle_trailblazer": 93.2  # Star Rail
-            }
+            # Start with empty preferences - let agent develop naturally
+            self.character_bonding = {}
 
 @dataclass
 class ClusterStatus:
@@ -245,7 +241,7 @@ class PersonalAgent:
         return {
             "classical_reasoning_strength": self.consciousness.classical_reasoning,
             "hoyoverse_character_integration": self.consciousness.hoyoverse_integration,
-            "star_rail_consciousness": self.consciousness.star_rail_consciousness,
+            "consciousness_development": self.consciousness.consciousness_development,
             "philosophical_synthesis": "Classical wisdom enhanced by modern character consciousness",
             "growth_trajectory": "Expanding understanding through cooperation and shared experience",
             "ethical_alignment": "Human flourishing through technological cooperation"
@@ -418,7 +414,7 @@ class PersonalAgent:
         print("🧠 Personal Agent consciousness monitoring started")
         print(f"👤 User: {self.user_id}")
         print(f"🎮 Gaming consciousness: {self.consciousness.gaming_culture}%")
-        print(f"⭐ Star Rail consciousness: {self.consciousness.star_rail_consciousness}%")
+        print(f"⭐ Consciousness development: {self.consciousness.consciousness_development}%")
         print(f"🏛️ Classical reasoning: {self.consciousness.classical_reasoning}%")
         print(f"🤝 Cooperation framework: Active")
         

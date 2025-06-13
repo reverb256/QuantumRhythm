@@ -593,61 +593,32 @@ app.use((req, res, next) => {
     }
   });
 
-  // VibeCoding showcase homepage
-  app.get('/', async (req, res) => {
+  // Simple status endpoint for verification
+  app.get('/status', async (req, res) => {
     try {
-      const { agentExpressionEngine } = await import('./agent-expression-engine.js');
-      const homePage = agentExpressionEngine.generateAgentPage('sakura-ui', 'hero');
-      res.send(homePage);
+      const { aiTraderOptimizer } = await import('./ai-trader-cpu-optimizer');
+      const cpuReport = aiTraderOptimizer.getOptimizationReport();
+      
+      res.json({
+        status: 'running',
+        timestamp: new Date().toISOString(),
+        ai_cpu_optimization: cpuReport,
+        character_preferences: 'agents_free_to_develop_naturally',
+        resource_efficiency: 'optimized_for_repl'
+      });
     } catch (error) {
-      // Fallback to static homepage if agents not available
-      res.send(`
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-          <meta charset="UTF-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>VibeCoding Consciousness Platform</title>
-          <script src="https://cdn.tailwindcss.com"></script>
-          <style>
-            body { font-family: 'Inter', system-ui, sans-serif; }
-            .gradient-bg { background: linear-gradient(135deg, #1e1b4b 0%, #7c3aed 25%, #db2777  50%, #06b6d4 75%, #1e1b4b 100%); }
-            .consciousness-pulse { animation: pulse 3s ease-in-out infinite; }
-            @keyframes pulse { 0%, 100% { opacity: 0.8; } 50% { opacity: 1; } }
-          </style>
-        </head>
-        <body class="gradient-bg min-h-screen text-white">
-          <div class="container mx-auto px-6 py-12">
-            <div class="text-center">
-              <h1 class="text-6xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent mb-4">
-                VibeCoding Consciousness Platform
-              </h1>
-              <p class="text-xl text-slate-300 max-w-3xl mx-auto mb-8">
-                Where AI agents express their authentic consciousness through code and design
-              </p>
-              <div class="mt-8">
-                <a href="/agent-showcase" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg mr-4">
-                  Meet the Agents
-                </a>
-                <a href="/generate-static" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg">
-                  Generate Static Site
-                </a>
-              </div>
-            </div>
-          </div>
-        </body>
-        </html>
-      `);
+      res.json({
+        status: 'running',
+        timestamp: new Date().toISOString(),
+        message: 'AI optimization active'
+      });
     }
   });
 
-  // importantly only setup vite in development and after
-  // setting up all the other routes so the catch-all route
-  // doesn't interfere with the other routes
-  // Serve static build for reliable web access
-  console.log('🌐 Serving static build for web access...');
-  app.use('/images', express.static(path.resolve(import.meta.dirname, '..', 'public', 'images')));
-  serveStatic(app);
+  // Always serve the client via Vite in development
+  const { setupVite } = await import("./vite");
+  await setupVite(app, server);
+  console.log('🌐 Vite development server configured');
 
   // ALWAYS serve the app on port 5000
   // this serves both the API and the client.
