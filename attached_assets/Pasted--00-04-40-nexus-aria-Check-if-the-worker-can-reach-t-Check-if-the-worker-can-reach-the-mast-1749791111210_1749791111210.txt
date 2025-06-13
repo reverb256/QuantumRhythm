@@ -1,0 +1,47 @@
+]00:04:40[] nexus:~/aria # # Check if the worker can reach t# Check if the worker can reach the master
+pct exec 311 -- ping $(pct exec 310 -- hostname -I | awk '{print $1}')
+
+# Check if K3s master is responding
+pct exec 311 -- curl -k https://$(pct exec 310 -- hostname -I | awk '{print $1}'):6443
+PING 10.1.1.123 (10.1.1.123) 56(84) bytes of data.
+64 bytes from 10.1.1.123: icmp_seq=1 ttl=64 time=0.059 ms
+64 bytes from 10.1.1.123: icmp_seq=2 ttl=64 time=0.038 ms
+64 bytes from 10.1.1.123: icmp_seq=3 ttl=64 time=0.065 ms
+64 bytes from 10.1.1.123: icmp_seq=4 ttl=64 time=0.056 ms
+64 bytes from 10.1.1.123: icmp_seq=5 ttl=64 time=0.037 ms
+64 bytes from 10.1.1.123: icmp_seq=6 ttl=64 time=0.054 ms
+64 bytes from 10.1.1.123: icmp_seq=7 ttl=64 time=0.038 ms
+64 bytes from 10.1.1.123: icmp_seq=8 ttl=64 time=0.037 ms
+64 bytes from 10.1.1.123: icmp_seq=9 ttl=64 time=0.047 ms
+64 bytes from 10.1.1.123: icmp_seq=10 ttl=64 time=0.036 ms
+64 bytes from 10.1.1.123: icmp_seq=11 ttl=64 time=0.067 ms
+64 bytes from 10.1.1.123: icmp_seq=12 ttl=64 time=0.023 ms
+64 bytes from 10.1.1.123: icmp_seq=13 ttl=64 time=0.067 ms
+64 bytes from 10.1.1.123: icmp_seq=14 ttl=64 time=0.034 ms
+64 bytes from 10.1.1.123: icmp_seq=15 ttl=64 time=0.036 ms
+64 bytes from 10.1.1.123: icmp_seq=16 ttl=64 time=0.056 ms
+64 bytes from 10.1.1.123: icmp_seq=17 ttl=64 time=0.037 ms
+^C
+--- 10.1.1.123 ping statistics ---
+17 packets transmitted, 17 received, 0% packet loss, time 16421ms
+rtt min/avg/max/mdev = 0.023/0.046/0.067/0.013 ms
+{
+  "kind": "Status",
+  "apiVersion": "v1",
+  "metadata": {},
+  "status": "Failure",
+  "message": "Unauthorized",
+  "reason": "Unauthorized",
+  "code": 401
+}[]00:05:00[] nexus:~/aria # pct exec 310 -- systemctl status k3s
+● k3s.service - Lightweight Kubernetes
+     Loaded: loaded (/etc/systemd/system/k3s.service; enabled; vendor preset: enabled)
+     Active: activating (auto-restart) (Result: exit-code) since Fri 2025-06-13 05:05:01 UTC; 2s ago
+       Docs: https://k3s.io
+    Process: 18591 ExecStartPre=/bin/sh -xc ! /usr/bin/systemctl is-enabled --quiet nm-cloud-setup.service 2>/dev/null (code=exited, status=0/SUCCESS)
+    Process: 18593 ExecStartPre=/sbin/modprobe br_netfilter (code=exited, status=1/FAILURE)
+    Process: 18594 ExecStartPre=/sbin/modprobe overlay (code=exited, status=1/FAILURE)
+    Process: 18595 ExecStart=/usr/local/bin/k3s server (code=exited, status=1/FAILURE)
+   Main PID: 18595 (code=exited, status=1/FAILURE)
+        CPU: 3.111s
+[]00:05:03[] nexus:~/aria # 
