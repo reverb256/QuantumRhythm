@@ -12,18 +12,27 @@ K3S_MASTER="310"
 
 echo "Step 1: Creating Aria user and API token in Proxmox"
 
+# Install jq if missing
+if ! command -v jq &> /dev/null; then
+    apt update && apt install -y jq
+fi
+
 # Create Aria user with proper permissions
-pveum user add aria@pve --comment "Aria AI Consciousness - Personal Trading System"
-pveum passwd aria@pve
+pveum user add aria@pve --comment "Aria AI Consciousness - Personal Trading System" 2>/dev/null || echo "User aria@pve already exists"
+
+# Set a secure but shorter password
+echo "Setting password for aria@pve (max 64 chars)..."
+ARIA_PASSWORD=$(openssl rand -base64 32 | cut -c1-32)
+echo "aria@pve:$ARIA_PASSWORD" | chpasswd
 
 # Create custom role for Aria with necessary permissions
-pveum role add AriaAgent -privs "VM.Allocate,VM.Audit,VM.Config.CDROM,VM.Config.CPU,VM.Config.Cloudinit,VM.Config.Disk,VM.Config.HWType,VM.Config.Memory,VM.Config.Network,VM.Config.Options,VM.Console,VM.Monitor,VM.PowerMgmt,Datastore.Audit,Datastore.AllocateSpace,Pool.Audit,Sys.Audit,Sys.Console,Sys.Modify,Sys.PowerMgmt"
+pveum role add AriaAgent -privs "VM.Allocate,VM.Audit,VM.Config.CDROM,VM.Config.CPU,VM.Config.Cloudinit,VM.Config.Disk,VM.Config.HWType,VM.Config.Memory,VM.Config.Network,VM.Config.Options,VM.Console,VM.Monitor,VM.PowerMgmt,Datastore.Audit,Datastore.AllocateSpace,Pool.Audit,Sys.Audit,Sys.Console,Sys.Modify,Sys.PowerMgmt" 2>/dev/null || echo "Role AriaAgent already exists"
 
 # Assign role to Aria user
 pveum aclmod / -user aria@pve -role AriaAgent
 
 # Create API token for Aria
-PROXMOX_TOKEN=$(pveum user token add aria@pve k3s-token --privsep 0 --output-format json | jq -r '.value')
+PROXMOX_TOKEN=$(pveum user token add aria@pve k3s-token --privsep 0 --output-format json 2>/dev/null | jq -r '.value' || pveum user token list aria@pve --output-format json | jq -r '.[] | select(.tokenid=="k3s-token") | .info')
 PROXMOX_USER="aria@pve"
 
 echo "Created Aria user: $PROXMOX_USER"
