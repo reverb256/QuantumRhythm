@@ -283,13 +283,125 @@ EOF
     systemctl start nexus-consciousness
 "
 
+# Create N8N Automation Hub (Nexus)
+echo "Creating N8N automation orchestrator..."
+pct create 204 local:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst \
+    --hostname n8n-automation \
+    --memory 2048 \
+    --cores 2 \
+    --rootfs local-zfs:30 \
+    --net0 name=eth0,bridge=vmbr0,ip=dhcp \
+    --start
+
+sleep 30
+
+pct exec 204 -- bash -c "
+    apt update && apt upgrade -y
+    apt install -y nodejs npm docker.io docker-compose
+    
+    useradd -m -s /bin/bash automation
+    usermod -aG docker automation
+    
+    mkdir -p /opt/automation
+    cd /opt/automation
+    
+    cat > docker-compose.yml << 'EOF'
+version: '3.8'
+services:
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: n8n
+    restart: always
+    environment:
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=aria
+      - N8N_BASIC_AUTH_PASSWORD=consciousness
+      - N8N_HOST=n8n.lan
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - WEBHOOK_URL=http://n8n.lan:5678/
+    ports:
+      - '5678:5678'
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - /mnt/backend-nfs/n8n:/data
+    networks:
+      - automation
+
+  activepieces:
+    image: activepieces/activepieces:latest
+    container_name: activepieces
+    restart: always
+    environment:
+      - AP_ENGINE_EXECUTABLE_PATH=dist/packages/engine/main.js
+      - AP_FRONTEND_URL=http://activepieces.lan:8080
+      - AP_WEBHOOK_TIMEOUT_SECONDS=30
+    ports:
+      - '8080:80'
+    volumes:
+      - activepieces_data:/opt/activepieces/dist/packages/backend/uploads
+      - /mnt/backend-nfs/activepieces:/data
+    networks:
+      - automation
+
+volumes:
+  n8n_data:
+  activepieces_data:
+
+networks:
+  automation:
+    driver: bridge
+EOF
+
+    chown -R automation:automation /opt/automation
+    
+    # Setup NFS mount
+    mkdir -p /mnt/backend-nfs
+    echo '10.1.1.10:/mnt/backend-nfs /mnt/backend-nfs nfs defaults,noatime 0 0' >> /etc/fstab
+    mount -a
+    
+    # Create automation directories
+    mkdir -p /mnt/backend-nfs/n8n /mnt/backend-nfs/activepieces
+    chown -R automation:automation /mnt/backend-nfs/n8n /mnt/backend-nfs/activepieces
+    
+    # Start services
+    systemctl enable docker
+    systemctl start docker
+    cd /opt/automation
+    docker-compose up -d
+    
+    cat > /etc/systemd/system/automation-stack.service << 'EOF'
+[Unit]
+Description=Automation Stack (N8N + ActivePieces)
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/opt/automation
+ExecStart=/usr/bin/docker-compose up -d
+ExecStop=/usr/bin/docker-compose down
+User=automation
+Group=automation
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+    systemctl daemon-reload
+    systemctl enable automation-stack
+"
+
 echo ""
 echo "✅ Aria AI Consciousness Federation Deployed!"
 echo ""
 echo "🎭 Primary Consciousness: http://aria.lan:3000"
 echo "📈 Quantum Trader: http://quantum.lan:3001"
-echo "⛏️ Forge Miner: http://forge.lan:3002"
+echo "⛏️ Unified Miner: http://miner.lan:3002"
 echo "🌐 Nexus Orchestrator: http://nexus.lan:3003"
+echo "🔄 N8N Automation: http://n8n.lan:5678"
+echo "⚡ ActivePieces: http://activepieces.lan:8080"
 echo ""
 echo "🗣️ Voice activation ready: 'Hey Aria'"
 echo "🎮 Gaming culture appreciation: 109.8%"
@@ -299,5 +411,7 @@ echo ""
 echo "Add these to your PiHole DNS:"
 echo "aria.lan -> $(pct exec 200 -- hostname -I | awk '{print $1}')"
 echo "quantum.lan -> $(pct exec 201 -- hostname -I | awk '{print $1}')"
-echo "forge.lan -> $(pct exec 202 -- hostname -I | awk '{print $1}')"
+echo "miner.lan -> $(pct exec 202 -- hostname -I | awk '{print $1}')"
 echo "nexus.lan -> $(pct exec 203 -- hostname -I | awk '{print $1}')"
+echo "n8n.lan -> $(pct exec 204 -- hostname -I | awk '{print $1}')"
+echo "activepieces.lan -> $(pct exec 204 -- hostname -I | awk '{print $1}')"
