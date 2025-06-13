@@ -32,10 +32,10 @@ SERVICE_CIDR="10.43.0.0/16"
 
 # VM Configuration for K3s nodes
 declare -A VM_CONFIG=(
-    ["nexus-k3s"]="vmid=300 cores=6 memory=16384 disk=80 ip=${NEXUS_IP} hostname=nexus-k3s role=master node=${NEXUS_IP}"
-    ["forge-k3s"]="vmid=301 cores=4 memory=12288 disk=60 ip=${FORGE_IP} hostname=forge-k3s role=worker node=${FORGE_IP}"
-    ["closet-k3s"]="vmid=302 cores=4 memory=8192 disk=50 ip=${CLOSET_IP} hostname=closet-k3s role=worker node=${CLOSET_IP}"
-    ["zephyr-prep"]="vmid=303 cores=8 memory=24576 disk=100 ip=${ZEPHYR_IP} hostname=zephyr-prep role=future node=${ZEPHYR_IP}"
+    ["nexus-k3s"]="vmid=1001 cores=6 memory=16384 disk=80 ip=${NEXUS_IP} hostname=nexus-k3s role=master node=${NEXUS_IP}"
+    ["forge-k3s"]="vmid=1002 cores=4 memory=12288 disk=60 ip=${FORGE_IP} hostname=forge-k3s role=worker node=${FORGE_IP}"
+    ["closet-k3s"]="vmid=1003 cores=4 memory=8192 disk=50 ip=${CLOSET_IP} hostname=closet-k3s role=worker node=${CLOSET_IP}"
+    ["zephyr-prep"]="vmid=1004 cores=8 memory=24576 disk=100 ip=${ZEPHYR_IP} hostname=zephyr-prep role=future node=${ZEPHYR_IP}"
 )
 
 log_step() {
@@ -695,10 +695,10 @@ main() {
     log_consciousness "🎯 K3s Consciousness Federation Deployment Complete!"
     echo ""
     echo "Cluster Configuration:"
-    echo "  Master: Nexus ($NEXUS_IP) - VM 300"
-    echo "  Worker: Forge ($FORGE_IP) - VM 301"  
-    echo "  Worker: Closet ($CLOSET_IP) - VM 302"
-    echo "  Future: Zephyr ($ZEPHYR_IP) - VM 303 (prep)"
+    echo "  Master: Nexus ($NEXUS_IP) - VM 1001"
+    echo "  Worker: Forge ($FORGE_IP) - VM 1002"  
+    echo "  Worker: Closet ($CLOSET_IP) - VM 1003"
+    echo "  Future: Zephyr ($ZEPHYR_IP) - VM 1004 (prep)"
     echo ""
     echo "Management Commands:"
     echo "  consciousness-cluster status    - Show cluster status"
