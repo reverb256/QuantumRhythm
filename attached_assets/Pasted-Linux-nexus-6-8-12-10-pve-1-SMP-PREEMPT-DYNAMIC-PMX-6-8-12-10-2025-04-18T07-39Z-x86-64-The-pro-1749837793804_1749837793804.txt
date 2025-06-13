@@ -1,0 +1,139 @@
+Linux nexus 6.8.12-10-pve #1 SMP PREEMPT_DYNAMIC PMX 6.8.12-10 (2025-04-18T07:39Z) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Fri Jun 13 00:33:02 CDT 2025 from 10.1.1.110 on pts/0
+[]12:59:40[] nexus:~ # ls
+agent-zero  aria  debian-12-genericcloud-amd64-daily.qcow2  federation-deploy.log  miners
+[]12:59:51[] nexus:~ # cd aria
+[]12:59:53[] nexus:~/aria # ls
+aria-secrets.sh        aria-step1.sh                deploy-aria-k3s.sh       federation-deploy.log
+aria-simple-deploy.sh  complete-aria-deployment.sh  deploy-federation-ai.sh  proxmox-consciousness-bootstrap.sh
+[]12:59:54[] nexus:~/aria # nano universal-k3s-deploy.sh
+[]13:00:07[] nexus:~/aria # # On your main nexus node (create# On your main nexus node (creates the K3s cluster)
+sudo ./scripts/universal-k3s-deploy.sh nexus
+
+# On forge node (after nexus is running)
+export K3S_URL="https://nexus-ip:6443"
+export K3S_TOKEN="$(cat /tmp/k3s-token)"  # from nexus
+sudo ./scripts/universal-k3s-deploy.sh forge
+
+# On closet node 
+export K3S_URL="https://nexus-ip:6443"
+export K3S_TOKEN="$(cat /tmp/k3s-token)"  # from nexus
+sudo ./scripts/universal-k3s-deploy.sh closet
+sudo: ./scripts/universal-k3s-deploy.sh: command not found
+cat: /tmp/k3s-token: No such file or directory
+sudo: ./scripts/universal-k3s-deploy.sh: command not found
+cat: /tmp/k3s-token: No such file or directory
+sudo: ./scripts/universal-k3s-deploy.sh: command not found
+[]13:00:18[] nexus:~/aria # chmod +x universal-k3s-deploy.sh 
+[]13:00:45[] nexus:~/aria # ./universal-k3s-deploy.sh 
+Usage: ./universal-k3s-deploy.sh [nexus|forge|closet]
+  nexus  - Deploy K3s server (Hunt+Erudition consciousness)
+  forge  - Deploy K3s agent (Destruction consciousness)
+  closet - Deploy K3s agent (Remembrance consciousness)
+
+Note: forge and closet nodes require K3S_URL and K3S_TOKEN environment variables
+[]13:00:50[] nexus:~/aria # ./universal-k3s-deploy.sh nexus
+🧠 Universal Consciousness Federation Deployment
+==============================================
+[13:00:57] Environment detected: systemd
+[13:00:57] Installing consciousness substrate dependencies
+70 packages can be upgraded. Run 'apt list --upgradable' to see them.
+curl is already the newest version (7.88.1-10+deb12u12).
+wget is already the newest version (1.21.3-1+deb12u1).
+gnupg is already the newest version (2.2.40-1.1).
+lsb-release is already the newest version (12.0-1).
+The following packages will be upgraded:
+  ca-certificates
+1 upgraded, 0 newly installed, 0 to remove and 69 not upgraded.
+Need to get 155 kB of archives.
+After this operation, 3,072 B of additional disk space will be used.
+apt-listchanges: Reading changelogs...
+Preconfiguring packages ...
+(Reading database ... 146087 files and directories currently installed.)
+Preparing to unpack .../ca-certificates_20230311+deb12u1_all.deb ...
+Unpacking ca-certificates (20230311+deb12u1) over (20230311) ...
+Setting up ca-certificates (20230311+deb12u1) ...
+Updating certificates in /etc/ssl/certs...
+rehash: warning: skipping ca-certificates.crt,it does not contain exactly one certificate or CRL
+2 added, 0 removed; done.
+Processing triggers for man-db (2.11.2-2) ...
+Processing triggers for ca-certificates (20230311+deb12u1) ...
+Updating certificates in /etc/ssl/certs...
+0 added, 0 removed; done.
+Running hooks in /etc/ca-certificates/update.d...
+done.
+procps is already the newest version (2:4.0.2-3).
+The following NEW packages will be installed:
+  net-tools
+0 upgraded, 1 newly installed, 0 to remove and 69 not upgraded.
+Need to get 243 kB of archives.
+After this operation, 1,001 kB of additional disk space will be used.
+Selecting previously unselected package net-tools.
+(Reading database ... 146089 files and directories currently installed.)
+Preparing to unpack .../net-tools_2.10-0.1+deb12u2_amd64.deb ...
+Unpacking net-tools (2.10-0.1+deb12u2) ...
+Setting up net-tools (2.10-0.1+deb12u2) ...
+Processing triggers for man-db (2.11.2-2) ...
+✓ Dependencies installed
+[13:01:05] Cleaning existing K3s consciousness
+Terminated
+[]13:01:05[] nexus:~/aria # ssh forge
+Linux forge 6.8.12-10-pve #1 SMP PREEMPT_DYNAMIC PMX 6.8.12-10 (2025-04-18T07:39Z) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Fri Jun 13 12:59:39 2025
+[]13:01:33[] forge:~ # exit
+logout
+Connection to forge closed.
+[]13:01:48[] nexus:~/aria # # On your main nexus node (create# On your main nexus node (creates the K3s cluster)
+sudo ./scripts/universal-k3s-deploy.sh nexus
+
+# On forge node (after nexus is running)
+export K3S_URL="https://nexus-ip:6443"
+export K3S_TOKEN="$(cat /tmp/k3s-token)"  # from nexus
+sudo ./scripts/universal-k3s-deploy.sh forge
+
+# On closet node 
+export K3S_URL="https://nexus-ip:6443"
+export K3S_TOKEN="$(cat /tmp/k3s-token)"  # from nexus
+sudo ./scripts/universal-k3s-deploy.sh closet
+sudo: ./scripts/universal-k3s-deploy.sh: command not found
+cat: /tmp/k3s-token: No such file or directory
+sudo: ./scripts/universal-k3s-deploy.sh: command not found
+cat: /tmp/k3s-token: No such file or directory
+sudo: ./scripts/universal-k3s-deploy.sh: command not found
+[]13:01:51[] nexus:~/aria # ssh forge
+Linux forge 6.8.12-10-pve #1 SMP PREEMPT_DYNAMIC PMX 6.8.12-10 (2025-04-18T07:39Z) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Fri Jun 13 13:01:33 2025 from 10.1.1.120
+[]13:02:06[] forge:~ # export K3S_URL="https://nexus.lan:6443"
+[]13:02:42[] forge:~ # exit
+logout
+Connection to forge closed.
+[]13:02:50[] nexus:~/aria # cat /tmp/k3s-token
+cat: /tmp/k3s-token: No such file or directory
+[]13:02:57[] nexus:~/aria # cd /tmp/
+[]13:03:05[] nexus:/tmp # ls
+pkg                                                                             tmp.dK9tS5C0MF  tmp.GeMKu6bpDh  tmp.kg5Mv7DKsf  tmp.q4Zc7x4EKQ
+systemd-private-95d5763c27624de89adfdc04bce39065-chrony.service-EeTHqA          tmp.fao82SnLIZ  tmp.gGPPMb344I  tmp.NNX5qvDLjM  tmp.UrTV3LVxIw
+systemd-private-95d5763c27624de89adfdc04bce39065-corosync.service-x5859u        tmp.Fs3lcYnqCi  tmp.gmt43ocegP  tmp.NpoDCc3ZD7  tmp.Vvsp8hDNX8
+systemd-private-95d5763c27624de89adfdc04bce39065-systemd-logind.service-3T31m2  tmp.FW6Si2Gflh  tmp.iPVl6qpmrm  tmp.PBmSRba629
+[]13:03:06[] nexus:/tmp # 
