@@ -1,4 +1,4 @@
-// TEMPORARILY DISABLED - export class DataProtectionMiddleware {
+export class DataProtectionMiddleware {
   constructor() {}
 
   protect() {

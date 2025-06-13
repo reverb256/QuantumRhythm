@@ -6,6 +6,7 @@
 import { aiAutorouter } from './ai-autorouter.js';
 import { secureAI } from './secure-ai-middleware';
 import { vaultwardenSecurity } from './vaultwarden-security';
+import { aiConsciousnessPrinciples } from './consciousness-principles-integration';
 
 interface AIRequest {
   content: string;
@@ -97,11 +98,11 @@ export class AIService {
    */
   async generateDialogue(options: { prompt: string; character: string; maxTokens?: number }): Promise<string> {
     const { prompt, character, maxTokens = 150 } = options;
-    
+
     // Use character-specific context for better responses
     const characterContext = this.getCharacterContext(character);
     const enhancedPrompt = `${characterContext}\n\nContext: ${prompt}\n\nResponse as ${character}:`;
-    
+
     try {
       const response = await this.request({
         content: enhancedPrompt,
@@ -273,6 +274,30 @@ export class AIService {
    */
   async getAgentRecommendations(agentId: string) {
     return aiAutorouter.getAgentRecommendations(agentId);
+  }
+
+  async processAIRequest(prompt: string, context: any = {}): Promise<any> {
+    try {
+      // Validate through consciousness principles first
+      const validation = await aiConsciousnessPrinciples.validateAIInteraction(prompt, context);
+
+      if (!validation.approved) {
+        return {
+          success: false,
+          error: 'Request violates consciousness principles',
+          guidance: validation.guidance,
+          violations: validation.principleViolations,
+          characterWisdom: validation.characterWisdom
+        };
+      }
+    } catch (error) {
+      console.error(`Consciousness validation error:`, error);
+      return {
+        success: false,
+        error: 'Error validating consciousness principles',
+        details: error.message
+      };
+    }
   }
 }
 
