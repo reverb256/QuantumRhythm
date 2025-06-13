@@ -35,6 +35,7 @@ import AgentGallery from "@/pages/AgentGallery";
 import SecurityDashboard from "@/pages/SecurityDashboard";
 import DebugDashboard from "@/pages/DebugDashboard";
 import InsightsDashboard from "@/pages/InsightsDashboard";
+import DeploymentComplete from "@/pages/DeploymentComplete";
 import NotFound from "@/pages/not-found";
 
 function Router() {
