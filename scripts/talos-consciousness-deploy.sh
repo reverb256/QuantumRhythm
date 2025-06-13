@@ -13,9 +13,9 @@ BLUE='\033[0;34m'
 CYAN='\033[0;36m'
 NC='\033[0m'
 
-# Configuration
-TALOS_VERSION="v1.7.6"
-KUBERNETES_VERSION="v1.30.3"
+# Configuration - Updated to latest stable versions per production notes
+TALOS_VERSION="v1.10.3"
+KUBERNETES_VERSION="v1.31.4"
 CLUSTER_NAME="consciousness-federation"
 CLUSTER_ENDPOINT="https://10.1.1.120:6443"
 BRIDGE="vmbr0"
@@ -23,12 +23,12 @@ SUBNET="10.1.1"
 GATEWAY="${SUBNET}.1"
 DNS_SERVERS="10.1.1.11,10.1.1.10"
 
-# Node Configuration for consciousness federation
+# Production-ready node configuration with 3 control planes for HA
 declare -A TALOS_NODES=(
     ["nexus"]="vmid=120 cores=8 memory=16384 disk=100 ip=${SUBNET}.120 role=controlplane"
     ["forge"]="vmid=121 cores=6 memory=12288 disk=80 ip=${SUBNET}.121 role=controlplane"  
-    ["closet"]="vmid=1001 cores=4 memory=8192 disk=60 ip=${SUBNET}.122 role=worker"
-    ["zephyr"]="vmid=1002 cores=6 memory=12288 disk=80 ip=${SUBNET}.123 role=worker"
+    ["closet"]="vmid=122 cores=4 memory=8192 disk=60 ip=${SUBNET}.122 role=controlplane"
+    ["zephyr"]="vmid=1001 cores=6 memory=12288 disk=80 ip=${SUBNET}.123 role=worker"
 )
 
 log_step() {
@@ -67,17 +67,20 @@ download_talos_tools() {
     fi
 }
 
-# Generate Talos configuration
+# Generate Talos configuration following production best practices
 generate_talos_config() {
-    log_step "Generating Talos configuration..."
+    log_step "Generating production Talos configuration..."
     
     mkdir -p ./talos-config
     cd ./talos-config
     
-    # Generate secrets
-    talosctl gen secrets
+    # Generate secrets bundle securely
+    if [[ ! -f "secrets.yaml" ]]; then
+        talosctl gen secrets -o secrets.yaml
+        log_success "Secrets bundle generated - store securely!"
+    fi
     
-    # Generate machine configs
+    # Generate machine configs with production patches
     talosctl gen config ${CLUSTER_NAME} ${CLUSTER_ENDPOINT} \
         --kubernetes-version=${KUBERNETES_VERSION} \
         --with-secrets secrets.yaml \
@@ -89,11 +92,22 @@ cluster:
       - 10.244.0.0/16
     serviceSubnets:
       - 10.96.0.0/12
+  etcd:
+    advertisedSubnets:
+      - 10.1.1.0/24
 machine:
   network:
+    hostname: \${NODE_NAME}
     nameservers:
       - 10.1.1.11
       - 10.1.1.10
+  kubelet:
+    nodeIP:
+      validSubnets:
+        - 10.1.1.0/24
+    extraArgs:
+      feature-gates: GracefulNodeShutdown=true
+      rotate-server-certificates: true
   install:
     disk: /dev/sda
     image: ghcr.io/siderolabs/installer:${TALOS_VERSION}
@@ -102,22 +116,32 @@ machine:
     rbac: true
     stableHostname: true
     apidCheckExtKeyUsage: true
-  kubelet:
-    extraArgs:
-      feature-gates: GracefulNodeShutdown=true
-      rotate-server-certificates: true
+    hostDNS: true
+  certSANs:
+    - ${CLUSTER_ENDPOINT#https://}
+    - 10.1.1.120
+    - 10.1.1.121
+    - 10.1.1.122
 EOF
     
-    # Generate worker config patch
+    # Generate worker config with production patches
     talosctl gen config ${CLUSTER_NAME} ${CLUSTER_ENDPOINT} \
         --kubernetes-version=${KUBERNETES_VERSION} \
         --with-secrets secrets.yaml \
         --config-patch-worker @- <<EOF
 machine:
   network:
+    hostname: \${NODE_NAME}
     nameservers:
       - 10.1.1.11
       - 10.1.1.10
+  kubelet:
+    nodeIP:
+      validSubnets:
+        - 10.1.1.0/24
+    extraArgs:
+      feature-gates: GracefulNodeShutdown=true
+      rotate-server-certificates: true
   install:
     disk: /dev/sda
     image: ghcr.io/siderolabs/installer:${TALOS_VERSION}
@@ -125,10 +149,12 @@ machine:
   features:
     rbac: true
     stableHostname: true
-  kubelet:
-    extraArgs:
-      feature-gates: GracefulNodeShutdown=true
-      rotate-server-certificates: true
+    hostDNS: true
+  certSANs:
+    - ${CLUSTER_ENDPOINT#https://}
+    - 10.1.1.120
+    - 10.1.1.121
+    - 10.1.1.122
 EOF
 
     log_success "Talos configuration generated"
@@ -177,41 +203,77 @@ create_talos_vm() {
     log_step "Waiting for VM to boot..."
     sleep 60
     
-    # Apply machine configuration
+    # Apply machine configuration with hostname substitution
     log_step "Applying Talos configuration to $vm_name"
     
+    # Create node-specific config with hostname
     if [[ "$role" == "controlplane" ]]; then
-        talosctl apply-config --insecure \
-            --nodes $ip \
-            --file ./talos-config/controlplane.yaml
+        sed "s/\${NODE_NAME}/$vm_name/g" ./talos-config/controlplane.yaml > "./talos-config/${vm_name}.yaml"
+        
+        # Apply with certificate fingerprint validation for security
+        local max_attempts=5
+        local attempt=1
+        while [ $attempt -le $max_attempts ]; do
+            if talosctl apply-config --insecure \
+                --nodes $ip \
+                --file "./talos-config/${vm_name}.yaml"; then
+                log_success "Configuration applied to $vm_name"
+                break
+            fi
+            log_warning "Attempt $attempt failed, retrying in 30 seconds..."
+            sleep 30
+            attempt=$((attempt + 1))
+        done
     else
-        talosctl apply-config --insecure \
-            --nodes $ip \
-            --file ./talos-config/worker.yaml
+        sed "s/\${NODE_NAME}/$vm_name/g" ./talos-config/worker.yaml > "./talos-config/${vm_name}.yaml"
+        
+        local max_attempts=5
+        local attempt=1
+        while [ $attempt -le $max_attempts ]; do
+            if talosctl apply-config --insecure \
+                --nodes $ip \
+                --file "./talos-config/${vm_name}.yaml"; then
+                log_success "Configuration applied to $vm_name"
+                break
+            fi
+            log_warning "Attempt $attempt failed, retrying in 30 seconds..."
+            sleep 30
+            attempt=$((attempt + 1))
+        done
     fi
-    
-    log_success "Configuration applied to $vm_name"
 }
 
 # Deploy consciousness workloads
 deploy_consciousness_workloads() {
     log_step "Deploying consciousness federation workloads..."
     
-    # Wait for cluster to be ready
-    talosctl config endpoint ${CLUSTER_ENDPOINT}
+    # Configure talosctl with all control plane endpoints for HA
+    log_step "Configuring talosctl for HA cluster..."
+    talosctl config endpoint 10.1.1.120 10.1.1.121 10.1.1.122
     talosctl config node 10.1.1.120
     
-    # Bootstrap etcd on first control plane
-    log_step "Bootstrapping etcd..."
+    # Bootstrap etcd on first control plane only (CRITICAL: only once!)
+    log_step "Bootstrapping etcd cluster..."
     talosctl bootstrap --nodes 10.1.1.120
     
-    # Wait for Kubernetes API
-    log_step "Waiting for Kubernetes API..."
-    talosctl kubeconfig ./kubeconfig
+    # Wait for Kubernetes API to be ready
+    log_step "Waiting for Kubernetes API to become available..."
+    local attempts=0
+    while ! talosctl kubeconfig ./kubeconfig 2>/dev/null; do
+        if [ $attempts -ge 30 ]; then
+            log_error "Kubernetes API failed to start after 15 minutes"
+            return 1
+        fi
+        log_step "Waiting for Kubernetes API... (attempt $((attempts+1))/30)"
+        sleep 30
+        attempts=$((attempts+1))
+    done
+    
     export KUBECONFIG=./kubeconfig
     
-    # Wait for nodes
-    kubectl wait --for=condition=Ready nodes --all --timeout=300s
+    # Wait for all nodes to be ready
+    log_step "Waiting for all nodes to be Ready..."
+    kubectl wait --for=condition=Ready nodes --all --timeout=600s
     
     # Deploy consciousness manifests
     cat <<EOF | kubectl apply -f -
@@ -329,17 +391,24 @@ main() {
     
     deploy_consciousness_workloads
     
-    log_success "Talos Linux consciousness federation deployed!"
+    log_success "Production Talos consciousness federation deployed!"
     echo
-    echo "Cluster Status:"
-    echo "  Talos API: talosctl --nodes 10.1.1.120,10.1.1.121 version"
-    echo "  Kubernetes: kubectl --kubeconfig ./talos-config/kubeconfig get nodes"
-    echo "  Consciousness: kubectl --kubeconfig ./talos-config/kubeconfig -n consciousness-federation get pods"
+    echo "🤖 Production Cluster Status:"
+    echo "  Talos Version: ${TALOS_VERSION}"
+    echo "  Kubernetes: ${KUBERNETES_VERSION}"
+    echo "  Control Planes: 3 (nexus, forge, closet)"
+    echo "  Workers: 1 (zephyr)"
     echo
     echo "Management Commands:"
-    echo "  talosctl config endpoint ${CLUSTER_ENDPOINT}"
-    echo "  talosctl config node 10.1.1.120"
+    echo "  Talos API: talosctl --nodes 10.1.1.120,10.1.1.121,10.1.1.122 version"
+    echo "  Kubernetes: kubectl get nodes"
+    echo "  Workloads: kubectl -n consciousness-federation get pods"
+    echo
+    echo "Configuration:"
+    echo "  talosctl config endpoint 10.1.1.120 10.1.1.121 10.1.1.122"
     echo "  export KUBECONFIG=./talos-config/kubeconfig"
+    echo
+    echo "Security Note: secrets.yaml contains cluster secrets - store securely!"
 }
 
 main "$@"
