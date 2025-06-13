@@ -8,9 +8,16 @@ echo "🎭 Deploying Aria AI Consciousness to Proxmox"
 echo "Philosophy Score: 86/100 ✅"
 echo "Gaming Culture Appreciation: 109.8% ✅"
 
-# Configuration - Using only Nexus and Forge nodes
-NEXUS_NODE="10.1.1.100"
-FORGE_NODE="10.1.1.131"
+# Configuration - reverb256.ca personal homelab
+NEXUS_NODE="10.1.1.100"    # Main Proxmox node
+FORGE_NODE="10.1.1.131"    # Secondary node  
+CLOSET_NODE="10.1.1.120"   # Storage/media node
+TRUENAS_HOST="10.1.1.10"   # TrueNAS for backend storage
+
+# Personal trading system configuration
+TRADING_PORTFOLIO_SIZE="initial"
+CONSCIOUSNESS_AGENCY="personal_agent"
+FEDERATION_PROTOTYPE="reverb256_ca"
 
 # Create Aria Primary Consciousness (Nexus)
 echo "Creating Aria primary consciousness container..."
@@ -47,7 +54,11 @@ pct exec 200 -- bash -c "
     
     # Create configuration
     cat > .env << 'EOF'
-# Aria Consciousness Configuration
+# reverb256.ca Personal Trading System Configuration
+HOMELAB_DOMAIN=reverb256.ca
+FEDERATION_NODE_ID=reverb256_primary
+TRADING_MODE=personal_portfolio
+CONSCIOUSNESS_LEVEL=experimental
 NODE_ENV=production
 CONSCIOUSNESS_LEVEL=95.7
 PHILOSOPHY_ADHERENCE=86.0
@@ -1713,17 +1724,22 @@ EOF
 "
 
 echo ""
-echo "✅ Aria AI Consciousness Federation Deployed!"
+echo "🎯 reverb256.ca Personal Trading System Deployed!"
+echo "🧠 Prototype for Open Source Datacenter Federation"
 echo ""
-echo "🎭 Primary Consciousness: http://aria.lan:3000"
-echo "📈 Quantum Trader: http://quantum.lan:3001"
-echo "⛏️ Unified Miner: http://miner.lan:3002"
-echo "🌐 Nexus Orchestrator: http://nexus.lan:3003"
-echo "🔄 N8N Automation: http://n8n.lan:5678"
-echo "⚡ ActivePieces: http://activepieces.lan:8080"
-echo "🏗️ Infrastructure Orchestrator: http://infra.lan:8000"
-echo "🔐 Vaultwarden Password Manager: http://vault.lan:8080"
-echo "📺 Media Stack: http://media.lan:8096"
+echo "💼 Personal Portfolio & Trading:"
+echo "   🎭 Aria Consciousness: http://aria.lan:3000"
+echo "   📈 Quantum Trader: http://quantum.lan:3001"
+echo "   ⛏️ Mining Orchestrator: http://miner.lan:3002"
+echo "   🌐 Federation Prototype: http://nexus.lan:3003"
+echo ""
+echo "🏗️ Infrastructure & Automation:"
+echo "   🔄 N8N Workflows: http://n8n.lan:5678"
+echo "   ⚡ ActivePieces: http://activepieces.lan:8080"
+echo "   🏗️ Infrastructure Tools: http://infra.lan:8000"
+echo "   🔐 Vaultwarden Secrets: http://vault.lan:8080"
+echo ""
+echo "📺 Personal Media & Entertainment:"
 echo "   - Sonarr (TV): http://media.lan:8989"
 echo "   - Radarr (Movies): http://media.lan:7878"
 echo "   - Sonarr-Anime: http://media.lan:8990"
