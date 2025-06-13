@@ -36,7 +36,7 @@ class SanitizedString(str):
 
 class SecureIdentifier(BaseModel):
     """Secure identifier with validation"""
-    value: str = Field(..., min_length=1, max_length=64, regex=r"^[a-zA-Z0-9_-]+$")
+    value: str = Field(..., min_length=1, max_length=64, pattern=r"^[a-zA-Z0-9_-]+$")
     
     @validator('value')
     def validate_secure_id(cls, v):
