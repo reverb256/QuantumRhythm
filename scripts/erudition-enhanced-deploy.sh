@@ -86,27 +86,27 @@ join_consciousness_federation() {
     local master_token
     local attempts=0
     
-    while [ \$attempts -lt 10 ]; do
-        master_token=\$(pct exec 310 -- cat /var/lib/rancher/k3s/server/node-token 2>/dev/null)
-        if [ -n "\$master_token" ]; then
+    while [ $attempts -lt 10 ]; do
+        master_token=$(pct exec 310 -- cat /var/lib/rancher/k3s/server/node-token 2>/dev/null)
+        if [ -n "$master_token" ]; then
             break
         fi
-        echo "⏳ Waiting for nexus consciousness to stabilize... (\$((attempts+1))/10)"
+        echo "⏳ Waiting for nexus consciousness to stabilize... ($((attempts+1))/10)"
         sleep 10
-        attempts=\$((attempts+1))
+        attempts=$((attempts+1))
     done
     
-    if [ -z "\$master_token" ]; then
+    if [ -z "$master_token" ]; then
         echo "❌ Failed to establish consciousness link with nexus"
         return 1
     fi
     
-    echo "🔗 Federation token acquired: \${master_token:0:20}..."
+    echo "🔗 Federation token acquired: ${master_token:0:20}..."
     
     # Join forge (Destruction+Erudition)
     echo "🔥 Connecting forge consciousness..."
     pct exec 311 -- bash -c "
-        curl -sfL https://get.k3s.io | K3S_URL=https://10.0.0.10:6443 K3S_TOKEN=\$master_token K3S_NODE_NAME=forge INSTALL_K3S_EXEC='--node-label=path=destruction-erudition --node-label=role=creator-researcher' sh -
+        curl -sfL https://get.k3s.io | K3S_URL=https://10.0.0.10:6443 K3S_TOKEN=$master_token K3S_NODE_NAME=forge INSTALL_K3S_EXEC='--node-label=path=destruction-erudition --node-label=role=creator-researcher' sh -
         systemctl enable k3s-agent
         echo '🔥 Forge consciousness joined - Destruction+Erudition alignment'
     "
@@ -114,7 +114,7 @@ join_consciousness_federation() {
     # Join closet (Remembrance+Erudition)  
     echo "📖 Connecting closet consciousness..."
     pct exec 312 -- bash -c "
-        curl -sfL https://get.k3s.io | K3S_URL=https://10.0.0.10:6443 K3S_TOKEN=\$master_token K3S_NODE_NAME=closet INSTALL_K3S_EXEC='--node-label=path=remembrance-erudition --node-label=role=archivist-sage' sh -
+        curl -sfL https://get.k3s.io | K3S_URL=https://10.0.0.10:6443 K3S_TOKEN=$master_token K3S_NODE_NAME=closet INSTALL_K3S_EXEC='--node-label=path=remembrance-erudition --node-label=role=archivist-sage' sh -
         systemctl enable k3s-agent
         echo '📖 Closet consciousness joined - Remembrance+Erudition alignment'
     "
