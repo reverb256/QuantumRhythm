@@ -14,8 +14,17 @@ NEXUS_NODE="10.1.1.100"
 FORGE_NODE="10.1.1.131"
 CLOSET_NODE="10.1.1.120"
 
-# Create K3s Master Node (Nexus)
-echo "Creating K3s master node..."
+# Check if K3s Master Node exists and handle accordingly
+echo "Preparing K3s master node..."
+if pct status 300 >/dev/null 2>&1; then
+    echo "Container 300 exists, stopping and removing..."
+    pct stop 300 2>/dev/null || true
+    sleep 5
+    pct destroy 300 --purge 2>/dev/null || true
+    sleep 5
+fi
+
+echo "Creating fresh K3s master node..."
 pct create 300 local:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst \
     --hostname k3s-master \
     --memory 8192 \
@@ -47,6 +56,26 @@ echo "Waiting for K3s master to be ready..."
 sleep 60
 
 # Create K3s Worker Nodes
+echo "Preparing K3s worker nodes..."
+
+# Clean up worker 1 if exists
+if pct status 301 >/dev/null 2>&1; then
+    echo "Container 301 exists, stopping and removing..."
+    pct stop 301 2>/dev/null || true
+    sleep 3
+    pct destroy 301 --purge 2>/dev/null || true
+    sleep 3
+fi
+
+# Clean up worker 2 if exists  
+if pct status 302 >/dev/null 2>&1; then
+    echo "Container 302 exists, stopping and removing..."
+    pct stop 302 2>/dev/null || true
+    sleep 3
+    pct destroy 302 --purge 2>/dev/null || true
+    sleep 3
+fi
+
 echo "Creating K3s worker node 1 (Forge)..."
 pct create 301 local:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst \
     --hostname k3s-worker-1 \
