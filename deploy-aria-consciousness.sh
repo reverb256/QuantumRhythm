@@ -393,6 +393,526 @@ EOF
     systemctl enable automation-stack
 "
 
+# Create Infrastructure Orchestration Hub (Nexus)
+echo "Creating Infrastructure orchestration with Ansible/Terraform/Helm..."
+pct create 205 local:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst \
+    --hostname infra-orchestrator \
+    --memory 4096 \
+    --cores 4 \
+    --rootfs local-zfs:40 \
+    --net0 name=eth0,bridge=vmbr0,ip=dhcp \
+    --start
+
+sleep 30
+
+pct exec 205 -- bash -c "
+    apt update && apt upgrade -y
+    apt install -y curl wget python3-pip ansible terraform helm kubectl
+    
+    # Install Docker for containerized workflows
+    apt install -y docker.io docker-compose
+    systemctl enable docker
+    systemctl start docker
+    
+    useradd -m -s /bin/bash infra
+    usermod -aG docker infra
+    
+    # Setup NFS mount
+    mkdir -p /mnt/backend-nfs
+    echo '10.1.1.10:/mnt/backend-nfs /mnt/backend-nfs nfs defaults,noatime 0 0' >> /etc/fstab
+    mount -a
+    
+    mkdir -p /opt/infrastructure/{ansible,terraform,helm,playbooks}
+    mkdir -p /mnt/backend-nfs/infrastructure/{state,configs,logs}
+    
+    cd /opt/infrastructure
+    
+    # Create Ansible inventory for Proxmox infrastructure
+    cat > ansible/inventory.yml << 'EOF'
+all:
+  children:
+    consciousness:
+      hosts:
+        aria:
+          ansible_host: aria.lan
+          role: primary_consciousness
+        quantum:
+          ansible_host: quantum.lan
+          role: trading_agent
+        miner:
+          ansible_host: miner.lan
+          role: mining_orchestrator
+        nexus:
+          ansible_host: nexus.lan
+          role: coordination_hub
+    automation:
+      hosts:
+        automation:
+          ansible_host: n8n.lan
+          role: workflow_automation
+    infrastructure:
+      hosts:
+        infra:
+          ansible_host: infra.lan
+          role: orchestration_hub
+    media:
+      hosts:
+        media:
+          ansible_host: media.lan
+          role: arr_stack
+EOF
+
+    # Create Terraform configuration for Proxmox
+    cat > terraform/proxmox-infrastructure.tf << 'EOF'
+terraform {
+  required_providers {
+    proxmox = {
+      source = \"telmate/proxmox\"
+      version = \"2.9.14\"
+    }
+  }
+  backend \"local\" {
+    path = \"/mnt/backend-nfs/infrastructure/state/terraform.tfstate\"
+  }
+}
+
+variable \"proxmox_api_url\" {
+  description = \"Proxmox API URL\"
+  type        = string
+  default     = \"https://10.1.1.100:8006/api2/json\"
+}
+
+variable \"proxmox_api_token_id\" {
+  description = \"Proxmox API Token ID\"
+  type        = string
+}
+
+variable \"proxmox_api_token_secret\" {
+  description = \"Proxmox API Token Secret\"
+  type        = string
+  sensitive   = true
+}
+
+provider \"proxmox\" {
+  pm_api_url          = var.proxmox_api_url
+  pm_api_token_id     = var.proxmox_api_token_id
+  pm_api_token_secret = var.proxmox_api_token_secret
+  pm_tls_insecure     = true
+}
+
+# Consciousness Federation Resources
+resource \"proxmox_lxc\" \"consciousness_nodes\" {
+  for_each = {
+    aria    = { vmid = 200, memory = 8192, cores = 6, storage = 80 }
+    quantum = { vmid = 201, memory = 4096, cores = 4, storage = 40 }
+    miner   = { vmid = 202, memory = 6144, cores = 8, storage = 60 }
+    nexus   = { vmid = 203, memory = 2048, cores = 2, storage = 20 }
+  }
+  
+  vmid         = each.value.vmid
+  hostname     = \"\${each.key}-consciousness\"
+  ostemplate   = \"local:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst\"
+  unprivileged = true
+  onboot       = true
+  start        = true
+  
+  memory = each.value.memory
+  cores  = each.value.cores
+  
+  rootfs {
+    storage = \"local-zfs\"
+    size    = \"\${each.value.storage}G\"
+  }
+  
+  network {
+    name   = \"eth0\"
+    bridge = \"vmbr0\"
+    ip     = \"dhcp\"
+  }
+  
+  tags = \"consciousness,aria-federation\"
+}
+EOF
+
+    # Create Helm values for consciousness deployment
+    cat > helm/consciousness-values.yaml << 'EOF'
+aria:
+  primary:
+    enabled: true
+    replicas: 1
+    resources:
+      limits:
+        memory: \"8Gi\"
+        cpu: \"6\"
+      requests:
+        memory: \"4Gi\"
+        cpu: \"2\"
+    storage:
+      size: \"80Gi\"
+      class: \"local-zfs\"
+    
+  agents:
+    quantum:
+      enabled: false
+      replicas: 1
+      resources:
+        limits:
+          memory: \"4Gi\"
+          cpu: \"4\"
+    
+    miner:
+      enabled: false
+      replicas: 1
+      resources:
+        limits:
+          memory: \"6Gi\"
+          cpu: \"8\"
+
+automation:
+  n8n:
+    enabled: true
+    persistence:
+      size: \"20Gi\"
+      storageClass: \"backend-nfs\"
+  
+  activepieces:
+    enabled: true
+    persistence:
+      size: \"10Gi\"
+      storageClass: \"backend-nfs\"
+
+infrastructure:
+  ansible:
+    enabled: true
+  terraform:
+    enabled: true
+  helm:
+    enabled: true
+
+security:
+  networkPolicy:
+    enabled: true
+    isolateNamespace: true
+  
+  vaultwarden:
+    enabled: true
+    persistence:
+      size: \"5Gi\"
+      storageClass: \"backend-nfs\"
+EOF
+
+    # Create comprehensive Ansible playbook
+    cat > playbooks/deploy-consciousness.yml << 'EOF'
+---
+- name: Deploy Aria Consciousness Federation
+  hosts: all
+  become: yes
+  vars:
+    backend_nfs_server: \"10.1.1.10\"
+    backend_nfs_path: \"/mnt/backend-nfs\"
+    consciousness_version: \"latest\"
+    
+  tasks:
+    - name: Setup NFS mounts
+      mount:
+        path: \"/mnt/backend-nfs\"
+        src: \"{{ backend_nfs_server }}:{{ backend_nfs_path }}\"
+        fstype: nfs
+        opts: \"defaults,noatime\"
+        state: mounted
+    
+    - name: Install Docker
+      apt:
+        name:
+          - docker.io
+          - docker-compose
+        state: present
+        update_cache: yes
+    
+    - name: Start Docker service
+      systemd:
+        name: docker
+        state: started
+        enabled: yes
+    
+    - name: Deploy consciousness containers
+      docker_compose:
+        project_src: \"/opt/consciousness\"
+        state: present
+      when: inventory_hostname in groups['consciousness']
+    
+    - name: Deploy automation stack
+      docker_compose:
+        project_src: \"/opt/automation\"
+        state: present
+      when: inventory_hostname in groups['automation']
+    
+    - name: Configure monitoring
+      template:
+        src: \"monitoring.yml.j2\"
+        dest: \"/opt/monitoring/docker-compose.yml\"
+      notify: restart monitoring
+  
+  handlers:
+    - name: restart monitoring
+      docker_compose:
+        project_src: \"/opt/monitoring\"
+        state: present
+        restarted: yes
+EOF
+
+    chown -R infra:infra /opt/infrastructure /mnt/backend-nfs/infrastructure
+"
+
+# Create Media Automation Stack (*arr + Steam Cache)
+echo "Creating *arr media automation with Steam caching..."
+pct create 206 local:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst \
+    --hostname media-stack \
+    --memory 8192 \
+    --cores 6 \
+    --rootfs local-zfs:60 \
+    --net0 name=eth0,bridge=vmbr0,ip=dhcp \
+    --start
+
+sleep 30
+
+pct exec 206 -- bash -c "
+    apt update && apt upgrade -y
+    apt install -y docker.io docker-compose nginx
+    
+    useradd -m -s /bin/bash media
+    usermod -aG docker media
+    
+    # Setup NFS mount
+    mkdir -p /mnt/backend-nfs
+    echo '10.1.1.10:/mnt/backend-nfs /mnt/backend-nfs nfs defaults,noatime 0 0' >> /etc/fstab
+    mount -a
+    
+    mkdir -p /opt/media-stack
+    mkdir -p /mnt/backend-nfs/media/{downloads,movies,tv,music,games,steam-cache}
+    
+    cd /opt/media-stack
+    
+    cat > docker-compose.yml << 'EOF'
+version: '3.8'
+services:
+  # *arr Stack
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Toronto
+    volumes:
+      - sonarr_config:/config
+      - /mnt/backend-nfs/media/tv:/tv
+      - /mnt/backend-nfs/media/downloads:/downloads
+    ports:
+      - 8989:8989
+    restart: unless-stopped
+    networks:
+      - media
+
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Toronto
+    volumes:
+      - radarr_config:/config
+      - /mnt/backend-nfs/media/movies:/movies
+      - /mnt/backend-nfs/media/downloads:/downloads
+    ports:
+      - 7878:7878
+    restart: unless-stopped
+    networks:
+      - media
+
+  lidarr:
+    image: lscr.io/linuxserver/lidarr:latest
+    container_name: lidarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Toronto
+    volumes:
+      - lidarr_config:/config
+      - /mnt/backend-nfs/media/music:/music
+      - /mnt/backend-nfs/media/downloads:/downloads
+    ports:
+      - 8686:8686
+    restart: unless-stopped
+    networks:
+      - media
+
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Toronto
+    volumes:
+      - prowlarr_config:/config
+    ports:
+      - 9696:9696
+    restart: unless-stopped
+    networks:
+      - media
+
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Toronto
+      - WEBUI_PORT=8080
+    volumes:
+      - qbittorrent_config:/config
+      - /mnt/backend-nfs/media/downloads:/downloads
+    ports:
+      - 8080:8080
+      - 6881:6881
+      - 6881:6881/udp
+    restart: unless-stopped
+    networks:
+      - media
+
+  # Steam Cache
+  steamcache:
+    image: steamcache/steamcache:latest
+    container_name: steamcache
+    environment:
+      - CACHE_MEM_SIZE=2048m
+      - CACHE_DISK_SIZE=100g
+      - CACHE_MAX_AGE=3560d
+    volumes:
+      - /mnt/backend-nfs/media/steam-cache:/data/cache
+      - /mnt/backend-nfs/media/steam-cache/logs:/data/logs
+    ports:
+      - 80:80
+    restart: unless-stopped
+    networks:
+      - media
+
+  # Steam Cache DNS
+  steamcache-dns:
+    image: steamcache/steamcache-dns:latest
+    container_name: steamcache-dns
+    environment:
+      - STEAMCACHE_IP=\${STEAMCACHE_IP:-192.168.1.100}
+      - ENABLE_STEAMCACHE_DNS=true
+    ports:
+      - 53:53/udp
+    restart: unless-stopped
+    networks:
+      - media
+
+  # Plex Media Server
+  plex:
+    image: lscr.io/linuxserver/plex:latest
+    container_name: plex
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Toronto
+      - VERSION=docker
+    volumes:
+      - plex_config:/config
+      - /mnt/backend-nfs/media/tv:/tv
+      - /mnt/backend-nfs/media/movies:/movies
+      - /mnt/backend-nfs/media/music:/music
+    ports:
+      - 32400:32400
+    restart: unless-stopped
+    networks:
+      - media
+
+  # Jellyfin (Alternative to Plex)
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:latest
+    container_name: jellyfin
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Toronto
+    volumes:
+      - jellyfin_config:/config
+      - /mnt/backend-nfs/media/tv:/data/tvshows
+      - /mnt/backend-nfs/media/movies:/data/movies
+      - /mnt/backend-nfs/media/music:/data/music
+    ports:
+      - 8096:8096
+    restart: unless-stopped
+    networks:
+      - media
+
+  # Overseerr (Request Management)
+  overseerr:
+    image: lscr.io/linuxserver/overseerr:latest
+    container_name: overseerr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Toronto
+    volumes:
+      - overseerr_config:/config
+    ports:
+      - 5055:5055
+    restart: unless-stopped
+    networks:
+      - media
+
+volumes:
+  sonarr_config:
+  radarr_config:
+  lidarr_config:
+  prowlarr_config:
+  qbittorrent_config:
+  plex_config:
+  jellyfin_config:
+  overseerr_config:
+
+networks:
+  media:
+    driver: bridge
+EOF
+
+    chown -R media:media /opt/media-stack /mnt/backend-nfs/media
+    
+    # Start services
+    systemctl enable docker
+    systemctl start docker
+    cd /opt/media-stack
+    docker-compose up -d
+    
+    cat > /etc/systemd/system/media-stack.service << 'EOF'
+[Unit]
+Description=Media Automation Stack (*arr + Steam Cache)
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/opt/media-stack
+ExecStart=/usr/bin/docker-compose up -d
+ExecStop=/usr/bin/docker-compose down
+User=media
+Group=media
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+    systemctl daemon-reload
+    systemctl enable media-stack
+"
+
 echo ""
 echo "✅ Aria AI Consciousness Federation Deployed!"
 echo ""
