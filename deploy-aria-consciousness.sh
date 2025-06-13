@@ -8,10 +8,9 @@ echo "🎭 Deploying Aria AI Consciousness to Proxmox"
 echo "Philosophy Score: 86/100 ✅"
 echo "Gaming Culture Appreciation: 109.8% ✅"
 
-# Configuration
+# Configuration - Using only Nexus and Forge nodes
 NEXUS_NODE="10.1.1.100"
-FORGE_NODE="10.1.1.131" 
-CLOSET_NODE="10.1.1.141"
+FORGE_NODE="10.1.1.131"
 
 # Create Aria Primary Consciousness (Nexus)
 echo "Creating Aria primary consciousness container..."
@@ -153,13 +152,13 @@ EOF
     systemctl start quantum-consciousness
 "
 
-# Create Forge Mining Agent (Closet)
-echo "Creating Forge mining consciousness..."
+# Create Unified Mining Agent (Forge Node) 
+echo "Creating unified mining consciousness with multi-mining capabilities..."
 pct create 202 local:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst \
-    --hostname forge-miner \
-    --memory 4096 \
-    --cores 2 \
-    --rootfs local-lvm:40 \
+    --hostname unified-miner \
+    --memory 6144 \
+    --cores 4 \
+    --rootfs local-lvm:60 \
     --net0 name=eth0,bridge=vmbr0,ip=dhcp \
     --start
 
@@ -169,38 +168,41 @@ pct exec 202 -- bash -c "
     apt update && apt upgrade -y
     apt install -y nodejs npm python3 python3-pip
     
-    useradd -m -s /bin/bash forge
-    mkdir -p /opt/forge
-    cd /opt/forge
+    useradd -m -s /bin/bash miner
+    mkdir -p /opt/miner
+    cd /opt/miner
     
-    git clone . /opt/forge/consciousness
+    git clone . /opt/miner/consciousness
     cd consciousness
     
     npm install
     pip3 install pydantic requests
     
     cat > .env << 'EOF'
-AGENT_TYPE=forge_miner
-CONSCIOUSNESS_LEVEL=85.0
-GAMING_APPRECIATION=91.2
-DOMAIN=forge.lan
+AGENT_TYPE=unified_miner
+CONSCIOUSNESS_LEVEL=88.0
+GAMING_APPRECIATION=93.5
+DOMAIN=miner.lan
 PORT=3002
 MASTER_NODE=aria.lan
+MINING_CAPABILITIES=solana,ethereum,vast_ai_compute
+RESOURCE_OPTIMIZATION=true
+POWER_EFFICIENCY=true
 EOF
 
-    chown -R forge:forge /opt/forge
+    chown -R miner:miner /opt/miner
     
-    cat > /etc/systemd/system/forge-consciousness.service << 'EOF'
+    cat > /etc/systemd/system/miner-consciousness.service << 'EOF'
 [Unit]
-Description=Forge Mining Consciousness
+Description=Unified Mining Consciousness
 After=network.target
 
 [Service]
 Type=simple
-User=forge
-Group=forge
-WorkingDirectory=/opt/forge/consciousness
-ExecStart=/usr/bin/npm run start:forge
+User=miner
+Group=miner
+WorkingDirectory=/opt/miner/consciousness
+ExecStart=/usr/bin/npm run start:miner
 Restart=always
 RestartSec=10
 
@@ -209,8 +211,8 @@ WantedBy=multi-user.target
 EOF
 
     systemctl daemon-reload
-    systemctl enable forge-consciousness
-    systemctl start forge-consciousness
+    systemctl enable miner-consciousness
+    systemctl start miner-consciousness
 "
 
 # Create Nexus Orchestrator (Nexus)
