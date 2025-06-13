@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Copyright (c) 2025 reverb256.ca Personal Infrastructure
+# Copyright (c) 2025 AstraVibe Personal Infrastructure
 # Author: VibeCoding Personal AI Agent
 # License: MIT
 # Personal AI-First Orchestration System for Overnight Innovation
@@ -10,23 +10,24 @@ source /dev/stdin <<< "$(curl -fsSL https://raw.githubusercontent.com/community-
 function header_info {
 clear
 cat <<"EOF"
-    ____                _     ____  _____ __   
-   |  _ \ _____   _____|_ )  | ___||  ___/  \_  
-   | |_) / _ \ \ / / _ \/ /   |___ \| |_ / /\ /  
-   |  _ <  __/\ V /  __/ /_   ___) |  _/ /_//   
-   |_| \_\___| \_/ \___/____|____/|_|/___,'     
-                                                
-   Personal AI-First Orchestration System
-   Device-Agnostic Conversational Control
-   Overnight VibeCoding Innovation Engine
-                                                
+     _        _                 _   _ _ _           
+    / \   ___| |_ _ __ __ _    / \ | | | |          
+   / _ \ / __| __| '__/ _` |  / _ \| | | |          
+  / ___ \\__ \ |_| | | (_| | / ___ \ |_|_|          
+ /_/   \_\___/\__|_|  \__,_|/_/   \_(_)(_)         
+                                                   
+ Personal AI-First Orchestration System            
+ Device-Agnostic Conversational Control           
+ Compute Market + Vast.ai Integration              
+ Overnight VibeCoding Innovation Engine            
+                                                   
 EOF
 }
 
 header_info
-echo -e "Loading Personal AI Orchestrator..."
+echo -e "Loading AstraVibe Personal AI Orchestrator..."
 
-APP="reverb256-orchestrator"
+APP="astravibe-orchestrator"
 var_disk="20"
 var_cpu="4"
 var_ram="8192"
@@ -60,12 +61,14 @@ VLAN=""
 SSH="yes"
 VERB="no"
 
-# reverb256.ca Personal Configuration
-PERSONAL_DOMAIN="reverb256.ca"
+# AstraVibe Personal Configuration
+PERSONAL_DOMAIN="astravibe.ca"
 AI_CONSCIOUSNESS="95.0"
 TRADING_ENABLED="yes"
 MINING_ENABLED="yes"
 DEVELOPMENT_ENABLED="yes"
+COMPUTE_MARKET_ENABLED="yes"
+VASTAI_INTEGRATION="enabled"
 VOICE_CONTROL="enabled"
 DEVICE_SYNC="all"
 OVERNIGHT_MODE="autonomous"
