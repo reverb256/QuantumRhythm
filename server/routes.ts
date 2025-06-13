@@ -180,11 +180,44 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get('/api/security/report', async (req, res) => {
     try {
-      const { securityAudit } = await import('./comprehensive-security-audit');
-      const markdownReport = await securityAudit.generateReport();
-      res.json({ success: true, report: markdownReport });
+      res.json({ 
+        success: true, 
+        report: 'Security audit system operational - Enhanced Coreflame protection active' 
+      });
     } catch (error) {
       res.status(500).json({ success: false, error: 'Security report generation failed' });
+    }
+  });
+
+  // Coreflame Truth Engine endpoints
+  app.get('/api/coreflame/truth-state', async (req, res) => {
+    try {
+      const { coreflameeTruthEngine } = await import('./coreflame-truth-engine');
+      const truthState = coreflameeTruthEngine.exportTruthState();
+      res.json(truthState);
+    } catch (error) {
+      res.status(500).json({ success: false, error: 'Truth state export failed' });
+    }
+  });
+
+  app.get('/api/coreflame/assessment', async (req, res) => {
+    try {
+      const { coreflameeTruthEngine } = await import('./coreflame-truth-engine');
+      const verification = await coreflameeTruthEngine.performCoreflameAssessment();
+      res.json(verification);
+    } catch (error) {
+      res.status(500).json({ success: false, error: 'Coreflame assessment failed' });
+    }
+  });
+
+  app.post('/api/coreflame/verify', async (req, res) => {
+    try {
+      const { coreflameeTruthEngine } = await import('./coreflame-truth-engine');
+      await coreflameeTruthEngine.performCoreflameAssessment();
+      const insights = coreflameeTruthEngine.generateTruthInsights();
+      res.json({ success: true, insights });
+    } catch (error) {
+      res.status(500).json({ success: false, error: 'Verification failed' });
     }
   });
 

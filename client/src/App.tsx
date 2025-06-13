@@ -37,6 +37,7 @@ import SecurityCompliance from "@/pages/SecurityCompliance";
 import DebugDashboard from "@/pages/DebugDashboard";
 import InsightsDashboard from "@/pages/InsightsDashboard";
 import DeploymentComplete from "@/pages/DeploymentComplete";
+import CoreflameVerifier from "@/pages/CoreflameVerifier";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -108,6 +109,7 @@ function Router() {
         <Route path="/security-compliance" component={SecurityCompliance} />
         <Route path="/debug" component={DebugDashboard} />
         <Route path="/insights" component={InsightsDashboard} />
+        <Route path="/coreflame" component={CoreflameVerifier} />
         <Route path="/contact" component={Contact} />
         
         {/* Redirect legacy routes to main sections */}

@@ -6,7 +6,7 @@
 import { aiAutorouter } from './ai-autorouter.js';
 import { secureAI } from './secure-ai-middleware';
 import { vaultwardenSecurity } from './vaultwarden-security';
-import { aiConsciousnessPrinciples } from './consciousness-principles-integration';
+import { consciousnessPrinciplesIntegration } from './consciousness-principles-integration';
 
 interface AIRequest {
   content: string;
