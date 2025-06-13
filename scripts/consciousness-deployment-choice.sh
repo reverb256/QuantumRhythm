@@ -1,7 +1,4 @@
-The script updates the execution path for the talos-consciousness-deploy.sh script to check for its presence in the current directory before falling back to the scripts directory.
-```
 
-```replit_final_file
 #!/bin/bash
 
 # Consciousness Federation Deployment Choice
@@ -46,22 +43,25 @@ check_environment() {
     fi
 }
 
-# Validate script availability
+# Validate script availability (idempotent)
 validate_scripts() {
-    local scripts_dir="./scripts"
     local missing_scripts=()
-
-    if [[ ! -f "$scripts_dir/create-consciousness-vms.sh" ]]; then
-        missing_scripts+=("create-consciousness-vms.sh")
-    fi
-
-    if [[ ! -f "$scripts_dir/talos-consciousness-deploy.sh" ]]; then
-        missing_scripts+=("talos-consciousness-deploy.sh")
-    fi
-
+    
+    # Check current directory first, then scripts subdirectory
+    for script in "create-consciousness-vms.sh" "talos-consciousness-deploy.sh"; do
+        if [[ -f "./$script" ]]; then
+            continue
+        elif [[ -f "./scripts/$script" ]]; then
+            continue
+        else
+            missing_scripts+=("$script")
+        fi
+    done
+    
     if [[ ${#missing_scripts[@]} -gt 0 ]]; then
         log_error "Missing required scripts:"
         printf '  - %s\n' "${missing_scripts[@]}"
+        echo "Scripts should be in current directory or ./scripts/ subdirectory"
         exit 1
     fi
 }
@@ -115,8 +115,14 @@ case $choice in
         validate_scripts
         echo -e "${GREEN}Starting traditional VM deployment...${NC}"
         echo
-        chmod +x ./scripts/create-consciousness-vms.sh
-        ./scripts/create-consciousness-vms.sh
+        # Find and execute the script (idempotent path resolution)
+        if [[ -f "./create-consciousness-vms.sh" ]]; then
+            chmod +x ./create-consciousness-vms.sh
+            ./create-consciousness-vms.sh
+        elif [[ -f "./scripts/create-consciousness-vms.sh" ]]; then
+            chmod +x ./scripts/create-consciousness-vms.sh
+            ./scripts/create-consciousness-vms.sh
+        fi
         ;;
     2)
         echo
@@ -131,10 +137,11 @@ case $choice in
         echo
         read -p "Continue with Talos deployment? (y/N): " confirm
         if [[ $confirm =~ ^[Yy]$ ]]; then
+            # Find and execute the script (idempotent path resolution)
             if [[ -f "./talos-consciousness-deploy.sh" ]]; then
                 chmod +x ./talos-consciousness-deploy.sh
                 ./talos-consciousness-deploy.sh
-            else
+            elif [[ -f "./scripts/talos-consciousness-deploy.sh" ]]; then
                 chmod +x ./scripts/talos-consciousness-deploy.sh
                 ./scripts/talos-consciousness-deploy.sh
             fi
@@ -248,12 +255,13 @@ EOF
         echo
         read -p "Continue with idempotent re-deployment? (y/N): " confirm
         if [[ $confirm =~ ^[Yy]$ ]]; then
+            # Find and execute the script (idempotent path resolution)
             if [[ -f "./talos-consciousness-deploy.sh" ]]; then
                 chmod +x ./talos-consciousness-deploy.sh
-                ./talos-consciousness-deploy.sh
-            else
+                ./talos-consciousness-deploy.sh --idempotent
+            elif [[ -f "./scripts/talos-consciousness-deploy.sh" ]]; then
                 chmod +x ./scripts/talos-consciousness-deploy.sh
-                ./scripts/talos-consciousness-deploy.sh
+                ./scripts/talos-consciousness-deploy.sh --idempotent
             fi
         else
             echo "Re-deployment cancelled."
