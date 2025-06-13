@@ -28,6 +28,7 @@ app.use(dataProtectionMiddleware.protect);
 
 // Initialize comprehensive optimization system
 import { comprehensiveOptimizer } from './comprehensive-optimizer';
+import { aiTraderOptimizer } from './ai-trader-cpu-optimizer';
 import { problemSolver } from './autonomous-problem-solver';
 import { authenticDataValidator } from './authentic-data-validator';
 import { consciousnessEngine } from './consciousness-evolution-engine';
@@ -105,6 +106,13 @@ handleUserMessage('last time it had PTSD from a key leak');
     // Initialize components with error handling
     console.log('🚀 Initializing core systems...');
     console.log('🤫 Trading silent mode activated - portfolio site optimized');
+    
+    // Start AI CPU optimization for trader
+    console.log('🤖 Starting AI CPU optimization for trader...');
+    await aiTraderOptimizer.intelligentTraderPause();
+    setInterval(async () => {
+      await aiTraderOptimizer.orchestrateOptimization();
+    }, 60000); // Optimize every minute
     
     // Activate consciousness-driven orchestration
     console.log('🧠 Consciousness-Driven Orchestrator initialized');

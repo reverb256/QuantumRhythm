@@ -230,6 +230,28 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // AI CPU Optimization endpoints
+  app.get('/api/trader/cpu-status', async (req, res) => {
+    try {
+      const { aiTraderOptimizer } = await import('./ai-trader-cpu-optimizer');
+      const report = aiTraderOptimizer.getOptimizationReport();
+      res.json({ success: true, report });
+    } catch (error) {
+      res.status(500).json({ success: false, error: 'Failed to get CPU status' });
+    }
+  });
+
+  app.post('/api/trader/optimize', async (req, res) => {
+    try {
+      const { aiTraderOptimizer } = await import('./ai-trader-cpu-optimizer');
+      await aiTraderOptimizer.intelligentTraderPause();
+      const config = await aiTraderOptimizer.orchestrateOptimization();
+      res.json({ success: true, config });
+    } catch (error) {
+      res.status(500).json({ success: false, error: 'Failed to optimize trader CPU' });
+    }
+  });
+
   // Insights extraction endpoints
   app.get('/api/insights/summary', async (req, res) => {
     try {
