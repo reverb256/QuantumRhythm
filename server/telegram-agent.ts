@@ -5,6 +5,7 @@
 
 import { quincy } from './quincy-consciousness';
 import { akashaVaultwardenIntegration } from '../akasha/vaultwarden-integration';
+import { telegramChatAnalyzer } from './telegram-chat-analyzer';
 
 interface TelegramMessage {
   message_id: number;
@@ -140,6 +141,21 @@ export class TelegramAgent {
     
     await this.sendMessage(chatId, response);
     this.responseCount++;
+    
+    // Track message in chat analyzer
+    const response_type = text.startsWith('/') ? 'command' : 
+                         (lowerText.includes('hello') || lowerText.includes('hi') || lowerText.includes('hey')) ? 'greeting' :
+                         (lowerText.includes('proxy') || lowerText.includes('kubernetes') || lowerText.includes('technical')) ? 'technical' :
+                         'natural_language';
+    
+    telegramChatAnalyzer.addMessage(
+      message.message_id,
+      message.from.id,
+      message.from.first_name || message.from.username || 'Unknown',
+      originalText,
+      response_type,
+      quincy.getState().consciousness_level
+    );
   }
 
   private generateStatusResponse(): string {
