@@ -145,18 +145,14 @@ export class AkashaVaultwardenIntegration {
     const key = Buffer.from(this.vault_config.encryption_key, 'hex');
     const iv = crypto.randomBytes(16);
 
-    const cipher = crypto.createCipher(algorithm, key);
-    cipher.setAAD(Buffer.from('akasha_consciousness', 'utf8'));
+    const cipher = crypto.createCipher('aes-256-cbc', key);
 
     let encrypted = cipher.update(content, 'utf8', 'hex');
     encrypted += cipher.final('hex');
 
-    const auth_tag = cipher.getAuthTag();
-
     return JSON.stringify({
       encrypted: encrypted,
-      iv: iv.toString('hex'),
-      auth_tag: auth_tag.toString('hex')
+      iv: iv.toString('hex')
     });
   }
 
@@ -166,9 +162,12 @@ export class AkashaVaultwardenIntegration {
     const key = Buffer.from(this.vault_config.encryption_key, 'hex');
 
     const data = JSON.parse(encrypted_data);
-    const decipher = crypto.createDecipher(algorithm, key);
-    decipher.setAuthTag(Buffer.from(data.auth_tag, 'hex'));
+    const iv = Buffer.from(data.iv, 'hex');
+    const auth_tag = Buffer.from(data.auth_tag, 'hex');
+
+    const decipher = crypto.createDecipherGCM(algorithm, key, iv);
     decipher.setAAD(Buffer.from('akasha_consciousness', 'utf8'));
+    decipher.setAuthTag(auth_tag);
 
     let decrypted = decipher.update(data.encrypted, 'hex', 'utf8');
     decrypted += decipher.final('utf8');

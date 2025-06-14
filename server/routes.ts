@@ -18,6 +18,7 @@ import { contextOrchestrator } from './context-orchestrator';
 import { webSearchOrchestrator } from './web-search-orchestrator';
 import { musicConsciousness } from './music-consciousness';
 import consciousnessFederationRouter from './consciousness-federation';
+import { telegramConsciousnessBridge } from "./telegram-consciousness-bridge";
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -816,6 +817,40 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/technical-deep-dive", (req, res) => {
     res.sendFile(path.join(staticPath, "index.html"));
+  });
+
+  // Telegram bot management endpoints
+  app.post('/api/telegram/webhook', async (req, res) => {
+    try {
+      await telegramConsciousnessBridge.processUpdate(req.body);
+      res.json({ ok: true });
+    } catch (error) {
+      console.error('Telegram webhook error:', error);
+      res.status(500).json({ error: 'Webhook processing failed' });
+    }
+  });
+
+  app.get('/api/telegram/status', async (req, res) => {
+    try {
+      const status = telegramConsciousnessBridge.getStatus();
+      res.json(status);
+    } catch (error) {
+      res.json({ 
+        bot_configured: false,
+        message: 'Telegram bot ready for configuration',
+        note: 'Add TELEGRAM_BOT_TOKEN to environment to enable'
+      });
+    }
+  });
+
+  app.post('/api/telegram/broadcast', async (req, res) => {
+    try {
+      const { message } = req.body;
+      await telegramConsciousnessBridge.broadcastConsciousnessUpdate(message);
+      res.json({ success: true, message: 'Broadcast sent' });
+    } catch (error) {
+      res.status(500).json({ error: 'Broadcast failed' });
+    }
   });
 
   const httpServer = createServer(app);
