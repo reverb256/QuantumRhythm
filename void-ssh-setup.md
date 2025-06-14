@@ -1,4 +1,3 @@
-
 # Void IDE + Replit SSH Connection Guide
 
 ## Step 1: Get Your SSH Connection Details
@@ -44,3 +43,7 @@ Yes! With this setup:
 - Changes automatically reflect in the Repl
 - The AI systems continue running in Replit
 - GitHub commits sync from either environment
+
+Configure Void IDE with:
+  AI Base URL: http://127.0.0.1:3001/v1 (forwarded via SSH)
+  API Key: dummy-key-not-needed
