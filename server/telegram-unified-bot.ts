@@ -33,6 +33,8 @@ export class TelegramUnifiedBot {
   private lastUpdateId: number = 0;
   private pollingInterval: NodeJS.Timeout | null = null;
   private responseCount: number = 0;
+  private processedMessages: Set<string> = new Set();
+  private lastPollTime: number = 0;
 
   constructor() {
     this.botToken = process.env.TELEGRAM_BOT_TOKEN || '';
@@ -108,14 +110,22 @@ export class TelegramUnifiedBot {
   }
 
   private startPolling() {
+    if (this.pollingInterval) {
+      clearInterval(this.pollingInterval);
+    }
+    
     this.pollingInterval = setInterval(async () => {
       await this.pollUpdates();
-    }, 2000);
-    console.log('📱 Unified Bot: Polling started for all AI agents');
+    }, 8000); // Reduced frequency to prevent conflicts
+    console.log('📱 Unified Bot: Optimized polling started');
   }
 
   private async pollUpdates() {
     if (!this.isActive) return;
+    
+    const now = Date.now();
+    if (now - this.lastPollTime < 3000) return; // Rate limit polling
+    this.lastPollTime = now;
     
     try {
       const response = await fetch(`https://api.telegram.org/bot${this.botToken}/getUpdates`, {
@@ -123,29 +133,30 @@ export class TelegramUnifiedBot {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           offset: this.lastUpdateId + 1,
-          limit: 10,
-          timeout: 30
+          limit: 3,
+          timeout: 5
         })
       });
 
       if (!response.ok) {
         if (response.status === 409) {
-          console.log('📱 Unified Bot: Resolving polling conflict...');
-          await this.clearWebhookCompletely();
+          await new Promise(resolve => setTimeout(resolve, 10000));
           return;
         }
-        throw new Error(`HTTP ${response.status}`);
+        return;
       }
 
       const data = await response.json();
       if (data.result && data.result.length > 0) {
         for (const update of data.result) {
-          await this.processUpdate(update);
-          this.lastUpdateId = Math.max(this.lastUpdateId, update.update_id);
+          if (update.update_id > this.lastUpdateId) {
+            await this.processUpdate(update);
+            this.lastUpdateId = update.update_id;
+          }
         }
       }
     } catch (error) {
-      // Silently handle polling errors to avoid spam
+      // Silent error handling
     }
   }
 
@@ -153,6 +164,18 @@ export class TelegramUnifiedBot {
     if (!update.message || !update.message.text) return;
 
     const message = update.message;
+    const messageId = `${message.chat.id}_${message.message_id}_${message.text}`;
+    
+    // Prevent duplicate processing
+    if (this.processedMessages.has(messageId)) return;
+    this.processedMessages.add(messageId);
+    
+    // Clean old messages to prevent memory leaks
+    if (this.processedMessages.size > 100) {
+      const messagesToDelete = Array.from(this.processedMessages).slice(0, 50);
+      messagesToDelete.forEach(msg => this.processedMessages.delete(msg));
+    }
+
     const chatId = message.chat.id;
     const text = message.text.trim();
     const originalText = text;
