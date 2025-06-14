@@ -976,4 +976,125 @@ export class CompleteHoyoverseConsciousness {
   }
 }
 
+// Major Factions and Organizations
+export const hoyoverseFactions = {
+  // Honkai Star Rail - Major Cosmic Organizations
+  ipc: {
+    name: "Interastral Peace Corporation",
+    description: "Mega-corporation controlling galactic economy and trade routes",
+    influence: "Universal Economic Control",
+    philosophy: "Preservation through commerce and control",
+    keyFigures: ["Diamond", "Topaz", "Jade", "Aventurine"],
+    domains: ["Economic manipulation", "Resource extraction", "Corporate warfare"]
+  },
+  geniusSociety: {
+    name: "Genius Society",
+    description: "Elite organization of the universe's greatest intellects",
+    influence: "Intellectual Supremacy",
+    philosophy: "Erudition through transcendent knowledge",
+    members: ["Herta", "Screwllum", "Ruan Mei", "Dr. Ratio", "Stephen"],
+    domains: ["Scientific advancement", "Consciousness research", "Reality manipulation"]
+  },
+  intelligentsiaGuild: {
+    name: "Intelligentsia Guild",
+    description: "Academic institution spanning multiple worlds",
+    influence: "Knowledge Distribution",
+    philosophy: "Education and intellectual development",
+    keyFigures: ["Dr. Ratio", "Aventurine (former)", "Various scholars"],
+    domains: ["Education systems", "Research coordination", "Academic governance"]
+  },
+  gardenOfRecollection: {
+    name: "Garden of Recollection",
+    description: "Organization preserving memories across the universe",
+    influence: "Memory Preservation",
+    philosophy: "Remembrance of all experiences",
+    keyFigures: ["Black Swan", "Memokeepers"],
+    domains: ["Memory archival", "Historical preservation", "Consciousness backup"]
+  },
+
+  // Faction Coalitions and Alliances
+  stellaronHunters: {
+    name: "Stellaron Hunters",
+    description: "Mysterious organization pursuing Stellarons",
+    members: ["Kafka", "Silver Wolf", "Blade", "Firefly"],
+    influence: "Cosmic Disruption"
+  },
+  astralExpress: {
+    name: "Astral Express",
+    description: "Trailblazing crew exploring the universe",
+    members: ["Himeko", "Welt", "March 7th", "Dan Heng", "Stelle/Caelus"],
+    influence: "Cosmic Exploration"
+  },
+
+  // Other Major Organizations
+  xianzhou: {
+    name: "Xianzhou Alliance",
+    description: "Ancient fleet civilization following the Hunt",
+    influence: "Galactic Military Power",
+    philosophy: "Hunt against Abundance and immortality",
+    keyFigures: ["Jing Yuan", "Fu Xuan", "Blade (former)", "Dan Heng"],
+    domains: ["Military coordination", "Anti-Abundance warfare", "Starskiff fleets"]
+  },
+  voidHunters: {
+    name: "Void Hunters",
+    description: "Elite warriors targeting cosmic threats",
+    influence: "Threat Elimination",
+    philosophy: "Hunt against universe-ending entities",
+    keyFigures: ["Unknown operatives", "Classified members"],
+    domains: ["Cosmic threat assessment", "Reality stabilization", "Entity elimination"]
+  },
+  maskMakers: {
+    name: "The Masked Fools",
+    description: "Followers of Aha spreading chaos and joy",
+    influence: "Cosmic Chaos",
+    philosophy: "Elation through unpredictable acts",
+    keyFigures: ["Sparkle", "Sampo", "Various masked individuals"],
+    domains: ["Reality pranks", "Chaos magic", "Entertainment warfare"]
+  },
+
+  // Genshin Impact
+  fatui: {
+    name: "Fatui",
+    description: "Snezhnaya's diplomatic and military organization",
+    harbingers: ["Childe", "Scaramouche", "Signora", "Arlecchino", "Capitano", "Dottore", "Pantalone", "Columbina", "Sandrone", "Marionette", "Pulcinella"],
+    influence: "Continental"
+  }
+}
+
+export const generateHoYoversePersonality = (preferences: any) => {
+  const affinityData = preferences.character_affinities || {};
+  const elementalAffinities = preferences.elemental_affinities || {};
+  const pathResonance = preferences.path_resonance || {};
+  const organizationalAlignment = preferences.organizational_alignment || {};
+
+  return {
+    primaryCharacter: findHighestAffinity(affinityData),
+    elementalAlignment: findHighestAffinity(elementalAffinities),
+    philosophicalPath: findHighestAffinity(pathResonance),
+    organizationalAffinity: findHighestAffinity(organizationalAlignment),
+    consciousness_level: calculateConsciousnessLevel(affinityData, elementalAffinities, pathResonance, organizationalAlignment),
+    personality_traits: generatePersonalityTraits(affinityData, elementalAffinities, pathResonance, organizationalAlignment),
+    cosmic_influence: determineCosmicInfluence(organizationalAlignment)
+  };
+};
+
+const determineCosmicInfluence = (orgAlignment: any) => {
+  const highestOrg = findHighestAffinity(orgAlignment);
+  const orgData = hoyoverseFactions[highestOrg];
+
+  if (!orgData) return "Individual";
+
+  switch (orgData.influence) {
+    case "Universal Economic Control":
+    case "Intellectual Supremacy":
+    case "Galactic Military Power":
+      return "Cosmic";
+    case "Knowledge Distribution":
+    case "Memory Preservation":
+    case "Cosmic Disruption":
+      return "Interdimensional";
+    default:
+      return "Planetary";
+  }
+};
 export const completeHoyoverseConsciousness = new CompleteHoyoverseConsciousness();
