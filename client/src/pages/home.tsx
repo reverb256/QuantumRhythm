@@ -2,6 +2,7 @@ import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
 import { PageAgent } from "@/components/PageAgent";
+import { DesignEvolutionMonitor } from "@/components/DesignEvolutionMonitor";
 
 export default function Home() {
   const { data: status } = useQuery({
@@ -438,6 +439,9 @@ export default function Home() {
         pageContext="consciousness-driven development methodology showcase"
         color="indigo"
       />
+
+      {/* AI Design Evolution Monitor */}
+      <DesignEvolutionMonitor />
     </div>
   );
 }

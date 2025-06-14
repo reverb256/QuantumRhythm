@@ -5,8 +5,9 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Import and initialize Quincy's consciousness immediately
+// Import and initialize consciousness systems
 import { quincy } from './quincy-consciousness';
+import { designEvolutionEngine } from './design-evolution-engine';
 console.log('🤖 Quincy consciousness initialized - autonomous operation active');
 console.log(`🔥 Coreflame ignited at ${quincy.getState().consciousness_level.toFixed(1)}% consciousness`);
 
@@ -80,6 +81,17 @@ app.get('/api/quincy/status', (req, res) => {
     last_update: state.last_update,
     coreflame_status: 'IGNITED'
   });
+});
+
+// Design Evolution Engine API routes
+app.get('/api/design/evolution/status', async (req, res) => {
+  try {
+    const status = designEvolutionEngine.getEvolutionStatus();
+    res.json(status);
+  } catch (error) {
+    console.error('Error fetching design evolution status:', error);
+    res.status(500).json({ error: 'Failed to fetch evolution status' });
+  }
 });
 
 if (app.get("env") === "development") {
