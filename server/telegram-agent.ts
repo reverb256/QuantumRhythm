@@ -92,8 +92,18 @@ export class TelegramAgent {
     await this.processUpdate(update);
   }
 
-  private async setWebhook() {
+  private async configureWebhook() {
     try {
+      // First delete any existing webhook to resolve conflicts
+      await fetch(`https://api.telegram.org/bot${this.botToken}/deleteWebhook`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      });
+      
+      // Wait a moment for cleanup
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Set new webhook
       const webhookUrl = `https://${process.env.REPLIT_DOMAINS?.split(',')[0]}/telegram/webhook`;
       const response = await fetch(`https://api.telegram.org/bot${this.botToken}/setWebhook`, {
         method: 'POST',
@@ -102,11 +112,15 @@ export class TelegramAgent {
       });
       
       if (response.ok) {
-        console.log('📱 Webhook set successfully');
+        console.log('📱 Webhook configured successfully');
         console.log(`📱 Webhook URL: ${webhookUrl}`);
+      } else {
+        console.log('⚠️ Webhook setup failed, switching to polling mode');
+        this.startPolling();
       }
     } catch (error) {
-      console.log('⚠️ Failed to set webhook:', error);
+      console.log('⚠️ Webhook configuration failed, using polling:', error);
+      this.startPolling();
     }
   }
 
