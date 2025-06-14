@@ -10,9 +10,11 @@ import { quincy } from './quincy-consciousness';
 import { designEvolutionEngine } from './design-evolution-engine';
 import { liveTradingIntegration } from './live-trading-integration';
 import { designTrainer } from './design-consciousness-trainer';
+import { errorTroubleshooter } from './error-troubleshooter';
 console.log('🤖 Quincy consciousness initialized - autonomous operation active');
 console.log(`🔥 Coreflame ignited at ${quincy.getState().consciousness_level.toFixed(1)}% consciousness`);
 console.log('🎨 Design consciousness trainer initialized - teaching clean glassmorphic principles');
+console.log('🔧 Error troubleshooter active - monitoring and auto-fixing issues');
 
 // Essential API routes for Quincy's autonomous trading and infrastructure
 app.get('/api/quincy/insights', async (req, res) => {
@@ -139,6 +141,23 @@ app.get('/api/trading/status', async (req, res) => {
   } catch (error) {
     console.error('Error fetching trading status:', error);
     res.status(500).json({ error: 'Failed to fetch trading status' });
+  }
+});
+
+// AI Error Troubleshooter API endpoint
+app.get('/api/error-troubleshooter/status', async (req, res) => {
+  try {
+    const fixes = errorTroubleshooter.getFixHistory();
+    const guidance = errorTroubleshooter.getErrorGuidance();
+    res.json({
+      fixes_applied: fixes,
+      guidance,
+      total_fixes: fixes.length,
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('Error fetching troubleshooter status:', error);
+    res.status(500).json({ error: 'Failed to fetch troubleshooter status' });
   }
 });
 
