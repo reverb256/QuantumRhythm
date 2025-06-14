@@ -5,6 +5,7 @@ import { queryClient } from "./lib/queryClient";
 import QuincyInsights from "./pages/quincy-insights";
 import DepinDashboard from "./pages/depin-dashboard";
 import Trading from "./pages/trading";
+import QuincyTrading from "./pages/quincy-trading";
 import Home from "./pages/home";
 import AstralVaultCIS from "./pages/astralvault-cis";
 import TelegramManagement from "./pages/telegram-management";
@@ -28,6 +29,7 @@ function App() {
             <Route path="/" component={Home} />
             <Route path="/quincy" component={DepinDashboard} />
             <Route path="/trading" component={Trading} />
+            <Route path="/quincy-trading" component={QuincyTrading} />
             <Route path="/insights" component={QuincyInsights} />
             <Route path="/astralvault-cis" component={AstralVaultCIS} />
             <Route path="/telegram" component={TelegramManagement} />

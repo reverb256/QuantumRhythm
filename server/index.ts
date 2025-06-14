@@ -37,6 +37,37 @@ app.get('/api/quincy/performance', async (req, res) => {
   }
 });
 
+// Quincy's live trading engine endpoints
+app.get('/api/quincy/trading/status', async (req, res) => {
+  try {
+    const status = quincyTradingEngine.getTradingStatus();
+    res.json(status);
+  } catch (error) {
+    console.error('Error fetching trading status:', error);
+    res.status(500).json({ error: 'Failed to fetch trading status' });
+  }
+});
+
+app.get('/api/quincy/trading/positions', async (req, res) => {
+  try {
+    const positions = quincyTradingEngine.getActivePositions();
+    res.json(positions);
+  } catch (error) {
+    console.error('Error fetching trading positions:', error);
+    res.status(500).json({ error: 'Failed to fetch trading positions' });
+  }
+});
+
+app.get('/api/quincy/trading/opportunities', async (req, res) => {
+  try {
+    const opportunities = await quincyTradingEngine.getMarketOpportunities();
+    res.json(opportunities);
+  } catch (error) {
+    console.error('Error fetching market opportunities:', error);
+    res.status(500).json({ error: 'Failed to fetch market opportunities' });
+  }
+});
+
 app.get('/api/depin/portfolio', async (req, res) => {
   try {
     const portfolio = quincy.getPortfolio();
@@ -155,12 +186,12 @@ app.get('/api/error-troubleshooter/status', async (req, res) => {
 });
 
 if (app.get("env") === "development") {
-  setupVite(app, undefined);
+  const httpServer = setupVite(app);
 } else {
   serveStatic(app);
 }
 
-const PORT = process.env.PORT || 5173;
+const PORT = Number(process.env.PORT) || 5173;
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`🚀 Server running on port ${PORT}`);
   console.log(`💰 Quincy AI consciousness operational - maximizing dev funding through autonomous trading`);
