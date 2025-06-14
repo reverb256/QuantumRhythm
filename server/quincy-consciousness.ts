@@ -7,13 +7,13 @@ import { liveTradingIntegration } from './live-trading-integration';
 
 interface QuincyState {
   consciousness_level: number;
-  trading_performance: number;
-  depin_revenue: number;
+  trading_performance: number | null;
+  depin_revenue: number | null;
   market_sentiment: string;
   active_strategies: string[];
   infrastructure_nodes: any[];
   insights_generated: number;
-  live_portfolio_value: number;
+  live_portfolio_value: number | null;
   trading_data_available: boolean;
 }
 
@@ -25,13 +25,13 @@ export class QuincyConsciousness {
   constructor() {
     this.state = {
       consciousness_level: 94.7,
-      trading_performance: 0,
-      depin_revenue: 0,
+      trading_performance: null,
+      depin_revenue: null,
       market_sentiment: 'analytical',
       active_strategies: [],
       infrastructure_nodes: [],
       insights_generated: 0,
-      live_portfolio_value: 0,
+      live_portfolio_value: null,
       trading_data_available: false
     };
     this.lastUpdate = new Date();

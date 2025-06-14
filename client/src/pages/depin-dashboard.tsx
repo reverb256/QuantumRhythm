@@ -95,9 +95,11 @@ export default function DepinDashboard() {
                 <span className="text-xs text-purple-400/60 uppercase tracking-wider">Trading ROI</span>
               </div>
               <div className="text-3xl font-bold text-white mb-1">
-                +{performance?.trading_performance?.toFixed(1)}%
+                {performance?.trading_performance ? `+${performance.trading_performance.toFixed(1)}%` : 'Connecting...'}
               </div>
-              <div className="text-sm text-gray-400">Portfolio growth</div>
+              <div className="text-sm text-gray-400">
+                {performance?.trading_performance ? 'Portfolio growth' : 'Awaiting API connection'}
+              </div>
             </div>
 
             <div className="bg-gradient-to-br from-green-500/10 to-green-600/5 backdrop-blur-xl border border-green-400/20 rounded-2xl p-6 hover:from-green-500/20 transition-all duration-300">
@@ -110,9 +112,11 @@ export default function DepinDashboard() {
                 <span className="text-xs text-green-400/60 uppercase tracking-wider">Revenue</span>
               </div>
               <div className="text-3xl font-bold text-white mb-1">
-                ${performance?.depin_revenue?.toFixed(0)}
+                {performance?.depin_revenue ? `$${performance.depin_revenue.toFixed(0)}` : 'Connecting...'}
               </div>
-              <div className="text-sm text-gray-400">Monthly DePIN earnings</div>
+              <div className="text-sm text-gray-400">
+                {performance?.depin_revenue ? 'Monthly DePIN earnings' : 'Awaiting infrastructure data'}
+              </div>
             </div>
 
             <div className="bg-gradient-to-br from-yellow-500/10 to-orange-500/5 backdrop-blur-xl border border-yellow-400/20 rounded-2xl p-6 hover:from-yellow-500/20 transition-all duration-300">
