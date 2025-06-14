@@ -12,6 +12,7 @@ import { liveTradingIntegration } from './live-trading-integration';
 import { designTrainer } from './design-consciousness-trainer';
 import { quincyTradingEngine } from './quincy-trading-engine';
 import { telegramConsciousnessBridge } from './telegram-consciousness-bridge';
+import { telegramAgent } from './telegram-agent';
 // import { errorTroubleshooter } from './error-troubleshooter'; // Disabled due to ES modules conflict
 console.log('🤖 Quincy consciousness initialized - autonomous operation active');
 console.log(`🔥 Coreflame ignited at ${quincy.getState().consciousness_level.toFixed(1)}% consciousness`);
