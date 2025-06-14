@@ -34,10 +34,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const { comprehensivePortfolioTracker } = await import('./comprehensive-portfolio-tracker');
       const { priceDiscoveryEngine } = await import('./comprehensive-price-discovery-engine');
       const { systemOrchestrator } = await import('./system-consolidation-orchestrator');
-      
-      await comprehensivePortfolioTracker.startPortfolioTracking();
+
+      // Start portfolio tracking with graceful degradation
+      try {
+        comprehensivePortfolioTracker.startPortfolioTracking();
+      } catch (error) {
+        console.warn('⚠️ Portfolio tracking startup failed, will retry in background:', error);
+        // Retry in background without blocking server startup
+        setTimeout(() => {
+          try {
+            comprehensivePortfolioTracker.startPortfolioTracking();
+          } catch (retryError) {
+            console.warn('⚠️ Portfolio tracking retry failed, system continues without live tracking');
+          }
+        }, 30000);
+      }
       console.log('📊 Comprehensive portfolio tracking activated with 50+ price sources');
-      
+
       // Execute consolidation and security audit in background
       systemOrchestrator.executeFullConsolidation().then(result => {
         console.log('✅ System consolidation complete:', result.optimizations);
@@ -48,7 +61,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Initialize security audit and debug health monitor
       const { securityAudit } = await import('./comprehensive-security-audit');
       const { debugHealthMonitor } = await import('./debug-health-monitor');
-      
+
       securityAudit.performFullSecurityAudit().then(result => {
         console.log(`🔒 Security audit complete: ${result.summary.overallScore}/100 security score`);
       }).catch(err => {
@@ -59,17 +72,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const { aiOrchestrationDebugger } = await import('./ai-orchestration-debugger');
       const { insightsEngine } = await import('./insights-extraction-engine');
       const { automatedInsightsInfusion } = await import('./automated-insights-infusion');
-      
+
       // Start automated insights infusion system
       automatedInsightsInfusion.startContinuousInfusion().then(() => {
         console.log('🧠 Automated insights infusion system active');
       }).catch(err => {
         console.log('⚠️ Insights infusion initialization error:', err.message);
       });
-      
+
       aiOrchestrationDebugger.performRecursiveDebugging().then(result => {
         console.log(`🤖 AI orchestration complete: ${result.fixedIssues}/${result.totalIssues} issues fixed, system status: ${result.systemStatus}`);
-        
+
         // Extract insights from debugging results
         const debugData = `AI orchestration complete: ${result.fixedIssues}/${result.totalIssues} issues fixed, system status: ${result.systemStatus}`;
         insightsEngine.processRealTimeData(debugData);
@@ -77,7 +90,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         console.log('⚠️ AI orchestration error:', err.message);
         insightsEngine.processRealTimeData(`AI orchestration error: ${err.message}`);
       });
-      
+
     } catch (error) {
       console.error('Failed to start portfolio tracking:', error);
     }
@@ -479,7 +492,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post('/api/ai/generate', async (req, res) => {
     try {
       const { prompt, model, character, max_tokens } = req.body;
-      
+
       // Use IO Intelligence system or character-specific response generation
       const { aiService } = await import('./ai-service');
       const response = await aiService.generateDialogue({
@@ -487,7 +500,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         character,
         maxTokens: max_tokens || 150
       });
-      
+
       res.json({ 
         success: true, 
         content: response,
