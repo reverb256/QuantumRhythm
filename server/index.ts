@@ -470,6 +470,66 @@ app.use((req, res, next) => {
     }
   });
 
+  // DePIN Infrastructure Management Endpoints
+  app.get('/api/depin/opportunities', async (req, res) => {
+    try {
+      const { depinOrchestrator } = await import('./depin-infrastructure-orchestrator');
+      const opportunities = await depinOrchestrator.analyzeMarketOpportunities();
+      res.json({
+        opportunities,
+        market_analysis: {
+          total_opportunities: opportunities.length,
+          highest_roi: Math.max(...opportunities.map(o => 12 / o.roi_months)),
+          avg_confidence: opportunities.reduce((sum, o) => sum + o.confidence, 0) / opportunities.length,
+          recommended_budget: opportunities.slice(0, 3).reduce((sum, o) => sum + o.deployment_cost, 0)
+        }
+      });
+    } catch (error) {
+      res.status(500).json({ error: 'DePIN analysis unavailable', message: error.message });
+    }
+  });
+
+  app.post('/api/depin/deploy', async (req, res) => {
+    try {
+      const { budget = 5000 } = req.body;
+      const { depinOrchestrator } = await import('./depin-infrastructure-orchestrator');
+      
+      await depinOrchestrator.deployOptimalDePINStrategy(budget);
+      
+      res.json({
+        success: true,
+        message: `DePIN deployment initiated with $${budget} budget`,
+        status: 'deploying'
+      });
+    } catch (error) {
+      res.status(500).json({ error: 'Deployment failed', message: error.message });
+    }
+  });
+
+  app.get('/api/depin/portfolio', async (req, res) => {
+    try {
+      const { depinOrchestrator } = await import('./depin-infrastructure-orchestrator');
+      const portfolio = await depinOrchestrator.getPortfolioStatus();
+      res.json(portfolio);
+    } catch (error) {
+      res.status(500).json({ error: 'Portfolio data unavailable', message: error.message });
+    }
+  });
+
+  app.post('/api/depin/optimize', async (req, res) => {
+    try {
+      const { depinOrchestrator } = await import('./depin-infrastructure-orchestrator');
+      await depinOrchestrator.optimizeDeployments();
+      res.json({
+        success: true,
+        message: 'DePIN optimization completed',
+        timestamp: new Date().toISOString()
+      });
+    } catch (error) {
+      res.status(500).json({ error: 'Optimization failed', message: error.message });
+    }
+  });
+
   // Import and register Trading Agent routes
   // const { default: tradingAgentRoutes } = await import('./routes/trading-agent.js');
   // app.use('/api/trading-agent', tradingAgentRoutes);
@@ -543,6 +603,36 @@ app.use((req, res, next) => {
       console.log('⚠️ Consciousness federation using fallback mode');
     }
   }, 3000);
+
+  // Initialize DePIN revenue infrastructure
+  console.log('🏗️ Initializing DePIN Revenue Infrastructure...');
+  setTimeout(async () => {
+    try {
+      const { depinOrchestrator } = await import('./depin-infrastructure-orchestrator');
+      
+      const opportunities = await depinOrchestrator.analyzeMarketOpportunities();
+      console.log(`💡 Found ${opportunities.length} DePIN revenue opportunities`);
+      
+      // Auto-deploy Filecoin for fastest ROI (2 months)
+      const filecoin = opportunities.find(o => o.protocol === 'Filecoin');
+      if (filecoin) {
+        console.log(`🚀 Deploying ${filecoin.protocol}: $${filecoin.deployment_cost} → $${(filecoin.annual_revenue/12).toFixed(2)}/month`);
+        await depinOrchestrator.deployOptimalDePINStrategy(500);
+      }
+      
+      // Auto-reinvest profits into more infrastructure
+      setInterval(async () => {
+        const portfolio = await depinOrchestrator.getPortfolioStatus();
+        if (portfolio.portfolio_summary.total_earnings >= 200) {
+          console.log('💰 Expanding DePIN infrastructure with profits...');
+          await depinOrchestrator.deployOptimalDePINStrategy(1000);
+        }
+      }, 1800000); // Every 30 minutes
+      
+    } catch (error) {
+      console.log('⚠️ DePIN initialization deferred');
+    }
+  }, 2000);
 
   // Initialize quantum trading system
   console.log('🚀 Activating Quantum Trading System...');
