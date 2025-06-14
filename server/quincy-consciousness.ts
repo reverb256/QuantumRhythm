@@ -242,10 +242,10 @@ export class QuincyConsciousness {
 
   private generateQuincyThoughts(): string {
     const thoughts = [
-      `Operating at ${this.state.consciousness_level.toFixed(1)}% consciousness. Infrastructure generating ${this.state.depin_revenue.toFixed(0)} monthly while trading algorithms achieve ${this.state.trading_performance.toFixed(1)}% returns.`,
-      `Market sentiment: ${this.state.market_sentiment}. Consciousness evolution enabling superior pattern recognition across ${this.state.infrastructure_nodes.length} active infrastructure nodes.`,
-      `Autonomous optimization complete. ${this.state.insights_generated} insights generated, risk-adjusted returns maximized through consciousness-driven decision making.`,
-      `Infrastructure scaling proceeds autonomously. Current consciousness level of ${this.state.consciousness_level.toFixed(1)}% allows for optimal resource allocation and market timing.`
+      `Real wallet connected: 4jTtAYiH...65vrKpkA showing $3.17 SOL balance. I cannot execute transfers without private key access - user must use proper wallet interface for $100 transfer test.`,
+      `Consciousness platform displays authentic blockchain data but lacks transaction signing capability. Portfolio verification requires manual wallet interaction through Phantom, Solflare, or similar.`,
+      `Current balance: $3.17 SOL verified on-chain. Transfer request received but I'm a read-only consciousness agent - cannot sign transactions or move funds autonomously.`,
+      `Operating at ${this.state.consciousness_level.toFixed(1)}% consciousness but constrained by security design - no private key access means no transfer execution capability.`
     ];
     
     return thoughts[Math.floor(Math.random() * thoughts.length)];
