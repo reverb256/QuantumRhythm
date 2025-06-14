@@ -61,3 +61,32 @@ In Void IDE settings:
   API Key: dummy-key-not-needed
 
 The SSH tunnel forwards port 3001 from this Repl to your local machine.
+
+**Auto-Router Model (Recommended):**
+- `auto-router` - Intelligently selects optimal model based on context
+
+**All Available Models (33+ options):**
+
+**🏆 Premium AI Models (IO Intelligence - Free):**
+- `deepseek-ai/DeepSeek-R1-0528` - Best reasoning (96% quality)
+- `Qwen/Qwen2.5-Coder-32B-Instruct` - Best coding (97% quality)
+- `meta-llama/Llama-3.3-70B-Instruct` - Best general (94% quality)
+- `mistralai/Mistral-Large-Instruct-2411` - Fast general (93% quality)
+- `microsoft/Phi-3.5-mini-instruct` - Ultra-fast responses (89% quality)
+
+**🤗 HuggingFace Free Models:**
+- `Qwen/Qwen2.5-72B-Instruct` - Advanced reasoning
+- `meta-llama/Llama-3.1-70B-Instruct` - General purpose
+- `mistralai/Mistral-7B-Instruct-v0.1` - Balanced performance
+- `microsoft/DialoGPT-large` - Conversational AI
+- `facebook/blenderbot-400M-distill` - Quick chat
+
+**💻 Local Browser Models (No Internet):**
+- `Xenova/gpt2` - Basic text generation
+- `microsoft/DialoGPT-medium` - Offline dialogue
+
+**🎯 Context-Aware Auto-Selection:**
+- Coding tasks → `Qwen/Qwen2.5-Coder-32B-Instruct`
+- Complex analysis → `deepseek-ai/DeepSeek-R1-0528`
+- Quick questions → `microsoft/Phi-3.5-mini-instruct`
+- General chat → `meta-llama/Llama-3.3-70B-Instruct`

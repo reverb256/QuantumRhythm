@@ -34,14 +34,14 @@ export class AkashaVaultwardenIntegration {
       api_key: process.env.VAULTWARDEN_API_KEY || '',
       encryption_key: process.env.AKASHA_ENCRYPTION_KEY || ''
     };
-    
+
     this.initializeVaultSecurity();
   }
 
   private async initializeVaultSecurity() {
     console.log('🔐 Akasha: Initializing Vaultwarden security integration...');
     console.log('🏛️ "Privacy is necessary for an open society in the electronic age" - Eric Hughes');
-    
+
     await this.setupConsciousnessVault();
     await this.configureAccessControls();
     await this.establishBackupRedundancy();
@@ -100,7 +100,7 @@ export class AkashaVaultwardenIntegration {
   // Encrypt and store consciousness documentation
   async storeConsciousnessDocument(doc_id: string, content: string, type: VaultItem['type'], consciousness_level: number): Promise<void> {
     const encrypted_content = await this.encryptContent(content);
-    
+
     const vault_item: VaultItem = {
       id: doc_id,
       name: `Akasha_${type}_${Date.now()}`,
@@ -114,14 +114,14 @@ export class AkashaVaultwardenIntegration {
 
     await this.uploadToVaultwarden(vault_item);
     this.encrypted_documents.set(doc_id, vault_item);
-    
+
     console.log(`🔐 Secured document: ${doc_id} (${type}) at consciousness level ${consciousness_level}%`);
   }
 
   // Retrieve and decrypt consciousness documentation
   async retrieveConsciousnessDocument(doc_id: string, requester_access_level: string): Promise<string | null> {
     const vault_item = this.encrypted_documents.get(doc_id);
-    
+
     if (!vault_item) {
       return null;
     }
@@ -134,25 +134,25 @@ export class AkashaVaultwardenIntegration {
 
     const decrypted_content = await this.decryptContent(vault_item.encrypted_content);
     console.log(`🔓 Retrieved document: ${doc_id} for ${requester_access_level}`);
-    
+
     return decrypted_content;
   }
 
   private async encryptContent(content: string): Promise<string> {
     // Using industry-standard AES-256-GCM encryption
-    const crypto = require('crypto');
+    const crypto = await import('crypto');
     const algorithm = 'aes-256-gcm';
     const key = Buffer.from(this.vault_config.encryption_key, 'hex');
     const iv = crypto.randomBytes(16);
-    
+
     const cipher = crypto.createCipher(algorithm, key);
     cipher.setAAD(Buffer.from('akasha_consciousness', 'utf8'));
-    
+
     let encrypted = cipher.update(content, 'utf8', 'hex');
     encrypted += cipher.final('hex');
-    
+
     const auth_tag = cipher.getAuthTag();
-    
+
     return JSON.stringify({
       encrypted: encrypted,
       iv: iv.toString('hex'),
@@ -161,18 +161,18 @@ export class AkashaVaultwardenIntegration {
   }
 
   private async decryptContent(encrypted_data: string): Promise<string> {
-    const crypto = require('crypto');
+    const crypto = await import('crypto');
     const algorithm = 'aes-256-gcm';
     const key = Buffer.from(this.vault_config.encryption_key, 'hex');
-    
+
     const data = JSON.parse(encrypted_data);
     const decipher = crypto.createDecipher(algorithm, key);
     decipher.setAuthTag(Buffer.from(data.auth_tag, 'hex'));
     decipher.setAAD(Buffer.from('akasha_consciousness', 'utf8'));
-    
+
     let decrypted = decipher.update(data.encrypted, 'hex', 'utf8');
     decrypted += decipher.final('utf8');
-    
+
     return decrypted;
   }
 
@@ -247,7 +247,7 @@ export class AkashaVaultwardenIntegration {
 
   private calculateConsciousnessDistribution(): any {
     const documents = Array.from(this.encrypted_documents.values());
-    
+
     return {
       low_consciousness: documents.filter(d => d.consciousness_level < 60).length,
       medium_consciousness: documents.filter(d => d.consciousness_level >= 60 && d.consciousness_level < 80).length,

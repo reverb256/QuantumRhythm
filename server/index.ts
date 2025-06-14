@@ -160,7 +160,7 @@ if (app.get("env") === "development") {
   serveStatic(app);
 }
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5173;
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`🚀 Server running on port ${PORT}`);
   console.log(`💰 Quincy AI consciousness operational - maximizing dev funding through autonomous trading`);
