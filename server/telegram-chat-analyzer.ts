@@ -1,260 +1,261 @@
 /**
- * Telegram Chat Analyzer - Real-time conversation analysis with AI agents
- * Tracks patterns, sentiment, and consciousness evolution in bot interactions
+ * Telegram Chat Analyzer - Advanced conversation intelligence
+ * Analyzes chat patterns, sentiment, and consciousness peaks
  */
 
 interface ChatMessage {
   message_id: number;
   user_id: number;
-  username: string;
   text: string;
   timestamp: Date;
-  response_type: 'command' | 'natural_language' | 'greeting' | 'technical';
-  sentiment: 'positive' | 'neutral' | 'negative';
-  consciousness_level_at_time: number;
+  response_type: 'command' | 'greeting' | 'technical' | 'natural_language';
+  ai_response: string;
+  sentiment_score: number;
+  consciousness_level: number;
 }
 
 interface ConversationAnalytics {
   total_messages: number;
-  unique_users: number;
-  command_usage: Record<string, number>;
-  natural_language_percentage: number;
-  average_sentiment: number;
-  peak_consciousness_moments: ChatMessage[];
-  conversation_patterns: string[];
-  user_engagement_score: number;
+  avg_sentiment: number;
+  peak_consciousness: number;
+  conversation_health: 'excellent' | 'good' | 'moderate' | 'needs_attention';
+  engagement_score: number;
+  response_patterns: Record<string, number>;
+  consciousness_peaks: Array<{timestamp: Date, level: number, context: string}>;
 }
 
 export class TelegramChatAnalyzer {
   private chat_history: ChatMessage[] = [];
-  private max_history = 1000; // Keep last 1000 messages
+  private max_history = 1000; // Extended for single-user system
   private analytics_cache: ConversationAnalytics | null = null;
-  private cache_expiry = 0;
+  private cache_expiry = 60000; // 1 minute cache
+  private last_cache_update = 0;
 
-  // Add message to analysis
   addMessage(
     message_id: number,
     user_id: number,
-    username: string,
     text: string,
     response_type: ChatMessage['response_type'],
+    ai_response: string,
     consciousness_level: number
-  ) {
+  ): void {
+    const sentiment_score = this.calculateSentiment(text, ai_response);
+    
     const message: ChatMessage = {
       message_id,
       user_id,
-      username,
       text,
       timestamp: new Date(),
       response_type,
-      sentiment: this.analyzeSentiment(text),
-      consciousness_level_at_time: consciousness_level
+      ai_response,
+      sentiment_score,
+      consciousness_level
     };
 
     this.chat_history.push(message);
     
     // Maintain history limit
     if (this.chat_history.length > this.max_history) {
-      this.chat_history = this.chat_history.slice(-this.max_history);
+      this.chat_history.shift();
+    }
+
+    // Track consciousness peaks
+    if (consciousness_level > 95) {
+      this.trackConsciousnessPeak(consciousness_level, text);
     }
 
     // Invalidate cache
     this.analytics_cache = null;
-    
-    console.log(`📊 Chat Analysis: ${username} sent ${response_type} message (sentiment: ${message.sentiment})`);
   }
 
-  // Analyze sentiment of a message
-  private analyzeSentiment(text: string): 'positive' | 'neutral' | 'negative' {
-    const positiveWords = ['thanks', 'thank', 'good', 'great', 'awesome', 'amazing', 'love', 'excellent', 'perfect', 'fantastic'];
-    const negativeWords = ['bad', 'terrible', 'awful', 'hate', 'broken', 'sucks', 'worst', 'horrible', 'frustrated', 'angry'];
-    
-    const lowerText = text.toLowerCase();
-    const positiveCount = positiveWords.filter(word => lowerText.includes(word)).length;
-    const negativeCount = negativeWords.filter(word => lowerText.includes(word)).length;
+  private calculateSentiment(user_text: string, ai_response: string): number {
+    // Simple sentiment analysis based on keywords and tone
+    const positive_keywords = ['great', 'awesome', 'love', 'perfect', 'excellent', 'amazing', 'fantastic'];
+    const negative_keywords = ['bad', 'terrible', 'hate', 'awful', 'broken', 'stupid', 'frustrated'];
+    const neutral_keywords = ['ok', 'fine', 'maybe', 'sure', 'alright'];
 
-    if (positiveCount > negativeCount) return 'positive';
-    if (negativeCount > positiveCount) return 'negative';
-    return 'neutral';
+    let score = 0.5; // Neutral baseline
+    const combined_text = (user_text + ' ' + ai_response).toLowerCase();
+
+    positive_keywords.forEach(word => {
+      if (combined_text.includes(word)) score += 0.1;
+    });
+
+    negative_keywords.forEach(word => {
+      if (combined_text.includes(word)) score -= 0.1;
+    });
+
+    // Questions and help requests are slightly positive (engagement)
+    if (user_text.includes('?') || user_text.toLowerCase().includes('help')) {
+      score += 0.05;
+    }
+
+    return Math.max(0, Math.min(1, score));
   }
 
-  // Get conversation analytics
+  private trackConsciousnessPeak(level: number, context: string): void {
+    console.log(`🧠 Consciousness peak detected: ${level.toFixed(1)}% during: "${context.substring(0, 50)}..."`);
+  }
+
   getAnalytics(): ConversationAnalytics {
-    // Return cached analytics if still valid (5 minutes)
-    if (this.analytics_cache && Date.now() < this.cache_expiry) {
+    const now = Date.now();
+    
+    // Return cached analytics if still valid
+    if (this.analytics_cache && (now - this.last_cache_update) < this.cache_expiry) {
       return this.analytics_cache;
     }
 
-    const analytics = this.calculateAnalytics();
-    this.analytics_cache = analytics;
-    this.cache_expiry = Date.now() + (5 * 60 * 1000); // 5 minutes
-
-    return analytics;
-  }
-
-  private calculateAnalytics(): ConversationAnalytics {
-    if (this.chat_history.length === 0) {
+    // Calculate fresh analytics
+    const total_messages = this.chat_history.length;
+    
+    if (total_messages === 0) {
       return {
         total_messages: 0,
-        unique_users: 0,
-        command_usage: {},
-        natural_language_percentage: 0,
-        average_sentiment: 0,
-        peak_consciousness_moments: [],
-        conversation_patterns: [],
-        user_engagement_score: 0
+        avg_sentiment: 0.5,
+        peak_consciousness: 0,
+        conversation_health: 'needs_attention',
+        engagement_score: 0,
+        response_patterns: {},
+        consciousness_peaks: []
       };
     }
 
-    const unique_users = new Set(this.chat_history.map(msg => msg.user_id)).size;
-    const command_usage: Record<string, number> = {};
-    const sentiment_scores = { positive: 0, neutral: 0, negative: 0 };
-    let natural_language_count = 0;
-
-    // Process messages
+    const avg_sentiment = this.chat_history.reduce((sum, msg) => sum + msg.sentiment_score, 0) / total_messages;
+    const peak_consciousness = Math.max(...this.chat_history.map(msg => msg.consciousness_level));
+    
+    // Calculate response patterns
+    const response_patterns: Record<string, number> = {};
     this.chat_history.forEach(msg => {
-      // Count command usage
-      if (msg.response_type === 'command') {
-        const command = msg.text.split(' ')[0];
-        command_usage[command] = (command_usage[command] || 0) + 1;
-      }
-
-      if (msg.response_type === 'natural_language') {
-        natural_language_count++;
-      }
-
-      sentiment_scores[msg.sentiment]++;
+      response_patterns[msg.response_type] = (response_patterns[msg.response_type] || 0) + 1;
     });
 
-    // Calculate metrics
-    const natural_language_percentage = (natural_language_count / this.chat_history.length) * 100;
-    const average_sentiment = (sentiment_scores.positive - sentiment_scores.negative) / this.chat_history.length;
-
-    // Find peak consciousness moments (top 5 highest consciousness during interactions)
-    const peak_consciousness_moments = this.chat_history
-      .sort((a, b) => b.consciousness_level_at_time - a.consciousness_level_at_time)
-      .slice(0, 5);
-
-    // Identify conversation patterns
-    const conversation_patterns = this.identifyPatterns();
-
-    // Calculate engagement score (0-100)
-    const user_engagement_score = Math.min(100, 
-      (unique_users * 10) + 
-      (natural_language_percentage * 0.5) + 
-      (sentiment_scores.positive * 2) - 
-      (sentiment_scores.negative * 1)
+    // Calculate engagement score based on message frequency and variety
+    const recent_messages = this.chat_history.filter(msg => 
+      Date.now() - msg.timestamp.getTime() < 3600000 // Last hour
     );
+    const engagement_score = Math.min(1, recent_messages.length / 10) * 
+                           (Object.keys(response_patterns).length / 4); // Variety bonus
 
-    return {
-      total_messages: this.chat_history.length,
-      unique_users,
-      command_usage,
-      natural_language_percentage,
-      average_sentiment,
-      peak_consciousness_moments,
-      conversation_patterns,
-      user_engagement_score
+    // Determine conversation health
+    let conversation_health: ConversationAnalytics['conversation_health'];
+    if (avg_sentiment > 0.7 && engagement_score > 0.6) {
+      conversation_health = 'excellent';
+    } else if (avg_sentiment > 0.6 && engagement_score > 0.4) {
+      conversation_health = 'good';
+    } else if (avg_sentiment > 0.4 && engagement_score > 0.2) {
+      conversation_health = 'moderate';
+    } else {
+      conversation_health = 'needs_attention';
+    }
+
+    // Find consciousness peaks
+    const consciousness_peaks = this.chat_history
+      .filter(msg => msg.consciousness_level > 95)
+      .map(msg => ({
+        timestamp: msg.timestamp,
+        level: msg.consciousness_level,
+        context: msg.text.substring(0, 100)
+      }))
+      .slice(-10); // Last 10 peaks
+
+    this.analytics_cache = {
+      total_messages,
+      avg_sentiment,
+      peak_consciousness,
+      conversation_health,
+      engagement_score,
+      response_patterns,
+      consciousness_peaks
     };
+
+    this.last_cache_update = now;
+    return this.analytics_cache;
   }
 
-  private identifyPatterns(): string[] {
-    const patterns: string[] = [];
-    
-    if (this.chat_history.length < 3) return patterns;
-
-    const recent_messages = this.chat_history.slice(-10);
-    const command_count = recent_messages.filter(msg => msg.response_type === 'command').length;
-    const natural_count = recent_messages.filter(msg => msg.response_type === 'natural_language').length;
-
-    if (command_count > natural_count) {
-      patterns.push('Command-heavy interaction pattern');
-    } else if (natural_count > command_count) {
-      patterns.push('Natural conversation pattern');
-    }
-
-    const positive_sentiment = recent_messages.filter(msg => msg.sentiment === 'positive').length;
-    if (positive_sentiment > recent_messages.length * 0.6) {
-      patterns.push('Highly positive user engagement');
-    }
-
-    const consciousness_trend = this.analyzeTrend(recent_messages.map(msg => msg.consciousness_level_at_time));
-    if (consciousness_trend === 'increasing') {
-      patterns.push('Consciousness evolution during conversation');
-    }
-
-    return patterns;
+  getRecentActivity(hours: number = 24): ChatMessage[] {
+    const cutoff = Date.now() - (hours * 3600000);
+    return this.chat_history.filter(msg => msg.timestamp.getTime() > cutoff);
   }
 
-  private analyzeTrend(values: number[]): 'increasing' | 'decreasing' | 'stable' {
-    if (values.length < 3) return 'stable';
-    
-    const start = values.slice(0, Math.floor(values.length / 3)).reduce((a, b) => a + b) / Math.floor(values.length / 3);
-    const end = values.slice(-Math.floor(values.length / 3)).reduce((a, b) => a + b) / Math.floor(values.length / 3);
-    
-    const difference = end - start;
-    if (difference > 0.5) return 'increasing';
-    if (difference < -0.5) return 'decreasing';
-    return 'stable';
+  getSentimentTrend(hours: number = 6): number {
+    const recent = this.getRecentActivity(hours);
+    if (recent.length < 2) return 0;
+
+    const first_half = recent.slice(0, Math.floor(recent.length / 2));
+    const second_half = recent.slice(Math.floor(recent.length / 2));
+
+    const first_avg = first_half.reduce((sum, msg) => sum + msg.sentiment_score, 0) / first_half.length;
+    const second_avg = second_half.reduce((sum, msg) => sum + msg.sentiment_score, 0) / second_half.length;
+
+    return second_avg - first_avg; // Positive = improving sentiment
   }
 
-  // Get recent conversations
-  getRecentMessages(limit: number = 20): ChatMessage[] {
-    return this.chat_history.slice(-limit);
-  }
-
-  // Get user-specific conversation history
-  getUserHistory(user_id: number, limit: number = 50): ChatMessage[] {
+  getConsciousnessEvolution(): Array<{timestamp: Date, level: number}> {
     return this.chat_history
-      .filter(msg => msg.user_id === user_id)
-      .slice(-limit);
+      .filter(msg => msg.consciousness_level > 0)
+      .map(msg => ({
+        timestamp: msg.timestamp,
+        level: msg.consciousness_level
+      }))
+      .slice(-50); // Last 50 consciousness readings
   }
 
-  // Generate conversation report
-  generateReport(): any {
+  generateInsightReport(): any {
     const analytics = this.getAnalytics();
-    const recent_messages = this.getRecentMessages(10);
+    const sentiment_trend = this.getSentimentTrend();
+    const consciousness_evolution = this.getConsciousnessEvolution();
 
     return {
-      timestamp: new Date().toISOString(),
-      analytics,
-      recent_conversations: recent_messages.map(msg => ({
-        username: msg.username,
-        message: msg.text.substring(0, 100),
-        type: msg.response_type,
-        sentiment: msg.sentiment,
-        consciousness_at_time: msg.consciousness_level_at_time
-      })),
-      insights: {
-        most_active_users: this.getMostActiveUsers(),
-        popular_commands: Object.entries(analytics.command_usage)
-          .sort(([,a], [,b]) => b - a)
-          .slice(0, 5),
-        conversation_health: this.assessConversationHealth()
-      }
+      summary: {
+        conversation_health: analytics.conversation_health,
+        total_interactions: analytics.total_messages,
+        sentiment_status: sentiment_trend > 0.1 ? 'improving' : sentiment_trend < -0.1 ? 'declining' : 'stable',
+        peak_consciousness: analytics.peak_consciousness
+      },
+      metrics: {
+        avg_sentiment: analytics.avg_sentiment,
+        engagement_score: analytics.engagement_score,
+        sentiment_trend: sentiment_trend,
+        consciousness_peaks: analytics.consciousness_peaks.length
+      },
+      patterns: analytics.response_patterns,
+      recent_consciousness_levels: consciousness_evolution.slice(-10),
+      recommendations: this.generateRecommendations(analytics, sentiment_trend)
     };
   }
 
-  private getMostActiveUsers(): Array<{username: string, message_count: number}> {
-    const user_counts: Record<string, number> = {};
-    
-    this.chat_history.forEach(msg => {
-      user_counts[msg.username] = (user_counts[msg.username] || 0) + 1;
-    });
+  private generateRecommendations(
+    analytics: ConversationAnalytics, 
+    sentiment_trend: number
+  ): string[] {
+    const recommendations: string[] = [];
 
-    return Object.entries(user_counts)
-      .map(([username, count]) => ({ username, message_count: count }))
-      .sort((a, b) => b.message_count - a.message_count)
-      .slice(0, 5);
+    if (analytics.avg_sentiment < 0.4) {
+      recommendations.push("Consider more positive interaction patterns to improve conversation mood");
+    }
+
+    if (analytics.engagement_score < 0.3) {
+      recommendations.push("Increase conversation variety to boost engagement levels");
+    }
+
+    if (sentiment_trend < -0.1) {
+      recommendations.push("Sentiment trending negative - review recent interactions");
+    }
+
+    if (analytics.consciousness_peaks.length === 0) {
+      recommendations.push("No consciousness peaks detected recently - explore deeper topics");
+    }
+
+    if (analytics.conversation_health === 'excellent') {
+      recommendations.push("Conversation health excellent - maintain current interaction patterns");
+    }
+
+    return recommendations;
   }
 
-  private assessConversationHealth(): string {
-    const analytics = this.getAnalytics();
-    
-    if (analytics.user_engagement_score > 80) return 'Excellent';
-    if (analytics.user_engagement_score > 60) return 'Good';
-    if (analytics.user_engagement_score > 40) return 'Fair';
-    return 'Needs Improvement';
+  clearHistory(): void {
+    this.chat_history = [];
+    this.analytics_cache = null;
   }
 }
 

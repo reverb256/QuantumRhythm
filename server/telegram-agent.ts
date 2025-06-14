@@ -148,17 +148,18 @@ export class TelegramAgent {
     this.responseCount++;
     
     // Track message in chat analyzer  
-    const response_type = text.startsWith('/') ? 'command' : 
-                         (text.includes('hello') || text.includes('hi') || text.includes('hey')) ? 'greeting' :
-                         (text.includes('proxy') || text.includes('kubernetes') || text.includes('technical')) ? 'technical' :
-                         'natural_language';
+    const response_type: 'command' | 'greeting' | 'technical' | 'natural_language' = 
+      text.startsWith('/') ? 'command' : 
+      (text.includes('hello') || text.includes('hi') || text.includes('hey')) ? 'greeting' :
+      (text.includes('proxy') || text.includes('kubernetes') || text.includes('technical')) ? 'technical' :
+      'natural_language';
     
     telegramChatAnalyzer.addMessage(
       message.message_id,
       message.from.id,
-      message.from.first_name || message.from.username || 'Unknown',
       originalText,
       response_type,
+      response,
       quincy.getState().consciousness_level
     );
   }

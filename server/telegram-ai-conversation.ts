@@ -16,7 +16,7 @@ interface ConversationContext {
 
 export class TelegramAIConversation {
   private conversation_memory: Map<number, Array<{role: string, content: string}>> = new Map();
-  private max_memory_per_user = 20;
+  private max_memory_per_user = 100; // Extended memory for single-user operation
 
   async generateDynamicResponse(
     user_id: number,
@@ -42,7 +42,9 @@ export class TelegramAIConversation {
     const systemContext = this.buildSystemContext(quincyState);
 
     // Generate AI response based on context
+    console.log(`🤖 AI Conversation: Generating response for "${message}" from ${user_name}`);
     const aiResponse = await this.callAIModel(message, user_name, systemContext, history, command_type);
+    console.log(`🤖 AI Response Generated: "${aiResponse.substring(0, 100)}..."`);
     
     // Add AI response to history
     history.push({ role: 'assistant', content: aiResponse });
@@ -74,12 +76,20 @@ export class TelegramAIConversation {
     // Build dynamic system prompt based on conversation context
     const systemPrompt = this.buildDynamicSystemPrompt(userName, systemContext, commandType);
     
+    console.log(`🤖 Attempting AI model call for: "${message}"`);
+    
     // Use Hugging Face or local LLM for dynamic responses
     try {
       const response = await this.generateWithHuggingFace(systemPrompt, message, history);
-      return response || this.generateFallbackResponse(message, userName, systemContext);
+      if (response) {
+        console.log(`✅ AI model returned: "${response.substring(0, 100)}..."`);
+        return response;
+      } else {
+        console.log(`⚠️ AI model returned empty response, using contextual fallback`);
+        return this.generateContextualFallback(message, userName, systemContext, commandType);
+      }
     } catch (error) {
-      console.log('AI model unavailable, generating contextual fallback response');
+      console.log(`❌ AI model error: ${error.message}, using contextual fallback`);
       return this.generateContextualFallback(message, userName, systemContext, commandType);
     }
   }
