@@ -90,12 +90,12 @@ export class AIErrorTroubleshooter {
   }
 
   private async checkAndFixMissingUtils() {
-    const fs = require('fs').promises;
-    const path = require('path');
+    const fs = await import('fs');
+    const path = await import('path');
     
     try {
-      const utilsPath = path.join(process.cwd(), 'client/src/lib/utils.ts');
-      await fs.access(utilsPath);
+      const utilsPath = path.default.join(process.cwd(), 'client/src/lib/utils.ts');
+      await fs.promises.access(utilsPath);
     } catch {
       // Utils file missing, create it
       await this.createUtilsFile();
@@ -103,8 +103,8 @@ export class AIErrorTroubleshooter {
   }
 
   private async createUtilsFile() {
-    const fs = require('fs').promises;
-    const path = require('path');
+    const fs = await import('fs');
+    const path = await import('path');
     
     const utilsContent = `import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
