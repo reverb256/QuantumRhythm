@@ -128,10 +128,7 @@ generate_talos_config() {
     fi
 
     # Generate machine configs with production patches
-    talosctl gen config ${CLUSTER_NAME} ${CLUSTER_ENDPOINT} \
-        --kubernetes-version=${KUBERNETES_VERSION} \
-        --with-secrets secrets.yaml \
-        --config-patch-control-plane @- <<EOF
+    cat > controlplane-patch.yaml <<EOF
 cluster:
   network:
     dnsDomain: cluster.local
@@ -171,11 +168,13 @@ machine:
     - 10.1.1.122
 EOF
 
-    # Generate worker config with production patches
     talosctl gen config ${CLUSTER_NAME} ${CLUSTER_ENDPOINT} \
         --kubernetes-version=${KUBERNETES_VERSION} \
         --with-secrets secrets.yaml \
-        --config-patch-worker @- <<EOF
+        --config-patch-control-plane @controlplane-patch.yaml
+
+    # Generate worker config with production patches
+    cat > worker-patch.yaml <<EOF
 machine:
   network:
     hostname: \${NODE_NAME}
@@ -203,6 +202,11 @@ machine:
     - 10.1.1.121
     - 10.1.1.122
 EOF
+
+    talosctl gen config ${CLUSTER_NAME} ${CLUSTER_ENDPOINT} \
+        --kubernetes-version=${KUBERNETES_VERSION} \
+        --with-secrets secrets.yaml \
+        --config-patch-worker @worker-patch.yaml
 
     log_success "Talos configuration generated"
 }
