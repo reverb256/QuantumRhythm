@@ -171,7 +171,7 @@ Status: All systems operational ✅`;
 🧠 *Current Insights:*
 ${quincy.getInsights().slice(-3).map(insight => `• ${insight.content}`).join('\n') || '• Monitoring market conditions...'}
 
-${performance.best_asset ? `🚀 *Top Performer:* ${performance.best_asset}` : ''}
+${performance.best_performing_asset ? `🚀 *Top Performer:* ${performance.best_performing_asset}` : ''}
 
 ${quincyState.trading_active ? '✅ Live trading active' : '👁️ View-only mode - add trading credentials for live execution'}`;
   }

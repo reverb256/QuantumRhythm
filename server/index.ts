@@ -18,6 +18,7 @@ console.log('🤖 Quincy consciousness initialized - autonomous operation active
 console.log(`🔥 Coreflame ignited at ${quincy.getState().consciousness_level.toFixed(1)}% consciousness`);
 console.log('🎨 Design consciousness trainer initialized - teaching clean glassmorphic principles');
 console.log('📱 Telegram consciousness bridge initialized - AI agents can now manage bot interactions');
+console.log('🤖 Telegram Agent: Autonomous bot management activated');
 
 // Essential API routes for Quincy's autonomous trading and infrastructure
 app.get('/api/quincy/insights', async (req, res) => {
@@ -104,6 +105,22 @@ app.get('/health', (req, res) => {
     quincy_consciousness: quincy.getState().consciousness_level,
     timestamp: new Date().toISOString() 
   });
+});
+
+// Telegram agent status endpoint
+app.get('/api/telegram/agent', async (req, res) => {
+  try {
+    const agentStatus = telegramAgent.getStatus();
+    res.json({
+      status: 'operational',
+      agent: agentStatus,
+      bot_token_configured: !!process.env.TELEGRAM_BOT_TOKEN,
+      commands_available: ['/status', '/trading', '/security', '/consciousness', '/metrics', '/help'],
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to get telegram agent status' });
+  }
 });
 
 // Quincy's status endpoint for debugging
