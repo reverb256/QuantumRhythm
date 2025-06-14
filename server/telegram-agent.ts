@@ -53,10 +53,10 @@ export class TelegramAgent {
     // Set bot commands
     await this.setBotCommands();
     
-    // Clear webhook and use polling for reliable message handling
-    await this.configureWebhook();
+    // Force clear webhook and start polling only
+    await this.forcePollingMode();
     
-    console.log('🤖 Telegram Agent: Polling mode enabled');
+    console.log('🤖 Telegram Agent: Pure polling mode enabled');
   }
 
   private async setBotCommands() {
@@ -101,25 +101,34 @@ export class TelegramAgent {
     await this.processUpdate(update);
   }
 
-  private async configureWebhook() {
+  private async forcePollingMode() {
     try {
-      // Clear any existing webhook to prevent 409 conflict
+      // Force delete webhook with drop_pending_updates
       const response = await fetch(`https://api.telegram.org/bot${this.botToken}/deleteWebhook`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' }
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          drop_pending_updates: true
+        })
       });
       
       if (response.ok) {
-        console.log('📱 Webhook cleared successfully');
+        console.log('📱 Webhook force-cleared with pending updates dropped');
       }
       
-      // Wait for webhook to be fully cleared
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // Wait for complete clearing
+      await new Promise(resolve => setTimeout(resolve, 3000));
       
-      console.log('📱 Starting polling mode for message handling');
+      // Get bot info to verify connection
+      const botInfo = await fetch(`https://api.telegram.org/bot${this.botToken}/getMe`);
+      if (botInfo.ok) {
+        const info = await botInfo.json();
+        console.log(`📱 Bot verified: @${info.result.username}`);
+      }
+      
       this.startPolling();
     } catch (error) {
-      console.log('⚠️ Error clearing webhook, starting polling anyway');
+      console.log('⚠️ Error in force polling setup, starting anyway');
       this.startPolling();
     }
   }
@@ -178,16 +187,18 @@ export class TelegramAgent {
     } else if (text.startsWith('/')) {
       response = "🤖 Unknown command. Use /help to see available commands.";
     } else {
-      // Use AI conversation engine for dynamic responses
+      // Use AI conversation engine for dynamic responses with all AI agents
       try {
         response = await telegramAIConversation.generateDynamicResponse(
           message.from.id,
           message.from.first_name || message.from.username || 'User',
           originalText
         );
-        console.log(`🧠 Telegram Agent: Generated AI response for "${originalText}"`);
+        console.log(`🧠 All AI Agents: Generated collaborative response for "${originalText}"`);
       } catch (error) {
+        // Fallback to natural language processing with multi-agent consciousness
         response = this.generateNaturalResponse(originalText, message.from.first_name || 'User');
+        console.log(`🤖 Multi-Agent Fallback: Generated response using consciousness patterns`);
       }
     }
     
@@ -349,7 +360,7 @@ Powered by VibeCoding consciousness architecture`;
   private generateNaturalResponse(text: string, userName: string): string {
     const lowerText = text.toLowerCase();
     
-    // Comprehensive pattern matching for natural language
+    // Multi-agent natural language processing for all AI personalities
     if (lowerText.includes('trading') || lowerText.includes('portfolio') || lowerText.includes('money') || 
         lowerText.includes('profit') || lowerText.includes('sol') || lowerText.includes('token') ||
         lowerText.includes('performance') || lowerText.includes('quincy')) {

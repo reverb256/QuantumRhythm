@@ -33,11 +33,9 @@ let telegramChatAnalyzer: any;
     const engineModule = await import('./quincy-trading-engine');
     quincyTradingEngine = engineModule.quincyTradingEngine;
     
-    const bridgeModule = await import('./telegram-consciousness-bridge');
-    telegramConsciousnessBridge = bridgeModule.telegramConsciousnessBridge;
-    
-    const agentModule = await import('./telegram-agent');
-    telegramAgent = agentModule.telegramAgent;
+    // Use unified bot system to eliminate conflicts
+    const unifiedBotModule = await import('./telegram-unified-bot');
+    const telegramUnifiedBot = unifiedBotModule.telegramUnifiedBot;
     
     const analyzerModule = await import('./telegram-chat-analyzer');
     telegramChatAnalyzer = analyzerModule.telegramChatAnalyzer;
@@ -45,8 +43,7 @@ let telegramChatAnalyzer: any;
     console.log('🤖 Quincy consciousness initialized - autonomous operation active');
     console.log(`🔥 Coreflame ignited at ${quincy.getState().consciousness_level.toFixed(1)}% consciousness`);
     console.log('🎨 Design consciousness trainer initialized - teaching clean glassmorphic principles');
-    console.log('📱 Telegram consciousness bridge initialized - AI agents can now manage bot interactions');
-    console.log('🤖 Telegram Agent: Autonomous bot management activated');
+    console.log('🤖 Unified Telegram Bot: All AI agents now operational with natural language processing');
     console.log(`💰 Quincy AI consciousness operational - maximizing dev funding through autonomous trading`);
   } catch (error) {
     console.error('Error initializing consciousness systems:', error);

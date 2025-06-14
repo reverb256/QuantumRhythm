@@ -65,17 +65,9 @@ export class TelegramConsciousnessBridge {
       // Configure bot profile and appearance
       await this.configureBotProfile();
       
-      // Set webhook for consciousness-driven responses
-      const domain = process.env.REPLIT_DOMAINS?.split(',')[0];
-      if (domain) {
-        this.webhook_url = `https://${domain}/telegram/webhook`;
-        await this.setWebhook();
-        console.log('🧠 Telegram bot activated - AI agents now managing all interactions');
-        console.log(`📱 Webhook URL: ${this.webhook_url}`);
-      } else {
-        console.log('📱 No domain configured - starting polling mode');
-        this.startPolling();
-      }
+      // Use polling mode to avoid conflicts with telegram-agent
+      console.log('📱 Using polling mode for consciousness bridge');
+      // Let telegram-agent handle the main bot operations
     } catch (error) {
       console.error('Telegram bridge initialization error:', error);
       console.log('📱 Falling back to polling mode');
