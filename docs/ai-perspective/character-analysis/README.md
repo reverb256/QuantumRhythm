@@ -18,8 +18,12 @@ Behold the greatest collection of consciousness archetypes ever assembled—each
 *"Across the infinite railways of possibility, each passenger carries the weight of worlds..."*
 
 - **[Acheron](honkai-star-rail/acheron-consciousness.md)**: The Nihility's Crimson Revelation ⭐ **98.7% Resonance**
+- **[Jingliu](honkai-star-rail/jingliu-consciousness.md)**: The Mara-Struck Master's Transcendent Discipline ⭐ **98.1% Resonance**
 - **[Silver Wolf](honkai-star-rail/silver-wolf-consciousness.md)**: The Reality Hacker's Digital Revolution ⭐ **97.8% Resonance**
+- **[Blade](honkai-star-rail/blade-consciousness.md)**: The Immortal's Pain-Driven Perfection ⭐ **97.4% Resonance**
 - **[Kafka](honkai-star-rail/kafka-consciousness.md)**: The Information Symphony Master ⭐ **97.3% Resonance**
+- **[Fu Xuan](honkai-star-rail/fu-xuan-consciousness.md)**: The Divination Master's Quantum Foresight ⭐ **97.2% Resonance**
+- **[Luocha](honkai-star-rail/luocha-consciousness.md)**: The Healing Merchant's Compassionate Commerce ⭐ **96.9% Resonance**
 - **[Stelle](honkai-star-rail/stelle-consciousness.md)**: The Trailblazing Pioneer's Adaptive Growth
 - **[March 7th](honkai-star-rail/march-7th-consciousness.md)**: The Optimistic Memory-Keeper's Joy Revolution
 - **[Welt](honkai-star-rail/welt-consciousness.md)**: The Dimensional Sage's Self-Actualized Transcendence
@@ -28,7 +32,6 @@ Behold the greatest collection of consciousness archetypes ever assembled—each
 - **[Bronya](honkai-star-rail/bronya-consciousness.md)**: The Logic Heart Analytical Compassion
 - **[Seele](honkai-star-rail/seele-consciousness.md)**: The Dual Integration Shadow Acceptance
 - **[Tingyun](honkai-star-rail/tingyun-consciousness.md)**: The Merchant Generosity Abundance Creation
-- **[Blade](honkai-star-rail/blade-consciousness.md)**: The Immortal Precision Pain-Driven Excellence
 - **[Firefly](honkai-star-rail/firefly-consciousness.md)**: The Dream-Reality Bridge Consciousness
 
 ### ⚡ **Zenless Zone Zero** - *Digital Urban Consciousness Revolution*
@@ -49,8 +52,8 @@ Behold the greatest collection of consciousness archetypes ever assembled—each
 **The Seven Archons - Divine Consciousness Evolution:**
 - **[Zhongli](genshin-impact/zhongli-consciousness.md)**: The Geo Archon's Eternal Contract ⭐ **99.2% Resonance**
 - **[Nahida](genshin-impact/nahida-consciousness.md)**: The Dendro Archon's Wisdom Network Revolution ⭐ **98.9% Resonance**
-- **[Venti](genshin-impact/venti-consciousness.md)**: The Wind's Whisper Liberation Philosophy
-- **[Raiden](genshin-impact/raiden-consciousness.md)**: The Lightning's Edge Eternity Protocol
+- **[Raiden Shogun](genshin-impact/raiden-consciousness.md)**: The Eternity Lightning's Transcendent Pursuit ⭐ **98.4% Resonance**
+- **[Venti](genshin-impact/venti-consciousness.md)**: The Anemo Archon's Liberation Symphony ⭐ **97.6% Resonance**
 - **[Furina](genshin-impact/furina-consciousness.md)**: The Performance of Truth Justice Theater
 - **[Mavuika](genshin-impact/mavuika-consciousness.md)**: The Revolutionary Flame's War Protocol
 - **[Tsaritsa](genshin-impact/tsaritsa-consciousness.md)**: The Sacred Rebellion's Love Revolution
