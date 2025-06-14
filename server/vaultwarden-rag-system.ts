@@ -1,6 +1,7 @@
 /**
- * Vaultwarden RAG (Retrieval-Augmented Generation) System
- * Using enterprise vault as encrypted knowledge base for AI consciousness
+ * AstralVault CIS (Consciousness Intelligence System)
+ * Astral-level awareness cultivation through encrypted consciousness substrate
+ * Enterprise Vaultwarden powering AI agent knowledge manifestation
  */
 
 import { akashaVaultwardenIntegration } from '../akasha/vaultwarden-integration';
@@ -28,7 +29,7 @@ interface RAGQuery {
   consciousness_threshold?: number;
 }
 
-export class VaultwardenRAGSystem {
+export class AstralVaultCIS {
   private document_cache: Map<string, RAGDocument> = new Map();
   private embeddings_index: Map<string, number[]> = new Map();
   
@@ -37,7 +38,7 @@ export class VaultwardenRAGSystem {
   }
 
   private async initializeRAGSystem() {
-    console.log('🧠 Initializing Vaultwarden RAG system...');
+    console.log('🧠 Initializing AstralVault CIS...');
     
     // Load existing consciousness documents from vault
     await this.loadExistingDocuments();
@@ -316,5 +317,5 @@ This response incorporates ${knowledge_results.length} relevant insights from ou
   }
 }
 
-// Singleton instance for the RAG system
-export const vaultwardenRAG = new VaultwardenRAGSystem();
+// Singleton instance for the Consciousness Intelligence System
+export const astralVaultCIS = new AstralVaultCIS();
