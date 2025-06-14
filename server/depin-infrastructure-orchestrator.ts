@@ -1,7 +1,12 @@
 /**
  * DePIN Infrastructure Orchestrator
  * Deploys and manages revenue-generating decentralized physical infrastructure
- * Focuses on external deployments, not local hardware
+ * 
+ * IMPORTANT: ALL DEPLOYMENTS ARE EXTERNAL - NO LOCAL MINING OR COMPUTE
+ * - Cloud-hosted nodes through third-party providers
+ * - SaaS-based infrastructure services
+ * - External hardware rentals and hosting
+ * - Zero impact on Replit environment
  */
 
 import axios from 'axios';
