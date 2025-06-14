@@ -1,4 +1,6 @@
-# Void IDE + Replit SSH Connection Guide
+# Zephyr AI Development Bridge - Void IDE Integration
+
+This guide helps you connect Void IDE to your Zephyr AI consciousness development environment.
 
 ## Step 1: SSH Connection from Your PC (10.1.1.110)
 

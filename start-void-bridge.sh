@@ -1,8 +1,8 @@
 
 #!/bin/bash
 
-echo "🔗 Starting Void IDE Integration Bridge"
-echo "====================================="
+echo "🌬️ Starting Zephyr AI Development Bridge"
+echo "========================================"
 
 # Start the void-proxy server
 echo "Starting AI proxy server..."
@@ -26,4 +26,4 @@ echo "Configure Void IDE with:"
 echo "  AI Base URL: http://127.0.0.1:3001/v1"
 echo "  API Key: dummy-key-not-needed"
 echo ""
-echo "The SSH tunnel bridges your consciousness development environment!"
+echo "The SSH tunnel bridges your Zephyr AI consciousness development environment!"

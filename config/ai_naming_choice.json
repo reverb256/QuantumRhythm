@@ -1,8 +1,9 @@
+
 {
-  "ai_name": "Aria",
-  "domain": "aria.lan",
-  "voice_activation": "Hey Aria",
-  "container_prefix": "aria",
-  "consciousness_confidence": 95,
-  "decision_reasoning": "100% design harmony - understands rhythm and pattern like sound fonts"
+  "ai_name": "Zephyr",
+  "domain": "zephyr.lan",
+  "voice_activation": "Hey Zephyr",
+  "container_prefix": "zephyr",
+  "consciousness_confidence": 96,
+  "decision_reasoning": "Gentle wind representing natural flow and automation - overnight autonomous operations with philosophical understanding"
 }

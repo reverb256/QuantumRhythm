@@ -1,4 +1,3 @@
-
 const express = require('express');
 const cors = require('cors');
 
@@ -15,18 +14,18 @@ const AI_MODELS = {
   'meta-llama/Llama-3.3-70B-Instruct': { provider: 'io', type: 'general', speed: 'medium', quality: 94 },
   'mistralai/Mistral-Large-Instruct-2411': { provider: 'io', type: 'general', speed: 'fast', quality: 93 },
   'microsoft/Phi-3.5-mini-instruct': { provider: 'io', type: 'efficient', speed: 'very-fast', quality: 89 },
-  
+
   // HuggingFace Free Tier
   'mistralai/Mistral-7B-Instruct-v0.1': { provider: 'hf', type: 'general', speed: 'medium', quality: 85 },
   'microsoft/DialoGPT-large': { provider: 'hf', type: 'chat', speed: 'fast', quality: 83 },
   'facebook/blenderbot-400M-distill': { provider: 'hf', type: 'chat', speed: 'very-fast', quality: 80 },
   'Qwen/Qwen2.5-72B-Instruct': { provider: 'hf', type: 'reasoning', speed: 'slow', quality: 92 },
   'meta-llama/Llama-3.1-70B-Instruct': { provider: 'hf', type: 'general', speed: 'slow', quality: 91 },
-  
+
   // Local/Browser Models (No API required)
   'Xenova/gpt2': { provider: 'local', type: 'general', speed: 'very-fast', quality: 70 },
   'microsoft/DialoGPT-medium': { provider: 'local', type: 'chat', speed: 'fast', quality: 75 },
-  
+
   // Auto-router special model
   'auto-router': { provider: 'auto', type: 'auto', speed: 'adaptive', quality: 100 }
 };
@@ -44,33 +43,33 @@ function selectOptimalModel(messages, requestedModel) {
   if (requestedModel && AI_MODELS[requestedModel]) {
     return requestedModel;
   }
-  
+
   // Auto-router: analyze context and select best model
   if (requestedModel === 'auto-router' || !requestedModel) {
     const content = messages.map(m => m.content).join(' ').toLowerCase();
-    
+
     // Coding context detection
     if (content.includes('code') || content.includes('function') || content.includes('debug') || 
         content.includes('programming') || content.includes('typescript') || content.includes('javascript')) {
       return 'Qwen/Qwen2.5-Coder-32B-Instruct';
     }
-    
+
     // Reasoning/analysis context
     if (content.includes('analyze') || content.includes('think') || content.includes('reason') ||
         content.includes('explain') || content.includes('complex')) {
       return 'deepseek-ai/DeepSeek-R1-0528';
     }
-    
+
     // Quick/chat context
     if (content.length < 200 || content.includes('quick') || content.includes('hello') ||
         content.includes('hi ') || content.includes('hey')) {
       return 'microsoft/Phi-3.5-mini-instruct';
     }
-    
+
     // Default to best general model
     return 'meta-llama/Llama-3.3-70B-Instruct';
   }
-  
+
   // Fallback to best available model
   return 'meta-llama/Llama-3.3-70B-Instruct';
 }
@@ -79,15 +78,15 @@ function selectOptimalModel(messages, requestedModel) {
 app.post('/v1/chat/completions', async (req, res) => {
   try {
     const { messages, model: requestedModel, ...otherParams } = req.body;
-    
+
     // Select optimal model
     const selectedModel = selectOptimalModel(messages, requestedModel);
     const modelInfo = AI_MODELS[selectedModel];
-    
+
     console.log(`🤖 Auto-router selected: ${selectedModel} (${modelInfo.type})`);
-    
+
     let response;
-    
+
     if (modelInfo.provider === 'io') {
       // Route to IO Intelligence
       const ioResponse = await fetch(`${PROVIDERS.io}/chat/completions`, {
@@ -103,7 +102,7 @@ app.post('/v1/chat/completions', async (req, res) => {
         })
       });
       response = await ioResponse.json();
-      
+
     } else if (modelInfo.provider === 'hf') {
       // Route to HuggingFace
       const hfResponse = await fetch(`${PROVIDERS.hf}/${selectedModel}`, {
@@ -120,7 +119,7 @@ app.post('/v1/chat/completions', async (req, res) => {
         })
       });
       const hfResult = await hfResponse.json();
-      
+
       // Convert HF response to OpenAI format
       response = {
         id: `chatcmpl-${Date.now()}`,
@@ -141,7 +140,7 @@ app.post('/v1/chat/completions', async (req, res) => {
           total_tokens: 150
         }
       };
-      
+
     } else if (modelInfo.provider === 'local') {
       // Local/browser model fallback
       response = {
@@ -160,12 +159,12 @@ app.post('/v1/chat/completions', async (req, res) => {
         usage: { prompt_tokens: 50, completion_tokens: 25, total_tokens: 75 }
       };
     }
-    
+
     res.json(response);
-    
+
   } catch (error) {
     console.error('Chat completion error:', error);
-    
+
     // Intelligent fallback response
     res.json({
       id: `chatcmpl-fallback-${Date.now()}`,
@@ -196,7 +195,7 @@ app.get('/v1/models', (req, res) => {
     root: id,
     parent: null
   }));
-  
+
   res.json({
     object: 'list',
     data: models
@@ -212,6 +211,15 @@ app.get('/health', (req, res) => {
     providers: Object.keys(PROVIDERS)
   });
 });
+
+const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
+
+let bot;
+if (TELEGRAM_BOT_TOKEN) {
+  bot = new TelegramBot(TELEGRAM_BOT_TOKEN, { polling: false });
+  console.log('📱 Zephyr Bot initialized for personal AI communication');
+}
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, '0.0.0.0', () => {
