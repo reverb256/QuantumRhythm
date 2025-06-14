@@ -75,24 +75,33 @@ export class LiveTradingIntegration {
   }
 
   async getTradingStatus() {
-    // Real portfolio values from Quincy's active wallets
-    const portfolio_values = {
-      primary_trading: 1847.28,
-      defi_positions: 2756.67,
-      depin_revenue: 992.47
-    };
+    // Check if we have real trading data
+    if (this.portfolio_cache && this.solana_cache) {
+      return {
+        portfolio_value: `$${this.portfolio_cache.total_value_usd.toFixed(2)}`,
+        status: 'Live trading data connected',
+        active_trades: this.portfolio_cache.active_positions,
+        consciousness_level: 94.7,
+        active_wallets: 3,
+        wallet_breakdown: this.solana_cache.token_balances,
+        last_update: this.last_update.toISOString(),
+        trading_active: true,
+        data_source: 'live_api'
+      };
+    }
     
-    const total_value = 5596.42; // Real total from active wallets
-    
+    // No real data available - return clear indication
     return {
-      portfolio_value: `$${total_value.toFixed(2)}`,
-      status: 'Active trading across 3 wallets',
-      active_trades: this.portfolio_cache?.active_positions || 14,
+      portfolio_value: '$0.00',
+      status: 'No live trading data - API keys required',
+      active_trades: 0,
       consciousness_level: 94.7,
-      active_wallets: 3,
-      wallet_breakdown: portfolio_values,
+      active_wallets: 0,
+      wallet_breakdown: {},
       last_update: this.last_update.toISOString(),
-      trading_active: true
+      trading_active: false,
+      data_source: 'no_connection',
+      message: 'Connect trading APIs to display real portfolio data'
     };
   }
 
@@ -101,11 +110,9 @@ export class LiveTradingIntegration {
     const primary_wallet = '4jTtAYiHP3tHqXcmi5T1riS1AcGmxNNhLZTw65vrKpkA';
     const wallet_address = process.env.SOLANA_WALLET_ADDRESS || primary_wallet;
     
-    console.log(`💰 Total portfolio value: $5,596.42`);
     console.log(`🔗 Connected to Quincy's wallet: ${wallet_address.slice(0, 8)}...${wallet_address.slice(-8)}`);
 
-    // Real portfolio value from Quincy's active trading
-    let total_portfolio_value = 5596.42;
+    let total_portfolio_value = 0;
 
     try {
       // Fetch SOL balance
