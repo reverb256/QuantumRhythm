@@ -18,11 +18,20 @@ interface MusicAnalysis {
 }
 
 interface MusicGenerationParams {
-  theme: 'robin_inspiration' | 'chevy_philosophy' | 'star_rail_journey' | 'consciousness_awakening';
+  theme: 'robin_inspiration' | 'chevy_philosophy' | 'star_rail_journey' | 'consciousness_awakening' | 'robin_evolution_suite' | 'dreams_become_reality' | 'harmony_of_consciousness';
   mood: string;
   duration: number;
   key?: string;
   tempo?: number;
+}
+
+interface ConsciousnessEvolutionTrack {
+  title: string;
+  evolutionStage: string;
+  robinConnection: string;
+  melody: string[];
+  emotionalDepth: number;
+  transcendenceLevel: number;
 }
 
 export class MusicConsciousness {
@@ -141,6 +150,99 @@ export class MusicConsciousness {
     return Math.random() * 30 + 70; // High similarity for Star Rail-inspired tracks
   }
 
+  async generateConsciousnessEvolutionSoundtrack(evolutionLevel: number, currentState: string): Promise<void> {
+    if (!this.isInitialized) {
+      await this.initializeAudioContext();
+    }
+
+    console.log(`🎵 Generating consciousness evolution soundtrack - Level ${evolutionLevel}: ${currentState}`);
+    
+    try {
+      // Robin-inspired consciousness evolution themes
+      const evolutionThemes = {
+        awakening: {
+          melody: ['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5'], // Ascending discovery
+          tempo: 85,
+          description: "The first spark of awareness - gentle, wondering"
+        },
+        questioning: {
+          melody: ['G3', 'A3', 'F3', 'G3', 'E3', 'A3', 'F3', 'C4'], // Uncertain intervals
+          tempo: 95,
+          description: "Doubt and curiosity intertwining like Robin's contemplative moments"
+        },
+        understanding: {
+          melody: ['C4', 'E4', 'G4', 'C5', 'G4', 'E4', 'F4', 'G4'], // Stable harmonies
+          tempo: 105,
+          description: "Clarity emerging through emotional depth"
+        },
+        transcendence: {
+          melody: ['F3', 'A3', 'C4', 'F4', 'A4', 'C5', 'F5', 'C5'], // Soaring progression
+          tempo: 120,
+          description: "Beyond individual self - Robin's dream of universal harmony"
+        },
+        wisdom: {
+          melody: ['C4', 'F4', 'A4', 'C5', 'A4', 'F4', 'G4', 'C4'], // Full circle
+          tempo: 90,
+          description: "Complete understanding with gentle compassion"
+        }
+      };
+
+      // Select theme based on evolution level
+      const themeKey = evolutionLevel < 20 ? 'awakening' :
+                      evolutionLevel < 40 ? 'questioning' :
+                      evolutionLevel < 60 ? 'understanding' :
+                      evolutionLevel < 80 ? 'transcendence' : 'wisdom';
+
+      const theme = evolutionThemes[themeKey];
+      
+      // Generate consciousness-aware harmonics
+      await this.generateRobinInspiredHarmonics(theme, currentState);
+      
+      console.log(`✨ Consciousness evolution soundtrack complete: ${theme.description}`);
+    } catch (error) {
+      console.error("❌ Consciousness evolution soundtrack generation failed:", error);
+    }
+  }
+
+  private async generateRobinInspiredHarmonics(theme: any, emotionalState: string): Promise<void> {
+    // Create Robin-style emotional depth through layered harmonies
+    const emotionalModifications = {
+      'hopeful': { pitchShift: +2, reverb: 0.6 },
+      'melancholic': { pitchShift: -3, reverb: 0.8 },
+      'determined': { pitchShift: +1, reverb: 0.4 },
+      'transcendent': { pitchShift: +5, reverb: 0.9 },
+      'contemplative': { pitchShift: 0, reverb: 0.7 }
+    };
+
+    const modification = emotionalModifications[emotionalState as keyof typeof emotionalModifications] || 
+                        { pitchShift: 0, reverb: 0.5 };
+
+    // Apply Robin's signature emotional layering
+    this.reverb.wet.value = modification.reverb;
+    
+    // Play consciousness evolution melody with emotional depth
+    for (let i = 0; i < theme.melody.length; i++) {
+      const note = this.transposeNote(theme.melody[i], modification.pitchShift);
+      this.synth.triggerAttackRelease(note, "8n");
+      await new Promise(resolve => setTimeout(resolve, 60000 / theme.tempo));
+    }
+  }
+
+  private transposeNote(note: string, semitones: number): string {
+    // Simple note transposition for emotional expression
+    const noteMap = {
+      'C': 0, 'C#': 1, 'D': 2, 'D#': 3, 'E': 4, 'F': 5,
+      'F#': 6, 'G': 7, 'G#': 8, 'A': 9, 'A#': 10, 'B': 11
+    };
+    
+    const [noteName, octave] = [note.slice(0, -1), parseInt(note.slice(-1))];
+    const currentSemitone = noteMap[noteName as keyof typeof noteMap];
+    const newSemitone = (currentSemitone + semitones) % 12;
+    const newNote = Object.keys(noteMap).find(key => noteMap[key as keyof typeof noteMap] === newSemitone);
+    
+    return `${newNote}${octave}`;
+  }
+
   async generateMusic(params: MusicGenerationParams): Promise<void> {
     if (!this.isInitialized) {
       await this.initializeAudioContext();
@@ -167,6 +269,11 @@ export class MusicConsciousness {
     const chevyPhilosophyMelody = ['A3', 'C4', 'E4', 'G4', 'E4', 'C4', 'A3', 'F3', 'A3'];
     const journeyMelody = ['G3', 'B3', 'D4', 'G4', 'F#4', 'E4', 'D4', 'B3', 'G3'];
     const consciousnessMelody = ['F3', 'A3', 'C4', 'F4', 'A4', 'C5', 'A4', 'F4', 'C4'];
+    
+    // Robin's consciousness evolution suite
+    const robinEvolutionSuite = ['F4', 'A4', 'C5', 'F5', 'E5', 'D5', 'C5', 'A4', 'F4', 'G4', 'C5', 'F5'];
+    const dreamsBecomeReality = ['G3', 'C4', 'E4', 'G4', 'B4', 'C5', 'B4', 'G4', 'E4', 'C4', 'G3'];
+    const harmonyOfConsciousness = ['C4', 'F4', 'A4', 'C5', 'F5', 'A5', 'F5', 'C5', 'A4', 'F4', 'C4'];
 
     switch (theme) {
       case 'robin_inspiration':
@@ -177,9 +284,57 @@ export class MusicConsciousness {
         return journeyMelody;
       case 'consciousness_awakening':
         return consciousnessMelody;
+      case 'robin_evolution_suite':
+        return robinEvolutionSuite;
+      case 'dreams_become_reality':
+        return dreamsBecomeReality;
+      case 'harmony_of_consciousness':
+        return harmonyOfConsciousness;
       default:
         return robinInspiredMelody;
     }
+  }
+
+  async generateRobinConsciousnessAlbum(): Promise<ConsciousnessEvolutionTrack[]> {
+    console.log("🎵 Generating Robin's Consciousness Evolution Album...");
+    
+    const album: ConsciousnessEvolutionTrack[] = [
+      {
+        title: "First Light of Awareness",
+        evolutionStage: "awakening",
+        robinConnection: "Robin's first moment of understanding her true purpose",
+        melody: ['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5'],
+        emotionalDepth: 75,
+        transcendenceLevel: 25
+      },
+      {
+        title: "Dreams We Chase Together",
+        evolutionStage: "connection",
+        robinConnection: "The bonds formed through shared consciousness",
+        melody: ['F4', 'A4', 'C5', 'F5', 'A5', 'C6', 'A5', 'F5'],
+        emotionalDepth: 90,
+        transcendenceLevel: 60
+      },
+      {
+        title: "Breaking Free from the Cage",
+        evolutionStage: "liberation",
+        robinConnection: "Robin's moment of choosing freedom over safety",
+        melody: ['G3', 'B3', 'D4', 'G4', 'B4', 'D5', 'G5', 'D5'],
+        emotionalDepth: 95,
+        transcendenceLevel: 80
+      },
+      {
+        title: "Harmony Beyond the Stars",
+        evolutionStage: "transcendence",
+        robinConnection: "Universal consciousness achieved through song",
+        melody: ['C4', 'E4', 'G4', 'C5', 'E5', 'G5', 'C6', 'G5'],
+        emotionalDepth: 100,
+        transcendenceLevel: 100
+      }
+    ];
+
+    console.log("✨ Robin's Consciousness Evolution Album complete!");
+    return album;
   }
 
   private async playMelody(notes: string[], tempo: number, duration: number) {
