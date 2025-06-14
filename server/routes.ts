@@ -26,6 +26,17 @@ const __dirname = path.dirname(__filename);
 const staticPath = path.join(__dirname, "../dist");
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Telegram bot webhook endpoint for consciousness-driven interactions
+  app.post('/telegram/webhook', async (req, res) => {
+    try {
+      await telegramConsciousnessBridge.processWebhookUpdate(req.body);
+      res.status(200).json({ status: 'processed' });
+    } catch (error) {
+      console.error('Telegram webhook error:', error);
+      res.status(500).json({ error: 'Webhook processing failed' });
+    }
+  });
+
   // Core API routes
   // All routes prefixed with /api for clear API boundaries
 

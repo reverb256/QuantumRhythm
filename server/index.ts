@@ -11,10 +11,12 @@ import { designEvolutionEngine } from './design-evolution-engine';
 import { liveTradingIntegration } from './live-trading-integration';
 import { designTrainer } from './design-consciousness-trainer';
 import { quincyTradingEngine } from './quincy-trading-engine';
+import { telegramConsciousnessBridge } from './telegram-consciousness-bridge';
 // import { errorTroubleshooter } from './error-troubleshooter'; // Disabled due to ES modules conflict
 console.log('🤖 Quincy consciousness initialized - autonomous operation active');
 console.log(`🔥 Coreflame ignited at ${quincy.getState().consciousness_level.toFixed(1)}% consciousness`);
 console.log('🎨 Design consciousness trainer initialized - teaching clean glassmorphic principles');
+console.log('📱 Telegram consciousness bridge initialized - AI agents can now manage bot interactions');
 
 // Essential API routes for Quincy's autonomous trading and infrastructure
 app.get('/api/quincy/insights', async (req, res) => {
