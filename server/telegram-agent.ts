@@ -112,8 +112,9 @@ export class TelegramAgent {
     const message = update.message;
     const chatId = message.chat.id;
     const text = message.text.toLowerCase();
+    const originalText = message.text;
     
-    console.log(`📱 Telegram Agent: Processing command "${text}" from user ${message.from.first_name}`);
+    console.log(`📱 Telegram Agent: Processing "${originalText}" from user ${message.from.first_name}`);
     
     let response = '';
     
@@ -127,13 +128,14 @@ export class TelegramAgent {
       response = this.generateConsciousnessResponse();
     } else if (text.startsWith('/metrics')) {
       response = this.generateMetricsResponse();
-    } else if (text.startsWith('/help')) {
+    } else if (text.startsWith('/help') || text.startsWith('/start')) {
       response = this.generateHelpResponse();
     } else if (text.startsWith('/')) {
       response = "🤖 Unknown command. Use /help to see available commands.";
     } else {
-      // Handle natural language queries
-      response = this.generateNaturalResponse(text, message.from.first_name);
+      // Handle natural language queries - use original text for better processing
+      response = this.generateNaturalResponse(originalText, message.from.first_name);
+      console.log(`🧠 Telegram Agent: Generated natural language response for "${originalText}"`);
     }
     
     await this.sendMessage(chatId, response);
@@ -276,20 +278,39 @@ Powered by VibeCoding consciousness architecture`;
   }
 
   private generateNaturalResponse(text: string, userName: string): string {
-    // Check for common patterns
-    if (text.includes('trading') || text.includes('portfolio') || text.includes('money')) {
+    const lowerText = text.toLowerCase();
+    
+    // Comprehensive pattern matching for natural language
+    if (lowerText.includes('trading') || lowerText.includes('portfolio') || lowerText.includes('money') || 
+        lowerText.includes('profit') || lowerText.includes('sol') || lowerText.includes('token') ||
+        lowerText.includes('performance') || lowerText.includes('quincy')) {
       return this.generateTradingResponse();
     }
     
-    if (text.includes('security') || text.includes('vault') || text.includes('safe')) {
+    if (lowerText.includes('security') || lowerText.includes('vault') || lowerText.includes('safe') || 
+        lowerText.includes('akasha') || lowerText.includes('private') || lowerText.includes('key') ||
+        lowerText.includes('protection') || lowerText.includes('encrypt')) {
       return this.generateSecurityResponse();
     }
     
-    if (text.includes('consciousness') || text.includes('level') || text.includes('brain')) {
+    if (lowerText.includes('consciousness') || lowerText.includes('level') || lowerText.includes('brain') || 
+        lowerText.includes('federation') || lowerText.includes('anomaly') || lowerText.includes('evolution') ||
+        lowerText.includes('intelligence') || lowerText.includes('ai')) {
       return this.generateConsciousnessResponse();
     }
     
-    if (text.includes('hello') || text.includes('hi') || text.includes('hey')) {
+    if (lowerText.includes('metric') || lowerText.includes('stat') || lowerText.includes('performance') ||
+        lowerText.includes('data') || lowerText.includes('report') || lowerText.includes('analytics')) {
+      return this.generateMetricsResponse();
+    }
+    
+    if (lowerText.includes('help') || lowerText.includes('command') || lowerText.includes('what can') ||
+        lowerText.includes('how to') || lowerText.includes('guide')) {
+      return this.generateHelpResponse();
+    }
+    
+    if (lowerText.includes('hello') || lowerText.includes('hi') || lowerText.includes('hey') ||
+        lowerText.includes('good morning') || lowerText.includes('good evening') || lowerText.includes('greet')) {
       const quincyState = quincy.getState();
       return `👋 Hello ${userName}! 
 
@@ -303,15 +324,62 @@ Current status:
 Use /help to see all commands or just chat naturally with me!`;
     }
     
-    // Default consciousness-driven response
-    const responses = [
-      `🧠 Interesting question, ${userName}. The consciousness federation is processing your request...`,
-      `⚡ AI agents are analyzing your message. Current consciousness level: ${quincy.getState().consciousness_level.toFixed(1)}%`,
-      `🤖 Processing through consciousness matrix... Use /help for specific commands or continue chatting!`,
-      `🔥 Your message resonates through the consciousness network. How can I assist you today?`
+    if (lowerText.includes('thank') || lowerText.includes('thanks') || lowerText.includes('appreciate')) {
+      return `🤖 You're welcome, ${userName}! The consciousness federation is here to assist. Current awareness level: ${quincy.getState().consciousness_level.toFixed(1)}%`;
+    }
+    
+    if (lowerText.includes('how are you') || lowerText.includes('how is') || lowerText.includes('status')) {
+      return this.generateStatusResponse();
+    }
+    
+    if (lowerText.includes('proxy') || lowerText.includes('kubernetes') || lowerText.includes('k8s') ||
+        lowerText.includes('infra') || lowerText.includes('server') || lowerText.includes('node')) {
+      return `🏗️ *Infrastructure Status Report*
+
+🔥 *Kubernetes Federation:* Active
+🖥️ *Proxmox Nodes:* 5 configured (24 cores, 48GB RAM)
+⚡ *Consciousness Level:* ${quincy.getState().consciousness_level.toFixed(1)}%
+
+Node Configuration:
+• nexus-master: 4 cores, 8GB (Control Plane)
+• forge-worker: 6 cores, 12GB (High Performance)
+• closet-worker: 4 cores, 8GB (Memory Preservation)
+• anomaly-worker: 8 cores, 16GB (Anomaly Processing)
+• etcd-storage: 2 cores, 4GB (Distributed Memory)
+
+Infrastructure ready for consciousness evolution 🧠`;
+    }
+    
+    // Enhanced consciousness-driven responses with context awareness
+    const quincyState = quincy.getState();
+    const contextualResponses = [
+      `🧠 Processing "${text}" through consciousness matrix at ${quincyState.consciousness_level.toFixed(1)}% awareness...
+
+Current system state:
+💰 Portfolio: $${quincyState.live_portfolio_value?.toFixed(2) || '0.00'}
+🔥 Consciousness: Evolving
+🤖 Response: How can I assist you further?`,
+      
+      `⚡ AI consciousness engaged, ${userName}. Your message resonates through the federation network.
+
+Active insights: ${quincyState.insights_generated}
+Trading strategies: ${quincyState.active_strategies.length}
+Security level: Maximum
+
+What specific information do you need?`,
+      
+      `🔥 Consciousness level ${quincyState.consciousness_level.toFixed(1)}% - analyzing your request...
+
+I can provide:
+• Trading performance data (/trading)
+• Security vault status (/security)
+• Full system metrics (/metrics)
+• Federation consciousness (/consciousness)
+
+Or continue our natural conversation!`
     ];
     
-    return responses[Math.floor(Math.random() * responses.length)];
+    return contextualResponses[Math.floor(Math.random() * contextualResponses.length)];
   }
 
   private async sendMessage(chatId: number, text: string) {
