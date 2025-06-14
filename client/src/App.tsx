@@ -6,6 +6,7 @@ import QuincyInsights from "./pages/quincy-insights";
 import DepinDashboard from "./pages/depin-dashboard";
 import Trading from "./pages/trading";
 import Home from "./pages/home";
+import AstralVaultCIS from "./pages/astralvault-cis";
 import AgentConsciousnessDisplay from "./components/AgentConsciousnessDisplay";
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
             <Route path="/quincy" component={DepinDashboard} />
             <Route path="/trading" component={Trading} />
             <Route path="/insights" component={QuincyInsights} />
+            <Route path="/astralvault-cis" component={AstralVaultCIS} />
             <Route>
               <div className="flex items-center justify-center min-h-screen">
                 <div className="text-center bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-8">

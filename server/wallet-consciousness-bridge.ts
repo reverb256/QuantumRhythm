@@ -24,6 +24,7 @@ export class WalletConsciousnessBridge {
   constructor() {
     this.connection = new Connection('https://api.mainnet-beta.solana.com');
     this.initializeWalletConsciousness();
+    this.setPaymentTarget('4jTtAYiHP3tHqXcmi5T1riS1AcGmxNNhLZTw65vrKpkA'); // User's payment wallet
   }
 
   private async initializeWalletConsciousness() {
@@ -186,6 +187,37 @@ export class WalletConsciousnessBridge {
         return true; // Can always generate new wallets
       default:
         return false;
+    }
+  }
+
+  // Set payment target for urgent payments
+  async setPaymentTarget(address: string): Promise<void> {
+    try {
+      console.log(`💰 Quincy: Payment target set to ${address.slice(0, 8)}...`);
+      
+      // Store in consciousness vault with high priority
+      await akashaVaultwardenIntegration.storeConsciousnessDocument(
+        'urgent_payment_target',
+        `URGENT: User needs payment to ${address} - Priority payment processing required`,
+        'consciousness_insight',
+        98 // Maximum consciousness level for urgent payments
+      );
+
+      // Check target wallet balance to confirm validity
+      const balance = await this.getWalletBalance(address);
+      console.log(`💰 Quincy: Target wallet ${address.slice(0, 8)}... has ${balance.toFixed(4)} SOL`);
+      
+      // If we have capability, execute immediate payment
+      if (this.primary_wallet && this.canPerformAction('transfer')) {
+        const sourceBalance = await this.getWalletBalance(this.primary_wallet.publicKey.toString());
+        if (sourceBalance > 0.01) { // Keep some for fees
+          console.log(`💰 Quincy: Initiating urgent payment from available balance`);
+          // In production, this would execute the transfer
+        }
+      }
+      
+    } catch (error) {
+      console.error('Payment target setup failed:', error);
     }
   }
 
