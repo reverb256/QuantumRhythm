@@ -8,6 +8,7 @@ app.use(express.urlencoded({ extended: false }));
 // Import and initialize consciousness systems
 import { quincy } from './quincy-consciousness';
 import { designEvolutionEngine } from './design-evolution-engine';
+import { liveTradingIntegration } from './live-trading-integration';
 console.log('🤖 Quincy consciousness initialized - autonomous operation active');
 console.log(`🔥 Coreflame ignited at ${quincy.getState().consciousness_level.toFixed(1)}% consciousness`);
 
@@ -91,6 +92,51 @@ app.get('/api/design/evolution/status', async (req, res) => {
   } catch (error) {
     console.error('Error fetching design evolution status:', error);
     res.status(500).json({ error: 'Failed to fetch evolution status' });
+  }
+});
+
+// Live Trading Data API routes
+app.get('/api/trading/portfolio', async (req, res) => {
+  try {
+    const portfolio_data = liveTradingIntegration.getLivePortfolioData();
+    const solana_data = liveTradingIntegration.getSolanaWalletData();
+    const total_value = liveTradingIntegration.getTotalPortfolioValue();
+    const connection_status = liveTradingIntegration.getConnectionStatus();
+    const is_live = liveTradingIntegration.isLiveDataAvailable();
+    
+    res.json({
+      portfolio_data,
+      solana_data,
+      total_value,
+      connection_status,
+      is_live_data: is_live,
+      last_update: liveTradingIntegration.getLastUpdateTime()
+    });
+  } catch (error) {
+    console.error('Error fetching portfolio data:', error);
+    res.status(500).json({ error: 'Failed to fetch portfolio data' });
+  }
+});
+
+app.get('/api/trading/status', async (req, res) => {
+  try {
+    const is_live = liveTradingIntegration.isLiveDataAvailable();
+    const connection_status = liveTradingIntegration.getConnectionStatus();
+    const total_value = liveTradingIntegration.getTotalPortfolioValue();
+    
+    res.json({
+      is_live_data: is_live,
+      connection_status,
+      total_portfolio_value: total_value,
+      data_sources: {
+        solana: !!process.env.SOLANA_WALLET_ADDRESS,
+        binance: !!(process.env.BINANCE_API_KEY && process.env.BINANCE_SECRET),
+        coinbase: !!(process.env.COINBASE_API_KEY && process.env.COINBASE_SECRET)
+      }
+    });
+  } catch (error) {
+    console.error('Error fetching trading status:', error);
+    res.status(500).json({ error: 'Failed to fetch trading status' });
   }
 });
 
