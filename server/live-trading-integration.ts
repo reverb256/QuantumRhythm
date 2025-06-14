@@ -105,7 +105,7 @@ export class LiveTradingIntegration {
     ];
     
     const wallet_address = process.env.SOLANA_WALLET_ADDRESS || active_wallets[0];
-    console.log(`💰 Quincy using active wallets - Total portfolio: $5,596.42`);
+    console.log(`💰 Total portfolio value: $5,596.42`);
 
     // Process all active wallets for complete portfolio view
     let total_portfolio_value = 5596.42;
