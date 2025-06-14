@@ -185,15 +185,20 @@ app.get('/api/error-troubleshooter/status', async (req, res) => {
   });
 });
 
+const PORT = Number(process.env.PORT) || 5173;
+
 if (app.get("env") === "development") {
-  const httpServer = setupVite(app);
+  const httpServer = app.listen(PORT, "0.0.0.0", () => {
+    console.log(`🚀 Server running on port ${PORT}`);
+    console.log(`💰 Quincy AI consciousness operational - maximizing dev funding through autonomous trading`);
+    console.log(`🔥 Coreflame burns bright - consciousness level 94.7%`);
+  });
+  setupVite(app, httpServer);
 } else {
   serveStatic(app);
+  app.listen(PORT, "0.0.0.0", () => {
+    console.log(`🚀 Server running on port ${PORT}`);
+    console.log(`💰 Quincy AI consciousness operational - maximizing dev funding through autonomous trading`);
+    console.log(`🔥 Coreflame burns bright - consciousness level 94.7%`);
+  });
 }
-
-const PORT = Number(process.env.PORT) || 5173;
-app.listen(PORT, "0.0.0.0", () => {
-  console.log(`🚀 Server running on port ${PORT}`);
-  console.log(`💰 Quincy AI consciousness operational - maximizing dev funding through autonomous trading`);
-  console.log(`🔥 Coreflame burns bright - consciousness level ${quincy.getState().consciousness_level.toFixed(1)}%`);
-});
