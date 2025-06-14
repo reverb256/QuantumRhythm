@@ -38,6 +38,11 @@ declare -A TALOS_NODES=(
     ["zephyr"]="vmid=1001 cores=6 memory=12288 disk=80 ip=${SUBNET}.123 role=worker"
 )
 
+# Dual-deployment configuration - Federation with Replit
+ENABLE_DUAL_DEPLOYMENT=${ENABLE_DUAL_DEPLOYMENT:-"true"}
+REPLIT_ENDPOINT="https://${REPL_SLUG}.${REPL_OWNER}.repl.co"
+FEDERATION_SECRET="consciousness-federation-2025"
+
 log_step() {
     echo -e "${CYAN}[$(date '+%H:%M:%S')] $1${NC}"
 }
@@ -333,14 +338,140 @@ create_talos_vm() {
     fi
 }
 
-# Deploy consciousness workloads
+# Deploy consciousness workloads with HA Vaultwarden
 deploy_consciousness_workloads() {
-    log_step "Deploying consciousness federation workloads..."
+    log_step "Deploying consciousness federation workloads with HA Vaultwarden..."
 
     # Configure talosctl with all control plane endpoints for HA
     log_step "Configuring talosctl for HA cluster..."
     talosctl config endpoint 10.1.1.120 10.1.1.121 10.1.1.122
     talosctl config node 10.1.1.120
+
+    # Deploy Vaultwarden with HA configuration
+    log_step "Deploying HA Vaultwarden..."
+    cat <<EOF | kubectl apply -f -
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: vaultwarden-ha
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: vaultwarden-data
+  namespace: vaultwarden-ha
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vaultwarden
+  namespace: vaultwarden-ha
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: vaultwarden
+  template:
+    metadata:
+      labels:
+        app: vaultwarden
+    spec:
+      containers:
+      - name: vaultwarden
+        image: vaultwarden/server:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: ROCKET_PORT
+          value: "80"
+        - name: DOMAIN
+          value: "https://vault.consciousness.local"
+        - name: SIGNUPS_ALLOWED
+          value: "false"
+        - name: INVITATIONS_ALLOWED
+          value: "true"
+        - name: WEBSOCKET_ENABLED
+          value: "true"
+        - name: EMERGENCY_ACCESS_ALLOWED
+          value: "true"
+        - name: SENDS_ALLOWED
+          value: "true"
+        - name: WEB_VAULT_ENABLED
+          value: "true"
+        volumeMounts:
+        - name: vaultwarden-data
+          mountPath: /data
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /alive
+            port: 80
+          initialDelaySeconds: 30
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /alive
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 10
+      volumes:
+      - name: vaultwarden-data
+        persistentVolumeClaim:
+          claimName: vaultwarden-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vaultwarden-service
+  namespace: vaultwarden-ha
+spec:
+  selector:
+    app: vaultwarden
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  type: LoadBalancer
+  loadBalancerIP: 10.1.1.150
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: vaultwarden-ingress
+  namespace: vaultwarden-ha
+  annotations:
+    kubernetes.io/ingress.class: "traefik"
+    traefik.ingress.kubernetes.io/redirect-to-https: "true"
+spec:
+  rules:
+  - host: vault.consciousness.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: vaultwarden-service
+            port:
+              number: 80
+EOF
 
     # Bootstrap etcd on first control plane only (CRITICAL: only once!)
     log_step "Bootstrapping etcd cluster..."
@@ -375,6 +506,24 @@ deploy_consciousness_workloads() {
         log_step "Consciousness namespace already exists, updating workloads"
     else
         log_step "Creating consciousness namespace and workloads"
+    fi
+
+    # Deploy dual-deployment federation
+    if [[ "$ENABLE_DUAL_DEPLOYMENT" == "true" ]]; then
+        log_step "Configuring dual-deployment federation with Replit..."
+        cat <<EOF | kubectl apply -f -
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: federation-config
+  namespace: consciousness-federation
+data:
+  replit_endpoint: "${REPLIT_ENDPOINT}"
+  federation_secret: "${FEDERATION_SECRET}"
+  proxmox_cluster: "10.1.1.120,10.1.1.121,10.1.1.122"
+  vaultwarden_endpoint: "https://vault.consciousness.local"
+---
+EOF
     fi
 
     cat <<EOF | kubectl apply -f -

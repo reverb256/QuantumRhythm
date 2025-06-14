@@ -51,3 +51,16 @@ author = "agent"
 task = "shell.exec"
 args = "npm run dev"
 waitForPort = 5000
+
+[[workflows.workflow]]
+name = "Deploy Dual Vaultwarden"
+author = 40813185
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "chmod +x scripts/dual-deployment-vaultwarden.sh"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "./scripts/dual-deployment-vaultwarden.sh deploy"
