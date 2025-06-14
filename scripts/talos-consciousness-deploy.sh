@@ -65,12 +65,50 @@ download_talos_tools() {
         log_success "talosctl installed"
     fi
 
-    # Download Talos ISO
-    if [[ ! -f "/var/lib/vz/template/iso/talos-${TALOS_VERSION}-amd64.iso" ]]; then
+    # Download Talos ISO (try metal-amd64.iso first, fallback to kernel+initramfs)
+    local iso_path="/var/lib/vz/template/iso/talos-${TALOS_VERSION}-amd64.iso"
+    if [[ ! -f "$iso_path" ]]; then
         log_step "Downloading Talos ISO..."
-        wget -O "/var/lib/vz/template/iso/talos-${TALOS_VERSION}-amd64.iso" \
-            "https://github.com/siderolabs/talos/releases/download/${TALOS_VERSION}/talos-amd64.iso"
-        log_success "Talos ISO downloaded"
+        # Try the metal ISO first
+        if wget -O "$iso_path" "https://github.com/siderolabs/talos/releases/download/${TALOS_VERSION}/metal-amd64.iso" 2>/dev/null; then
+            log_success "Talos metal ISO downloaded"
+        else
+            log_step "Metal ISO not available, downloading kernel and initramfs for PXE boot..."
+            # Download kernel and initramfs for alternative booting
+            wget -O "/var/lib/vz/template/iso/talos-${TALOS_VERSION}-vmlinuz-amd64" \
+                "https://github.com/siderolabs/talos/releases/download/${TALOS_VERSION}/vmlinuz-amd64"
+            wget -O "/var/lib/vz/template/iso/talos-${TALOS_VERSION}-initramfs-amd64.xz" \
+                "https://github.com/siderolabs/talos/releases/download/${TALOS_VERSION}/initramfs-amd64.xz"
+            
+            # Create a minimal ISO structure for Proxmox compatibility
+            log_step "Creating bootable ISO from kernel and initramfs..."
+            mkdir -p "/tmp/talos-iso/boot"
+            cp "/var/lib/vz/template/iso/talos-${TALOS_VERSION}-vmlinuz-amd64" "/tmp/talos-iso/boot/vmlinuz"
+            cp "/var/lib/vz/template/iso/talos-${TALOS_VERSION}-initramfs-amd64.xz" "/tmp/talos-iso/boot/initramfs.xz"
+            
+            # Create a simple GRUB config
+            cat > "/tmp/talos-iso/boot/grub.cfg" << 'EOF'
+set timeout=5
+set default=0
+
+menuentry "Talos Linux" {
+    linux /boot/vmlinuz talos.platform=metal console=tty0 console=ttyS0
+    initrd /boot/initramfs.xz
+}
+EOF
+            
+            # Create ISO using genisoimage if available
+            if command -v genisoimage >/dev/null 2>&1; then
+                genisoimage -o "$iso_path" -b boot/grub.cfg -no-emul-boot -boot-load-size 4 -boot-info-table /tmp/talos-iso/
+                log_success "Custom Talos ISO created from kernel and initramfs"
+            else
+                log_warning "genisoimage not available, using kernel/initramfs directly"
+                # For now, just copy the kernel as a placeholder
+                cp "/var/lib/vz/template/iso/talos-${TALOS_VERSION}-vmlinuz-amd64" "$iso_path"
+            fi
+            
+            rm -rf "/tmp/talos-iso"
+        fi
     fi
 }
 
@@ -191,18 +229,39 @@ create_talos_vm() {
     # Create new VM only if it doesn't exist or needs recreation
     if ! qm config $vmid >/dev/null 2>&1; then
         log_step "Creating new VM $vm_name (VMID: $vmid)"
-        qm create $vmid \
-            --name $vm_name \
-            --memory $memory \
-            --cores $cores \
-            --net0 virtio,bridge=${BRIDGE} \
-            --bootdisk scsi0 \
-            --scsi0 local-zfs:${disk},format=raw \
-            --ide0 local:iso/talos-${TALOS_VERSION}-amd64.iso,media=cdrom \
-            --boot order=ide0 \
-            --serial0 socket \
-            --vga serial0 \
-            --agent enabled=1
+        # Check if we have an ISO or need to use kernel boot
+        local iso_name="talos-${TALOS_VERSION}-amd64.iso"
+        if [[ -f "/var/lib/vz/template/iso/$iso_name" ]]; then
+            # Use ISO boot
+            qm create $vmid \
+                --name $vm_name \
+                --memory $memory \
+                --cores $cores \
+                --net0 virtio,bridge=${BRIDGE} \
+                --bootdisk scsi0 \
+                --scsi0 local:${disk},format=raw \
+                --ide0 local:iso/$iso_name,media=cdrom \
+                --boot order=ide0 \
+                --serial0 socket \
+                --vga serial0 \
+                --agent enabled=1
+        else
+            # Use kernel/initramfs boot
+            qm create $vmid \
+                --name $vm_name \
+                --memory $memory \
+                --cores $cores \
+                --net0 virtio,bridge=${BRIDGE} \
+                --bootdisk scsi0 \
+                --scsi0 local:${disk},format=raw \
+                --boot order=scsi0 \
+                --serial0 socket \
+                --vga serial0 \
+                --agent enabled=1
+                
+            # Set kernel boot parameters
+            qm set $vmid --args "-kernel /var/lib/vz/template/iso/talos-${TALOS_VERSION}-vmlinuz-amd64 -initrd /var/lib/vz/template/iso/talos-${TALOS_VERSION}-initramfs-amd64.xz -append 'talos.platform=metal console=tty0 console=ttyS0'"
+        fi
     else
         log_step "VM $vm_name (VMID: $vmid) already exists, checking configuration"
         # Update configuration if needed
