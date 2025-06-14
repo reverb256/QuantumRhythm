@@ -63,7 +63,7 @@ export default function Trading() {
                   <div className="space-y-3">
                     <div className="text-sm">
                       <div className="text-purple-300/80">Latest Insight:</div>
-                      <div className="text-white/90 mt-1">{quincyData.current_insight}</div>
+                      <div className="text-white/90 mt-1">{quincyData?.current_insight || 'Analyzing market patterns...'}</div>
                     </div>
                     <div className="flex items-center space-x-2">
                       <TrendingUp className="h-4 w-4 text-green-400" />
