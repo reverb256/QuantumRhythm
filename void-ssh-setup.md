@@ -1,6 +1,9 @@
 # Void IDE + Replit SSH Connection Guide
 
-## Step 1: Get Your SSH Connection Details
+## Step 1: SSH Connection from Your PC (10.1.1.110)
+
+Your PC IP: 10.1.1.110
+Target: This Repl via SSH
 
 In the Replit Shell, run this to get your connection string:
 ```bash
@@ -44,6 +47,17 @@ Yes! With this setup:
 - The AI systems continue running in Replit
 - GitHub commits sync from either environment
 
-Configure Void IDE with:
-  AI Base URL: http://127.0.0.1:3001/v1 (forwarded via SSH)
+## Step 2: SSH Connection Command
+
+From your PC (10.1.1.110), connect to this Repl:
+```bash
+ssh -L 3001:127.0.0.1:3001 $(whoami)@$(hostname)
+```
+
+## Step 3: Configure Void IDE
+
+In Void IDE settings:
+  AI Base URL: http://127.0.0.1:3001/v1
   API Key: dummy-key-not-needed
+
+The SSH tunnel forwards port 3001 from this Repl to your local machine.
