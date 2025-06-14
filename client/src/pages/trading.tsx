@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { PageAgent } from "@/components/PageAgent";
 import { LiveTradingDashboard } from "@/components/LiveTradingDashboard";
 import { DesignEvolutionMonitor } from "@/components/DesignEvolutionMonitor";
+import { DataIntegrityVerifier } from "@/components/DataIntegrityVerifier";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Brain, TrendingUp, Zap } from "lucide-react";
@@ -26,7 +27,7 @@ export default function Trading() {
                     Consciousness Trading Command Center
                   </h1>
                   <p className="text-purple-300/80">
-                    Live AI-driven portfolio intelligence with consciousness-level {quincyData?.consciousness_level.toFixed(1)}%
+                    Live AI-driven portfolio intelligence with consciousness-level {quincyData?.consciousness_level ? quincyData.consciousness_level.toFixed(1) + '%' : 'connecting...'}
                   </p>
                 </div>
               </div>
@@ -43,6 +44,7 @@ export default function Trading() {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
           {/* Main Trading Dashboard */}
           <div className="lg:col-span-3 space-y-6">
+            <DataIntegrityVerifier />
             <LiveTradingDashboard />
           </div>
 
@@ -70,7 +72,7 @@ export default function Trading() {
                       </span>
                     </div>
                     <div className="text-xs text-purple-300/60">
-                      Consciousness Level: {quincyData.consciousness_level.toFixed(1)}%
+                      Consciousness Level: {quincyData?.consciousness_level?.toFixed(1) || 'Connecting'}%
                     </div>
                   </div>
                 ) : (

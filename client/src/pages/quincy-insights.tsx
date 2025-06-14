@@ -109,35 +109,35 @@ export default function QuincyInsights() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div className="text-center">
                 <div className="text-2xl font-bold text-green-400">
-                  +{weeklyReport.trading_roi}%
+                  {weeklyReport?.trading_roi ? `+${weeklyReport.trading_roi}%` : 'Connecting...'}
                 </div>
                 <div className="text-sm text-slate-400">Trading ROI</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-blue-400">
-                  ${weeklyReport.depin_revenue}
+                  {weeklyReport?.depin_revenue ? `$${weeklyReport.depin_revenue}` : 'Connecting...'}
                 </div>
                 <div className="text-sm text-slate-400">DePIN Revenue</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-purple-400">
-                  ${weeklyReport.total_profit}
+                  {weeklyReport?.total_profit ? `$${weeklyReport.total_profit}` : 'Connecting...'}
                 </div>
                 <div className="text-sm text-slate-400">Total Profit</div>
               </div>
               <div className="text-center">
                 <div className="text-lg font-bold text-yellow-400">
-                  {weeklyReport.best_performing_asset}
+                  {weeklyReport?.best_performing_asset || 'Connecting...'}
                 </div>
                 <div className="text-sm text-slate-400">Top Performer</div>
               </div>
             </div>
             <div className="mt-4 space-y-2">
               <div className="text-white">
-                <strong>Market Outlook:</strong> <span className="text-slate-300">{weeklyReport.market_outlook}</span>
+                <strong>Market Outlook:</strong> <span className="text-slate-300">{weeklyReport?.market_outlook || 'Analyzing market conditions...'}</span>
               </div>
               <div className="text-white">
-                <strong>Risk Assessment:</strong> <span className="text-slate-300">{weeklyReport.risk_assessment}</span>
+                <strong>Risk Assessment:</strong> <span className="text-slate-300">{weeklyReport?.risk_assessment || 'Calculating risk parameters...'}</span>
               </div>
             </div>
           </CardContent>
