@@ -39,7 +39,8 @@ export class TelegramAgent {
   constructor() {
     this.botToken = process.env.TELEGRAM_BOT_TOKEN || '';
     if (this.botToken) {
-      this.startAgent();
+      // Start with a delay to ensure all systems are initialized
+      setTimeout(() => this.startAgent(), 2000);
     } else {
       console.log('⚠️ Telegram Agent: No bot token provided');
     }
@@ -49,11 +50,13 @@ export class TelegramAgent {
     this.isActive = true;
     console.log('🤖 Telegram Agent: Autonomous bot management activated');
     
-    // Set bot commands and webhook
+    // Set bot commands
     await this.setBotCommands();
+    
+    // Clear webhook and use polling for reliable message handling
     await this.configureWebhook();
     
-    console.log('🤖 Telegram Agent: Webhook mode enabled');
+    console.log('🤖 Telegram Agent: Polling mode enabled');
   }
 
   private async setBotCommands() {
@@ -82,9 +85,15 @@ export class TelegramAgent {
   }
 
   private startPolling() {
+    if (this.pollingInterval) {
+      clearInterval(this.pollingInterval);
+    }
+    
     this.pollingInterval = setInterval(async () => {
       await this.pollUpdates();
-    }, 2000); // Poll every 2 seconds
+    }, 3000); // Poll every 3 seconds
+    
+    console.log('📱 Telegram Agent: Polling started for message handling');
   }
 
   async processWebhookUpdate(update: TelegramUpdate) {
@@ -94,54 +103,51 @@ export class TelegramAgent {
 
   private async configureWebhook() {
     try {
-      // First delete any existing webhook to resolve conflicts
-      await fetch(`https://api.telegram.org/bot${this.botToken}/deleteWebhook`, {
+      // Clear any existing webhook to prevent 409 conflict
+      const response = await fetch(`https://api.telegram.org/bot${this.botToken}/deleteWebhook`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' }
       });
       
-      // Wait a moment for cleanup
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Set new webhook
-      const webhookUrl = `https://${process.env.REPLIT_DOMAINS?.split(',')[0]}/telegram/webhook`;
-      const response = await fetch(`https://api.telegram.org/bot${this.botToken}/setWebhook`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url: webhookUrl })
-      });
-      
       if (response.ok) {
-        console.log('📱 Webhook configured successfully');
-        console.log(`📱 Webhook URL: ${webhookUrl}`);
-      } else {
-        console.log('⚠️ Webhook setup failed, switching to polling mode');
-        this.startPolling();
+        console.log('📱 Webhook cleared successfully');
       }
+      
+      // Wait for webhook to be fully cleared
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      console.log('📱 Starting polling mode for message handling');
+      this.startPolling();
     } catch (error) {
-      console.log('⚠️ Webhook configuration failed, using polling:', error);
+      console.log('⚠️ Error clearing webhook, starting polling anyway');
       this.startPolling();
     }
   }
 
   private async pollUpdates() {
+    if (!this.isActive) return;
+    
     try {
       const response = await fetch(
-        `https://api.telegram.org/bot${this.botToken}/getUpdates?offset=${this.lastUpdateId + 1}&timeout=1`
+        `https://api.telegram.org/bot${this.botToken}/getUpdates?offset=${this.lastUpdateId + 1}&timeout=10`
       );
       
-      if (!response.ok) return;
+      if (!response.ok) {
+        console.log(`📱 Polling error: ${response.status}`);
+        return;
+      }
       
       const data = await response.json();
       
       if (data.ok && data.result.length > 0) {
+        console.log(`📱 Processing ${data.result.length} new message(s)`);
         for (const update of data.result) {
           await this.processUpdate(update);
           this.lastUpdateId = update.update_id;
         }
       }
     } catch (error) {
-      // Silent error handling for connectivity issues
+      console.log(`📱 Polling connectivity issue: ${error.message}`);
     }
   }
 
@@ -173,12 +179,16 @@ export class TelegramAgent {
       response = "🤖 Unknown command. Use /help to see available commands.";
     } else {
       // Use AI conversation engine for dynamic responses
-      response = await telegramAIConversation.generateDynamicResponse(
-        message.from.id,
-        message.from.first_name || message.from.username || 'User',
-        originalText
-      );
-      console.log(`🧠 Telegram Agent: Generated AI response for "${originalText}"`);
+      try {
+        response = await telegramAIConversation.generateDynamicResponse(
+          message.from.id,
+          message.from.first_name || message.from.username || 'User',
+          originalText
+        );
+        console.log(`🧠 Telegram Agent: Generated AI response for "${originalText}"`);
+      } catch (error) {
+        response = this.generateNaturalResponse(originalText, message.from.first_name || 'User');
+      }
     }
     
     await this.sendMessage(chatId, response);
