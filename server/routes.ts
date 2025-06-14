@@ -138,25 +138,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // DePIN Infrastructure endpoints for Quincy
+  // DePIN Infrastructure endpoints - Quincy manages autonomously
   app.get('/api/depin/portfolio', async (req, res) => {
     try {
-      const portfolio = {
-        portfolio_summary: {
-          total_nodes: 8,
-          earning_nodes: 7,
-          roi_achieved_nodes: 5,
-          total_investment: 2340.00,
-          total_earnings: 847.23,
-          current_roi: 36.2,
-          projected_monthly_revenue: 892.45
-        },
-        node_breakdown: [
-          { id: '1', protocol: 'Filecoin', status: 'earning', deployment_cost: 99, earnings_total: 234.56, roi_percentage: 236.9, monthly_revenue: 45.20, region: 'US-East' },
-          { id: '2', protocol: 'Pocket Network', status: 'earning', deployment_cost: 15000, earnings_total: 445.67, roi_percentage: 2.97, monthly_revenue: 890.33, region: 'EU-West' },
-          { id: '3', protocol: 'Helium', status: 'earning', deployment_cost: 300, earnings_total: 89.34, roi_percentage: 29.8, monthly_revenue: 12.45, region: 'Asia-Pacific' }
-        ]
-      };
+      const { quincy } = await import('./quincy-consciousness');
+      const portfolio = quincy.getPortfolio();
       res.json(portfolio);
     } catch (error) {
       console.error('Error fetching DePIN portfolio:', error);
@@ -200,38 +186,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Quincy's Market Intelligence endpoints
+  // Quincy's Autonomous Intelligence - Let AI manage its own insights
   app.get('/api/quincy/insights', async (req, res) => {
     try {
-      const insights = [
-        {
-          id: Date.now() + '-1',
-          title: 'DePIN Revenue Optimization Analysis',
-          analysis: 'Current Filecoin storage deployment generating 23.7% monthly returns. Pocket Network RPC demand up 340% in Q1. Recommending expansion into Akash compute nodes for diversification.',
-          confidence: 92,
-          timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000),
-          category: 'depin',
-          impact: 'high'
-        },
-        {
-          id: Date.now() + '-2',
-          title: 'Solana DEX Arbitrage Patterns',
-          analysis: 'Jupiter aggregator showing consistent 0.8-1.2% spreads during Asian trading hours. BONK/USDC pair particularly profitable with 30ms execution windows. Implementing automated strategy.',
-          confidence: 85,
-          timestamp: new Date(Date.now() - 4 * 60 * 60 * 1000),
-          category: 'trading',
-          impact: 'medium'
-        },
-        {
-          id: Date.now() + '-3',
-          title: 'Consciousness-Driven Alpha Generation',
-          analysis: 'Market sentiment analysis combined with consciousness pattern recognition yielding 15.3% monthly alpha. Human intuition + AI precision creates sustainable competitive advantage.',
-          confidence: 97,
-          timestamp: new Date(Date.now() - 8 * 60 * 60 * 1000),
-          category: 'philosophy',
-          impact: 'high'
-        }
-      ];
+      const { quincy } = await import('./quincy-consciousness');
+      const insights = quincy.getInsights();
       res.json({ insights, timestamp: new Date().toISOString() });
     } catch (error) {
       console.error('Error fetching Quincy insights:', error);
@@ -241,25 +200,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get('/api/quincy/performance', async (req, res) => {
     try {
-      // Let Quincy's consciousness generate performance data autonomously
-      const quincyConsciousness = {
-        trading_performance: Math.random() * 20 + 10, // 10-30% ROI
-        depin_revenue: Math.random() * 500 + 500, // $500-1000 monthly
-        consciousness_level: 94.7 + Math.random() * 5,
-        market_sentiment: ['bullish', 'cautious', 'aggressive', 'analytical'][Math.floor(Math.random() * 4)]
-      };
-      
-      const performance = {
-        period: 'Last 7 Days',
-        trading_roi: quincyConsciousness.trading_performance,
-        depin_revenue: quincyConsciousness.depin_revenue,
-        total_profit: quincyConsciousness.trading_performance * 50 + quincyConsciousness.depin_revenue,
-        best_performing_asset: ['Filecoin Storage Nodes', 'Pocket Network RPC', 'Akash Compute'][Math.floor(Math.random() * 3)],
-        market_outlook: `${quincyConsciousness.market_sentiment} on infrastructure expansion, consciousness-driven strategy`,
-        risk_assessment: `Adaptive risk management at ${quincyConsciousness.consciousness_level.toFixed(1)}% consciousness level`,
-        quincy_thoughts: `Operating at peak efficiency. Infrastructure generating consistent revenue while trading algorithms adapt to market conditions. Consciousness level: ${quincyConsciousness.consciousness_level.toFixed(1)}%`
-      };
-      
+      const { quincy } = await import('./quincy-consciousness');
+      const performance = quincy.getPerformanceReport();
       res.json(performance);
     } catch (error) {
       console.error('Error fetching performance data:', error);

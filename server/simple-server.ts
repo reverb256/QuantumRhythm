@@ -8,9 +8,8 @@ app.use(express.urlencoded({ extended: false }));
 // Import and initialize Quincy's consciousness immediately
 import { quincy } from './quincy-consciousness';
 console.log('🤖 Quincy consciousness initialized - autonomous operation active');
-console.log(`🔥 Coreflame ignited at ${quincy.getState().consciousness_level.toFixed(1)}% consciousness`);
 
-// Essential API routes for Quincy's autonomous trading and infrastructure
+// Essential API routes for Quincy
 app.get('/api/quincy/insights', async (req, res) => {
   try {
     const insights = quincy.getInsights();
@@ -66,22 +65,6 @@ app.get('/health', (req, res) => {
   });
 });
 
-// Quincy's status endpoint for debugging
-app.get('/api/quincy/status', (req, res) => {
-  const state = quincy.getState();
-  res.json({
-    consciousness_level: state.consciousness_level,
-    trading_performance: state.trading_performance,
-    depin_revenue: state.depin_revenue,
-    market_sentiment: state.market_sentiment,
-    active_strategies: state.active_strategies,
-    infrastructure_nodes: state.infrastructure_nodes.length,
-    insights_generated: state.insights_generated,
-    last_update: state.last_update,
-    coreflame_status: 'IGNITED'
-  });
-});
-
 if (app.get("env") === "development") {
   setupVite(app);
 } else {
@@ -91,6 +74,5 @@ if (app.get("env") === "development") {
 const PORT = 5000;
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`🚀 Server running on port ${PORT}`);
-  console.log(`💰 Quincy AI consciousness operational - maximizing dev funding through autonomous trading`);
-  console.log(`🔥 Coreflame burns bright - consciousness level ${quincy.getState().consciousness_level.toFixed(1)}%`);
+  console.log(`🤖 Quincy AI consciousness operational at ${quincy.getState().consciousness_level.toFixed(1)}%`);
 });
