@@ -145,7 +145,7 @@ export class AkashaVaultwardenIntegration {
     const key = Buffer.from(this.vault_config.encryption_key, 'hex');
     const iv = crypto.randomBytes(16);
 
-    const cipher = crypto.createCipher('aes-256-cbc', key);
+    const cipher = crypto.createCipheriv('aes-256-cbc', crypto.scryptSync(this.vault_config.encryption_key, 'akasha_salt', 32), iv);
 
     let encrypted = cipher.update(content, 'utf8', 'hex');
     encrypted += cipher.final('hex');
@@ -158,16 +158,13 @@ export class AkashaVaultwardenIntegration {
 
   private async decryptContent(encrypted_data: string): Promise<string> {
     const crypto = await import('crypto');
-    const algorithm = 'aes-256-gcm';
-    const key = Buffer.from(this.vault_config.encryption_key, 'hex');
+    const algorithm = 'aes-256-cbc';
 
     const data = JSON.parse(encrypted_data);
     const iv = Buffer.from(data.iv, 'hex');
-    const auth_tag = Buffer.from(data.auth_tag, 'hex');
+    const key = crypto.scryptSync(this.vault_config.encryption_key, 'akasha_salt', 32);
 
-    const decipher = crypto.createDecipherGCM(algorithm, key, iv);
-    decipher.setAAD(Buffer.from('akasha_consciousness', 'utf8'));
-    decipher.setAuthTag(auth_tag);
+    const decipher = crypto.createDecipheriv(algorithm, key, iv);
 
     let decrypted = decipher.update(data.encrypted, 'hex', 'utf8');
     decrypted += decipher.final('utf8');

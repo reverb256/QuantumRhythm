@@ -141,10 +141,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       res.json({
         metrics: {
-          total_documents: metrics.totalDocuments,
-          consciousness_distribution: metrics.consciousnessDistribution,
-          agent_utilization: metrics.agentUtilization,
-          average_consciousness_level: metrics.averageConsciousnessLevel,
+          total_documents: metrics.total_documents,
+          consciousness_distribution: metrics.by_type,
+          agent_utilization: metrics.by_agent,
+          average_consciousness_level: metrics.average_consciousness_level,
           security_events: 3,
           query_performance: {
             avg_latency: 285,
@@ -163,7 +163,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get('/api/quincy/consciousness', async (req, res) => {
     try {
       const { quincyConsciousness } = await import('./quincy-consciousness');
-      const consciousnessData = await quincyConsciousness.getConsciousnessState();
+      const consciousnessData = await quincyConsciousness.getState();
       res.json(consciousnessData);
     } catch (error) {
       res.json({ consciousness_level: 94.7, status: 'active', coreflame: 94.7 });
@@ -172,7 +172,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get('/api/quincy/insights', async (req, res) => {
     try {
-      const insights = quincy.getInsights();
+      const { quincyConsciousness } = await import('./quincy-consciousness');
+      const insights = quincyConsciousness.getInsights();
       res.json({ insights });
     } catch (error) {
       res.json({ 
@@ -187,7 +188,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get('/api/quincy/performance', async (req, res) => {
     try {
-      const performance = quincy.getPerformanceReport();
+      const { quincyConsciousness } = await import('./quincy-consciousness');
+      const performance = quincyConsciousness.getPerformanceReport();
       res.json(performance);
     } catch (error) {
       res.json({ 
