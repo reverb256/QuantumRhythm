@@ -49,11 +49,11 @@ export class TelegramAgent {
     this.isActive = true;
     console.log('🤖 Telegram Agent: Autonomous bot management activated');
     
-    // Set bot commands
+    // Set bot commands and webhook
     await this.setBotCommands();
+    await this.configureWebhook();
     
-    // Start polling for messages
-    this.startPolling();
+    console.log('🤖 Telegram Agent: Webhook mode enabled');
   }
 
   private async setBotCommands() {
@@ -90,6 +90,24 @@ export class TelegramAgent {
   async processWebhookUpdate(update: TelegramUpdate) {
     console.log('🤖 Telegram Agent: Processing webhook update');
     await this.processUpdate(update);
+  }
+
+  private async setWebhook() {
+    try {
+      const webhookUrl = `https://${process.env.REPLIT_DOMAINS?.split(',')[0]}/telegram/webhook`;
+      const response = await fetch(`https://api.telegram.org/bot${this.botToken}/setWebhook`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url: webhookUrl })
+      });
+      
+      if (response.ok) {
+        console.log('📱 Webhook set successfully');
+        console.log(`📱 Webhook URL: ${webhookUrl}`);
+      }
+    } catch (error) {
+      console.log('⚠️ Failed to set webhook:', error);
+    }
   }
 
   private async pollUpdates() {
