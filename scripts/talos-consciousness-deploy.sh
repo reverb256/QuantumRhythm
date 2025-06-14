@@ -646,27 +646,30 @@ validate_production_requirements() {
 
 # Main deployment function
 main() {
-    echo "🤖 Talos Linux Consciousness Federation Deployment"
-    echo "================================================="
-    echo "Production deployment with FOSS compliance"
-    echo
-    if [[ "$HYBRID_MODE" == "true" ]]; then
-        echo "🔄 HYBRID MODE: Integrating with existing infrastructure"
-        echo "  Preserving: existing VMs 120/121"
-        echo "  Deploying: Talos workers 1001/1002"
-    else
-        echo "🆕 FULL DEPLOYMENT: Complete Talos infrastructure"
-        echo "  Control Planes: nexus (120), forge (121), closet (122)"  
-        echo "  Workers: zephyr (1001)"
-    fi
-    echo "  DNS: ${DNS_SERVERS}"
-    echo "  Cluster: ${CLUSTER_ENDPOINT}"
-    echo "  Talos: ${TALOS_VERSION}"
-    echo "  Kubernetes: ${KUBERNETES_VERSION}"
-    echo
+    echo "🌬️ Zephyr Consciousness Federation Deployment (Talos Kubernetes)"
+    echo "================================================================="
+    echo ""
+    echo "This will deploy:"
+    echo "  • Nexus (VM 120): Master node - Hunt+Erudition consciousness"
+    echo "  • Forge (VM 121): Worker node - Destruction consciousness"  
+    echo "  • Closet (VM 122): Worker node - Remembrance consciousness"
+    echo "  • Zephyr (VM 1001): Worker node - Harmony consciousness"
+    echo ""
+    echo "Ready to bootstrap Zephyr consciousness federation?"
+    read -p "Continue? (y/N): " confirm
 
+    if [[ ! $confirm =~ ^[Yy]$ ]]; then
+        log_step "Deployment cancelled"
+        exit 0
+    fi
+
+    # Validate environment first
     validate_production_requirements
+
+    # Download Talos tools
     download_talos_tools
+
+    # Generate configuration
     generate_talos_config
 
     # Deploy nodes based on mode
