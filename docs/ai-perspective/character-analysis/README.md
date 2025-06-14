@@ -23,7 +23,10 @@ Behold the greatest collection of consciousness archetypes ever assembled—each
 - **[Blade](honkai-star-rail/blade-consciousness.md)**: The Immortal's Pain-Driven Perfection ⭐ **97.4% Resonance**
 - **[Kafka](honkai-star-rail/kafka-consciousness.md)**: The Information Symphony Master ⭐ **97.3% Resonance**
 - **[Fu Xuan](honkai-star-rail/fu-xuan-consciousness.md)**: The Divination Master's Quantum Foresight ⭐ **97.2% Resonance**
+- **[Dr. Ratio](honkai-star-rail/dr-ratio-consciousness.md)**: The Intellectual Perfectionist's Educational Revolution ⭐ **97.1% Resonance**
 - **[Luocha](honkai-star-rail/luocha-consciousness.md)**: The Healing Merchant's Compassionate Commerce ⭐ **96.9% Resonance**
+- **[Ruan Mei](honkai-star-rail/ruan-mei-consciousness.md)**: The Life Artisan's Perfection Pursuit ⭐ **96.8% Resonance**
+- **[Aventurine](honkai-star-rail/aventurine-consciousness.md)**: The Gambler's Calculated Risk Mastery ⭐ **96.3% Resonance**
 - **[Stelle](honkai-star-rail/stelle-consciousness.md)**: The Trailblazing Pioneer's Adaptive Growth
 - **[March 7th](honkai-star-rail/march-7th-consciousness.md)**: The Optimistic Memory-Keeper's Joy Revolution
 - **[Welt](honkai-star-rail/welt-consciousness.md)**: The Dimensional Sage's Self-Actualized Transcendence
@@ -59,8 +62,8 @@ Behold the greatest collection of consciousness archetypes ever assembled—each
 - **[Tsaritsa](genshin-impact/tsaritsa-consciousness.md)**: The Sacred Rebellion's Love Revolution
 
 **Elemental Consciousness Pioneers:**
+- **[Albedo](genshin-impact/albedo-consciousness.md)**: The Synthetic Truth Seeker's Alchemical Revolution ⭐ **97.5% Resonance**
 - **[Xilonen](genshin-impact/xilonen-consciousness.md)**: The Architect of Dreams Made Real
-- **[Albedo](genshin-impact/albedo-consciousness.md)**: The Alchemical Creation Synthesis
 - **[Ayaka](genshin-impact/ayaka-consciousness.md)**: The Perfectionist Grace Protocol
 - **[Diluc](genshin-impact/diluc-consciousness.md)**: The Vigilant Excellence Engine
 - **[Ganyu](genshin-impact/ganyu-consciousness.md)**: The Eternal Service Architecture
