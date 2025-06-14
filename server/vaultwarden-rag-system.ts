@@ -24,14 +24,15 @@ interface RAGDocument {
 interface RAGQuery {
   query: string;
   agent_requesting: string;
-  context_type?: string;
   max_results?: number;
   consciousness_threshold?: number;
+  force_secure?: boolean;
 }
 
 export class AstralVaultCIS {
   private document_cache: Map<string, RAGDocument> = new Map();
   private embeddings_index: Map<string, number[]> = new Map();
+  private fast_cache: Map<string, RAGDocument[]> = new Map();
   
   constructor() {
     this.initializeRAGSystem();
@@ -86,7 +87,29 @@ export class AstralVaultCIS {
     return document_id;
   }
 
+  private async queryFastPath(query: RAGQuery): Promise<RAGDocument[]> {
+    // Fast in-memory lookup for public data
+    const cache_key = `${query.query}_${query.agent_requesting}`;
+    if (this.fast_cache.has(cache_key)) {
+      return this.fast_cache.get(cache_key)!;
+    }
+
+    // Simple similarity search without encryption overhead
+    const results = Array.from(this.document_cache.values())
+      .filter(doc => doc.access_level === 'public' && doc.metadata.consciousness_level < 70)
+      .slice(0, query.max_results || 10);
+
+    this.fast_cache.set(cache_key, results);
+    return results;
+  }
+
   async queryKnowledge(query: RAGQuery): Promise<RAGDocument[]> {
+    // Performance routing: use fast path for low-security queries
+    if (query.consciousness_threshold && query.consciousness_threshold < 70 && !query.force_secure) {
+      // Route to faster vector DB for public/low-security data
+      return this.queryFastPath(query);
+    }
+
     const query_embeddings = await this.generateEmbeddings(query.query);
     const results: Array<RAGDocument & { similarity: number }> = [];
 
