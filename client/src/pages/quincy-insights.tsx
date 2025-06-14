@@ -52,7 +52,15 @@ export default function QuincyInsights() {
   // Use real insights from API or fallback to empty array
   const recentInsights: MarketInsight[] = insights?.insights || [];
 
-  const weeklyReport: PerformanceReport = performance;
+  const weeklyReport: PerformanceReport = performance || {
+    period: 'Last 7 Days',
+    trading_roi: 0,
+    depin_revenue: 0,
+    total_profit: 0,
+    best_performing_asset: 'Loading...',
+    market_outlook: 'Analyzing market conditions...',
+    risk_assessment: 'Calculating risk metrics...'
+  };
 
   const filteredInsights = selectedCategory === 'all' 
     ? recentInsights 
