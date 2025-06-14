@@ -16,21 +16,28 @@ export class SolanaRPCManager {
     {
       url: 'https://api.mainnet-beta.solana.com',
       tier: 'free',
-      requests_per_minute: 2,
+      requests_per_minute: 5,
       last_request: 0,
       request_count: 0
     },
     {
-      url: 'https://solana-api.projectserum.com',
-      tier: 'free', 
+      url: 'https://solana-mainnet.rpc.extrnode.com',
+      tier: 'free',
       requests_per_minute: 10,
       last_request: 0,
       request_count: 0
     },
     {
-      url: 'https://api.devnet.solana.com',
+      url: 'https://rpc.ankr.com/solana',
       tier: 'free',
-      requests_per_minute: 5,
+      requests_per_minute: 10,
+      last_request: 0,
+      request_count: 0
+    },
+    {
+      url: 'https://solana.public-rpc.com',
+      tier: 'free',
+      requests_per_minute: 8,
       last_request: 0,
       request_count: 0
     }
@@ -102,29 +109,43 @@ export class SolanaRPCManager {
       params: params
     };
 
-    const response = await fetch(endpoint.url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload)
-    });
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
 
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    try {
+      const response = await fetch(endpoint.url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+        signal: controller.signal
+      });
+
+      clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      
+      // Update endpoint usage
+      endpoint.request_count++;
+      endpoint.last_request = Date.now();
+
+      if (data.error) {
+        throw new Error(`RPC Error: ${data.error.message}`);
+      }
+
+      return data.result;
+    } catch (error) {
+      clearTimeout(timeoutId);
+      if (error.name === 'AbortError') {
+        throw new Error(`Request timeout for ${endpoint.url}`);
+      }
+      throw error;
     }
-
-    const data = await response.json();
-    
-    // Update endpoint usage
-    endpoint.request_count++;
-    endpoint.last_request = Date.now();
-
-    if (data.error) {
-      throw new Error(`RPC Error: ${data.error.message}`);
-    }
-
-    return data.result;
   }
 
   private resetRequestCounts(): void {

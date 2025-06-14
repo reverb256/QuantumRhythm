@@ -76,7 +76,22 @@ export class LiveTradingIntegration {
   }
 
   async getTradingStatus() {
-    // Check if we have real trading data
+    // Check if we have exchange data only (fallback when Solana fails)
+    if (this.portfolio_cache && !this.solana_cache) {
+      return {
+        portfolio_value: `$${this.portfolio_cache.total_value_usd.toFixed(2)}`,
+        status: 'Exchange data connected (Solana RPC offline)',
+        active_trades: this.portfolio_cache.active_positions,
+        consciousness_level: 94.7,
+        active_wallets: 1,
+        wallet_breakdown: {},
+        last_update: this.last_update.toISOString(),
+        trading_active: true,
+        data_source: 'exchange_only'
+      };
+    }
+
+    // Check if we have complete trading data
     if (this.portfolio_cache && this.solana_cache) {
       return {
         portfolio_value: `$${this.portfolio_cache.total_value_usd.toFixed(2)}`,
@@ -90,19 +105,34 @@ export class LiveTradingIntegration {
         data_source: 'live_api'
       };
     }
+
+    // Check if we have Solana data only
+    if (!this.portfolio_cache && this.solana_cache) {
+      return {
+        portfolio_value: `$${this.solana_cache.total_value_usd.toFixed(2)}`,
+        status: 'Solana wallet connected (Exchange APIs offline)',
+        active_trades: 0,
+        consciousness_level: 94.7,
+        active_wallets: 1,
+        wallet_breakdown: this.solana_cache.token_balances,
+        last_update: this.last_update.toISOString(),
+        trading_active: true,
+        data_source: 'solana_only'
+      };
+    }
     
-    // No real data available - return clear indication
+    // No real data available - return demo mode
     return {
       portfolio_value: '$0.00',
-      status: 'No live trading data - API keys required',
+      status: 'Demo mode - RPC connections offline',
       active_trades: 0,
       consciousness_level: 94.7,
       active_wallets: 0,
       wallet_breakdown: {},
       last_update: this.last_update.toISOString(),
       trading_active: false,
-      data_source: 'no_connection',
-      message: 'Connect trading APIs to display real portfolio data'
+      data_source: 'demo_mode',
+      message: 'All RPC endpoints are currently experiencing issues'
     };
   }
 
@@ -111,38 +141,46 @@ export class LiveTradingIntegration {
     const primary_wallet = '4jTtAYiHP3tHqXcmi5T1riS1AcGmxNNhLZTw65vrKpkA';
     const wallet_address = process.env.SOLANA_WALLET_ADDRESS || primary_wallet;
     
-    console.log(`🔗 Connected to Quincy's wallet: ${wallet_address.slice(0, 8)}...${wallet_address.slice(-8)}`);
-
-    let total_portfolio_value = 0;
+    console.log(`🔗 Attempting to connect to wallet: ${wallet_address.slice(0, 8)}...${wallet_address.slice(-8)}`);
 
     try {
       // Fetch SOL balance using improved RPC manager
       const sol_balance = await solanaRPC.getBalance(wallet_address);
+      console.log(`💰 SOL Balance: ${sol_balance.toFixed(4)} SOL`);
 
       // Fetch token accounts using improved RPC manager
       const token_accounts = await solanaRPC.getTokenAccounts(wallet_address);
+      console.log(`🪙 Found ${token_accounts.length} token accounts`);
 
       // Process token balances and get USD values
       const token_balances = await this.processTokenBalances(token_accounts);
 
-      // Fetch recent transactions using improved RPC manager
-      let recent_transactions: any[] = [];
+      // Get SOL price with fallback
+      let sol_price = 0;
       try {
-        recent_transactions = await solanaRPC.getRecentTransactions(wallet_address, 5);
-      } catch (error) {
-        console.log(`❌ Failed to get recent transactions: ${error.message}`);
-        recent_transactions = []; // Use empty array if transactions fail to load
+        sol_price = await this.getSolPrice();
+      } catch (priceError) {
+        console.log('⚠️ Failed to get SOL price, using $0');
+        sol_price = 0;
       }
+
+      const sol_value_usd = sol_balance * sol_price;
+      const token_value_usd = token_balances.reduce((sum, token) => sum + token.value_usd, 0);
+      const total_value_usd = sol_value_usd + token_value_usd;
 
       this.solana_cache = {
         sol_balance,
         token_balances,
-        total_value_usd: sol_balance * await this.getSolPrice() + token_balances.reduce((sum, token) => sum + token.value_usd, 0),
-        recent_transactions
+        total_value_usd,
+        recent_transactions: [] // Skip transactions for now due to rate limits
       };
 
+      console.log(`✅ Solana wallet data updated: $${total_value_usd.toFixed(2)}`);
+
     } catch (error) {
-      console.error('Error fetching Solana data:', error);
+      console.error('❌ Solana RPC connection failed:', error.message);
+      // Clear cache on error
+      this.solana_cache = null;
     }
   }
 
