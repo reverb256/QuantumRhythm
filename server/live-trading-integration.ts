@@ -4,6 +4,7 @@
  */
 
 import axios from 'axios';
+import { solanaRPC } from './solana-rpc-manager';
 
 interface LivePortfolioData {
   total_value_usd: number;
@@ -115,40 +116,17 @@ export class LiveTradingIntegration {
     let total_portfolio_value = 0;
 
     try {
-      // Fetch SOL balance
-      const sol_response = await axios.post('https://api.mainnet-beta.solana.com', {
-        jsonrpc: '2.0',
-        id: 1,
-        method: 'getBalance',
-        params: [wallet_address]
-      });
+      // Fetch SOL balance using improved RPC manager
+      const sol_balance = await solanaRPC.getBalance(wallet_address);
 
-      const sol_balance = sol_response.data.result.value / 1e9; // Convert lamports to SOL
-
-      // Fetch token accounts
-      const token_response = await axios.post('https://api.mainnet-beta.solana.com', {
-        jsonrpc: '2.0',
-        id: 1,
-        method: 'getTokenAccountsByOwner',
-        params: [
-          wallet_address,
-          { programId: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA' },
-          { encoding: 'jsonParsed' }
-        ]
-      });
+      // Fetch token accounts using improved RPC manager
+      const token_accounts = await solanaRPC.getTokenAccounts(wallet_address);
 
       // Process token balances and get USD values
-      const token_balances = await this.processTokenBalances(token_response.data.result.value);
+      const token_balances = await this.processTokenBalances(token_accounts);
 
-      // Fetch recent transactions
-      const tx_response = await axios.post('https://api.mainnet-beta.solana.com', {
-        jsonrpc: '2.0',
-        id: 1,
-        method: 'getSignaturesForAddress',
-        params: [wallet_address, { limit: 10 }]
-      });
-
-      const recent_transactions = await this.processRecentTransactions(tx_response.data.result);
+      // Fetch recent transactions using improved RPC manager
+      const recent_transactions = await solanaRPC.getRecentTransactions(wallet_address, 5);
 
       this.solana_cache = {
         sol_balance,
