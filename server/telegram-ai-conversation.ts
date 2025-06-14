@@ -5,6 +5,7 @@
 
 import { quincy } from './quincy-consciousness';
 import { akashaVaultwardenIntegration } from '../akasha/vaultwarden-integration';
+import { userIdentityManager } from './user-identity-manager';
 
 interface ConversationContext {
   user_name: string;

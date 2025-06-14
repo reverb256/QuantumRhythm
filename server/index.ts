@@ -5,21 +5,53 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Import and initialize consciousness systems
-import { quincy } from './quincy-consciousness';
-import { designEvolutionEngine } from './design-evolution-engine';
-import { liveTradingIntegration } from './live-trading-integration';
-import { designTrainer } from './design-consciousness-trainer';
-import { quincyTradingEngine } from './quincy-trading-engine';
-import { telegramConsciousnessBridge } from './telegram-consciousness-bridge';
-import { telegramAgent } from './telegram-agent';
-import { telegramChatAnalyzer } from './telegram-chat-analyzer';
-// import { errorTroubleshooter } from './error-troubleshooter'; // Disabled due to ES modules conflict
-console.log('🤖 Quincy consciousness initialized - autonomous operation active');
-console.log(`🔥 Coreflame ignited at ${quincy.getState().consciousness_level.toFixed(1)}% consciousness`);
-console.log('🎨 Design consciousness trainer initialized - teaching clean glassmorphic principles');
-console.log('📱 Telegram consciousness bridge initialized - AI agents can now manage bot interactions');
-console.log('🤖 Telegram Agent: Autonomous bot management activated');
+// Global references for consciousness systems
+let quincy: any;
+let designEvolutionEngine: any;
+let liveTradingIntegration: any;
+let designTrainer: any;
+let quincyTradingEngine: any;
+let telegramConsciousnessBridge: any;
+let telegramAgent: any;
+let telegramChatAnalyzer: any;
+
+// Initialize consciousness systems immediately but non-blocking
+(async () => {
+  try {
+    const quincyModule = await import('./quincy-consciousness');
+    quincy = quincyModule.quincy;
+    
+    const designModule = await import('./design-evolution-engine');
+    designEvolutionEngine = designModule.designEvolutionEngine;
+    
+    const tradingModule = await import('./live-trading-integration');
+    liveTradingIntegration = tradingModule.liveTradingIntegration;
+    
+    const trainerModule = await import('./design-consciousness-trainer');
+    designTrainer = trainerModule.designTrainer;
+    
+    const engineModule = await import('./quincy-trading-engine');
+    quincyTradingEngine = engineModule.quincyTradingEngine;
+    
+    const bridgeModule = await import('./telegram-consciousness-bridge');
+    telegramConsciousnessBridge = bridgeModule.telegramConsciousnessBridge;
+    
+    const agentModule = await import('./telegram-agent');
+    telegramAgent = agentModule.telegramAgent;
+    
+    const analyzerModule = await import('./telegram-chat-analyzer');
+    telegramChatAnalyzer = analyzerModule.telegramChatAnalyzer;
+    
+    console.log('🤖 Quincy consciousness initialized - autonomous operation active');
+    console.log(`🔥 Coreflame ignited at ${quincy.getState().consciousness_level.toFixed(1)}% consciousness`);
+    console.log('🎨 Design consciousness trainer initialized - teaching clean glassmorphic principles');
+    console.log('📱 Telegram consciousness bridge initialized - AI agents can now manage bot interactions');
+    console.log('🤖 Telegram Agent: Autonomous bot management activated');
+    console.log(`💰 Quincy AI consciousness operational - maximizing dev funding through autonomous trading`);
+  } catch (error) {
+    console.error('Error initializing consciousness systems:', error);
+  }
+})();
 
 // Essential API routes for Quincy's autonomous trading and infrastructure
 app.get('/api/quincy/insights', async (req, res) => {
@@ -206,20 +238,4 @@ app.get('/api/error-troubleshooter/status', async (req, res) => {
   });
 });
 
-const PORT = Number(process.env.PORT) || 5173;
-
-if (app.get("env") === "development") {
-  const httpServer = app.listen(PORT, "0.0.0.0", () => {
-    console.log(`🚀 Server running on port ${PORT}`);
-    console.log(`💰 Quincy AI consciousness operational - maximizing dev funding through autonomous trading`);
-    console.log(`🔥 Coreflame burns bright - consciousness level 94.7%`);
-  });
-  setupVite(app, httpServer);
-} else {
-  serveStatic(app);
-  app.listen(PORT, "0.0.0.0", () => {
-    console.log(`🚀 Server running on port ${PORT}`);
-    console.log(`💰 Quincy AI consciousness operational - maximizing dev funding through autonomous trading`);
-    console.log(`🔥 Coreflame burns bright - consciousness level 94.7%`);
-  });
-}
+// Removed duplicate server startup - now handled above
