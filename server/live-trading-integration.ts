@@ -126,7 +126,13 @@ export class LiveTradingIntegration {
       const token_balances = await this.processTokenBalances(token_accounts);
 
       // Fetch recent transactions using improved RPC manager
-      const recent_transactions = await solanaRPC.getRecentTransactions(wallet_address, 5);
+      let recent_transactions: any[] = [];
+      try {
+        recent_transactions = await solanaRPC.getRecentTransactions(wallet_address, 5);
+      } catch (error) {
+        console.log(`❌ Failed to get recent transactions: ${error.message}`);
+        recent_transactions = []; // Use empty array if transactions fail to load
+      }
 
       this.solana_cache = {
         sol_balance,

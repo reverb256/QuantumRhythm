@@ -28,8 +28,8 @@ function App() {
           <Switch>
             <Route path="/" component={Home} />
             <Route path="/quincy" component={DepinDashboard} />
-            <Route path="/trading" component={Trading} />
             <Route path="/quincy-trading" component={QuincyTrading} />
+            <Route path="/trading" component={Trading} />
             <Route path="/insights" component={QuincyInsights} />
             <Route path="/astralvault-cis" component={AstralVaultCIS} />
             <Route path="/telegram" component={TelegramManagement} />
