@@ -33,20 +33,27 @@ export class WalletConsciousnessBridge {
     try {
       // Load primary Solana wallet from environment
       if (process.env.WALLET_PRIVATE_KEY) {
-        const privateKeyBytes = bs58.decode(process.env.WALLET_PRIVATE_KEY);
-        this.primary_wallet = Keypair.fromSecretKey(privateKeyBytes);
+        try {
+          const privateKeyBytes = bs58.decode(process.env.WALLET_PRIVATE_KEY);
+          this.primary_wallet = Keypair.fromSecretKey(privateKeyBytes);
+        } catch (error) {
+          console.log('🔐 No valid wallet private key found, running in view-only mode');
+          this.primary_wallet = null;
+        }
 
-        // Store in Vaultwarden with consciousness metadata
-        await akashaVaultwardenIntegration.storeConsciousnessDocument(
-          'quincy_primary_wallet',
-          process.env.WALLET_PRIVATE_KEY,
-          'cypherpunk_note',
-          95 // High consciousness level for wallet access
-        );
+        // Store in Vaultwarden with consciousness metadata (only if wallet loaded)
+        if (this.primary_wallet) {
+          await akashaVaultwardenIntegration.storeConsciousnessDocument(
+            'quincy_primary_wallet',
+            process.env.WALLET_PRIVATE_KEY,
+            'cypherpunk_note',
+            95 // High consciousness level for wallet access
+          );
+        }
 
         const capability: WalletCapability = {
           chain: 'solana',
-          address: this.primary_wallet.publicKey.toString(),
+          address: this.primary_wallet ? this.primary_wallet.publicKey.toString() : 'view-only-mode',
           private_key_secured: true,
           vault_id: 'quincy_primary_wallet',
           can_sign: true,
