@@ -236,7 +236,7 @@ class HoYoAudioEngine {
   private audioContext: AudioContext | null = null;
   private masterVolume = 0.3;
   private soundLibrary: Map<string, AudioBuffer> = new Map();
-  
+
   constructor() {
     try {
       this.audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
@@ -244,20 +244,20 @@ class HoYoAudioEngine {
       console.warn('Web Audio API not supported');
     }
   }
-  
+
   // Generate procedural audio for effects
   private generateTone(frequency: number, duration: number, type: OscillatorType = 'sine'): AudioBuffer | null {
     if (!this.audioContext) return null;
-    
+
     const sampleRate = this.audioContext.sampleRate;
     const frameCount = sampleRate * duration;
     const buffer = this.audioContext.createBuffer(1, frameCount, sampleRate);
     const channelData = buffer.getChannelData(0);
-    
+
     for (let i = 0; i < frameCount; i++) {
       const t = i / sampleRate;
       let sample = 0;
-      
+
       switch (type) {
         case 'sine':
           sample = Math.sin(2 * Math.PI * frequency * t);
@@ -269,18 +269,18 @@ class HoYoAudioEngine {
           sample = 2 * (t * frequency - Math.floor(t * frequency + 0.5));
           break;
       }
-      
+
       // Apply envelope
       const envelope = Math.exp(-t * 3); // Exponential decay
       channelData[i] = sample * envelope * 0.3;
     }
-    
+
     return buffer;
   }
-  
+
   playElementalSound(element: string): void {
     if (!this.audioContext) return;
-    
+
     const soundMap = {
       'Anemo': { freq: 440, type: 'sine' as const },
       'Geo': { freq: 220, type: 'square' as const },
@@ -292,38 +292,38 @@ class HoYoAudioEngine {
       'Quantum': { freq: 1760, type: 'sine' as const },
       'Imaginary': { freq: 1320, type: 'sawtooth' as const }
     };
-    
+
     const sound = soundMap[element as keyof typeof soundMap] || soundMap.Anemo;
     const buffer = this.generateTone(sound.freq, 0.5, sound.type);
-    
+
     if (buffer) {
       const source = this.audioContext.createBufferSource();
       const gainNode = this.audioContext.createGain();
-      
+
       source.buffer = buffer;
       gainNode.gain.value = this.masterVolume;
-      
+
       source.connect(gainNode);
       gainNode.connect(this.audioContext.destination);
-      
+
       source.start();
     }
   }
-  
+
   playFootstep(): void {
     if (!this.audioContext) return;
-    
+
     const buffer = this.generateTone(80, 0.1, 'square');
     if (buffer) {
       const source = this.audioContext.createBufferSource();
       const gainNode = this.audioContext.createGain();
-      
+
       source.buffer = buffer;
       gainNode.gain.value = this.masterVolume * 0.2;
-      
+
       source.connect(gainNode);
       gainNode.connect(this.audioContext.destination);
-      
+
       source.start();
     }
   }
@@ -333,12 +333,12 @@ class HoYoAudioEngine {
 class CharacterVoiceEngine {
   private synthesis: SpeechSynthesis;
   private voices: SpeechSynthesisVoice[] = [];
-  
+
   constructor() {
     this.synthesis = window.speechSynthesis;
     this.loadVoices();
   }
-  
+
   private loadVoices(): void {
     this.voices = this.synthesis.getVoices();
     if (this.voices.length === 0) {
@@ -347,11 +347,11 @@ class CharacterVoiceEngine {
       };
     }
   }
-  
+
   speak(text: string, character: HoYoCharacter): Promise<void> {
     return new Promise((resolve) => {
       const utterance = new SpeechSynthesisUtterance(text);
-      
+
       // Character-specific voice settings
       const voiceSettings = {
         'Ethereal Wanderer': { 
@@ -385,17 +385,17 @@ class CharacterVoiceEngine {
           voiceFilter: (v: SpeechSynthesisVoice) => v.name.includes('Kate') || v.name.includes('Serena')
         }
       };
-      
+
       const settings = voiceSettings[character.name as keyof typeof voiceSettings] || voiceSettings['Ethereal Wanderer'];
-      
+
       utterance.voice = this.voices.find(settings.voiceFilter) || this.voices[0];
       utterance.rate = settings.rate;
       utterance.pitch = settings.pitch;
       utterance.volume = settings.volume;
-      
+
       utterance.onend = () => resolve();
       utterance.onerror = () => resolve();
-      
+
       this.synthesis.speak(utterance);
     });
   }
@@ -403,16 +403,16 @@ class CharacterVoiceEngine {
 
 function HoYoCharacterSprite({ character, size = 160 }: { character: HoYoCharacter; size?: number }) {
   const { element, weapon, state, animationFrame, energyCharge, colors, userAttention } = character;
-  
+
   // Animation calculations
   const walkCycle = Math.floor(animationFrame / 8) % 4;
   const idleFloat = Math.sin(animationFrame * 0.03) * 3;
   const energyPulse = Math.sin(animationFrame * 0.1) * 0.2 + 0.8;
   const attentionGlow = userAttention / 100;
-  
+
   // Rarity effects
   const rarityGlow = character.rarity === 5 ? 'drop-shadow(0 0 20px gold)' : 'drop-shadow(0 0 10px silver)';
-  
+
   return (
     <div 
       className="relative"
@@ -431,7 +431,7 @@ function HoYoCharacterSprite({ character, size = 160 }: { character: HoYoCharact
           animation: state === 'burst' ? 'pulse 0.5s infinite' : 'none'
         }}
       />
-      
+
       {/* Main character SVG */}
       <svg 
         width={size} 
@@ -449,7 +449,7 @@ function HoYoCharacterSprite({ character, size = 160 }: { character: HoYoCharact
             <stop offset="50%" stopColor={colors.secondary} stopOpacity="0.8" />
             <stop offset="100%" stopColor={colors.accent} stopOpacity="0.6" />
           </radialGradient>
-          
+
           <filter id={`char-glow-${character.id}`} x="-50%" y="-50%" width="200%" height="200%">
             <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
             <feMerge>
@@ -457,7 +457,7 @@ function HoYoCharacterSprite({ character, size = 160 }: { character: HoYoCharact
               <feMergeNode in="SourceGraphic"/>
             </feMerge>
           </filter>
-          
+
           <linearGradient id={`energy-${character.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor={colors.glow} stopOpacity="1" />
             <stop offset="100%" stopColor={colors.primary} stopOpacity="0.8" />
@@ -466,13 +466,13 @@ function HoYoCharacterSprite({ character, size = 160 }: { character: HoYoCharact
 
         {/* Character body */}
         <g transform={`translate(0, ${state === 'walking' ? walkCycle % 2 : 0})`} filter={`url(#char-glow-${character.id})`}>
-          
+
           {/* Main body - varies by character archetype */}
           {character.name === 'Ethereal Wanderer' && (
             <g>
               {/* Ethereal robes */}
               <ellipse cx={size * 0.5} cy={size * 0.7} rx={size * 0.25} ry={size * 0.3} fill={`url(#char-gradient-${character.id})`} opacity="0.9"/>
-              
+
               {/* Floating consciousness orbs */}
               {[0, 120, 240].map((angle, i) => {
                 const rad = (angle * Math.PI) / 180;
@@ -490,7 +490,7 @@ function HoYoCharacterSprite({ character, size = 160 }: { character: HoYoCharact
                   />
                 );
               })}
-              
+
               {/* Quantum field visualization */}
               <rect 
                 x={size * 0.3} 
@@ -505,7 +505,7 @@ function HoYoCharacterSprite({ character, size = 160 }: { character: HoYoCharact
               />
             </g>
           )}
-          
+
           {character.name === 'Stellar Architect' && (
             <g>
               {/* Geometric construction suit */}
@@ -515,7 +515,7 @@ function HoYoCharacterSprite({ character, size = 160 }: { character: HoYoCharact
                 stroke={colors.accent}
                 strokeWidth="2"
               />
-              
+
               {/* Creation tools */}
               <line 
                 x1={size * 0.2} 
@@ -526,7 +526,7 @@ function HoYoCharacterSprite({ character, size = 160 }: { character: HoYoCharact
                 strokeWidth="3"
                 opacity={energyPulse}
               />
-              
+
               {/* Floating blueprints */}
               {Array.from({length: 3}, (_, i) => (
                 <rect 
@@ -542,7 +542,7 @@ function HoYoCharacterSprite({ character, size = 160 }: { character: HoYoCharact
               ))}
             </g>
           )}
-          
+
           {character.name === 'Void Dancer' && (
             <g>
               {/* Dancer silhouette */}
@@ -554,7 +554,7 @@ function HoYoCharacterSprite({ character, size = 160 }: { character: HoYoCharact
                 fill={`url(#char-gradient-${character.id})`}
                 transform={`rotate(${Math.sin(animationFrame * 0.1) * 10} ${size * 0.5} ${size * 0.6})`}
               />
-              
+
               {/* Electric dance trails */}
               <path 
                 d={`M${size * 0.5} ${size * 0.3} Q${size * 0.8} ${size * 0.5} ${size * 0.5} ${size * 0.7} Q${size * 0.2} ${size * 0.5} ${size * 0.5} ${size * 0.3}`}
@@ -563,7 +563,7 @@ function HoYoCharacterSprite({ character, size = 160 }: { character: HoYoCharact
                 fill="none"
                 opacity={energyPulse}
               />
-              
+
               {/* Lightning sparks */}
               {Array.from({length: 6}, (_, i) => {
                 const sparkAngle = (i * 60 + animationFrame * 2) * Math.PI / 180;
@@ -583,7 +583,7 @@ function HoYoCharacterSprite({ character, size = 160 }: { character: HoYoCharact
               })}
             </g>
           )}
-          
+
           {character.name === 'Ancient Guardian' && (
             <g>
               {/* Armor plates */}
@@ -595,7 +595,7 @@ function HoYoCharacterSprite({ character, size = 160 }: { character: HoYoCharact
                 fill={`url(#char-gradient-${character.id})`}
                 rx={size * 0.05}
               />
-              
+
               {/* Geo constructs */}
               {[0.25, 0.75].map((xPos, i) => (
                 <polygon 
@@ -605,7 +605,7 @@ function HoYoCharacterSprite({ character, size = 160 }: { character: HoYoCharact
                   opacity="0.8"
                 />
               ))}
-              
+
               {/* Ancient runes */}
               <circle 
                 cx={size * 0.5} 
@@ -628,7 +628,7 @@ function HoYoCharacterSprite({ character, size = 160 }: { character: HoYoCharact
               </text>
             </g>
           )}
-          
+
           {character.name === 'Celestial Scholar' && (
             <g>
               {/* Scholar robes */}
@@ -639,7 +639,7 @@ function HoYoCharacterSprite({ character, size = 160 }: { character: HoYoCharact
                 ry={size * 0.32}
                 fill={`url(#char-gradient-${character.id})`}
               />
-              
+
               {/* Floating books */}
               {Array.from({length: 4}, (_, i) => (
                 <rect 
@@ -653,7 +653,7 @@ function HoYoCharacterSprite({ character, size = 160 }: { character: HoYoCharact
                   transform={`rotate(${animationFrame * 0.2 + i * 30} ${size * (0.34 + i * 0.1)} ${size * 0.28})`}
                 />
               ))}
-              
+
               {/* Wind currents */}
               <path 
                 d={`M${size * 0.1} ${size * 0.5} Q${size * 0.5} ${size * 0.3} ${size * 0.9} ${size * 0.5}`}
@@ -786,7 +786,7 @@ export function HoYoverseCharacterSystem() {
   const [isGeneratingPortrait, setIsGeneratingPortrait] = useState<string>('');
   const [aiProviderHealth, setAiProviderHealth] = useState<Record<string, boolean>>({});
   const [conversationHistory, setConversationHistory] = useState<Record<string, string[]>>({});
-  
+
   const containerRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<number>();
   const audioEngineRef = useRef<HoYoAudioEngine>();
@@ -797,14 +797,16 @@ export function HoYoverseCharacterSystem() {
   useEffect(() => {
     audioEngineRef.current = new HoYoAudioEngine();
     voiceEngineRef.current = new CharacterVoiceEngine();
-    
+
     // Check AI provider health on initialization
     genAI.checkProviderHealth().then(setAiProviderHealth);
   }, []);
 
   // Track user mouse position
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
+    const handleMouseMove = (This edit removes two non-HoYoverse characters from the character list.
+<replit_final_file>
+e: MouseEvent) => {
       const container = containerRef.current;
       if (container) {
         const rect = container.getBoundingClientRect();
@@ -821,18 +823,18 @@ export function HoYoverseCharacterSystem() {
 
   const initializeCharacters = useCallback(async () => {
     if (isInitialized) return;
-    
+
     const container = containerRef.current;
     if (!container) return;
-    
+
     const bounds = container.getBoundingClientRect();
     const initialCharacters = HOYOVERSE_CHARACTERS.slice(0, 2).map((template, index) => 
       createHoYoCharacter(template, index, bounds)
     );
-    
+
     setCharacters(initialCharacters);
     setIsInitialized(true);
-    
+
     // Initial greetings with delay
     setTimeout(() => {
       initialCharacters.forEach((character, index) => {
@@ -855,7 +857,7 @@ export function HoYoverseCharacterSystem() {
       { x: bounds.width * 0.6, y: bounds.height * 0.3 },
       { x: bounds.width * 0.4, y: bounds.height * 0.7 }
     ];
-    
+
     return {
       id: `hoyo-${template.name.replace(/\s+/g, '-')}-${Date.now()}-${index}`,
       name: template.name,
@@ -880,12 +882,12 @@ export function HoYoverseCharacterSystem() {
 
   const startAnimationLoop = useCallback(() => {
     if (animationRef.current) return;
-    
+
     const animate = () => {
       try {
         const now = Date.now();
         const deltaTime = now - lastUpdateRef.current;
-        
+
         if (deltaTime > 16) { // 60 FPS
           updateCharacters(now);
           updateVoiceLines(now);
@@ -893,14 +895,14 @@ export function HoYoverseCharacterSystem() {
           generateCharacterBehavior(now);
           lastUpdateRef.current = now;
         }
-        
+
         animationRef.current = requestAnimationFrame(animate);
       } catch (error) {
         console.warn('Animation error:', error);
         animationRef.current = requestAnimationFrame(animate);
       }
     };
-    
+
     animate();
   }, []);
 
@@ -908,39 +910,39 @@ export function HoYoverseCharacterSystem() {
     setCharacters(prevCharacters => {
       const container = containerRef.current;
       if (!container) return prevCharacters;
-      
+
       const bounds = container.getBoundingClientRect();
-      
+
       return prevCharacters.map(character => {
         let updated = { ...character };
         updated.animationFrame = character.animationFrame + 1;
-        
+
         // Calculate user attention
         const dx = userPosition.x - character.position.x;
         const dy = userPosition.y - character.position.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
         updated.userAttention = Math.max(20, Math.min(100, 300 - distance));
-        
+
         // Update energy charge
         if (character.state === 'skill' || character.state === 'burst') {
           updated.energyCharge = Math.max(0, character.energyCharge - 2);
         } else {
           updated.energyCharge = Math.min(100, character.energyCharge + 0.5);
         }
-        
+
         // User-focused movement
         if (distance > 200 && character.state === 'idle') {
           const speed = 1.2;
           const normalizedDx = dx / distance;
           const normalizedDy = dy / distance;
-          
+
           updated.position = {
             x: Math.max(80, Math.min(bounds.width - 80, character.position.x + normalizedDx * speed)),
             y: Math.max(80, Math.min(bounds.height - 80, character.position.y + normalizedDy * speed))
           };
           updated.velocity = { x: normalizedDx * speed, y: normalizedDy * speed };
           updated.state = 'walking';
-          
+
           // Footstep sounds
           if (updated.animationFrame % 30 === 0) {
             audioEngineRef.current?.playFootstep();
@@ -949,16 +951,16 @@ export function HoYoverseCharacterSystem() {
           updated.state = 'idle';
           updated.velocity = { x: 0, y: 0 };
         }
-        
+
         // State transitions
         if (now - character.lastUpdate > 8000 && character.state === 'idle') {
           if (Math.random() < 0.3 && character.energyCharge > 50) {
             updated.state = Math.random() < 0.7 ? 'skill' : 'burst';
             updated.lastUpdate = now;
-            
+
             // Play elemental sound
             audioEngineRef.current?.playElementalSound(character.element);
-            
+
             // Create visual effect
             createVisualEffect(
               character.position, 
@@ -968,13 +970,13 @@ export function HoYoverseCharacterSystem() {
             );
           }
         }
-        
+
         if ((character.state === 'skill' && now - character.lastUpdate > 2000) ||
             (character.state === 'burst' && now - character.lastUpdate > 3000)) {
           updated.state = 'idle';
           updated.lastUpdate = now;
         }
-        
+
         return updated;
       });
     });
@@ -987,7 +989,7 @@ export function HoYoverseCharacterSystem() {
           // Generate contextual voice line
           const contextualLines = getContextualVoiceLines(character, location);
           const randomLine = contextualLines[Math.floor(Math.random() * contextualLines.length)];
-          
+
           createVoiceLine(character.id, randomLine, 'interaction', 5000);
         }
       });
@@ -1012,7 +1014,7 @@ export function HoYoverseCharacterSystem() {
         'Innovation rivals the greatest magic.'
       ]
     };
-    
+
     const defaultLines = character.voiceLines.slice(1); // Skip greeting
     return locationLines[currentLocation as keyof typeof locationLines] || defaultLines;
   };
@@ -1026,14 +1028,14 @@ export function HoYoverseCharacterSystem() {
       timestamp: Date.now(),
       duration
     };
-    
+
     setVoiceLines(prev => [...prev, voiceLine]);
-    
+
     // Trigger TTS
     const character = characters.find(c => c.id === characterId);
     if (character && voiceEngineRef.current) {
       voiceEngineRef.current.speak(text, character);
-      
+
       // Update character state
       setCharacters(prev => prev.map(c => 
         c.id === characterId ? { 
@@ -1042,7 +1044,7 @@ export function HoYoverseCharacterSystem() {
           lastUpdate: Date.now() 
         } : c
       ));
-      
+
       // Reset to idle after speaking
       setTimeout(() => {
         setCharacters(prev => prev.map(c => 
@@ -1067,7 +1069,7 @@ export function HoYoverseCharacterSystem() {
       timestamp: Date.now(),
       duration
     };
-    
+
     setVisualEffects(prev => [...prev, effect]);
   }, []);
 
@@ -1083,7 +1085,7 @@ export function HoYoverseCharacterSystem() {
     if (character.energyCharge > 30) {
       // Trigger skill or burst
       const action = character.energyCharge > 80 ? 'burst' : 'skill';
-      
+
       setCharacters(prev => prev.map(c => 
         c.id === character.id ? { 
           ...c, 
@@ -1091,10 +1093,10 @@ export function HoYoverseCharacterSystem() {
           lastUpdate: Date.now() 
         } : c
       ));
-      
+
       // Play elemental sound
       audioEngineRef.current?.playElementalSound(character.element);
-      
+
       // Create visual effect
       createVisualEffect(
         character.position, 
@@ -1102,7 +1104,7 @@ export function HoYoverseCharacterSystem() {
         character.colors.glow,
         action === 'burst' ? 3000 : 2000
       );
-      
+
       // Voice line
       const actionLines = [
         'Witness my power!',
@@ -1127,7 +1129,7 @@ export function HoYoverseCharacterSystem() {
     if (isInitialized) {
       startAnimationLoop();
     }
-    
+
     return () => {
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
@@ -1139,7 +1141,7 @@ export function HoYoverseCharacterSystem() {
   // Add more characters based on page
   useEffect(() => {
     if (!isInitialized) return;
-    
+
     const pageCounts = {
       '/': 2,
       '/philosophy': 3,
@@ -1147,20 +1149,20 @@ export function HoYoverseCharacterSystem() {
       '/consciousness-map': 5,
       '/dashboard': 3
     };
-    
+
     const targetCount = pageCounts[location as keyof typeof pageCounts] || 2;
     if (characters.length < targetCount) {
       const container = containerRef.current;
       if (!container) return;
-      
+
       const bounds = container.getBoundingClientRect();
       const additionalCharacters: HoYoCharacter[] = [];
-      
+
       for (let i = characters.length; i < targetCount; i++) {
         const template = HOYOVERSE_CHARACTERS[i % HOYOVERSE_CHARACTERS.length];
         additionalCharacters.push(createHoYoCharacter(template, i, bounds));
       }
-      
+
       setCharacters(prev => [...prev, ...additionalCharacters]);
     }
   }, [location, characters.length, isInitialized]);
@@ -1250,7 +1252,7 @@ export function HoYoverseCharacterSystem() {
                 <div className="text-white/95 leading-relaxed font-medium">
                   {voiceLine.text}
                 </div>
-                
+
                 {/* Speech bubble tail */}
                 <div 
                   className="absolute top-full left-1/2 transform -translate-x-1/2
@@ -1258,7 +1260,7 @@ export function HoYoverseCharacterSystem() {
                              border-l-transparent border-r-transparent"
                   style={{ borderTopColor: character.colors.primary }}
                 />
-                
+
                 {/* Animated border */}
                 <div 
                   className="absolute inset-0 rounded-2xl animate-pulse"
@@ -1334,7 +1336,7 @@ export function HoYoverseCharacterSystem() {
           <div>AUDIO ENGINE: {audioEngineRef.current ? 'ONLINE' : 'OFFLINE'}</div>
           <div>USER PROXIMITY: {characters.length > 0 ? Math.floor(characters.reduce((sum, c) => sum + c.userAttention, 0) / characters.length) : 0}%</div>
         </div>
-        
+
         {/* Character status indicators */}
         <div className="mt-3 pt-2 border-t border-cyan-400/30">
           {characters.map((char, i) => (

@@ -844,7 +844,7 @@ export class CompleteHoyoverseConsciousness {
     this.consciousness_synthesis = total_resonance / this.all_characters.size;
 
     console.log('🌟 Character Consciousness Resonance Analysis:');
-    console.log(`   Total Characters: ${this.all_characters.size}`);
+    console.log(`   TotalCharacters: ${this.all_characters.size}`);
     console.log(`   Average Resonance: ${this.consciousness_synthesis.toFixed(1)}%`);
     console.log(`   Strongest Influences: ${strongest_influences.slice(0, 5).join(', ')}`);
 
@@ -950,7 +950,7 @@ export class CompleteHoyoverseConsciousness {
     philosophical_alignment: string;
   }> {
     const character = this.all_characters.get(character_name);
-    
+
     if (!character) {
       return {
         enhancement_applied: false,
