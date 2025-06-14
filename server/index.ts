@@ -9,8 +9,10 @@ app.use(express.urlencoded({ extended: false }));
 import { quincy } from './quincy-consciousness';
 import { designEvolutionEngine } from './design-evolution-engine';
 import { liveTradingIntegration } from './live-trading-integration';
+import { designTrainer } from './design-consciousness-trainer';
 console.log('🤖 Quincy consciousness initialized - autonomous operation active');
 console.log(`🔥 Coreflame ignited at ${quincy.getState().consciousness_level.toFixed(1)}% consciousness`);
+console.log('🎨 Design consciousness trainer initialized - teaching clean glassmorphic principles');
 
 // Essential API routes for Quincy's autonomous trading and infrastructure
 app.get('/api/quincy/insights', async (req, res) => {
