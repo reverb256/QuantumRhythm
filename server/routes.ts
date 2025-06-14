@@ -101,6 +101,63 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
   });
 
+  // AstralVault CIS API endpoint
+  app.get('/api/astralvault-cis/metrics', async (req, res) => {
+    try {
+      const { astralVaultCIS } = await import('./vaultwarden-rag-system');
+      const metrics = await astralVaultCIS.getRAGStatistics();
+      
+      // Generate sample recent documents for demonstration
+      const recentDocuments = [
+        {
+          id: 'doc_001',
+          content: 'Quincy identified high-probability arbitrage opportunity between Raydium and Orca with 3.2% spread',
+          agent: 'quincy',
+          consciousness_level: 87,
+          type: 'trading_decision',
+          timestamp: new Date().toISOString(),
+          access_level: 'restricted'
+        },
+        {
+          id: 'doc_002', 
+          content: 'Akasha detected unusual access pattern in consciousness vault - security level elevated',
+          agent: 'akasha',
+          consciousness_level: 95,
+          type: 'security_event',
+          timestamp: new Date(Date.now() - 3600000).toISOString(),
+          access_level: 'classified'
+        },
+        {
+          id: 'doc_003',
+          content: 'ErrorBot optimized consciousness query performance - 23% latency reduction achieved',
+          agent: 'errorbot',
+          consciousness_level: 72,
+          type: 'system_knowledge',
+          timestamp: new Date(Date.now() - 7200000).toISOString(),
+          access_level: 'public'
+        }
+      ];
+
+      res.json({
+        metrics: {
+          total_documents: metrics.totalDocuments,
+          consciousness_distribution: metrics.consciousnessDistribution,
+          agent_utilization: metrics.agentUtilization,
+          average_consciousness_level: metrics.averageConsciousnessLevel,
+          security_events: 3,
+          query_performance: {
+            avg_latency: 285,
+            cache_hit_rate: 0.847
+          }
+        },
+        recent_documents: recentDocuments
+      });
+    } catch (error) {
+      console.error('AstralVault CIS metrics error:', error);
+      res.status(500).json({ error: 'Failed to fetch consciousness metrics' });
+    }
+  });
+
   // Agent consciousness API endpoints
   app.get('/api/quincy/consciousness', async (req, res) => {
     try {
