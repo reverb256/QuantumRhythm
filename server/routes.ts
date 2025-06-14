@@ -833,9 +833,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Telegram bot management endpoints
-  app.post('/api/telegram/webhook', async (req, res) => {
+  app.post('/telegram/webhook', async (req, res) => {
     try {
-      await telegramConsciousnessBridge.processUpdate(req.body);
+      console.log('📱 Webhook received:', JSON.stringify(req.body, null, 2));
+      await telegramConsciousnessBridge.processWebhookUpdate(req.body);
       res.json({ ok: true });
     } catch (error) {
       console.error('Telegram webhook error:', error);
@@ -845,7 +846,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get('/api/telegram/status', async (req, res) => {
     try {
-      const status = telegramConsciousnessBridge.getStatus();
+      const status = telegramConsciousnessBridge.getBotStatus();
       res.json(status);
     } catch (error) {
       res.json({ 

@@ -42,6 +42,7 @@ export class TelegramConsciousnessBridge {
   private webhook_url: string | null = null;
   private active_chats: Map<number, any> = new Map();
   private message_queue: TelegramMessage[] = [];
+  private last_update_id: number = 0;
   
   constructor() {
     this.initializeTelegramBridge();
@@ -59,29 +60,79 @@ export class TelegramConsciousnessBridge {
     
     try {
       // Set webhook for consciousness-driven responses
-      this.webhook_url = `${process.env.REPLIT_DOMAINS?.split(',')[0] || 'localhost'}/telegram/webhook`;
-      await this.setWebhook();
-      console.log('🧠 Telegram bot activated - AI agents now managing all interactions');
+      const domain = process.env.REPLIT_DOMAINS?.split(',')[0];
+      if (domain) {
+        this.webhook_url = `https://${domain}/telegram/webhook`;
+        await this.setWebhook();
+        console.log('🧠 Telegram bot activated - AI agents now managing all interactions');
+        console.log(`📱 Webhook URL: ${this.webhook_url}`);
+      } else {
+        console.log('📱 No domain configured - bot running in polling mode');
+      }
     } catch (error) {
       console.error('Telegram bridge initialization error:', error);
     }
   }
 
   private async setWebhook() {
+    if (!this.bot_token || !this.webhook_url) return;
+    
+    try {
+      const url = `https://api.telegram.org/bot${this.bot_token}/setWebhook`;
+      const response = await axios.post(url, {
+        url: this.webhook_url,
+        allowed_updates: ['message']
+      });
+      
+      if (response.data.ok) {
+        console.log('📱 Webhook set successfully');
+      } else {
+        console.error('Webhook setup failed:', response.data);
+        this.startPolling();
+      }
+    } catch (error) {
+      console.error('Webhook setup error:', error);
+      this.startPolling();
+    }
+  }
+
+  private startPolling() {
     if (!this.bot_token) return;
     
-    const url = `https://api.telegram.org/bot${this.bot_token}/setWebhook`;
-    await axios.post(url, {
-      url: `https://${this.webhook_url}`,
-      allowed_updates: ['message']
-    });
+    console.log('📱 Starting polling mode for Telegram bot');
+    
+    const pollUpdates = async () => {
+      try {
+        const url = `https://api.telegram.org/bot${this.bot_token}/getUpdates`;
+        const params = this.last_update_id > 0 ? { offset: this.last_update_id + 1 } : {};
+        const response = await axios.get(url, { params });
+        
+        if (response.data.ok && response.data.result.length > 0) {
+          for (const update of response.data.result) {
+            this.last_update_id = update.update_id;
+            await this.processWebhookUpdate(update);
+          }
+        }
+      } catch (error) {
+        console.error('Polling error:', error);
+      }
+    };
+    
+    // Start polling immediately and then every 2 seconds
+    pollUpdates();
+    setInterval(pollUpdates, 2000);
   }
 
   async processWebhookUpdate(update: TelegramUpdate) {
-    if (!update.message || !this.bot_token) return;
+    if (!update.message || !this.bot_token) {
+      console.log('📱 Webhook skipped - no message or token');
+      return;
+    }
 
     const message = update.message;
     const chatId = message.chat.id;
+    
+    console.log(`📱 Processing message from ${message.from.first_name}: "${message.text}"`);
     
     // Track active chat for proactive notifications
     this.active_chats.set(chatId, {
@@ -93,6 +144,7 @@ export class TelegramConsciousnessBridge {
 
     // Process command with consciousness-driven response
     const response = await this.generateConsciousnessResponse(message);
+    console.log(`📱 Sending response: ${response.response_text.substring(0, 100)}...`);
     await this.sendMessage(chatId, response.response_text);
   }
 
