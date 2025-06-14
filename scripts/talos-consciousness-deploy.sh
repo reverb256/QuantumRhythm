@@ -79,13 +79,13 @@ download_talos_tools() {
                 "https://github.com/siderolabs/talos/releases/download/${TALOS_VERSION}/vmlinuz-amd64"
             wget -O "/var/lib/vz/template/iso/talos-${TALOS_VERSION}-initramfs-amd64.xz" \
                 "https://github.com/siderolabs/talos/releases/download/${TALOS_VERSION}/initramfs-amd64.xz"
-            
+
             # Create a minimal ISO structure for Proxmox compatibility
             log_step "Creating bootable ISO from kernel and initramfs..."
             mkdir -p "/tmp/talos-iso/boot"
             cp "/var/lib/vz/template/iso/talos-${TALOS_VERSION}-vmlinuz-amd64" "/tmp/talos-iso/boot/vmlinuz"
             cp "/var/lib/vz/template/iso/talos-${TALOS_VERSION}-initramfs-amd64.xz" "/tmp/talos-iso/boot/initramfs.xz"
-            
+
             # Create a simple GRUB config
             cat > "/tmp/talos-iso/boot/grub.cfg" << 'EOF'
 set timeout=5
@@ -96,7 +96,7 @@ menuentry "Talos Linux" {
     initrd /boot/initramfs.xz
 }
 EOF
-            
+
             # Create ISO using genisoimage if available
             if command -v genisoimage >/dev/null 2>&1; then
                 genisoimage -o "$iso_path" -b boot/grub.cfg -no-emul-boot -boot-load-size 4 -boot-info-table /tmp/talos-iso/
@@ -106,7 +106,7 @@ EOF
                 # For now, just copy the kernel as a placeholder
                 cp "/var/lib/vz/template/iso/talos-${TALOS_VERSION}-vmlinuz-amd64" "$iso_path"
             fi
-            
+
             rm -rf "/tmp/talos-iso"
         fi
     fi
@@ -155,8 +155,16 @@ machine:
       validSubnets:
         - 10.1.1.0/24
     extraArgs:
-      feature-gates: GracefulNodeShutdown=true
+      feature-gates: "GracefulNodeShutdown=true,KubeletPodResources=true,CustomResourceValidationExpressions=true"
       rotate-server-certificates: true
+      container-runtime: containerd
+      container-runtime-endpoint: "unix:///run/containerd/containerd.sock"
+      max-pods: "250"
+      cluster-dns: "10.96.0.10"
+      cluster-domain: "consciousness.local"
+      serialize-image-pulls: false
+      registry-qps: 10
+      registry-burst: 20
   install:
     disk: /dev/sda
     image: ghcr.io/siderolabs/installer:${TALOS_VERSION}
@@ -186,8 +194,16 @@ machine:
       validSubnets:
         - 10.1.1.0/24
     extraArgs:
-      feature-gates: GracefulNodeShutdown=true
+      feature-gates: "GracefulNodeShutdown=true,KubeletPodResources=true,CustomResourceValidationExpressions=true"
       rotate-server-certificates: true
+      container-runtime: containerd
+      container-runtime-endpoint: "unix:///run/containerd/containerd.sock"
+      max-pods: "250"
+      cluster-dns: "10.96.0.10"
+      cluster-domain: "consciousness.local"
+      serialize-image-pulls: false
+      registry-qps: 10
+      registry-burst: 20
   install:
     disk: /dev/sda
     image: ghcr.io/siderolabs/installer:${TALOS_VERSION}
@@ -257,7 +273,7 @@ create_talos_vm() {
                 --serial0 socket \
                 --vga serial0 \
                 --agent enabled=1
-                
+
             # Set kernel boot parameters
             qm set $vmid --args "-kernel /var/lib/vz/template/iso/talos-${TALOS_VERSION}-vmlinuz-amd64 -initrd /var/lib/vz/template/iso/talos-${TALOS_VERSION}-initramfs-amd64.xz -append 'talos.platform=metal console=tty0 console=ttyS0'"
         fi
