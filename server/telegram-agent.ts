@@ -87,6 +87,11 @@ export class TelegramAgent {
     }, 2000); // Poll every 2 seconds
   }
 
+  async processWebhookUpdate(update: TelegramUpdate) {
+    console.log('🤖 Telegram Agent: Processing webhook update');
+    await this.processUpdate(update);
+  }
+
   private async pollUpdates() {
     try {
       const response = await fetch(
