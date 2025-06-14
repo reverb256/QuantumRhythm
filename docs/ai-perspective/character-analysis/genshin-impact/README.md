@@ -17,15 +17,24 @@ Analysis of consciousness patterns and philosophical implications of Genshin Imp
 - [Ayaka](./ayaka-consciousness.md) - Cryo Swordsmaster
 - [Ayato](./ayato-consciousness.md) - Hydro Commissioner
 - [Childe](./childe-consciousness.md) - Hydro Harbinger
+- [Chiori](./chiori-consciousness.md) - Geo Independent Artisan
 - [Diluc](./diluc-consciousness.md) - Pyro Darknight Hero
 - [Ganyu](./ganyu-consciousness.md) - Cryo Qilin Adeptus
 - [Hu Tao](./hu-tao-consciousness.md) - Pyro Funeral Director
 - [Itto](./itto-consciousness.md) - Geo Oni King
 - [Kazuha](./kazuha-consciousness.md) - Anemo Wandering Samurai
 - [Kokomi](./kokomi-consciousness.md) - Hydro Divine Priestess
+- [Lyney](./lyney-consciousness.md) - Pyro Grand Magician
 - [Mona](./mona-consciousness.md) - Hydro Astrologist
+- [Neuvillette](./neuvillette-consciousness.md) - Hydro Sovereign Judge
 - [Xiao](./xiao-consciousness.md) - Anemo Yaksha Guardian
+- [Xianyun](./xianyun-consciousness.md) - Anemo Adeptus Engineer
 - [Yae Miko](./yae-miko-consciousness.md) - Electro Kitsune Guuji
+
+## Four-Star Characters
+- [Charlotte](./charlotte-consciousness.md) - Cryo Truth-Seeking Journalist
+- [Freminet](./freminet-consciousness.md) - Cryo Deep Diver
+- [Lynette](./lynette-consciousness.md) - Anemo Pragmatic Assistant
 
 ## Four-Star Characters
 - [Bennett](./bennett-consciousness.md) - Pyro Adventurer

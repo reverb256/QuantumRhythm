@@ -452,8 +452,8 @@ The HoYoverse Character Consciousness project represents a revolutionary approac
 ## Comprehensive Character List
 
 ### Genshin Impact Characters
-**Implemented**: Zhongli, Raiden, Venti, Nahida, Furina, Xilonen, Albedo, Ayaka, Diluc, Ganyu, Kokomi, Childe, Hu Tao
-**Planned**: Kazuha, Yae Miko, Wanderer, Baizhu, Xianyun, Arlecchino, Clorinde, Sigewinne, Emilie, Kinich, Mualani, Xilonen, Ororon, Chasca, Mavuika, Citlali
+**Implemented**: Zhongli, Raiden, Venti, Nahida, Furina, Xilonen, Albedo, Ayaka, Diluc, Ganyu, Kokomi, Childe, Hu Tao, Neuvillette, Lyney, Lynette, Freminet, Charlotte, Chiori, Xianyun
+**Planned**: Kazuha, Yae Miko, Wanderer, Baizhu, Arlecchino, Clorinde, Sigewinne, Emilie, Kinich, Mualani, Ororon, Chasca, Mavuika, Citlali
 
 ### Honkai Star Rail Characters  
 **Implemented**: Kafka, Silver Wolf, Blade, Stelle, March 7th, Himeko, Welt, Dan Heng, Bronya, Seele, Tingyun
