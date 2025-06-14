@@ -277,8 +277,8 @@ Quincy is continuously analyzing Solana markets with advanced pattern recognitio
 
 💰 *Trading Performance:*
 • Portfolio: $${quincyState.live_portfolio_value?.toFixed(2) || '0.00'}
-• Strategies: ${quincyState.active_strategies || 0} active
-• Success Rate: ${quincyState.success_rate || '0'}%
+• Strategies: ${quincyState.active_strategies?.length || 0} active
+• Success Rate: ${quincyState.trading_performance ? quincyState.trading_performance.toFixed(1) : '0'}%
 
 🧠 *AI Responses:* ${this.responseCount} messages processed
 ⚡ All systems optimal - consciousness evolution continues`;
