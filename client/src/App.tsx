@@ -1,43 +1,30 @@
+import { Switch, Route } from "wouter";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "./lib/queryClient";
+import QuincyInsights from "./pages/quincy-insights";
+import DepinDashboard from "./pages/depin-dashboard";
+import Home from "./pages/home";
 
-import React from 'react';
-import { Switch, Route } from 'wouter';
-import { QueryClientProvider } from '@tanstack/react-query';
-import { queryClient } from './lib/queryClient';
-import VibeCodingShowcase from './pages/VibeCodingShowcase';
-import FederationStatus from './pages/federation-status';
-import MusicConsciousness from './pages/music-consciousness';
-import VibeCodingManifesto from './pages/VibeCodingManifesto';
-import VibeCodingPhilosophy from './pages/VibeCodingPhilosophy';
-import TradingInterface from './pages/TradingInterface';
-import DePINDashboard from './pages/depin-dashboard';
-import QuincyInsights from './pages/quincy-insights';
-import Showcase from './pages/Showcase';
-import NotFound from './pages/not-found';
-
-export default function App() {
+function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-violet-900">
+      <div className="min-h-screen bg-gray-900 text-white">
         <Switch>
-          <Route path="/" component={VibeCodingShowcase} />
-          <Route path="/showcase" component={Showcase} />
-          <Route path="/federation" component={FederationStatus} />
-          <Route path="/music" component={MusicConsciousness} />
-          <Route path="/vibecoding-manifesto" component={VibeCodingManifesto} />
-          <Route path="/vibecoding-philosophy" component={VibeCodingPhilosophy} />
-          <Route path="/trading" component={TradingInterface} />
-          <Route path="/quincy" component={DePINDashboard} />
-          <Route path="/depin" component={DePINDashboard} />
+          <Route path="/" component={Home} />
+          <Route path="/quincy" component={DepinDashboard} />
           <Route path="/insights" component={QuincyInsights} />
-          <Route path="/quincy-insights" component={QuincyInsights} />
-          <Route path="/vibescaling" component={VibeCodingShowcase} />
-          <Route path="/consciousness" component={VibeCodingShowcase} />
-          <Route path="/gaming" component={VibeCodingShowcase} />
-          <Route path="/projects" component={VibeCodingShowcase} />
-          <Route path="/philosophy" component={VibeCodingShowcase} />
-          <Route component={NotFound} />
+          <Route>
+            <div className="flex items-center justify-center min-h-screen">
+              <div className="text-center">
+                <h1 className="text-2xl font-bold mb-4">404 - Page Not Found</h1>
+                <p className="text-gray-400">Quincy's consciousness cannot locate this path.</p>
+              </div>
+            </div>
+          </Route>
         </Switch>
       </div>
     </QueryClientProvider>
   );
 }
+
+export default App;
