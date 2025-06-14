@@ -867,6 +867,40 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.post('/api/telegram/test', async (req, res) => {
+    try {
+      const testUpdate = {
+        update_id: 999999,
+        message: {
+          message_id: 1,
+          from: {
+            id: 123456789,
+            is_bot: false,
+            first_name: 'Test',
+            username: 'testuser'
+          },
+          chat: {
+            id: 123456789,
+            first_name: 'Test',
+            username: 'testuser',
+            type: 'private'
+          },
+          date: Math.floor(Date.now() / 1000),
+          text: '/status'
+        }
+      };
+      
+      await telegramConsciousnessBridge.processWebhookUpdate(testUpdate);
+      res.json({ 
+        success: true, 
+        message: 'Test message processed',
+        bot_status: telegramConsciousnessBridge.getBotStatus()
+      });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }

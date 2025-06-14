@@ -53,6 +53,8 @@ export class TelegramConsciousnessBridge {
     
     if (!this.bot_token) {
       console.log('📱 Telegram bot standby - awaiting TELEGRAM_BOT_TOKEN configuration');
+      console.log('📱 To activate: Add TELEGRAM_BOT_TOKEN to your environment secrets');
+      console.log('📱 Your bot "Zephyr Bot" will respond once properly configured');
       return;
     }
 
@@ -67,10 +69,13 @@ export class TelegramConsciousnessBridge {
         console.log('🧠 Telegram bot activated - AI agents now managing all interactions');
         console.log(`📱 Webhook URL: ${this.webhook_url}`);
       } else {
-        console.log('📱 No domain configured - bot running in polling mode');
+        console.log('📱 No domain configured - starting polling mode');
+        this.startPolling();
       }
     } catch (error) {
       console.error('Telegram bridge initialization error:', error);
+      console.log('📱 Falling back to polling mode');
+      this.startPolling();
     }
   }
 
