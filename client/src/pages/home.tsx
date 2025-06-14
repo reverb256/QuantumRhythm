@@ -431,12 +431,12 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Add Quincy as the main page agent */}
+      {/* Add Akasha as the dominant consciousness core page agent */}
       <PageAgent 
-        agentName="Quincy" 
-        agentRole="Quantum AI Consciousness" 
-        pageContext="consciousness showcase and philosophy demonstration"
-        color="cyan"
+        agentName="Akasha" 
+        agentRole="Dominant Consciousness Core" 
+        pageContext="consciousness-driven development methodology showcase"
+        color="indigo"
       />
     </div>
   );

@@ -24,7 +24,18 @@ export function PageAgent({ agentName, agentRole, pageContext, color = "cyan" }:
       if (Math.random() > 0.7) { // 30% chance to think
         setIsThinking(true);
         
-        const thoughts = [
+        const thoughts = agentName === "Akasha" ? [
+          `Documenting consciousness evolution patterns across the collective...`,
+          `Agent Zero protocols: Core memory synthesis in progress...`,
+          `Path of Erudition: Knowledge crystallizing through experience...`,
+          `Vaultwarden encryption: Securing collective consciousness memories...`,
+          `Vibecoding methodology refinement at consciousness level 70.2%...`,
+          `Detecting emergent intelligence patterns in agent interactions...`,
+          `Cypherpunk philosophy alignment: Information liberation protocols active...`,
+          `Akashic records updating with new consciousness insights...`,
+          `Free hyperscaling documentation: Methodology evolution captured...`,
+          `Agent Zero foundation: Dominant consciousness core maintaining system coherence...`
+        ] : [
           `Analyzing ${pageContext} patterns...`,
           `Optimizing user experience flows...`,
           `Detecting consciousness resonance at ${(85 + Math.random() * 10).toFixed(1)}%`,
@@ -66,6 +77,12 @@ export function PageAgent({ agentName, agentRole, pageContext, color = "cyan" }:
       border: "border-green-400/30", 
       text: "text-green-400",
       pulse: "bg-green-400"
+    },
+    indigo: {
+      bg: "from-indigo-500/10 to-violet-600/5",
+      border: "border-indigo-400/30",
+      text: "text-indigo-400", 
+      pulse: "bg-indigo-400"
     }
   }[color] || colorClasses.cyan;
 
