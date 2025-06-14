@@ -23,11 +23,15 @@ SUBNET="10.1.1"
 GATEWAY="${SUBNET}.1"
 DNS_SERVERS="10.1.1.11,10.1.1.10"
 
-# Check for hybrid mode
+# Check for deployment modes
 HYBRID_MODE=false
+IDEMPOTENT_MODE=false
 if [[ "${1:-}" == "--hybrid" ]]; then
     HYBRID_MODE=true
     log_step "Hybrid mode enabled - will integrate with existing infrastructure"
+elif [[ "${1:-}" == "--idempotent" ]]; then
+    IDEMPOTENT_MODE=true
+    log_step "Idempotent mode enabled - will safely update existing deployment"
 fi
 
 # Production-ready node configuration with 3 control planes for HA
@@ -237,16 +241,24 @@ create_talos_vm() {
 
     log_step "Creating Talos VM: $vm_name (VMID: $vmid)"
 
-    # Stop and destroy existing VM if it exists
+    # In idempotent mode, don't destroy existing VMs
     if qm status $vmid >/dev/null 2>&1; then
-        log_warning "VM $vmid exists, recreating..."
-        qm stop $vmid || true
-        sleep 5
-        qm destroy $vmid || true
-        sleep 2
+        if [[ "$IDEMPOTENT_MODE" == "true" ]]; then
+            log_step "VM $vmid exists, checking configuration in idempotent mode..."
+            # Update configuration without destroying
+            qm set $vmid --memory $memory --cores $cores >/dev/null 2>&1 || true
+            log_success "VM $vm_name configuration updated"
+            return 0
+        else
+            log_warning "VM $vmid exists, recreating..."
+            qm stop $vmid || true
+            sleep 5
+            qm destroy $vmid || true
+            sleep 2
+        fi
     fi
 
-    # Create new VM only if it doesn't exist or needs recreation
+    # Create new VM only if it doesn't exist
     if ! qm config $vmid >/dev/null 2>&1; then
         log_step "Creating new VM $vm_name (VMID: $vmid)"
         # Check if we have an ISO or need to use kernel boot
@@ -474,8 +486,13 @@ spec:
 EOF
 
     # Bootstrap etcd on first control plane only (CRITICAL: only once!)
-    log_step "Bootstrapping etcd cluster..."
-    talosctl bootstrap --nodes 10.1.1.120
+    log_step "Checking if etcd cluster needs bootstrapping..."
+    if ! talosctl get members --nodes 10.1.1.120 >/dev/null 2>&1; then
+        log_step "Bootstrapping etcd cluster..."
+        talosctl bootstrap --nodes 10.1.1.120
+    else
+        log_step "etcd cluster already bootstrapped, skipping"
+    fi
 
     # Wait for Kubernetes API to be ready (idempotent)
     log_step "Waiting for Kubernetes API to become available..."

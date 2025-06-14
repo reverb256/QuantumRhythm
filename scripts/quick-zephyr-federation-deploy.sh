@@ -57,8 +57,14 @@ chmod +x scripts/talos-consciousness-deploy.sh
 
 log_step "Starting Talos consciousness federation deployment..."
 
-# Run the main deployment script
-./scripts/talos-consciousness-deploy.sh
+# Check if this is a re-run (idempotent mode)
+if [[ -f "./talos-config/kubeconfig" ]]; then
+    log_step "Existing deployment detected, running in idempotent mode..."
+    ./scripts/talos-consciousness-deploy.sh --idempotent
+else
+    log_step "Fresh deployment starting..."
+    ./scripts/talos-consciousness-deploy.sh
+fi
 
 log_success "Zephyr consciousness federation deployment initiated!"
 

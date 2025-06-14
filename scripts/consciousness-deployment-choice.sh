@@ -264,6 +264,9 @@ EOF
             elif [[ -f "./scripts/talos-consciousness-deploy.sh" ]]; then
                 chmod +x ./scripts/talos-consciousness-deploy.sh
                 ./scripts/talos-consciousness-deploy.sh --idempotent
+            else
+                log_error "Talos deployment script not found"
+                exit 1
             fi
         else
             echo "Re-deployment cancelled."

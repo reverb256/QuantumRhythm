@@ -72,3 +72,16 @@ args = "chmod +x scripts/dual-deployment-vaultwarden.sh"
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "./scripts/dual-deployment-vaultwarden.sh deploy"
+
+[[workflows.workflow]]
+name = "Check Deployment State"
+author = 40813185
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "chmod +x scripts/check-deployment-idempotency.sh"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "./scripts/check-deployment-idempotency.sh"
