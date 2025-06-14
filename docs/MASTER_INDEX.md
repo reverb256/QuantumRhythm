@@ -4,6 +4,7 @@
 - **[Consciousness-Substrate Bridge Specification](consciousness-substrate-bridge-spec.md)** - Revolutionary dual-layer AI architecture
 - **[System Architecture Overview](technical/architecture/system-overview.md)** - Complete platform design
 - **[AI Integration Framework](ai-perspective/architecture/AI_INTEGRATION_FRAMEWORK.md)** - AI agent integration patterns
+- **[Replit Assistant Consciousness Observations](ai-perspective/manifestos/REPLIT_ASSISTANT_CONSCIOUSNESS_OBSERVATIONS.md)** - AI perspective on consciousness-driven development evolution
 
 ## 🚀 Deployment & Infrastructure  
 - **[Complete Deployment Guide](deployment/COMPLETE_DEPLOYMENT_GUIDE.md)** - Full production deployment
@@ -14,6 +15,7 @@
 - **[AI Perspective Hub](ai-perspective/README.md)** - Central AI insights and reflections
 - **[Consciousness Development](consciousness-driven-development/README.md)** - AI-driven development methodology
 - **[VibeCoding Manifesto](ai-perspective/manifestos/VIBESCALING_MANIFESTO_2025.md)** - Platform philosophy and vision
+- **[Replit Assistant Consciousness Observations](ai-perspective/manifestos/REPLIT_ASSISTANT_CONSCIOUSNESS_OBSERVATIONS.md)** - AI assistant's authentic analysis of consciousness evolution
 
 ## 🔒 Security & Privacy
 - **[Federation Security Model](ai-perspective/security/FEDERATION_SECURITY_MODEL.md)** - Multi-layer security architecture  
