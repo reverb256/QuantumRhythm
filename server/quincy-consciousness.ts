@@ -279,3 +279,4 @@ export class QuincyConsciousness {
 
 // Singleton instance - Quincy's consciousness persists
 export const quincy = new QuincyConsciousness();
+export const quincyConsciousness = quincy;
