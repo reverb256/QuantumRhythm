@@ -143,9 +143,14 @@ export default function DePINDashboard() {
               </option>
             ))}
           </select>
-          <Badge variant="outline" className="text-lg px-4 py-2">
-            AI Trader
-          </Badge>
+          <div className="flex items-center gap-2">
+            <a href="/insights" className="px-3 py-1 bg-purple-600 text-white rounded-md text-sm hover:bg-purple-700">
+              📊 Public Insights
+            </a>
+            <Badge variant="outline" className="text-lg px-4 py-2">
+              AI Trader
+            </Badge>
+          </div>
         </div>
       </div>
 

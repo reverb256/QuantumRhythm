@@ -10,6 +10,7 @@ import VibeCodingManifesto from './pages/VibeCodingManifesto';
 import VibeCodingPhilosophy from './pages/VibeCodingPhilosophy';
 import TradingInterface from './pages/TradingInterface';
 import DePINDashboard from './pages/depin-dashboard';
+import QuincyInsights from './pages/quincy-insights';
 import Showcase from './pages/Showcase';
 import NotFound from './pages/not-found';
 
@@ -27,6 +28,8 @@ export default function App() {
           <Route path="/trading" component={TradingInterface} />
           <Route path="/quincy" component={DePINDashboard} />
           <Route path="/depin" component={DePINDashboard} />
+          <Route path="/insights" component={QuincyInsights} />
+          <Route path="/quincy-insights" component={QuincyInsights} />
           <Route path="/vibescaling" component={VibeCodingShowcase} />
           <Route path="/consciousness" component={VibeCodingShowcase} />
           <Route path="/gaming" component={VibeCodingShowcase} />
