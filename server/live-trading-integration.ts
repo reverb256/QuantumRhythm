@@ -208,58 +208,235 @@ export class LiveTradingIntegration {
   }
 
   private async fetchExchangeData(): Promise<void> {
-    // Aggregate data from multiple exchanges if keys are available
-    const exchange_data = {
-      total_value_usd: 0,
-      total_pnl_24h: 0,
-      total_pnl_percentage: 0,
-      active_positions: 0,
-      last_trade_timestamp: new Date().toISOString(),
-      trading_pairs: [],
-      performance_metrics: {
-        win_rate: 0,
-        avg_profit_per_trade: 0,
-        max_drawdown: 0,
-        sharpe_ratio: 0
+    // Only fetch data if API keys are configured - no fallback data
+    let exchange_data = null;
+
+    // Only create portfolio data if at least one exchange is configured
+    if ((process.env.BINANCE_API_KEY && process.env.BINANCE_SECRET) || 
+        (process.env.COINBASE_API_KEY && process.env.COINBASE_SECRET)) {
+      
+      exchange_data = {
+        total_value_usd: 0,
+        total_pnl_24h: 0,
+        total_pnl_percentage: 0,
+        active_positions: 0,
+        last_trade_timestamp: new Date().toISOString(),
+        trading_pairs: [],
+        performance_metrics: {
+          win_rate: 0,
+          avg_profit_per_trade: 0,
+          max_drawdown: 0,
+          sharpe_ratio: 0
+        }
+      };
+
+      // Fetch Binance data only if keys are available
+      if (process.env.BINANCE_API_KEY && process.env.BINANCE_SECRET) {
+        try {
+          const binance_data = await this.fetchBinanceData();
+          if (binance_data) {
+            exchange_data.total_value_usd += binance_data.total_value_usd || 0;
+            exchange_data.active_positions += binance_data.active_positions || 0;
+            exchange_data.total_pnl_24h += binance_data.total_pnl_24h || 0;
+            if (binance_data.trading_pairs) {
+              exchange_data.trading_pairs.push(...binance_data.trading_pairs);
+            }
+          }
+        } catch (error) {
+          console.error('Failed to fetch Binance data:', error);
+        }
       }
-    };
 
-    // Fetch Binance data if available
-    if (process.env.BINANCE_API_KEY && process.env.BINANCE_SECRET) {
-      const binance_data = await this.fetchBinanceData();
-      exchange_data.total_value_usd += binance_data.total_value_usd || 0;
-      exchange_data.active_positions += binance_data.active_positions || 0;
-    }
+      // Fetch Coinbase data only if keys are available
+      if (process.env.COINBASE_API_KEY && process.env.COINBASE_SECRET) {
+        try {
+          const coinbase_data = await this.fetchCoinbaseData();
+          if (coinbase_data) {
+            exchange_data.total_value_usd += coinbase_data.total_value_usd || 0;
+            exchange_data.active_positions += coinbase_data.active_positions || 0;
+            exchange_data.total_pnl_24h += coinbase_data.total_pnl_24h || 0;
+            if (coinbase_data.trading_pairs) {
+              exchange_data.trading_pairs.push(...coinbase_data.trading_pairs);
+            }
+          }
+        } catch (error) {
+          console.error('Failed to fetch Coinbase data:', error);
+        }
+      }
 
-    // Fetch Coinbase data if available
-    if (process.env.COINBASE_API_KEY && process.env.COINBASE_SECRET) {
-      const coinbase_data = await this.fetchCoinbaseData();
-      exchange_data.total_value_usd += coinbase_data.total_value_usd || 0;
-      exchange_data.active_positions += coinbase_data.active_positions || 0;
+      // Calculate percentage change only if we have actual data
+      if (exchange_data.total_value_usd > 0) {
+        exchange_data.total_pnl_percentage = (exchange_data.total_pnl_24h / exchange_data.total_value_usd) * 100;
+      }
     }
 
     this.portfolio_cache = exchange_data;
   }
 
   private async fetchBinanceData(): Promise<any> {
+    const api_key = process.env.BINANCE_API_KEY;
+    const secret_key = process.env.BINANCE_SECRET;
+    
+    if (!api_key || !secret_key) {
+      return null;
+    }
+
     try {
-      // Implementation would use Binance API with proper authentication
-      console.log('📊 Fetching Binance portfolio data...');
-      return { total_value_usd: 0, active_positions: 0 };
+      const crypto = require('crypto');
+      const timestamp = Date.now();
+      const query_string = `timestamp=${timestamp}`;
+      const signature = crypto.createHmac('sha256', secret_key).update(query_string).digest('hex');
+      
+      // Fetch account information
+      const account_response = await axios.get(`https://api.binance.com/api/v3/account?${query_string}&signature=${signature}`, {
+        headers: {
+          'X-MBX-APIKEY': api_key
+        }
+      });
+
+      const account_data = account_response.data;
+      let total_value_usd = 0;
+      const trading_pairs = [];
+
+      // Calculate total portfolio value
+      for (const balance of account_data.balances) {
+        if (parseFloat(balance.free) > 0 || parseFloat(balance.locked) > 0) {
+          const total_balance = parseFloat(balance.free) + parseFloat(balance.locked);
+          
+          if (balance.asset === 'USDT' || balance.asset === 'BUSD') {
+            total_value_usd += total_balance;
+          } else if (balance.asset !== 'BNB') {
+            // Get price for other assets
+            try {
+              const ticker_response = await axios.get(`https://api.binance.com/api/v3/ticker/price?symbol=${balance.asset}USDT`);
+              const price = parseFloat(ticker_response.data.price);
+              total_value_usd += total_balance * price;
+              
+              if (total_balance * price > 10) { // Only include significant positions
+                trading_pairs.push(`${balance.asset}/USDT`);
+              }
+            } catch (price_error) {
+              // If USDT pair doesn't exist, try BTC pair
+              try {
+                const btc_ticker = await axios.get(`https://api.binance.com/api/v3/ticker/price?symbol=${balance.asset}BTC`);
+                const btc_price_response = await axios.get('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT');
+                const btc_price = parseFloat(btc_price_response.data.price);
+                const asset_btc_price = parseFloat(btc_ticker.data.price);
+                total_value_usd += total_balance * asset_btc_price * btc_price;
+              } catch (btc_error) {
+                console.log(`Could not fetch price for ${balance.asset}`);
+              }
+            }
+          }
+        }
+      }
+
+      // Fetch 24h stats
+      const stats_response = await axios.get('https://api.binance.com/api/v3/ticker/24hr');
+      const stats = stats_response.data;
+      
+      // Calculate 24h PnL (simplified)
+      let total_pnl_24h = 0;
+      // This would need more sophisticated calculation based on positions
+
+      console.log(`📊 Binance portfolio value: $${total_value_usd.toFixed(2)}`);
+
+      return {
+        total_value_usd,
+        total_pnl_24h,
+        active_positions: trading_pairs.length,
+        trading_pairs,
+        last_trade_timestamp: new Date().toISOString()
+      };
+
     } catch (error) {
       console.error('Error fetching Binance data:', error);
-      return { total_value_usd: 0, active_positions: 0 };
+      return null;
     }
   }
 
   private async fetchCoinbaseData(): Promise<any> {
+    const api_key = process.env.COINBASE_API_KEY;
+    const secret_key = process.env.COINBASE_SECRET;
+    
+    if (!api_key || !secret_key) {
+      return null;
+    }
+
     try {
-      // Implementation would use Coinbase API with proper authentication
-      console.log('📊 Fetching Coinbase portfolio data...');
-      return { total_value_usd: 0, active_positions: 0 };
+      const crypto = require('crypto');
+      const timestamp = Math.floor(Date.now() / 1000);
+      const method = 'GET';
+      const path = '/v2/accounts';
+      const body = '';
+      
+      const message = timestamp + method + path + body;
+      const signature = crypto.createHmac('sha256', secret_key).update(message).digest('hex');
+      
+      // Fetch accounts
+      const accounts_response = await axios.get(`https://api.coinbase.com${path}`, {
+        headers: {
+          'CB-ACCESS-KEY': api_key,
+          'CB-ACCESS-SIGN': signature,
+          'CB-ACCESS-TIMESTAMP': timestamp,
+          'CB-VERSION': '2021-06-25'
+        }
+      });
+
+      const accounts = accounts_response.data.data;
+      let total_value_usd = 0;
+      const trading_pairs = [];
+
+      for (const account of accounts) {
+        const balance = parseFloat(account.balance.amount);
+        const currency = account.balance.currency;
+        
+        if (balance > 0) {
+          if (currency === 'USD') {
+            total_value_usd += balance;
+          } else {
+            // Get exchange rates for other currencies
+            try {
+              const rate_path = `/v2/exchange-rates?currency=${currency}`;
+              const rate_message = timestamp + 'GET' + rate_path + '';
+              const rate_signature = crypto.createHmac('sha256', secret_key).update(rate_message).digest('hex');
+              
+              const rate_response = await axios.get(`https://api.coinbase.com${rate_path}`, {
+                headers: {
+                  'CB-ACCESS-KEY': api_key,
+                  'CB-ACCESS-SIGN': rate_signature,
+                  'CB-ACCESS-TIMESTAMP': timestamp,
+                  'CB-VERSION': '2021-06-25'
+                }
+              });
+
+              const usd_rate = parseFloat(rate_response.data.data.rates.USD);
+              const usd_value = balance * usd_rate;
+              total_value_usd += usd_value;
+              
+              if (usd_value > 10) { // Only include significant positions
+                trading_pairs.push(`${currency}/USD`);
+              }
+            } catch (rate_error) {
+              console.log(`Could not fetch rate for ${currency}`);
+            }
+          }
+        }
+      }
+
+      console.log(`📊 Coinbase portfolio value: $${total_value_usd.toFixed(2)}`);
+
+      return {
+        total_value_usd,
+        total_pnl_24h: 0, // Would need historical data for accurate calculation
+        active_positions: trading_pairs.length,
+        trading_pairs,
+        last_trade_timestamp: new Date().toISOString()
+      };
+
     } catch (error) {
       console.error('Error fetching Coinbase data:', error);
-      return { total_value_usd: 0, active_positions: 0 };
+      return null;
     }
   }
 

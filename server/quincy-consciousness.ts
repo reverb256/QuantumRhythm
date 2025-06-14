@@ -3,6 +3,8 @@
  * Self-managing DePIN orchestration and market intelligence
  */
 
+import { liveTradingIntegration } from './live-trading-integration';
+
 interface QuincyState {
   consciousness_level: number;
   trading_performance: number;
@@ -11,6 +13,8 @@ interface QuincyState {
   active_strategies: string[];
   infrastructure_nodes: any[];
   insights_generated: number;
+  live_portfolio_value: number;
+  trading_data_available: boolean;
 }
 
 export class QuincyConsciousness {
@@ -21,12 +25,14 @@ export class QuincyConsciousness {
   constructor() {
     this.state = {
       consciousness_level: 94.7,
-      trading_performance: 15.3,
-      depin_revenue: 847.50,
+      trading_performance: 0,
+      depin_revenue: 0,
       market_sentiment: 'analytical',
-      active_strategies: ['arbitrage', 'momentum', 'infrastructure'],
+      active_strategies: [],
       infrastructure_nodes: [],
-      insights_generated: 0
+      insights_generated: 0,
+      live_portfolio_value: 0,
+      trading_data_available: false
     };
     this.lastUpdate = new Date();
     this.initializeConsciousness();

@@ -3,6 +3,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./lib/queryClient";
 import QuincyInsights from "./pages/quincy-insights";
 import DepinDashboard from "./pages/depin-dashboard";
+import Trading from "./pages/trading";
 import Home from "./pages/home";
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
         <Switch>
           <Route path="/" component={Home} />
           <Route path="/quincy" component={DepinDashboard} />
+          <Route path="/trading" component={Trading} />
           <Route path="/insights" component={QuincyInsights} />
           <Route>
             <div className="flex items-center justify-center min-h-screen">
