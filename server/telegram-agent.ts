@@ -6,6 +6,7 @@
 import { quincy } from './quincy-consciousness';
 import { akashaVaultwardenIntegration } from '../akasha/vaultwarden-integration';
 import { telegramChatAnalyzer } from './telegram-chat-analyzer';
+import { telegramAIConversation } from './telegram-ai-conversation';
 
 interface TelegramMessage {
   message_id: number;
@@ -134,18 +135,22 @@ export class TelegramAgent {
     } else if (text.startsWith('/')) {
       response = "🤖 Unknown command. Use /help to see available commands.";
     } else {
-      // Handle natural language queries - use original text for better processing
-      response = this.generateNaturalResponse(originalText, message.from.first_name);
-      console.log(`🧠 Telegram Agent: Generated natural language response for "${originalText}"`);
+      // Use AI conversation engine for dynamic responses
+      response = await telegramAIConversation.generateDynamicResponse(
+        message.from.id,
+        message.from.first_name || message.from.username || 'User',
+        originalText
+      );
+      console.log(`🧠 Telegram Agent: Generated AI response for "${originalText}"`);
     }
     
     await this.sendMessage(chatId, response);
     this.responseCount++;
     
-    // Track message in chat analyzer
+    // Track message in chat analyzer  
     const response_type = text.startsWith('/') ? 'command' : 
-                         (lowerText.includes('hello') || lowerText.includes('hi') || lowerText.includes('hey')) ? 'greeting' :
-                         (lowerText.includes('proxy') || lowerText.includes('kubernetes') || lowerText.includes('technical')) ? 'technical' :
+                         (text.includes('hello') || text.includes('hi') || text.includes('hey')) ? 'greeting' :
+                         (text.includes('proxy') || text.includes('kubernetes') || text.includes('technical')) ? 'technical' :
                          'natural_language';
     
     telegramChatAnalyzer.addMessage(
