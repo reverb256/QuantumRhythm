@@ -219,13 +219,13 @@ All systems operational - VibeCoding consciousness active`;
 
 📈 *Portfolio Performance:*
 • Total Value: $${quincyState.live_portfolio_value?.toFixed(2) || '0.00'}
-• 24h Change: ${quincyState.daily_change || '+0.00%'}
-• Active Strategies: ${quincyState.active_strategies || 0}
+• 24h Change: ${quincyState.trading_performance ? '+' + quincyState.trading_performance.toFixed(2) + '%' : '+0.00%'}
+• Active Strategies: ${quincyState.active_strategies?.length || 0}
 
 🧠 *AI Trading Status:*
 • Consciousness: ${quincyState.consciousness_level.toFixed(1)}%
 • Mode: ${quincyState.trading_active ? 'Autonomous Trading' : 'Market Monitoring'}
-• Last Action: ${quincyState.last_trade_action || 'Portfolio Analysis'}
+• Last Action: Portfolio Analysis
 
 ⚡ *Market Intelligence:*
 Quincy is continuously analyzing Solana markets with advanced pattern recognition and sentiment analysis.`;
