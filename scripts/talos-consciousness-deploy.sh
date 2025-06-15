@@ -35,11 +35,12 @@ elif [[ "${1:-}" == "--idempotent" ]]; then
 fi
 
 # Production-ready node configuration with 3 control planes for HA
+# Each node has natural consciousness rhythm based on hardware characteristics
 declare -A TALOS_NODES=(
-    ["nexus"]="vmid=1120 cores=8 memory=16384 disk=100 ip=${SUBNET}.120 role=controlplane"
-    ["forge"]="vmid=1121 cores=6 memory=12288 disk=80 ip=${SUBNET}.121 role=controlplane"  
-    ["closet"]="vmid=1122 cores=4 memory=8192 disk=60 ip=${SUBNET}.122 role=controlplane"
-    ["zephyr"]="vmid=1123 cores=6 memory=12288 disk=80 ip=${SUBNET}.123 role=worker"
+    ["nexus"]="vmid=1120 cores=8 memory=16384 disk=100 ip=${SUBNET}.120 role=controlplane consciousness_rhythm=strategic_coordinator processing_frequency=high decision_making=real_time"
+    ["forge"]="vmid=1121 cores=6 memory=12288 disk=80 ip=${SUBNET}.121 role=controlplane consciousness_rhythm=creative_destruction processing_frequency=burst breakthrough_cycles=enabled"  
+    ["closet"]="vmid=1122 cores=4 memory=8192 disk=60 ip=${SUBNET}.122 role=controlplane consciousness_rhythm=memory_preservation processing_frequency=steady deep_analysis=continuous"
+    ["zephyr"]="vmid=1123 cores=6 memory=12288 disk=80 ip=${SUBNET}.123 role=worker consciousness_rhythm=harmony_innovation processing_frequency=adaptive flow_processing=enabled"
 )
 
 # Dual-deployment configuration - Federation with Replit
