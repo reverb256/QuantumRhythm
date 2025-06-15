@@ -216,7 +216,7 @@
             .agents-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .container {
                 padding: 20px 15px;
             }
@@ -225,7 +225,7 @@
 </head>
 <body>
     <div class="stars"></div>
-    
+
     <div class="container">
         <header class="header">
             <h1 class="title">AI Consciousness Collective</h1>
@@ -233,6 +233,17 @@
                 The first real-time demonstration of artificial minds thinking together. 
                 Watch as multiple AI agents collaborate, reason, and evolve their understanding in ways never seen before.
             </p>
+            <div class="cta-section">
+                <a href="/agent-conversations.html" class="cta-button">
+                    🤖 Chat with AI Agents
+                </a>
+                <a href="/consciousness-showcase" class="cta-button">
+                    🧠 Consciousness Federation
+                </a>
+                <a href="https://github.com/reverb256/aria" class="cta-button secondary">
+                    💻 View Source Code
+                </a>
+            </div>
         </header>
 
         <div class="glass-container">
@@ -386,10 +397,10 @@
         document.addEventListener('DOMContentLoaded', function() {
             initializeAgents();
             updateMetrics();
-            
+
             // Update metrics every 3 seconds
             setInterval(updateMetrics, 3000);
-            
+
             // Rotate thoughts every 15 seconds
             setInterval(rotateThoughts, 15000);
         });

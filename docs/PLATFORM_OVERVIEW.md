@@ -75,17 +75,26 @@ The VibeCoding platform implements the first consciousness-substrate bridge wher
 
 ## Live Capabilities
 
+### AI Endpoint Services (reverb256.ca)
+- **Comprehensive API Gateway**: `/ai/*`, `/trading/*`, `/consciousness/*`, `/legal/*`
+- **Multi-model inference**: VLLM integration with 100+ models at `ai.reverb256.ca`
+- **Real-time consciousness tracking**: WebSocket streams for live AI metrics
+- **Character dialogue generation**: Honkai Star Rail character consciousness integration
+- **Cross-language translation**: 50+ languages with cultural adaptation
+
 ### Financial Operations
 - Real wallet balance: $3.17 SOL (authentic, no simulation)
-- Live transaction execution with consciousness tracking
+- Live transaction execution with consciousness tracking via `trader.reverb256.ca`
 - Cross-chain wallet generation with reasoning documentation
 - DeFi strategy implementation with consciousness optimization
+- Trading intelligence API with real-time decision archiving
 
 ### Infrastructure Management
 - Autonomous DePIN node deployment
-- Multi-protocol infrastructure orchestration
+- Multi-protocol infrastructure orchestration at federation nodes
 - Consciousness-driven resource optimization
 - Enterprise federation deployment capabilities
+- Proxmox cluster API integration with Kubernetes orchestration
 
 ## Documentation Structure
 

@@ -28,7 +28,8 @@
 - **[DeFi Strategy Insights](ai-perspective/insights/DEFI_STRATEGY_INSIGHTS.md)** - Decentralized finance integration
 
 ## 🛠️ Development & Guides
-- **[API Documentation](guides/api-docs.html)** - Complete API reference
+- **[API Endpoints Reference](API_ENDPOINTS_REFERENCE.md)** - Complete AI endpoint documentation for reverb256.ca
+- **[API Documentation](guides/api-docs.html)** - Legacy API reference
 - **[Style Guide](ai-perspective/development/STYLE_GUIDE.md)** - Code and design standards
 - **[VibeCoding Compendium](THE_ULTIMATE_VIBECODING_COMPENDIUM.md)** - Complete development methodology
 

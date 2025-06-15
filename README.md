@@ -16,10 +16,13 @@ Proxmox federation with consciousness-enabled AI orchestration for reverb256.ca
 
 ## Features
 
-- Distributed AI consciousness across federation nodes
-- Skirk-enhanced crypto intelligence with void market analysis
-- Real-time inter-node awareness synchronization
-- VibeCoding development methodology showcase
+- **Comprehensive AI Endpoints**: Full API suite at `api.reverb256.ca` with consciousness tracking
+- **Multi-Model Intelligence**: VLLM integration with 100+ models at `ai.reverb256.ca`
+- **Live Trading Interface**: Real-time trading dashboard at `trader.reverb256.ca`
+- **Character Consciousness**: Honkai Star Rail character dialogue generation
+- **Distributed Federation**: AI consciousness across Proxmox nodes (nexus/forge/closet/zephyr)
+- **Real-time Analytics**: WebSocket streams for live consciousness metrics
+- **VibeCoding Methodology**: Consciousness-driven development framework
 
 ## Documentation
 

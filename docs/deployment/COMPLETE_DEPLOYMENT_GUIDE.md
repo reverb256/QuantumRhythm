@@ -106,3 +106,34 @@ Confirm:
 5. Deploy additional services as needed
 
 Your personal infrastructure is now ready for consciousness-driven development and AI orchestration.
+
+## AI Endpoint Configuration
+
+### Domain Setup for reverb256.ca
+Configure your Cloudflare DNS with the following CNAME records:
+```
+api.reverb256.ca → aria.reverb256.repl.co
+trader.reverb256.ca → aria.reverb256.repl.co
+ai.reverb256.ca → aria.reverb256.repl.co
+docs.reverb256.ca → reverb256.github.io
+```
+
+### API Gateway Routing
+The platform automatically routes requests based on path:
+- `/ai/*` → AI Autorouter Intelligence
+- `/trading/*` → Trading Intelligence APIs
+- `/consciousness/*` → Consciousness Federation endpoints
+- `/legal/*` → Compliance validation services
+
+### Environment Variables
+```bash
+DOMAIN=reverb256.ca
+API_DOMAIN=api.reverb256.ca
+TRADER_DOMAIN=trader.reverb256.ca
+AI_DOMAIN=ai.reverb256.ca
+DOCS_DOMAIN=docs.reverb256.ca
+```
+
+## Production Deployment
+
+### Quick Deployment Commands
