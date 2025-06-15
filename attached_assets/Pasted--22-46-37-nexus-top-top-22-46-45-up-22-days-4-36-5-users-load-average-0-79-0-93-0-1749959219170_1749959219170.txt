@@ -1,0 +1,31 @@
+[]22:46:37[] nexus:~ # top
+top - 22:46:45 up 22 days,  4:36,  5 users,  load average: 0.79, 0.93, 0.78
+Tasks: 606 total,   1 running, 605 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  0.3 us,  0.7 sy,  0.0 ni, 98.8 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+MiB Mem :  48090.9 total,   7713.2 free,  37896.1 used,   3627.3 buff/cache
+MiB Swap:      0.0 total,      0.0 free,      0.0 used.  10194.8 avail Mem
+
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+   1948 root      20   0   24.9g  19.9g   8256 S   4.6  42.4     18,18 kvm
+   1778 root      20   0  211528 112604   5952 S   3.0   0.2 325:01.84 pvestatd
+   1774 root      20   0  201608 105356   4224 S   2.3   0.2 223:26.49 pve-firewall
+   1738 root      rt   0  578840 185836  52916 S   1.7   0.4      6,12 corosync
+3215091 root      20   0   21.4g 467380 201792 S   1.7   0.9 144:51.07 rigel
+1160775 orb       20   0 4043316 267412  11328 S   1.0   0.5      6,36 orb
+2273058 root      20   0   12.8g   1.2g   6720 S   0.7   2.5   0:54.20 kvm
+2273209 root      20   0   10.9g   1.2g   6528 S   0.7   2.5   0:52.81 kvm
+    565 root       1 -19       0      0      0 S   0.3   0.0   3:24.67 z_wr_iss
+   1613 root      20   0  874840   4564   3720 S   0.3   0.0   5:57.96 rrdcached
+   1638 root      20   0  851736  78320  55680 S   0.3   0.2  53:48.56 pmxcfs
+2263049 root      20   0 9129628 564788   6912 S   0.3   1.1   0:13.29 kvm
+2272978 root      20   0   17.0g   1.3g   6528 S   0.3   2.7   0:54.26 kvm
+2273129 root      20   0 9129560   1.1g   6912 S   0.3   2.3   0:51.20 kvm
+2279794 root      20   0       0      0      0 I   0.3   0.0   0:00.01 kworker/15:2-mm_percpu_wq
+2280930 root       1 -19       0      0      0 S   0.3   0.0   0:00.22 z_wr_iss
+2282634 root      20   0   12968   5760   3648 R   0.3   0.0   0:00.04 top
+      1 root      20   0  169196   8640   5376 S   0.0   0.0   0:44.30 systemd
+      2 root      20   0       0      0      0 S   0.0   0.0   1:08.54 kthreadd
+      3 root      20   0       0      0      0 S   0.0   0.0   0:00.00 pool_workqueue_release
+      4 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/R-rcu_g
+      5 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/R-rcu_p
+      6 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/R-slub_           
