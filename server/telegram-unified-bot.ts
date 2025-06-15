@@ -38,11 +38,17 @@ export class TelegramUnifiedBot {
 
   constructor() {
     this.botToken = process.env.TELEGRAM_BOT_TOKEN || '';
-    if (this.botToken) {
-      this.startUnifiedBot();
-    } else {
-      console.log('📱 Telegram bot standby - awaiting TELEGRAM_BOT_TOKEN configuration');
+    console.log('📱 Telegram bot PAUSED - IO operations disabled');
+    this.pauseBot();
+  }
+
+  pauseBot() {
+    this.isActive = false;
+    if (this.pollingInterval) {
+      clearInterval(this.pollingInterval);
+      this.pollingInterval = null;
     }
+    console.log('🛑 Telegram bot operations stopped');
   }
 
   private async startUnifiedBot() {

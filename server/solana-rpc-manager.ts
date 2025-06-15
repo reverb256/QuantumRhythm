@@ -46,6 +46,11 @@ export class SolanaRPCManager {
   private current_endpoint_index = 0;
 
   async makeRequest(method: string, params: any[]): Promise<any> {
+    // RPC operations paused to reduce IO usage
+    throw new Error('RPC operations paused - IO usage reduction mode');
+  }
+
+  async makeRequestPaused(method: string, params: any[]): Promise<any> {
     const max_attempts = this.endpoints.length;
     let attempts = 0;
 

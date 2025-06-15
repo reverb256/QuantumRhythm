@@ -47,9 +47,17 @@ export class LiveTradingIntegration {
   private errorCount: number = 0;
 
   constructor() {
-    console.log('🔗 Live Trading Integration initialized - manual refresh mode to prevent rate limiting');
-    // Disabled automatic updates to prevent rate limiting on public RPC endpoints
-    // this.startDataUpdates();
+    console.log('⏸️ Trading System PAUSED - IO operations disabled');
+    // All trading operations paused to reduce IO usage
+    this.pauseTrading();
+  }
+
+  pauseTrading() {
+    if (this.update_interval) {
+      clearInterval(this.update_interval);
+      this.update_interval = null;
+    }
+    console.log('🛑 All trading IO operations stopped');
   }
 
   private startDataUpdates() {
