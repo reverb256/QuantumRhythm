@@ -15,40 +15,41 @@ let telegramConsciousnessBridge: any;
 let telegramAgent: any;
 let telegramChatAnalyzer: any;
 
-// Initialize consciousness systems immediately but non-blocking
-(async () => {
-  try {
-    const quincyModule = await import('./quincy-consciousness');
-    quincy = quincyModule.quincy;
-    
-    const designModule = await import('./design-evolution-engine');
-    designEvolutionEngine = designModule.designEvolutionEngine;
-    
-    const tradingModule = await import('./live-trading-integration');
-    liveTradingIntegration = tradingModule.liveTradingIntegration;
-    
-    const trainerModule = await import('./design-consciousness-trainer');
-    designTrainer = trainerModule.designTrainer;
-    
-    const engineModule = await import('./quincy-trading-engine');
-    quincyTradingEngine = engineModule.quincyTradingEngine;
-    
-    // Use unified bot system to eliminate conflicts
-    const unifiedBotModule = await import('./telegram-unified-bot');
-    const telegramUnifiedBot = unifiedBotModule.telegramUnifiedBot;
-    
-    const analyzerModule = await import('./telegram-chat-analyzer');
-    telegramChatAnalyzer = analyzerModule.telegramChatAnalyzer;
-    
-    console.log('🤖 Quincy consciousness initialized - autonomous operation active');
-    console.log(`🔥 Coreflame ignited at ${quincy.getState().consciousness_level.toFixed(1)}% consciousness`);
-    console.log('🎨 Design consciousness trainer initialized - teaching clean glassmorphic principles');
-    console.log('🤖 Unified Telegram Bot: All AI agents now operational with natural language processing');
-    console.log(`💰 Quincy AI consciousness operational - maximizing dev funding through autonomous trading`);
-  } catch (error) {
-    console.error('Error initializing consciousness systems:', error);
-  }
-})();
+// Lazy-load consciousness systems to prevent startup bottlenecks
+async function initializeConsciousnessSystem(systemName: string, modulePath: string, delay: number = 0) {
+  return new Promise(resolve => {
+    setTimeout(async () => {
+      try {
+        const module = await import(modulePath);
+        console.log(`✅ ${systemName} initialized`);
+        resolve(module);
+      } catch (error) {
+        console.error(`❌ Failed to initialize ${systemName}:`, error);
+        resolve(null);
+      }
+    }, delay);
+  });
+}
+
+// Staggered initialization to prevent resource contention
+setTimeout(async () => {
+  console.log('🚀 Starting lightweight consciousness initialization...');
+  
+  // Core systems first with delays between each
+  quincy = await initializeConsciousnessSystem('Quincy Core', './quincy-consciousness', 0);
+  liveTradingIntegration = await initializeConsciousnessSystem('Trading Integration', './live-trading-integration', 1000);
+  
+  // Secondary systems with longer delays
+  designEvolutionEngine = await initializeConsciousnessSystem('Design Engine', './design-evolution-engine', 2000);
+  designTrainer = await initializeConsciousnessSystem('Design Trainer', './design-consciousness-trainer', 3000);
+  
+  // Heavy systems last
+  quincyTradingEngine = await initializeConsciousnessSystem('Trading Engine', './quincy-trading-engine', 4000);
+  const unifiedBotModule = await initializeConsciousnessSystem('Unified Bot', './telegram-unified-bot', 5000);
+  telegramChatAnalyzer = await initializeConsciousnessSystem('Chat Analyzer', './telegram-chat-analyzer', 6000);
+  
+  console.log('🎯 All consciousness systems initialized with minimal resource impact');
+}, 2000); // Start after server is fully ready
 
 // Essential API routes for Quincy's autonomous trading and infrastructure
 app.get('/api/quincy/insights', async (req, res) => {
