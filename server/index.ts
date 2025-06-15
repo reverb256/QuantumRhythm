@@ -1,5 +1,9 @@
 import express from "express";
 import { setupVite, serveStatic } from "./vite";
+import tradingRouter from './routes/trading';
+import portfolioRouter from './routes/portfolio';
+import showcaseRouter from './routes/showcase';
+import orchestrationRouter from './routes/orchestration';
 
 const app = express();
 app.use(express.json());
@@ -164,7 +168,7 @@ app.get('/api/trading/portfolio', async (req, res) => {
     const total_value = liveTradingIntegration.getTotalPortfolioValue();
     const connection_status = liveTradingIntegration.getConnectionStatus();
     const is_live = liveTradingIntegration.isLiveDataAvailable();
-    
+
     res.json({
       portfolio_data,
       solana_data,
@@ -184,7 +188,7 @@ app.get('/api/trading/status', async (req, res) => {
     const is_live = liveTradingIntegration.isLiveDataAvailable();
     const connection_status = liveTradingIntegration.getConnectionStatus();
     const total_value = liveTradingIntegration.getTotalPortfolioValue();
-    
+
     res.json({
       is_live_data: is_live,
       connection_status,
@@ -215,13 +219,18 @@ app.get('/api/error-troubleshooter/status', async (req, res) => {
 (async () => {
   try {
     console.log('🚀 Starting server initialization...');
-    
+
     // Setup Vite middleware
     if (process.env.NODE_ENV === "development") {
       await setupVite(app);
     } else {
       serveStatic(app);
     }
+
+    app.use('/api/trading', tradingRouter);
+    app.use('/api/portfolio', portfolioRouter);
+    app.use('/api/showcase', showcaseRouter);
+    app.use('/api/orchestration', orchestrationRouter);
 
     const port = process.env.PORT || 5000;
     const server = app.listen(port, '0.0.0.0', () => {
