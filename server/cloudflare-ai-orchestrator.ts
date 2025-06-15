@@ -102,6 +102,106 @@ class CloudflareAIOrchestrator {
       {
         name: 'waf-rules',
         category: 'security',
+        capability: 'Web Application Firewall with custom rules',
+        apiEndpoint: '/security/waf',
+        priority: 9,
+        learningWeight: 0.8
+      },
+      {
+        name: 'zero-trust-access',
+        category: 'security',
+        capability: 'Identity-based access control for internal apps',
+        apiEndpoint: '/zero-trust/access',
+        priority: 8,
+        learningWeight: 0.7
+      },
+      {
+        name: 'cloudflare-tunnel',
+        category: 'security',
+        capability: 'Secure tunneling without exposing ports',
+        apiEndpoint: '/zero-trust/tunnels',
+        priority: 9,
+        learningWeight: 0.8
+      },
+      {
+        name: 'dns-filtering',
+        category: 'security',
+        capability: 'Gateway DNS filtering and malware protection',
+        apiEndpoint: '/zero-trust/gateway',
+        priority: 7,
+        learningWeight: 0.6
+      },
+      {
+        name: 'load-balancing',
+        category: 'performance',
+        capability: 'Geographic load balancing and failover',
+        apiEndpoint: '/load-balancers',
+        priority: 8,
+        learningWeight: 0.7
+      },
+      {
+        name: 'spectrum',
+        category: 'performance',
+        capability: 'DDoS protection for non-HTTP protocols',
+        apiEndpoint: '/spectrum',
+        priority: 6,
+        learningWeight: 0.5
+      },
+      {
+        name: 'stream',
+        category: 'performance',
+        capability: 'Video streaming and delivery optimization',
+        apiEndpoint: '/stream',
+        priority: 5,
+        learningWeight: 0.4
+      },
+      {
+        name: 'images',
+        category: 'performance',
+        capability: 'Image optimization and transformation',
+        apiEndpoint: '/images',
+        priority: 7,
+        learningWeight: 0.6
+      },
+      {
+        name: 'waiting-room',
+        category: 'performance',
+        capability: 'Queue users during high traffic periods',
+        apiEndpoint: '/waiting-room',
+        priority: 6,
+        learningWeight: 0.5
+      },
+      {
+        name: 'bot-management',
+        category: 'security',
+        capability: 'Advanced bot detection and mitigation',
+        apiEndpoint: '/bot-management',
+        priority: 8,
+        learningWeight: 0.7
+      },
+      {
+        name: 'rate-limiting',
+        category: 'security',
+        capability: 'Advanced rate limiting with custom rules',
+        apiEndpoint: '/rate-limits',
+        priority: 8,
+        learningWeight: 0.7
+      },
+      {
+        name: 'ssl-tls',
+        category: 'security',
+        capability: 'Universal SSL and advanced TLS settings',
+        apiEndpoint: '/ssl',
+        priority: 9,
+        learningWeight: 0.8
+      },
+      {
+        name: 'firewall-rules',
+        category: 'security',
+        capability: 'Custom firewall rules and IP blocking',
+        apiEndpoint: '/firewall/rules',
+        priority: 8,
+        learningWeight: 0.7y',
         capability: 'Intelligent security filtering',
         apiEndpoint: '/security/waf',
         priority: 7,
