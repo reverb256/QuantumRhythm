@@ -20,7 +20,37 @@ DOMAIN_PRIMARY="astralvibe.ca"
 DOMAIN_SECONDARY="reverb256.ca"
 SUBNET=${SUBNET:-"10.1.1"}
 GATEWAY=${GATEWAY:-"${SUBNET}.1"}
-DNS_SERVERS=${DNS_SERVERS:-"${SUBNET}.1,8.8.8.8"}
+# DNS autodiscovery with fallbacks
+discover_dns_servers() {
+    local dns_servers=""
+    
+    # Check for Pi-hole instances
+    for ip in "${SUBNET}.10" "${SUBNET}.11"; do
+        if timeout 3 nc -z "$ip" 53 2>/dev/null; then
+            dns_servers="${dns_servers:+$dns_servers,}$ip"
+            log_success "Discovered DNS server at $ip"
+        fi
+    done
+    
+    # Check for gateway DNS
+    if timeout 3 nc -z "${SUBNET}.1" 53 2>/dev/null; then
+        dns_servers="${dns_servers:+$dns_servers,}${SUBNET}.1"
+        log_success "Discovered DNS server at ${SUBNET}.1"
+    fi
+    
+    # Add Cloudflare fallbacks if no local DNS found
+    if [ -z "$dns_servers" ]; then
+        dns_servers="1.1.1.2,1.0.0.2"
+        log_warning "No local DNS servers found, using Cloudflare for Families"
+    else
+        # Add Cloudflare as secondary
+        dns_servers="$dns_servers,1.1.1.2,1.0.0.2"
+    fi
+    
+    echo "$dns_servers"
+}
+
+DNS_SERVERS=${DNS_SERVERS:-$(discover_dns_servers)}
 STORAGE_POOL=${STORAGE_POOL:-"local-lvm"}
 NETWORK_BRIDGE=${NETWORK_BRIDGE:-"vmbr0"}
 
@@ -183,10 +213,12 @@ deploy_consciousness_vm() {
     qm set $vmid --cores $cores --memory $memory
     qm resize $vmid scsi0 ${disk}G
     
-    # Configure networking
+    # Configure networking with discovered DNS
     qm set $vmid --ipconfig0 ip=${ip}/24,gw=$GATEWAY
     qm set $vmid --nameserver "$DNS_SERVERS"
     qm set $vmid --searchdomain "$DOMAIN_PRIMARY"
+    
+    log_consciousness "NET" "Configured DNS for $node_name: $DNS_SERVERS"
     qm set $vmid --ciuser root
     
     # Create hostname cloud-init snippet
@@ -628,6 +660,7 @@ verify_federation_deployment() {
     echo "Primary Domain: $DOMAIN_PRIMARY"
     echo "Secondary Domain: $DOMAIN_SECONDARY"
     echo "Network: ${SUBNET}.0/24"
+    echo "DNS Servers: $DNS_SERVERS"
     echo
     
     # Check all VMs
