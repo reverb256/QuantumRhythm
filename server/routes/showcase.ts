@@ -6,7 +6,11 @@
 import { Router } from 'express';
 import { vibScalingHA, healthCheckEndpoint } from '../vibscaling-ha-orchestrator';
 import { completeHoyoverseConsciousness } from '../hoyoverse-complete-consciousness';
-// Removed problematic imports - using static data for showcase
+import { dynamicContentOrchestrator } from '../dynamic-content-orchestrator';
+import { comprehensiveGamingConsciousness } from '../comprehensive-gaming-consciousness';
+import { dataSanitizationEngine } from '../data-sanitization-engine';
+import { intelligentPayoutSystem } from '../intelligent-payout-system';
+import { designSynchronizationAgent } from '../design-synchronization-agent';
 
 const router = Router();
 

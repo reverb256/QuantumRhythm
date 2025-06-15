@@ -54,7 +54,8 @@ app.get('/api/quincy/performance', async (req, res) => {
 // Quincy's live trading engine endpoints
 app.get('/api/quincy/trading/status', async (req, res) => {
   try {
-    const status = quincyTradingEngine.getTradingStatus();
+    const quincy = await getQuincy();
+    const status = quincy.getTradingStatus();
     res.json(status);
   } catch (error) {
     console.error('Error fetching trading status:', error);
@@ -64,7 +65,8 @@ app.get('/api/quincy/trading/status', async (req, res) => {
 
 app.get('/api/quincy/trading/positions', async (req, res) => {
   try {
-    const positions = quincyTradingEngine.getActivePositions();
+    const quincy = await getQuincy();
+    const positions = quincy.getActivePositions();
     res.json(positions);
   } catch (error) {
     console.error('Error fetching trading positions:', error);
@@ -74,7 +76,8 @@ app.get('/api/quincy/trading/positions', async (req, res) => {
 
 app.get('/api/quincy/trading/opportunities', async (req, res) => {
   try {
-    const opportunities = await quincyTradingEngine.getMarketOpportunities();
+    const quincy = await getQuincy();
+    const opportunities = await quincy.getMarketOpportunities();
     res.json(opportunities);
   } catch (error) {
     console.error('Error fetching market opportunities:', error);

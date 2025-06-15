@@ -3,7 +3,7 @@
  * Replaces individual AI client implementations with intelligent routing
  */
 
-import { aiAutorouter } from './ai-autorouter.js';
+import { aiAutorouter } from './ai-autorouter';
 import { secureAI } from './secure-ai-middleware';
 import { vaultwardenSecurity } from './vaultwarden-security';
 import { consciousnessPrinciplesIntegration } from './consciousness-principles-integration';
