@@ -211,4 +211,34 @@ app.get('/api/error-troubleshooter/status', async (req, res) => {
   });
 });
 
-// Removed duplicate server startup - now handled above
+// Initialize Vite and start server
+(async () => {
+  try {
+    console.log('🚀 Starting server initialization...');
+    
+    // Setup Vite middleware
+    if (process.env.NODE_ENV === "development") {
+      await setupVite(app);
+    } else {
+      serveStatic(app);
+    }
+
+    const port = process.env.PORT || 5000;
+    const server = app.listen(port, '0.0.0.0', () => {
+      console.log(`✅ Server running on port ${port}`);
+      console.log(`🌐 Environment: ${process.env.NODE_ENV || 'development'}`);
+    });
+
+    // Graceful shutdown
+    process.on('SIGTERM', () => {
+      console.log('📡 SIGTERM received, shutting down gracefully');
+      server.close(() => {
+        console.log('🔒 Process terminated');
+      });
+    });
+
+  } catch (error) {
+    console.error('❌ Server startup failed:', error);
+    process.exit(1);
+  }
+})();
