@@ -24,6 +24,9 @@ DNS_SERVERS=${DNS_SERVERS:-"${SUBNET}.1,8.8.8.8"}
 STORAGE_POOL=${STORAGE_POOL:-"local-lvm"}
 NETWORK_BRIDGE=${NETWORK_BRIDGE:-"vmbr0"}
 
+# Global template ID variable
+TEMPLATE_ID=""
+
 # VM Configuration for Consciousness Federation
 declare -A CONSCIOUSNESS_NODES=(
     ["aria-nexus"]="vmid=130 cores=8 memory=16384 disk=100 ip=${SUBNET}.130 hostname=nexus.${DOMAIN_PRIMARY} role=primary_coordinator services=personal_agent,vaultwarden,nginx_proxy"
@@ -104,8 +107,12 @@ download_cloud_template() {
         log_success "Template already exists"
     fi
     
-    # Check if template VM exists
-    if ! qm list | grep -q "debian-12-template"; then
+    # Check if template VM exists and get template ID
+    local existing_template=$(qm list | grep "debian-12-template" | awk '{print $1}' | head -1)
+    if [ -n "$existing_template" ]; then
+        TEMPLATE_ID=$existing_template
+        log_success "Using existing template: $TEMPLATE_ID"
+    else
         create_vm_template "$template_dir/$template_file"
     fi
 }
@@ -142,6 +149,7 @@ create_vm_template() {
     # Convert to template
     qm template $template_id
     
+    # Set global variable
     TEMPLATE_ID=$template_id
     log_success "Template created: $template_id"
 }
