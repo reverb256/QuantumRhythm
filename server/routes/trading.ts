@@ -2,13 +2,7 @@ import { Router } from 'express';
 import { db } from '../db';
 import { tradingAgents, tradingSignals, vibeCodingMetrics } from '@shared/schema';
 import { eq, desc } from 'drizzle-orm';
-import { vibeCodingEngine } from '../vibecoding-consciousness-engine';
-import { authenticDataValidator } from '../authentic-data-validator';
-import { solanaDeFiGateway } from '../solana-defi-gateway';
-import { defiOrchestrator } from '../defi-orchestrator';
-import { insightInfusionEngine } from '../insight-infusion-engine';
-import { quantumMultiChainOrchestrator } from '../quantum-multichain-orchestrator';
-import { QuantumForensicAnalyzer } from '../quantum-forensic-analyzer';
+// Core AI systems - using lazy loading to prevent startup bottlenecks
 // Removed problematic imports to fix API endpoint
 
 const router = Router();
