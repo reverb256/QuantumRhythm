@@ -232,7 +232,7 @@ app.get('/api/error-troubleshooter/status', async (req, res) => {
     app.use('/api/showcase', showcaseRouter);
     app.use('/api/orchestration', orchestrationRouter);
 
-    const port = process.env.PORT || 5000;
+    const port = parseInt(process.env.PORT || '5000', 10);
     const server = app.listen(port, '0.0.0.0', () => {
       console.log(`✅ Server running on port ${port}`);
       console.log(`🌐 Environment: ${process.env.NODE_ENV || 'development'}`);

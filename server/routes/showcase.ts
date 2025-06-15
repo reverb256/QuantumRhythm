@@ -6,11 +6,7 @@
 import { Router } from 'express';
 import { vibScalingHA, healthCheckEndpoint } from '../vibscaling-ha-orchestrator';
 import { completeHoyoverseConsciousness } from '../hoyoverse-complete-consciousness';
-import { dynamicContentOrchestrator } from '../dynamic-content-orchestrator.js';
-import { comprehensiveGamingConsciousness } from '../comprehensive-gaming-consciousness.js';
-import { dataSanitizationEngine } from '../data-sanitization-engine.js';
-import { intelligentPayoutSystem } from '../intelligent-payout-system.js';
-import { designSynchronizationAgent } from '../design-synchronization-agent.js';
+// Removed problematic imports - using static data for showcase
 
 const router = Router();
 
