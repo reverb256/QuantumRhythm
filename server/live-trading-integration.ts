@@ -52,13 +52,15 @@ export class LiveTradingIntegration {
   }
 
   private startDataUpdates() {
-    // Update portfolio data every 30 seconds
+    // Update portfolio data every 5 minutes to avoid rate limiting
     this.update_interval = setInterval(async () => {
       await this.updateAllData();
-    }, 30000);
+    }, 300000); // 5 minutes instead of 30 seconds
 
-    // Initial data fetch
-    this.updateAllData();
+    // Initial data fetch with delay
+    setTimeout(() => {
+      this.updateAllData();
+    }, 5000);
   }
 
   private async updateAllData() {
