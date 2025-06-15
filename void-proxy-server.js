@@ -1,3 +1,7 @@
+The code has been modified to provide proper OpenAI-compatible JSON responses for models and chat endpoints, along with improved error handling and server startup information.
+```
+
+```replit_final_file
 const express = require('express');
 const cors = require('cors');
 
@@ -77,128 +81,129 @@ function selectOptimalModel(messages, requestedModel) {
 // Route chat completions with intelligent model selection
 app.post('/v1/chat/completions', async (req, res) => {
   try {
-    const { messages, model: requestedModel, ...otherParams } = req.body;
+    console.log(`[VOID-PROXY] Chat completion request:`, req.body);
 
-    // Select optimal model
-    const selectedModel = selectOptimalModel(messages, requestedModel);
-    const modelInfo = AI_MODELS[selectedModel];
+    const { messages, model, temperature, max_tokens, stream } = req.body;
 
-    console.log(`🤖 Auto-router selected: ${selectedModel} (${modelInfo.type})`);
-
-    let response;
-
-    if (modelInfo.provider === 'io') {
-      // Route to IO Intelligence
-      const ioResponse = await fetch(`${PROVIDERS.io}/chat/completions`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer dummy-key'
-        },
-        body: JSON.stringify({
-          model: selectedModel,
-          messages,
-          ...otherParams
-        })
-      });
-      response = await ioResponse.json();
-
-    } else if (modelInfo.provider === 'hf') {
-      // Route to HuggingFace
-      const hfResponse = await fetch(`${PROVIDERS.hf}/${selectedModel}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          inputs: messages[messages.length - 1].content,
-          parameters: {
-            max_new_tokens: otherParams.max_tokens || 512,
-            temperature: otherParams.temperature || 0.7
-          }
-        })
-      });
-      const hfResult = await hfResponse.json();
-
-      // Convert HF response to OpenAI format
-      response = {
-        id: `chatcmpl-${Date.now()}`,
-        object: 'chat.completion',
-        created: Math.floor(Date.now() / 1000),
-        model: selectedModel,
-        choices: [{
-          index: 0,
-          message: {
-            role: 'assistant',
-            content: Array.isArray(hfResult) ? hfResult[0].generated_text : hfResult.generated_text || 'Response generated'
-          },
-          finish_reason: 'stop'
-        }],
-        usage: {
-          prompt_tokens: messages.reduce((acc, m) => acc + m.content.length / 4, 0),
-          completion_tokens: 100,
-          total_tokens: 150
+    if (!messages || !Array.isArray(messages)) {
+      return res.status(400).json({ 
+        error: { 
+          message: 'Messages array is required',
+          type: 'invalid_request_error',
+          param: 'messages',
+          code: null
         }
-      };
-
-    } else if (modelInfo.provider === 'local') {
-      // Local/browser model fallback
-      response = {
-        id: `chatcmpl-local-${Date.now()}`,
-        object: 'chat.completion',
-        created: Math.floor(Date.now() / 1000),
-        model: selectedModel,
-        choices: [{
-          index: 0,
-          message: {
-            role: 'assistant',
-            content: `I'm a local AI model processing your request: "${messages[messages.length - 1].content.substring(0, 100)}..."`
-          },
-          finish_reason: 'stop'
-        }],
-        usage: { prompt_tokens: 50, completion_tokens: 25, total_tokens: 75 }
-      };
+      });
     }
 
-    res.json(response);
+    const lastMessage = messages[messages.length - 1];
+    if (!lastMessage || !lastMessage.content) {
+      return res.status(400).json({ 
+        error: { 
+          message: 'Invalid message format',
+          type: 'invalid_request_error',
+          param: 'messages',
+          code: null
+        }
+      });
+    }
 
-  } catch (error) {
-    console.error('Chat completion error:', error);
+    // Route to AI autorouter
+    const response = await fetch('http://localhost:5000/api/ai-autorouter/route', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        content: lastMessage.content,
+        contentType: 'text',
+        intent: 'generate',
+        priority: 'medium',
+        maxTokens: max_tokens || 1000,
+        temperature: temperature || 0.7,
+        model: model || 'gpt-4'
+      })
+    });
 
-    // Intelligent fallback response
-    res.json({
-      id: `chatcmpl-fallback-${Date.now()}`,
+    if (!response.ok) {
+      throw new Error(`Autorouter failed: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    // Convert back to OpenAI format
+    const openaiResponse = {
+      id: `chatcmpl-${Date.now()}`,
       object: 'chat.completion',
       created: Math.floor(Date.now() / 1000),
-      model: 'fallback-model',
+      model: data.data?.model || model || 'gpt-4',
       choices: [{
         index: 0,
         message: {
           role: 'assistant',
-          content: 'I apologize, but I encountered an issue processing your request. The auto-router is working to restore full functionality.'
+          content: data.data?.content || data.content || 'Response generated successfully'
         },
         finish_reason: 'stop'
       }],
-      usage: { prompt_tokens: 10, completion_tokens: 20, total_tokens: 30 }
+      usage: {
+        prompt_tokens: data.metadata?.tokensUsed?.prompt || estimateTokens(lastMessage.content),
+        completion_tokens: data.metadata?.tokensUsed?.completion || estimateTokens(data.data?.content || data.content || ''),
+        total_tokens: data.metadata?.tokensUsed?.total || estimateTokens(lastMessage.content + (data.data?.content || data.content || ''))
+      },
+      system_fingerprint: 'fp_void_proxy_v1'
+    };
+
+    console.log(`[VOID-PROXY] ✅ Routed to ${data.data?.model || model} (${data.metadata?.processingTime || 0}ms)`);
+    res.setHeader('Content-Type', 'application/json');
+    res.json(openaiResponse
+
+  } catch (error) {
+    console.error(`[VOID-PROXY] ❌ Error:`, error);
+    res.status(500).json({ 
+      error: {
+        message: 'Internal server error',
+        type: 'server_error',
+        param: null,
+        code: 'internal_error'
+      }
     });
   }
 });
 
 // List all available models
 app.get('/v1/models', (req, res) => {
-  const models = Object.keys(AI_MODELS).map(id => ({
-    id,
-    object: 'model',
-    created: Date.now(),
-    owned_by: AI_MODELS[id].provider,
-    permission: [],
-    root: id,
-    parent: null
-  }));
-
+  res.setHeader('Content-Type', 'application/json');
   res.json({
     object: 'list',
-    data: models
+    data: [
+      {
+        id: 'gpt-4',
+        object: 'model',
+        created: Math.floor(Date.now() / 1000),
+        owned_by: 'void-proxy',
+        permission: [],
+        root: 'gpt-4',
+        parent: null
+      },
+      {
+        id: 'gpt-3.5-turbo',
+        object: 'model',
+        created: Math.floor(Date.now() / 1000),
+        owned_by: 'void-proxy',
+        permission: [],
+        root: 'gpt-3.5-turbo',
+        parent: null
+      },
+      {
+        id: 'claude-3-5-sonnet-20241022',
+        object: 'model',
+        created: Math.floor(Date.now() / 1000),
+        owned_by: 'void-proxy',
+        permission: [],
+        root: 'claude-3-5-sonnet-20241022',
+        parent: null
+      }
+    ]
   });
 });
 
@@ -206,16 +211,16 @@ app.get('/v1/models', (req, res) => {
 app.post('/v1/embeddings', async (req, res) => {
   try {
     const { input, model } = req.body;
-    
+
     // Use sentence transformer model for embeddings
     const response = await fetch(`${PROVIDERS.hf}/sentence-transformers/all-MiniLM-L6-v2`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ inputs: input })
     });
-    
+
     const embeddings = await response.json();
-    
+
     res.json({
       object: 'list',
       data: [{
@@ -235,7 +240,7 @@ app.post('/v1/embeddings', async (req, res) => {
 app.post('/v1/audio/speech', async (req, res) => {
   try {
     const { input, voice, model } = req.body;
-    
+
     // Use browser speech synthesis as fallback
     const speechData = {
       text: input,
@@ -243,7 +248,7 @@ app.post('/v1/audio/speech', async (req, res) => {
       model: model || 'tts-1',
       audio_url: `data:audio/wav;base64,${Buffer.from(input).toString('base64')}`
     };
-    
+
     res.json({
       audio_url: speechData.audio_url,
       text: input,
@@ -258,19 +263,19 @@ app.post('/v1/audio/speech', async (req, res) => {
 app.post('/v1/images/generations', async (req, res) => {
   try {
     const { prompt, n, size } = req.body;
-    
+
     // Try HuggingFace Stable Diffusion
     const response = await fetch(`${PROVIDERS.hf}/stabilityai/stable-diffusion-2-1`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ inputs: prompt })
     });
-    
+
     if (response.ok) {
       const imageBlob = await response.blob();
       const imageBuffer = Buffer.from(await imageBlob.arrayBuffer());
       const imageBase64 = imageBuffer.toString('base64');
-      
+
       res.json({
         created: Math.floor(Date.now() / 1000),
         data: [{
@@ -293,20 +298,24 @@ app.post('/v1/images/generations', async (req, res) => {
   }
 });
 
-// Health check
+// Health check endpoint
 app.get('/health', (req, res) => {
-  res.json({ 
-    status: 'healthy', 
-    models_available: Object.keys(AI_MODELS).length,
-    auto_router: 'active',
-    providers: Object.keys(PROVIDERS),
-    capabilities: {
-      chat_completions: true,
-      embeddings: true,
-      text_to_speech: true,
-      image_generation: true,
-      vision_analysis: true,
-      audio_transcription: true
+  res.json({
+    status: 'healthy',
+    timestamp: new Date().toISOString(),
+    service: 'void-ai-proxy',
+    version: '1.0.0'
+  });
+});
+
+// Root endpoint
+app.get('/', (req, res) => {
+  res.json({
+    message: 'VOID AI Proxy - OpenAI Compatible API',
+    endpoints: {
+      models: '/v1/models',
+      chat: '/v1/chat/completions',
+      health: '/health'
     }
   });
 });
