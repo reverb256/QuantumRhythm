@@ -47,29 +47,37 @@ export class LiveTradingIntegration {
   private errorCount: number = 0;
 
   constructor() {
-    console.log('🔗 Live Trading Integration initialized - connecting to real data sources');
-    this.startDataUpdates();
+    console.log('🔗 Live Trading Integration initialized - manual refresh mode to prevent rate limiting');
+    // Disabled automatic updates to prevent rate limiting on public RPC endpoints
+    // this.startDataUpdates();
   }
 
   private startDataUpdates() {
-    // Update portfolio data every 5 minutes to avoid rate limiting
+    // Update portfolio data every 15 minutes to minimize RPC usage
     this.update_interval = setInterval(async () => {
       await this.updateAllData();
-    }, 300000); // 5 minutes instead of 30 seconds
+    }, 900000); // 15 minutes
 
-    // Initial data fetch with delay
+    // Initial data fetch with longer delay to let system initialize
     setTimeout(() => {
       this.updateAllData();
-    }, 5000);
+    }, 10000);
   }
 
   private async updateAllData() {
     try {
-      await Promise.all([
-        this.fetchSolanaWalletData(),
-        this.fetchExchangeData(),
-        this.calculateRealTimeMetrics()
-      ]);
+      // Sequential execution with error isolation to prevent cascade failures
+      const solanaData = await this.fetchSolanaWalletData().catch(err => {
+        console.log('⚠️ Solana RPC unavailable, using cached data');
+        return null;
+      });
+
+      const exchangeData = await this.fetchExchangeData().catch(err => {
+        console.log('⚠️ Exchange data unavailable, using cached data');
+        return null;
+      });
+
+      await this.calculateRealTimeMetrics();
 
       this.last_update = new Date();
       console.log('📊 Live trading data updated successfully');

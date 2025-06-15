@@ -102,6 +102,12 @@ export class SolanaRPCManager {
   }
 
   private async requestToEndpoint(endpoint: RPCEndpoint, method: string, params: any[]): Promise<any> {
+    // Rate limiting: ensure minimum 3 seconds between requests
+    const timeSinceLastRequest = Date.now() - endpoint.last_request;
+    if (timeSinceLastRequest < 3000) {
+      await new Promise(resolve => setTimeout(resolve, 3000 - timeSinceLastRequest));
+    }
+
     const payload = {
       jsonrpc: '2.0',
       id: 1,
@@ -110,7 +116,7 @@ export class SolanaRPCManager {
     };
 
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // Increased timeout
 
     try {
       const response = await fetch(endpoint.url, {
@@ -125,6 +131,13 @@ export class SolanaRPCManager {
       clearTimeout(timeoutId);
 
       if (!response.ok) {
+        // Handle rate limiting with exponential backoff
+        if (response.status === 401 || response.status === 429) {
+          endpoint.error_count = (endpoint.error_count || 0) + 1;
+          const backoffTime = Math.min(60000, 2000 * Math.pow(2, endpoint.error_count));
+          console.log(`⏰ Rate limited on ${endpoint.url}, backing off for ${backoffTime}ms`);
+          await new Promise(resolve => setTimeout(resolve, backoffTime));
+        }
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
 
