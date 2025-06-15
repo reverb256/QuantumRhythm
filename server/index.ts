@@ -234,6 +234,7 @@ app.get('/api/error-troubleshooter/status', async (req, res) => {
     app.use('/api/portfolio', portfolioRouter);
     app.use('/api/showcase', showcaseRouter);
     app.use('/api/orchestration', orchestrationRouter);
+    app.use('/api/agent-conversations', (await import('./routes/agent-conversations.js')).default);
 
     const port = parseInt(process.env.PORT || '5000', 10);
     const server = app.listen(port, '0.0.0.0', () => {
