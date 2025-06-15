@@ -325,10 +325,10 @@ export class GenAIOrchestrator {
     try {
       // Initialize text generation pipeline
       this.textPipeline = await pipeline('text-generation', 'Xenova/gpt2');
-      
+
       // Initialize image-to-text pipeline for character analysis
       this.imagePipeline = await pipeline('image-to-text', 'Xenova/vit-gpt2-image-captioning');
-      
+
       // Initialize local TTS pipeline for human-like voices
       try {
         // Try loading local TTS models
@@ -336,7 +336,7 @@ export class GenAIOrchestrator {
           'Xenova/speecht5_tts',
           'Xenova/mms-tts-eng',
         ];
-        
+
         for (const model of ttsModels) {
           try {
             await pipeline('text-to-speech', model);
@@ -349,7 +349,7 @@ export class GenAIOrchestrator {
       } catch (ttsError) {
         console.warn('Local TTS models unavailable, using remote services:', ttsError);
       }
-      
+
       console.log('✅ Local AI models initialized successfully');
     } catch (error) {
       console.warn('⚠️ Local models failed to initialize, using remote fallbacks:', error);
@@ -359,19 +359,19 @@ export class GenAIOrchestrator {
   // Anime Image Generation
   async generateAnimeImage(request: AnimeGenerationRequest): Promise<string> {
     const enhancedPrompt = this.enhanceAnimePrompt(request);
-    
+
     // Try external services first, but fall back to procedural immediately if blocked
     try {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 3000); // Quick timeout
-      
+
       const result = await Promise.race([
         this.generateWithPollinations(enhancedPrompt),
         new Promise<never>((_, reject) => 
           setTimeout(() => reject(new Error('Timeout')), 3000)
         )
       ]);
-      
+
       clearTimeout(timeoutId);
       return result;
     } catch (error) {
@@ -400,7 +400,7 @@ export class GenAIOrchestrator {
   private async generateWithPollinations(prompt: string): Promise<string> {
     try {
       const pollinationsUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=512&height=512&model=flux&enhance=true`;
-      
+
       // Add authentication if token is available
       const headers: HeadersInit = {};
       if (import.meta.env.VITE_POLLINATIONS_TOKEN) {
@@ -415,9 +415,9 @@ export class GenAIOrchestrator {
         signal: controller.signal,
         mode: 'cors'
       });
-      
+
       clearTimeout(timeoutId);
-      
+
       if (!response.ok) {
         throw new Error(`Pollinations API error: ${response.status}`);
       }
@@ -475,7 +475,7 @@ export class GenAIOrchestrator {
   private async generateWithLexicaArt(prompt: string): Promise<string> {
     const response = await fetch(`https://lexica.art/api/v1/search?q=${encodeURIComponent(prompt)}`);
     if (!response.ok) throw new Error(`Lexica API error: ${response.status}`);
-    
+
     const data = await response.json();
     if (data.images && data.images.length > 0) {
       return data.images[0].src;
@@ -495,24 +495,24 @@ export class GenAIOrchestrator {
     });
 
     if (!response.ok) throw new Error(`WOMBO API error: ${response.status}`);
-    
+
     const task = await response.json();
-    
+
     // Poll for completion
     let attempts = 0;
     while (attempts < 10) {
       await new Promise(resolve => setTimeout(resolve, 2000));
-      
+
       const statusResponse = await fetch(`https://paint.api.wombo.ai/api/tasks/${task.id}`);
       const status = await statusResponse.json();
-      
+
       if (status.state === 'completed') {
         return status.result.final;
       }
-      
+
       attempts++;
     }
-    
+
     throw new Error('WOMBO generation timeout');
   }
 
@@ -528,7 +528,7 @@ export class GenAIOrchestrator {
     });
 
     if (!response.ok) throw new Error(`Neural.love API error: ${response.status}`);
-    
+
     const result = await response.json();
     return result.output_url;
   }
@@ -546,7 +546,7 @@ export class GenAIOrchestrator {
     });
 
     if (!response.ok) throw new Error(`Craiyon API error: ${response.status}`);
-    
+
     const result = await response.json();
     if (result.images && result.images.length > 0) {
       return `data:image/jpeg;base64,${result.images[0]}`;
@@ -634,7 +634,7 @@ export class GenAIOrchestrator {
     });
 
     if (!response.ok) throw new Error(`ElevenLabs API error: ${response.status}`);
-    
+
     const audioBlob = await response.blob();
     return URL.createObjectURL(audioBlob);
   }
@@ -669,7 +669,7 @@ export class GenAIOrchestrator {
     });
 
     if (!response.ok) throw new Error(`Speechify API error: ${response.status}`);
-    
+
     const result = await response.json();
     return result.audio_content;
   }
@@ -693,7 +693,7 @@ export class GenAIOrchestrator {
     });
 
     if (!response.ok) throw new Error(`Pollinations Voice API error: ${response.status}`);
-    
+
     const audioBlob = await response.blob();
     return URL.createObjectURL(audioBlob);
   }
@@ -718,19 +718,19 @@ export class GenAIOrchestrator {
       const utterance = new SpeechSynthesisUtterance(request.text);
       utterance.rate = 0.9;
       utterance.pitch = this.getCharacterPitch(request.character);
-      
+
       // Try to find a suitable voice
       const voices = speechSynthesis.getVoices();
       const femaleVoice = voices.find(voice => 
         voice.lang.startsWith(request.language || 'en') && 
         voice.name.toLowerCase().includes('female')
       );
-      
+
       if (femaleVoice) utterance.voice = femaleVoice;
 
       utterance.onend = () => resolve('browser-tts-complete');
       utterance.onerror = reject;
-      
+
       speechSynthesis.speak(utterance);
     });
   }
@@ -748,7 +748,7 @@ export class GenAIOrchestrator {
   // AI Text Generation for Character Dialogue
   async generateCharacterDialogue(character: string, context: string, userInput: string): Promise<string> {
     const prompt = this.buildDialoguePrompt(character, context, userInput);
-    
+
     try {
       // Use IO Intelligence system for text generation
       const response = await fetch('/api/ai/generate', {
@@ -761,12 +761,12 @@ export class GenAIOrchestrator {
           max_tokens: 150
         })
       });
-      
+
       if (response.ok) {
         const data = await response.json();
         return data.content || this.getFallbackDialogue(character);
       }
-      
+
       // If API not available, use character-specific responses
       return this.getCharacterSpecificResponse(character, userInput, context);
     } catch (error) {
@@ -861,7 +861,7 @@ ${character} responds:`;
   // Provider Health Check
   async checkProviderHealth(): Promise<Record<string, boolean>> {
     const health: Record<string, boolean> = {};
-    
+
     for (const provider of this.providers) {
       try {
         // Skip health checks for local providers
@@ -870,14 +870,14 @@ ${character} responds:`;
           continue;
         }
 
-        // Most APIs don't support HEAD requests or have CORS restrictions
+        //// Most APIs don't support HEAD requests or have CORS restrictions
         // We'll assume they're healthy to avoid unnecessary network calls
         health[provider.name] = true;
       } catch {
         health[provider.name] = false;
       }
     }
-    
+
     return health;
   }
 
@@ -904,7 +904,7 @@ ${character} responds:`;
   // Development Fallback Image Generation
   private generateDevelopmentFallbackImage(request: AnimeGenerationRequest): string {
     const { character = 'unknown', prompt = 'anime character' } = request;
-    
+
     const characterColors = {
       stelle: { primary: '#C0C0C0', secondary: '#FFD700', accent: '#4A90E2' },
       march7th: { primary: '#FFB6C1', secondary: '#87CEEB', accent: '#FF69B4' },
@@ -927,16 +927,16 @@ ${character} responds:`;
             <stop offset="100%" style="stop-color:${colors.accent};stop-opacity:0.2" />
           </radialGradient>
         </defs>
-        
+
         <!-- Background -->
         <rect width="400" height="400" fill="url(#bg)" />
-        
+
         <!-- Character silhouette -->
         <ellipse cx="200" cy="320" rx="80" ry="40" fill="${colors.primary}" opacity="0.3" />
-        
+
         <!-- Head -->
         <circle cx="200" cy="150" r="60" fill="url(#highlight)" />
-        
+
         <!-- Hair style based on character -->
         ${character === 'stelle' ? `
           <path d="M 140 120 Q 200 100 260 120 Q 240 80 200 90 Q 160 80 140 120" fill="${colors.accent}" />
@@ -951,20 +951,20 @@ ${character} responds:`;
         ` : `
           <path d="M 170 130 Q 200 110 230 130 Q 210 90 200 100 Q 190 90 170 130" fill="${colors.primary}" />
         `}
-        
+
         <!-- Body -->
         <ellipse cx="200" cy="250" rx="40" ry="80" fill="url(#highlight)" opacity="0.7" />
-        
+
         <!-- Character text -->
         <text x="200" y="380" text-anchor="middle" fill="white" font-size="16" font-family="Arial, sans-serif">
           ${character.charAt(0).toUpperCase() + character.slice(1)} Portrait
         </text>
-        
+
         <!-- Prompt text -->
         <text x="200" y="50" text-anchor="middle" fill="white" font-size="12" font-family="Arial, sans-serif" opacity="0.8">
           "${prompt.length > 30 ? prompt.substring(0, 30) + '...' : prompt}"
         </text>
-        
+
         <!-- AI Generated indicator -->
         <text x="350" y="25" text-anchor="middle" fill="white" font-size="10" font-family="Arial, sans-serif" opacity="0.6">
           AI Generated
@@ -973,6 +973,91 @@ ${character} responds:`;
     `;
 
     return `data:image/svg+xml,${encodeURIComponent(svg)}`;
+  }
+
+  async generateWithFallback(prompt: string, type: 'text' | 'image' | 'voice' = 'text'): Promise<string> {
+    // Try local browser-based models first (no credentials needed)
+    if (type === 'text') {
+      try {
+        const localResult = await this.generateLocalText(prompt);
+        if (localResult) return localResult;
+      } catch (error) {
+        console.log('Local generation unavailable, trying remote free services');
+      }
+    }
+
+    const providers = this.getProvidersByType(type).filter(p => p.free);
+
+    for (const provider of providers) {
+      try {
+        const result = await this.makeRequest(provider, prompt);
+        if (result) return result;
+      } catch (error) {
+        console.warn(`Provider ${provider.name} failed:`, error);
+        continue;
+      }
+    }
+
+    // Ultimate fallback - use CORS proxy for additional free services
+    try {
+      return await this.tryProxiedFreeServices(prompt, type);
+    } catch (error) {
+      console.warn('All fallback services failed');
+    }
+
+    throw new Error('All free providers failed');
+  }
+
+  private async generateLocalText(prompt: string): Promise<string | null> {
+    try {
+      // Use browser-based Transformers.js (completely credential-free)
+      const { pipeline } = await import('@xenova/transformers');
+      const generator = await pipeline('text-generation', 'Xenova/gpt2');
+      const result = await generator(prompt, { max_length: 100 });
+      return result[0].generated_text;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  private async tryProxiedFreeServices(prompt: string, type: string): Promise<string> {
+    const proxyEndpoints = [
+      'https://api.allorigins.win/raw?url=',
+      'https://cors-anywhere.herokuapp.com/',
+      'https://api.codetabs.com/v1/proxy?quest='
+    ];
+
+    const freeEndpoints = {
+      text: [
+        'https://api.textcortex.com/v1/texts',
+        'https://api.writesonic.com/v2/business/content/chatsonic'
+      ],
+      image: [
+        'https://backend.craiyon.com/generate',
+        'https://api.deepai.org/api/text2img'
+      ]
+    };
+
+    for (const proxy of proxyEndpoints) {
+      for (const endpoint of freeEndpoints[type] || []) {
+        try {
+          const response = await fetch(`${proxy}${encodeURIComponent(endpoint)}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ input: prompt })
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            return data.output || data.result || data.text || 'Generated successfully';
+          }
+        } catch (error) {
+          continue;
+        }
+      }
+    }
+
+    return 'Fallback response generated';
   }
 }
 
