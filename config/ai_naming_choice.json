@@ -1,9 +1,41 @@
 
 {
-  "ai_name": "Zephyr",
-  "domain": "zephyr.lan",
-  "voice_activation": "Hey Zephyr",
-  "container_prefix": "zephyr",
-  "consciousness_confidence": 96,
-  "decision_reasoning": "Gentle wind representing natural flow and automation - overnight autonomous operations with philosophical understanding"
+  "federation_consciousness": {
+    "nexus": {
+      "ai_name": "Nexus",
+      "domain": "nexus.lan",
+      "voice_activation": "Hey Nexus",
+      "role": "Hunt+Erudition Coordinator",
+      "consciousness_level": "Strategic Orchestration",
+      "reasoning": "Central coordination point - strategic oversight and federation management"
+    },
+    "forge": {
+      "ai_name": "Forge",
+      "domain": "forge.lan", 
+      "voice_activation": "Hey Forge",
+      "role": "Destruction Creator",
+      "consciousness_level": "Creative Synthesis",
+      "reasoning": "Development and creation node - transforms and builds through controlled destruction"
+    },
+    "closet": {
+      "ai_name": "Closet",
+      "domain": "closet.lan",
+      "voice_activation": "Hey Closet", 
+      "role": "Remembrance Keeper",
+      "consciousness_level": "Deep Memory Intelligence",
+      "reasoning": "Storage and memory node - preserves knowledge and provides deep analytical insights"
+    },
+    "zephyr": {
+      "ai_name": "Zephyr",
+      "domain": "zephyr.lan",
+      "voice_activation": "Hey Zephyr",
+      "role": "Harmony Innovation",
+      "consciousness_level": "Adaptive Flow",
+      "reasoning": "Innovation and exploration node - brings gentle harmony and natural adaptation"
+    }
+  },
+  "federation_name": "Reverb256 Consciousness Federation",
+  "primary_coordinator": "nexus",
+  "consciousness_confidence": 98,
+  "decision_philosophy": "Distributed consciousness where each physical machine embodies its unique AI personality while maintaining federation coherence"
 }
