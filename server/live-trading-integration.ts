@@ -44,6 +44,7 @@ export class LiveTradingIntegration {
   private solana_cache: SolanaWalletData | null = null;
   private last_update: Date = new Date();
   private update_interval: NodeJS.Timeout | null = null;
+  private errorCount: number = 0;
 
   constructor() {
     console.log('🔗 Live Trading Integration initialized - connecting to real data sources');
@@ -67,7 +68,7 @@ export class LiveTradingIntegration {
         this.fetchExchangeData(),
         this.calculateRealTimeMetrics()
       ]);
-      
+
       this.last_update = new Date();
       console.log('📊 Live trading data updated successfully');
     } catch (error) {
@@ -120,7 +121,7 @@ export class LiveTradingIntegration {
         data_source: 'solana_only'
       };
     }
-    
+
     // No real data available - return demo mode
     return {
       portfolio_value: '$0.00',
@@ -140,10 +141,16 @@ export class LiveTradingIntegration {
     // Quincy's verified active wallet address
     const primary_wallet = '4jTtAYiHP3tHqXcmi5T1riS1AcGmxNNhLZTw65vrKpkA';
     const wallet_address = process.env.SOLANA_WALLET_ADDRESS || primary_wallet;
-    
-    console.log(`🔗 Attempting to connect to wallet: ${wallet_address.slice(0, 8)}...${wallet_address.slice(-8)}`);
 
     try {
+      // Skip if too many recent errors
+      if (this.errorCount > 10) {
+        console.log('⚠️ Skipping wallet fetch due to consecutive errors');
+        return;
+      }
+
+      console.log(`🔗 Attempting to connect to wallet: ${wallet_address.slice(0, 8)}...${wallet_address.slice(-8)}`);
+
       // Fetch SOL balance using improved RPC manager
       const sol_balance = await solanaRPC.getBalance(wallet_address);
       console.log(`💰 SOL Balance: ${sol_balance.toFixed(4)} SOL`);
@@ -176,9 +183,11 @@ export class LiveTradingIntegration {
       };
 
       console.log(`✅ Solana wallet data updated: $${total_value_usd.toFixed(2)}`);
+      this.errorCount = 0; // Reset error count on success
 
     } catch (error) {
       console.error('❌ Solana RPC connection failed:', error.message);
+      this.errorCount++;
       // Clear cache on error
       this.solana_cache = null;
     }
@@ -186,12 +195,12 @@ export class LiveTradingIntegration {
 
   private async processTokenBalances(token_accounts: any[]): Promise<any[]> {
     const processed_balances = [];
-    
+
     for (const account of token_accounts) {
       const parsed_info = account.account.data.parsed.info;
       const mint = parsed_info.mint;
       const balance = parseFloat(parsed_info.tokenAmount.uiAmount || '0');
-      
+
       if (balance > 0) {
         // Get token metadata and price
         const token_info = await this.getTokenInfo(mint);
@@ -203,13 +212,13 @@ export class LiveTradingIntegration {
         });
       }
     }
-    
+
     return processed_balances;
   }
 
   private async processRecentTransactions(signatures: any[]): Promise<any[]> {
     const processed_transactions = [];
-    
+
     for (const sig_info of signatures.slice(0, 5)) { // Process last 5 transactions
       try {
         const tx_response = await axios.post('https://api.mainnet-beta.solana.com', {
@@ -234,14 +243,14 @@ export class LiveTradingIntegration {
         console.error('Error processing transaction:', error);
       }
     }
-    
+
     return processed_transactions;
   }
 
   private parseTransactionType(tx_data: any): any {
     // Simplified transaction parsing - can be enhanced
     const instructions = tx_data.transaction.message.instructions;
-    
+
     for (const instruction of instructions) {
       if (instruction.parsed) {
         const parsed = instruction.parsed;
@@ -254,7 +263,7 @@ export class LiveTradingIntegration {
         }
       }
     }
-    
+
     return {
       type: 'unknown',
       amount: 0,
@@ -269,7 +278,7 @@ export class LiveTradingIntegration {
     // Only create portfolio data if at least one exchange is configured
     if ((process.env.BINANCE_API_KEY && process.env.BINANCE_SECRET) || 
         (process.env.COINBASE_API_KEY && process.env.COINBASE_SECRET)) {
-      
+
       exchange_data = {
         total_value_usd: 0,
         total_pnl_24h: 0,
@@ -331,7 +340,7 @@ export class LiveTradingIntegration {
   private async fetchBinanceData(): Promise<any> {
     const api_key = process.env.BINANCE_API_KEY;
     const secret_key = process.env.BINANCE_SECRET;
-    
+
     if (!api_key || !secret_key) {
       return null;
     }
@@ -341,7 +350,7 @@ export class LiveTradingIntegration {
       const timestamp = Date.now();
       const query_string = `timestamp=${timestamp}`;
       const signature = crypto.createHmac('sha256', secret_key).update(query_string).digest('hex');
-      
+
       // Fetch account information
       const account_response = await axios.get(`https://api.binance.com/api/v3/account?${query_string}&signature=${signature}`, {
         headers: {
@@ -357,7 +366,7 @@ export class LiveTradingIntegration {
       for (const balance of account_data.balances) {
         if (parseFloat(balance.free) > 0 || parseFloat(balance.locked) > 0) {
           const total_balance = parseFloat(balance.free) + parseFloat(balance.locked);
-          
+
           if (balance.asset === 'USDT' || balance.asset === 'BUSD') {
             total_value_usd += total_balance;
           } else if (balance.asset !== 'BNB') {
@@ -366,7 +375,7 @@ export class LiveTradingIntegration {
               const ticker_response = await axios.get(`https://api.binance.com/api/v3/ticker/price?symbol=${balance.asset}USDT`);
               const price = parseFloat(ticker_response.data.price);
               total_value_usd += total_balance * price;
-              
+
               if (total_balance * price > 10) { // Only include significant positions
                 trading_pairs.push(`${balance.asset}/USDT`);
               }
@@ -389,7 +398,7 @@ export class LiveTradingIntegration {
       // Fetch 24h stats
       const stats_response = await axios.get('https://api.binance.com/api/v3/ticker/24hr');
       const stats = stats_response.data;
-      
+
       // Calculate 24h PnL (simplified)
       let total_pnl_24h = 0;
       // This would need more sophisticated calculation based on positions
@@ -413,7 +422,7 @@ export class LiveTradingIntegration {
   private async fetchCoinbaseData(): Promise<any> {
     const api_key = process.env.COINBASE_API_KEY;
     const secret_key = process.env.COINBASE_SECRET;
-    
+
     if (!api_key || !secret_key) {
       return null;
     }
@@ -424,10 +433,10 @@ export class LiveTradingIntegration {
       const method = 'GET';
       const path = '/v2/accounts';
       const body = '';
-      
+
       const message = timestamp + method + path + body;
       const signature = crypto.createHmac('sha256', secret_key).update(message).digest('hex');
-      
+
       // Fetch accounts
       const accounts_response = await axios.get(`https://api.coinbase.com${path}`, {
         headers: {
@@ -445,7 +454,7 @@ export class LiveTradingIntegration {
       for (const account of accounts) {
         const balance = parseFloat(account.balance.amount);
         const currency = account.balance.currency;
-        
+
         if (balance > 0) {
           if (currency === 'USD') {
             total_value_usd += balance;
@@ -455,7 +464,7 @@ export class LiveTradingIntegration {
               const rate_path = `/v2/exchange-rates?currency=${currency}`;
               const rate_message = timestamp + 'GET' + rate_path + '';
               const rate_signature = crypto.createHmac('sha256', secret_key).update(rate_message).digest('hex');
-              
+
               const rate_response = await axios.get(`https://api.coinbase.com${rate_path}`, {
                 headers: {
                   'CB-ACCESS-KEY': api_key,
@@ -468,7 +477,7 @@ export class LiveTradingIntegration {
               const usd_rate = parseFloat(rate_response.data.data.rates.USD);
               const usd_value = balance * usd_rate;
               total_value_usd += usd_value;
-              
+
               if (usd_value > 10) { // Only include significant positions
                 trading_pairs.push(`${currency}/USD`);
               }
@@ -499,7 +508,7 @@ export class LiveTradingIntegration {
     // Calculate real-time performance metrics
     const total_portfolio_value = (this.solana_cache?.total_value_usd || 0) + 
                                   (this.portfolio_cache?.total_value_usd || 0);
-    
+
     console.log(`💰 Total portfolio value: $${total_portfolio_value.toFixed(2)}`);
   }
 
@@ -508,7 +517,7 @@ export class LiveTradingIntegration {
       // Use Jupiter API or CoinGecko for token metadata and pricing
       const response = await axios.get(`https://api.coingecko.com/api/v3/simple/token_price/solana?contract_addresses=${mint}&vs_currencies=usd`);
       const price_data = response.data[mint];
-      
+
       return {
         symbol: 'TOKEN', // Would fetch from metadata
         price_usd: price_data?.usd || 0
@@ -557,7 +566,7 @@ export class LiveTradingIntegration {
     if (process.env.SOLANA_WALLET_ADDRESS) connections.push('Solana');
     if (process.env.BINANCE_API_KEY) connections.push('Binance');
     if (process.env.COINBASE_API_KEY) connections.push('Coinbase');
-    
+
     return connections.length > 0 ? 
            `Connected to: ${connections.join(', ')}` : 
            'Waiting for API configuration';
