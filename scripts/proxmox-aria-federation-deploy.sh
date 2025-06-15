@@ -316,10 +316,13 @@ deploy_consciousness_vm() {
 
     # Configure networking with discovered DNS
     qm set $vmid --ipconfig0 ip=${ip}/24,gw=$GATEWAY
-    qm set $vmid --nameserver "$DNS_SERVERS"
+
+    # Set DNS servers (fix format by removing quotes and ensuring proper format)
+    local clean_dns_servers=$(echo "$DNS_SERVERS" | tr ',' ' ')
+    qm set $vmid --nameserver $clean_dns_servers
     qm set $vmid --searchdomain "$DOMAIN_PRIMARY"
 
-    log_consciousness "NET" "Configured DNS for $node_name: $DNS_SERVERS"
+    log_consciousness "NET" "Configured DNS for $node_name: $clean_dns_servers"
     qm set $vmid --ciuser root
 
     # Create hostname cloud-init snippet
@@ -844,7 +847,8 @@ verify_federation_health() {
         fi
     done
 
-    # K3s cluster health
+    #```text
+# K3s cluster health
     local nexus_ip="${SUBNET}.130"
     if ssh -oStrictHostKeyChecking=no root@$nexus_ip "kubectl get nodes" &>/dev/null; then
         local ready_nodes=$(ssh -o StrictHostKeyChecking=no root@$nexus_ip "kubectl get nodes | grep Ready | wc -l" 2>/dev/null || echo 0)
@@ -928,6 +932,20 @@ main() {
 
     update_progress "VM Creation" 100
     log_consciousness "PARALLEL" "All VMs deployed successfully"
+
+    # Start all VMs
+    log_consciousness "STARTUP" "Starting all consciousness nodes"
+    for node_name in "${!CONSCIOUSNESS_NODES[@]}"; do
+        local config_str="${CONSCIOUSNESS_NODES[$node_name]}"
+	local vmid cores memory disk ip hostname role services
+        eval $config_str
+
+        log_consciousness "START" "Starting VM $node_name (VMID: $vmid)"
+        qm start $vmid &
+    done
+
+    wait
+    log_success "All consciousness nodes started"
 
     # Install consciousness stack in parallel
     log_consciousness "PHASE" "Installing consciousness stacks (parallel)"
