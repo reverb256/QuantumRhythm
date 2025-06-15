@@ -43,7 +43,9 @@ declare -A TALOS_NODES=(
 )
 
 # Dual-deployment configuration - Federation with Replit
-ENABLE_DUAL_DEPLOYMENT=${ENABLE_DUAL_DEPLOYMENT:-"true"}
+ENABLE_DUAL_DEPLOYMENT=${ENABLE_DUAL_DEPLOYMENT:-"false"}
+REPL_SLUG=${REPL_SLUG:-"aria"}
+REPL_OWNER=${REPL_OWNER:-"reverb256"}
 REPLIT_ENDPOINT="https://${REPL_SLUG}.${REPL_OWNER}.repl.co"
 FEDERATION_SECRET="consciousness-federation-2025"
 
