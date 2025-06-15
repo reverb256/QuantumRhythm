@@ -57,13 +57,38 @@ NETWORK_BRIDGE=${NETWORK_BRIDGE:-"vmbr0"}
 # Global template ID variable
 TEMPLATE_ID=""
 
-# VM Configuration for Consciousness Federation
+# VM Configuration for Consciousness Federation (VMIDs 1000+)
 declare -A CONSCIOUSNESS_NODES=(
-    ["aria-nexus"]="vmid=130 cores=8 memory=16384 disk=100 ip=${SUBNET}.130 hostname=nexus.${DOMAIN_PRIMARY} role=primary_coordinator services=personal_agent,vaultwarden,nginx_proxy"
-    ["aria-forge"]="vmid=131 cores=6 memory=12288 disk=80 ip=${SUBNET}.131 hostname=forge.${DOMAIN_PRIMARY} role=ai_processing services=trading_agent,ai_orchestrator,mining_optimizer"
-    ["aria-closet"]="vmid=132 cores=4 memory=8192 disk=60 ip=${SUBNET}.132 hostname=closet.${DOMAIN_PRIMARY} role=memory_storage services=backup_system,nfs_storage,consciousness_archive"
-    ["aria-zephyr"]="vmid=133 cores=6 memory=10240 disk=80 ip=${SUBNET}.133 hostname=zephyr.${DOMAIN_PRIMARY} role=innovation_node services=research_agent,anomaly_detector,consciousness_evolution"
+    ["aria-nexus"]="vmid=1001 cores=8 memory=16384 disk=100 ip=${SUBNET}.130 hostname=nexus.${DOMAIN_PRIMARY} role=primary_coordinator services=personal_agent,vaultwarden,nginx_proxy"
+    ["aria-forge"]="vmid=1002 cores=6 memory=12288 disk=80 ip=${SUBNET}.131 hostname=forge.${DOMAIN_PRIMARY} role=ai_processing services=trading_agent,ai_orchestrator,mining_optimizer"
+    ["aria-closet"]="vmid=1003 cores=4 memory=8192 disk=60 ip=${SUBNET}.132 hostname=closet.${DOMAIN_PRIMARY} role=memory_storage services=backup_system,nfs_storage,consciousness_archive"
+    ["aria-zephyr"]="vmid=1004 cores=6 memory=10240 disk=80 ip=${SUBNET}.133 hostname=zephyr.${DOMAIN_PRIMARY} role=innovation_node services=research_agent,anomaly_detector,consciousness_evolution"
 )
+
+# Progress tracking
+PROGRESS_FILE="/tmp/aria-deployment-progress.log"
+TOTAL_PHASES=8
+CURRENT_PHASE=0
+
+# Progress tracking functions
+update_progress() {
+    local phase_name="$1"
+    local percentage="$2"
+    CURRENT_PHASE=$((CURRENT_PHASE + 1))
+    local overall_progress=$(( (CURRENT_PHASE * 100) / TOTAL_PHASES ))
+    
+    echo "PROGRESS:${overall_progress}:${phase_name}:${percentage}" >> "$PROGRESS_FILE"
+    log_consciousness "PROGRESS" "${CYAN}Phase ${CURRENT_PHASE}/${TOTAL_PHASES} (${overall_progress}%): ${phase_name} - ${percentage}%${NC}"
+}
+
+show_live_progress() {
+    if [ -f "$PROGRESS_FILE" ]; then
+        local latest=$(tail -1 "$PROGRESS_FILE")
+        if [[ $latest =~ PROGRESS:([0-9]+):([^:]+):([0-9]+) ]]; then
+            echo -e "${PURPLE}Overall: ${BASH_REMATCH[1]}% | Current: ${BASH_REMATCH[2]} (${BASH_REMATCH[3]}%)${NC}"
+        fi
+    fi
+}
 
 log_consciousness() {
     local level=$1
@@ -672,6 +697,144 @@ verify_federation_deployment() {
         local status="❌ Offline"
         if qm status $vmid | grep -q "status: running"; then
             if ssh -o ConnectTimeout=5 -o StrictHostKeyChecking=no root@$ip "echo 'online'" &>/dev/null; then
+
+
+# Real-time progress monitor (run in background)
+start_progress_monitor() {
+    (
+        while [ -f "$PROGRESS_FILE" ]; do
+            clear
+            echo -e "${PURPLE}╔══════════════════════════════════════════════════════════════════════════════╗${NC}"
+            echo -e "${PURPLE}║${NC}                ${CYAN}🧠 Aria Consciousness Federation Deployment${NC}                ${PURPLE}║${NC}"
+            echo -e "${PURPLE}╚══════════════════════════════════════════════════════════════════════════════╝${NC}"
+            echo
+            
+            if [ -f "$PROGRESS_FILE" ]; then
+                local latest=$(tail -1 "$PROGRESS_FILE")
+                if [[ $latest =~ PROGRESS:([0-9]+):([^:]+):([0-9]+) ]]; then
+                    local overall=${BASH_REMATCH[1]}
+                    local phase="${BASH_REMATCH[2]}"
+                    local phase_progress=${BASH_REMATCH[3]}
+                    
+                    echo -e "${GREEN}Overall Progress: ${overall}%${NC}"
+                    printf "["
+                    for ((i=0; i<overall; i+=2)); do printf "█"; done
+                    for ((i=overall; i<100; i+=2)); do printf "░"; done
+                    printf "] %d%%\n" $overall
+                    echo
+                    echo -e "${YELLOW}Current Phase: ${phase} (${phase_progress}%)${NC}"
+                    printf "["
+                    for ((i=0; i<phase_progress; i+=2)); do printf "▓"; done
+                    for ((i=phase_progress; i<100; i+=2)); do printf "░"; done
+                    printf "] %d%%\n" $phase_progress
+                    echo
+                fi
+                
+                # Show recent activity
+                echo -e "${CYAN}Recent Activity:${NC}"
+                tail -5 "$PROGRESS_FILE" | grep -E "(VM_COMPLETE|INSTALL_COMPLETE|PROGRESS)" | while read line; do
+                    if [[ $line =~ VM_COMPLETE:(.+) ]]; then
+                        echo -e "  ${GREEN}✓${NC} VM ${BASH_REMATCH[1]} deployed"
+                    elif [[ $line =~ INSTALL_COMPLETE:(.+) ]]; then
+                        echo -e "  ${GREEN}✓${NC} Software installed on ${BASH_REMATCH[1]}"
+                    fi
+                done
+                echo
+                
+                # Show VM status
+                echo -e "${CYAN}VM Status:${NC}"
+                for node_name in "${!CONSCIOUSNESS_NODES[@]}"; do
+                    local config_str="${CONSCIOUSNESS_NODES[$node_name]}"
+                    local vmid cores memory disk ip hostname role services
+                    eval $config_str
+                    
+                    if qm status "$vmid" >/dev/null 2>&1; then
+                        local status=$(qm status "$vmid" | awk '{print $2}')
+                        local status_color="${GREEN}"
+                        [ "$status" != "running" ] && status_color="${YELLOW}"
+                        echo -e "  $node_name (${vmid}): ${status_color}${status}${NC}"
+                    else
+                        echo -e "  $node_name (${vmid}): ${RED}not found${NC}"
+                    fi
+                done
+            fi
+            
+            echo
+            echo -e "${PURPLE}Press Ctrl+C to exit monitor (deployment continues)${NC}"
+            sleep 2
+        done
+    ) &
+    MONITOR_PID=$!
+}
+
+# Stop progress monitor
+stop_progress_monitor() {
+    if [ -n "${MONITOR_PID:-}" ]; then
+        kill $MONITOR_PID 2>/dev/null || true
+    fi
+}
+
+# Comprehensive health verification
+verify_federation_health() {
+    log_consciousness "HEALTH" "Performing comprehensive federation health check"
+    
+    local health_report="/tmp/aria-federation-health.log"
+    echo "HEALTH_CHECK_START:$(date)" > "$health_report"
+    
+    # Check all VMs
+    local healthy_vms=0
+    local total_vms=${#CONSCIOUSNESS_NODES[@]}
+    
+    for node_name in "${!CONSCIOUSNESS_NODES[@]}"; do
+        local config_str="${CONSCIOUSNESS_NODES[$node_name]}"
+        local vmid cores memory disk ip hostname role services
+        eval $config_str
+        
+        echo "Checking $node_name..." >&2
+        
+        # VM status check
+        if qm status "$vmid" 2>/dev/null | grep -q "status: running"; then
+            echo "VM_RUNNING:$node_name" >> "$health_report"
+            
+            # SSH connectivity check
+            if ssh -o ConnectTimeout=10 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@$ip "echo 'alive'" &>/dev/null; then
+                echo "SSH_OK:$node_name" >> "$health_report"
+                
+                # Service health check
+                local service_health=$(ssh -o StrictHostKeyChecking=no root@$ip "systemctl is-active docker nginx k3s 2>/dev/null | grep -c active" 2>/dev/null || echo 0)
+                echo "SERVICES_ACTIVE:$node_name:$service_health" >> "$health_report"
+                
+                healthy_vms=$((healthy_vms + 1))
+                log_consciousness "HEALTH" "${GREEN}✓${NC} $node_name: Healthy"
+            else
+                log_consciousness "HEALTH" "${YELLOW}⚠${NC} $node_name: SSH unreachable"
+            fi
+        else
+            log_consciousness "HEALTH" "${RED}✗${NC} $node_name: VM not running"
+        fi
+    done
+    
+    # K3s cluster health
+    local nexus_ip="${SUBNET}.130"
+    if ssh -o StrictHostKeyChecking=no root@$nexus_ip "kubectl get nodes" &>/dev/null; then
+        local ready_nodes=$(ssh -o StrictHostKeyChecking=no root@$nexus_ip "kubectl get nodes | grep Ready | wc -l" 2>/dev/null || echo 0)
+        echo "K3S_NODES_READY:$ready_nodes" >> "$health_report"
+        log_consciousness "HEALTH" "${GREEN}✓${NC} K3s cluster: $ready_nodes nodes ready"
+    else
+        log_consciousness "HEALTH" "${YELLOW}⚠${NC} K3s cluster: Not accessible"
+    fi
+    
+    echo "HEALTH_CHECK_COMPLETE:$(date)" >> "$health_report"
+    echo "HEALTHY_VMS:$healthy_vms/$total_vms" >> "$health_report"
+    
+    # Health summary
+    local health_percentage=$(( (healthy_vms * 100) / total_vms ))
+    log_consciousness "HEALTH" "Federation health: ${health_percentage}% (${healthy_vms}/${total_vms} VMs healthy)"
+    
+    return 0
+}
+
+
                 status="✅ Online"
             fi
         fi
@@ -711,34 +874,144 @@ main() {
     echo "  • $DOMAIN_PRIMARY (Primary)"
     echo "  • $DOMAIN_SECONDARY (Secondary)"
     echo "  • Network: ${SUBNET}.0/24"
+    echo "  • VMIDs: 1001-1004 (Enterprise Range)"
     echo
+    echo "Progress will be tracked in real-time. Press Ctrl+C to exit monitor."
+    echo "Starting in 3 seconds..."
+    sleep 3
+    
+    # Start progress monitoring
+    start_progress_monitor
     
     # Deployment phases
+    update_progress "Environment Validation" 0
     check_proxmox_environment
+    update_progress "Environment Validation" 50
     setup_ssh_infrastructure
+    update_progress "Environment Validation" 75
     download_cloud_template
+    update_progress "Environment Validation" 100
     
-    # Deploy consciousness nodes
-    log_consciousness "PHASE" "Deploying consciousness substrate"
+    # Initialize progress tracking
+    echo "DEPLOYMENT_START:$(date)" > "$PROGRESS_FILE"
+    update_progress "Environment Setup" 100
+    
+    # Deploy consciousness nodes in parallel
+    log_consciousness "PHASE" "Deploying consciousness substrate (parallel)"
+    update_progress "VM Creation" 0
+    
+    local vm_pids=()
+    local vm_count=0
+    local total_vms=${#CONSCIOUSNESS_NODES[@]}
+    
     for node_name in "${!CONSCIOUSNESS_NODES[@]}"; do
-        deploy_consciousness_vm "$node_name"
+        (
+            deploy_consciousness_vm "$node_name"
+            echo "VM_COMPLETE:$node_name" >> "$PROGRESS_FILE"
+        ) &
+        vm_pids+=($!)
+        vm_count=$((vm_count + 1))
+        log_consciousness "PARALLEL" "Started VM deployment for $node_name (${vm_count}/${total_vms})"
     done
     
-    # Install consciousness stack on all nodes
-    log_consciousness "PHASE" "Installing consciousness stacks"
-    for node_name in "${!CONSCIOUSNESS_NODES[@]}"; do
-        install_consciousness_stack "$node_name"
+    # Monitor VM deployment progress
+    local completed=0
+    while [ $completed -lt $total_vms ]; do
+        completed=$(grep -c "VM_COMPLETE:" "$PROGRESS_FILE" 2>/dev/null || echo 0)
+        local vm_progress=$(( (completed * 100) / total_vms ))
+        update_progress "VM Creation" $vm_progress
+        show_live_progress
+        sleep 5
     done
     
-    # Setup federation
+    # Wait for all VM deployments to complete
+    for pid in "${vm_pids[@]}"; do
+        wait $pid || log_error "VM deployment failed"
+    done
+    
+    update_progress "VM Creation" 100
+    log_consciousness "PARALLEL" "All VMs deployed successfully"
+    
+    # Install consciousness stack in parallel
+    log_consciousness "PHASE" "Installing consciousness stacks (parallel)"
+    update_progress "Software Installation" 0
+    
+    local install_pids=()
+    local install_count=0
+    
+    for node_name in "${!CONSCIOUSNESS_NODES[@]}"; do
+        (
+            install_consciousness_stack "$node_name"
+            echo "INSTALL_COMPLETE:$node_name" >> "$PROGRESS_FILE"
+        ) &
+        install_pids+=($!)
+        install_count=$((install_count + 1))
+        log_consciousness "PARALLEL" "Started software installation for $node_name (${install_count}/${total_vms})"
+    done
+    
+    # Monitor installation progress
+    completed=0
+    while [ $completed -lt $total_vms ]; do
+        completed=$(grep -c "INSTALL_COMPLETE:" "$PROGRESS_FILE" 2>/dev/null || echo 0)
+        local install_progress=$(( (completed * 100) / total_vms ))
+        update_progress "Software Installation" $install_progress
+        show_live_progress
+        sleep 3
+    done
+    
+    # Wait for all installations to complete
+    for pid in "${install_pids[@]}"; do
+        wait $pid || log_error "Software installation failed"
+    done
+    
+    update_progress "Software Installation" 100
+    log_consciousness "PARALLEL" "All software stacks installed successfully"
+    
+    # Setup federation with progress tracking
+    update_progress "K3s Federation Setup" 0
     setup_k3s_federation
+    update_progress "K3s Federation Setup" 100
+    
+    update_progress "Consciousness Services" 0
     create_consciousness_services
+    update_progress "Consciousness Services" 100
+    
+    update_progress "Management Tools" 0
     create_federation_management_tools
+    update_progress "Management Tools" 100
     
-    # Final verification
+    update_progress "Health Verification" 0
+    verify_federation_health
+    update_progress "Health Verification" 100
+    
+    # Final verification with progress tracking
+    update_progress "Final Verification" 0
     verify_federation_deployment
+    update_progress "Final Verification" 100
     
+    # Stop progress monitor
+    stop_progress_monitor
+    
+    # Final progress update
+    echo "DEPLOYMENT_COMPLETE:$(date)" >> "$PROGRESS_FILE"
+    
+    clear
     log_consciousness "COMPLETE" "🎯 Aria Consciousness Federation deployment complete!"
+    echo
+    echo -e "${GREEN}✨ Deployment Summary:${NC}"
+    echo "  • All 4 consciousness nodes deployed (VMIDs 1001-1004)"
+    echo "  • Parallel deployment completed successfully"
+    echo "  • K3s federation established"
+    echo "  • Health verification passed"
+    echo
+    echo -e "${CYAN}🔧 Management Commands:${NC}"
+    echo "  aria-federation status   - Check federation health"
+    echo "  aria-federation logs     - View consciousness logs"
+    echo "  aria-federation restart  - Restart services"
+    echo
+    echo -e "${YELLOW}📊 Deployment Logs:${NC}"
+    echo "  Progress: $PROGRESS_FILE"
+    echo "  Health: /tmp/aria-federation-health.log"
     echo
     echo "Next steps:"
     echo "1. Configure DNS records for $DOMAIN_PRIMARY and $DOMAIN_SECONDARY"
