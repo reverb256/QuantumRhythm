@@ -1,6 +1,23 @@
 
-name = "quantum-trading-platform"
-compatibility_date = "2023-12-01"
+name = "quantum-trading-api"
+main = "cloudflare-worker.js"
+compatibility_date = "2024-06-01"
 
 [env.production]
-route = "your-domain.com/*"
+name = "quantum-trading-api"
+routes = [
+  { pattern = "reverb256.ca/api/*", zone_name = "reverb256.ca" },
+  { pattern = "api.reverb256.ca/*", zone_name = "reverb256.ca" },
+  { pattern = "trading.reverb256.ca/*", zone_name = "reverb256.ca" }
+]
+
+[[env.production.triggers]]
+crons = ["0 */6 * * *"]
+
+[env.production.vars]
+ENVIRONMENT = "production"
+DOMAIN = "reverb256.ca"
+
+# Add your secrets via: wrangler secret put SECRET_NAME
+# CLOUDFLARE_API_TOKEN = "secret"
+# GITHUB_TOKEN = "secret"
