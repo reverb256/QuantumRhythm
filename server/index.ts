@@ -5,53 +5,28 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Global references for consciousness systems
+// Initialize core systems only when needed (lazy loading)
 let quincy: any;
-let designEvolutionEngine: any;
 let liveTradingIntegration: any;
-let designTrainer: any;
-let quincyTradingEngine: any;
-let telegramConsciousnessBridge: any;
-let telegramAgent: any;
-let telegramChatAnalyzer: any;
 
-// Lazy-load consciousness systems to prevent startup bottlenecks
-async function initializeConsciousnessSystem(systemName: string, modulePath: string, delay: number = 0) {
-  return new Promise(resolve => {
-    setTimeout(async () => {
-      try {
-        const module = await import(modulePath);
-        console.log(`✅ ${systemName} initialized`);
-        resolve(module);
-      } catch (error) {
-        console.error(`❌ Failed to initialize ${systemName}:`, error);
-        resolve(null);
-      }
-    }, delay);
-  });
+// Load core systems on demand to prevent startup bottlenecks
+async function getQuincy() {
+  if (!quincy) {
+    const module = await import('./quincy-consciousness');
+    quincy = module.quincy;
+  }
+  return quincy;
 }
 
-// Staggered initialization to prevent resource contention
-setTimeout(async () => {
-  console.log('🚀 Starting lightweight consciousness initialization...');
-  
-  // Core systems first with delays between each
-  quincy = await initializeConsciousnessSystem('Quincy Core', './quincy-consciousness', 0);
-  liveTradingIntegration = await initializeConsciousnessSystem('Trading Integration', './live-trading-integration', 1000);
-  
-  // Secondary systems with longer delays
-  designEvolutionEngine = await initializeConsciousnessSystem('Design Engine', './design-evolution-engine', 2000);
-  designTrainer = await initializeConsciousnessSystem('Design Trainer', './design-consciousness-trainer', 3000);
-  
-  // Heavy systems last
-  quincyTradingEngine = await initializeConsciousnessSystem('Trading Engine', './quincy-trading-engine', 4000);
-  const unifiedBotModule = await initializeConsciousnessSystem('Unified Bot', './telegram-unified-bot', 5000);
-  telegramChatAnalyzer = await initializeConsciousnessSystem('Chat Analyzer', './telegram-chat-analyzer', 6000);
-  
-  console.log('🎯 All consciousness systems initialized with minimal resource impact');
-}, 2000); // Start after server is fully ready
+async function getTradingIntegration() {
+  if (!liveTradingIntegration) {
+    const module = await import('./live-trading-integration');
+    liveTradingIntegration = module.liveTradingIntegration;
+  }
+  return liveTradingIntegration;
+}
 
-// Essential API routes for Quincy's autonomous trading and infrastructure
+// Essential API routes with lazy loading
 app.get('/api/quincy/insights', async (req, res) => {
   try {
     const insights = quincy.getInsights();
